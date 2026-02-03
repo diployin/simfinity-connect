@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-// import { SiteHeader } from '@/components/layout/SiteHeader';
-// import { SiteFooter } from '@/components/layout/SiteFooter';
+
 import { EsimNumHero } from '@/components/sections/EsimNumHero';
 import { TopFeaturesStrip } from '@/components/sections/TopFeaturesStrip';
 import { DestinationsTabs } from '@/components/sections/DestinationsTabs';
@@ -14,7 +13,6 @@ import { FloatingButtons } from '@/components/sections/FloatingButtons';
 import { GlobalFloatingNav } from '@/components/GlobalFloatingNav';
 import { Wifi, Smartphone, Phone, Headphones, Signal, Globe } from 'lucide-react';
 import { useTranslation } from '@/contexts/TranslationContext';
-// import { HeroSection } from '../components/sections/HeroSection';
 import {
   ComparisonTable,
   InfiniteScrollTicker,

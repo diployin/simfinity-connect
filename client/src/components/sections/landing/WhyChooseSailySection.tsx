@@ -14,15 +14,7 @@ interface Feature {
 const WhyChooseSailySection = () => {
   const { t } = useTranslation();
 
-  console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-
-console.log(
-  t(
-    'NewSimfinDes.WhyChooseSailySection.features.0.title',
-    '❌ NOT FOUND'
-  )
-);
-
+  console.log(t('NewSimfinDes.WhyChooseSailySection.features.0.title', '❌ NOT FOUND'));
 
   // Icon mapping by ID
   const iconMap: Record<number, React.ReactNode> = {
@@ -38,35 +30,73 @@ console.log(
   const features: Feature[] = [
     {
       id: 1,
-      title: t('NewSimfinDes.WhyChooseSailySection.features.0.title'),
-      description: t('NewSimfinDes.WhyChooseSailySection.features.0.description'),
+      title: 'Travel-friendly prices',
+      description:
+        'Get super-affordable eSIM data anywhere in the world. From short trips to long adventures — Simfinity always gives you the lowest travel data cost.',
     },
     {
       id: 2,
-      title: t('NewSimfinDes.WhyChooseSailySection.features.1.title'),
-      description: t('NewSimfinDes.WhyChooseSailySection.features.1.description'),
+      title: 'Activate in seconds',
+      description:
+        'No stores, no swapping cards. Just scan your Simfinity eSIM and boom — you’re connected instantly when you land.',
     },
     {
       id: 3,
-      title: t('NewSimfinDes.WhyChooseSailySection.features.2.title'),
-      description: t('NewSimfinDes.WhyChooseSailySection.features.2.description'),
+      title: 'Zero roaming shock',
+      description:
+        'Stop paying crazy roaming charges. Simfinity keeps your bill predictable, clean, and budget-friendly every time you travel.',
     },
     {
       id: 4,
-      title: t('NewSimfinDes.WhyChooseSailySection.features.3.title'),
-      description: t('NewSimfinDes.WhyChooseSailySection.features.3.description'),
+      title: 'One eSIM for every trip',
+      description:
+        'Keep the same Simfinity eSIM forever. Just add new country plans anytime — no need to reinstall or change SIMs again.',
     },
     {
       id: 5,
-      title: t('NewSimfinDes.WhyChooseSailySection.features.4.title'),
-      description: t('NewSimfinDes.WhyChooseSailySection.features.4.description'),
+      title: 'Smart data alerts',
+      description:
+        'We notify you before your data runs out — so you never get stuck without internet in the middle of your trip.',
     },
     {
       id: 6,
-      title: t('NewSimfinDes.WhyChooseSailySection.features.5.title'),
-      description: t('NewSimfinDes.WhyChooseSailySection.features.5.description'),
+      title: 'Global & regional plans',
+      description:
+        "Whether you're traveling to one country or exploring multiple regions, Simfinity has plans that fit your journey perfectly.",
     },
   ];
+  // const features: Feature[] = [
+  //   {
+  //     id: 1,
+  //     title: t('NewSimfinDes.WhyChooseSailySection.features.0.title'),
+  //     description: t('NewSimfinDes.WhyChooseSailySection.features.0.description'),
+  //   },
+  //   {
+  //     id: 2,
+  //     title: t('NewSimfinDes.WhyChooseSailySection.features.1.title'),
+  //     description: t('NewSimfinDes.WhyChooseSailySection.features.1.description'),
+  //   },
+  //   {
+  //     id: 3,
+  //     title: t('NewSimfinDes.WhyChooseSailySection.features.2.title'),
+  //     description: t('NewSimfinDes.WhyChooseSailySection.features.2.description'),
+  //   },
+  //   {
+  //     id: 4,
+  //     title: t('NewSimfinDes.WhyChooseSailySection.features.3.title'),
+  //     description: t('NewSimfinDes.WhyChooseSailySection.features.3.description'),
+  //   },
+  //   {
+  //     id: 5,
+  //     title: t('NewSimfinDes.WhyChooseSailySection.features.4.title'),
+  //     description: t('NewSimfinDes.WhyChooseSailySection.features.4.description'),
+  //   },
+  //   {
+  //     id: 6,
+  //     title: t('NewSimfinDes.WhyChooseSailySection.features.5.title'),
+  //     description: t('NewSimfinDes.WhyChooseSailySection.features.5.description'),
+  //   },
+  // ];
 
   return (
     <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
@@ -74,7 +104,11 @@ console.log(
         {/* Header */}
         <div className="mb-12 sm:mb-16">
           <p className="mb-3 text-center text-sm font-normal text-gray-400 sm:text-base md:text-start">
+<<<<<<< HEAD
             {t('WhyChooseSailySectionHeader.subtitle')}
+=======
+            {t('NewSimfinDes.WhyChooseSailySectionHeader.subtitle')}
+>>>>>>> 99b8fa4550d42129eb4fee7917d269e9dbfb9de2
           </p>
           <h2 className="text-center text-3xl leading-tight font-medium text-black sm:text-4xl md:text-start lg:text-5xl xl:text-4xl">
             {t('WhyChooseSailySectionHeader.title')}

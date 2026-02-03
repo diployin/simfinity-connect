@@ -227,7 +227,6 @@ const HeroSection = () => {
                 <img src="/images/brands/cits.svg" className="h-12" alt="NordVPN" />
               </div>
             </div>
-            
 
             {/* Terms Link */}
             <p className="text-xs font-normal text-white/80">

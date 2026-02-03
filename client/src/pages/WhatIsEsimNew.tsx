@@ -33,11 +33,11 @@ const WhatEsimNew = () => {
             {/* Right Side - Content */}
             <div className="order-1 space-y-6 text-center md:text-start lg:order-1">
               <h2 className="lg:text-4.5xl max-w-lg text-3xl leading-tight font-medium text-gray-900 sm:text-4xl">
-                {t('NewSimfinDes.what_is_esim.WhatIsEsim.heroSection.title')}
+                {t('WhatIsEsim.heroTittle')}
               </h2>
 
               <p className="text-base leading-relaxed text-gray-600 sm:text-base">
-                {t('NewSimfinDes.what_is_esim.WhatIsEsim.heroSection.description')}
+                {t('WhatIsEsim.herodes')}
               </p>
 
               <div className="">
