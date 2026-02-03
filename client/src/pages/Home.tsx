@@ -86,10 +86,10 @@ export default function Home() {
 
         <main>
           {/* Hero section wrapper - fills viewport with strip at bottom above floating nav */}
-          <div className="relative min-h-screen flex flex-col pt-[75px]">
+          <div className="relative min-h-screen flex flex-col ">
             {/* <HeroSection /> */}
             <HeroSection />
-            <InfiniteScrollTicker />
+            {/* <InfiniteScrollTicker /> */}
             <WhatIsEsimSection />
 
             <TravelDestinationTabsNew />
@@ -104,7 +104,7 @@ export default function Home() {
           <ReferralSection />
 
           <TopFeaturesStrip />
-          <DestinationsTabs />
+          {/* <DestinationsTabs />
           <PopularEsims />
 
           <FeatureSectionCompo />
@@ -120,7 +120,7 @@ export default function Home() {
 
           <ComparisonTable />
           <FAQWithSupport />
-          <TravelerTestimonials />
+          <TravelerTestimonials /> */}
         </main>
 
         {/* <SiteFooter /> */}

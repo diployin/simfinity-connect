@@ -155,7 +155,6 @@ const HeroSection = () => {
 
   const staticData = useStaticData();
 
-  
   return (
     // 58B0EC
     <div
@@ -186,9 +185,7 @@ const HeroSection = () => {
               <div className="">
                 {/* <p className='text-base font-normal text-white'>{t('NewSimfinDes.heroSec.Get')}</p> */}
                 {/* <p className="text-base font-normal text-white">{t('NewSimfinDes.heroSec.Up')}</p> */}
-                <p className="text-base font-normal text-white">
-                  {t('hero.cashbackOffer')}
-                </p>
+                <p className="text-base font-normal text-white">{t('hero.cashbackOffer')}</p>
               </div>
             </div>
 
@@ -196,7 +193,7 @@ const HeroSection = () => {
             <div className="w-full max-w-sm">
               <p className="my-4 text-base font-medium text-white xl:text-lg">
                 {/* {t('NewSimfinDes.heroSec.Where_do')} */}
-                 {t('hero.searchSubtitle')}
+                {t('hero.searchSubtitle')}
               </p>
               <button
                 onClick={() => setIsSearchModalOpen(true)}
@@ -230,10 +227,10 @@ const HeroSection = () => {
                 <img src="/images/brands/cits.svg" className="h-12" alt="NordVPN" />
               </div>
             </div>
+            
 
             {/* Terms Link */}
             <p className="text-xs font-normal text-white/80">
-              
               {t('hero.termsPromo')}
               <Link href="#" className="underline transition-colors hover:text-black">
                 {t('hero.termsLink')}

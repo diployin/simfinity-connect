@@ -264,6 +264,9 @@ export default {
         90: '90',
         100: '100',
       },
+      width: {
+        sm: '24rem',
+      },
     },
   },
   plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
