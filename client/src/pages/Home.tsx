@@ -86,7 +86,7 @@ export default function Home() {
 
         <main>
           {/* Hero section wrapper - fills viewport with strip at bottom above floating nav */}
-          <div className="relative min-h-screen flex flex-col md:pt-[140px] pt-[50px]">
+          <div className="relative min-h-screen flex flex-col pt-[75px]">
             {/* <HeroSection /> */}
             <HeroSection />
             <InfiniteScrollTicker />
