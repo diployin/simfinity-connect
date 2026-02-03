@@ -2867,5 +2867,9 @@
                 ]
             }
         }
+    },
+    "WhatIsEsim": {
+        "heroTittle": "eSIM: What is it, and how does it work?",
+        "herodes": "eSIM: What is it, and how does it work?"
     }
 }

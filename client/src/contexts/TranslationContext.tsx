@@ -90,7 +90,6 @@
 //     }
 //   }, []);
 
-
 //   const setLanguage = useCallback((code: string) => {
 //   console.log("Language changed to:", code);
 //   setLanguageCode(code);
@@ -99,7 +98,6 @@
 //     localStorage.setItem(STORAGE_KEY, code);
 //   }
 // }, []);
-
 
 //   const t = useCallback(
 //     (
@@ -123,7 +121,7 @@
 //       const translationKey = keyParts.slice(1).join(".");
 
 //       let value: string | undefined;
-      
+
 //       if (translations[namespace] && translationKey) {
 //         value = translations[namespace][translationKey];
 //       } else if (!translationKey) {
@@ -185,14 +183,7 @@
 
 'use client';
 
-import {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  useEffect,
-  ReactNode,
-} from 'react';
+import { createContext, useContext, useState, useCallback, useEffect, ReactNode } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 /* ===================== TYPES ===================== */
@@ -222,15 +213,13 @@ interface TranslationContextType {
   t: (
     key: string,
     fallbackOrParams?: string | Record<string, string | number>,
-    params?: Record<string, string | number>
+    params?: Record<string, string | number>,
   ) => string;
 }
 
 /* ===================== CONTEXT ===================== */
 
-const TranslationContext = createContext<TranslationContextType | undefined>(
-  undefined
-);
+const TranslationContext = createContext<TranslationContextType | undefined>(undefined);
 
 const STORAGE_KEY = 'esim_language';
 
@@ -245,22 +234,17 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
   });
 
   /* -------- Languages -------- */
-  const { data: languages = [], isLoading: languagesLoading } =
-    useQuery<Language[]>({
-      queryKey: ['/api/languages'],
-      staleTime: 5 * 60 * 1000,
-    });
+  const { data: languages = [], isLoading: languagesLoading } = useQuery<Language[]>({
+    queryKey: ['/api/languages'],
+    staleTime: 5 * 60 * 1000,
+  });
 
-  const currentLanguage =
-    languages.find((l) => l.code === languageCode) || null;
+  const currentLanguage = languages.find((l) => l.code === languageCode) || null;
 
   const isRTL = currentLanguage?.isRTL ?? false;
 
   /* -------- Translations -------- */
-  const {
-    data: translationsData,
-    isLoading: translationsLoading,
-  } = useQuery<{
+  const { data: translationsData, isLoading: translationsLoading } = useQuery<{
     language: Language;
     translations: TranslationData;
   }>({
@@ -291,7 +275,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     (
       key: string,
       fallbackOrParams?: string | Record<string, string | number>,
-      params?: Record<string, string | number>
+      params?: Record<string, string | number>,
     ): string => {
       const translations = translationsData?.translations || {};
 
@@ -322,26 +306,21 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
       if (typeof value !== 'string') {
         const result = fallback || key;
         if (actualParams) {
-          return result.replace(/\{(\w+)\}/g, (_, k) =>
-            actualParams?.[k]?.toString() ?? `{${k}}`
-          );
+          return result.replace(/\{(\w+)\}/g, (_, k) => actualParams?.[k]?.toString() ?? `{${k}}`);
         }
         return result;
       }
 
       if (actualParams) {
-        return value.replace(/\{(\w+)\}/g, (_, k) =>
-          actualParams?.[k]?.toString() ?? `{${k}}`
-        );
+        return value.replace(/\{(\w+)\}/g, (_, k) => actualParams?.[k]?.toString() ?? `{${k}}`);
       }
 
       return value;
     },
-    [translationsData]
+    [translationsData],
   );
 
-
-  console.log("translationsData@@@@@@@@@@@@@@@@", translationsData)
+  console.log('translationsData@@@@@@@@@@@@@@@@', translationsData);
 
   const isLoading = languagesLoading || translationsLoading;
 
