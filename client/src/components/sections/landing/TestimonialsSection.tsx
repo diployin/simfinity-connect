@@ -74,15 +74,17 @@ const TestimonialsSection = () => {
   );
 
   return (
-    <section className="bg-themeSkybg w-full py-16 sm:py-20 lg:py-24">
+    <section className="bg-sky-100 w-full py-16 sm:py-20 lg:py-24">
       <div className="containers">
         {/* Header */}
-        <div className="mb-12 text-center lg:mb-16">
-          <h2 className="lg:text-4.5xl mb-4 text-3xl leading-tight font-medium text-black sm:text-4xl">
-            {t('NewSimfinDes.SingleCountryPlan.TestimonialsSection.title')}
+        <div className="mb-12 text-center lg:mb-16  mx-auto">
+          <h2 className="lg:text-5xl mb-4 text-3xl leading-tight font-medium text-black sm:text-4xl">
+            {/* {t('NewSimfinDes.SingleCountryPlan.TestimonialsSection.title')} */}
+            Simfinity reviews from travelers” to - Real travelers. Real experiences. Real Simfinity.
           </h2>
           <p className="text-base font-normal text-gray-600 sm:text-lg">
-            {t('NewSimfinDes.SingleCountryPlan.TestimonialsSection.des')}
+            {/* {t('NewSimfinDes.SingleCountryPlan.TestimonialsSection.des')} */}
+            Watch quick video reviews from global travelers who use Simfinity on every trip.
           </p>
         </div>
 

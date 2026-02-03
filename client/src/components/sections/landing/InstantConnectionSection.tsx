@@ -16,13 +16,17 @@ const InstantConnectionSection = () => {
         {/* Header */}
         <div className="mb-12 text-center sm:mb-16">
           <h2 className="mx-auto mb-6 max-w-5xl text-3xl leading-tight font-normal text-black sm:text-4xl lg:text-5xl xl:text-5xl">
-            {t('NewSimfinDes.NewSimfinDes.title')}
+            {/* {t('NewSimfinDes.NewSimfinDes.title')} */}
+            Instant connection, zero travel stress, only with Simfinity
           </h2>
           <p className="mx-auto mb-8 max-w-4xl text-base text-gray-600 sm:text-lg lg:text-base">
-            {t('NewSimfinDes.NewSimfinDes.des')}
+            {/* {t('NewSimfinDes.NewSimfinDes.des')} */}
+            Traveling should be fun, not frustrating. Simfinity keeps you online instantly,
+            anywhere.
           </p>
           <ThemeButton onClick={() => navigate('/all-destinations')} size="md">
-            {t('NewSimfinDes.NewSimfinDes.btn')}
+            {/* {t('NewSimfinDes.NewSimfinDes.btn')} */}
+            View All Destinations
           </ThemeButton>
         </div>
 
@@ -34,10 +38,13 @@ const InstantConnectionSection = () => {
             {/* Text Content at Top */}
             <div className="space-y-4 bg-gray-100 p-8 sm:p-10 lg:p-12">
               <h3 className="text-2xl font-normal text-black sm:text-3xl lg:text-4xl">
-                {t('NewSimfinDes.NewSimfinDes.card1.title')}
+                {/* {t('NewSimfinDes.NewSimfinDes.card1.title')} */}
+                Never ask ‘WiFi password?’ again
               </h3>
               <p className="text-base leading-relaxed text-gray-600 sm:text-lg">
-                {t('NewSimfinDes.NewSimfinDes.card1.des')}
+                {/* {t('NewSimfinDes.NewSimfinDes.card1.des')} */}
+                Simfinity keeps you online from the moment you land — no searching for cafés, no
+                begging for hotspots, and no relying on slow public WiFi.
               </p>
             </div>
 
@@ -58,10 +65,14 @@ const InstantConnectionSection = () => {
             {/* Text Content at Top */}
             <div className="space-y-4 bg-[#A8D5F2] p-8 sm:p-10 lg:p-12">
               <h3 className="text-2xl font-normal text-black sm:text-3xl lg:text-4xl">
-                {t('NewSimfinDes.NewSimfinDes.card2.title')}
+                {/* {t('NewSimfinDes.NewSimfinDes.card2.title')} */}
+                No more SIM card drama
               </h3>
               <p className="text-base leading-relaxed text-gray-700 sm:text-lg">
-                {t('NewSimfinDes.NewSimfinDes.card2.des')}
+                {/* {t('NewSimfinDes.NewSimfinDes.card2.des')} */}
+                Skip the hassle of finding SIM shops, swapping tiny cards, or carrying ejector pins.
+                With Simfinity eSIM, everything is digital — activate once, travel freely, and enjoy
+                stress-free connectivity on every trip.
               </p>
             </div>
 
@@ -87,14 +98,23 @@ const InstantConnectionSection = () => {
             {/* Left Side - Text Content */}
             <div className="flex flex-col justify-center space-y-6 p-8 text-center sm:p-10 md:text-start lg:p-14 xl:p-16">
               <h3 className="text-2xl leading-tight font-normal text-black sm:text-3xl lg:text-4xl xl:text-5xl">
-                {t('NewSimfinDes.NewSimfinDes.card3.title')}
+                {/* {t('NewSimfinDes.NewSimfinDes.card3.title')} */}
+                Travel with privacy, powered by Simfinity
               </h3>
               <p className="max-w-lg text-base leading-relaxed text-gray-600 sm:text-lg">
-                {t('NewSimfinDes.NewSimfinDes.card3.des')}
+                {/* {t('NewSimfinDes.NewSimfinDes.card3.des')} */}
+                Whether you're booking hotels, using public WiFi, or exploring new cities, your data
+                stays protected with Simfinity. Every eSIM connection is encrypted, secure, and
+                keeps your online activity private — no matter which country you visit. Travel
+                freely knowing your connection is always safe.
               </p>
               <div>
-                <ThemeButton className="bg-themeYellow hover:themeYellowHover inline-flex w-max items-center justify-center rounded-full border border-gray-300 px-8 py-4 font-medium text-white transition-colors duration-200">
-                  {t('NewSimfinDes.NewSimfinDes.card3.btn')}
+                <ThemeButton
+                  variant="default"
+                  className="bg-themeYellow hover:themeYellowHover inline-flex w-max items-center justify-center rounded-full border border-gray-300 px-8 py-4 font-medium text-white transition-colors duration-200"
+                >
+                  {/* {t('NewSimfinDes.NewSimfinDes.card3.btn')} */}
+                  See how
                 </ThemeButton>
               </div>
             </div>
