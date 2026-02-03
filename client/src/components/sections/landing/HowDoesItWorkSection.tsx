@@ -13,25 +13,50 @@ const HowDoesItWorkSection = () => {
   const steps: Step[] = [
     {
       id: 1,
-      title: t('NewSimfinDes.NewSimfinWorkDes.card1.title'),
-      description: t('NewSimfinDes.NewSimfinWorkDes.card1.des'),
+      title: 'Better value for every trip',
+      description:
+        'Simfinity gives you the lowest travel data costs with no hidden fees — perfect for short trips, business travel, and long adventures.',
       image: '/images/setupStep/Better value for every trip 2.png', // Radio button selection mockup
     },
     {
       id: 2,
-      title: t('NewSimfinDes.NewSimfinWorkDes.card2.title'),
-      description: t('NewSimfinDes.NewSimfinWorkDes.card2.des'),
+      title: 'Coverage that reaches further',
+      description:
+        'We partner with top networks worldwide to give you stronger, faster data even in remote or challenging locations.',
       // image: 'https://placehold.co/600x600.png'
       image: '/images/setupStep/Coverage that reaches further.png',
     },
     {
       id: 3,
-      title: t('NewSimfinDes.NewSimfinWorkDes.card3.title'),
-      description: t('NewSimfinDes.NewSimfinWorkDes.card3.des'),
+      title: 'Designed for real travelers',
+      description:
+        'Built for tourists, backpackers, business flyers, digital nomads, and global movers — Simfinity keeps you connected wherever your journey takes you.',
       // image: 'https://placehold.co/600x600.png'
       image: '/images/setupStep/Designed for real travelers.png',
     },
   ];
+  // const steps: Step[] = [
+  //   {
+  //     id: 1,
+  //     title: t('NewSimfinDes.NewSimfinWorkDes.card1.title'),
+  //     description: t('NewSimfinDes.NewSimfinWorkDes.card1.des'),
+  //     image: '/images/setupStep/Better value for every trip 2.png', // Radio button selection mockup
+  //   },
+  //   {
+  //     id: 2,
+  //     title: t('NewSimfinDes.NewSimfinWorkDes.card2.title'),
+  //     description: t('NewSimfinDes.NewSimfinWorkDes.card2.des'),
+  //     // image: 'https://placehold.co/600x600.png'
+  //     image: '/images/setupStep/Coverage that reaches further.png',
+  //   },
+  //   {
+  //     id: 3,
+  //     title: t('NewSimfinDes.NewSimfinWorkDes.card3.title'),
+  //     description: t('NewSimfinDes.NewSimfinWorkDes.card3.des'),
+  //     // image: 'https://placehold.co/600x600.png'
+  //     image: '/images/setupStep/Designed for real travelers.png',
+  //   },
+  // ];
 
   return (
     <section className="w-full bg-white py-8 sm:py-20 lg:py-20">
@@ -39,13 +64,15 @@ const HowDoesItWorkSection = () => {
         {/* Header */}
         <div className="text mb-12 text-center sm:mb-16 md:text-start">
           <p className="mb-3 text-sm font-normal text-gray-400 sm:text-base">
-            {t('NewSimfinDes.NewSimfinWorkDes.subTitle')}
+            {/* {t('NewSimfinDes.NewSimfinWorkDes.subTitle')} */}
+            Why Simfinity stands out
           </p>
           <h2 className="xl:text-4.5xl mb-6 text-3xl leading-tight font-medium text-black sm:text-4xl lg:text-5xl">
-            {t('NewSimfinDes.NewSimfinWorkDes.title')}
+            {/* {t('NewSimfinDes.NewSimfinWorkDes.title')} */}A smarter choice for global travelers
           </h2>
           <p className="text-base text-gray-600 sm:text-lg">
-            {t('NewSimfinDes.NewSimfinWorkDes.des')}
+            {/* {t('NewSimfinDes.NewSimfinWorkDes.des')} */}
+            More coverage, better prices, and features that actually make sense.
           </p>
         </div>
 

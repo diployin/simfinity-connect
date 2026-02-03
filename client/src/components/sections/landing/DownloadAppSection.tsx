@@ -27,12 +27,14 @@ const DownloadAppSection = () => {
 
             {/* Main Heading */}
             <h2 className="xl:text-4.5xl text-3xl leading-tight font-medium text-black sm:text-4xl lg:text-5xl">
-              {t('NewSimfinDes.DownloadAppSection.title')}
+              {/* {t('NewSimfinDes.DownloadAppSection.title')} */}
+              The Simfinity app is almost here
             </h2>
 
             {/* Description */}
             <p className="max-w-lg text-base leading-relaxed text-gray-600 sm:text-base">
-              {t('NewSimfinDes.DownloadAppSection.des')}
+              {/* {t('NewSimfinDes.DownloadAppSection.des')} */}A smarter, faster way to manage your
+              eSIM — launching soon on iOS and Android.
             </p>
 
             {/* App Store Buttons */}
