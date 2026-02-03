@@ -1,38 +1,38 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import { Star, ArrowRight, TrendingUp, DollarSign, Users } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { motion } from 'framer-motion';
+import { Star, ArrowRight, TrendingUp, DollarSign, Users } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export function AboutUsSection() {
   const stats = [
     {
       icon: TrendingUp,
-      value: "95%",
-      label: "Customer satisfaction",
+      value: '95%',
+      label: 'Customer satisfaction',
       description:
-        "Trusted by millions, our service ensures unparalleled customer satisfaction with dedicated support and innovative solutions tailored to your needs.",
+        'Trusted by millions, our service ensures unparalleled customer satisfaction with dedicated support and innovative solutions tailored to your needs.',
     },
     {
       icon: TrendingUp,
-      value: "10+",
-      label: "Innovation & Insight",
+      value: '10+',
+      label: 'Innovation & Insight',
       description:
-        "Driving over a decade of groundbreaking innovations and deep industry insights to empower businesses worldwide.",
+        'Driving over a decade of groundbreaking innovations and deep industry insights to empower businesses worldwide.',
     },
     {
       icon: DollarSign,
-      value: "$10m",
-      label: "Efficient financial",
+      value: '$10m',
+      label: 'Efficient financial',
       description:
-        "Streamlined processes delivering over $10 million in financial savings and value creation for our clients.",
+        'Streamlined processes delivering over $10 million in financial savings and value creation for our clients.',
     },
     {
       icon: Users,
-      value: "50m",
-      label: "Users worldwide",
+      value: '50m',
+      label: 'Users worldwide',
       description:
-        "Serving a global community of over 50 million users, delivering impactful and reliable solutions every day.",
+        'Serving a global community of over 50 million users, delivering impactful and reliable solutions every day.',
     },
   ];
 
@@ -53,10 +53,7 @@ export function AboutUsSection() {
               {/* Rating */}
               <div className="flex items-center gap-2 mb-6">
                 {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-5 h-5 fill-yellow-400 text-yellow-400"
-                  />
+                  <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                 ))}
                 <span className="text-gray-700 dark:text-gray-300 font-medium ml-2">
                   4.97/5 reviewes
@@ -70,8 +67,8 @@ export function AboutUsSection() {
 
               {/* Description */}
               <p className="text-gray-600 dark:text-gray-400 text-base md:text-lg mb-8 leading-relaxed">
-                Founded by data experts, we create cutting-edge SaaS analytics
-                platforms tailored for businesses of all sizes.
+                Founded by data experts, we create cutting-edge SaaS analytics platforms tailored
+                for businesses of all sizes.
               </p>
 
               {/* CTA Buttons */}

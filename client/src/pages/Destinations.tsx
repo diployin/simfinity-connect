@@ -5,8 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import { Search, Globe, MapPin, ChevronRight, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { SiteHeader } from '@/components/layout/SiteHeader';
-import { SiteFooter } from '@/components/layout/SiteFooter';
+
 import { useTranslation } from '@/contexts/TranslationContext';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import ReactCountryFlag from 'react-country-flag';
@@ -129,58 +128,6 @@ export default function Destinations() {
 
           {/* Tabs and Search Row */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-            {/* Tabs */}
-            {/* <div className="flex items-center gap-2">
-              <button
-                onClick={() => setActiveTab('all')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  activeTab === 'all'
-                    ? 'bg-teal-600 text-white'
-                    : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                }`}
-                data-testid="tab-all"
-              >
-                {t('destinations.all', 'All')} (
-                {(filteredDestinations?.length || 0) + (filteredRegions?.length || 0)})
-              </button>
-              <button
-                onClick={() => setActiveTab('countries')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  activeTab === 'countries'
-                    ? 'bg-teal-600 text-white'
-                    : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                }`}
-                data-testid="tab-countries"
-              >
-                <MapPin className="h-3.5 w-3.5" />
-                {t('destinations.countries', 'Countries')}
-              </button>
-              <button
-                onClick={() => setActiveTab('regions')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  activeTab === 'regions'
-                    ? 'bg-teal-600 text-white'
-                    : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                }`}
-                data-testid="tab-regions"
-              >
-                <Globe className="h-3.5 w-3.5" />
-                {t('destinations.regionalEsims', 'Regional eSIMs')}
-              </button>
-              <button
-                onClick={() => setActiveTab('global')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  activeTab === 'global'
-                    ? 'bg-teal-600 text-white'
-                    : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                }`}
-                data-testid="tab-global"
-              >
-                <Globe className="h-3.5 w-3.5" />
-                {t('destinations.globalEsims', 'Global eSIMs')}
-              </button>
-            </div> */}
-
             <div className="relative">
               <div className="flex overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4">
                 <div className="flex items-center gap-2 min-w-max">
@@ -588,8 +535,6 @@ export default function Destinations() {
           )}
         </div>
       </main>
-
-      {/* <SiteFooter /> */}
     </div>
   );
 }

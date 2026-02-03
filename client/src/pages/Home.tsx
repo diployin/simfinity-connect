@@ -14,7 +14,7 @@ import { FloatingButtons } from '@/components/sections/FloatingButtons';
 import { GlobalFloatingNav } from '@/components/GlobalFloatingNav';
 import { Wifi, Smartphone, Phone, Headphones, Signal, Globe } from 'lucide-react';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { HeroSection } from '../components/sections/HeroSection';
+// import { HeroSection } from '../components/sections/HeroSection';
 import {
   ComparisonTable,
   InfiniteScrollTicker,
@@ -28,6 +28,16 @@ import { AgencyProblemsSection } from '@/components/sections/AgencyProblemsSecti
 import { useSettingByKey, useSettings } from '@/hooks/useSettings';
 import BannerSection from '@/components/sections/BannerSection';
 import { useUser } from '@/hooks/use-user';
+import HeroSection from '@/components/sections/landing/hero-section';
+import WhatIsEsimSection from '@/components/sections/landing/WhatIsEsimSection';
+import TravelDestinationTabsNew from '@/components/sections/landing/TravelDestinationTabsNew';
+import WhyChooseSailySection from '@/components/sections/landing/WhyChooseSailySection';
+import InstantConnectionSection from '@/components/sections/landing/InstantConnectionSection';
+import HowDoesItWorkSection from '@/components/sections/landing/HowDoesItWorkSection';
+import DownloadAppSection from '@/components/sections/landing/DownloadAppSection';
+import TestimonialsSection from '@/components/sections/landing/TestimonialsSection';
+import FAQSection from '@/components/sections/landing/FAQSection';
+import ReferralSection from '@/components/sections/landing/ReferralSection';
 
 export default function Home() {
   const { t } = useTranslation();
@@ -77,19 +87,26 @@ export default function Home() {
         <main>
           {/* Hero section wrapper - fills viewport with strip at bottom above floating nav */}
           <div className="relative min-h-screen flex flex-col md:pt-[140px] pt-[50px]">
+            {/* <HeroSection /> */}
             <HeroSection />
-
             <InfiniteScrollTicker />
+            <WhatIsEsimSection />
 
-            {/* <EsimNumHero /> */}
-
-            {/* Spacer to push strip to bottom */}
-            {/* <BannerSection /> */}
+            <TravelDestinationTabsNew />
           </div>
+
+          <WhyChooseSailySection />
+          <InstantConnectionSection />
+          <HowDoesItWorkSection />
+          <DownloadAppSection />
+          <TestimonialsSection />
+          <FAQSection />
+          <ReferralSection />
 
           <TopFeaturesStrip />
           <DestinationsTabs />
           <PopularEsims />
+
           <FeatureSectionCompo />
           <CompleteEsims />
           <TrustBadges />

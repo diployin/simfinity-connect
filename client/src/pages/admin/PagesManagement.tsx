@@ -1,6 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { Plus, Trash2, Edit2, FileText, Loader2, Eye, EyeOff } from 'lucide-react';
+import {
+  Plus,
+  Trash2,
+  Edit2,
+  FileText,
+  Loader2,
+  Eye,
+  EyeOff,
+  Bold,
+  Italic,
+  List,
+  ListOrdered,
+} from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -27,9 +39,11 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-/* ✅ CKEditor */
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+/* ✅ TipTap */
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
+import Link from '@tiptap/extension-link';
+import Image from '@tiptap/extension-image';
 
 interface Page {
   id: string;
@@ -57,6 +71,28 @@ export default function PageManagement() {
     metaDescription: '',
     isPublished: false,
   });
+
+  /* ================= TipTap Editor ================= */
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Link.configure({ openOnClick: false }),
+      Image,
+    ],
+    content: '',
+    onUpdate: ({ editor }) => {
+      setFormData((prev) => ({
+        ...prev,
+        content: editor.getHTML(),
+      }));
+    },
+  });
+
+  useEffect(() => {
+    if (!showAddDialog && !editingPage) {
+      editor?.commands.clearContent();
+    }
+  }, [showAddDialog, editingPage]);
 
   /* ---------------- FETCH PAGES ---------------- */
   const { data, isLoading } = useQuery({
@@ -140,10 +176,7 @@ export default function PageManagement() {
   };
 
   const generateSlug = (title: string) =>
-    title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '');
+    title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 
   const openEditDialog = (page: Page) => {
     setEditingPage(page);
@@ -155,6 +188,10 @@ export default function PageManagement() {
       metaDescription: page.metaDescription || '',
       isPublished: page.isPublished,
     });
+
+    setTimeout(() => {
+      editor?.commands.setContent(page.content || '');
+    }, 0);
   };
 
   /* ================= UI ================= */
@@ -163,8 +200,8 @@ export default function PageManagement() {
       {/* HEADER */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Page Management</h1>
-          <p className="text-muted-foreground">Manage static pages (Privacy, Terms, About)</p>
+          <h1 className="text-3xl font-bold">Page Management</h1>
+          <p className="text-muted-foreground">Manage static CMS pages</p>
         </div>
         <Button
           onClick={() => {
@@ -183,7 +220,7 @@ export default function PageManagement() {
           <CardTitle className="flex gap-2 items-center">
             <FileText className="h-5 w-5" /> Pages
           </CardTitle>
-          <CardDescription>All static CMS pages</CardDescription>
+          <CardDescription>All static pages</CardDescription>
         </CardHeader>
 
         <CardContent>
@@ -191,8 +228,6 @@ export default function PageManagement() {
             <div className="flex justify-center py-10">
               <Loader2 className="h-6 w-6 animate-spin" />
             </div>
-          ) : pages.length === 0 ? (
-            <p className="text-center text-muted-foreground py-10">No pages found</p>
           ) : (
             <Table>
               <TableHeader>
@@ -204,11 +239,10 @@ export default function PageManagement() {
                   <TableHead className="text-right">Actions</TableHead>
                 </TableRow>
               </TableHeader>
-
               <TableBody>
                 {pages.map((page: Page) => (
                   <TableRow key={page.id}>
-                    <TableCell className="font-medium">{page.title}</TableCell>
+                    <TableCell>{page.title}</TableCell>
                     <TableCell>/{page.slug}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
@@ -234,7 +268,9 @@ export default function PageManagement() {
                         </Badge>
                       </div>
                     </TableCell>
-                    <TableCell>{new Date(page.updatedAt).toLocaleDateString()}</TableCell>
+                    <TableCell>
+                      {new Date(page.updatedAt).toLocaleDateString()}
+                    </TableCell>
                     <TableCell className="text-right">
                       <Button variant="ghost" size="icon" onClick={() => openEditDialog(page)}>
                         <Edit2 className="h-4 w-4" />
@@ -261,16 +297,17 @@ export default function PageManagement() {
         onOpenChange={() => {
           setShowAddDialog(false);
           setEditingPage(null);
+          resetForm();
+          editor?.commands.clearContent();
         }}
       >
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editingPage ? 'Edit Page' : 'Add Page'}</DialogTitle>
-            <DialogDescription>Manage page content and SEO settings</DialogDescription>
+            <DialogDescription>Manage page content & SEO</DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4">
-            {/* TITLE */}
             <div>
               <Label>Page Title *</Label>
               <Input
@@ -285,7 +322,6 @@ export default function PageManagement() {
               />
             </div>
 
-            {/* SLUG */}
             <div>
               <Label>URL Slug *</Label>
               <Input
@@ -294,49 +330,54 @@ export default function PageManagement() {
               />
             </div>
 
-            {/* CONTENT */}
+            {/* TipTap Editor */}
             <div>
               <Label>Page Content *</Label>
-              <div className="border rounded-md overflow-hidden">
-                <CKEditor
-                  editor={ClassicEditor}
-                  data={formData.content}
-                  onChange={(_, editor) =>
-                    setFormData({
-                      ...formData,
-                      content: editor.getData(),
-                    })
-                  }
+
+              <div className="border rounded-md">
+                {/* Toolbar */}
+                <div className="flex gap-2 border-b p-2 bg-muted">
+                  <Button size="icon" variant="ghost" onClick={() => editor?.chain().focus().toggleBold().run()}>
+                    <Bold className="h-4 w-4" />
+                  </Button>
+                  <Button size="icon" variant="ghost" onClick={() => editor?.chain().focus().toggleItalic().run()}>
+                    <Italic className="h-4 w-4" />
+                  </Button>
+                  <Button size="icon" variant="ghost" onClick={() => editor?.chain().focus().toggleBulletList().run()}>
+                    <List className="h-4 w-4" />
+                  </Button>
+                  <Button size="icon" variant="ghost" onClick={() => editor?.chain().focus().toggleOrderedList().run()}>
+                    <ListOrdered className="h-4 w-4" />
+                  </Button>
+                </div>
+
+                <EditorContent
+                  editor={editor}
+                  className="min-h-[300px] p-3 prose max-w-none"
                 />
               </div>
             </div>
 
-            {/* META TITLE */}
             <div>
-              <Label>Meta Title (SEO)</Label>
+              <Label>Meta Title</Label>
               <Input
                 value={formData.metaTitle}
                 onChange={(e) => setFormData({ ...formData, metaTitle: e.target.value })}
               />
             </div>
 
-            {/* META DESCRIPTION */}
             <div>
-              <Label>Meta Description (SEO)</Label>
+              <Label>Meta Description</Label>
               <textarea
                 className="w-full border rounded-md p-2 text-sm"
                 rows={3}
                 value={formData.metaDescription}
                 onChange={(e) =>
-                  setFormData({
-                    ...formData,
-                    metaDescription: e.target.value,
-                  })
+                  setFormData({ ...formData, metaDescription: e.target.value })
                 }
               />
             </div>
 
-            {/* PUBLISH */}
             <div className="flex items-center gap-3">
               <Switch
                 checked={formData.isPublished}

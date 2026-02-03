@@ -56,6 +56,7 @@ import { useAdmin } from '@/hooks/use-admin';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { useSettingByKey } from '@/hooks/useSettings';
 
 type NavItem = {
   name: string;
@@ -200,6 +201,9 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation();
   const { toast } = useToast();
 
+  const logo = useSettingByKey('logo');
+  const tagline = useSettingByKey('platform_tagline');
+
   useEffect(() => {
     for (const entry of navigation) {
       if (isNavGroup(entry)) {
@@ -263,14 +267,15 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         )}
       >
         {/* Sidebar Header */}
-        <div className="flex h-16 items-center justify-between px-6 border-b border-slate-200 dark:border-slate-800 shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-dark shadow-lg shadow-teal-500/50">
+        <div className="flex h-16 items-center justify-center px-6 border-b border-slate-200 dark:border-slate-800 shrink-0">
+          <div className="">
+            {/* <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-dark shadow-lg shadow-teal-500/50">
               <LayoutDashboard className="h-5 w-5 text-white" />
-            </div>
-            <div>
-              <h1 className="font-bold text-slate-900 dark:text-white">Admin</h1>
-              <p className="text-xs text-slate-500 dark:text-slate-400">eSIM Global</p>
+            </div> */}
+            <div className="flex items-center flex-col  justify-center">
+              {/* <h1 className="font-bold text-slate-900 dark:text-white">Admin</h1> */}
+              <img src={logo} className="h-10 w-24" alt="" />
+              <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{tagline}</p>
             </div>
           </div>
           <Button

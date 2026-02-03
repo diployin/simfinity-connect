@@ -118,11 +118,17 @@ import {
 } from '@/hooks/useSettings'; // path apne project ke hisaab se
 import NotificationsPage from './pages/Notifications';
 import PopularPackagesPage from './pages/PopularPackagesPage';
+import AboutUsNewPage from './pages/AboutUsNewPage';
+import AllDestinations from './pages/AllDestinations';
+import DownloadEsimPage from './pages/DownloadEsimPage';
+import FecurityFeaturesPage from './pages/FecurityFeaturesPage';
+import WhatEsimNew from './pages/WhatIsEsimNew';
 
 // ✅ Route Configs - DRY Approach
 const PUBLIC_ROUTES = [
   { path: '/', component: Home },
   { path: '/destinations', component: Destinations },
+  { path: '/destination', component: AllDestinations },
   { path: '/search', component: Search },
   { path: '/destination/:slug', component: DestinationDetails },
   { path: '/region/:slug', component: RegionDetails },
@@ -135,7 +141,7 @@ const PUBLIC_ROUTES = [
   { path: '/enterprise', component: EnterprisePage },
   { path: '/unsubscribe', component: Unsubscribe },
   { path: '/gift-cards', component: GiftCards },
-  { path: '/about-us', component: AboutUs },
+  { path: '/about-us', component: AboutUsNewPage },
   { path: '/privacy-policy', component: PrivacyPolicy },
   { path: '/terms-of-service', component: TermsOfService },
   { path: '/refund-policy', component: RefundPolicy },
@@ -148,9 +154,12 @@ const PUBLIC_ROUTES = [
   { path: '/pages/:slug', component: DynamicPage },
   { path: '/faq', component: FaqPage },
   { path: '/checkout', component: PaymentPage },
-  { path: '/what-is-esim', component: WhatIsESIM },
+  // { path: '/what-is-esim', component: WhatIsESIM },
+  { path: '/what-is-esim', component: WhatEsimNew },
   { path: '/notifications', component: NotificationsPage },
   { path: '/populer-packages', component: PopularPackagesPage },
+  { path: '/download-esim-app', component: DownloadEsimPage },
+  { path: '/security-features', component: FecurityFeaturesPage },
 ];
 
 const AUTH_ROUTES = [{ path: '/login', component: Login }];

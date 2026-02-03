@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 // import NewFooter from './NewFooter';
 import SiteHeader from './SiteHeader';
 import SiteFooter from './SiteFooter';
+import FooterNew from './FooterNew';
 // import { TopBanner } from './marketing';
 
 interface PublicLayoutProps {
@@ -20,7 +21,8 @@ export function PublicLayout({ children }: Readonly<PublicLayoutProps>) {
       /> */}
       <SiteHeader />
       <main className="flex-1">{children}</main>
-      <SiteFooter />
+      {/* <SiteFooter /> */}
+      <FooterNew />
     </div>
   );
 }
