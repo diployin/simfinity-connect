@@ -1052,6 +1052,30 @@
         "noRegions": "No regions available",
         "ultraComing": "Ultra plans coming soon..."
     },
+
+     "whatIsEsimNew": {
+            "whatEsim": "Still buying physical SIM cards?",
+            "An": "An",
+            "para": "That’s old-school! Meet the eSIM — a smart digital SIM already built into your phone that lets you activate mobile data instantly without buying or changing any physical SIM cards. No shops, no plastic, no swapping — just scan, connect, and enjoy fast, reliable internet in seconds. With Simfinity, staying online while traveling becomes effortless, flexible, and 100% hassle-free."
+        },
+
+         "TravelDestinationTabsNew": {
+            "subTitle": "What’s your next destination?",
+            "title": "Choose your travel destination",
+            "btn": "View All Destinations",
+            "des": "Find your destination and let Simfinity handle the rest, Instant data, zero stress.",
+            "Country": "Country",
+            "Region": "Region",
+            "Ultra": "Simfinity Passport",
+            "new": "New"
+        },
+
+         "WhyChooseSailySectionHeader": {
+                "subtitle": "Why choose Simfinity?",
+                "title": "Stay connected the smart way"
+         },
+            
+
     "NewSimfinDes": {
         "heroSec": {
             "title": "Woah! These are the cheapest eSIM plans I’ve ever seen!",

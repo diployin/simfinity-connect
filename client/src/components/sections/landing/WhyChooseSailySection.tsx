@@ -74,10 +74,10 @@ console.log(
         {/* Header */}
         <div className="mb-12 sm:mb-16">
           <p className="mb-3 text-center text-sm font-normal text-gray-400 sm:text-base md:text-start">
-            {t('NewSimfinDes.WhyChooseSailySection.header.subtitle')}
+            {t('WhyChooseSailySectionHeader.subtitle')}
           </p>
           <h2 className="text-center text-3xl leading-tight font-medium text-black sm:text-4xl md:text-start lg:text-5xl xl:text-4xl">
-            {t('NewSimfinDes.WhyChooseSailySection.header.title')}
+            {t('WhyChooseSailySectionHeader.title')}
           </h2>
         </div>
 
