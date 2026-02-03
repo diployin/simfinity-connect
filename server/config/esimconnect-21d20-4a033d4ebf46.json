@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "esimconnect-21d20",
+  "private_key_id": "4a033d4ebf46e4adc5fec7dd4cc0745aad503961",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCuZIkmFt5aiwKv\nQtt9Q1/IB8V3JJFVZodmjU+VDbf5Ui8W+uOszUiU1Z/z9JorgZBjC3BPZR51WwQC\nlsRRrXMQ+KNMVC6QZ8RtOczDNcnQE8jf0MT8ZKYwLp1QorpcT6YM21IHJXGSq3tM\ngBbS9vb4K5IQLrAkd3twc85TyTQ1hqzCmzzwB73MnaQaEcjfdTTymNroa7dgNHey\nnEieUYcjyQAqIr/fQv1ekOLLqh9wL2qv6cNVpfasKed295wfGjI3C2H8zYBK5/zt\nImPfAoyoWQLGT9IX6fweAzUi0ou11CANGmVXoox1PMjvok8djjY25MVKl34sqGnv\nt1REHpb7AgMBAAECggEAALY5VxX1z2HM34FC2xaI0Ay0EiHsk/AoslL2VbHqI9Lh\njVL11fE6kBz1G65OaMoNGFJmIXTUtH7sG8SYxYqTMykIpZmcXQuHYji/rLZN/hLu\nmXdFLpCMmxq9mqQnZZQPpfLJOW0+Mu6PQMcvEKpgZK/s1zMRlfyE3PckCvSByYwi\n8zRGosryLR8pIqC0hdoNOwTlcGDp/MNpagndhOp7fInLDLFDePzgDv6nqPdr4koF\nL+jV50AOr2Kwz3AuOO9ml8MrsCeVTsBQ/AcRTJoebDTD8qHDfGYSrPCs8T+Ut7id\nn27fUU74Tp0CHEBOp1CiDPwpIuzldrHZxE7hBz9bcQKBgQDetiXTLO6me/MqjanW\nC08flpurd4FFJ5nGM/FFmfFReVGCw9r4dD/VrvaRJjQSG664oPpt2clmzuQ3xtox\nMpmYXMuSOXucqpBatm0WSmo6kspG6sjCiklARsOSc9Oqh/AMidgw/nQ6Oru+ahGE\n6/BQ6/olnqauE4c5bF/PBiHACwKBgQDIdYNxWjojNoET1FWfCTECoUA3UAon4hdp\nxEMe+s3hbehVOAtUVhqOsFsCGS5rZN0R05QeX6rcAFJrI3F7FQ6wqiWKjAg8TuC9\nKMghZU0r+KrRfQ9SY3aN5E+J38fiU1+uBeUieHyvdQ7xZCYsphj/+djNhpYA0Yga\n1BHQuY0q0QKBgE4efi4QuLVVDPqELmqSFPLzlS8UABgNx/aqCZtsYCU/9MN1h71W\nqX1+naZUTDd91k+Ux8L4fZi+QXb/HVHcedvj0NQ9rYpKmc/35VPITnK1QpaVjE4Q\ny5jsOXWJg1lxzVXYlCi7WHGEYI5uDi8dw3HfFCNV/wlYeDpANWscr4H5AoGAPNzB\nDddxM2PHCPg9Ds5BnSTMVH7utnFE3o4COxO3EqzGD6m2duK1qYEOALMYju7O2Cy/\nGgG95JIMdA8M02vvS+A9CbW+gmEIhyYsrUcOiT00z+oCjuc4BZi+NYRGMgdSU4ni\nqfafFL6bzNq1ZHUBviZjlvM39AOqKUseJZtQqyECgYEA1c8+hdS7ZCgOY818NORg\n2atlpHFbyVZILX0jJIliyn8neBmj+qmTWbn5jT5f13Teb3d018COK4TiuXs1p8xA\nBXydrmKHSJdmv2kbV8fma5wHZQu0Uwfqa2bAwinW6S+i1lXt7375c5BoTc4juduH\ntzpHS+eNrms1VBNXk3LtBLA=\n-----END PRIVATE KEY-----\n",
+  "client_email": "google-in-app-billing@esimconnect-21d20.iam.gserviceaccount.com",
+  "client_id": "118107166411029265578",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/google-in-app-billing%40esimconnect-21d20.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
