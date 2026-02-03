@@ -14,6 +14,16 @@ interface Feature {
 const WhyChooseSailySection = () => {
   const { t } = useTranslation();
 
+  console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+
+console.log(
+  t(
+    'NewSimfinDes.WhyChooseSailySection.features.0.title',
+    '❌ NOT FOUND'
+  )
+);
+
+
   // Icon mapping by ID
   const iconMap: Record<number, React.ReactNode> = {
     1: <img src="/images/features/global.svg" className=" h-10 w-10" alt="price" />,

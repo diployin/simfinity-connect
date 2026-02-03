@@ -6,6 +6,7 @@ import SiteHeader from './SiteHeader';
 import SiteFooter from './SiteFooter';
 import FooterNew from './FooterNew';
 // import { TopBanner } from './marketing';
+import NavbarNew from './NavbarNew';
 
 interface PublicLayoutProps {
   readonly children: ReactNode;
@@ -19,7 +20,7 @@ export function PublicLayout({ children }: Readonly<PublicLayoutProps>) {
         ctaText="Order Here"
         ctaLink="/destinations"
       /> */}
-      <SiteHeader />
+      <NavbarNew />
       <main className="flex-1">{children}</main>
       {/* <SiteFooter /> */}
       <FooterNew />

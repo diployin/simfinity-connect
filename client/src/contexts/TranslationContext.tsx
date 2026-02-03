@@ -209,7 +209,8 @@ interface Language {
   sortOrder: number;
 }
 
-type TranslationData = Record<string, Record<string, string>>;
+/* ✅ FIX: allow arrays + nested objects */
+type TranslationData = Record<string, any>;
 
 interface TranslationContextType {
   language: Language | null;
@@ -285,7 +286,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  /* -------- Translate function -------- */
+  /* -------- Translate function (ARRAY + OBJECT SUPPORT) -------- */
   const t = useCallback(
     (
       key: string,
@@ -304,28 +305,43 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
         actualParams = fallbackOrParams;
       }
 
-      const parts = key.split('.');
-      const namespace = parts[0];
-      const innerKey = parts.slice(1).join('.');
+      const path = key.split('.');
+      let value: any = translations;
 
-      let value: string | undefined;
+      for (const part of path) {
+        if (value == null) break;
 
-      if (translations[namespace] && innerKey) {
-        value = translations[namespace][innerKey];
+        if (Array.isArray(value)) {
+          const index = Number(part);
+          value = Number.isNaN(index) ? undefined : value[index];
+        } else {
+          value = value[part];
+        }
       }
 
-      const result = value || fallback || key;
+      if (typeof value !== 'string') {
+        const result = fallback || key;
+        if (actualParams) {
+          return result.replace(/\{(\w+)\}/g, (_, k) =>
+            actualParams?.[k]?.toString() ?? `{${k}}`
+          );
+        }
+        return result;
+      }
 
       if (actualParams) {
-        return result.replace(/\{(\w+)\}/g, (_, k) =>
+        return value.replace(/\{(\w+)\}/g, (_, k) =>
           actualParams?.[k]?.toString() ?? `{${k}}`
         );
       }
 
-      return result;
+      return value;
     },
     [translationsData]
   );
+
+
+  console.log("translationsData@@@@@@@@@@@@@@@@", translationsData)
 
   const isLoading = languagesLoading || translationsLoading;
 
@@ -351,9 +367,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
 export function useTranslation() {
   const context = useContext(TranslationContext);
   if (!context) {
-    throw new Error(
-      'useTranslation must be used within TranslationProvider'
-    );
+    throw new Error('useTranslation must be used within TranslationProvider');
   }
   return context;
 }

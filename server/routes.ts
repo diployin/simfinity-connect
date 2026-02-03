@@ -11341,7 +11341,145 @@ ${urls
   });
 
   // Public: Get translations for a language (by code or id)
-  app.get('/api/translations/:languageCode', async (req: Request, res: Response) => {
+
+/* ===================== HELPER ===================== */
+function setDeep(target: any, path: string[], value: any) {
+  let current = target;
+
+  for (let i = 0; i < path.length; i++) {
+    const key = path[i];
+    const nextKey = path[i + 1];
+    const isLast = i === path.length - 1;
+
+    const index = Number(key);
+    const isArrayIndex = !Number.isNaN(index);
+
+    if (isLast) {
+      if (isArrayIndex) {
+        current[index] = value;
+      } else {
+        current[key] = value;
+      }
+      return;
+    }
+
+    if (isArrayIndex) {
+      if (!Array.isArray(current)) current = [];
+      if (!current[index]) {
+        current[index] = Number.isNaN(Number(nextKey)) ? {} : [];
+      }
+      current = current[index];
+    } else {
+      if (!current[key]) {
+        current[key] = Number.isNaN(Number(nextKey)) ? {} : [];
+      }
+      current = current[key];
+    }
+  }
+}
+
+/* ===================== API ===================== */
+
+app.get('/api/translations/:languageCode', async (req: Request, res: Response) => {
+  try {
+    const { languageCode } = req.params;
+    const { namespace } = req.query;
+
+    // 🔎 Find language
+    const language = await storage.getLanguageByCode(languageCode);
+    if (!language) {
+      return res
+        .status(404)
+        .json({ success: false, message: 'Language not found' });
+    }
+
+    let translations;
+
+    /* ===================== SINGLE NAMESPACE ===================== */
+    if (namespace && typeof namespace === 'string') {
+      translations = await storage.getTranslationsForNamespace(
+        namespace,
+        language.id
+      );
+
+      const result: Record<string, any> = {};
+
+      translations.forEach((t) => {
+        let parsedValue: any = t.value;
+
+        // ✅ JSON auto-parse
+        if (
+          typeof t.value === 'string' &&
+          (t.value.startsWith('{') || t.value.startsWith('['))
+        ) {
+          try {
+            parsedValue = JSON.parse(t.value);
+          } catch {
+            parsedValue = t.value;
+          }
+        }
+
+        const path = t.key.split('.');
+        setDeep(result, path, parsedValue);
+      });
+
+      return res.json({
+        success: true,
+        message: 'Translations retrieved',
+        data: {
+          language,
+          namespace,
+          translations: result,
+        },
+      });
+    }
+
+    /* ===================== ALL NAMESPACES ===================== */
+    translations = await storage.getTranslationsForLanguage(language.id);
+
+    const grouped: Record<string, any> = {};
+
+    translations.forEach((t) => {
+      if (!grouped[t.namespace]) grouped[t.namespace] = {};
+
+      let parsedValue: any = t.value;
+
+      // ✅ JSON auto-parse
+      if (
+        typeof t.value === 'string' &&
+        (t.value.startsWith('{') || t.value.startsWith('['))
+      ) {
+        try {
+          parsedValue = JSON.parse(t.value);
+        } catch {
+          parsedValue = t.value;
+        }
+      }
+
+      const path = t.key.split('.');
+      setDeep(grouped[t.namespace], path, parsedValue);
+    });
+
+    return res.json({
+      success: true,
+      message: 'Translations retrieved',
+      data: {
+        language,
+        translations: grouped,
+      },
+    });
+  } catch (error: any) {
+    console.error('Translations API error:', error);
+    return res.status(500).json({
+      success: false,
+      message: error.message || 'Internal Server Error',
+    });
+  }
+});
+
+
+  
+  app.get('/api/translations-olddd/:languageCode', async (req: Request, res: Response) => {
     try {
       const { languageCode } = req.params;
       const { namespace } = req.query;
@@ -11622,8 +11760,102 @@ ${urls
   );
 
   // Admin: Bulk import translations (for a language)
+
+
+  function flattenObject(
+  obj: any,
+  parentKey = '',
+  result: Record<string, string> = {}
+) {
+  if (typeof obj !== 'object' || obj === null) return result;
+
+  if (Array.isArray(obj)) {
+    obj.forEach((item, index) => {
+      flattenObject(item, `${parentKey}.${index}`, result);
+    });
+    return result;
+  }
+
+  for (const [key, value] of Object.entries(obj)) {
+    const newKey = parentKey ? `${parentKey}.${key}` : key;
+
+    if (typeof value === 'object' && value !== null) {
+      flattenObject(value, newKey, result);
+    } else {
+      result[newKey] = String(value);
+    }
+  }
+
+  return result;
+}
+
+
+   app.post(
+  '/api/admin/translations/:languageId/import',
+  requireAdmin,
+  async (req: Request, res: Response) => {
+    try {
+      const { languageId } = req.params;
+      const { translations } = req.body;
+
+      if (!translations || typeof translations !== 'object') {
+        return res
+          .status(400)
+          .json({ success: false, message: 'Invalid translations data' });
+      }
+
+      const language = await storage.getLanguageById(languageId);
+      if (!language) {
+        return res
+          .status(404)
+          .json({ success: false, message: 'Language not found' });
+      }
+
+      let imported = 0;
+
+      for (const [namespace, rawData] of Object.entries(translations)) {
+        if (typeof rawData !== 'object' || rawData === null) continue;
+
+        // ✅ FLATTEN HERE
+        const flatTranslations = flattenObject(rawData);
+
+        // fetch once per namespace (performance)
+        const allKeys = await storage.getTranslationKeysByNamespace(namespace);
+
+        for (const [key, value] of Object.entries(flatTranslations)) {
+          let keyRecord = allKeys.find((k) => k.key === key);
+
+          if (!keyRecord) {
+            keyRecord = await storage.createTranslationKey({
+              namespace,
+              key,
+            });
+            allKeys.push(keyRecord);
+          }
+
+          await storage.upsertTranslationValue({
+            keyId: keyRecord.id,
+            languageId,
+            value,
+          });
+
+          imported++;
+        }
+      }
+
+      ApiResponse.success(res, `Imported ${imported} translations`);
+    } catch (error: any) {
+      res
+        .status(500)
+        .json({ success: false, message: error.message });
+    }
+  }
+);
+
+  
+
   app.post(
-    '/api/admin/translations/:languageId/import',
+    '/api/admin/translations/:languageId/importtt',
     requireAdmin,
     async (req: Request, res: Response) => {
       try {
