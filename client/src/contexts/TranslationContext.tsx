@@ -1,3 +1,190 @@
+// import {
+//   createContext,
+//   useContext,
+//   useState,
+//   useCallback,
+//   useEffect,
+//   ReactNode,
+// } from "react";
+// import { useQuery } from "@tanstack/react-query";
+
+// interface Language {
+//   id: string;
+//   code: string;
+//   name: string;
+//   nativeName: string;
+//   flagCode: string;
+//   isRTL: boolean;
+//   isEnabled: boolean;
+//   isDefault: boolean;
+//   sortOrder: number;
+// }
+
+// interface TranslationContextType {
+//   language: Language | null;
+//   languages: Language[];
+//   languageCode: string;
+//   isRTL: boolean;
+//   isLoading: boolean;
+//   setLanguage: (code: string) => void;
+//   t: (
+//     key: string,
+//     fallbackOrParams?: string | Record<string, string | number>,
+//     params?: Record<string, string | number>
+//   ) => string;
+// }
+
+// const TranslationContext = createContext<TranslationContextType | undefined>(
+//   undefined
+// );
+
+// type TranslationData = Record<string, Record<string, string>>;
+
+// const STORAGE_KEY = "esim_language";
+
+// export function TranslationProvider({ children }: { children: ReactNode }) {
+//   const [languageCode, setLanguageCode] = useState<string>(() => {
+//     if (typeof window !== "undefined") {
+//       const saved = localStorage.getItem(STORAGE_KEY);
+//       return saved || "en";
+//     }
+//     return "en";
+//   });
+
+//   const [translations, setTranslations] = useState<TranslationData>({});
+
+//   const { data: languages = [], isLoading: languagesLoading } = useQuery<Language[]>({
+//     queryKey: ["/api/languages"],
+//     staleTime: 5 * 60 * 1000,
+//   });
+//   const currentLanguage = languages.find((l) => l.code === languageCode) || null;
+//   const isRTL = currentLanguage?.isRTL || false;
+
+//   const { data: translationsData, isLoading: translationsLoading } = useQuery<{
+//     language: Language;
+//     translations: TranslationData;
+//   }>({
+//     queryKey: [`/api/translations/${languageCode}`],
+//     enabled: !!languageCode,
+//     staleTime: 0,
+//     cacheTime: 5 * 60 * 1000,
+//   });
+
+//   useEffect(() => {
+//     if (translationsData?.translations) {
+//       setTranslations(translationsData.translations);
+//     }
+//   }, [translationsData]);
+
+//   useEffect(() => {
+//     if (typeof document !== "undefined") {
+//       document.documentElement.dir = isRTL ? "rtl" : "ltr";
+//       document.documentElement.lang = languageCode;
+//     }
+//   }, [isRTL, languageCode]);
+
+//   const setLanguageOLD = useCallback((code: string) => {
+//     setLanguageCode(code);
+//     if (typeof window !== "undefined") {
+//       localStorage.setItem(STORAGE_KEY, code);
+//     }
+//   }, []);
+
+
+//   const setLanguage = useCallback((code: string) => {
+//   console.log("Language changed to:", code);
+//   setLanguageCode(code);
+//   setTranslations({}); // ✅ CLEAR OLD TRANSLATIONS
+//   if (typeof window !== "undefined") {
+//     localStorage.setItem(STORAGE_KEY, code);
+//   }
+// }, []);
+
+
+//   const t = useCallback(
+//     (
+//       key: string,
+//       fallbackOrParams?: string | Record<string, string | number>,
+//       params?: Record<string, string | number>
+//     ): string => {
+//       let fallback: string | undefined;
+//       let actualParams: Record<string, string | number> | undefined;
+
+//       if (typeof fallbackOrParams === "string") {
+//         fallback = fallbackOrParams;
+//         actualParams = params;
+//       } else {
+//         fallback = undefined;
+//         actualParams = fallbackOrParams;
+//       }
+
+//       const keyParts = key.split(".");
+//       const namespace = keyParts[0];
+//       const translationKey = keyParts.slice(1).join(".");
+
+//       let value: string | undefined;
+      
+//       if (translations[namespace] && translationKey) {
+//         value = translations[namespace][translationKey];
+//       } else if (!translationKey) {
+//         for (const ns of Object.values(translations)) {
+//           if (ns[key]) {
+//             value = ns[key];
+//             break;
+//           }
+//         }
+//       }
+
+//       if (!value) {
+//         const result = fallback || key;
+//         if (actualParams) {
+//           return result.replace(/\{(\w+)\}/g, (match, paramKey) => {
+//             return actualParams[paramKey]?.toString() || match;
+//           });
+//         }
+//         return result;
+//       }
+
+//       if (actualParams) {
+//         return value.replace(/\{(\w+)\}/g, (match, paramKey) => {
+//           return actualParams[paramKey]?.toString() || match;
+//         });
+//       }
+
+//       return value;
+//     },
+//     [translations, languageCode]
+//   );
+
+//   const isLoading = languagesLoading || translationsLoading;
+
+//   return (
+//     <TranslationContext.Provider
+//       value={{
+//         language: currentLanguage,
+//         languages,
+//         languageCode,
+//         isRTL,
+//         isLoading,
+//         setLanguage,
+//         t,
+//       }}
+//     >
+//       {children}
+//     </TranslationContext.Provider>
+//   );
+// }
+
+// export function useTranslation() {
+//   const context = useContext(TranslationContext);
+//   if (!context) {
+//     throw new Error("useTranslation must be used within TranslationProvider");
+//   }
+//   return context;
+// }
+
+'use client';
+
 import {
   createContext,
   useContext,
@@ -5,8 +192,10 @@ import {
   useCallback,
   useEffect,
   ReactNode,
-} from "react";
-import { useQuery } from "@tanstack/react-query";
+} from 'react';
+import { useQuery } from '@tanstack/react-query';
+
+/* ===================== TYPES ===================== */
 
 interface Language {
   id: string;
@@ -19,6 +208,8 @@ interface Language {
   isDefault: boolean;
   sortOrder: number;
 }
+
+type TranslationData = Record<string, Record<string, string>>;
 
 interface TranslationContextType {
   language: Language | null;
@@ -34,33 +225,41 @@ interface TranslationContextType {
   ) => string;
 }
 
+/* ===================== CONTEXT ===================== */
+
 const TranslationContext = createContext<TranslationContextType | undefined>(
   undefined
 );
 
-type TranslationData = Record<string, Record<string, string>>;
+const STORAGE_KEY = 'esim_language';
 
-const STORAGE_KEY = "esim_language";
+/* ===================== PROVIDER ===================== */
 
 export function TranslationProvider({ children }: { children: ReactNode }) {
   const [languageCode, setLanguageCode] = useState<string>(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      return saved || "en";
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem(STORAGE_KEY) || 'en';
     }
-    return "en";
+    return 'en';
   });
 
-  const [translations, setTranslations] = useState<TranslationData>({});
+  /* -------- Languages -------- */
+  const { data: languages = [], isLoading: languagesLoading } =
+    useQuery<Language[]>({
+      queryKey: ['/api/languages'],
+      staleTime: 5 * 60 * 1000,
+    });
 
-  const { data: languages = [], isLoading: languagesLoading } = useQuery<Language[]>({
-    queryKey: ["/api/languages"],
-    staleTime: 5 * 60 * 1000,
-  });
-  const currentLanguage = languages.find((l) => l.code === languageCode) || null;
-  const isRTL = currentLanguage?.isRTL || false;
+  const currentLanguage =
+    languages.find((l) => l.code === languageCode) || null;
 
-  const { data: translationsData, isLoading: translationsLoading } = useQuery<{
+  const isRTL = currentLanguage?.isRTL ?? false;
+
+  /* -------- Translations -------- */
+  const {
+    data: translationsData,
+    isLoading: translationsLoading,
+  } = useQuery<{
     language: Language;
     translations: TranslationData;
   }>({
@@ -70,90 +269,62 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     cacheTime: 5 * 60 * 1000,
   });
 
+  /* -------- HTML lang + dir -------- */
   useEffect(() => {
-    if (translationsData?.translations) {
-      setTranslations(translationsData.translations);
-    }
-  }, [translationsData]);
-
-  useEffect(() => {
-    if (typeof document !== "undefined") {
-      document.documentElement.dir = isRTL ? "rtl" : "ltr";
+    if (typeof document !== 'undefined') {
       document.documentElement.lang = languageCode;
+      document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
     }
-  }, [isRTL, languageCode]);
+  }, [languageCode, isRTL]);
 
-  const setLanguageOLD = useCallback((code: string) => {
+  /* -------- Change language -------- */
+  const setLanguage = useCallback((code: string) => {
     setLanguageCode(code);
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       localStorage.setItem(STORAGE_KEY, code);
     }
   }, []);
 
-
-  const setLanguage = useCallback((code: string) => {
-  console.log("Language changed to:", code);
-  setLanguageCode(code);
-  setTranslations({}); // ✅ CLEAR OLD TRANSLATIONS
-  if (typeof window !== "undefined") {
-    localStorage.setItem(STORAGE_KEY, code);
-  }
-}, []);
-
-
+  /* -------- Translate function -------- */
   const t = useCallback(
     (
       key: string,
       fallbackOrParams?: string | Record<string, string | number>,
       params?: Record<string, string | number>
     ): string => {
+      const translations = translationsData?.translations || {};
+
       let fallback: string | undefined;
       let actualParams: Record<string, string | number> | undefined;
 
-      if (typeof fallbackOrParams === "string") {
+      if (typeof fallbackOrParams === 'string') {
         fallback = fallbackOrParams;
         actualParams = params;
       } else {
-        fallback = undefined;
         actualParams = fallbackOrParams;
       }
 
-      const keyParts = key.split(".");
-      const namespace = keyParts[0];
-      const translationKey = keyParts.slice(1).join(".");
+      const parts = key.split('.');
+      const namespace = parts[0];
+      const innerKey = parts.slice(1).join('.');
 
       let value: string | undefined;
-      
-      if (translations[namespace] && translationKey) {
-        value = translations[namespace][translationKey];
-      } else if (!translationKey) {
-        for (const ns of Object.values(translations)) {
-          if (ns[key]) {
-            value = ns[key];
-            break;
-          }
-        }
+
+      if (translations[namespace] && innerKey) {
+        value = translations[namespace][innerKey];
       }
 
-      if (!value) {
-        const result = fallback || key;
-        if (actualParams) {
-          return result.replace(/\{(\w+)\}/g, (match, paramKey) => {
-            return actualParams[paramKey]?.toString() || match;
-          });
-        }
-        return result;
-      }
+      const result = value || fallback || key;
 
       if (actualParams) {
-        return value.replace(/\{(\w+)\}/g, (match, paramKey) => {
-          return actualParams[paramKey]?.toString() || match;
-        });
+        return result.replace(/\{(\w+)\}/g, (_, k) =>
+          actualParams?.[k]?.toString() ?? `{${k}}`
+        );
       }
 
-      return value;
+      return result;
     },
-    [translations, languageCode]
+    [translationsData]
   );
 
   const isLoading = languagesLoading || translationsLoading;
@@ -175,10 +346,14 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
   );
 }
 
+/* ===================== HOOK ===================== */
+
 export function useTranslation() {
   const context = useContext(TranslationContext);
   if (!context) {
-    throw new Error("useTranslation must be used within TranslationProvider");
+    throw new Error(
+      'useTranslation must be used within TranslationProvider'
+    );
   }
   return context;
 }

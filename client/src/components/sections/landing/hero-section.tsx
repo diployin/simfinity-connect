@@ -155,6 +155,7 @@ const HeroSection = () => {
 
   const staticData = useStaticData();
 
+  
   return (
     // 58B0EC
     <div
@@ -171,20 +172,22 @@ const HeroSection = () => {
             <h1 className="max-w-xl text-4xl leading-tight font-medium text-white lg:text-5xl xl:text-5xl">
               {/* {staticData.heroSecData.title} */}
               {/* {t('NewSimfinDes.heroSec.title')} */}
-              Woah! These are the cheapest eSIM plans I’ve ever seen!
+              {/* Woah! These are the cheapest eSIM plans I’ve ever seen! */}
+              {t('hero.headline')}
             </h1>
 
             <div className="space-y-2 pt-6">
               <p className="text-lg font-medium text-white">
                 {/* {t('NewSimfinDes.heroSec.Browse')} */}
-                Pick your perfect eSIM plan — the smart choice for every traveler.Amazing Cashback!
+                {/* Pick your perfect eSIM plan — the smart choice for every traveler.Amazing Cashback! */}
+                {t('hero.subheading')}
               </p>
 
               <div className="">
                 {/* <p className='text-base font-normal text-white'>{t('NewSimfinDes.heroSec.Get')}</p> */}
                 {/* <p className="text-base font-normal text-white">{t('NewSimfinDes.heroSec.Up')}</p> */}
                 <p className="text-base font-normal text-white">
-                  Get up to 20% back on 10GB+ Plans!
+                  {t('hero.cashbackOffer')}
                 </p>
               </div>
             </div>
@@ -193,13 +196,13 @@ const HeroSection = () => {
             <div className="w-full max-w-sm">
               <p className="my-4 text-base font-medium text-white xl:text-lg">
                 {/* {t('NewSimfinDes.heroSec.Where_do')} */}
-                Choose your destination, we’ll handle the connection
+                 {t('hero.searchSubtitle')}
               </p>
               <button
                 onClick={() => setIsSearchModalOpen(true)}
                 className="relative flex w-sm items-center justify-between rounded-lg bg-white py-2 pr-2 pl-6 shadow-md"
               >
-                <span className="text-gray-500">Search for Destination</span>
+                <span className="text-gray-500">{t('hero.searchPlaceholder')}</span>
                 <div className="bg-primary hover:bg-primaryHover flex-shrink-0 rounded-lg p-4 transition-colors">
                   <svg
                     className="h-4 w-4 text-white"
@@ -221,8 +224,7 @@ const HeroSection = () => {
             {/* Brand Credit */}
             <div className="flex items-center gap-3 py-4 lg:py-6">
               <p className="text-xs font-normal text-white/80 xl:text-sm">
-                {/* {t('NewSimfinDes.heroSec.creators')} */}
-                By the creators of
+                {t('hero.brandCredit')}
               </p>
               <div className="flex items-center gap-2 rounded-lg bg-white">
                 <img src="/images/brands/cits.svg" className="h-12" alt="NordVPN" />
@@ -231,11 +233,10 @@ const HeroSection = () => {
 
             {/* Terms Link */}
             <p className="text-xs font-normal text-white/80">
-              {/* {t('NewSimfinDes.heroSec.term')} */}
-              Take a look at our promotion's
+              
+              {t('hero.termsPromo')}
               <Link href="#" className="underline transition-colors hover:text-black">
-                {/* {t('NewSimfinDes.heroSec.term_Link')} */}
-                terms and conditions
+                {t('hero.termsLink')}
               </Link>
             </p>
           </div>
@@ -260,12 +261,10 @@ const HeroSection = () => {
                   </div>
                   <div>
                     <p className="text-sm font-normal whitespace-nowrap text-black">
-                      {/* {t('NewSimfinDes.heroSec.card_c1')} */}
-                      Get 5x Simfinity credits:
+                      {t('hero.badgeText1')}
                     </p>
                     <p className="text-base font-bold whitespace-nowrap text-black">
-                      {/* {t('NewSimfinDes.heroSec.card_c2')} */}
-                      Up to 15% back!
+                      {t('hero.badgeText2')}
                     </p>
                   </div>
                 </div>
