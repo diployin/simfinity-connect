@@ -228,7 +228,44 @@
     "footer.cookies": "Política de cookies",
     "checkout.guestCheckout": "Continuar como invitado",
     "install.step1": "Ve a Configuración > Datos móviles",
-    "destinations.title": "Todos los destinos"
+    "destinations.title": "Todos los destinos",
+
+
+
+
+    
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.heading": "¿Cuál es la diferencia entre una eSIM y una SIM física?",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.description": "La principal diferencia entre una eSIM y una tarjeta SIM tradicional es que la eSIM es digital, mientras que la SIM es física.",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.footerNote": "*Actualmente, Simfinity se enfoca solo en datos móviles y aún no admite números de teléfono.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.feature": "Característica",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.esim": "eSIM",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.sim": "SIM",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.feature": "Número de teléfono",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.esim": "Hasta dos*",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.sim": "Hasta dos",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.feature": "Operadores de red",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.esim": "Los que quieras",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.sim": "Hasta dos",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.feature": "Eliminación",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.esim": "Desactivar el perfil",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.sim": "Retirar la SIM",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.feature": "Activación",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.esim": "Manual o automática al llegar",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.sim": "Manual",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.feature": "Compatibilidad",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.esim": "Solo dispositivos nuevos",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.sim": "Dispositivos antiguos y nuevos",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.feature": "Uso en el extranjero",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.esim": "Más económico con planes locales",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.sim": "Puede ser caro por roaming"
+
   },
   "userPanel": {
     "dashboard.title": "Panel de control",

@@ -1,0 +1,36 @@
+{
+    "website":{
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.heading": "ما الفرق بين eSIM وSIM التقليدية؟",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.description": "الفرق الرئيسي بين eSIM وبطاقة SIM التقليدية هو أن eSIM رقمية، بينما SIM بطاقة فعلية.",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.footerNote": "*تركز Simfinity حالياً على بيانات الهاتف فقط ولا تدعم أرقام الهواتف بعد.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.feature": "الميزة",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.esim": "eSIM",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.sim": "SIM",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.feature": "رقم الهاتف",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.esim": "حتى رقمين*",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.sim": "حتى رقمين",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.feature": "مشغلو الشبكة",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.esim": "عدد غير محدود",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.sim": "حتى مشغلين",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.feature": "الإزالة",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.esim": "تعطيل الملف",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.sim": "إزالة بطاقة SIM",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.feature": "التفعيل",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.esim": "يدوي أو تلقائي عند الوصول",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.sim": "يدوي",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.feature": "التوافق",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.esim": "الأجهزة الحديثة فقط",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.sim": "الأجهزة القديمة والحديثة",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.feature": "الاستخدام أثناء السفر",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.esim": "أوفر مع باقات محلية",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.sim": "قد يكون مكلفاً بسبب التجوال"
+}
+
+}

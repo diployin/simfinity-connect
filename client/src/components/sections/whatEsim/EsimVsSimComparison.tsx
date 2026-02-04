@@ -27,53 +27,53 @@ const EsimVsSimComparison = () => {
   };
 
   // Get heading and description from translation
-  const heading = t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.heading');
-  const description = t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.description');
-  const footerNote = t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.footerNote');
+  const heading = t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.heading');
+  const description = t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.description');
+  const footerNote = t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.footerNote');
 
   // Get comparison data
   const comparisonData: ComparisonRow[] = [
     {
       id: 1,
-      iconType: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.iconType'),
-      feature: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.feature'),
-      esim: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.esim'),
-      sim: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.sim'),
+      iconType: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.iconType'),
+      feature: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.feature'),
+      esim: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.esim'),
+      sim: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.sim'),
     },
     {
       id: 2,
-      iconType: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.iconType'),
-      feature: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.feature'),
-      esim: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.esim'),
-      sim: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.sim'),
+      iconType: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.iconType'),
+      feature: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.feature'),
+      esim: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.esim'),
+      sim: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.sim'),
     },
     {
       id: 3,
-      iconType: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.iconType'),
-      feature: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.feature'),
-      esim: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.esim'),
-      sim: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.sim'),
+      iconType: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.iconType'),
+      feature: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.feature'),
+      esim: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.esim'),
+      sim: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.sim'),
     },
     {
       id: 4,
-      iconType: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.iconType'),
-      feature: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.feature'),
-      esim: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.esim'),
-      sim: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.sim'),
+      iconType: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.iconType'),
+      feature: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.feature'),
+      esim: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.esim'),
+      sim: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.sim'),
     },
     {
       id: 5,
-      iconType: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.iconType'),
-      feature: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.feature'),
-      esim: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.esim'),
-      sim: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.sim'),
+      iconType: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.iconType'),
+      feature: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.feature'),
+      esim: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.esim'),
+      sim: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.sim'),
     },
     {
       id: 6,
-      iconType: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.iconType'),
-      feature: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.feature'),
-      esim: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.esim'),
-      sim: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.sim'),
+      iconType: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.iconType'),
+      feature: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.feature'),
+      esim: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.esim'),
+      sim: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.sim'),
     },
   ];
 
@@ -96,12 +96,12 @@ const EsimVsSimComparison = () => {
             {/* Table Header */}
             <thead>
               <tr className="border-b border-gray-200">
-                <th className="w-1/4 px-6 py-6 text-left font-medium text-gray-500"></th>
+                <th className="w-1/4 px-6 py-6 text-left font-medium text-gray-500">{t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.feature')}</th>
                 <th className="w-[37.5%] px-6 py-6 text-center text-lg font-medium text-gray-700">
-                  {t('EsimVsSimComparison.tableHeaders.esim')}
+                  {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.esim')}
                 </th>
                 <th className="w-[37.5%] px-6 py-6 text-center text-lg font-medium text-gray-700">
-                  {t('EsimVsSimComparison.tableHeaders.sim')}
+                  {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.sim')}
                 </th>
               </tr>
             </thead>

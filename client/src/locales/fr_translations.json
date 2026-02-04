@@ -228,7 +228,47 @@
     "install.tips": "Conseils d’installation",
     "nav.howItWorks": "Comment ça marche",
     "home.features.affordableDesc": "Économisez jusqu’à 90 % par rapport aux frais d’itinérance",
-    "install.step2": "Sélectionnez Ajouter une eSIM ou Ajouter un forfait cellulaire"
+    "install.step2": "Sélectionnez Ajouter une eSIM ou Ajouter un forfait cellulaire",
+
+
+
+
+
+
+    
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.heading": "Quelle est la différence entre une eSIM et une SIM physique ?",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.description": "La principale différence entre une eSIM et une carte SIM traditionnelle est que l’eSIM est numérique, tandis que la SIM est une carte physique.",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.footerNote": "*Simfinity se concentre actuellement uniquement sur les données mobiles et ne prend pas encore en charge les numéros de téléphone.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.feature": "Fonctionnalité",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.esim": "eSIM",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.sim": "SIM",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.feature": "Numéro de téléphone",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.esim": "Jusqu’à deux*",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.sim": "Jusqu’à deux",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.feature": "Opérateurs réseau",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.esim": "Autant que vous voulez",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.sim": "Jusqu’à deux",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.feature": "Suppression",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.esim": "Désactiver le profil",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.sim": "Retirer la carte SIM",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.feature": "Activation",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.esim": "Manuelle ou automatique à l’arrivée",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.sim": "Manuelle",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.feature": "Compatibilité",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.esim": "Appareils récents uniquement",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.sim": "Anciens et nouveaux appareils",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.feature": "Utilisation à l’étranger",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.esim": "Abordable avec des forfaits locaux",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.sim": "Peut être coûteuse en roaming"
+
+
   },
   "userPanel": {
     "dashboard.title": "Tableau de bord",

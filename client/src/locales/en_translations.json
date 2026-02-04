@@ -274,7 +274,267 @@
         "referrals.invalidCode": "Invalid or expired referral code",
         "referrals.youveBeenReferred": "You've been referred! Sign up to get {{discount}}% off",
         "title": "Referral Program",
-        "referrals.step2Desc": "Your friend signs up and makes their first purchase"
+        "referrals.step2Desc": "Your friend signs up and makes their first purchase",
+        "WhatIsEsim.content.heroTittle": "What is an eSIM — and why travelers love it",
+        "WhatIsEsim.content.herodes": "An eSIM is a digital SIM built directly into your phone. No physical card. No swapping. No store visits. Just scan, activate, and you’re online instantly. With an eSIM, you can stay connected the moment you land — without paying expensive roaming fees or searching for a local SIM shop. Simfinity eSIMs make travel simple: fast activation, affordable data, and global coverage in minutes.",
+        "WhatIsEsim.content.ctaButton":"Choose Your Destination",
+        "WhatIsEsim.content.heading": " What is an eSIM — and why travelers love it?",
+        "WhatIsEsim.content.des": " An eSIM is a digital SIM built directly into your phone. No physical card. No",
+        "WhatIsEsim.content.paragraph1": "An eSIM is an embedded subscriber identity module — essentially, a built-in chip in your phone. It does everything a traditional SIM would do, but without having to slot a tiny card into your phone. Additionally, an eSIM allows you to use several carriers and phone numbers at once, which is super convenient.",
+      "WhatIsEsim.content.paragraph2": "eSIMs are available on smartphones, tablets, smartwatches, and even some cars! They're great for quickly switching between phone numbers and grabbing mobile data for travel.",
+      "WhatIsEsim.howDoesItWorkSection.heading":"How does an eSIM work?",
+      "WhatIsEsim.howDoesItWorkSection.content.paragraph1":"An eSIM uses preinstalled software on your device to work just like a physical SIM. Once you activate it, you can connect to a cell network, make calls, and use mobile data. Most modern phones will have built-in eSIMs, but check our list of eSIM-compatible phones to see if yours does.",
+      "WhatIsEsim.howDoesItWorkSection.content.paragraph2":"To start using an eSIM, just buy an eSIM plan and complete a quick setup. No need to remove your current SIM card — it can stay where it is, whether you decide to keep using it or not.",
+      "WhatIsEsim.howDoesItWorkSection.content.image":"/images/whatEsim/man-sky-phone-status.webp",
+      "WhatIsEsim.howDoesItWorkSection.content.imageAlt":"Man with phone in sky",
+      "WhatIsEsim.howDoesItWorkSection.content.linkText": "list of eSIM-compatible phones",
+      "WhatIsEsim.howDoesItWorkSection.content.linkUrl": "/esim-supported-devices",
+
+
+
+      
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.label": "Advantages",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.heading": "eSIM advantages",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.subheading": "eSIMs are the future of connectivity. Here are the main eSIM benefits.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.iconType": "Wallet",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.title": "No high roaming fees",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.description": "Travelers can buy eSIMs that connect them to local carriers and avoid unexpected roaming fees.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.iconType": "Users",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.title": "Multiple profiles",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.description": "You can have multiple virtual eSIMs on one device, making it easy to switch between different carriers and phone numbers.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.iconType": "Document",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.title": "Pay for what you need",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.description": "Off to Japan for a week? Get a 7-day plan instead of monthly, and save your yen for an extra okonomiyaki.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.iconType": "Phone",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.title": "Saves space",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.description": "The absence of a physical SIM card slot frees up space for other device upgrades (like a bigger battery or more handset features).",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.iconType": "Shield",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.title": "Can't get lost or stolen",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.description": "Swapping out tiny SIM cards is tricky, especially if you're on the move. An eSIM is built in, so it won't get lost or stolen.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.iconType": "Recycle",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.title": "Less waste",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.description": "A single plastic SIM won't destroy the planet, but getting a newly packaged SIM card for every trip adds up over time. Use an eSIM instead.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.label": "Disadvantages",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.heading": "eSIM disadvantages",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.subheading": "Just like everything else, eSIMs have some drawbacks.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.iconType": "Phone",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.title": "Not all devices support eSIMs",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.description": "While most modern phones are eSIM compatible, if you're using an older model, you may be out of luck.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.iconType": "Document",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.title": "Unfamiliar technology",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.description": "If you're new to eSIMs, you might find the activation process a bit more complex than simply inserting a SIM card.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.iconType": "Shield",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.title": "Not easy to switch devices",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.description": "Moving your eSIM to a different device involves more steps than just swapping a physical SIM card.",
+
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.heading": "What is the difference between an eSIM and a physical SIM?",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.description": "The main difference between an eSIM and a traditional SIM card is that an eSIM is digital while a SIM card is a physical chip",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.footerNote": "*Simfinity is all about mobile data right now, so we don't support phone numbers yet. Don't worry — we're working on it.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.feature": "Feature",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.esim": "eSIM",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.sim": "SIM",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.iconType": "Phone",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.feature": "Phone numbers",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.esim": "Up to two*",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.sim": "Up to two",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.iconType": "Globe",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.feature": "Network Operators",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.esim": "As many as you like",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.sim": "Up to two",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.iconType": "Trash",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.feature": "Removal",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.esim": "Deactivate the profile",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.sim": "Remove the SIM card",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.iconType": "CheckCircle",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.feature": "Activation",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.esim": "Manual or automatic (plan activates at your destination)",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.sim": "Manual (need to insert a card into your device)",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.iconType": "Smartphone",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.feature": "Compatibility",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.esim": "Newer devices only",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.sim": "Old and most new devices",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.iconType": "Signal",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.feature": "Using abroad",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.esim": "Affordable — easy to get data plans for different countries",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.sim": "May be expensive due to roaming",
+
+
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.ctaButton": "View All Destinations",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+   
+  "NewSimfinDes.heroSecData.title": "Affordable eSIM data for international travel",
+
+  "NewSimfinDes.HowWorksteps.1.title": "Choose a Plan",
+  "NewSimfinDes.HowWorksteps.1.description": "Pick the data plan you need for your trip.",
+  "NewSimfinDes.HowWorksteps.2.title": "Scan & Activate",
+  "NewSimfinDes.HowWorksteps.2.description": "Receive a QR code, scan it, and your eSIM is instantly installed.",
+  "NewSimfinDes.HowWorksteps.3.title": "Start Browsing",
+  "NewSimfinDes.HowWorksteps.3.description": "Your plan activates automatically when you land, no SIM swapping needed.",
+
+  "NewSimfinDes.WhyChoosefeatures.0.title": "Retain your WhatsApp number",
+  "NewSimfinDes.WhyChoosefeatures.0.description": "You will only get mobile data and keep your original phone number.",
+  "NewSimfinDes.WhyChoosefeatures.1.title": "Flexible Data Plans",
+  "NewSimfinDes.WhyChoosefeatures.1.description": "Only traveling for a week? Skip the monthly plan—grab a 7-day pack and get just the data you need!",
+  "NewSimfinDes.WhyChoosefeatures.2.title": "Purchase Once, Top Up Anytime",
+  "NewSimfinDes.WhyChoosefeatures.2.description": "Out of data but need more right away? Top up anytime with extra GB—no need to extend your plan!",
+  "NewSimfinDes.WhyChoosefeatures.3.title": "Avoid high roaming charges",
+  "NewSimfinDes.WhyChoosefeatures.3.description": "Choose an eSIM plan tailored to your needs, connect with local carriers, and take charge of your bills!",
+
+  "NewSimfinDes.BuilderFeatures.secTitle": "How to Buy & Use eSIM",
+  "NewSimfinDes.BuilderFeatures.0.title": "Choose Your eSIM Plan",
+  "NewSimfinDes.BuilderFeatures.0.subtitle": "Find the perfect plan for your journey",
+  "NewSimfinDes.BuilderFeatures.1.title": "Complete Secure Payment",
+  "NewSimfinDes.BuilderFeatures.1.subtitle": "Fast and safe checkout process",
+  "NewSimfinDes.BuilderFeatures.2.title": "Receive Your eSIM Instantly",
+  "NewSimfinDes.BuilderFeatures.2.subtitle": "No waiting, no shipping",
+  "NewSimfinDes.BuilderFeatures.3.title": "Install eSIM on Your Device",
+  "NewSimfinDes.BuilderFeatures.3.subtitle": "Setup in just a few minutes",
+  "NewSimfinDes.BuilderFeatures.4.title": "Activate & Start Using",
+  "NewSimfinDes.BuilderFeatures.4.subtitle": "Stay connected wherever you travel",
+
+  "NewSimfinDes.WhatIsEsim.setUpEsim.0.label": "For iPhone",
+  "NewSimfinDes.WhatIsEsim.setUpEsim.0.title": "Install eSIM on iPhone",
+  "NewSimfinDes.WhatIsEsim.setUpEsim.1.label": "For Android",
+  "NewSimfinDes.WhatIsEsim.setUpEsim.1.title": "Install eSIM on Android",
+  "NewSimfinDes.WhatIsEsim.setUpEsim.2.label": "Other Methods",
+  "NewSimfinDes.WhatIsEsim.setUpEsim.2.title": "Alternative Installation Methods",
+
+  "NewSimfinDes.WhatIsEsim.WhatIsEsim.FAQData.title": "What is an eSIM?",
+  "NewSimfinDes.WhatIsEsim.WhatIsEsim.FAQData.faqs.0.question": "What is an eSIM?",
+  "NewSimfinDes.WhatIsEsim.WhatIsEsim.FAQData.faqs.0.answer": "An eSIM is a digital SIM that lets you activate a cellular plan without a physical SIM card.",
+  "NewSimfinDes.WhatIsEsim.WhatIsEsim.FAQData.faqs.1.question": "How do I install an eSIM?",
+  "NewSimfinDes.WhatIsEsim.WhatIsEsim.FAQData.faqs.1.answer": "You can scan the QR code or install through the app—in just a few minutes you'll be online.",
+  "NewSimfinDes.WhatIsEsim.WhatIsEsim.FAQData.faqs.2.question": "Can I keep my old SIM?",
+  "NewSimfinDes.WhatIsEsim.WhatIsEsim.FAQData.faqs.2.answer": "Yes, your current SIM stays in your phone while you use the eSIM.",
+  "NewSimfinDes.WhatIsEsim.WhatIsEsim.FAQData.faqs.3.question": "Does eSIM support data only?",
+  "NewSimfinDes.WhatIsEsim.WhatIsEsim.FAQData.faqs.3.answer": "Yes, many plans are data-only, perfect for travel.",
+   
+  
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.label": "On iPhone",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.title": "Set up with the Simfinity iPhone App",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.0.stepTitle": "Open the Simfinity App",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.0.description": "Launch the Simfinity eSIM app on your iPhone.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.1.stepTitle": "Select Your Destination",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.1.description": "Pick the country where you’ll use your data plan.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.2.stepTitle": "Install Your eSIM",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.2.description": "Scan the QR code or follow the on-screen instructions to install.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.heading": "Manual iPhone Setup",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.0": "Go to Settings > Cellular.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.1": "Tap Add eSIM and scan the QR code.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.2": "Follow the install prompts to complete.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.3": "Activate the plan when prompted.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.label": "On Android",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.title": "Set up with the Simfinity Android App",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.0.stepTitle": "Open the Android App",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.0.description": "Launch the Simfinity app on your Android device.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.1.stepTitle": "Choose a Data Plan",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.1.description": "Select the eSIM plan you want to use.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.2.stepTitle": "Install via QR",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.2.description": "Scan QR code or follow the setup instructions.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.heading": "Manual Android Setup",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.0": "Go to Settings > Network & Internet.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.1": "Tap SIMs > Add eSIM.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.2": "Scan the QR code shown in the app.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.3": "Complete the installation prompts.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title": "Download App – Frequently Asked Questions",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.question": "Is the Simfinity app free?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.answer": "Yes, downloading and using the app is completely free.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.question": "Can I use the app on multiple devices?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.answer": "You can install the app on any compatible device, but eSIM plans are tied to a single device.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.question": "Do I need an internet connection?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.answer": "Yes, you need internet to download and install your eSIM plan.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.question": "Is support available?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.answer": "Our support team is available 24/7 via chat and email.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.question": "Do I need a physical SIM?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.answer": "No, eSIMs are digital and replace the need for a physical SIM card.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.question": "Can I preview plans offline?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.answer": "Previewing plans requires an internet connection.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.question": "Are there in-app notifications?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.answer": "Yes, you’ll receive updates and alerts in the app.",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.question": "Can I delete my eSIM later?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.answer": "Yes, you can remove the eSIM profile in your phone settings.",
+  "NewSimfinDes.Security_Features.heroSec.title": "Safe Travels with Simfinity Security Features",
+  "NewSimfinDes.Security_Features.heroSec.description": "Protect your data and browsing wherever you explore.",
+  "NewSimfinDes.Security_Features.Safe_travels.title": "Secure Your Connection Abroad",
+  "NewSimfinDes.Security_Features.Safe_travels.description": "Stay safe from trackers and malware while using public networks.",
+  "NewSimfinDes.Security_Features.Left_rightImage.virtualLocation.subtitle": "Virtual Location",
+  "NewSimfinDes.Security_Features.Left_rightImage.virtualLocation.title": "Change Your Virtual Location",
+  "NewSimfinDes.Security_Features.Left_rightImage.virtualLocation.description": "Browse with a virtual location for privacy and content access.",
+  "NewSimfinDes.Security_Features.Left_rightImage.virtualLocation.benefits.0.text": "Browse privately",
+  "NewSimfinDes.Security_Features.Left_rightImage.virtualLocation.benefits.1.text": "Access global content",
+  "NewSimfinDes.Security_Features.Left_rightImage.virtualLocation.benefits.2.text": "Hide your real IP address",
+  "NewSimfinDes.Security_Features.Left_rightImage.virtualLocation.imageAlt": "Globe showing virtual location",
+  "NewSimfinDes.Security_Features.Left_rightImage.adBlocker.subtitle": "Ad Blocker",
+  "NewSimfinDes.Security_Features.Left_rightImage.adBlocker.title": "Block Intrusive Ads",
+  "NewSimfinDes.Security_Features.Left_rightImage.adBlocker.description": "Prevent annoying ads and save mobile data.",
+  "NewSimfinDes.Security_Features.Left_rightImage.adBlocker.benefits.0.text": "Fewer distractions",
+  "NewSimfinDes.Security_Features.Left_rightImage.adBlocker.benefits.1.text": "Reduced data usage",
+  "NewSimfinDes.Security_Features.Left_rightImage.adBlocker.benefits.2.text": "Faster browsing",
+  "NewSimfinDes.Security_Features.Left_rightImage.adBlocker.imageAlt": "Interface showing ad blocker",
+  "NewSimfinDes.Security_Features.Left_rightImage.webProtection.subtitle": "Web Protection",
+  "NewSimfinDes.Security_Features.Left_rightImage.webProtection.title": "Stay Safe Online",
+  "NewSimfinDes.Security_Features.Left_rightImage.webProtection.description": "Block malicious sites and protect your privacy.",
+  "NewSimfinDes.Security_Features.Left_rightImage.webProtection.benefits.0.text": "Block threats",
+  "NewSimfinDes.Security_Features.Left_rightImage.webProtection.benefits.1.text": "Limit trackers",
+  "NewSimfinDes.Security_Features.Left_rightImage.webProtection.benefits.2.text": "Secure browsing",
+  "NewSimfinDes.Security_Features.Left_rightImage.webProtection.imageAlt": "Shield icon for protection",
+  "NewSimfinDes.Security_Features.Left_rightImage.support24x7.heading": "24/7 Support Available",
+  "NewSimfinDes.Security_Features.Left_rightImage.support24x7.description": "Our team is here to help anytime you need assistance.",
+  "NewSimfinDes.Security_Features.Left_rightImage.support24x7.button.text": "Contact Support",
+  "NewSimfinDes.Security_Features.Left_rightImage.support24x7.button.href": "/support",
+  "NewSimfinDes.Security_Features.SecurityFeaturesValues.title": "Key Security Benefits",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.subtitle": "Why this matters",
+  "NewSimfinDes.Security_Features.SecurityFeaturesValues.values.0.title": "No roaming charges",
+  "NewSimfinDes.Security_Features.SecurityFeaturesValues.values.0.description": "Avoid expensive roaming fees abroad.",
+  "NewSimfinDes.Security_Features.SecurityFeaturesValues.values.1.title": "Multiple profiles",
+  "NewSimfinDes.Security_Features.SecurityFeaturesValues.values.1.description": "Store more than one eSIM profile.",
+  "NewSimfinDes.Security_Features.SecurityFeaturesValues.values.2.title": "Pay as you go",
+  "NewSimfinDes.Security_Features.SecurityFeaturesValues.values.2.description": "Buy only the data you need.",
+  "NewSimfinDes.Security_Features.SecurityFeaturesValues.values.৩.title": "Device compatibility",
+  "NewSimfinDes.Security_Features.SecurityFeaturesValues.values.৩.description": "Works with most eSIM-compatible phones.",
+  "NewSimfinDes.Security_Features.SecurityFeaturesValues.values.৪.title": "Fast activation",
+  "NewSimfinDes.Security_Features.SecurityFeaturesValues.values.৪.description": "Get connected instantly upon arrival.",
+  "NewSimfinDes.Security_Features.SecurityFeaturesValues.values.৫.title": "Eco-friendly",
+  "NewSimfinDes.Security_Features.SecurityFeaturesValues.values.৫.description": "No plastic SIM waste."
+
+
+
+      
     },
     "userPanel": {
         "dashboard.title": "Dashboard",
@@ -1077,9 +1337,14 @@
 
 
          "WhatIsEsim": {
-        "heroTittle": "What is an eSIM — and why travelers love it",
-        "herodes": "An eSIM is a digital SIM built directly into your phone. No physical card. No swapping. No store visits. Just scan, activate, and you’re online instantly. With an eSIM, you can stay connected the moment you land — without paying expensive roaming fees or searching for a local SIM shop. Simfinity eSIMs make travel simple: fast activation, affordable data, and global coverage in minutes.",
-        "ctaButton":"Choose Your Destination"
+        "WhatIsEsim.content.heroTittle": "What is an eSIM — and why travelers love it",
+        "WhatIsEsim.content.herodes": "An eSIM is a digital SIM built directly into your phone. No physical card. No swapping. No store visits. Just scan, activate, and you’re online instantly. With an eSIM, you can stay connected the moment you land — without paying expensive roaming fees or searching for a local SIM shop. Simfinity eSIMs make travel simple: fast activation, affordable data, and global coverage in minutes.",
+        "WhatIsEsim.content.ctaButton":"Choose Your Destination",
+        "WhatIsEsim.content.heading": " What is an eSIM — and why travelers love it?",
+        "WhatIsEsim.content.des": " An eSIM is a digital SIM built directly into your phone. No physical card. No",
+        "WhatIsEsim.content.paragraph1": "An eSIM is an embedded subscriber identity module — essentially, a built-in chip in your phone. It does everything a traditional SIM would do, but without having to slot a tiny card into your phone. Additionally, an eSIM allows you to use several carriers and phone numbers at once, which is super convenient.",
+      "WhatIsEsim.content.paragraph2": "eSIMs are available on smartphones, tablets, smartwatches, and even some cars! They're great for quickly switching between phone numbers and grabbing mobile data for travel."
+                                                
     },
 
 

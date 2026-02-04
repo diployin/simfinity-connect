@@ -261,7 +261,50 @@
     "compatibleDevices.apple": "Apple",
     "compatibleDevices.samsung": "Samsung",
     "compatibleDevices.google": "Google",
-    "compatibleDevices.other": "अन्य ब्रांड"
+    "compatibleDevices.other": "अन्य ब्रांड",
+
+
+
+  
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.heading": "eSIM और फिज़िकल SIM में क्या अंतर है?",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.description": "eSIM और पारंपरिक SIM कार्ड के बीच मुख्य अंतर यह है कि eSIM डिजिटल होती है, जबकि SIM कार्ड एक फिज़िकल चिप होती है।",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.footerNote": "*Simfinity फिलहाल केवल मोबाइल डेटा पर फोकस करता है, इसलिए अभी फोन नंबर सपोर्ट नहीं करता। चिंता न करें — इस पर काम चल रहा है।",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.feature": "फ़ीचर",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.esim": "eSIM",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.sim": "SIM",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.iconType": "Phone",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.feature": "फोन नंबर",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.esim": "दो तक*",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.sim": "दो तक",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.iconType": "Globe",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.feature": "नेटवर्क ऑपरेटर",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.esim": "जितने चाहें उतने",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.sim": "दो तक",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.iconType": "Trash",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.feature": "हटाने की प्रक्रिया",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.esim": "प्रोफ़ाइल को निष्क्रिय करें",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.sim": "SIM कार्ड निकालें",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.iconType": "CheckCircle",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.feature": "एक्टिवेशन",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.esim": "मैनुअल या ऑटोमैटिक (डेस्टिनेशन पर पहुँचते ही प्लान एक्टिव हो जाता है)",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.sim": "मैनुअल (डिवाइस में कार्ड डालना पड़ता है)",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.iconType": "Smartphone",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.feature": "कम्पैटिबिलिटी",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.esim": "केवल नए डिवाइस",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.sim": "पुराने और ज़्यादातर नए डिवाइस",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.iconType": "Signal",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.feature": "विदेश में उपयोग",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.esim": "किफायती — अलग-अलग देशों के लिए डेटा प्लान आसानी से मिलते हैं",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.sim": "रोमिंग के कारण महंगा हो सकता है"
+
+
   },
   "userPanel": {
     "dashboard.title": "डैशबोर्ड",

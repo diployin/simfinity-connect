@@ -38,106 +38,106 @@ const EsimBenefitsSection = () => {
   const tabsData: TabContent[] = [
     {
       id: 0,
-      label: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.label'),
-      heading: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.heading'),
-      subheading: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.subheading'),
+      label: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.label'),
+      heading: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.heading'),
+      subheading: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.subheading'),
       items: [
         {
           id: 1,
           iconType: t(
-            'NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.iconType',
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.iconType',
           ),
-          title: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.title'),
+          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.title'),
           description: t(
-            'NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.description',
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.description',
           ),
         },
         {
           id: 2,
           iconType: t(
-            'NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.iconType',
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.iconType',
           ),
-          title: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.title'),
+          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.title'),
           description: t(
-            'NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.description',
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.description',
           ),
         },
         {
           id: 3,
           iconType: t(
-            'NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.iconType',
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.iconType',
           ),
-          title: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.title'),
+          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.title'),
           description: t(
-            'NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.description',
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.description',
           ),
         },
         {
           id: 4,
           iconType: t(
-            'NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.iconType',
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.iconType',
           ),
-          title: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.title'),
+          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.title'),
           description: t(
-            'NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.description',
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.description',
           ),
         },
         {
           id: 5,
           iconType: t(
-            'NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.iconType',
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.iconType',
           ),
-          title: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.title'),
+          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.title'),
           description: t(
-            'NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.description',
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.description',
           ),
         },
         {
           id: 6,
           iconType: t(
-            'NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.iconType',
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.iconType',
           ),
-          title: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.title'),
+          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.title'),
           description: t(
-            'NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.description',
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.description',
           ),
         },
       ],
     },
     {
       id: 1,
-      label: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.label'),
-      heading: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.heading'),
-      subheading: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.subheading'),
+      label: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.label'),
+      heading: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.heading'),
+      subheading: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.subheading'),
       items: [
         {
           id: 1,
           iconType: t(
-            'NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.iconType',
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.iconType',
           ),
-          title: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.title'),
+          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.title'),
           description: t(
-            'NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.description',
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.description',
           ),
         },
         {
           id: 2,
           iconType: t(
-            'NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.iconType',
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.iconType',
           ),
-          title: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.title'),
+          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.title'),
           description: t(
-            'NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.description',
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.description',
           ),
         },
         {
           id: 3,
           iconType: t(
-            'NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.iconType',
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.iconType',
           ),
-          title: t('NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.title'),
+          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.title'),
           description: t(
-            'NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.description',
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.description',
           ),
         },
       ],

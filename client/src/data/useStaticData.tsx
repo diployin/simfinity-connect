@@ -216,16 +216,16 @@ const useStaticData = () => {
     DowonloadEsim: {
       setupTabs: [
         {
-          label: t('NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.label'),
-          title: t('NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.title'),
+          label: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.label'),
+          title: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.title'),
           steps: [
             {
               number: '1',
               stepTitle: t(
-                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.0.stepTitle',
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.0.stepTitle',
               ),
               description: t(
-                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.0.description',
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.0.description',
               ),
               // image: '/images/download-app/card-choose-data-plan (1).svg'
               image: '/images/setupStep/step1.png',
@@ -233,10 +233,10 @@ const useStaticData = () => {
             {
               number: '2',
               stepTitle: t(
-                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.1.stepTitle',
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.1.stepTitle',
               ),
               description: t(
-                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.1.description',
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.1.description',
               ),
               // image: '/images/whatEsim/card-setup-instructions.svg'
               image: '/images/setupStep/step2.png',
@@ -244,10 +244,10 @@ const useStaticData = () => {
             {
               number: '3',
               stepTitle: t(
-                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.2.stepTitle',
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.2.stepTitle',
               ),
               description: t(
-                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.2.description',
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.2.description',
               ),
               // image: '/images/whatEsim/card-activate-plan.svg'
               image: '/images/setupStep/step3.png',
@@ -255,27 +255,27 @@ const useStaticData = () => {
           ],
           instructions: {
             heading: t(
-              'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.heading',
+              'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.heading',
             ),
             steps: [
-              t('NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.0'),
-              t('NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.1'),
-              t('NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.2'),
-              t('NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.3'),
+              t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.0'),
+              t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.1'),
+              t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.2'),
+              t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.3'),
             ],
           },
         },
         {
-          label: t('NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.label'),
-          title: t('NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.title'),
+          label: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.label'),
+          title: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.title'),
           steps: [
             {
               number: '1',
               stepTitle: t(
-                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.0.stepTitle',
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.0.stepTitle',
               ),
               description: t(
-                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.0.description',
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.0.description',
               ),
               // image: '/images/download-app/card-choose-data-plan (1).svg'
               image: '/images/setupStep/step1.png',
@@ -283,10 +283,10 @@ const useStaticData = () => {
             {
               number: '2',
               stepTitle: t(
-                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.1.stepTitle',
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.1.stepTitle',
               ),
               description: t(
-                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.1.description',
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.1.description',
               ),
               // image: '/images/download-app/card-download-esim-app.svg'
               image: '/images/setupStep/step2.png',
@@ -294,10 +294,10 @@ const useStaticData = () => {
             {
               number: '3',
               stepTitle: t(
-                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.2.stepTitle',
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.2.stepTitle',
               ),
               description: t(
-                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.2.description',
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.2.description',
               ),
               // image: '/images/whatEsim/card-activate-plan.svg'
               image: '/images/setupStep/step3.png',
@@ -305,13 +305,13 @@ const useStaticData = () => {
           ],
           instructions: {
             heading: t(
-              'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.heading',
+              'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.heading',
             ),
             steps: [
-              t('NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.0'),
-              t('NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.1'),
-              t('NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.2'),
-              t('NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.3'),
+              t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.0'),
+              t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.1'),
+              t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.2'),
+              t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.3'),
             ],
           },
         },
@@ -590,8 +590,8 @@ const useStaticData = () => {
     WhatIsEsim: {
       setUpEsim: [
         {
-          label: t('NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.label'),
-          title: t('NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.title'),
+          label: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.label'),
+          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.title'),
           steps: [
             {
               number: '1',
@@ -621,7 +621,7 @@ const useStaticData = () => {
             },
           ],
           instructions: {
-            heading: t('NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.instructions.heading'),
+            heading: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.instructions.heading'),
             steps: [
               t('NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.instructions.steps.0'),
               t('NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.instructions.steps.1'),
