@@ -14,7 +14,7 @@ interface Feature {
 const WhyChooseSailySection = () => {
   const { t } = useTranslation();
 
-  console.log(t('NewSimfinDes.WhyChooseSailySection.features.0.title', '❌ NOT FOUND'));
+  console.log(t('NewSimfinDes.WhyChooseSai', '❌ NOT FOUND'));
 
   // Icon mapping by ID
   const iconMap: Record<number, React.ReactNode> = {
@@ -104,11 +104,7 @@ const WhyChooseSailySection = () => {
         {/* Header */}
         <div className="mb-12 sm:mb-16">
           <p className="mb-3 text-center text-sm font-normal text-gray-400 sm:text-base md:text-start">
-<<<<<<< HEAD
             {t('WhyChooseSailySectionHeader.subtitle')}
-=======
-            {t('NewSimfinDes.WhyChooseSailySectionHeader.subtitle')}
->>>>>>> 99b8fa4550d42129eb4fee7917d269e9dbfb9de2
           </p>
           <h2 className="text-center text-3xl leading-tight font-medium text-black sm:text-4xl md:text-start lg:text-5xl xl:text-4xl">
             {t('WhyChooseSailySectionHeader.title')}

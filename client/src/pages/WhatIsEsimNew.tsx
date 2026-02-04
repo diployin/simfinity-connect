@@ -43,9 +43,9 @@ const WhatEsimNew = () => {
               <div className="">
                 <Link
                   href="/contact"
-                  className="bg-themeYellow hover:bg-themeYellowHover inline-block rounded-full border px-8 py-3.5 text-base font-medium text-white transition-colors duration-200"
+                  className="bg-themeYellow hover:bg-themeYellowHover inline-block rounded-full border px-8 py-3.5 text-base font-medium text-black transition-colors duration-200"
                 >
-                  {t('NewSimfinDes.what_is_esim.WhatIsEsim.heroSection.ctaButton')}
+                  {t('WhatIsEsim.ctaButton')}
                 </Link>
               </div>
             </div>
