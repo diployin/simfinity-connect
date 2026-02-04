@@ -216,16 +216,16 @@ const useStaticData = () => {
     DowonloadEsim: {
       setupTabs: [
         {
-          label: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.label'),
-          title: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.title'),
+          label: t('NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.label'),
+          title: t('NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.title'),
           steps: [
             {
               number: '1',
               stepTitle: t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.0.stepTitle',
+                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.0.stepTitle',
               ),
               description: t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.0.description',
+                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.0.description',
               ),
               // image: '/images/download-app/card-choose-data-plan (1).svg'
               image: '/images/setupStep/step1.png',
@@ -233,10 +233,10 @@ const useStaticData = () => {
             {
               number: '2',
               stepTitle: t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.1.stepTitle',
+                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.1.stepTitle',
               ),
               description: t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.1.description',
+                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.1.description',
               ),
               // image: '/images/whatEsim/card-setup-instructions.svg'
               image: '/images/setupStep/step2.png',
@@ -258,10 +258,18 @@ const useStaticData = () => {
               'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.heading',
             ),
             steps: [
-              t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.0'),
-              t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.1'),
-              t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.2'),
-              t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.3'),
+              t(
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.0',
+              ),
+              t(
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.1',
+              ),
+              t(
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.2',
+              ),
+              t(
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.3',
+              ),
             ],
           },
         },
@@ -308,10 +316,18 @@ const useStaticData = () => {
               'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.heading',
             ),
             steps: [
-              t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.0'),
-              t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.1'),
-              t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.2'),
-              t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.3'),
+              t(
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.0',
+              ),
+              t(
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.1',
+              ),
+              t(
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.2',
+              ),
+              t(
+                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.3',
+              ),
             ],
           },
         },
@@ -621,7 +637,9 @@ const useStaticData = () => {
             },
           ],
           instructions: {
-            heading: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.instructions.heading'),
+            heading: t(
+              'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.instructions.heading',
+            ),
             steps: [
               t('NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.instructions.steps.0'),
               t('NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.instructions.steps.1'),
@@ -1002,84 +1020,70 @@ const useStaticData = () => {
         },
       },
       helpMegaMenuConfig: {
-        label: t('NewSimfinDes.NavbarData.helpMegaMenuConfig.label'),
-        badge: t('NewSimfinDes.NavbarData.helpMegaMenuConfig.badge'),
+        label: t('HeaderLinks.HelpLabel'),
+        badge: t('HeaderLinks.HelpBadge'),
+
         columns: [
           {
-            title: t('NewSimfinDes.NavbarData.helpMegaMenuConfig.columns.0.title'),
+            title: t('HeaderLinks.HelpColumnStartTitle'),
             items: [
               {
-                label: t('NewSimfinDes.NavbarData.helpMegaMenuConfig.columns.0.items.0.label'),
+                label: t('HeaderLinks.HelpGettingStartedTitle'),
                 href: '/getting-started',
-                description: t(
-                  'NewSimfinDes.NavbarData.helpMegaMenuConfig.columns.0.items.0.description',
-                ),
+                description: t('HeaderLinks.HelpGettingStartedDesc'),
                 icon: <BookOpen className="h-5 w-5" />,
                 badge: 'New',
               },
               {
-                label: t('NewSimfinDes.NavbarData.helpMegaMenuConfig.columns.0.items.1.label'),
+                label: t('HeaderLinks.HelpCenterTitle'),
                 href: '/help-center',
-                description: t(
-                  'NewSimfinDes.NavbarData.helpMegaMenuConfig.columns.0.items.1.description',
-                ),
+                description: t('HeaderLinks.HelpCenterDesc'),
                 icon: <LifeBuoy className="h-5 w-5" />,
               },
               {
-                label: t('NewSimfinDes.NavbarData.helpMegaMenuConfig.columns.0.items.2.label'),
+                label: t('HeaderLinks.HelpTroubleshootingTitle'),
                 href: '/troubleshooting',
-                description: t(
-                  'NewSimfinDes.NavbarData.helpMegaMenuConfig.columns.0.items.2.description',
-                ),
+                description: t('HeaderLinks.HelpTroubleshootingDesc'),
                 icon: <Wrench className="h-5 w-5" />,
               },
             ],
           },
+
           {
-            title: t('NewSimfinDes.NavbarData.helpMegaMenuConfig.columns.1.title'),
+            title: t('HeaderLinks.HelpColumnSupportTitle'),
             items: [
               {
-                label: t('NewSimfinDes.NavbarData.helpMegaMenuConfig.columns.1.items.0.label'),
+                label: t('HeaderLinks.HelpFaqTitle'),
                 href: '/faq',
-                description: t(
-                  'NewSimfinDes.NavbarData.helpMegaMenuConfig.columns.1.items.0.description',
-                ),
+                description: t('HeaderLinks.HelpFaqDesc'),
                 icon: <HelpCircle className="h-5 w-5" />,
               },
             ],
           },
         ],
+
         slider: {
-          title: t('NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.title'),
+          title: t('HeaderLinks.HelpSliderTitle'),
           items: [
             {
               id: 1,
-              title: t('NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.items.0.title'),
-              description: t(
-                'NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.items.0.description',
-              ),
+              title: t('HeaderLinks.HelpSliderItem1Title'),
+              description: t('HeaderLinks.HelpSliderItem1Desc'),
               image: '/images/menu-images/mega-menu-explore1.png',
-              // image: 'https://placehold.co/800x800.png',
               href: '/ultra-plan',
             },
             {
               id: 2,
-              title: t('NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.items.1.title'),
-              description: t(
-                'NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.items.1.description',
-              ),
+              title: t('HeaderLinks.HelpSliderItem2Title'),
+              description: t('HeaderLinks.HelpSliderItem2Desc'),
               image: '/images/menu-images/mega-menu-explore2.png',
-              // image: 'https://placehold.co/800x800.png',
               href: '/security-features',
             },
             {
               id: 3,
-              title: t('NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.items.2.title'),
-              description: t(
-                'NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.items.2.description',
-              ),
+              title: t('HeaderLinks.HelpSliderItem3Title'),
+              description: t('HeaderLinks.HelpSliderItem3Desc'),
               image: '/images/menu-images/mega-menu-explore3.png',
-              // image: 'https://placehold.co/800x800.png',
               href: '/security-features',
             },
           ],

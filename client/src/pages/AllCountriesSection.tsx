@@ -78,7 +78,7 @@ const AllCountriesSection: React.FC<AllCountriesSectionProps> = ({ limit }) => {
   ========================= */
   return (
     <section className="w-full py-12">
-      <div className="container mx-auto max-w-7xl px-4 mt-32">
+      <div className="container mx-auto max-w-7xl px-4 ">
         {/* ===== HEADER ===== */}
         <div className="mb-12 text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-blue-100 px-4 py-2 text-sm font-medium text-blue-700">

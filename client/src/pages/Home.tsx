@@ -102,27 +102,27 @@ export default function Home() {
           <ReferralSection />
 
           {/* <TopFeaturesStrip /> */}
-          <DestinationsTabs />
-          <PopularEsims />
+          {/* <DestinationsTabs /> */}
+          {/* <PopularEsims /> */}
 
-          <FeatureSectionCompo />
-          <CompleteEsims />
-          <TrustBadges />
-          <NetworkPartners />
-          <SubscriptionBanner />
-          <TravelReadyBanner />
-          <BenefitsSection />
-          <AgencyProblemsSection />
+          {/* <FeatureSectionCompo /> */}
+          {/* <CompleteEsims /> */}
+          {/* <TrustBadges /> */}
+          {/* <NetworkPartners /> */}
+          {/* <SubscriptionBanner /> */}
+          {/* <TravelReadyBanner /> */}
+          {/* <BenefitsSection /> */}
+          {/* <AgencyProblemsSection /> */}
 
-          <HowItWorksSteps />
+          {/* <HowItWorksSteps /> */}
 
-          <ComparisonTable />
-          <FAQWithSupport />
-          <TravelerTestimonials />
+          {/* <ComparisonTable /> */}
+          {/* <FAQWithSupport /> */}
+          {/* <TravelerTestimonials /> */}
         </main>
 
         {/* <SiteFooter /> */}
-        <FloatingButtons />
+        {/* <FloatingButtons /> */}
         {/* <GlobalFloatingNav /> */}
       </div>
     </>

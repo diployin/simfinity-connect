@@ -31,19 +31,19 @@ const ReferralSection = () => {
           <div className="grid grid-cols-1 items-center lg:grid-cols-2">
             {/* Left Side - Content */}
             <div className="relative z-10 order-1 space-y-6 p-8 sm:p-10 lg:p-16 xl:p-20">
-              <h2 className="text-4.5xl leading-tight font-medium text-black">
-                {t('NewSimfinDes.Referfriend.title')}
+              <h2 className="text-4xl leading-tight font-medium text-black">
+                {t('website.heroReferfriend.title')}
               </h2>
 
               <p className="max-w-md text-base leading-relaxed text-gray-700 sm:text-lg">
-                {t('NewSimfinDes.Referfriend.des')}
+                {t('website.heroReferfriend.des')}
               </p>
 
               <Link
                 href="/referral"
                 className="inline-flex items-center justify-center rounded-full border border-gray-300 bg-[#eef1f6] px-8 py-4 font-medium text-black transition-colors duration-200 hover:bg-black hover:text-white"
               >
-                {t('NewSimfinDes.Referfriend.btn')}
+                {t('website.heroReferfriend.btn')}
               </Link>
             </div>
 

@@ -135,7 +135,7 @@ export function NavbarNew() {
         >
           {/* 🔥 TWO PART NAVBAR - LEFT: LOGO | RIGHT: EVERYTHING ELSE */}
           <div className="w-full">
-            <div className="max-w-[1400px] mx-auto px-3 sm:px-4 lg:px-6">
+            <div className="max-w-[1500px] mx-auto px-3 sm:px-4 lg:px-6">
               <div className="flex items-center justify-between h-14 sm:h-16 lg:h-[72px] gap-3 sm:gap-4">
                 {/* 🔥 LEFT SIDE - LOGO ONLY */}
                 <Link href="/" className="flex-shrink-0" data-testid="link-home">

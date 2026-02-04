@@ -147,7 +147,7 @@ const TravelDestinationTabsNew = () => {
             {/* Country */}
             <TabsTrigger
               value="country"
-              className="rounded-full px-5 py-2 text-sm font-medium 
+              className="rounded-full px-5 py-2 text-base font-medium 
     text-gray-600 
     data-[state=active]:bg-black 
     data-[state=active]:text-white"
@@ -158,7 +158,7 @@ const TravelDestinationTabsNew = () => {
             {/* Region */}
             <TabsTrigger
               value="region"
-              className="rounded-full px-5 py-2 text-sm font-medium 
+              className="rounded-full px-5 py-2 text-base font-medium 
     text-gray-600 
     data-[state=active]:bg-black 
     data-[state=active]:text-white"
@@ -169,7 +169,7 @@ const TravelDestinationTabsNew = () => {
             {/* Ultra */}
             <TabsTrigger
               value="ultra"
-              className="rounded-full px-5 py-2 text-sm font-medium 
+              className="rounded-full px-5 py-2 text-base font-medium 
     text-gray-600 
     data-[state=active]:bg-black 
     data-[state=active]:text-white flex items-center"
@@ -182,7 +182,7 @@ const TravelDestinationTabsNew = () => {
 
             <TabsTrigger
               value="passport"
-              className="rounded-full px-5 py-2 text-sm font-medium 
+              className="rounded-full px-5 py-2 text-base font-medium 
     text-gray-600 
     data-[state=active]:bg-black 
     data-[state=active]:text-white"
