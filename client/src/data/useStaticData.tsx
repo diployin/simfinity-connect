@@ -756,7 +756,7 @@ const useStaticData = () => {
         ],
       },
     },
-     NavbarData: {
+    NavbarData: {
       rouceMegaMenuConfig: {
         columns: [
           {

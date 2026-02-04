@@ -59,19 +59,17 @@ const TravelDestinationTabsNew = () => {
   const [, navigate] = useLocation();
   const { currency, currencies } = useCurrency();
 
-  const { data: allDestinations = [], isLoading: loadingDestinations } =
-    useQuery<Destination[]>({
-      queryKey: ['/api/destinations/with-pricing'],
-    });
+  const { data: allDestinations = [], isLoading: loadingDestinations } = useQuery<Destination[]>({
+    queryKey: ['/api/destinations/with-pricing'],
+  });
 
   const { data: allRegions = [], isLoading: loadingRegions } = useQuery<Region[]>({
     queryKey: ['/api/regions/with-pricing'],
   });
 
-  const { data: allGlobalPackages = [], isLoading: loadingGlobal } =
-    useQuery<GlobalPackage[]>({
-      queryKey: ['/api/packages/global'],
-    });
+  const { data: allGlobalPackages = [], isLoading: loadingGlobal } = useQuery<GlobalPackage[]>({
+    queryKey: ['/api/packages/global'],
+  });
 
   const countries = useMemo(
     () =>
@@ -131,9 +129,7 @@ const TravelDestinationTabsNew = () => {
               {t('travelTabs.title')}
             </h2>
 
-            <Button onClick={() => navigate('/destinations')}>
-              {t('travelTabs.viewAll')}
-            </Button>
+            <Button onClick={() => navigate('/destinations')}>{t('travelTabs.viewAll')}</Button>
           </div>
 
           <p className="text-center text-base text-gray-600 sm:text-lg md:text-start">

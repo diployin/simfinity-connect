@@ -156,42 +156,20 @@ const HeroSection = () => {
   const staticData = useStaticData();
 
   return (
-    // 58B0EC
-    <div
-      className="relative w-full overflow-hidden"
-      style={{
-        background: 'linear-gradient(130deg, #4C9540 0%, #0f5130 100%)',
-      }}
-    >
+    <div className="relative w-full overflow-hidden bg-[url('/images/Banner.png')] bg-cover bg-center ">
+      <div className="absolute inset-0 bg-black/10"></div>
       {/* Desktop Layout */}
-      <div className="relative hidden min-h-screen w-full overflow-hidden lg:block">
-        <div className="grid min-h-screen grid-cols-1 items-center lg:grid-cols-2">
+      <div className="relative hidden min-h-screen containers mx-auto overflow-hidden lg:block z-10">
+        <div className="grid min-h-screen items-center lg:grid-cols-[60%_40%]">
           {/* Left Side - Text Content with Container Padding (only left) */}
-          <div className="flex flex-col justify-center py-16 pr-8 pl-4 sm:pl-6 lg:pl-8 xl:pl-16 2xl:pl-42">
-            <h1 className="max-w-xl text-4xl leading-tight font-medium text-white lg:text-5xl xl:text-5xl">
-              {/* {staticData.heroSecData.title} */}
-              {/* {t('NewSimfinDes.heroSec.title')} */}
-              {/* Woah! These are the cheapest eSIM plans I’ve ever seen! */}
+          <div className="flex flex-col justify-center  pr-8 ">
+            <h1 className="max-w-xl text-4xl leading-tight font-medium text-black lg:text-5xl xl:text-5xl">
               {t('hero.headline')}
             </h1>
 
-            <div className="space-y-2 pt-6">
-              <p className="text-lg font-medium text-white">
-                {/* {t('NewSimfinDes.heroSec.Browse')} */}
-                {/* Pick your perfect eSIM plan — the smart choice for every traveler.Amazing Cashback! */}
-                {t('hero.subheading')}
-              </p>
-
-              <div className="">
-                {/* <p className='text-base font-normal text-white'>{t('NewSimfinDes.heroSec.Get')}</p> */}
-                {/* <p className="text-base font-normal text-white">{t('NewSimfinDes.heroSec.Up')}</p> */}
-                <p className="text-base font-normal text-white">{t('hero.cashbackOffer')}</p>
-              </div>
-            </div>
-
             {/* Search Box */}
             <div className="w-full max-w-sm">
-              <p className="my-4 text-base font-medium text-white xl:text-lg">
+              <p className="my-4 text-base font-medium text-black xl:text-lg">
                 {/* {t('NewSimfinDes.heroSec.Where_do')} */}
                 {t('hero.searchSubtitle')}
               </p>
@@ -219,17 +197,17 @@ const HeroSection = () => {
             </div>
 
             {/* Brand Credit */}
-            <div className="flex items-center gap-3 py-4 lg:py-6">
+            {/* <div className="flex items-center gap-3 py-4 lg:py-6">
               <p className="text-xs font-normal text-white/80 xl:text-sm">
                 {t('hero.brandCredit')}
               </p>
               <div className="flex items-center gap-2 rounded-lg bg-white">
                 <img src="/images/brands/cits.svg" className="h-12" alt="NordVPN" />
               </div>
-            </div>
+            </div> */}
 
             {/* Terms Link */}
-            <p className="text-xs font-normal text-white/80">
+            <p className="text-xs font-normal text-white/80 mt-5">
               {t('hero.termsPromo')}
               <Link href="#" className="underline transition-colors hover:text-black">
                 {t('hero.termsLink')}
@@ -239,32 +217,8 @@ const HeroSection = () => {
 
           {/* Right Side - Image (Full Width, No Padding) */}
           <div className="relative flex h-full w-full items-center justify-center">
-            <div className="relative h-[600px] w-full lg:h-[700px] xl:h-[750px]">
-              <img
-                src={staticData.heroSecData.image}
-                alt="Happy traveler with eSIM"
-                className="object-contain object-center"
-                sizes="50vw"
-              />
-
-              {/* Floating Badge on Image */}
-              <div className="absolute top-[30%] left-1/4 z-10 -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white px-5 py-4 shadow-2xl lg:left-1/3">
-                <div className="flex items-center gap-3">
-                  <div className="bg-primary rounded-xl p-2">
-                    <svg className="h-5 w-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-sm font-normal whitespace-nowrap text-black">
-                      {t('hero.badgeText1')}
-                    </p>
-                    <p className="text-base font-bold whitespace-nowrap text-black">
-                      {t('hero.badgeText2')}
-                    </p>
-                  </div>
-                </div>
-              </div>
+            <div className="relative ">
+             
             </div>
           </div>
         </div>
@@ -373,11 +327,6 @@ const HeroSection = () => {
           </div>
         </div>
       </div>
-      {/* <DestinationModal
-        isOpen={showDestinationModal}
-        onClose={() => setShowDestinationModal(false)}
-        onSelect={handleDestinationSelect}
-      /> */}
 
       {isSearchModalOpen && (
         <SearchModalHero open={isSearchModalOpen} onOpenChange={setIsSearchModalOpen} />

@@ -7,6 +7,7 @@ import Autoplay from 'embla-carousel-autoplay';
 import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'wouter';
+import { cn } from '@/lib/utils';
 
 interface MegaMenuItem {
   label: string;
@@ -58,6 +59,15 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
     autoplayRef.current,
   ]);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Outside click handler
   useEffect(() => {
@@ -132,7 +142,10 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
       <button
         type="button"
         onClick={handleToggle}
-        className="flex items-center gap-1 py-2 text-sm font-medium text-gray-900 transition-colors hover:text-gray-600"
+        className={cn(
+          'flex items-center gap-1 py-2 text-sm font-medium  transition-colors ',
+          
+        )}
       >
         {label}
         {badge && (

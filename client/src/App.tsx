@@ -123,10 +123,13 @@ import AllDestinations from './pages/AllDestinations';
 import DownloadEsimPage from './pages/DownloadEsimPage';
 import FecurityFeaturesPage from './pages/FecurityFeaturesPage';
 import WhatEsimNew from './pages/WhatIsEsimNew';
+import AllCountriesSection from './pages/AllCountriesSection';
+import AllRegionsSection from './pages/AllRegionsSection';
+import MaintenancePage from './components/sections/landing/MaintenancePage';
 
 // ✅ Route Configs - DRY Approach
 const PUBLIC_ROUTES = [
-  { path: '/', component: Home },
+  // { path: '/', component: MaintenancePage },
   { path: '/destinations', component: Destinations },
   { path: '/destination', component: AllDestinations },
   { path: '/search', component: Search },
@@ -160,9 +163,14 @@ const PUBLIC_ROUTES = [
   { path: '/populer-packages', component: PopularPackagesPage },
   { path: '/download-esim-app', component: DownloadEsimPage },
   { path: '/security-features', component: FecurityFeaturesPage },
+  { path: '/country-plan', component: AllCountriesSection },
+  { path: '/region-plan', component: AllRegionsSection },
 ];
 
-const AUTH_ROUTES = [{ path: '/login', component: Login }];
+const AUTH_ROUTES = [
+  { path: '/login', component: Login },
+  { path: '/', component: MaintenancePage },
+];
 
 const ADMIN_ROUTES = [
   { path: '/admin/login', component: AdminLogin, layout: null },
@@ -537,7 +545,7 @@ function App() {
                             <AuthDialog />
                             <Suspense fallback={<LoadingFallback />}>
                               <Router />
-                              <GlobalFloatingNav />
+                              {/* <GlobalFloatingNav /> */}
                             </Suspense>
                           </TooltipProvider>
                         </AuthDialogProvider>

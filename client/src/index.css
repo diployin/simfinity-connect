@@ -688,37 +688,38 @@
     padding-right: 1rem;
   }
 
+  /* sm */
   @media (min-width: 640px) {
     .containers {
-      max-width: 620px;
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
+      max-width: 560px;
     }
   }
 
+  /* md */
   @media (min-width: 768px) {
     .containers {
-      max-width: 740px;
-      padding-left: 2rem;
-      padding-right: 2rem;
+      max-width: 680px;
     }
   }
 
+  /* lg */
   @media (min-width: 1024px) {
     .containers {
-      max-width: 980px;
+      max-width: 860px;
     }
   }
 
+  /* xl */
   @media (min-width: 1280px) {
     .containers {
-      max-width: 1180px;
+      max-width: 1040px;
     }
   }
 
+  /* 2xl */
   @media (min-width: 1536px) {
     .containers {
-      max-width: 1350px;
+      max-width: 1200px;
     }
   }
 

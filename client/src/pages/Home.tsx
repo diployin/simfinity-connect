@@ -101,8 +101,8 @@ export default function Home() {
           <FAQSection />
           <ReferralSection />
 
-          <TopFeaturesStrip />
-          {/* <DestinationsTabs />
+          {/* <TopFeaturesStrip /> */}
+          <DestinationsTabs />
           <PopularEsims />
 
           <FeatureSectionCompo />
@@ -118,12 +118,12 @@ export default function Home() {
 
           <ComparisonTable />
           <FAQWithSupport />
-          <TravelerTestimonials /> */}
+          <TravelerTestimonials />
         </main>
 
         {/* <SiteFooter /> */}
         <FloatingButtons />
-        <GlobalFloatingNav />
+        {/* <GlobalFloatingNav /> */}
       </div>
     </>
   );
