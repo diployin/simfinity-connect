@@ -156,13 +156,17 @@ const HeroSection = () => {
   const staticData = useStaticData();
 
   return (
-    <div className="relative w-full overflow-hidden bg-[url('/images/Banner.png')] bg-cover bg-center ">
-      <div className="absolute inset-0 bg-black/10"></div>
+    // <div className="relative w-full overflow-hidden bg-[url('/images/Banner.png')] bg-cover bg-center ">
+    <div
+      className="relative w-full bg-sky-200  overflow-hidden bg-[url('/images/Untitled_design.png')]  bg-no-repeat
+  bg-[position:350px__center]  bg-[length:78%]   "
+    >
+      {/* <div className="absolute inset-0 bg-black/10"></div> */}
       {/* Desktop Layout */}
       <div className="relative hidden min-h-screen containers mx-auto overflow-hidden lg:block z-10">
-        <div className="grid min-h-screen items-center lg:grid-cols-[60%_40%]">
+        <div className="grid min-h-screen items-center lg:grid-cols-[60%_40%] pt-12">
           {/* Left Side - Text Content with Container Padding (only left) */}
-          <div className="flex flex-col justify-center  pr-8 ">
+          <div className="flex flex-col justify-end  pr-8 ">
             <h1 className="max-w-xl text-4xl leading-tight font-medium text-black lg:text-5xl xl:text-5xl">
               {t('hero.headline')}
             </h1>
@@ -196,18 +200,8 @@ const HeroSection = () => {
               </button>
             </div>
 
-            {/* Brand Credit */}
-            {/* <div className="flex items-center gap-3 py-4 lg:py-6">
-              <p className="text-xs font-normal text-white/80 xl:text-sm">
-                {t('hero.brandCredit')}
-              </p>
-              <div className="flex items-center gap-2 rounded-lg bg-white">
-                <img src="/images/brands/cits.svg" className="h-12" alt="NordVPN" />
-              </div>
-            </div> */}
-
             {/* Terms Link */}
-            <p className="text-xs font-normal text-white/80 mt-5">
+            <p className="text-xs font-normal text-black mt-5">
               {t('hero.termsPromo')}
               <Link href="#" className="underline transition-colors hover:text-black">
                 {t('hero.termsLink')}
@@ -218,7 +212,12 @@ const HeroSection = () => {
           {/* Right Side - Image (Full Width, No Padding) */}
           <div className="relative flex h-full w-full items-center justify-center">
             <div className="relative ">
-             
+              <img
+                src={'/images/Untitled_design.png'}
+                alt="Happy traveler with eSIM"
+                className="object-contain object-center lg:hidden"
+                sizes="50vw"
+              />
             </div>
           </div>
         </div>
