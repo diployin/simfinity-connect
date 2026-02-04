@@ -170,10 +170,7 @@ const PUBLIC_ROUTES = [
 const AUTH_ROUTES = [
   { path: '/login', component: Login },
   // { path: '/', component: MaintenancePage },
-<<<<<<< HEAD
   
-=======
->>>>>>> 1c084ae2c08e6eb125abd8ceac8118bb786f19c9
 ];
 
 const ADMIN_ROUTES = [

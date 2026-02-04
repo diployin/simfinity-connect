@@ -302,7 +302,57 @@
   "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.iconType": "Signal",
   "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.feature": "विदेश में उपयोग",
   "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.esim": "किफायती — अलग-अलग देशों के लिए डेटा प्लान आसानी से मिलते हैं",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.sim": "रोमिंग के कारण महंगा हो सकता है"
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.sim": "रोमिंग के कारण महंगा हो सकता है",
+
+
+
+
+  
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.label": "फायदे",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.heading": "eSIM के फायदे",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.subheading": "eSIM कनेक्टिविटी का भविष्य है। यहां इसके मुख्य फायदे दिए गए हैं।",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.iconType": "Wallet",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.title": "महंगे रोमिंग शुल्क नहीं",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.description": "यात्री ऐसे eSIM खरीद सकते हैं जो उन्हें स्थानीय नेटवर्क से जोड़ते हैं और अनचाहे रोमिंग चार्ज से बचाते हैं।",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.iconType": "Users",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.title": "एक डिवाइस में कई प्रोफाइल",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.description": "एक ही डिवाइस में कई वर्चुअल eSIM प्रोफाइल रख सकते हैं, जिससे अलग-अलग नेटवर्क और नंबर के बीच स्विच करना आसान हो जाता है।",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.iconType": "Document",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.title": "जितनी जरूरत, उतना भुगतान",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.description": "एक हफ्ते के लिए जापान जा रहे हैं? मासिक प्लान की जगह 7-दिन का प्लान लें और अपने येन को स्वादिष्ट खाने पर खर्च करें।",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.iconType": "Phone",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.title": "डिवाइस में जगह बचाता है",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.description": "फिजिकल SIM स्लॉट न होने से डिवाइस में ज्यादा जगह मिलती है, जैसे बड़ी बैटरी या बेहतर हार्डवेयर फीचर्स के लिए।",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.iconType": "Shield",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.title": "खोने या चोरी होने का डर नहीं",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.description": "छोटी SIM कार्ड को बदलना झंझट भरा होता है, खासकर यात्रा में। eSIM डिवाइस में ही होता है, इसलिए न खोता है न चोरी होता है।",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.iconType": "Recycle",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.title": "कम प्लास्टिक कचरा",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.description": "हर ट्रिप पर नई प्लास्टिक SIM लेना समय के साथ पर्यावरण पर असर डालता है। eSIM अपनाएं और कचरा कम करें।",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.label": "नुकसान",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.heading": "eSIM के नुकसान",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.subheading": "हर टेक्नोलॉजी की तरह, eSIM के भी कुछ नुकसान हैं।",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.iconType": "Phone",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.title": "हर डिवाइस eSIM सपोर्ट नहीं करता",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.description": "अधिकांश नए फोन eSIM सपोर्ट करते हैं, लेकिन अगर आपका फोन पुराना है तो यह सुविधा उपलब्ध नहीं हो सकती।",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.iconType": "Document",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.title": "नई और अनजान तकनीक",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.description": "अगर आपने पहले eSIM इस्तेमाल नहीं किया है, तो इसका एक्टिवेशन प्रोसेस थोड़ा जटिल लग सकता है।",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.iconType": "Shield",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.title": "डिवाइस बदलना आसान नहीं",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.description": "eSIM को किसी दूसरे डिवाइस में ट्रांसफर करना फिजिकल SIM बदलने की तुलना में ज्यादा स्टेप्स मांगता है।"
+
+
 
 
   },

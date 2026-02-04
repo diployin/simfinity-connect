@@ -1,5 +1,6 @@
 {
-    "website":{
+    "website":
+    {
   "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.heading": "ما الفرق بين eSIM وSIM التقليدية؟",
   "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.description": "الفرق الرئيسي بين eSIM وبطاقة SIM التقليدية هو أن eSIM رقمية، بينما SIM بطاقة فعلية.",
   "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.footerNote": "*تركز Simfinity حالياً على بيانات الهاتف فقط ولا تدعم أرقام الهواتف بعد.",
@@ -30,7 +31,57 @@
 
   "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.feature": "الاستخدام أثناء السفر",
   "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.esim": "أوفر مع باقات محلية",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.sim": "قد يكون مكلفاً بسبب التجوال"
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.sim": "قد يكون مكلفاً بسبب التجوال",
+
+
+
+
+
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.label": "المزايا",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.heading": "مزايا eSIM",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.subheading": "تقنية eSIM هي مستقبل الاتصال. إليك أهم فوائدها.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.iconType": "Wallet",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.title": "بدون رسوم تجوال مرتفعة",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.description": "يمكن للمسافرين الاتصال بشبكات محلية وتجنب رسوم التجوال غير المتوقعة.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.iconType": "Users",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.title": "ملفات تعريف متعددة",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.description": "إمكانية استخدام عدة شرائح eSIM على جهاز واحد بسهولة.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.iconType": "Document",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.title": "ادفع حسب حاجتك",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.description": "اختر باقات قصيرة المدة بدلاً من الاشتراكات الشهرية.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.iconType": "Phone",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.title": "توفير مساحة في الجهاز",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.description": "عدم وجود شريحة فعلية يتيح مساحة لمكونات أفضل.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.iconType": "Shield",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.title": "لا يمكن فقدانها أو سرقتها",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.description": "eSIM مدمجة داخل الجهاز ولا يمكن إزالتها.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.iconType": "Recycle",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.title": "نفايات أقل",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.description": "تقليل استخدام البلاستيك من خلال الاستغناء عن الشرائح التقليدية.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.label": "العيوب",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.heading": "عيوب eSIM",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.subheading": "مثل أي تقنية أخرى، لـ eSIM بعض العيوب.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.iconType": "Phone",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.title": "ليست مدعومة في جميع الأجهزة",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.description": "قد لا تدعم الأجهزة القديمة تقنية eSIM.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.iconType": "Document",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.title": "تقنية غير مألوفة",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.description": "قد تبدو عملية التفعيل معقدة للمستخدمين الجدد.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.iconType": "Shield",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.title": "صعوبة تبديل الأجهزة",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.description": "نقل eSIM إلى جهاز آخر يتطلب خطوات إضافية."
+
 }
 
 }

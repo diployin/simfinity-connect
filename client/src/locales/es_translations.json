@@ -264,7 +264,59 @@
 
   "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.feature": "Uso en el extranjero",
   "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.esim": "Más económico con planes locales",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.sim": "Puede ser caro por roaming"
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.sim": "Puede ser caro por roaming",
+
+
+
+
+
+
+
+  
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.label": "Ventajas",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.heading": "Ventajas de la eSIM",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.subheading": "Las eSIM son el futuro de la conectividad. Estos son sus principales beneficios.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.iconType": "Wallet",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.title": "Sin altas tarifas de roaming",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.description": "Los viajeros pueden conectarse a redes locales y evitar cargos inesperados.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.iconType": "Users",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.title": "Múltiples perfiles",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.description": "Puedes tener varias eSIM virtuales en un solo dispositivo.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.iconType": "Document",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.title": "Paga solo lo que necesitas",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.description": "Viajes cortos con planes flexibles sin compromisos mensuales.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.iconType": "Phone",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.title": "Ahorra espacio",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.description": "Sin ranura física para SIM, el dispositivo tiene más espacio interno.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.iconType": "Shield",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.title": "No se pierde ni se roba",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.description": "La eSIM está integrada en el dispositivo.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.iconType": "Recycle",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.title": "Menos residuos",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.description": "Reduce el uso de plástico al eliminar las SIM físicas.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.label": "Desventajas",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.heading": "Desventajas de la eSIM",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.subheading": "Como todo, la eSIM también tiene algunas desventajas.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.iconType": "Phone",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.title": "No todos los dispositivos son compatibles",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.description": "Los dispositivos antiguos pueden no admitir eSIM.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.iconType": "Document",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.title": "Tecnología poco familiar",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.description": "El proceso de activación puede parecer más complejo.",
+
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.iconType": "Shield",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.title": "Difícil cambiar de dispositivo",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.description": "Transferir una eSIM requiere más pasos que una SIM física."
+
 
   },
   "userPanel": {
