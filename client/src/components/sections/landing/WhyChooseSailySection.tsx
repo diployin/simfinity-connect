@@ -14,7 +14,7 @@ interface Feature {
 const WhyChooseSailySection = () => {
   const { t } = useTranslation();
 
-  console.log(t('NewSimfinDes.WhyChooseSai', '❌ NOT FOUND'));
+  console.log(t('NewSimfinDes.WhyChooseSailySection', '❌ NOT FOUND'));
 
   // Icon mapping by ID
   const iconMap: Record<number, React.ReactNode> = {
