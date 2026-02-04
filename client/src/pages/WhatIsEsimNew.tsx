@@ -17,53 +17,78 @@ const WhatEsimNew = () => {
   const { t } = useTranslation();
   const title = t("website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title");
 
-  const esimSetupTabs = [
+ 
+const esimSetupTabs = [
   {
     label: "On iPhone",
-    title: "Set up an eSIM on iPhone",
+    title: "Set up an eSIM on your iPhone with the Simfinity app",
     steps: [
       {
         number: "1",
-        stepTitle: "Open Settings",
-        description: "Go to Settings > Mobile Data > Add eSIM on your iPhone.",
-        image: "/images/esim/iphone-step-1.png",
+        stepTitle: "Pick an eSIM data plan for your trip",
+        description: "Select the country you're heading to and choose a plan.",
+        image: "/images/whatEsim/1.png",
       },
       {
         number: "2",
-        stepTitle: "Scan QR code",
-        description: "Use your iPhone camera to scan the QR code you received.",
-        image: "/images/esim/iphone-step-2.png",
+        stepTitle: "Download the Simfinity eSIM app",
+        description:
+          "Get the app, tap Install eSIM, and follow the steps on the screen.",
+        image: "/images/whatEsim/2.png",
       },
       {
         number: "3",
-        stepTitle: "Activate your eSIM",
-        description: "Confirm the plan and wait for the eSIM to activate.",
+        stepTitle: "Your plan will automatically activate",
+        description:
+          "Get ready for your trip — your plan will activate when you arrive.",
+        image: "/images/whatEsim/3.png",
       },
     ],
+    instructions: {
+      heading: "Set up an eSIM manually on your iPhone",
+      steps: [
+        'Go to "Settings", then "Mobile Service" or "Cellular".',
+        'Tap "Add eSIM" or "Add Cellular Plan".',
+        'Tap "Use QR Code".',
+        "Scan the QR code or enter the details manually.",
+      ],
+    },
   },
 
   {
     label: "On Android",
-    title: "Set up an eSIM on Android",
+    title: "Set up an eSIM on your Android with the Simfinity app",
     steps: [
       {
         number: "1",
-        stepTitle: "Open Network Settings",
-        description: "Go to Settings > Network & Internet > SIMs.",
-        image: "/images/esim/android-step-1.png",
+        stepTitle: "Pick an eSIM data plan for your trip",
+        description: "Select the country you're heading to and choose a plan.",
+        image: "/images/whatEsim/1-step.png",
       },
       {
         number: "2",
-        stepTitle: "Add eSIM",
-        description: "Tap Add SIM and scan the QR code provided.",
-        image: "/images/esim/android-step-2.png",
+        stepTitle: "Download the Simfinity eSIM app",
+        description:
+          "Get the app, tap Install eSIM and follow the steps on the screen to set it up.",
+        image: "/images/whatEsim/2-step.png",
       },
       {
         number: "3",
-        stepTitle: "Finish setup",
-        description: "Download and enable the eSIM for mobile data.",
+        stepTitle: "Your plan will automatically activate",
+        description:
+          "Get ready for your trip — your plan will activate when you arrive.",
+        image: "/images/whatEsim/3-step.png",
       },
     ],
+    instructions: {
+      heading: "Set up an eSIM manually on your Android",
+      steps: [
+        'Go to "Settings", then "Connections".',
+        'Tap "SIM manager".',
+        'Select "Add eSIM".',
+        'Tap "Scan the QR code" or choose another way to add your eSIM.',
+      ],
+    },
   },
 
   {
@@ -72,15 +97,15 @@ const WhatEsimNew = () => {
     steps: [
       {
         number: "1",
-        stepTitle: "Scan the QR code to download the app",
+        stepTitle: "Scan the QR code to download Simfinity",
         description:
-          "Use your phone camera to scan the QR code and download the eSIM app.",
+          "Use your phone to scan the QR and download the Simfinity app.",
       },
       {
         number: "2",
         stepTitle: "Buy an eSIM data plan for your trip",
         description:
-          "Choose a mobile data plan for the country or region you’re visiting.",
+          "Get a mobile data plan for the country you'll be visiting.",
       },
       {
         number: "3",
@@ -91,6 +116,7 @@ const WhatEsimNew = () => {
     ],
   },
 ];
+
 
 
 
@@ -191,11 +217,12 @@ const WhatEsimNew = () => {
       <EsimBenefitsSection />
       <EsimVsSimComparison />
 
-      <section className="px-4 py-8 sm:px-6 md:py-16 lg:px-8">
+      {/* <section className="px-4 py-8 sm:px-6 md:py-16 lg:px-8">
         <div className="containers mx-auto max-w-7xl">
           <div className="bg-themeYellow flex flex-col items-center justify-center rounded-4xl px-4 py-16 sm:px-6 lg:px-8">
             <h2 className="lg:text-4.5xl text-3xl leading-tight font-medium text-white sm:text-4xl">
               {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.title')}
+              
             </h2>
 
             <p className="py-4 text-base leading-relaxed text-white/80 sm:text-base">
@@ -211,7 +238,32 @@ const WhatEsimNew = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+
+      <section className="px-4 py-8 sm:px-6 md:py-16 lg:px-8">
+  <div className="mx-auto max-w-7xl">
+    <div className="flex flex-col items-center justify-center rounded-[48px] bg-[#1F7A63] px-6 py-16 text-center sm:px-10 lg:px-20">
+      
+      <h2 className="text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">
+        {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.title')}
+      </h2>
+
+      <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/90">
+        {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.description')}
+      </p>
+
+      <Link
+        href="/destinations"
+        className="mt-8 inline-flex items-center justify-center rounded-full bg-black px-8 py-3.5 text-base font-medium text-white transition hover:bg-gray-900"
+      >
+        {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.ctaButton')}
+      </Link>
+
+    </div>
+  </div>
+</section>
+
+
 
       <FAQ
         faqs={staticData.WhatIsEsim.FAQData.faqs}

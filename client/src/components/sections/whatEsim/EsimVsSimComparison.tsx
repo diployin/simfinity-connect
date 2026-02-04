@@ -96,7 +96,7 @@ const EsimVsSimComparison = () => {
             {/* Table Header */}
             <thead>
               <tr className="border-b border-gray-200">
-                <th className="w-1/4 px-6 py-6 text-left font-medium text-gray-500">{t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.feature')}</th>
+                <th className="w-1/4 px-6 py-6 text-left font-medium text-gray-500"></th>
                 <th className="w-[37.5%] px-6 py-6 text-center text-lg font-medium text-gray-700">
                   {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.esim')}
                 </th>

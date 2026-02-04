@@ -379,6 +379,8 @@
 
 
   "NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.ctaButton": "View All Destinations",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.title":"Get an eSIM data plan",
+  "NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.description":"Find a mobile data plan for your next trip search our list of destinations.",
 
 
 
@@ -1362,7 +1364,7 @@
         "SupportTopupDesc": "Add more data to your plan instantly.",
         "ResourceGetStartedTitle": "Get Started",
         "ResourceSupportTitle": "Support & Resources",
-        "ResourceWhatIsTitle": "What is an eSIM?",
+        "ResourceWhatIsTitle": "Curious About eSIM Technology?",
         "ResourceWhatIsDesc": "Learn everything about eSIM technology and how it works",
         "ResourceHowWorksTitle": "How It Works",
         "ResourceHowWorksDesc": "Step-by-step guide to setup your first eSIM",
