@@ -7,12 +7,17 @@ import SiteFooter from './SiteFooter';
 import FooterNew from './FooterNew';
 // import { TopBanner } from './marketing';
 import NavbarNew from './NavbarNew';
+import { useLocation } from 'wouter';
 
 interface PublicLayoutProps {
   readonly children: ReactNode;
 }
 
 export function PublicLayout({ children }: Readonly<PublicLayoutProps>) {
+  const [location] = useLocation();
+
+  // ✅ Only home page without padding
+  const isHome = location === '/';
   return (
     <div className="flex flex-col min-h-screen">
       {/* <TopBanner
@@ -21,8 +26,7 @@ export function PublicLayout({ children }: Readonly<PublicLayoutProps>) {
         ctaLink="/destinations"
       /> */}
       <NavbarNew />
-      <main className="flex-1">{children}</main>
-      {/* <SiteFooter /> */}
+      <main className={`flex-1 ${isHome ? '' : 'pt-[200px]'}`}>{children}</main>
       <FooterNew />
     </div>
   );

@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { convertPrice } from '@/lib/currency';
 import DestinationCardSmall from '@/components/cards/DestinationCard';
+import ThemeButton from '@/components/ThemeButton';
 
 export interface Destination {
   id: string;
@@ -129,7 +130,10 @@ const TravelDestinationTabsNew = () => {
               {t('travelTabs.title')}
             </h2>
 
-            <Button onClick={() => navigate('/destinations')}>{t('travelTabs.viewAll')}</Button>
+            {/* <Button onClick={() => navigate('/destinations')}>{t('travelTabs.viewAll')}</Button> */}
+            <ThemeButton onClick={() => navigate('/destinations')} size="md">
+              {t('travelTabs.viewAll')}
+            </ThemeButton>
           </div>
 
           <p className="text-center text-base text-gray-600 sm:text-lg md:text-start">
@@ -139,14 +143,51 @@ const TravelDestinationTabsNew = () => {
 
         {/* Tabs */}
         <Tabs defaultValue="country" className="w-full" onValueChange={setActiveTab}>
-          <TabsList className="mb-10 rounded-full border border-gray-200 bg-white p-1.5 shadow-sm">
-            <TabsTrigger value="country">{t('travelTabs.country')}</TabsTrigger>
-            <TabsTrigger value="region">{t('travelTabs.region')}</TabsTrigger>
-            <TabsTrigger value="ultra">
+          <TabsList className="mb-10 w-fit rounded-full border border-gray-200 bg-white p-1.5 shadow-sm flex gap-1">
+            {/* Country */}
+            <TabsTrigger
+              value="country"
+              className="rounded-full px-5 py-2 text-sm font-medium 
+    text-gray-600 
+    data-[state=active]:bg-black 
+    data-[state=active]:text-white"
+            >
+              {t('travelTabs.country')}
+            </TabsTrigger>
+
+            {/* Region */}
+            <TabsTrigger
+              value="region"
+              className="rounded-full px-5 py-2 text-sm font-medium 
+    text-gray-600 
+    data-[state=active]:bg-black 
+    data-[state=active]:text-white"
+            >
+              {t('travelTabs.region')}
+            </TabsTrigger>
+
+            {/* Ultra */}
+            <TabsTrigger
+              value="ultra"
+              className="rounded-full px-5 py-2 text-sm font-medium 
+    text-gray-600 
+    data-[state=active]:bg-black 
+    data-[state=active]:text-white flex items-center"
+            >
               {t('travelTabs.ultra')}
-              <span className="bg-themeYellow ml-2 rounded-full px-1.5 py-0.5 text-[9px] font-bold uppercase text-white">
+              <span className="bg-primary ml-2 rounded-full px-1.5 py-0.5 text-[9px] font-bold uppercase text-white">
                 {t('travelTabs.new')}
               </span>
+            </TabsTrigger>
+
+            <TabsTrigger
+              value="passport"
+              className="rounded-full px-5 py-2 text-sm font-medium 
+    text-gray-600 
+    data-[state=active]:bg-black 
+    data-[state=active]:text-white"
+            >
+              Simfinity Passport
             </TabsTrigger>
           </TabsList>
 

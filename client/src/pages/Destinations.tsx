@@ -1,29 +1,49 @@
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { Link } from 'wouter';
-import { Helmet } from 'react-helmet-async';
-import { Search, Globe, MapPin, ChevronRight, X } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
+'use client';
 
+import { useState, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { Helmet } from 'react-helmet-async';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Input } from '@/components/ui/input';
+import { Search, X } from 'lucide-react';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { useCurrency } from '@/contexts/CurrencyContext';
-import ReactCountryFlag from 'react-country-flag';
-import type { Destination, Region } from '@shared/schema';
+import { convertPrice } from '@/lib/currency';
+import DestinationCardSmall from '@/components/cards/DestinationCard';
+import CountryRegionSkeleton from '@/components/skeleton/CountryRegionSkeleton';
 
-type DestinationWithPricing = Destination & {
+export interface Destination {
+  id: string;
+  airaloId: string | null;
+  slug: string;
+  name: string;
+  countryCode: string;
+  flagEmoji: string | null;
+  image: string | null;
+  active: boolean;
   minPrice: string;
   minDataAmount: string;
   minValidity: number;
-  currency?: string;
-};
+  packageCount: number;
+  currency: string;
+}
 
-type RegionWithPricing = Region & {
+export interface Region {
+  id: string;
+  airaloId: string | null;
+  slug: string;
+  name: string;
+  image: string | null;
+  countries: string[];
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
   minPrice: string;
   minDataAmount: string;
   minValidity: number;
-  currency?: string;
-};
+  packageCount: number;
+  currency: string;
+}
 
 interface GlobalPackage {
   id: string;
@@ -37,502 +57,231 @@ interface GlobalPackage {
 export default function Destinations() {
   const { t } = useTranslation();
   const { currency, currencies } = useCurrency();
+
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeTab, setActiveTab] = useState<'all' | 'countries' | 'regions' | 'global'>('all');
+  const [activeTab, setActiveTab] = useState('all');
 
-  const getCurrencySymbol = (currencyCode: string) => {
-    return currencies.find((c) => c.code === currencyCode)?.symbol || '$';
-  };
+  /* =========================
+     API CALLS
+  ========================= */
 
-  const { data: destinationsWithPricing, isLoading: loadingDest } = useQuery<
-    DestinationWithPricing[]
-  >({
-    queryKey: ['/api/destinations/with-pricing', { currency }],
+  const { data: allDestinations = [], isLoading: loadingDest } = useQuery<Destination>({
+    queryKey: ['/api/destinations/with-pricing'],
   });
 
-  const { data: regionsWithPricing, isLoading: loadingRegions } = useQuery<RegionWithPricing[]>({
-    queryKey: ['/api/regions/with-pricing', { currency }],
+  const { data: allRegions = [], isLoading: loadingRegions } = useQuery<Region>({
+    queryKey: ['/api/regions/with-pricing'],
   });
 
-  const { data: globalPackages = [], isLoading: loadingGlobal } = useQuery<GlobalPackage[]>({
-    queryKey: ['/api/packages/global', { currency }],
+  const { data: allGlobalPackages = [], isLoading: loadingGlobal } = useQuery<GlobalPackage>({
+    queryKey: ['/api/packages/global'],
   });
 
-  const filteredGlobalPackages = globalPackages.filter(
-    (pkg) =>
-      pkg.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      pkg.dataAmount?.toLowerCase().includes(searchQuery.toLowerCase()),
+  /* =========================
+     FILTER LOGIC
+  ========================= */
+
+  const countries = useMemo(
+    () =>
+      allDestinations
+        .filter((d: any) => d.name.toLowerCase().includes(searchQuery.toLowerCase()))
+        .map((d: any) => ({
+          id: parseInt(d.id),
+          name: d.name,
+          slug: d.slug,
+          countryCode: d.countryCode,
+          startPrice: parseFloat(d.minPrice),
+          type: 'country' as const,
+        })),
+    [allDestinations, searchQuery],
   );
 
-  const filteredDestinations = destinationsWithPricing?.filter(
-    (d) =>
-      d.active &&
-      (d.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        d.countryCode.toLowerCase().includes(searchQuery.toLowerCase())),
+  const regions = useMemo(
+    () =>
+      allRegions
+        .filter((r: any) => r.name.toLowerCase().includes(searchQuery.toLowerCase()))
+        .map((r: any) => ({
+          id: parseInt(r.id),
+          name: r.name,
+          slug: r.slug,
+          startPrice: parseFloat(r.minPrice),
+          countryCount: r.countries?.length || 0,
+          type: 'region' as const,
+        })),
+    [allRegions, searchQuery],
   );
 
-  const filteredRegions = regionsWithPricing?.filter(
-    (r) => r.active && r.name.toLowerCase().includes(searchQuery.toLowerCase()),
+  const globalPackages = useMemo(
+    () =>
+      allGlobalPackages
+        .filter((g: any) => g.title.toLowerCase().includes(searchQuery.toLowerCase()))
+        .map((g: any) => ({
+          id: parseInt(g.id),
+          name: `Global (${g.dataAmount})`,
+          slug: 'global',
+          startPrice: parseFloat(g.retailPrice),
+          validity: g.validity,
+          type: 'global' as const,
+        })),
+    [allGlobalPackages, searchQuery],
   );
 
-  const totalCount =
-    activeTab === 'all'
-      ? (filteredDestinations?.length || 0) + (filteredRegions?.length || 0)
-      : activeTab === 'countries'
-        ? filteredDestinations?.length || 0
-        : activeTab === 'regions'
-          ? filteredRegions?.length || 0
-          : filteredGlobalPackages?.length || 0;
+  /* =========================
+     UI
+  ========================= */
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background">
       <Helmet>
-        <title>
-          {String(
-            t('destinations.title', 'Browse eSIM Destinations - 190+ Countries | eSIM Connect'),
-          )}
-        </title>
-        <meta
-          name="description"
-          content={String(
-            t(
-              'destinations.description',
-              'Explore eSIM data plans for countries worldwide. Find affordable prepaid data packages for your next trip.',
-            ),
-          )}
-        />
+        <title>{t('destinations.title')}</title>
       </Helmet>
 
-      {/* <SiteHeader /> */}
-
-      <main className="flex-1 pt-28 pb-12">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Hero Header Section */}
-          <div className="text-center mb-10">
-            <Badge className="mb-4 bg-teal-600 hover:bg-teal-700 text-white px-4 py-1.5 rounded-full">
-              <Globe className="h-3.5 w-3.5 mr-1.5" />
-              {t('destinations.globalCoverage', 'Global Coverage')}
-            </Badge>
-
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              {t('destinations.allDestinations', 'All Destinations')}
-            </h1>
-
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              {t(
-                'destinations.heroDescription',
-                'Find the best data plans in over 224+ destinations — and enjoy easy and safe internet access wherever you go. Connect instantly with our premium eSIM solutions.',
-              )}
+      <main className=" md:pt-[200px] ">
+        <div className="max-w-6xl mx-auto px-4">
+          {/* =========================
+             HEADER
+          ========================= */}
+          <div className="text-start mb-10">
+            <h1 className="text-5xl font-semibold">All destinations</h1>
+            <p className="mx-auto my-8 text-lg text-gray-600">
+              Find the best data plans worldwide and connect instantly with our premium eSIM
+              solutions.
             </p>
           </div>
 
-          {/* Tabs and Search Row */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-            <div className="relative">
-              <div className="flex overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4">
-                <div className="flex items-center gap-2 min-w-max">
-                  <button
-                    onClick={() => setActiveTab('all')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
-                      activeTab === 'all'
-                        ? 'bg-teal-600 text-white'
-                        : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                    }`}
-                    data-testid="tab-all"
-                  >
-                    {t('destinations.all', 'All')} (
-                    {(filteredDestinations?.length || 0) + (filteredRegions?.length || 0)})
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('countries')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
-                      activeTab === 'countries'
-                        ? 'bg-teal-600 text-white'
-                        : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                    }`}
-                    data-testid="tab-countries"
-                  >
-                    <MapPin className="h-3.5 w-3.5 shrink-0" />
-                    {t('destinations.countries', 'Countries')}
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('regions')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
-                      activeTab === 'regions'
-                        ? 'bg-teal-600 text-white'
-                        : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                    }`}
-                    data-testid="tab-regions"
-                  >
-                    <Globe className="h-3.5 w-3.5 shrink-0" />
-                    {t('destinations.regionalEsims', 'Regional eSIMs')}
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('global')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
-                      activeTab === 'global'
-                        ? 'bg-teal-600 text-white'
-                        : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                    }`}
-                    data-testid="tab-global"
-                  >
-                    <Globe className="h-3.5 w-3.5 shrink-0" />
-                    {t('destinations.globalEsims', 'Global eSIMs')}
-                  </button>
-                </div>
-              </div>
-            </div>
+          {/* =========================
+             SEARCH
+          ========================= */}
 
-            {/* Search Bar */}
-            <div className="relative max-w-xs w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+          {/* =========================
+             TABS
+          ========================= */}
+          <Tabs defaultValue="all" onValueChange={setActiveTab}>
+            <TabsList className="mb-10 w-fit rounded-full border bg-white p-1 shadow-sm flex gap-1">
+              {[
+                { id: 'all', label: 'All' },
+                { id: 'country', label: 'Country' },
+                { id: 'region', label: 'Region' },
+                { id: 'ultra', label: 'Ultra Plan', badge: 'New' },
+                { id: 'passport', label: 'Simfinity Passport' },
+              ].map((tab) => (
+                <TabsTrigger
+                  key={tab.id}
+                  value={tab.id}
+                  className="rounded-full px-5 py-2 text-base font-medium text-gray-600 data-[state=active]:bg-black data-[state=active]:text-white"
+                >
+                  {tab.label}
+                  {tab.badge && (
+                    <span className="ml-2 bg-primary text-white text-[9px] px-1.5 py-0.5 rounded-full uppercase">
+                      {tab.badge}
+                    </span>
+                  )}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+
+            <div className="relative mb-8  border-2 rounded-xl">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+
               <Input
-                type="text"
-                placeholder={t('destinations.searchPlaceholder', 'Search for destination')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-10 py-2 h-10 text-sm bg-card border-border rounded-full"
-                data-testid="input-search-destinations"
+                placeholder={'Search for destination'}
+                className="pl-11 pr-10 h-12 rounded-xl bg-white border shadow-sm text-lg placeholder:text-gray-400"
               />
+
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded-full hover:bg-muted transition-colors"
-                  data-testid="button-clear-search"
+                  className="absolute right-4 top-1/2 -translate-y-1/2"
                 >
-                  <X className="h-4 w-4 text-muted-foreground" />
+                  <X className="h-4 w-4 text-gray-400" />
                 </button>
               )}
             </div>
-          </div>
 
-          {/* Results Count */}
-          <p className="text-muted-foreground text-sm mb-6" data-testid="text-destination-count">
-            {t('destinations.showing', 'Showing')} {totalCount}{' '}
-            {/* {t('destinations.destinations', 'destinations')} */} {activeTab}
-          </p>
-
-          {/* Destinations Grid - All (Countries + Regions) */}
-          {activeTab === 'all' && (
-            <>
-              {loadingDest || loadingRegions ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {[...Array(12)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border animate-pulse"
-                    >
-                      <div className="w-12 h-12 rounded-full bg-muted" />
-                      <div className="flex-1">
-                        <div className="h-5 w-24 bg-muted rounded mb-2" />
-                        <div className="h-4 w-32 bg-muted rounded" />
-                      </div>
-                      <div className="w-5 h-5 bg-muted rounded" />
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {/* Countries */}
-                  {filteredDestinations?.map((dest) => (
-                    <Link key={dest.id} href={`/destination/${dest.slug}`}>
-                      <div
-                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-teal-300 dark:hover:border-teal-500/50 hover:shadow-md transition-all cursor-pointer group"
-                        data-testid={`card-destination-${dest.slug}`}
-                      >
-                        <div className="w-12 h-12 rounded-full overflow-hidden bg-muted flex items-center justify-center flex-shrink-0 border-2 border-gray-100 dark:border-gray-700">
-                          <ReactCountryFlag
-                            countryCode={dest.countryCode}
-                            svg
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                          />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground truncate group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
-                            {dest.name}
-                          </h3>
-                          <p className="text-sm text-muted-foreground">
-                            {t('destinations.startingFrom', 'Starting from')}{' '}
-                            <span className="text-orange-500 font-semibold">
-                              {getCurrencySymbol(dest.currency || 'USD')}
-                              {dest.minPrice}
-                            </span>
-                          </p>
-                        </div>
-                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-teal-500 transition-colors flex-shrink-0" />
-                      </div>
-                    </Link>
-                  ))}
-                  {/* Regions */}
-                  {filteredRegions?.map((region) => (
-                    <Link key={region.id} href={`/region/${region.slug}`}>
-                      <div
-                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-teal-300 dark:hover:border-teal-500/50 hover:shadow-md transition-all cursor-pointer group"
-                        data-testid={`card-region-${region.slug}`}
-                      >
-                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-teal-100 to-teal-100 dark:from-teal-900/30 dark:to-teal-900/30 flex items-center justify-center flex-shrink-0 border-2 border-teal-200 dark:border-teal-700">
-                          <Globe className="w-6 h-6 text-teal-600 dark:text-teal-400" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground truncate group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
-                            {region.name}
-                          </h3>
-                          <p className="text-sm text-muted-foreground">
-                            {t('destinations.startingFrom', 'Starting from')}{' '}
-                            <span className="text-orange-500 font-semibold">
-                              {getCurrencySymbol(region.currency || 'USD')}
-                              {region.minPrice}
-                            </span>
-                          </p>
-                        </div>
-                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-teal-500 transition-colors flex-shrink-0" />
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
-
-              {/* No Results */}
-              {!loadingDest &&
-                !loadingRegions &&
-                (filteredDestinations?.length || 0) + (filteredRegions?.length || 0) === 0 && (
-                  <div className="text-center py-16">
-                    <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Search className="w-8 h-8 text-muted-foreground" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-foreground mb-2">
-                      {t('destinations.noResultsTitle', 'No destinations found')}
-                    </h3>
-                    <p className="text-muted-foreground">
-                      {t('destinations.noResults', 'Try adjusting your search query')}
-                    </p>
-                  </div>
+            {/* =========================
+               ALL
+            ========================= */}
+            <TabsContent value="all">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {loadingDest || loadingRegions ? (
+                  <CountryRegionSkeleton count={9} />
+                ) : (
+                  [...countries, ...regions].map((item: any, i) => (
+                    <DestinationCardSmall
+                      key={item.id}
+                      {...item}
+                      startPrice={convertPrice(item.startPrice, 'USD', currency, currencies)}
+                      index={i}
+                    />
+                  ))
                 )}
-            </>
-          )}
+              </div>
+            </TabsContent>
 
-          {/* Destinations Grid - Countries */}
-          {activeTab === 'countries' && (
-            <>
-              {loadingDest ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {[...Array(12)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border animate-pulse"
-                    >
-                      <div className="w-12 h-12 rounded-full bg-muted" />
-                      <div className="flex-1">
-                        <div className="h-5 w-24 bg-muted rounded mb-2" />
-                        <div className="h-4 w-32 bg-muted rounded" />
-                      </div>
-                      <div className="w-5 h-5 bg-muted rounded" />
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {filteredDestinations?.map((dest) => (
-                    <Link key={dest.id} href={`/destination/${dest.slug}`}>
-                      <div
-                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-teal-300 dark:hover:border-teal-500/50 hover:shadow-md transition-all cursor-pointer group"
-                        data-testid={`card-destination-${dest.slug}`}
-                      >
-                        {/* Flag Circle */}
-                        <div className="w-12 h-12 rounded-full overflow-hidden bg-muted flex items-center justify-center flex-shrink-0 border-2 border-gray-100 dark:border-gray-700">
-                          <ReactCountryFlag
-                            countryCode={dest.countryCode}
-                            svg
-                            style={{
-                              width: '100%',
-                              height: '100%',
-                              objectFit: 'cover',
-                            }}
-                          />
-                        </div>
+            {/* =========================
+               COUNTRY
+            ========================= */}
+            <TabsContent value="country">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {loadingDest ? (
+                  <CountryRegionSkeleton count={9} />
+                ) : (
+                  countries.map((c: any, i) => (
+                    <DestinationCardSmall
+                      key={c.id}
+                      {...c}
+                      startPrice={convertPrice(c.startPrice, 'USD', currency, currencies)}
+                      index={i}
+                    />
+                  ))
+                )}
+              </div>
+            </TabsContent>
 
-                        {/* Content */}
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground truncate group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
-                            {dest.name}
-                          </h3>
-                          <p className="text-sm text-muted-foreground">
-                            {t('destinations.startingFrom', 'Starting from')}{' '}
-                            <span className="text-orange-500 font-semibold">
-                              {getCurrencySymbol(dest.currency || 'USD')}
-                              {dest.minPrice}
-                            </span>
-                          </p>
-                        </div>
+            {/* =========================
+               REGION
+            ========================= */}
+            <TabsContent value="region">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {loadingRegions ? (
+                  <CountryRegionSkeleton count={9} />
+                ) : (
+                  regions.map((r: any, i) => (
+                    <DestinationCardSmall
+                      key={r.id}
+                      {...r}
+                      additionalInfo={`${r.countryCount} countries`}
+                      startPrice={convertPrice(r.startPrice, 'USD', currency, currencies)}
+                      index={i}
+                    />
+                  ))
+                )}
+              </div>
+            </TabsContent>
 
-                        {/* Chevron */}
-                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-teal-500 transition-colors flex-shrink-0" />
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
-
-              {/* No Results */}
-              {!loadingDest && filteredDestinations?.length === 0 && (
-                <div className="text-center py-16">
-                  <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Search className="w-8 h-8 text-muted-foreground" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {t('destinations.noResultsTitle', 'No destinations found')}
-                  </h3>
-                  <p className="text-muted-foreground">
-                    {t('destinations.noResults', 'Try adjusting your search query')}
-                  </p>
-                </div>
-              )}
-            </>
-          )}
-
-          {/* Destinations Grid - Regions */}
-          {activeTab === 'regions' && (
-            <>
-              {loadingRegions ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {[...Array(6)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border animate-pulse"
-                    >
-                      <div className="w-12 h-12 rounded-full bg-muted" />
-                      <div className="flex-1">
-                        <div className="h-5 w-24 bg-muted rounded mb-2" />
-                        <div className="h-4 w-32 bg-muted rounded" />
-                      </div>
-                      <div className="w-5 h-5 bg-muted rounded" />
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {filteredRegions?.map((region) => (
-                    <Link key={region.id} href={`/region/${region.slug}`}>
-                      <div
-                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-teal-300 dark:hover:border-teal-500/50 hover:shadow-md transition-all cursor-pointer group"
-                        data-testid={`card-region-${region.slug}`}
-                      >
-                        {/* Globe Icon Circle */}
-                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-teal-100 to-teal-100 dark:from-teal-900/30 dark:to-teal-900/30 flex items-center justify-center flex-shrink-0 border-2 border-teal-200 dark:border-teal-700">
-                          <Globe className="w-6 h-6 text-teal-600 dark:text-teal-400" />
-                        </div>
-
-                        {/* Content */}
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground truncate group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
-                            {region.name}
-                          </h3>
-                          <p className="text-sm text-muted-foreground">
-                            {t('destinations.startingFrom', 'Starting from')}{' '}
-                            <span className="text-orange-500 font-semibold">
-                              {getCurrencySymbol(region.currency || 'USD')}
-                              {region.minPrice}
-                            </span>
-                          </p>
-                        </div>
-
-                        {/* Chevron */}
-                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-teal-500 transition-colors flex-shrink-0" />
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
-
-              {/* No Results */}
-              {!loadingRegions && filteredRegions?.length === 0 && (
-                <div className="text-center py-16">
-                  <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Search className="w-8 h-8 text-muted-foreground" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {t('destinations.noResultsTitle', 'No regions found')}
-                  </h3>
-                  <p className="text-muted-foreground">
-                    {t('destinations.noResults', 'Try adjusting your search query')}
-                  </p>
-                </div>
-              )}
-            </>
-          )}
-
-          {/* Destinations Grid - Global eSIMs */}
-          {activeTab === 'global' && (
-            <>
-              {loadingGlobal ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {[...Array(6)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border animate-pulse"
-                    >
-                      <div className="w-12 h-12 rounded-full bg-muted" />
-                      <div className="flex-1">
-                        <div className="h-5 w-24 bg-muted rounded mb-2" />
-                        <div className="h-4 w-32 bg-muted rounded" />
-                      </div>
-                      <div className="w-16 h-5 bg-muted rounded" />
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {filteredGlobalPackages?.map((pkg) => (
-                    <Link key={pkg.id} href="/global">
-                      <div
-                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-teal-300 dark:hover:border-teal-500/50 hover:shadow-md transition-all cursor-pointer group"
-                        data-testid={`card-global-${pkg.id}`}
-                      >
-                        {/* Globe Icon Circle */}
-                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-slate-100 to-slate-100 dark:from-slate-800 dark:to-slate-800 flex items-center justify-center flex-shrink-0 border-2 border-slate-200 dark:border-slate-700">
-                          <Globe className="w-6 h-6 text-slate-600 dark:text-slate-400" />
-                        </div>
-
-                        {/* Content */}
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground truncate group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
-                            Global ({pkg.dataAmount})
-                          </h3>
-                          <p className="text-sm text-muted-foreground">
-                            {pkg.validity} {t('destinations.daysValidity', 'days validity')}
-                          </p>
-                        </div>
-
-                        {/* Price */}
-                        <div className="text-right flex-shrink-0">
-                          <span className="text-orange-500 font-semibold">
-                            {getCurrencySymbol(currency)}
-                            {parseFloat(pkg.retailPrice).toFixed(2)}
-                          </span>
-                          <span className="text-xs text-muted-foreground ml-1">{currency}</span>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
-
-              {/* No Results */}
-              {!loadingGlobal && filteredGlobalPackages?.length === 0 && (
-                <div className="text-center py-16">
-                  <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Globe className="w-8 h-8 text-muted-foreground" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {t('destinations.noGlobalPackages', 'No Global eSIM packages found')}
-                  </h3>
-                  <p className="text-muted-foreground">
-                    {t('destinations.noResults', 'Try adjusting your search query')}
-                  </p>
-                </div>
-              )}
-            </>
-          )}
+            {/* =========================
+               ULTRA
+            ========================= */}
+            <TabsContent value="ultra">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {loadingGlobal ? (
+                  <CountryRegionSkeleton count={6} />
+                ) : (
+                  globalPackages.map((g: any, i) => (
+                    <DestinationCardSmall
+                      key={g.id}
+                      {...g}
+                      additionalInfo={`${g.validity} days`}
+                      startPrice={convertPrice(g.startPrice, 'USD', currency, currencies)}
+                      index={i}
+                    />
+                  ))
+                )}
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </main>
     </div>

@@ -129,7 +129,7 @@ import MaintenancePage from './components/sections/landing/MaintenancePage';
 
 // ✅ Route Configs - DRY Approach
 const PUBLIC_ROUTES = [
-  // { path: '/', component: MaintenancePage },
+  { path: '/', component: Home },
   { path: '/destinations', component: Destinations },
   { path: '/destination', component: AllDestinations },
   { path: '/search', component: Search },
@@ -169,7 +169,7 @@ const PUBLIC_ROUTES = [
 
 const AUTH_ROUTES = [
   { path: '/login', component: Login },
-  { path: '/', component: MaintenancePage },
+  // { path: '/', component: MaintenancePage },
 ];
 
 const ADMIN_ROUTES = [

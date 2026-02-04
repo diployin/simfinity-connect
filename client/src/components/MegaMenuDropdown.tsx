@@ -142,10 +142,7 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
       <button
         type="button"
         onClick={handleToggle}
-        className={cn(
-          'flex items-center gap-1 py-2 text-sm font-medium  transition-colors ',
-          
-        )}
+        className={cn('flex items-center gap-1 py-2 text-sm font-medium  transition-colors ')}
       >
         {label}
         {badge && (

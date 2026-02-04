@@ -760,68 +760,71 @@ const useStaticData = () => {
       rouceMegaMenuConfig: {
         columns: [
           {
-            title: 'Get Started',
+            title: t('HeaderLinks.ResourceGetStartedTitle'),
+
             items: [
               {
-                label: 'What is an eSIM?',
+                label: t('HeaderLinks.ResourceWhatIsTitle'),
+                description: t('HeaderLinks.ResourceWhatIsDesc'),
+                badge: t('HeaderLinks.ResourceBadgeNew'),
                 href: '/what-is-esim',
                 icon: <MdOutlineSimCard className="h-5 w-5" />,
-                description: 'Learn everything about eSIM technology and how it works',
-                badge: 'New',
               },
               {
-                label: 'How It Works',
+                label: t('HeaderLinks.ResourceHowWorksTitle'),
+                description: t('HeaderLinks.ResourceHowWorksDesc'),
+                badge: t('HeaderLinks.ResourceBadgeGuide'),
                 href: '/about-us',
                 icon: <TbDeviceUnknown className="h-5 w-5" />,
-                description: 'Step-by-step guide to setup your first eSIM',
-                badge: 'Guide',
               },
               {
-                label: 'Security Features',
+                label: t('HeaderLinks.ResourceSecurityTitle'),
+                description: t('HeaderLinks.ResourceSecurityDesc'),
                 href: '/security-features',
                 icon: <FaShield className="h-5 w-5" />,
-                description: 'Advanced encryption and privacy protection',
               },
               {
-                label: 'For Business',
+                label: t('HeaderLinks.ResourceBusinessTitle'),
+                description: t('HeaderLinks.ResourceBusinessDesc'),
                 href: '/esim-for-business',
                 icon: <FaBuilding className="h-5 w-5" />,
-                description: 'Enterprise solutions for teams and companies',
               },
             ],
           },
+
           {
-            title: 'Support & Resources',
+            title: t('HeaderLinks.ResourceSupportTitle'),
+
             items: [
               {
-                label: 'Supported Devices',
+                label: t('HeaderLinks.ResourceDevicesTitle'),
+                description: t('HeaderLinks.ResourceDevicesDesc'),
                 href: '/esim-supported-devices',
                 icon: <MdOutlineSupportAgent className="h-5 w-5" />,
-                description: 'Check if your device supports eSIM technology',
               },
               {
-                label: 'Download App',
+                label: t('HeaderLinks.ResourceAppTitle'),
+                description: t('HeaderLinks.ResourceAppDesc'),
                 href: '/download-esim-app',
                 icon: <IoMdDownload className="h-5 w-5" />,
-                description: 'Get our mobile app for easy eSIM management',
               },
               {
-                label: 'Blog & Guides',
+                label: t('HeaderLinks.ResourceBlogTitle'),
+                description: t('HeaderLinks.ResourceBlogDesc'),
                 href: '/blog',
                 icon: <RiBloggerFill className="h-5 w-5" />,
-                description: 'Travel tips, tech guides and latest updates',
               },
               {
-                label: 'Careers',
+                label: t('HeaderLinks.ResourceCareersTitle'),
+                description: t('HeaderLinks.ResourceCareersDesc'),
                 href: '/career',
                 icon: <Sprout className="h-5 w-5" />,
-                description: 'Join our team and build the future of connectivity',
               },
               {
-                label: 'Customer Reviews',
+                label: t('HeaderLinks.ResourceReviewsTitle'),
+                description: t('HeaderLinks.ResourceReviewsDesc'),
                 href: '/review',
                 icon: <Star className="h-5 w-5" />,
-                description: 'Read what travelers say about our service',
               },
             ],
           },
@@ -857,208 +860,142 @@ const useStaticData = () => {
       productMegaMenuConfig: {
         columns: [
           {
-            title: t('NewSimfinDes.NavbarData.productMegaMenuConfig.columns.0.title'),
+            title: t('HeaderLinks.ProductColumnTitle'),
+
             items: [
               {
-                label: t('NewSimfinDes.NavbarData.productMegaMenuConfig.columns.0.items.0.label'),
+                label: t('HeaderLinks.ProductAllDestiTitle'),
+                description: t('HeaderLinks.ProductAllDestiDesc'),
                 href: '/all-destinations',
-                description: t(
-                  'NewSimfinDes.NavbarData.productMegaMenuConfig.columns.0.items.0.description',
-                ),
                 icon: <MdModeStandby className="h-5 w-5" />,
               },
               {
-                label: t('NewSimfinDes.NavbarData.productMegaMenuConfig.columns.0.items.1.label'),
+                label: t('HeaderLinks.ProductAllPackagesTitle'),
+                description: t('HeaderLinks.ProductAllPackagesDesc'),
                 href: '/all-packages',
-                description: t(
-                  'NewSimfinDes.NavbarData.productMegaMenuConfig.columns.0.items.1.description',
-                ),
                 icon: <GoPackage className="h-5 w-5" />,
               },
               {
-                label: t('NewSimfinDes.NavbarData.productMegaMenuConfig.columns.0.items.2.label'),
+                label: t('HeaderLinks.ProductCountryPlanTitle'),
+                description: t('HeaderLinks.ProductCountryPlanDesc'),
                 href: '/country-plan',
-                description: t(
-                  'NewSimfinDes.NavbarData.productMegaMenuConfig.columns.0.items.2.description',
-                ),
                 icon: <BiWorld className="h-5 w-5" />,
               },
               {
-                label: t('NewSimfinDes.NavbarData.productMegaMenuConfig.columns.0.items.3.label'),
+                label: t('HeaderLinks.ProductRegionPlanTitle'),
+                description: t('HeaderLinks.ProductRegionPlanDesc'),
                 href: '/region-plan',
-                description: t(
-                  'NewSimfinDes.NavbarData.productMegaMenuConfig.columns.0.items.3.description',
-                ),
                 icon: <BsGlobeEuropeAfrica className="h-5 w-5" />,
               },
               {
-                label: t('NewSimfinDes.NavbarData.productMegaMenuConfig.columns.0.items.4.label'),
-                href: '/region-plan',
-                description: t(
-                  'NewSimfinDes.NavbarData.productMegaMenuConfig.columns.0.items.4.description',
-                ),
+                label: t('HeaderLinks.ProductPassportTitle'),
+                description: t('HeaderLinks.ProductPassportDesc'),
+                href: '/passport',
                 icon: <BsPassport className="h-5 w-5" />,
               },
               {
-                label: t('NewSimfinDes.NavbarData.productMegaMenuConfig.columns.0.items.5.label'),
-                href: '/region-plan',
-                description: t(
-                  'NewSimfinDes.NavbarData.productMegaMenuConfig.columns.0.items.5.description',
-                ),
+                label: t('HeaderLinks.ProductBusinessTitle'),
+                description: t('HeaderLinks.ProductBusinessDesc'),
+                href: '/business',
                 icon: <FaRegBuilding className="h-5 w-5" />,
               },
               {
-                label: t('NewSimfinDes.NavbarData.productMegaMenuConfig.columns.0.items.6.label'),
-                href: '/region-plan',
-                description: t(
-                  'NewSimfinDes.NavbarData.productMegaMenuConfig.columns.0.items.6.description',
-                ),
+                label: t('HeaderLinks.ProductCompatibilityTitle'),
+                description: t('HeaderLinks.ProductCompatibilityDesc'),
+                href: '/esim-compatibility',
                 icon: <BrainCog className="h-5 w-5" />,
               },
             ],
           },
+
           {
-            title: t('NewSimfinDes.NavbarData.productMegaMenuConfig.columns.1.title'),
+            title: t('HeaderLinks.SupportColumnTitle'),
+
             items: [
               {
-                label: t('NewSimfinDes.NavbarData.productMegaMenuConfig.columns.1.items.0.label'),
+                label: t('HeaderLinks.SupportPrivacyTitle'),
+                description: t('HeaderLinks.SupportPrivacyDesc'),
                 href: '/privacy-policy',
-                description: t(
-                  'NewSimfinDes.NavbarData.productMegaMenuConfig.columns.1.items.0.description',
-                ),
                 icon: <MdOutlinePrivacyTip className="h-5 w-5" />,
               },
               {
-                label: t('NewSimfinDes.NavbarData.productMegaMenuConfig.columns.1.items.1.label'),
+                label: t('HeaderLinks.SupportTermsTitle'),
+                description: t('HeaderLinks.SupportTermsDesc'),
                 href: '/terms-and-conditions',
-                description: t(
-                  'NewSimfinDes.NavbarData.productMegaMenuConfig.columns.1.items.1.description',
-                ),
                 icon: <MdOutlinePolicy className="h-5 w-5" />,
               },
               {
-                label: t('NewSimfinDes.NavbarData.productMegaMenuConfig.columns.1.items.2.label'),
-                href: '/terms-and-conditions',
-                description: t(
-                  'NewSimfinDes.NavbarData.productMegaMenuConfig.columns.1.items.2.description',
-                ),
+                label: t('HeaderLinks.SupportUsageTitle'),
+                description: t('HeaderLinks.SupportUsageDesc'),
+                href: '/usage-check',
                 icon: <MdDataSaverOff className="h-5 w-5" />,
               },
               {
-                label: t('NewSimfinDes.NavbarData.productMegaMenuConfig.columns.1.items.3.label'),
-                href: '/terms-and-conditions',
-                description: t(
-                  'NewSimfinDes.NavbarData.productMegaMenuConfig.columns.1.items.3.description',
-                ),
+                label: t('HeaderLinks.SupportTopupTitle'),
+                description: t('HeaderLinks.SupportTopupDesc'),
+                href: '/top-up',
                 icon: <MdAttachMoney className="h-5 w-5" />,
               },
             ],
           },
         ],
-        slider: {
-          title: t('NewSimfinDes.NavbarData.productMegaMenuConfig.slider.title'),
-          items: [
-            {
-              id: 1,
-              title: t('NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.items.0.title'),
-              description: t(
-                'NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.items.0.description',
-              ),
-              image: '/images/menu-images/mega-menu-explore1.png',
-              // image: 'https://placehold.co/800x800.png',
-              href: '/ultra-plan',
-            },
-            {
-              id: 2,
-              title: t('NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.items.1.title'),
-              description: t(
-                'NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.items.1.description',
-              ),
-              image: '/images/menu-images/mega-menu-explore2.png',
-              // image: 'https://placehold.co/800x800.png',
-              href: '/security-features',
-            },
-            {
-              id: 3,
-              title: t('NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.items.2.title'),
-              description: t(
-                'NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.items.2.description',
-              ),
-              image: '/images/menu-images/mega-menu-explore3.png',
-              // image: 'https://placehold.co/800x800.png',
-              href: '/security-features',
-            },
-          ],
-        },
       },
       offersMegaMenuConfig: {
-        see_pack: t('NewSimfinDes.NavbarData.offersMegaMenuConfig.see_pack'),
-        label: t('NewSimfinDes.NavbarData.offersMegaMenuConfig.label'),
-        badge: t('NewSimfinDes.NavbarData.offersMegaMenuConfig.badge'),
+        see_pack: t('HeaderLinks.OfferSeePack'),
+        label: t('HeaderLinks.OfferMenuLabel'),
+        badge: t('HeaderLinks.OfferMenuBadge'),
+
         columns: [
           {
-            title: t('NewSimfinDes.NavbarData.offersMegaMenuConfig.columns.0.title'),
+            title: t('HeaderLinks.OfferColumnTitle'),
+
             items: [
               {
-                label: t('NewSimfinDes.NavbarData.offersMegaMenuConfig.columns.0.items.0.label'),
+                label: t('HeaderLinks.OfferReferTitle'),
+                description: t('HeaderLinks.OfferReferDesc'),
                 href: '/refer-friend',
-                description: t(
-                  'NewSimfinDes.NavbarData.offersMegaMenuConfig.columns.0.items.0.description',
-                ),
                 icon: <Gift className="h-5 w-5" />,
-                badge: 'Hot',
+                badge: t('HeaderLinks.OfferBadgeHot'),
               },
               {
-                label: t('NewSimfinDes.NavbarData.offersMegaMenuConfig.columns.0.items.1.label'),
+                label: t('HeaderLinks.OfferStudentTitle'),
+                description: t('HeaderLinks.OfferStudentDesc'),
                 href: '/student-offer',
-                description: t(
-                  'NewSimfinDes.NavbarData.offersMegaMenuConfig.columns.0.items.1.description',
-                ),
                 icon: <GraduationCap className="h-5 w-5" />,
-                badge: 'New',
+                badge: t('HeaderLinks.OfferBadgeNew'),
               },
               {
-                label: t('NewSimfinDes.NavbarData.offersMegaMenuConfig.columns.0.items.2.label'),
+                label: t('HeaderLinks.OfferDealsTitle'),
+                description: t('HeaderLinks.OfferDealsDesc'),
                 href: '/deals-rewards',
-                description: t(
-                  'NewSimfinDes.NavbarData.offersMegaMenuConfig.columns.0.items.2.description',
-                ),
                 icon: <Tag className="h-5 w-5" />,
               },
             ],
           },
         ],
+
         slider: {
-          title: t('NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.title'),
+          title: t('HeaderLinks.ResourceSliderTitle'), // optional reuse
           items: [
             {
               id: 1,
-              title: t('NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.items.0.title'),
-              description: t(
-                'NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.items.0.description',
-              ),
+              title: t('HeaderLinks.ResourceSliderItem1Title'),
+              description: t('HeaderLinks.ResourceSliderItem1Desc'),
               image: '/images/menu-images/mega-menu-explore1.png',
-              // image: 'https://placehold.co/800x800.png',
               href: '/ultra-plan',
             },
             {
               id: 2,
-              title: t('NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.items.1.title'),
-              description: t(
-                'NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.items.1.description',
-              ),
+              title: t('HeaderLinks.ResourceSliderItem2Title'),
+              description: t('HeaderLinks.ResourceSliderItem2Desc'),
               image: '/images/menu-images/mega-menu-explore2.png',
-              // image: 'https://placehold.co/800x800.png',
               href: '/security-features',
             },
             {
               id: 3,
-              title: t('NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.items.2.title'),
-              description: t(
-                'NewSimfinDes.NavbarData.rourceMegaMenuConfig.slider.items.2.description',
-              ),
+              title: t('HeaderLinks.ResourceSliderItem3Title'),
+              description: t('HeaderLinks.ResourceSliderItem3Desc'),
               image: '/images/menu-images/mega-menu-explore3.png',
-              // image: 'https://placehold.co/800x800.png',
               href: '/security-features',
             },
           ],

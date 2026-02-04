@@ -130,7 +130,7 @@ const AllDestinations = () => {
   const getCount = () => {
     switch (activeTab) {
       case 'all':
-        return countries.length + regions.length;
+        return countries.length + regions.length + globalPackages.length; // ✅ FIX
       case 'countries':
         return countries.length;
       case 'regions':
@@ -141,7 +141,6 @@ const AllDestinations = () => {
         return 0;
     }
   };
-
   // 🔥 FIXED - SIMPLE TAB CONTENT - No complex logic!
   const CountryContent = () =>
     loadingDest ? (
@@ -220,34 +219,38 @@ const AllDestinations = () => {
     );
 
   const AllContent = () =>
-    loadingDest || loadingRegions ? (
+    loadingDest || loadingRegions || loadingGlobal ? (
       <CountryRegionSkeleton count={12} />
-    ) : countries.length + regions.length ? (
-      [...countries, ...regions].map((item, index) => (
+    ) : countries.length + regions.length + globalPackages.length ? (
+      [...countries, ...regions, ...globalPackages].map((item, index) => (
         <DestinationCardSmall
-          key={item.id}
-          id={item.id}
-          name={item.name}
-          slug={item.slug}
-          image={item.image}
-          countryCode={item.countryCode}
+          key={`${item.type}-${item.id}`}
+          {...item}
           startPrice={convertPrice(item.startPrice, 'USD', currency, currencies)}
-          additionalInfo={item.countryCount ? `${item.countryCount} countries` : ''}
+          additionalInfo={
+            item.countryCount
+              ? `${item.countryCount} countries`
+              : item.validity
+                ? `${item.validity} days`
+                : ''
+          }
           fallbackIcon={item.type !== 'country' ? '🌍' : undefined}
-          onClick={item.type === 'country' ? handleCountryClick : handleRegionClick}
+          onClick={
+            item.type === 'country'
+              ? handleCountryClick
+              : item.type === 'region'
+                ? handleRegionClick
+                : handleGlobalClick
+          }
           index={index}
-          type={item.type}
         />
       ))
     ) : (
-      <div className="col-span-full text-center py-12">
-        <Search className="mx-auto h-16 w-16 text-muted-foreground mb-4" />
-        <p>No destinations found</p>
-      </div>
+      <div className="col-span-full text-center py-12">No destinations found</div>
     );
 
   return (
-    <section className="py-20 bg-background">
+    <section className=" bg-background">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
@@ -264,60 +267,111 @@ const AllDestinations = () => {
         {/* Search + Tabs */}
         <div className="mb-12">
           <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as any)}>
-            <div className="flex flex-col lg:flex-row lg:items-center gap-6 mb-12">
-              {/* Search */}
-              <div className="relative w-full lg:w-96 order-2 lg:order-1">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                  placeholder="Search destinations..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="h-12 pl-11 pr-12 rounded-2xl border-2 border-border bg-card shadow-sm focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all duration-200"
-                />
-                {searchQuery && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-2 top-1/2 h-9 w-9 p-0 -translate-y-1/2 bg-white/80 hover:bg-white shadow-sm border border-gray-200 rounded-xl transition-all duration-200 group"
-                    onClick={() => setSearchQuery('')}
-                  >
-                    <X className="h-4 w-4 text-gray-500 group-hover:text-gray-700 transition-colors" />
-                  </Button>
-                )}
-              </div>
-
-              {/* Tabs */}
-              <TabsList className="grid w-full grid-cols-2 lg:w-auto lg:grid-cols-4 gap-2 p-1 bg-white/50 backdrop-blur-sm rounded-2xl border border-gray-200 shadow-lg">
+            <div className="mb-12 space-y-6">
+              {/* ================= Tabs (TOP) ================= */}
+              <TabsList
+                className="
+ h-12
+  text-sm
+  font-medium
+  rounded-xl
+  text-gray-600
+  data-[state=active]:bg-black
+  data-[state=active]:text-white
+  transition
+      
+    "
+              >
+                {/* All */}
                 <TabsTrigger
                   value="all"
-                  className="h-14 px-6 py-3 text-sm font-semibold rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-teal-600 data-[state=active]:to-teal-500 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-[1.02] transition-all duration-300 hover:scale-[1.01] hover:shadow-md"
+                  className="
+        px-6 py-2.5 text-sm font-medium rounded-full whitespace-nowrap
+        text-gray-600
+        data-[state=active]:bg-black
+        data-[state=active]:text-white
+        transition-all
+      "
                 >
                   All ({getCount()})
                 </TabsTrigger>
 
+                {/* Countries */}
                 <TabsTrigger
                   value="countries"
-                  className="h-14 px-6 py-3 text-sm font-semibold rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-teal-600 data-[state=active]:to-teal-500 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-[1.02] transition-all duration-300 hover:scale-[1.01] hover:shadow-md"
+                  className="
+        px-6 py-2.5 text-sm font-medium rounded-full whitespace-nowrap
+        text-gray-600
+        data-[state=active]:bg-black
+        data-[state=active]:text-white
+        transition-all
+      "
                 >
-                  <MapPin className="inline mr-1.5 h-4 w-4 mb-0.5" />
+                  <MapPin className="mr-1.5 h-4 w-4" />
                   Countries ({countries.length})
                 </TabsTrigger>
 
+                {/* Regions */}
                 <TabsTrigger
                   value="regions"
-                  className="h-14 px-6 py-3 text-sm font-semibold rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-teal-600 data-[state=active]:to-teal-500 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-[1.02] transition-all duration-300 hover:scale-[1.01] hover:shadow-md"
+                  className="
+        px-6 py-2.5 text-sm font-medium rounded-full whitespace-nowrap
+        text-gray-600
+        data-[state=active]:bg-black
+        data-[state=active]:text-white
+        transition-all
+      "
                 >
-                  <Globe className="inline mr-1.5 h-4 w-4 mb-0.5" />
+                  <Globe className="mr-1.5 h-4 w-4" />
                   Regions ({regions.length})
                 </TabsTrigger>
 
+                {/* Global */}
                 <TabsTrigger
                   value="global"
-                  className="h-14 px-6 py-3 text-sm font-semibold rounded-xl data-[state=active]:bg-gradient-to-r data-[state=active]:from-teal-600 data-[state=active]:to-teal-500 data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-[1.02] transition-all duration-300 hover:scale-[1.01] hover:shadow-md"
+                  className="
+        px-6 py-2.5 text-sm font-medium rounded-full whitespace-nowrap
+        text-gray-600
+        data-[state=active]:bg-black
+        data-[state=active]:text-white
+        transition-all
+      "
                 >
                   🌍 Global ({globalPackages.length})
                 </TabsTrigger>
               </TabsList>
+
+              {/* ================= Search (BOTTOM FULL WIDTH) ================= */}
+              <div className="relative w-full">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+
+                <Input
+                  placeholder="Search destinations..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="
+        w-full
+        h-14
+        pl-12 pr-12
+        rounded-xl
+        bg-white
+        border border-gray-200
+        shadow-sm
+        text-base
+        focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500
+        transition
+      "
+                />
+
+                {searchQuery && (
+                  <button
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-4 top-1/2 -translate-y-1/2"
+                  >
+                    <X className="h-4 w-4 text-gray-400" />
+                  </button>
+                )}
+              </div>
             </div>
 
             <p className="text-sm text-muted-foreground mb-8">
