@@ -1,6 +1,5 @@
 {
   "common": {
-    "button.save": "सहेजें",
     "button.close": "बंद करें",
     "button.confirm": "पुष्टि करें",
     "button.back": "वापस",
@@ -12,7 +11,6 @@
     "button.search": "खोजें",
     "button.filter": "फ़िल्टर",
     "button.signUp": "साइन अप",
-    "button.signOut": "लॉग आउट",
     "message.loading": "लोड हो रहा है...",
     "message.error": "कोई त्रुटि हुई। कृपया पुनः प्रयास करें।",
     "status.active": "सक्रिय",
@@ -39,7 +37,6 @@
     "button.getStarted": "शुरू करें",
     "button.addToCart": "कार्ट में जोड़ें",
     "button.checkout": "चेकआउट",
-    "form.confirmPassword": "पासवर्ड की पुष्टि करें",
     "form.firstName": "पहला नाम",
     "form.lastName": "अंतिम नाम",
     "form.phone": "फ़ोन नंबर",
@@ -49,7 +46,6 @@
     "form.subject": "विषय",
     "form.required": "आवश्यक",
     "form.optional": "वैकल्पिक",
-    "validation.email": "कृपया एक मान्य ईमेल पता दर्ज करें",
     "validation.minLength": "कम से कम {min} अक्षर होने चाहिए",
     "validation.maxLength": "{max} अक्षरों से कम होना चाहिए",
     "validation.passwordMatch": "पासवर्ड मेल नहीं खाते",
@@ -68,7 +64,6 @@
     "table.amount": "राशि",
     "table.status": "स्थिति",
     "table.description": "विवरण",
-    "table.noData": "कोई डेटा उपलब्ध नहीं है",
     "pagination.page": "पृष्ठ",
     "pagination.of": "का",
     "pagination.showing": "दिखा रहे हैं",
@@ -79,9 +74,6 @@
     "message.saved": "परिवर्तन सफलतापूर्वक सहेजे गए",
     "message.deleted": "सफलतापूर्वक हटाया गया",
     "message.copied": "क्लिपबोर्ड में कॉपी किया गया",
-    "message.noResults": "कोई परिणाम नहीं मिला",
-    "message.confirmDelete": "क्या आप वाकई इस आइटम को हटाना चाहते हैं?",
-    "date.today": "आज",
     "date.yesterday": "कल",
     "date.hours": "घंटे",
     "date.minutes": "मिनट",
@@ -98,7 +90,15 @@
     "message.success": "कार्य सफलतापूर्वक पूरा हुआ",
     "form.message": "संदेश",
     "date.days": "दिन",
-    "button.cancel": "रद्द करें"
+    "button.cancel": "रद्द करें",
+    "validation.email": "कृपया एक मान्य ईमेल पता दर्ज करें",
+    "date.today": "आज",
+    "button.save": "सहेजें",
+    "button.signOut": "लॉग आउट",
+    "form.confirmPassword": "पासवर्ड की पुष्टि करें",
+    "message.noResults": "कोई परिणाम नहीं मिला",
+    "message.confirmDelete": "क्या आप वाकई इस आइटम को हटाना चाहते हैं?",
+    "table.noData": "कोई डेटा उपलब्ध नहीं है"
   },
   "website": {
     "nav.home": "होम",
@@ -109,7 +109,6 @@
     "checkout.title": "चेकआउट",
     "footer.copyright": "सभी अधिकार सुरक्षित।",
     "home.features.unlimited.title": "असीमित डेटा प्लान",
-    "home.features.unlimited.description": "दुनिया भर में तेज डेटा से जुड़े रहें।",
     "home.features.noRoaming.title": "कोई रोमिंग शुल्क नहीं",
     "home.features.noRoaming.description": "बिना अतिरिक्त शुल्क के स्वतंत्र रूप से यात्रा करें।",
     "home.features.keepSim.title": "अपना फिजिकल सिम रखें",
@@ -120,7 +119,6 @@
     "home.benefits.title": "eSIM के क्या फायदे हैं",
     "home.benefits.cta": "सभी गंतव्य देखें",
     "home.destinations.title": "लोकप्रिय गंतव्य",
-    "home.destinations.seeAll": "सभी 200+ गंतव्य देखें",
     "home.destinations.tabs.countries": "देश",
     "home.destinations.tabs.regional": "क्षेत्रीय eSIMs",
     "home.destinations.tabs.global": "वैश्विक eSIMs",
@@ -145,12 +143,10 @@
     "nav.settings": "सेटिंग्स",
     "nav.referrals": "रेफ़रल",
     "nav.giftCards": "गिफ्ट कार्ड",
-    "home.hero.title": "दुनिया में कहीं भी जुड़े रहें",
     "home.hero.cta": "eSIM पैकेज ब्राउज़ करें",
     "home.hero.search": "गंतव्य खोजें...",
     "home.features.title": "eSIMConnect क्यों चुनें?",
     "home.features.instant": "तत्काल सक्रियण",
-    "home.features.instantDesc": "कुछ ही मिनटों में आपका eSIM सक्रिय हो जाएगा",
     "home.features.global": "वैश्विक कवरेज",
     "home.features.globalDesc": "200+ देशों और क्षेत्रों में उपलब्ध",
     "home.features.affordable": "किफ़ायती प्लान",
@@ -159,11 +155,8 @@
     "package.networks": "नेटवर्क",
     "home.destinations.viewAll": "सभी गंतव्य देखें",
     "home.regions.title": "क्षेत्रीय प्लान",
-    "home.regions.subtitle": "कई देशों के लिए एक ही eSIM",
     "home.howItWorks.step1": "अपना प्लान चुनें",
-    "home.howItWorks.step1Desc": "अपने गंतव्य के लिए डेटा पैकेज चुनें",
     "home.howItWorks.step2": "eSIM इंस्टॉल करें",
-    "home.howItWorks.step2Desc": "QR कोड स्कैन करके अपना eSIM इंस्टॉल करें",
     "home.howItWorks.step3": "कनेक्ट करें और उपयोग करें",
     "home.howItWorks.step3Desc": "पहुंचने पर सक्रिय करें और डेटा का आनंद लें",
     "footer.company": "कंपनी",
@@ -198,9 +191,7 @@
     "package.sms": "SMS शामिल",
     "package.activationPolicy": "सक्रियण नीति",
     "package.compareWith": "अन्य से तुलना करें",
-    "package.similar": "समान पैकेज",
-    "checkout.summary": "ऑर्डर सारांश",
-    "checkout.contact": "संपर्क जानकारी",
+    "home.features.unlimited.description": "दुनिया भर में तेज डेटा से जुड़े रहें।",
     "checkout.payment": "भुगतान विधि",
     "checkout.promoCode": "प्रोमो कोड",
     "checkout.applyCode": "लागू करें",
@@ -222,7 +213,6 @@
     "install.qrCode": "QR कोड स्कैन करें",
     "install.manual": "मैन्युअल इंस्टॉलेशन",
     "install.compatible": "डिवाइस संगतता",
-    "install.checkDevice": "जाँचें कि आपका डिवाइस eSIM को सपोर्ट करता है या नहीं",
     "install.notCompatible": "आपका डिवाइस संगत नहीं हो सकता",
     "install.tips": "इंस्टॉलेशन सुझाव",
     "support.title": "सहायता और समर्थन",
@@ -235,9 +225,9 @@
     "support.liveChat": "लाइव चैट",
     "support.email": "ईमेल सहायता",
     "support.response": "24 घंटे के भीतर प्रतिक्रिया",
-    "error.404.title": "पेज नहीं मिला",
+    "home.features.instantDesc": "कुछ ही मिनटों में आपका eSIM सक्रिय हो जाएगा",
+    "home.howItWorks.step2Desc": "QR कोड स्कैन करके अपना eSIM इंस्टॉल करें",
     "error.500.title": "सर्वर त्रुटि",
-    "error.500.message": "कुछ गलत हो गया। कृपया बाद में पुनः प्रयास करें।",
     "error.goHome": "होमपेज पर जाएँ",
     "nav.faq": "अक्सर पूछे जाने वाले प्रश्न",
     "home.features.noRoamingDesc": "अतिरिक्त शुल्क की चिंता किए बिना डेटा का उपयोग करें",
@@ -254,103 +244,154 @@
     "compatibleDevices.description": "जानें कि कौन से डिवाइस eSIM को सपोर्ट करते हैं",
     "compatibleDevices.howToCheck": "अपने डिवाइस की जाँच कैसे करें",
     "compatibleDevices.iphoneUsers": "iPhone उपयोगकर्ता",
-    "compatibleDevices.iphoneInstructions": "सेटिंग्स > सामान्य > अबाउट पर जाएँ और 'eSIM' या 'ईआईडी' देखें। यदि आप इसे देखते हैं, तो आपका डिवाइस eSIM को सपोर्ट करता है।",
     "compatibleDevices.androidUsers": "Android उपयोगकर्ता",
-    "compatibleDevices.androidInstructions": "सेटिंग्स > नेटवर्क और इंटरनेट > मोबाइल नेटवर्क पर जाएँ और 'eSIM' विकल्प देखें। यदि आप इसे देखते हैं, तो आपका डिवाइस eSIM को सपोर्ट करता है।",
     "compatibleDevices.compatibleDevicesList": "संगत डिवाइस सूची",
     "compatibleDevices.apple": "Apple",
     "compatibleDevices.samsung": "Samsung",
     "compatibleDevices.google": "Google",
     "compatibleDevices.other": "अन्य ब्रांड",
+    "checkout.contact": "संपर्क जानकारी",
+    "home.destinations.seeAll": "सभी 200+ गंतव्य देखें",
+    "home.hero.title": "दुनिया में कहीं भी जुड़े रहें",
+    "home.regions.subtitle": "कई देशों के लिए एक ही eSIM",
+    "package.similar": "समान पैकेज",
+    "error.404.title": "पेज नहीं मिला",
+    "error.500.message": "कुछ गलत हो गया। कृपया बाद में पुनः प्रयास करें।",
+    "home.howItWorks.step1Desc": "अपने गंतव्य के लिए डेटा पैकेज चुनें",
+    "install.checkDevice": "जाँचें कि आपका डिवाइस eSIM को सपोर्ट करता है या नहीं",
+    "compatibleDevices.androidInstructions": "सेटिंग्स > नेटवर्क और इंटरनेट > मोबाइल नेटवर्क पर जाएँ और 'eSIM' विकल्प देखें। यदि आप इसे देखते हैं, तो आपका डिवाइस eSIM को सपोर्ट करता है।",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.footerNote": "*Simfinity फिलहाल केवल मोबाइल डेटा पर फोकस करता है, इसलिए अभी फोन नंबर सपोर्ट नहीं करता। चिंता न करें — इस पर काम चल रहा है।",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.feature": "फ़ीचर",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.esim": "eSIM",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.sim": "SIM",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.iconType": "Phone",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.feature": "फोन नंबर",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.esim": "दो तक*",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.sim": "दो तक",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.iconType": "Globe",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.feature": "नेटवर्क ऑपरेटर",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.esim": "जितने चाहें उतने",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.sim": "दो तक",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.iconType": "Trash",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.feature": "हटाने की प्रक्रिया",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.esim": "प्रोफ़ाइल को निष्क्रिय करें",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.sim": "SIM कार्ड निकालें",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.iconType": "CheckCircle",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.feature": "एक्टिवेशन",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.esim": "मैनुअल या ऑटोमैटिक (डेस्टिनेशन पर पहुँचते ही प्लान एक्टिव हो जाता है)",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.sim": "मैनुअल (डिवाइस में कार्ड डालना पड़ता है)",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.iconType": "Smartphone",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.feature": "कम्पैटिबिलिटी",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.esim": "केवल नए डिवाइस",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.sim": "पुराने और ज़्यादातर नए डिवाइस",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.iconType": "Signal",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.feature": "विदेश में उपयोग",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.esim": "किफायती — अलग-अलग देशों के लिए डेटा प्लान आसानी से मिलते हैं",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.sim": "रोमिंग के कारण महंगा हो सकता है",
+    "checkout.summary": "ऑर्डर सारांश",
+    "compatibleDevices.iphoneInstructions": "सेटिंग्स > सामान्य > अबाउट पर जाएँ और 'eSIM' या 'ईआईडी' देखें। यदि आप इसे देखते हैं, तो आपका डिवाइस eSIM को सपोर्ट करता है।",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.heading": "eSIM और फिज़िकल SIM में क्या अंतर है?",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.description": "eSIM और पारंपरिक SIM कार्ड के बीच मुख्य अंतर यह है कि eSIM डिजिटल होती है, जबकि SIM कार्ड एक फिज़िकल चिप होती है।",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.label": "फायदे",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.heading": "eSIM के फायदे",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.subheading": "eSIM कनेक्टिविटी का भविष्य है। यहां इसके मुख्य फायदे दिए गए हैं।",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.iconType": "Wallet",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.title": "महंगे रोमिंग शुल्क नहीं",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.description": "यात्री ऐसे eSIM खरीद सकते हैं जो उन्हें स्थानीय नेटवर्क से जोड़ते हैं और अनचाहे रोमिंग चार्ज से बचाते हैं।",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.iconType": "Users",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.title": "एक डिवाइस में कई प्रोफाइल",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.description": "एक ही डिवाइस में कई वर्चुअल eSIM प्रोफाइल रख सकते हैं, जिससे अलग-अलग नेटवर्क और नंबर के बीच स्विच करना आसान हो जाता है।",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.iconType": "Document",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.title": "जितनी जरूरत, उतना भुगतान",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.description": "एक हफ्ते के लिए जापान जा रहे हैं? मासिक प्लान की जगह 7-दिन का प्लान लें और अपने येन को स्वादिष्ट खाने पर खर्च करें।",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.iconType": "Phone",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.title": "डिवाइस में जगह बचाता है",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.description": "फिजिकल SIM स्लॉट न होने से डिवाइस में ज्यादा जगह मिलती है, जैसे बड़ी बैटरी या बेहतर हार्डवेयर फीचर्स के लिए।",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.iconType": "Shield",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.title": "खोने या चोरी होने का डर नहीं",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.description": "छोटी SIM कार्ड को बदलना झंझट भरा होता है, खासकर यात्रा में। eSIM डिवाइस में ही होता है, इसलिए न खोता है न चोरी होता है।",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.iconType": "Recycle",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.title": "कम प्लास्टिक कचरा",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.description": "हर ट्रिप पर नई प्लास्टिक SIM लेना समय के साथ पर्यावरण पर असर डालता है। eSIM अपनाएं और कचरा कम करें।",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.label": "नुकसान",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.heading": "eSIM के नुकसान",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.subheading": "हर टेक्नोलॉजी की तरह, eSIM के भी कुछ नुकसान हैं।",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.iconType": "Phone",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.title": "हर डिवाइस eSIM सपोर्ट नहीं करता",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.description": "अधिकांश नए फोन eSIM सपोर्ट करते हैं, लेकिन अगर आपका फोन पुराना है तो यह सुविधा उपलब्ध नहीं हो सकती।",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.iconType": "Document",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.title": "नई और अनजान तकनीक",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.description": "अगर आपने पहले eSIM इस्तेमाल नहीं किया है, तो इसका एक्टिवेशन प्रोसेस थोड़ा जटिल लग सकता है।",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.iconType": "Shield",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.title": "डिवाइस बदलना आसान नहीं",
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.description": "eSIM को किसी दूसरे डिवाइस में ट्रांसफर करना फिजिकल SIM बदलने की तुलना में ज्यादा स्टेप्स मांगता है।",
+
+  "NewSimfinDes.WhyChooseSailySection.features.0.title": "यात्रा के लिए किफायती कीमतें",
+  "NewSimfinDes.WhyChooseSailySection.features.0.description": "दुनिया भर में बेहद किफायती eSIM डेटा पाएं। छोटी यात्राओं से लेकर लंबी यात्राओं तक — Simfinity आपको सबसे सस्ता ट्रैवल डेटा देता है।",
+
+  "NewSimfinDes.WhyChooseSailySection.features.1.title": "सेकंडों में एक्टिवेशन",
+  "NewSimfinDes.WhyChooseSailySection.features.1.description": "ना स्टोर जाने की ज़रूरत, ना SIM बदलने की। बस Simfinity eSIM स्कैन करें और लैंड करते ही कनेक्ट हो जाएं।",
+
+  "NewSimfinDes.WhyChooseSailySection.features.2.title": "रोमिंग चार्ज का झटका नहीं",
+  "NewSimfinDes.WhyChooseSailySection.features.2.description": "महंगे रोमिंग चार्ज को अलविदा कहें। Simfinity आपके बिल को साफ़, कंट्रोल में और बजट-फ्रेंडली रखता है।",
+
+  "NewSimfinDes.WhyChooseSailySection.features.3.title": "हर यात्रा के लिए एक eSIM",
+  "NewSimfinDes.WhyChooseSailySection.features.3.description": "एक ही Simfinity eSIM हमेशा इस्तेमाल करें। जब चाहें नया देश जोड़ें — बार-बार SIM बदलने की ज़रूरत नहीं।",
+
+  "NewSimfinDes.WhyChooseSailySection.features.4.title": "स्मार्ट डेटा अलर्ट",
+  "NewSimfinDes.WhyChooseSailySection.features.4.description": "डेटा खत्म होने से पहले हम आपको सूचित करते हैं — ताकि आप सफर के दौरान कभी इंटरनेट से न कटें।",
+
+  "NewSimfinDes.WhyChooseSailySection.features.5.title": "ग्लोबल और रीजनल प्लान",
+  "NewSimfinDes.WhyChooseSailySection.features.5.description": "चाहे आप एक देश घूम रहे हों या कई क्षेत्रों में — Simfinity के प्लान आपकी हर यात्रा के लिए परफेक्ट हैं।",
+
+  "NewSimfinDes.WhyChooseSailySectionHeader.subtitle": "Simfinity क्यों चुनें?",
+  "NewSimfinDes.WhyChooseSailySectionHeader.title": "स्मार्ट तरीके से कनेक्टेड रहें",
 
 
 
   
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.heading": "eSIM और फिज़िकल SIM में क्या अंतर है?",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.description": "eSIM और पारंपरिक SIM कार्ड के बीच मुख्य अंतर यह है कि eSIM डिजिटल होती है, जबकि SIM कार्ड एक फिज़िकल चिप होती है।",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.footerNote": "*Simfinity फिलहाल केवल मोबाइल डेटा पर फोकस करता है, इसलिए अभी फोन नंबर सपोर्ट नहीं करता। चिंता न करें — इस पर काम चल रहा है।",
+  "NewSimfinDes.NewSimfinDes.title": "तुरंत कनेक्शन, बिना किसी ट्रैवल टेंशन के — Simfinity के साथ",
+  "NewSimfinDes.NewSimfinDes.des": "यात्रा मज़ेदार होनी चाहिए, परेशान करने वाली नहीं। Simfinity आपको हर जगह तुरंत ऑनलाइन रखता है।",
+  "NewSimfinDes.NewSimfinDes.btn": "सभी गंतव्य देखें",
 
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.feature": "फ़ीचर",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.esim": "eSIM",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.sim": "SIM",
+  "NewSimfinDes.NewSimfinDes.card1.title": "अब कभी ‘WiFi पासवर्ड?’ पूछने की ज़रूरत नहीं",
+  "NewSimfinDes.NewSimfinDes.card1.des": "Simfinity आपको लैंड करते ही ऑनलाइन रखता है — ना कैफे ढूंढने की झंझट, ना हॉटस्पॉट की भीख, और ना ही स्लो पब्लिक WiFi पर निर्भरता।",
 
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.iconType": "Phone",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.feature": "फोन नंबर",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.esim": "दो तक*",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.0.sim": "दो तक",
+  "NewSimfinDes.NewSimfinDes.card2.title": "SIM कार्ड की झंझट खत्म",
+  "NewSimfinDes.NewSimfinDes.card2.des": "SIM शॉप ढूंढने, छोटी कार्ड बदलने या पिन साथ रखने की टेंशन छोड़ दें। Simfinity eSIM के साथ सब कुछ डिजिटल है — एक बार एक्टिवेट करें और हर ट्रिप पर बेफिक्र कनेक्ट रहें।",
 
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.iconType": "Globe",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.feature": "नेटवर्क ऑपरेटर",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.esim": "जितने चाहें उतने",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.1.sim": "दो तक",
-
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.iconType": "Trash",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.feature": "हटाने की प्रक्रिया",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.esim": "प्रोफ़ाइल को निष्क्रिय करें",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.2.sim": "SIM कार्ड निकालें",
-
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.iconType": "CheckCircle",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.feature": "एक्टिवेशन",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.esim": "मैनुअल या ऑटोमैटिक (डेस्टिनेशन पर पहुँचते ही प्लान एक्टिव हो जाता है)",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.3.sim": "मैनुअल (डिवाइस में कार्ड डालना पड़ता है)",
-
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.iconType": "Smartphone",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.feature": "कम्पैटिबिलिटी",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.esim": "केवल नए डिवाइस",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.4.sim": "पुराने और ज़्यादातर नए डिवाइस",
-
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.iconType": "Signal",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.feature": "विदेश में उपयोग",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.esim": "किफायती — अलग-अलग देशों के लिए डेटा प्लान आसानी से मिलते हैं",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.rows.5.sim": "रोमिंग के कारण महंगा हो सकता है",
+  "NewSimfinDes.NewSimfinDes.card3.title": "प्राइवेसी के साथ यात्रा करें, Simfinity के साथ",
+  "NewSimfinDes.NewSimfinDes.card3.des": "चाहे होटल बुक कर रहे हों, पब्लिक WiFi इस्तेमाल कर रहे हों या नए शहर एक्सप्लोर कर रहे हों — Simfinity आपके डेटा को सुरक्षित रखता है। हर eSIM कनेक्शन एन्क्रिप्टेड और सुरक्षित है।",
+  "NewSimfinDes.NewSimfinDes.card3.btn": "जानें कैसे",
 
 
 
 
-  
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.label": "फायदे",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.heading": "eSIM के फायदे",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.subheading": "eSIM कनेक्टिविटी का भविष्य है। यहां इसके मुख्य फायदे दिए गए हैं।",
+  "NewSimfinDes.NewSimfinWorkDes.subTitle": "Simfinity क्यों अलग है",
+"NewSimfinDes.NewSimfinWorkDes.title": "दुनिया भर के यात्रियों के लिए एक स्मार्ट विकल्प",
+"NewSimfinDes.NewSimfinWorkDes.des": "ज़्यादा कवरेज, बेहतर कीमतें और सच में काम आने वाले फीचर्स।",
 
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.iconType": "Wallet",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.title": "महंगे रोमिंग शुल्क नहीं",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.description": "यात्री ऐसे eSIM खरीद सकते हैं जो उन्हें स्थानीय नेटवर्क से जोड़ते हैं और अनचाहे रोमिंग चार्ज से बचाते हैं।",
+"NewSimfinDes.NewSimfinWorkDes.card1.title": "हर यात्रा में बेहतर वैल्यू",
+"NewSimfinDes.NewSimfinWorkDes.card1.des": "Simfinity बिना किसी छुपे चार्ज के सबसे किफायती ट्रैवल डेटा देता है — छोटी यात्राओं, बिज़नेस ट्रिप और लंबी यात्राओं के लिए परफेक्ट।",
 
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.iconType": "Users",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.title": "एक डिवाइस में कई प्रोफाइल",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.description": "एक ही डिवाइस में कई वर्चुअल eSIM प्रोफाइल रख सकते हैं, जिससे अलग-अलग नेटवर्क और नंबर के बीच स्विच करना आसान हो जाता है।",
+"NewSimfinDes.NewSimfinWorkDes.card2.title": "ज़्यादा दूर तक पहुँचने वाला कवरेज",
+"NewSimfinDes.NewSimfinWorkDes.card2.des": "हम दुनिया भर के टॉप नेटवर्क्स के साथ मिलकर दूर-दराज़ इलाकों में भी तेज़ और भरोसेमंद इंटरनेट देते हैं।",
 
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.iconType": "Document",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.title": "जितनी जरूरत, उतना भुगतान",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.description": "एक हफ्ते के लिए जापान जा रहे हैं? मासिक प्लान की जगह 7-दिन का प्लान लें और अपने येन को स्वादिष्ट खाने पर खर्च करें।",
+"NewSimfinDes.NewSimfinWorkDes.card3.title": "असली यात्रियों के लिए बनाया गया",
+"NewSimfinDes.NewSimfinWorkDes.card3.des": "पर्यटकों, बैकपैकर्स, बिज़नेस ट्रैवलर्स और डिजिटल नोमैड्स के लिए डिज़ाइन किया गया — Simfinity आपको हर जगह कनेक्ट रखता है।",
 
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.iconType": "Phone",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.title": "डिवाइस में जगह बचाता है",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.description": "फिजिकल SIM स्लॉट न होने से डिवाइस में ज्यादा जगह मिलती है, जैसे बड़ी बैटरी या बेहतर हार्डवेयर फीचर्स के लिए।",
+"NewSimfinDes.TestimonialsSection.title": "असली यात्री। असली अनुभव। असली Simfinity।",
+"NewSimfinDes.TestimonialsSection.des": "दुनिया भर के यात्रियों के रिव्यू देखें जो हर यात्रा में Simfinity इस्तेमाल करते हैं।",
+"NewSimfinDes.TestimonialsSection.review1": "आसान, सस्ता और तेज़। सेटअप आसान है, स्पीड शानदार और सपोर्ट बेहतरीन।",
+"NewSimfinDes.TestimonialsSection.review2": "घर पर ही सेटअप किया और ट्रैवल के समय तुरंत इंटरनेट मिल गया। ज़रूर इस्तेमाल करें।",
+"NewSimfinDes.TestimonialsSection.review3": "Simfinity किफायती, इस्तेमाल में आसान और दुनिया भर में भरोसेमंद इंटरनेट देता है।",
+"NewSimfinDes.TestimonialsSection.review4": "विदेश में बिना इंटरनेट कुछ भी मुश्किल होता है। Simfinity सब आसान बना देता है।",
+"NewSimfinDes.TestimonialsSection.review5": "कई देशों में इस्तेमाल किया। एक मिनट में एक्टिवेशन और शानदार इंटरनेट।",
+"NewSimfinDes.TestimonialsSection.review6": "बेहतरीन कवरेज और कीमत के साथ Simfinity एक शानदार eSIM विकल्प है।",
 
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.iconType": "Shield",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.title": "खोने या चोरी होने का डर नहीं",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.description": "छोटी SIM कार्ड को बदलना झंझट भरा होता है, खासकर यात्रा में। eSIM डिवाइस में ही होता है, इसलिए न खोता है न चोरी होता है।",
+"NewSimfinDes.TestimonialsSection.review7": "एक भरोसेमंद ब्रांड द्वारा समर्थित, Simfinity आसान इंस्टॉलेशन, किफायती प्लान और विश्वसनीय वैश्विक कवरेज के लिए जाना जाता है।"
 
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.iconType": "Recycle",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.title": "कम प्लास्टिक कचरा",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.description": "हर ट्रिप पर नई प्लास्टिक SIM लेना समय के साथ पर्यावरण पर असर डालता है। eSIM अपनाएं और कचरा कम करें।",
 
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.label": "नुकसान",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.heading": "eSIM के नुकसान",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.subheading": "हर टेक्नोलॉजी की तरह, eSIM के भी कुछ नुकसान हैं।",
-
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.iconType": "Phone",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.title": "हर डिवाइस eSIM सपोर्ट नहीं करता",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.description": "अधिकांश नए फोन eSIM सपोर्ट करते हैं, लेकिन अगर आपका फोन पुराना है तो यह सुविधा उपलब्ध नहीं हो सकती।",
-
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.iconType": "Document",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.title": "नई और अनजान तकनीक",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.description": "अगर आपने पहले eSIM इस्तेमाल नहीं किया है, तो इसका एक्टिवेशन प्रोसेस थोड़ा जटिल लग सकता है।",
-
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.iconType": "Shield",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.title": "डिवाइस बदलना आसान नहीं",
-  "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.description": "eSIM को किसी दूसरे डिवाइस में ट्रांसफर करना फिजिकल SIM बदलने की तुलना में ज्यादा स्टेप्स मांगता है।"
 
 
 
@@ -364,8 +405,6 @@
     "profile.title": "प्रोफ़ाइल",
     "dashboard.activeEsims": "सक्रिय eSIMs",
     "dashboard.totalOrders": "कुल ऑर्डर",
-    "dashboard.recentActivity": "हाल की गतिविधि",
-    "dashboard.quickActions": "त्वरित क्रियाएँ",
     "dashboard.buyNewEsim": "नई eSIM खरीदें",
     "dashboard.topUp": "टॉप अप",
     "dashboard.viewUsage": "उपयोग देखें",
@@ -373,7 +412,6 @@
     "esims.expired": "समाप्त",
     "esims.all": "सभी",
     "esims.noEsims": "अभी तक कोई eSIM नहीं",
-    "esims.buyFirst": "शुरू करने के लिए अपनी पहली eSIM खरीदें",
     "esims.viewDetails": "विवरण देखें",
     "esims.install": "इंस्टॉल करें",
     "esims.topUp": "टॉप अप",
@@ -405,8 +443,6 @@
     "profile.changePassword": "पासवर्ड बदलें",
     "profile.currentPassword": "वर्तमान पासवर्ड",
     "profile.newPassword": "नया पासवर्ड",
-    "profile.updatePassword": "पासवर्ड अपडेट करें",
-    "settings.title": "सेटिंग्स",
     "settings.notifications": "सूचना प्राथमिकताएँ",
     "settings.emailNotifications": "ईमेल सूचनाएँ",
     "settings.pushNotifications": "पुश सूचनाएँ",
@@ -414,7 +450,6 @@
     "settings.orderUpdates": "ऑर्डर अपडेट",
     "settings.usageAlerts": "उपयोग अलर्ट",
     "settings.security": "सुरक्षा",
-    "settings.twoFactor": "दो-स्तरीय प्रमाणीकरण",
     "settings.sessions": "सक्रिय सत्र",
     "settings.deleteAccount": "खाता हटाएँ",
     "settings.deleteWarning": "यह क्रिया वापस नहीं की जा सकती",
@@ -444,7 +479,6 @@
     "notifications.noNotifications": "कोई सूचना नहीं",
     "notifications.clearAll": "सभी साफ़ करें",
     "support.title": "सहायता",
-    "support.newTicket": "नया टिकट बनाएँ",
     "support.myTickets": "मेरे टिकट",
     "support.ticketSubject": "विषय",
     "support.ticketCategory": "श्रेणी",
@@ -466,13 +500,11 @@
     "auth.loginHere": "यहाँ साइन इन करें",
     "orders.noOrders": "अभी तक कोई ऑर्डर नहीं",
     "referrals.earnRewards": "इनाम कमाएँ",
-    "auth.loginSubtitle": "वापसी पर स्वागत है! अपने खाते में साइन इन करें",
     "auth.resendOtp": "कोड पुनः भेजें",
     "orders.orderNumber": "ऑर्डर #",
     "profile.confirmPassword": "नए पासवर्ड की पुष्टि करें",
     "referrals.howItWorks": "यह कैसे काम करता है",
     "auth.forgotPassword": "पासवर्ड भूल गए?",
-    "referrals.subtitle": "दोस्तों को रेफर करें और रिवॉर्ड कमाएं",
     "referrals.copyLink": "लिंक कॉपी करें",
     "referrals.shareVia": "इसके जरिए शेयर करें",
     "referrals.linkCopied": "रेफरल लिंक कॉपी हो गया!",
@@ -482,7 +514,6 @@
     "referrals.referralHistory": "रेफरल इतिहास",
     "referrals.referredUser": "रेफर किया गया यूज़र",
     "referrals.status": "स्थिति",
-    "referrals.rewardAmount": "रिवॉर्ड",
     "referrals.date": "तारीख",
     "referrals.pending": "लंबित",
     "referrals.completed": "पूर्ण",
@@ -496,10 +527,20 @@
     "referrals.applyCode": "कोड लागू करें",
     "referrals.codeApplied": "रेफरल कोड लागू हो गया! आपको {{discount}}% की छूट मिलेगी",
     "referrals.invalidCode": "अमान्य या एक्सपायर रेफरल कोड",
-    "referrals.youveBeenReferred": "आपको रेफर किया गया है! साइन अप करें और {{discount}}% की छूट पाएं",
     "referrals.convertToGiftCard": "कमाई को गिफ्ट कार्ड में बदलें",
     "referrals.step1Desc": "अपना यूनिक रेफरल कोड दोस्तों के साथ शेयर करें",
-    "referrals.step2Desc": "आपका दोस्त साइन अप करता है और पहली खरीदारी करता है"
+    "referrals.step2Desc": "आपका दोस्त साइन अप करता है और पहली खरीदारी करता है",
+    "dashboard.quickActions": "त्वरित क्रियाएँ",
+    "settings.title": "सेटिंग्स",
+    "dashboard.recentActivity": "हाल की गतिविधि",
+    "esims.buyFirst": "शुरू करने के लिए अपनी पहली eSIM खरीदें",
+    "profile.updatePassword": "पासवर्ड अपडेट करें",
+    "support.newTicket": "नया टिकट बनाएँ",
+    "referrals.rewardAmount": "रिवॉर्ड",
+    "referrals.youveBeenReferred": "आपको रेफर किया गया है! साइन अप करें और {{discount}}% की छूट पाएं",
+    "settings.twoFactor": "दो-स्तरीय प्रमाणीकरण",
+    "auth.loginSubtitle": "वापसी पर स्वागत है! अपने खाते में साइन इन करें",
+    "referrals.subtitle": "दोस्तों को रेफर करें और रिवॉर्ड कमाएं"
   },
   "adminPanel": {
     "dashboard.title": "एडमिन डैशबोर्ड",
@@ -523,7 +564,6 @@
     "nav.settings": "सेटिंग्स",
     "nav.languages": "भाषाएँ",
     "nav.translations": "अनुवाद",
-    "nav.activityLogs": "गतिविधि लॉग",
     "nav.reports": "रिपोर्ट्स",
     "dashboard.totalRevenue": "कुल राजस्व",
     "dashboard.totalOrders": "कुल ऑर्डर",
@@ -547,8 +587,6 @@
     "customers.editCustomer": "ग्राहक संपादित करें",
     "customers.deleteCustomer": "ग्राहक हटाएँ",
     "orders.search": "ऑर्डर खोजें...",
-    "orders.filterProvider": "प्रदाता के अनुसार फ़िल्टर करें",
-    "orders.filterDate": "तिथि के अनुसार फ़िल्टर करें",
     "orders.orderId": "ऑर्डर ID",
     "orders.customer": "ग्राहक",
     "orders.package": "पैकेज",
@@ -562,8 +600,6 @@
     "orders.cancelOrder": "ऑर्डर रद्द करें",
     "packages.title": "पैकेज",
     "packages.search": "पैकेज खोजें...",
-    "packages.filterProvider": "प्रदाता के अनुसार फ़िल्टर करें",
-    "packages.filterDestination": "गंतव्य के अनुसार फ़िल्टर करें",
     "packages.syncNow": "अभी सिंक करें",
     "packages.lastSync": "अंतिम सिंक",
     "packages.packageName": "पैकेज नाम",
@@ -602,13 +638,11 @@
     "vouchers.editVoucher": "वाउचर संपादित करें",
     "vouchers.deleteVoucher": "वाउचर हटाएँ",
     "giftCards.title": "गिफ्ट कार्ड",
-    "giftCards.createGiftCard": "गिफ्ट कार्ड बनाएँ",
     "giftCards.code": "कार्ड कोड",
     "giftCards.initialBalance": "प्रारंभिक बैलेंस",
     "giftCards.currentBalance": "वर्तमान बैलेंस",
     "giftCards.status": "स्थिति",
     "giftCards.purchasedBy": "द्वारा खरीदा गया",
-    "giftCards.redeemedBy": "द्वारा रिडीम किया गया",
     "giftCards.transactions": "लेन-देन",
     "languages.addLanguage": "भाषा जोड़ें",
     "languages.code": "कोड",
@@ -643,16 +677,23 @@
     "logs.details": "विवरण",
     "logs.timestamp": "टाइमस्टैम्प",
     "logs.ipAddress": "IP पता",
-    "nav.emailTemplates": "ईमेल टेम्पलेट्स",
     "customers.status": "स्थिति",
-    "orders.filterStatus": "स्थिति के अनुसार फ़िल्टर करें",
     "providers.status": "स्थिति",
     "languages.rtl": "दाएँ-से-बाएँ",
     "customers.orders": "ऑर्डर",
     "providers.apiStatus": "API स्थिति",
     "providers.editProvider": "प्रदाता संपादित करें",
     "languages.enabled": "सक्रिय",
-    "settings.maintenance": "मेंटेनेंस मोड"
+    "settings.maintenance": "मेंटेनेंस मोड",
+    "nav.activityLogs": "गतिविधि लॉग",
+    "packages.filterProvider": "प्रदाता के अनुसार फ़िल्टर करें",
+    "giftCards.createGiftCard": "गिफ्ट कार्ड बनाएँ",
+    "giftCards.redeemedBy": "द्वारा रिडीम किया गया",
+    "nav.emailTemplates": "ईमेल टेम्पलेट्स",
+    "orders.filterStatus": "स्थिति के अनुसार फ़िल्टर करें",
+    "orders.filterProvider": "प्रदाता के अनुसार फ़िल्टर करें",
+    "packages.filterDestination": "गंतव्य के अनुसार फ़िल्टर करें",
+    "orders.filterDate": "तिथि के अनुसार फ़िल्टर करें"
   },
   "app": {
     "Data Packages": "डेटा पैकेज",
@@ -685,7 +726,6 @@
     "Please enter your full name": "कृपया अपना पूरा नाम दर्ज करें",
     "Please enter your I-Card No": "कृपया अपना आईडी दस्तावेज़ नंबर दर्ज करें",
     "Please enter your address": "कृपया अपना पता दर्ज करें",
-    "Please enter your DOB": "कृपया अपनी जन्म तिथि दर्ज करें",
     "Device": "डिवाइस",
     "Application Rejected": "सत्यापन अस्वीकृत",
     "Application Pending": "सत्यापन लंबित",
@@ -698,7 +738,6 @@
     "Price": "कीमत",
     "Validity": "वैधता",
     "Data": "डेटा",
-    "No Packages available Currently": "इस समय कोई पैकेज उपलब्ध नहीं है",
     "Retry": "फिर से प्रयास करें",
     "Search data packs for 200+ countries....": "200+ गंतव्यों के लिए डेटा पैक खोजें...",
     "Countries": "देश",
@@ -724,7 +763,6 @@
     "Click Here To Learn More": "और जानने के लिए यहाँ क्लिक करें",
     "How it Work's": "यह कैसे काम करता है",
     "Share your link": "अपना लिंक साझा करें",
-    "Share your referral code": "अपना रेफरल कोड साझा करें",
     "Your referral code": "आपका रेफरल कोड",
     "Share Now": "अब साझा करें",
     "Orders History": "ऑर्डर इतिहास",
@@ -737,7 +775,6 @@
     "Ordered on:": "ऑर्डर किया गया: {}",
     "Choose Your App Language": "ऐप की भाषा चुनें",
     "Choose Data Plans": "डेटा प्लान चुनें",
-    "Popular Regional Plans": "लोकप्रिय क्षेत्रीय प्लान",
     "Choose Your Top-Up": "अपना टॉप-अप चुनें",
     "Buy Now": "अभी खरीदें",
     "View": "देखें",
@@ -763,7 +800,6 @@
     "Delete": " हटाएँ ",
     "your_account": "अपना खाता?",
     "Are you sure you want to Delete your account ?": "क्या आप वाकई अपना खाता हटाना चाहते हैं?",
-    "Cancel": "रद्द करें",
     "friend_bonus": "आपके दोस्त को {} बोनस मिलेगा",
     "App Version": "ऐप संस्करण",
     "Regional Plans": "क्षेत्रीय प्लान",
@@ -775,7 +811,6 @@
     "eSim Status:": "eSIM स्थिति:",
     "eSIM Instructions": "eSIM निर्देश",
     "OverView": "सारांश",
-    "Tap to see all details": "सभी विवरण देखने के लिए टैप करें",
     "eSIM Summary": "eSIM सारांश",
     "ICCID:": "ICCID:",
     "Matching ID:": "मिलान ID:",
@@ -802,10 +837,7 @@
     "Installation Guide": "इंस्टॉलेशन गाइड",
     "No top-up options available.": "कोई टॉप-अप विकल्प उपलब्ध नहीं है।",
     "Filter": "फ़िल्टर",
-    "KYC Status": "KYC स्थिति",
     "Email": "ईमेल",
-    "Currency": "मुद्रा:",
-    "Failed to Get Currency": "मुद्रा प्राप्त करने में विफल",
     "Select Currency": "मुद्रा चुनें",
     "OK": "ठीक है",
     "Country": "देश:",
@@ -814,7 +846,6 @@
     "Profile Updated Successfully": "प्रोफ़ाइल सफलतापूर्वक अपडेट हुई",
     "Update Profile": "प्रोफ़ाइल अपडेट करें",
     "Please fill all fields and select all images.": "कृपया सभी फ़ील्ड भरें और सभी चित्र चुनें।",
-    "Use the same DOB as on your identity card to avoid KYC rejection.": "KYC अस्वीकृति से बचने के लिए वही जन्म तिथि उपयोग करें जो आपके आईडी कार्ड पर है।",
     "ID Card No": "आईडी कार्ड नंबर",
     "Photo": "फ़ोटो",
     "Customer Support": "ग्राहक सहायता",
@@ -839,11 +870,8 @@
     "USAGE POLICY": "उपयोग नीति",
     "Failed to delete notifications": "सूचनाएँ हटाने में विफल",
     "Are you sure you want to Delete?": "क्या आप वाकई हटाना चाहते हैं?",
-    "'No orders found.": "'कोई ऑर्डर नहीं मिला।",
-    "Order Ref:": "ऑर्डर संदर्भ: {}",
     "Data:": "डेटा:",
     "Loading more orders...": "और ऑर्डर लोड हो रहे हैं...",
-    "Please enter a message": "कृपया संदेश दर्ज करें",
     "Please enter a title": "कृपया शीर्षक दर्ज करें",
     "Connected to support": "सहायता से जुड़ गया",
     "Support Ticket": "सपोर्ट टिकट",
@@ -878,13 +906,10 @@
     "Expires": "समाप्त",
     "Basic Data Package": "बेसिक डेटा पैकेज",
     "Valid for days": "{} दिनों के लिए मान्य",
-    "No top-up options available": "कोई टॉप-अप विकल्प उपलब्ध नहीं",
-    "Check back later for new packages": "नए पैकेज के लिए बाद में देखें",
     "Destination": "गंतव्य",
     "Unlimited Data": "अनलिमिटेड डेटा",
     "Processing...": "प्रोसेस हो रहा है...",
     "No notifications Yet": "अभी कोई सूचना नहीं",
-    "When you get notifications": "जब आपको सूचनाएँ मिलेंगी, वे यहाँ दिखाई देंगी",
     "they'll appear here": "वे यहां दिखाई देंगी",
     "Loading more...": "और लोड हो रहा है...",
     "Success": "सफल",
@@ -897,7 +922,6 @@
     "SM-DP+ Address:": "SM-DP+ पता:",
     "Activation Code:": "सक्रियकरण कोड:",
     "APN Type:": "APN प्रकार:",
-    "Scan this QR to activate the eSIM:": "eSIM सक्रिय करने के लिए इस QR को स्कैन करें:",
     "Share QR Code URL": "QR कोड URL साझा करें",
     "Enter details manually:": "विवरण मैन्युअली दर्ज करें:",
     "Manual Code:": "मैनुअल कोड:",
@@ -914,11 +938,7 @@
     "android_qr_step_5": "स्क्रीन पर दिए निर्देशों का पालन करें",
     "android_qr_step_6": "eSIM का नाम दें (वैकल्पिक) और \"Done\" पर टैप करें",
     "android_manual_step_1": "सेटिंग्स > नेटवर्क और इंटरनेट > SIMs पर जाएँ",
-    "android_manual_step_2": "\"Download a SIM\" या \"Add eSIM\" पर टैप करें",
-    "android_manual_step_3": "\"Enter code manually\" चुनें",
-    "android_manual_step_4": "नीचे दिया गया एक्टिवेशन कोड दर्ज करें",
     "android_manual_step_5": "स्क्रीन निर्देशों का पालन करें",
-    "android_manual_step_6": "eSIM का नाम दें (वैकल्पिक) और \"Done\" पर टैप करें",
     "ios_qr_step_1": "सेटिंग्स > सेल्युलर पर जाएँ",
     "ios_qr_step_2": "\"Add Cellular Plan\" पर टैप करें",
     "ios_qr_step_5": "स्क्रीन निर्देशों का पालन करें",
@@ -951,9 +971,6 @@
     "Referral Discount ": "रेफरल छूट ",
     "Gift Card": "गिफ्ट कार्ड",
     "Offer Discount": "ऑफर छूट",
-    "Total": "कुल",
-    "Select Payment Method": "भुगतान विधि चुनें",
-    "No payment gateways available": "कोई भुगतान गेटवे उपलब्ध नहीं",
     "Pay": "भुगतान करें {}",
     "Checkout Screen": "चेकआउट स्क्रीन",
     "Error: ": "त्रुटि: {}",
@@ -976,7 +993,6 @@
     "Verify": "सत्यापित करें",
     "Code:": "कोड: {}",
     "Discount:": "छूट: {}",
-    "Choose how you want to pay": "भुगतान का तरीका चुनें",
     "No payment methods available": "कोई भुगतान तरीका उपलब्ध नहीं",
     "Payment Method": "भुगतान विधि",
     "Payment": "भुगतान",
@@ -990,9 +1006,6 @@
     "Create Gift Card": "गिफ्ट कार्ड बनाएँ",
     "Gift Card Conversion": "गिफ्ट कार्ड रूपांतरण",
     "You Earn": "आप कमाते हैं",
-    "Friend Joins": "दोस्त जुड़ता है",
-    "Share Code": "कोड साझा करें",
-    "Send your referral code": "अपना रेफरल कोड दोस्तों और परिवार को भेजें",
     "How It Works": "यह कैसे काम करता है",
     "Total Referrals": "कुल रेफरल",
     "Earning": "कमाई",
@@ -1011,7 +1024,6 @@
     "apple_email_missing": "Apple ने आपका ईमेल नहीं दिया। जारी रखने के लिए दर्ज करें:",
     "Voucher": "वाउचर",
     "Do you want to cancel the payment?": "क्या आप भुगतान रद्द करना चाहते हैं?",
-    "You earn a reward": "पहली खरीद के बाद आपको इनाम मिलेगा। आप इसे गिफ्ट कार्ड में बदलकर eSIM या टॉप-अप में उपयोग कर सकते हैं। इसे दोस्तों और परिवार से भी साझा कर सकते हैं।",
     "Download the app from Google Play:\n": "Google Play से ऐप डाउनलोड करें:\n",
     "Data+Call+SMS": "डेटा+कॉल+SMS",
     "Unlimited": "अनलिमिटेड",
@@ -1024,9 +1036,6 @@
     "KYC Form Submitted Successfully!": "KYC फ़ॉर्म सफलतापूर्वक जमा हुआ!",
     "Submit": "जमा करें",
     "Delete Account": "खाता हटाएँ",
-    "friend_signup_offer": "आपके लिंक से साइन-अप करने और रेफरल कोड उपयोग करने वाला हर दोस्त अपनी पहली खरीद पर {} की छूट पाएगा",
-    "Start your KYC to enjoy full benefits.": "पूरा लाभ पाने के लिए KYC शुरू करें",
-    "Use the same Name as on your identity card to avoid KYC rejection.": "KYC अस्वीकृति से बचने के लिए वही नाम उपयोग करें जो आपके आईडी कार्ड पर है।",
     "No eSIMs found.": "कोई eSIM नहीं मिला।",
     "Continue with Apple": "Apple से जारी रखें",
     "Enter your email to manage your eSIM": "अपने eSIM को प्रबंधित करने के लिए ईमेल दर्ज करें",
@@ -1041,11 +1050,60 @@
     "Gift Cards": "गिफ्ट कार्ड",
     "No Referrals Yet": "अभी तक कोई रेफरल नहीं",
     "Your referral history will appear here": "आपका रेफरल इतिहास यहाँ दिखाई देगा",
+    "Enjoy your gift!": "अपने गिफ्ट का आनंद लें!",
+    "Created": "बनाया गया",
+    "Go Back": "वापस जाएँ",
+    "Something went wrong": "कुछ गलत हो गया",
+    "Review": "समीक्षा",
+    "Review Order": "ऑर्डर की समीक्षा करें",
+    "Share your experience with this order": "इस ऑर्डर के साथ अपना अनुभव साझा करें",
+    "e.g., Great product, excellent service": "जैसे, बढ़िया उत्पाद, शानदार सेवा",
+    "Detailed Review": "विस्तृत समीक्षा",
+    "Your review was submitted successfully.": "आपकी समीक्षा सफलतापूर्वक सबमिट हो गई है।",
+    "Submit Review": "समीक्षा सबमिट करें",
+    "Poor": "खराब",
+    "Fair": "ठीक-ठाक",
+    "Good": "अच्छा",
+    "Very Good": "बहुत अच्छा",
+    "Excellent": "उत्कृष्ट",
+    "KYC Status": "KYC स्थिति",
+    "Failed to Get Currency": "मुद्रा प्राप्त करने में विफल",
+    "Order Ref:": "ऑर्डर संदर्भ: {}",
+    "Check back later for new packages": "नए पैकेज के लिए बाद में देखें",
+    "Scan this QR to activate the eSIM:": "eSIM सक्रिय करने के लिए इस QR को स्कैन करें:",
+    "android_manual_step_3": "\"Enter code manually\" चुनें",
+    "Select Payment Method": "भुगतान विधि चुनें",
+    "No payment gateways available": "कोई भुगतान गेटवे उपलब्ध नहीं",
+    "Share Code": "कोड साझा करें",
+    "friend_signup_offer": "आपके लिंक से साइन-अप करने और रेफरल कोड उपयोग करने वाला हर दोस्त अपनी पहली खरीद पर {} की छूट पाएगा",
+    "Review Title": "समीक्षा शीर्षक",
+    "Refer a friend and get for you and your friend. It’s a win-win!": "एक दोस्त को रेफर करें और आपको व आपके दोस्त दोनों को {} मिलेंगे। यह दोनों के लिए फायदेमंद है!",
+    "Please enter your DOB": "कृपया अपनी जन्म तिथि दर्ज करें",
+    "No Packages available Currently": "इस समय कोई पैकेज उपलब्ध नहीं है",
+    "Share your referral code": "अपना रेफरल कोड साझा करें",
+    "Popular Regional Plans": "लोकप्रिय क्षेत्रीय प्लान",
+    "Cancel": "रद्द करें",
+    "Tap to see all details": "सभी विवरण देखने के लिए टैप करें",
+    "Currency": "मुद्रा:",
+    "Use the same DOB as on your identity card to avoid KYC rejection.": "KYC अस्वीकृति से बचने के लिए वही जन्म तिथि उपयोग करें जो आपके आईडी कार्ड पर है।",
+    "'No orders found.": "'कोई ऑर्डर नहीं मिला।",
+    "Please enter a message": "कृपया संदेश दर्ज करें",
+    "android_manual_step_2": "\"Download a SIM\" या \"Add eSIM\" पर टैप करें",
+    "Total": "कुल",
+    "Choose how you want to pay": "भुगतान का तरीका चुनें",
+    "Friend Joins": "दोस्त जुड़ता है",
+    "Send your referral code": "अपना रेफरल कोड दोस्तों और परिवार को भेजें",
+    "Start your KYC to enjoy full benefits.": "पूरा लाभ पाने के लिए KYC शुरू करें",
+    "Use the same Name as on your identity card to avoid KYC rejection.": "KYC अस्वीकृति से बचने के लिए वही नाम उपयोग करें जो आपके आईडी कार्ड पर है।",
+    "How would you rate this order?": "आप इस ऑर्डर को कैसे रेट करेंगे?",
+    "Share more details about your experience...": "अपने अनुभव के बारे में और विवरण साझा करें...",
+    "No top-up options available": "कोई टॉप-अप विकल्प उपलब्ध नहीं",
+    "When you get notifications": "जब आपको सूचनाएँ मिलेंगी, वे यहाँ दिखाई देंगी",
+    "android_manual_step_4": "नीचे दिया गया एक्टिवेशन कोड दर्ज करें",
     "PENDING": "लंबित",
     "Reward": "इनाम",
     "Date": "तारीख",
     "No Gift Cards": "कोई गिफ्ट कार्ड नहीं",
-    "our gift card history will appear here": "आपका गिफ्ट कार्ड इतिहास यहाँ दिखाई देगा",
     "ACTIVE": "सक्रिय",
     "USED": "उपयोग किया गया",
     "Gift Card Code": "गिफ्ट कार्ड कोड",
@@ -1054,31 +1112,11 @@
     "Amount": "राशि",
     "Code": "कोड",
     "Download our app": "हमारा ऐप डाउनलोड करें",
-    "Enjoy your gift!": "अपने गिफ्ट का आनंद लें!",
-    "Created": "बनाया गया",
-    "Go Back": "वापस जाएँ",
-    "Something went wrong": "कुछ गलत हो गया",
-    "Review": "समीक्षा",
-    "Review Order": "ऑर्डर की समीक्षा करें",
-    "Share your experience with this order": "इस ऑर्डर के साथ अपना अनुभव साझा करें",
-    "How would you rate this order?": "आप इस ऑर्डर को कैसे रेट करेंगे?",
-    "Review Title": "समीक्षा शीर्षक",
-    "e.g., Great product, excellent service": "जैसे, बढ़िया उत्पाद, शानदार सेवा",
-    "Detailed Review": "विस्तृत समीक्षा",
-    "Share more details about your experience...": "अपने अनुभव के बारे में और विवरण साझा करें...",
-    "Your review was submitted successfully.": "आपकी समीक्षा सफलतापूर्वक सबमिट हो गई है।",
-    "Submit Review": "समीक्षा सबमिट करें",
-    "Poor": "खराब",
-    "Fair": "ठीक-ठाक",
-    "Good": "अच्छा",
-    "Very Good": "बहुत अच्छा",
-    "Excellent": "उत्कृष्ट",
-    "Refer a friend and get for you and your friend. It’s a win-win!": "एक दोस्त को रेफर करें और आपको व आपके दोस्त दोनों को {} मिलेंगे। यह दोनों के लिए फायदेमंद है!"
+    "our gift card history will appear here": "आपका गिफ्ट कार्ड इतिहास यहाँ दिखाई देगा",
+    "android_manual_step_6": "eSIM का नाम दें (वैकल्पिक) और \"Done\" पर टैप करें",
+    "You earn a reward": "पहली खरीद के बाद आपको इनाम मिलेगा। आप इसे गिफ्ट कार्ड में बदलकर eSIM या टॉप-अप में उपयोग कर सकते हैं। इसे दोस्तों और परिवार से भी साझा कर सकते हैं।"
   },
-
   "hero": {
-    "headline": "वाह! मैंने अब तक के सबसे सस्ते eSIM प्लान देखे हैं!",
-    "subheading": "अपना सही eSIM प्लान चुनें — हर यात्री के लिए स्मार्ट विकल्प। शानदार कैशबैक!",
     "cashbackOffer": "10GB+ प्लान पर 20% तक वापस पाएं!",
     "searchSubtitle": "अपना गंतव्य चुनें, हम कनेक्शन संभालेंगे",
     "searchPlaceholder": "गंतव्य खोजें",
@@ -1087,1781 +1125,54 @@
     "termsLink": "नियम और शर्तें",
     "imageAlt": "eSIM के साथ खुश यात्री",
     "badgeText1": "5x Simfinity क्रेडिट पाएं:",
-    "badgeText2": "15% तक वापस!"
+    "badgeText2": "15% तक वापस!",
+    "headline": "वाह! मैंने अब तक के सबसे सस्ते eSIM प्लान देखे हैं!",
+    "subheading": "अपना सही eSIM प्लान चुनें — हर यात्री के लिए स्मार्ट विकल्प। शानदार कैशबैक!"
   },
-
-  
   "esimIntro": {
     "title": "अब भी फिज़िकल SIM कार्ड खरीद रहे हैं?",
-    "description": "यह पुराना तरीका है! अब जानिए eSIM — एक स्मार्ट डिजिटल SIM जो पहले से आपके फोन में होती है और आपको बिना किसी फिज़िकल SIM खरीदे या बदले तुरंत मोबाइल डेटा एक्टिवेट करने देती है। न दुकान, न प्लास्टिक, न ही SIM बदलने की झंझट — बस स्कैन करें, कनेक्ट हों और सेकंडों में तेज़ और भरोसेमंद इंटरनेट का आनंद लें। Simfinity के साथ यात्रा के दौरान ऑनलाइन रहना आसान, लचीला और पूरी तरह झंझट-मुक्त हो जाता है।",
-    "imageAlt": "eSIM का उपयोग करता हुआ मोबाइल फोन"
+    "imageAlt": "eSIM का उपयोग करता हुआ मोबाइल फोन",
+    "description": "यह पुराना तरीका है! अब जानिए eSIM — एक स्मार्ट डिजिटल SIM जो पहले से आपके फोन में होती है और आपको बिना किसी फिज़िकल SIM खरीदे या बदले तुरंत मोबाइल डेटा एक्टिवेट करने देती है। न दुकान, न प्लास्टिक, न ही SIM बदलने की झंझट — बस स्कैन करें, कनेक्ट हों और सेकंडों में तेज़ और भरोसेमंद इंटरनेट का आनंद लें। Simfinity के साथ यात्रा के दौरान ऑनलाइन रहना आसान, लचीला और पूरी तरह झंझट-मुक्त हो जाता है।"
   },
-
   "travelTabs": {
     "subtitle": "आपका अगला गंतव्य कौन सा है?",
     "title": "अपना यात्रा गंतव्य चुनें",
     "description": "अपना गंतव्य खोजें और बाकी सब Simfinity पर छोड़ दें। तुरंत डेटा, बिना किसी तनाव के।",
     "viewAll": "सभी गंतव्य देखें",
-
     "country": "देश",
     "region": "क्षेत्र",
     "ultra": "अल्ट्रा",
     "new": "नया",
-
     "countries": "देश",
     "daysValidity": "दिनों की वैधता",
-
     "noRegions": "कोई क्षेत्र उपलब्ध नहीं है",
     "ultraComing": "अल्ट्रा प्लान जल्द आ रहे हैं..."
   },
-
-  
+  "NewSimfinDes": {
+    "heroSec": "[object Object]",
+    "whatIsEsimNew": "[object Object]",
+    "TravelDestinationTabsNew": "[object Object]",
+    "WhyChooseSailySection": "[object Object]",
+    "NewSimfinDes": "[object Object]",
+    "NewSimfinWorkDes": "[object Object]",
+    "DownloadAppSection": "[object Object]",
+    "HeroFAQSection": "[object Object]",
+    "Referfriend": "[object Object]",
+    "esim_for_business": "[object Object]",
+    "what_is_esim": "[object Object]",
+    "download_esim_app": "[object Object]",
+    "about_us": "[object Object]",
+    "LifeAtSailySection": "[object Object]",
+    "Security_Features": "[object Object]",
+    "NavbarData": "[object Object]",
+    "AllDestinations": "[object Object]",
+    "AllCountryPlans": "[object Object]",
+    "RegionPlanPage": "[object Object]",
+    "SingleCountryPlan": "[object Object]",
+    "Footer": "[object Object]"
+  },
   "faq": {
     "title": "अक्सर पूछे जाने वाले सवाल",
-    "items": [
-      {
-        "id": "faq-1",
-        "question": "eSIM लेने के बाद क्या मुझे कुछ चालू करना होगा?",
-        "answer": "नहीं। गंतव्य पर पहुंचते ही आपका eSIM अपने आप सक्रिय हो जाएगा। बस यह सुनिश्चित करें कि eSIM इंस्टॉल है और मोबाइल डेटा चालू है।"
-      },
-      {
-        "id": "faq-2",
-        "question": "क्या Simfinity मेरे गंतव्य पर पहुंचने को पहचान लेता है?",
-        "answer": "हाँ। Simfinity आपके पहुंचते ही डेटा प्लान को अपने आप सक्रिय कर देता है।"
-      },
-      {
-        "id": "faq-3",
-        "question": "क्या eSIM के साथ मेरा फोन नंबर बना रहता है?",
-        "answer": "हाँ। आपकी फिजिकल SIM कॉल और SMS के लिए एक्टिव रहती है, eSIM सिर्फ डेटा के लिए होती है।"
-      },
-      {
-        "id": "faq-4",
-        "question": "अंतरराष्ट्रीय यात्रा के लिए सबसे अच्छा eSIM कौन सा है?",
-        "answer": "Simfinity 200+ गंतव्यों में किफायती और भरोसेमंद eSIM प्लान देता है, बिना रोमिंग झटके के।"
-      },
-      {
-        "id": "faq-5",
-        "question": "टूरिस्ट eSIM क्या होती है?",
-        "answer": "टूरिस्ट eSIM यात्रियों के लिए बनाई गई डिजिटल SIM होती है, जिससे बिना फिजिकल SIM खरीदे तुरंत इंटरनेट मिलता है।"
-      },
-      {
-        "id": "faq-6",
-        "question": "eSIM एक्टिव होने में कितना समय लगता है?",
-        "answer": "इंस्टॉल करने के तुरंत बाद या गंतव्य पर पहुंचते ही eSIM अपने आप एक्टिव हो जाती है।"
-      }
-    ]
-  },
-
-
-
-    "NewSimfinDes": {
-        "heroSec": {
-            "title": "वाह! ये अब तक के सबसे सस्ते eSIM प्लान हैं जो मैंने देखे हैं!",
-            "Browse": "अपना परफेक्ट eSIM प्लान चुनें — हर यात्री के लिए स्मार्ट विकल्प। शानदार कैशबैक!",
-            "Get": "पाएँ 5x Simfinity क्रेडिट:",
-            "Up": "10GB+ प्लान पर पाएं 20% तक कैशबैक!",
-            "Where_do": "अपना गंतव्य चुनें, कनेक्शन हम संभाल लेंगे",
-            "placeHolder": "गंतव्य खोजें",
-            "creators": "के निर्माताओं द्वारा",
-            "term": "हमारे प्रमोशन के",
-            "term_Link": " नियम और शर्तें देखें",
-            "card_c1": "पाएँ 5x Simfinity क्रेडिट:",
-            "card_c2": "15% तक कैशबैक!"
-        },
-        "whatIsEsimNew": {
-            "whatEsim": "क्या आप अभी भी फिजिकल SIM कार्ड खरीद रहे हैं?",
-            "An": "एक",
-            "para": "ये तो पुरानी बात हो गई! मिलिए eSIM से — एक स्मार्ट डिजिटल SIM जो पहले से ही आपके फोन में मौजूद होती है और आपको बिना किसी फिजिकल SIM को खरीदने या बदलने के तुरंत मोबाइल डेटा एक्टिवेट करने देती है। न कोई दुकान, न प्लास्टिक, न SIM बदलना — बस स्कैन करें, कनेक्ट करें और कुछ सेकंड में तेज़, भरोसेमंद इंटरनेट का आनंद लें। Simfinity के साथ, यात्रा के दौरान ऑनलाइन रहना आसान, लचीला और 100% झंझट-मुक्त हो जाता है।"
-        },
-        "TravelDestinationTabsNew": {
-            "subTitle": "आपका अगला गंतव्य क्या है?",
-            "title": "अपना यात्रा गंतव्य चुनें",
-            "btn": "सभी गंतव्य देखें",
-            "des": "अपना गंतव्य खोजें और बाकी Simfinity पर छोड़ दें। तुरंत डेटा, बिना किसी तनाव के।",
-            "Country": "देश",
-            "Region": "क्षेत्र",
-            "Ultra": "Simfinity Passport",
-            "new": "नया"
-        },
-        "WhyChooseSailySection": {
-            "header": {
-                "subtitle": "Simfinity क्यों चुनें?",
-                "title": "स्मार्ट तरीके से जुड़े रहें"
-            },
-            "features": [
-                {
-                    "id": 1,
-                    "title": "यात्रा-अनुकूल कीमतें",
-                    "description": "दुनिया में कहीं भी बेहद सस्ता eSIM डेटा पाएं। छोटी यात्राओं से लेकर लंबी एडवेंचर तक — Simfinity हमेशा सबसे कम डेटा लागत देता है।"
-                },
-                {
-                    "id": 2,
-                    "title": "कुछ ही सेकंड में एक्टिवेट",
-                    "description": "न दुकानें, न SIM बदलना। बस Simfinity eSIM स्कैन करें — और लैंड करते ही तुरंत कनेक्ट हो जाएँ।"
-                },
-                {
-                    "id": 3,
-                    "title": "कोई रोमिंग शॉक नहीं",
-                    "description": "महंगे रोमिंग बिल देना बंद करें। Simfinity हर यात्रा में आपका बिल सरल, स्थिर और बजट-फ्रेंडली रखता है।"
-                },
-                {
-                    "id": 4,
-                    "title": "हर यात्रा के लिए एक ही eSIM",
-                    "description": "Simfinity eSIM को हमेशा रखें। जब चाहें नई देश योजनाएँ जोड़ें — SIM दोबारा इंस्टॉल या बदलने की जरूरत नहीं।"
-                },
-                {
-                    "id": 5,
-                    "title": "स्मार्ट डेटा अलर्ट",
-                    "description": "हम आपको डेटा खत्म होने से पहले सूचित करते हैं — ताकि यात्रा के बीच में इंटरनेट बंद न पड़े।"
-                },
-                {
-                    "id": 6,
-                    "title": "ग्लोबल और रीजनल प्लान",
-                    "description": "आप एक देश जा रहे हों या कई क्षेत्रों में घूम रहे हों, Simfinity के पास हर यात्रा के लिए परफेक्ट प्लान है।"
-                }
-            ]
-        },
-        "NewSimfinDes": {
-            "title": "तुरंत कनेक्शन, बिना यात्रा तनाव — सिर्फ Simfinity के साथ",
-            "des": "यात्रा मज़ेदार होनी चाहिए, परेशान करने वाली नहीं। Simfinity आपको कहीं भी तुरंत ऑनलाइन रखता है।",
-            "btn": "सभी गंतव्य देखें",
-            "card1": {
-                "title": "'WiFi पासवर्ड क्या है?' कभी मत पूछें",
-                "des": "Simfinity आपको लैंड करते ही ऑनलाइन कर देता है — न कैफ़े ढूँढ़ने की जरूरत, न हॉटस्पॉट मांगने की, न धीमे पब्लिक WiFi पर निर्भर रहने की।"
-            },
-            "card2": {
-                "title": "अब SIM कार्ड की झंझट नहीं",
-                "des": "SIM दुकानों को ढूंढना, छोटे कार्ड बदलना या इजेक्टर पिन ढोना भूल जाइए। Simfinity eSIM के साथ सब कुछ डिजिटल है — एक बार एक्टिवेट करें, और हर यात्रा का आनंद तनाव-मुक्त लें।"
-            },
-            "card3": {
-                "title": "Simfinity के साथ प्राइवसी के साथ यात्रा करें",
-                "des": "होटल बुक करते समय, पब्लिक WiFi इस्तेमाल करते समय या नई शहरों को एक्सप्लोर करते समय, आपका डेटा Simfinity के साथ सुरक्षित रहता है। हर eSIM कनेक्शन एन्क्रिप्टेड, सुरक्षित और प्राइवेट रहता है — चाहे आप किसी भी देश में हों।",
-                "btn": "देखें कैसे"
-            }
-        },
-        "NewSimfinWorkDes": {
-            "subTitle": "Simfinity क्यों खास है",
-            "title": "वैश्विक यात्रियों के लिए एक स्मार्ट विकल्प",
-            "des": "अधिक कवरेज, बेहतर कीमतें, और ऐसी सुविधाएँ जो वास्तव में मायने रखती हैं।",
-            "card1": {
-                "title": "हर यात्रा के लिए बेहतर मूल्य",
-                "des": "Simfinity आपको सबसे कम डेटा लागत देता है — बिना किसी छिपे शुल्क के। छोटी यात्राओं, बिजनेस ट्रैवल और लंबी एडवेंचर के लिए परफेक्ट।"
-            },
-            "card2": {
-                "title": "ज़रूरत से भी आगे तक कवरेज",
-                "des": "हम दुनिया की सर्वश्रेष्ठ नेटवर्क कंपनियों के साथ साझेदारी करते हैं ताकि दूर-दराज़ स्थानों पर भी आपको तेज़ और मजबूत डेटा मिले।"
-            },
-            "card3": {
-                "title": "सच्चे यात्रियों के लिए डिज़ाइन किया गया",
-                "des": "पर्यटकों, बैकपैकर्स, बिजनेस यात्रियों, डिजिटल नोमाड्स और ग्लोबल ट्रैवलर्स — सभी के लिए Simfinity आपकी यात्रा में हर जगह कनेक्टेड रखता है।"
-            }
-        },
-        "DownloadAppSection": {
-            "title": "Simfinity ऐप जल्द ही आ रहा है",
-            "des": "अपनी eSIM को मैनेज करने का स्मार्ट और तेज़ तरीका — जल्द ही iOS और Android पर।"
-        },
-        "HeroFAQSection": {
-            "title": "अक्सर पूछे जाने वाले प्रश्न",
-            "faqs": [
-                {
-                    "id": "faq-1",
-                    "question": "eSIM प्राप्त करने के बाद, क्या मुझे कुछ चालू करना है?",
-                    "answer": "नहीं, आपका eSIM आपके गंतव्य पर पहुंचने के तुरंत बाद स्वचालित रूप से सक्रिय हो जाएगा। हालांकि, सुनिश्चित करें कि आपका डिवाइस eSIM-संगत है और आपने यात्रा से पहले eSIM प्रोफाइल इंस्टॉल किया है। यदि आवश्यक हो तो आप इसे अपने डिवाइस की सेटिंग्स में भी मैन्युअल रूप से सक्रिय कर सकते हैं।"
-                },
-                {
-                    "id": "faq-2",
-                    "question": "क्या Simfinity पता लगाता है जब मैं अपने गंतव्य पर पहुंचता हूं?",
-                    "answer": "हां! Simfinity स्वचालित रूप से पता लगाता है जब आप अपने गंतव्य पर पहुंचते हैं और आपकी डेटा योजना को सक्रिय करता है। इसका मतलब है कि आपको अपने eSIM को मैन्युअल रूप से चालू करने की चिंता नहीं करनी है - यह आपके उतरते ही काम करना शुरू कर देगा।"
-                },
-                {
-                    "id": "faq-3",
-                    "question": "क्या मैं Simfinity eSIM डेटा प्लान के साथ अपनी संख्या रखता हूं?",
-                    "answer": "हां, आप अपना मूल फोन नंबर रख सकते हैं। Simfinity केवल डेटा-ईएसआईएम योजनाएं प्रदान करता है, इसलिए आपका भौतिक सिम कार्ड आपकी नियमित संख्या के साथ कॉल और संदेशों के लिए सक्रिय रहता है। आप यात्रा के दौरान eSIM का उपयोग केवल मोबाइल डेटा के लिए करेंगे।"
-                },
-                {
-                    "id": "faq-4",
-                    "question": "अंतर्राष्ट्रीय यात्रा के लिए सबसे अच्छा eSIM कौन सा है?",
-                    "answer": "Simfinity 150 से अधिक देशों में कवरेज के साथ अंतर्राष्ट्रीय यात्रा के लिए प्रतिस्पर्धी eSIM योजनाएं प्रदान करता है। हम सस्ती कीमतें, विश्वसनीय कनेक्टिविटी और आसान सेटअप प्रदान करते हैं। आप अपनी यात्रा की आवश्यकताओं और अवधि के आधार पर विभिन्न डेटा पैकेज (1GB से अनंत) में से चुन सकते हैं।"
-                },
-                {
-                    "id": "faq-5",
-                    "question": "पर्यटक eSIM क्या है?",
-                    "answer": "एक पर्यटक eSIM विशेष रूप से यात्रियों के लिए डिज़ाइन किया गया एक डिजिटल SIM कार्ड है। यह आपको भौतिक SIM कार्ड खरीदने की आवश्यकता के बिना विदेशी देशों में मोबाइल डेटा प्राप्त करने की अनुमति देता है। आप इसे पूरी तरह से एक ऐप के माध्यम से खरीद, इंस्टॉल और सक्रिय कर सकते हैं, जो इसे छोटी यात्राओं और छुट्टी के ठहराव के लिए उपयुक्त बनाता है।"
-                },
-                {
-                    "id": "faq-6",
-                    "question": "मेरा eSIM सक्रिय होने में कितना समय लगता है?",
-                    "answer": "आपका eSIM खरीद के तुरंत बाद सक्रिय किया जा सकता है। सेटअप प्रक्रिया Simfinity ऐप के माध्यम से केवल कुछ मिनट लेती है। एक बार इंस्टॉल हो जाने पर, आपकी योजना आपके गंतव्य पर पहुंचने पर या खरीद के 30 दिन बाद, जो भी पहले हो, सक्रिय हो जाएगी।"
-                }
-            ]
-        },
-        "Referfriend": {
-            "title": "एक डिवाइस। असीमित यात्रा स्वतंत्रता",
-            "des": "पूरे एक साल तक अनलिमिटेड ग्लोबल डेटा, लंबी बैटरी लाइफ और एक स्मार्ट ट्रैवल डिवाइस जो आपको हर जगह कनेक्टेड रखे।",
-            "btn": "आपका पासपोर्ट"
-        },
-        "esim_for_business": {
-            "BusinessSection": {
-                "heroSection": {
-                    "title": "Simfinity खोजें: व्यवसाय के लिए एक eSIM ऐप",
-                    "description": "सुनिश्चित करें कि आपके कर्मचारी हमेशा कनेक्टेड हैं - हमारे व्यवसाय eSIM समाधान के साथ अंतर्राष्ट्रीय मोबाइल डेटा प्लान प्राप्त करें।",
-                    "ctaButton": "हमसे संपर्क करें",
-                    "ctaLink": "/contact",
-                    "heroImage": "/images/esim-business/saily-business-hero-employee-dashboard.webp",
-                    "heroImageAlt": "व्यवसाय व्यक्ति फोन का उपयोग कर रहा है"
-                },
-                "whyChooseSection": {
-                    "heading": "अपने व्यवसाय के लिए Simfinity eSIM ऐप क्यों चुनें?",
-                    "subheading": "स्मार्टफोन, टैबलेट और लैपटॉप पर इंटरनेट एक्सेस के लिए Simfinity eSIM ऐप का उपयोग करें।",
-                    "features": [
-                        {
-                            "id": 1,
-                            "iconType": "Wallet",
-                            "title": "लचकदार मोबाइल डेटा योजनाएं",
-                            "description": "हर बार सबसे अच्छा सौदा पाएं और केवल वही भुगतान करें जो आपको चाहिए। आप सैकड़ों देशों, विभिन्न अवधियों और मोबाइल डेटा की विभिन्न मात्राओं में से चुन सकते हैं बिना लंबी और महंगी अनुबंधों में फंसे।"
-                        },
-                        {
-                            "id": 2,
-                            "iconType": "RefreshCw",
-                            "title": "स्वचालित सेटअप और सक्रियण",
-                            "description": "Simfinity स्वचालित, वन-टैप eSIM इंस्टॉलेशन प्रदान करता है जो केवल कुछ मिनट लेता है। उसके बाद, eSIM को मोबाइल डेटा योजनाओं के साथ भरें जो उपयोगकर्ता के अपने गंतव्य पर पहुंचने के तुरंत बाद स्वचालित रूप से सक्रिय हो जाएंगे।"
-                        },
-                        {
-                            "id": 3,
-                            "iconType": "MessageCircleQuestion",
-                            "title": "समर्पित प्रबंधक और 24/7 ग्राहक सहायता",
-                            "description": "Simfinity के पास सभी उपयोगकर्ताओं के लिए 24/7 चैट सहायता है। और यदि आपको कोई समस्या आती है, तो आपका समर्पित खाता प्रबंधक आपकी समस्या को हल करने में मदद करने के लिए वहां होगा।"
-                        }
-                    ]
-                },
-                "benefitsSection": {
-                    "heading": "व्यवसाय के लिए Simfinity के eSIM डेटा प्लान के फायदे",
-                    "subheading": "अपनी टीम को कनेक्टेड रखें।",
-                    "tailoredSolutions": {
-                        "title": "आपके व्यवसाय की जरूरतों के लिए अनुरूप समाधान",
-                        "description": "चाहे यह एक छोटा पारिवारिक व्यवसाय हो या एक विशाल उद्यम, Simfinity सभी की सेवा करता है। एक मोबाइल डेटा पैकेज प्राप्त करें जो आपके व्यवसाय की जरूरतों के अनुरूप हो।",
-                        "ctaButton": "हमसे संपर्क करें",
-                        "ctaLink": "/contact",
-                        "image": "/images/esim-business/saily-business-tailored-solutions.webp",
-                        "imageAlt": "व्यवसाय पेशेवर मोबाइल और लैपटॉप का उपयोग कर रहा है"
-                    }
-                },
-                "coverageSection": {
-                    "leftCard": {
-                        "bgColor": "bg-black",
-                        "textColor": "text-white",
-                        "title": "विश्वव्यापी 200+ गंतव्यों में कवरेज",
-                        "description": "Simfinity 200+ गंतव्यों में दर्जनों मोबाइल डेटा प्लान प्रदान करता है, साथ ही क्षेत्रीय और वैश्विक योजनाएं उन विशेष मामलों के लिए जब आपकी टीम को यात्रा के दौरान कनेक्टेड रहना चाहिए।",
-                        "image": "/images/esim-business/saily-business-worldwide-coverage.webp",
-                        "imageAlt": "व्यवसाय आदमी फोन का उपयोग कर रहा है"
-                    },
-                    "rightCard": {
-                        "bgColor": "bg-white",
-                        "textColor": "text-black",
-                        "borderColor": "border-gray-100",
-                        "title": "व्यावसायिक यात्रियों के लिए निरंतर कनेक्टिविटी",
-                        "description": "Simfinity 200+ गंतव्यों में दर्जनों मोबाइल डेटा प्लान प्रदान करता है, साथ ही क्षेत्रीय और वैश्विक योजनाएं उन विशेष मामलों के लिए जब आपकी टीम को यात्रा के दौरान कनेक्टेड रहना चाहिए।",
-                        "image": "/images/esim-business/saily-business-seamless-connectivity-data-limit.webp",
-                        "imageAlt": "व्यवसाय महिला फोन का उपयोग कर रही है"
-                    }
-                },
-                "noRoamingFeesSection": {
-                    "title": "कोई रोमिंग शुल्क नहीं - कभी नहीं",
-                    "description": "व्यवसाय के लिए eSIM व्यावसायिक यात्रियों के लिए एक उत्कृष्ट अल्पकालिक समाधान है जो रोमिंग लागत में कटौती करना चाहते हैं और हर समय कनेक्टेड रहना चाहते हैं।",
-                    "ctaButton": "हमसे संपर्क करें",
-                    "ctaLink": "/contact",
-                    "image": "/images/esim-business/saily-business-no-roaming-fees.webp",
-                    "imageAlt": "व्यवसाय पेशेवर मोबाइल और लैपटॉप का उपयोग कर रहा है",
-                    "bgColor": "bg-[#f7f7f8]"
-                },
-                "contactSecTitle": {
-                    "title": "उद्धरण पाने के लिए बात करते हैं",
-                    "des": "फॉर्म भरें और हम आपसे संपर्क करेंगे।"
-                },
-                "FAQSection": {
-                    "title": "अक्सर पूछे जाने वाले प्रश्न",
-                    "faqs": [
-                        {
-                            "id": "faq-1",
-                            "question": "eSIM प्राप्त करने के बाद, क्या मुझे कुछ चालू करना है?",
-                            "answer": "नहीं, आपका eSIM आपके गंतव्य पर पहुंचने के तुरंत बाद स्वचालित रूप से सक्रिय हो जाएगा। हालांकि, सुनिश्चित करें कि आपका डिवाइस eSIM-संगत है और आपने यात्रा से पहले eSIM प्रोफाइल इंस्टॉल किया है। यदि आवश्यक हो तो आप इसे अपने डिवाइस की सेटिंग्स में भी मैन्युअल रूप से सक्रिय कर सकते हैं।"
-                        },
-                        {
-                            "id": "faq-2",
-                            "question": "क्या Simfinity पता लगाता है जब मैं अपने गंतव्य पर पहुंचता हूं?",
-                            "answer": "हां! Simfinity स्वचालित रूप से पता लगाता है जब आप अपने गंतव्य पर पहुंचते हैं और आपकी डेटा योजना को सक्रिय करता है। इसका मतलब है कि आपको अपने eSIM को मैन्युअल रूप से चालू करने की चिंता नहीं करनी है - यह आपके उतरते ही काम करना शुरू कर देगा।"
-                        },
-                        {
-                            "id": "faq-3",
-                            "question": "क्या मैं Simfinity eSIM डेटा प्लान के साथ अपनी संख्या रखता हूं?",
-                            "answer": "हां, आप अपना मूल फोन नंबर रख सकते हैं। Simfinity केवल डेटा-eSIM योजनाएं प्रदान करता है, इसलिए आपका भौतिक सिम कार्ड आपकी नियमित संख्या के साथ कॉल और संदेशों के लिए सक्रिय रहता है। आप यात्रा के दौरान eSIM का उपयोग केवल मोबाइल डेटा के लिए करेंगे।"
-                        },
-                        {
-                            "id": "faq-4",
-                            "question": "अंतर्राष्ट्रीय यात्रा के लिए सबसे अच्छा eSIM कौन सा है?",
-                            "answer": "Simfinity 150 से अधिक देशों में कवरेज के साथ अंतर्राष्ट्रीय यात्रा के लिए प्रतिस्पर्धी eSIM योजनाएं प्रदान करता है। हम सस्ती कीमतें, विश्वसनीय कनेक्टिविटी और आसान सेटअप प्रदान करते हैं। आप अपनी यात्रा की आवश्यकताओं और अवधि के आधार पर विभिन्न डेटा पैकेज (1GB से अनंत) में से चुन सकते हैं।"
-                        },
-                        {
-                            "id": "faq-5",
-                            "question": "पर्यटक eSIM क्या है?",
-                            "answer": "एक पर्यटक eSIM विशेष रूप से यात्रियों के लिए डिज़ाइन किया गया एक डिजिटल SIM कार्ड है। यह आपको भौतिक SIM कार्ड खरीदने की आवश्यकता के बिना विदेशी देशों में मोबाइल डेटा प्राप्त करने की अनुमति देता है। आप इसे पूरी तरह से एक ऐप के माध्यम से खरीद, इंस्टॉल और सक्रिय कर सकते हैं, जो इसे छोटी यात्राओं और छुट्टी के ठहराव के लिए उपयुक्त बनाता है।"
-                        },
-                        {
-                            "id": "faq-6",
-                            "question": "मेरा eSIM सक्रिय होने में कितना समय लगता है?",
-                            "answer": "आपका eSIM खरीद के तुरंत बाद सक्रिय किया जा सकता है। सेटअप प्रक्रिया Simfinity ऐप के माध्यम से केवल कुछ मिनट लेती है। एक बार इंस्टॉल हो जाने पर, आपकी योजना आपके गंतव्य पर पहुंचने पर या खरीद के 30 दिन बाद, जो भी पहले हो, सक्रिय हो जाएगी।"
-                        }
-                    ]
-                }
-            }
-        },
-        "what_is_esim": {
-            "WhatIsEsim": {
-                "heroSection": {
-                    "title": "eSIM: यह क्या है और यह कैसे काम करता है?",
-                    "description": "eSIM एक डिजिटल SIM है जो अधिकांश आधुनिक फोन में बनाया गया है। यह एक भौतिक SIM कार्ड की तरह काम करता है, लेकिन आपके डिवाइस में कुछ भी डालने की आवश्यकता नहीं है। eSIM बहुत सारे लाभ प्रदान करते हैं, जैसे आपको रोमिंग शुल्क से बचने में मदद करना और प्रदाताओं के बीच स्विच करना आसान बनाना।",
-                    "ctaButton": "अपना गंतव्य चुनें",
-                    "ctaLink": "/contact",
-                    "image": "/images/whatEsim/hero-what-is-esim-woman-sky-phone.webp",
-                    "imageAlt": "आकाश में फोन के साथ महिला"
-                },
-                "whatIsEsimSection": {
-                    "heading": "eSIM क्या है?",
-                    "content": [
-                        {
-                            "paragraph": "eSIM एक एम्बेडेड सब्सक्राइबर आइडेंटिटी मॉड्यूल है - अनिवार्य रूप से, आपके फोन में एक बनाया गया चिप। यह सब कुछ करता है जो एक पारंपरिक SIM करेगा, लेकिन आपके फोन में एक छोटा कार्ड डालने की आवश्यकता नहीं है। इसके अलावा, एक eSIM आपको एक साथ कई वाहकों और फोन नंबरों का उपयोग करने की अनुमति देता है, जो बहुत सुविधाजनक है।"
-                        },
-                        {
-                            "paragraph": "eSIMs स्मार्टफोन, टैबलेट, स्मार्टवॉच और यहां तक कि कुछ कारों पर भी उपलब्ध हैं! वे फोन नंबरों के बीच जल्दी से स्विच करने और यात्रा के लिए मोबाइल डेटा प्राप्त करने के लिए बहुत अच्छे हैं।"
-                        }
-                    ]
-                },
-                "howDoesItWorkSection": {
-                    "image": "/images/whatEsim/man-sky-phone-status.webp",
-                    "imageAlt": "आकाश में फोन के साथ आदमी",
-                    "heading": "eSIM कैसे काम करता है?",
-                    "content": [
-                        {
-                            "paragraph": "एक eSIM आपके डिवाइस पर पूर्वस्थापित सॉफ़्टवेयर का उपयोग करके भौतिक SIM की तरह काम करने के लिए करता है। एक बार जब आप इसे सक्रिय करते हैं, तो आप एक सेल नेटवर्क से जुड़ सकते हैं, कॉल कर सकते हैं और मोबाइल डेटा का उपयोग कर सकते हैं। अधिकांश आधुनिक फोन में बनाया गया eSIMs होगा, लेकिन eSIM-संगत फोन की हमारी सूची देखें कि क्या आपका है।"
-                        },
-                        {
-                            "paragraph": "एक eSIM का उपयोग करना शुरू करने के लिए, बस एक eSIM प्लान खरीदें और एक त्वरित सेटअप पूरा करें। अपना वर्तमान SIM कार्ड हटाने की आवश्यकता नहीं है - यह जहां है वहीं रह सकता है, चाहे आप इसे उपयोग करना जारी रखने का निर्णय लें या नहीं।"
-                        }
-                    ],
-                    "linkText": "eSIM-संगत फोन की सूची",
-                    "linkUrl": "/esim-supported-devices"
-                },
-                "getEsimSection": {
-                    "bgColor": "bg-themeYellow",
-                    "title": "एक eSIM डेटा प्लान प्राप्त करें",
-                    "description": "अपनी अगली यात्रा के लिए मोबाइल डेटा प्लान खोजें - हमारे गंतव्यों की सूची खोजें",
-                    "ctaButton": "सभी गंतव्य देखें",
-                    "ctaLink": "/contact"
-                },
-                "setUpEsim": [
-                    {
-                        "label": "iPhone पर",
-                        "title": "Simfinity ऐप के साथ अपने iPhone पर एक eSIM सेट अप करें",
-                        "steps": [
-                            {
-                                "number": "1",
-                                "stepTitle": "अपनी यात्रा के लिए एक eSIM डेटा प्लान चुनें",
-                                "description": "उस देश का चयन करें जहां आप जा रहे हैं और एक प्लान चुनें।",
-                                "image": "/images/1-step.svg"
-                            },
-                            {
-                                "number": "2",
-                                "stepTitle": "Simfinity eSIM ऐप डाउनलोड करें",
-                                "description": "ऐप प्राप्त करें, eSIM इंस्टॉल करें टैप करें और स्क्रीन पर चरणों का पालन करें।",
-                                "image": "/images/2-step.svg"
-                            },
-                            {
-                                "number": "3",
-                                "stepTitle": "आपकी योजना स्वचालित रूप से सक्रिय हो जाएगी",
-                                "description": "अपनी यात्रा के लिए तैयार हो जाएं - आपकी योजना आपके आने पर सक्रिय हो जाएगी।",
-                                "image": "/images/3-step.svg"
-                            }
-                        ],
-                        "instructions": {
-                            "heading": "अपने iPhone पर मैन्युअल रूप से एक eSIM सेट अप करें",
-                            "steps": [
-                                "\"सेटिंग्स\" पर जाएं, फिर \"मोबाइल सेवा\" या \"सेलुलर\"।",
-                                "\"eSIM जोड़ें\" या \"सेलुलर प्लान जोड़ें\" टैप करें।",
-                                "\"QR कोड का उपयोग करें\" टैप करें।",
-                                "QR कोड को स्कैन करें या विवरण मैन्युअल रूप से दर्ज करें।"
-                            ]
-                        }
-                    },
-                    {
-                        "label": "Android पर",
-                        "title": "Simfinity ऐप के साथ अपने Android पर एक eSIM सेट अप करें",
-                        "steps": [
-                            {
-                                "number": "1",
-                                "stepTitle": "अपनी यात्रा के लिए एक eSIM डेटा प्लान चुनें",
-                                "description": "उस देश का चयन करें जहां आप जा रहे हैं और एक प्लान चुनें।",
-                                "image": "/images/whatEsim/card-choose-data-plan.svg"
-                            },
-                            {
-                                "number": "2",
-                                "stepTitle": "Simfinity eSIM ऐप डाउनलोड करें",
-                                "description": "ऐप प्राप्त करें, eSIM इंस्टॉल करें टैप करें और इसे सेट अप करने के लिए स्क्रीन पर चरणों का पालन करें।",
-                                "image": "/images/whatEsim/card-setup-instructions.svg"
-                            },
-                            {
-                                "number": "3",
-                                "stepTitle": "आपकी योजना स्वचालित रूप से सक्रिय हो जाएगी",
-                                "description": "अपनी यात्रा के लिए तैयार हो जाएं - आपकी योजना आपके आने पर सक्रिय हो जाएगी।",
-                                "image": "/images/whatEsim/card-activate-plan.svg"
-                            }
-                        ],
-                        "instructions": {
-                            "heading": "अपने Android पर मैन्युअल रूप से एक eSIM सेट अप करें",
-                            "steps": [
-                                "\"सेटिंग्स\" पर जाएं, फिर \"कनेक्शन\"।",
-                                "\"SIM प्रबंधक\" टैप करें।",
-                                "\"eSIM जोड़ें\" का चयन करें।",
-                                "\"QR कोड स्कैन करें\" टैप करें या अपना eSIM जोड़ने का कोई अन्य तरीका चुनें।"
-                            ]
-                        }
-                    },
-                    {
-                        "label": "QR कोड के साथ",
-                        "title": "QR कोड का उपयोग करके एक eSIM सेट अप करें",
-                        "steps": [
-                            {
-                                "number": "1",
-                                "stepTitle": "Simfinity डाउनलोड करने के लिए QR कोड स्कैन करें",
-                                "description": "QR को स्कैन करने और Simfinity ऐप डाउनलोड करने के लिए अपने फोन का उपयोग करें।"
-                            },
-                            {
-                                "number": "2",
-                                "stepTitle": "अपनी यात्रा के लिए एक eSIM डेटा प्लान खरीदें",
-                                "description": "उस देश के लिए एक मोबाइल डेटा प्लान प्राप्त करें जहां आप जाएंगे।"
-                            },
-                            {
-                                "number": "3",
-                                "stepTitle": "आपकी योजना स्वचालित रूप से सक्रिय हो जाएगी",
-                                "description": "आपके गंतव्य पर पहुंचने के क्षण इंटरनेट पर जाएं।"
-                            }
-                        ]
-                    }
-                ],
-                "FAQData": {
-                    "title": "eSIM के बारे में अक्सर पूछे जाने वाले प्रश्न",
-                    "faqs": [
-                        {
-                            "id": "faq-1",
-                            "question": "eSIM कार्ड क्या करता है?",
-                            "answer": "एक eSIM एक भौतिक SIM कार्ड का एक डिजिटल संस्करण है। यह आपको एक मोबाइल नेटवर्क से जुड़ता है, जिससे आप कॉल कर सकते हैं, पाठ भेज सकते हैं और मोबाइल डेटा का उपयोग कर सकते हैं। इसे अपने डिवाइस में डालने की आवश्यकता के बजाय, आपको बस एक प्रदाता से एक eSIM प्लान खरीदना है और इसे सक्रिय करना है।"
-                        },
-                        {
-                            "id": "faq-2",
-                            "question": "मैं eSIM कैसे प्राप्त कर सकता हूं?",
-                            "answer": "आप किसी भी प्रतिष्ठित eSIM प्रदाता से eSIM प्राप्त कर सकते हैं, आमतौर पर ऑनलाइन खरीदारी करके। उदाहरण के लिए, Simfinity 200 से अधिक गंतव्यों में eSIMs प्रदान करता है - बस वह देश खोजें जहां आप अपना डेटा उपयोग करना चाहते हैं और एक प्लान चुनें।"
-                        },
-                        {
-                            "id": "faq-3",
-                            "question": "क्या eSIM SIM कार्ड से बेहतर है?",
-                            "answer": "संक्षेप में - हां। eSIMs आपके फोन में बनाया जाता है, इसलिए आपको इसे खोलने की आवश्यकता नहीं है एक छोटा कार्ड डालने के लिए। ये वर्चुअल कार्ड प्रदाताओं के बीच स्विच करने और अंतर्राष्ट्रीय यात्रा के लिए बहुत अच्छे हैं। एक भौतिक SIM कार्ड स्लॉट के बिना, फोन को छोटा बनाया जा सकता है या बेहतर सुविधाएँ हो सकती हैं (जैसे बड़ी बैटरी)। यहां eSIM बनाम भौतिक SIM का अधिक विस्तृत तुलना दी गई है।"
-                        },
-                        {
-                            "id": "faq-4",
-                            "question": "मैं eSIM क्यों चाहूंगा?",
-                            "answer": "आप कई कारणों से eSIM प्राप्त करना चाह सकते हैं, जैसे विदेश जाना या अपने देश में अतिरिक्त मोबाइल डेटा की आवश्यकता होना। उदाहरण के लिए, यदि आप एक ऐसे देश की ओर जा रहे हैं जहां आप मुफ्त रोमिंग नहीं प्राप्त कर सकते हैं, तो eSIM डेटा प्लान खरीदना एक आसान समाधान हो सकता है जो आपका बजट नहीं तोड़ेगा। Simfinity 1GB से 20GB तक की योजनाएँ प्रदान करता है (अनंत योजनाएँ शीघ्र आ रही हैं!), इसलिए आप जितने भी डेटा की आवश्यकता है उतने खरीद सकते हैं। वैकल्पिक रूप से, आप eSIM चाहते हो सकते हैं क्योंकि आपने एक बढ़िया eSIM ऑफर देखा है और इसका लाभ उठाना चाहते हैं। आपको इसे उपयोग करने के लिए विदेश जाने की आवश्यकता नहीं है - eSIMs आपके कहीं भी एक उत्कृष्ट सस्ती मोबाइल डेटा विकल्प प्रदान करते हैं।"
-                        },
-                        {
-                            "id": "faq-5",
-                            "question": "eSIM लोकप्रिय क्यों नहीं हैं?",
-                            "answer": "eSIM तकनीक अभी भी काफी नई है - पहला eSIM-संगत स्मार्टफोन केवल 2016 में जारी किया गया था। अभी तक बहुत से लोग eSIM के बारे में नहीं जानते हैं, और जो जानते हैं वे आमतौर पर उन्हें केवल पहनने योग्य और IoT उपकरणों के साथ उपयोग करते हैं। यह कहा जा रहा है कि, जैसे-जैसे अधिक लोग eSIM के लाभों के बारे में जानते हैं, उनकी लोकप्रियता बढ़ रही है। हम सोचते हैं कि वे बहुत जल्द अधिक लोकप्रिय हो जाएंगे।"
-                        },
-                        {
-                            "id": "faq-6",
-                            "question": "क्या eSIM SIM से अधिक सुरक्षित है?",
-                            "answer": "हां, कुछ तरीकों से। एक भौतिक SIM कार्ड को नुकसान हो सकता है, खो सकता है या चोरी हो सकता है - विशेष रूप से यदि आप अपनी यात्रा के दौरान कार्ड को स्वैप कर रहे हैं। eSIMs इलेक्ट्रॉनिक हैं और आपके डिवाइस में बनाए गए हैं, इसलिए आप उन्हें नुकसान नहीं पहुंचा सकते या खो नहीं सकते। उन्हें भी चोरी नहीं किया जा सकता (जब तक कि आपको वास्तव में बहुत बुरी किस्मत न हो और कोई आपके डिवाइस को चोरी कर ले)।"
-                        },
-                        {
-                            "id": "faq-7",
-                            "question": "क्या eSIM आपको एक फोन नंबर देता है?",
-                            "answer": "हमेशा नहीं। कुछ eSIM (जैसे कि आप Simfinity ऐप के माध्यम से खरीद सकते हैं) केवल फोन नंबर के बिना मोबाइल डेटा प्रदान करते हैं, क्योंकि आजकल आप अकेले डेटा के साथ बहुत कुछ कर सकते हैं। आप फोन नंबर के बिना वीडियो कॉल, चैट, ब्राउज़ और स्ट्रीम कर सकते हैं। हालांकि, कुछ अन्य प्रदाता आपको eSIM के साथ एक फोन नंबर देते हैं।"
-                        },
-                        {
-                            "id": "faq-8",
-                            "question": "क्या eSIM इंटरनेट कनेक्शन के बिना काम करता है?",
-                            "answer": "हां, eSIM इंटरनेट कनेक्शन के बिना काम कर सकता है। उदाहरण के लिए, कुछ eSIMs के साथ, आप सेलुलर (वॉयस) कॉल कर सकते हैं या पाठ संदेश (SMS) भेज सकते हैं। आप अपने eSIM के साथ क्या कर सकते हैं यह आपकी eSIM योजना और आपके द्वारा चुने गए प्रदाता पर निर्भर करता है। यह ध्यान देने योग्य है कि अभी, जो eSIM आप Simfinity से खरीद सकते हैं वह आपको एक फोन नंबर नहीं देते या आपको इंटरनेट कनेक्शन के बिना वॉयस कॉल करने नहीं देते। इसके बजाय, वे आपको इंटरनेट से कनेक्ट करने के लिए डेटा देते हैं, जिससे आप कॉल कर सकते हैं, संदेश भेज सकते हैं और संचार ऐप्स के माध्यम से वेब ब्राउज़ कर सकते हैं।"
-                        },
-                        {
-                            "id": "faq-9",
-                            "question": "क्या eSIM आपके फोन की बैटरी को तेजी से डिस्चार्ज करता है?",
-                            "answer": "eSIMs के साथ बैटरी का निकास एक समस्या नहीं है, कम से कम भौतिक SIM कार्ड की तुलना में अधिक नहीं। यदि आपका डिवाइस हाल ही में अधिक बैटरी पावर का उपयोग कर रहा है, तो यह संभवतः आपके फोन पर अन्य ऐप्स के कारण है।"
-                        },
-                        {
-                            "id": "faq-10",
-                            "question": "क्या आप eSIM को भौतिक SIM में वापस बदल सकते हैं?",
-                            "answer": "हां, आप eSIM को भौतिक SIM में वापस बदल सकते हैं - उदाहरण के लिए, यदि आप इसे पुराने फोन मॉडल के साथ उपयोग करना चाहते हैं। हालांकि, अपने नेटवर्क प्रदाता के स्टोर में जाना सबसे अच्छा है एक सलाहकार से बात करने के लिए और एक नया SIM कार्ड खरीदें।"
-                        }
-                    ]
-                },
-                "EsimBenefitsSection": {
-                    "tabs": [
-                        {
-                            "id": 0,
-                            "label": "फायदे",
-                            "heading": "eSIM के लाभ",
-                            "subheading": "eSIMs कनेक्टिविटी का भविष्य है। यहां eSIM के मुख्य लाभ दिए गए हैं।",
-                            "items": [
-                                {
-                                    "id": 1,
-                                    "iconType": "Wallet",
-                                    "title": "कोई उच्च रोमिंग शुल्क नहीं",
-                                    "description": "यात्री eSIMs खरीद सकते हैं जो उन्हें स्थानीय वाहकों से जुड़ते हैं और अप्रत्याशित रोमिंग शुल्क से बचते हैं।"
-                                },
-                                {
-                                    "id": 2,
-                                    "iconType": "Users",
-                                    "title": "कई प्रोफाइल",
-                                    "description": "आप एक डिवाइस पर कई वर्चुअल eSIMs हो सकते हैं, जिससे विभिन्न वाहकों और फोन नंबरों के बीच स्विच करना आसान हो जाता है।"
-                                },
-                                {
-                                    "id": 3,
-                                    "iconType": "Document",
-                                    "title": "जो आपको चाहिए उसके लिए भुगतान करें",
-                                    "description": "जापान के लिए एक सप्ताह के लिए जा रहे हैं? मासिक के बजाय 7-दिन की योजना प्राप्त करें, और एक अतिरिक्त okonomiyaki के लिए अपना येन बचाएं।"
-                                },
-                                {
-                                    "id": 4,
-                                    "iconType": "Phone",
-                                    "title": "स्थान की बचत करता है",
-                                    "description": "एक भौतिक SIM कार्ड स्लॉट की अनुपस्थिति अन्य डिवाइस अपग्रेड के लिए स्थान को मुक्त करता है (जैसे एक बड़ी बैटरी या अधिक हैंडसेट सुविधाएं)।"
-                                },
-                                {
-                                    "id": 5,
-                                    "iconType": "Shield",
-                                    "title": "खो या चोरी नहीं हो सकता",
-                                    "description": "छोटे SIM कार्ड को स्वैप करना मुश्किल है, विशेष रूप से यदि आप चल रहे हैं। eSIM बनाया जाता है, इसलिए यह खो या चोरी नहीं होगा।"
-                                },
-                                {
-                                    "id": 6,
-                                    "iconType": "Recycle",
-                                    "title": "कम कचरा",
-                                    "description": "एक एकल प्लास्टिक SIM ग्रह को नष्ट नहीं करेगा, लेकिन प्रत्येक यात्रा के लिए एक नया पैक किया हुआ SIM कार्ड प्राप्त करना समय के साथ जुड़ता है। इसके बजाय eSIM का उपयोग करें।"
-                                }
-                            ]
-                        },
-                        {
-                            "id": 1,
-                            "label": "नुकसान",
-                            "heading": "eSIM के नुकसान",
-                            "subheading": "सब कुछ की तरह, eSIMs के कुछ नुकसान हैं।",
-                            "items": [
-                                {
-                                    "id": 1,
-                                    "iconType": "Phone",
-                                    "title": "सभी डिवाइस eSIMs का समर्थन नहीं करते",
-                                    "description": "जबकि अधिकांश आधुनिक फोन eSIM-संगत हैं, यदि आप पुराने मॉडल का उपयोग कर रहे हैं, तो आप भाग्यहीन हो सकते हैं।"
-                                },
-                                {
-                                    "id": 2,
-                                    "iconType": "Document",
-                                    "title": "अपरिचित तकनीक",
-                                    "description": "यदि आप eSIMs में नए हैं, तो आप सक्रियण प्रक्रिया को केवल SIM कार्ड डालने की तुलना में थोड़ा अधिक जटिल पा सकते हैं।"
-                                },
-                                {
-                                    "id": 3,
-                                    "iconType": "Shield",
-                                    "title": "डिवाइस को स्विच करना आसान नहीं है",
-                                    "description": "अपने eSIM को एक अलग डिवाइस में स्थानांतरित करने में केवल भौतिक SIM कार्ड को स्वैप करने की तुलना में अधिक चरण शामिल हैं।"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                "EsimVsSimComparison": {
-                    "heading": "eSIM और भौतिक SIM के बीच क्या अंतर है?",
-                    "description": "eSIM और पारंपरिक SIM कार्ड के बीच मुख्य अंतर यह है कि eSIM डिजिटल है जबकि SIM कार्ड एक भौतिक चिप है",
-                    "footerNote": "*Simfinity अभी के लिए सभी मोबाइल डेटा के बारे में है, इसलिए हम फोन नंबरों का समर्थन नहीं करते। चिंता मत करो - हम इस पर काम कर रहे हैं।",
-                    "tableHeaders": {
-                        "feature": "सुविधा",
-                        "esim": "eSIM",
-                        "sim": "SIM"
-                    },
-                    "rows": [
-                        {
-                            "id": 1,
-                            "iconType": "Phone",
-                            "feature": "फोन नंबर",
-                            "esim": "दो तक*",
-                            "sim": "दो तक"
-                        },
-                        {
-                            "id": 2,
-                            "iconType": "Globe",
-                            "feature": "नेटवर्क ऑपरेटर",
-                            "esim": "जितने चाहें",
-                            "sim": "दो तक"
-                        },
-                        {
-                            "id": 3,
-                            "iconType": "Trash",
-                            "feature": "हटाना",
-                            "esim": "प्रोफाइल निष्क्रिय करें",
-                            "sim": "SIM कार्ड निकालें"
-                        },
-                        {
-                            "id": 4,
-                            "iconType": "CheckCircle",
-                            "feature": "सक्रियण",
-                            "esim": "मैनुअल या स्वचालित (आपके गंतव्य पर सक्रिय योजना)",
-                            "sim": "मैनुअल (अपने डिवाइस में कार्ड डालने की आवश्यकता है)"
-                        },
-                        {
-                            "id": 5,
-                            "iconType": "Smartphone",
-                            "feature": "अनुकूलता",
-                            "esim": "केवल नई डिवाइस",
-                            "sim": "पुरानी और अधिकांश नई डिवाइस"
-                        },
-                        {
-                            "id": 6,
-                            "iconType": "Signal",
-                            "feature": "विदेश में उपयोग",
-                            "esim": "सस्ता - विभिन्न देशों के लिए डेटा प्लान प्राप्त करना आसान",
-                            "sim": "रोमिंग के कारण महंगा हो सकता है"
-                        }
-                    ]
-                }
-            }
-        },
-        "download_esim_app": {
-            "DowonloadEsim": {
-                "features": [
-                    {
-                        "id": 1,
-                        "iconType": "Plane",
-                        "title": "200+ गंतव्यों में eSIM डेटा योजनाएं",
-                        "description": "200+ गंतव्यों में eSIM डेटा योजनाएं"
-                    },
-                    {
-                        "id": 2,
-                        "iconType": "Smartphone",
-                        "title": "iOS और Android पर उपलब्ध",
-                        "description": "iOS और Android पर उपलब्ध"
-                    },
-                    {
-                        "id": 3,
-                        "iconType": "MessageSquare",
-                        "title": "24/7 ग्राहक सहायता",
-                        "description": "24/7 ग्राहक सहायता"
-                    },
-                    {
-                        "id": 4,
-                        "iconType": "CheckCircle",
-                        "title": "सभी eSIM-समर्थक स्मार्टफोन पर काम करता है",
-                        "description": "सभी eSIM-समर्थक स्मार्टफोन पर काम करता है"
-                    }
-                ],
-                "heroSection": {
-                    "title": "eSIM: यह क्या है और यह कैसे काम करता है?",
-                    "description": "eSIM एक डिजिटल SIM है जो अधिकांश आधुनिक फोन में बनाया गया है। यह एक भौतिक SIM कार्ड की तरह काम करता है, लेकिन आपके डिवाइस में कुछ भी डालने की आवश्यकता नहीं है। eSIM बहुत सारे लाभ प्रदान करते हैं, जैसे आपको रोमिंग शुल्क से बचने में मदद करना और प्रदाताओं के बीच स्विच करना आसान बनाना।",
-                    "image": "/images/download-app/app-woman-sky-phone.webp",
-                    "imageAlt": "महिला मोबाइल फोन पर eSIM का उपयोग कर रही है",
-                    "ctaButton": "अपना गंतव्य चुनें",
-                    "ctaLink": "/destinations"
-                },
-                "activationSection": {
-                    "title": "अपनी Simfinity eSIM योजना को कैसे सक्रिय करें",
-                    "description": "आपकी Simfinity eSIM योजना स्वचालित रूप से सक्रिय हो जाएगी। अपने डिवाइस पर eSIM स्थापित करने और 30 दिनों के भीतर अपने गंतव्य के लिए प्रस्थान करने के बाद, डेटा योजना आपके आने के तुरंत बाद स्वचालित रूप से सक्रिय हो जाएगी।",
-                    "image": "/images/download-app/group-friends-phones-activate-esim-plan.webp",
-                    "imageAlt": "दोस्तों का एक समूह फोन पर eSIM का उपयोग कर रहा है"
-                },
-                "benefitsSection": {
-                    "heading": "eSIM ऐप का उपयोग करने के लाभ क्या हैं?",
-                    "subheading": "भौतिक SIM कार्ड के बजाय eSIM का उपयोग करने से सभी प्रकार के लाभ मिलते हैं:",
-                    "benefits": [
-                        {
-                            "id": 1,
-                            "iconType": "CheckCircle",
-                            "title": "उपयोग में आसान",
-                            "description": "बस ऐप डाउनलोड करें, लॉगिन करें और डेटा प्लान खरीदें। आसान!"
-                        },
-                        {
-                            "id": 2,
-                            "iconType": "CreditCard",
-                            "title": "रोमिंग शुल्क से बचें",
-                            "description": "यह चोरी छिपे रोमिंग शुल्क से बचने का सबसे आसान तरीका है।"
-                        },
-                        {
-                            "id": 3,
-                            "iconType": "Globe",
-                            "title": "सभी यात्राओं के लिए एक eSIM",
-                            "description": "Simfinity ऐप के माध्यम से अपने मौजूदा Simfinity eSIM में नए गंतव्य जोड़ें - कोई नए eSIM की आवश्यकता नहीं।"
-                        }
-                    ]
-                },
-                "ctaSections": [
-                    {
-                        "id": 1,
-                        "heading": "एक eSIM डेटा प्लान प्राप्त करें",
-                        "description": "यदि आपके कोई प्रश्न हैं, तो हमारी टीम Simfinity ऐप पर 24/7 चैट के माध्यम से उपलब्ध है। यदि आपके कोई अधिक विस्तृत प्रश्न हैं तो आप हमें ईमेल भी भेज सकते हैं।",
-                        "ctaButton": "हमसे संपर्क करें",
-                        "ctaLink": "/signup",
-                        "bgColor": "bg-[#f7f7f8]",
-                        "textColor": "text-gray-900"
-                    },
-                    {
-                        "id": 2,
-                        "heading": "एक दोस्त को संदर्भित करें और Simfinity क्रेडिट अर्जित करें!",
-                        "description": "प्रत्येक रेफरेल आपको Simfinity क्रेडिट में US$5 अर्जित करता है जबकि आपके दोस्तों को उनकी पहली योजना पर US$5 छूट मिलती है!",
-                        "ctaButton": "शुरुआत करें",
-                        "ctaLink": "/signup",
-                        "bgColor": "bg-themeYellow",
-                        "textColor": "text-gray-900"
-                    }
-                ],
-                "setupTabs": [
-                    {
-                        "label": "iPhone पर",
-                        "title": "Simfinity ऐप के साथ अपने iPhone पर एक eSIM सेट अप करें",
-                        "steps": [
-                            {
-                                "number": "1",
-                                "stepTitle": "अपनी यात्रा के लिए एक eSIM डेटा प्लान चुनें",
-                                "description": "उस देश का चयन करें जहां आप जा रहे हैं और एक प्लान चुनें।"
-                            },
-                            {
-                                "number": "2",
-                                "stepTitle": "Simfinity eSIM ऐप डाउनलोड करें",
-                                "description": "ऐप प्राप्त करें, eSIM इंस्टॉल करें टैप करें और स्क्रीन पर चरणों का पालन करें।"
-                            },
-                            {
-                                "number": "3",
-                                "stepTitle": "आपकी योजना स्वचालित रूप से सक्रिय हो जाएगी",
-                                "description": "अपनी यात्रा के लिए तैयार हो जाएं - आपकी योजना आपके आने पर सक्रिय हो जाएगी।"
-                            }
-                        ],
-                        "instructions": {
-                            "heading": "अपने iPhone पर मैन्युअल रूप से एक eSIM सेट अप करें",
-                            "steps": [
-                                "\"सेटिंग्स\" पर जाएं, फिर \"मोबाइल सेवा\" या \"सेलुलर\"।",
-                                "\"eSIM जोड़ें\" या \"सेलुलर प्लान जोड़ें\" टैप करें।",
-                                "\"QR कोड का उपयोग करें\" टैप करें।",
-                                "QR कोड को स्कैन करें या विवरण मैन्युअल रूप से दर्ज करें।"
-                            ]
-                        }
-                    },
-                    {
-                        "label": "Android पर",
-                        "title": "Simfinity ऐप के साथ अपने Android पर एक eSIM सेट अप करें",
-                        "steps": [
-                            {
-                                "number": "1",
-                                "stepTitle": "अपनी यात्रा के लिए एक eSIM डेटा प्लान चुनें",
-                                "description": "उस देश का चयन करें जहां आप जा रहे हैं और एक प्लान चुनें।"
-                            },
-                            {
-                                "number": "2",
-                                "stepTitle": "Simfinity eSIM ऐप डाउनलोड करें",
-                                "description": "ऐप प्राप्त करें, eSIM इंस्टॉल करें टैप करें और स्क्रीन पर चरणों का पालन करें।"
-                            },
-                            {
-                                "number": "3",
-                                "stepTitle": "आपकी योजना स्वचालित रूप से सक्रिय हो जाएगी",
-                                "description": "अपनी यात्रा के लिए तैयार हो जाएं - आपकी योजना आपके आने पर सक्रिय हो जाएगी।"
-                            }
-                        ],
-                        "instructions": {
-                            "heading": "अपने Android पर मैन्युअल रूप से एक eSIM सेट अप करें",
-                            "steps": [
-                                "\"सेटिंग्स\" पर जाएं, फिर \"कनेक्शन\"।",
-                                "\"SIM प्रबंधक\" टैप करें।",
-                                "\"eSIM जोड़ें\" का चयन करें।",
-                                "\"QR कोड स्कैन करें\" टैप करें या अपना eSIM जोड़ने का कोई अन्य तरीका चुनें।"
-                            ]
-                        }
-                    }
-                ],
-                "FAQData": {
-                    "title": "eSIM के बारे में अक्सर पूछे जाने वाले प्रश्न",
-                    "faqs": [
-                        {
-                            "id": "faq-1",
-                            "question": "क्या मेरा फोन eSIM के साथ संगत है?",
-                            "answer": "यदि आपको पिछले कुछ वर्षों में एक नया स्मार्टफोन मिला है, तो यह eSIM के साथ संगत होना चाहिए। 2020 के बाद जारी किए गए अधिकांश स्मार्टफोन हैं। हालांकि, यहां तक कि एक नई डिवाइस भी eSIM का समर्थन नहीं कर सकती है अगर यह किसी निश्चित स्थान पर खरीदी गई थी, जैसे मुख्य भूमि चीन। निश्चित करने के लिए, eSIM-संगत उपकरणों की सूची देखें।"
-                        },
-                        {
-                            "id": "faq-2",
-                            "question": "अपने फोन पर eSIM को मैन्युअल रूप से कैसे स्थापित करें?",
-                            "answer": "आप अपने वाहक से QR कोड स्कैन करके या \"नेटवर्क सेटिंग्स\" पर जाकर और एक नया eSIM जोड़ने के लिए एक विकल्प देखकर अपने फोन पर eSIM को मैन्युअल रूप से स्थापित और सेट अप कर सकते हैं।"
-                        },
-                        {
-                            "id": "faq-3",
-                            "question": "क्या मैं ऐप के बिना eSIM का उपयोग कर सकता हूं?",
-                            "answer": "आप ऐप के बिना Simfinity eSIM प्लान खरीद सकते हैं, लेकिन eSIM स्थापित करने के लिए आपको Simfinity ऐप डाउनलोड करना होगा।"
-                        },
-                        {
-                            "id": "faq-4",
-                            "question": "eSIM को सक्रिय करने में कितना समय लगता है?",
-                            "answer": "eSIM को सक्रिय करने का मतलब है QR कोड स्कैन करके या जानकारी मैन्युअल रूप से दर्ज करके अपने फोन में eSIM प्रोफाइल जोड़ना। इस तरह, आपका फोन eSIM को पहचान सकता है और उपयोग कर सकता है, लेकिन यह आवश्यक रूप से डेटा प्लान को तुरंत सक्रिय नहीं करता है। इस प्रक्रिया में कितना समय लगता है यह इस बात पर निर्भर करता है कि आप किस प्रकार का eSIM उपयोग कर रहे हैं। जबकि एक प्राथमिक eSIM को सक्रिय होने में घंटों या दिनों भी लग सकते हैं, यात्रा eSIM, जैसे कि आप Simfinity पर खरीद सकते हैं, लगभग तुरंत सक्रिय हो जाते हैं।"
-                        },
-                        {
-                            "id": "faq-5",
-                            "question": "अंतर्राष्ट्रीय यात्रा के लिए सबसे अच्छा eSIM कौन सा है?",
-                            "answer": "Simfinity eSIM अंतर्राष्ट्रीय यात्रा के लिए सर्वश्रेष्ठ eSIM में से एक है। यह न केवल सस्ती है, बल्कि आप अपनी मौजूदा Simfinity eSIM में नए गंतव्य जोड़ सकते हैं और नए eSIM कॉन्फ़िगर किए बिना कनेक्टेड रह सकते हैं।"
-                        },
-                        {
-                            "id": "faq-6",
-                            "question": "क्या eSIM मुफ्त हैं?",
-                            "answer": "हमारी eSIM ऐप डाउनलोड करना बिल्कुल मुफ्त है, लेकिन eSIM योजनाएं स्वयं नहीं हैं। हालांकि, आप हमारे रेफरेल प्रोग्राम के माध्यम से मुफ्त Simfinity क्रेडिट प्राप्त कर सकते हैं। Simfinity को अपने दोस्तों को संदर्भित करके, आप क्रेडिट अर्जित कर सकते हैं और उन्हें अपनी यात्राओं के लिए eSIM योजनाएं खरीदने के लिए उपयोग कर सकते हैं।"
-                        },
-                        {
-                            "id": "faq-7",
-                            "question": "ऑनलाइन eSIM कैसे प्राप्त करें",
-                            "answer": "ऑनलाइन eSIM प्राप्त करने का सबसे अच्छा तरीका है कि उन्हें एक प्रतिष्ठित कंपनी से खरीदें, जैसे Simfinity। आप ऐप डाउनलोड कर सकते हैं और आसानी से अपनी eSIM योजनाओं को प्रबंधित कर सकते हैं।"
-                        },
-                        {
-                            "id": "faq-8",
-                            "question": "क्या मैं eSIM को स्वयं सेट अप कर सकता हूं?",
-                            "answer": "हां, आप eSIM को स्वयं सेट अप कर सकते हैं, लेकिन यह कैसे करें इसके निर्देश आपके नेटवर्क प्रदाता के आधार पर भिन्न हो सकते हैं। यदि आपको परेशानी हो रही है, तो मदद के लिए अपने प्रदाता से संपर्क करें।"
-                        }
-                    ]
-                }
-            }
-        },
-        "about_us": {
-            "HeroSec": {
-                "card": {
-                    "title": "Simfinity के पीछे के लोगों से मिलें",
-                    "description": "हमने पर्याप्त यात्रा की है जानने के लिए कि विदेश में कनेक्टेड रहना कितना निराशाजनक हो सकता है। इसीलिए हमने Simfinity बनाया - eSIM ऐप जो सभी के लिए कनेक्टेड रहना आसान बनाता है।"
-                }
-            },
-            "WhyBuiltSec": {
-                "title": "हमने Simfinity क्यों बनाया",
-                "para1": "लोग प्राकृतिक अन्वेषक हैं, और समुद्र पार करना हमेशा परम साहसिक रहा है। कई वर्षों तक, नौकायन यह करने का तरीका था। आज, आप एक नए महाद्वीप को खोजने के लिए महासागर पार नहीं कर सकते हैं, लेकिन यात्रा करने और अन्वेषण करने की इच्छा गायब नहीं हुई है। और यह वह है जो सब कुछ के बारे में है",
-                "para2": "Simfinity आपको दुनिया का आधुनिक तरीके से अन्वेषण करने के लिए उपकरण देता है। हम एक भविष्य बना रहे हैं जहां कनेक्टिविटी सहज, तात्कालिक और पूरी तरह डिजिटल है। कोई प्लास्टिक नहीं। कोई सीमा नहीं। बस टैप करें, कनेक्ट करें और जाएं।"
-            },
-            "ValuesSection": {
-                "heading": "जो मान हमें निर्देशित करते हैं",
-                "subheading": "हमारे मूल्य केवल प्रेरणादायक शब्द नहीं हैं जो हम दीवार पर लगाते हैं देखने के लिए - हम उनके अनुसार रहते हैं हर चीज में जो हम बनाते हैं।",
-                "values": [
-                    {
-                        "id": 1,
-                        "iconType": "GlobeAmericas",
-                        "title": "स्वतंत्र रूप से घूमें",
-                        "description": "हम प्लास्टिक SIM कार्ड को आसान और पर्यावरण-अनुकूल समाधान से बदल रहे हैं जो 200+ गंतव्यों में काम करता है।"
-                    },
-                    {
-                        "id": 2,
-                        "iconType": "Lightbulb",
-                        "title": "इसे सरल रखें",
-                        "description": "कोई तकनीकी जार्गन नहीं। कोई अव्यवस्था नहीं। हमने एक eSIM ऐप बनाया जो स्वच्छ, सहज और नेविगेट करने में आसान है।"
-                    },
-                    {
-                        "id": 3,
-                        "iconType": "Heart",
-                        "title": "मनुष्यों को प्राथमिकता दें",
-                        "description": "हम लोगों की परवाह करते हैं, केवल कठोर प्रक्रियाओं की नहीं। हर टीम सदस्य और उपयोगकर्ता के साथ सहानुभूति और सम्मान के साथ व्यवहार किया जाता है।"
-                    },
-                    {
-                        "id": 4,
-                        "iconType": "Seedling",
-                        "title": "हमेशा सुधारें",
-                        "description": "हम पूर्णता का पीछा नहीं करते - हम प्रगति का पीछा करते हैं। हम मानते हैं कि छोटी जीतें बड़े बदलाव लाती हैं।"
-                    },
-                    {
-                        "id": 5,
-                        "iconType": "Compass",
-                        "title": "यात्री की तरह सोचें",
-                        "description": "हम जिज्ञासु, लचकदार और अज्ञात के लिए खुले रहते हैं, ठीक वैसे ही जैसे खोजकर्ता जिनके लिए हमने Simfinity बनाया।"
-                    },
-                    {
-                        "id": 6,
-                        "iconType": "Rocket",
-                        "title": "इसे मायने रखें",
-                        "description": "हम यहां अंतर पैदा करने के लिए हैं, इसलिए हम जो सच में मायने रखता है पर ध्यान केंद्रित करते हैं - हमारे उपयोगकर्ता, टीम और हमारे चारों ओर की दुनिया।"
-                    }
-                ]
-            },
-            "SailyTaleSection": {
-                "heading": "Simfinity की कहानी",
-                "subheading": "हमने यात्रियों के लिए ऑनलाइन रहने का एक बेहतर तरीका कल्पना की। आज, हम दुनिया भर में हजारों लोगों के लिए इस दृष्टिकोण को वास्तविकता बना रहे हैं। यहां है कि Simfinity कैसे यहां पहुंचा।",
-                "events": [
-                    {
-                        "id": 1,
-                        "date": "नवंबर 2023",
-                        "title": "जहां सब कुछ शुरू हुआ",
-                        "description": "Simfinity eSIM ऐप एक साझा विचार के साथ शुरू हुआ - प्लास्टिक SIM कार्ड को छोड़ें और मोबाइल कनेक्टिविटी को सरल बनाएं।",
-                        "image": "/images/about/about-us-timeline-step-1.svg"
-                    },
-                    {
-                        "id": 2,
-                        "date": "मार्च 2024",
-                        "title": "पहली लॉन्च",
-                        "description": "हमने पहली eSIM योजनाएं शुरू कीं जो 160+ देशों को तत्काल मोबाइल पहुंच और शून्य प्लास्टिक कचरे के साथ कवर करती हैं।",
-                        "image": "/images/about/about-us-timeline-step-2.svg"
-                    },
-                    {
-                        "id": 3,
-                        "date": "दिसंबर 2024",
-                        "title": "सुरक्षा को प्राथमिकता दें",
-                        "description": "हमने अपने eSIM ऐप में बनी-इन सुरक्षा सुविधाएं जोड़ी हैं ताकि आप यात्रा करते समय अधिक सुरक्षित रूप से ब्राउज़ कर सकें।",
-                        "image": "/images/about/about-us-timeline-step-3.svg"
-                    },
-                    {
-                        "id": 4,
-                        "date": "फरवरी 2025",
-                        "title": "दुनिया को जोड़ना",
-                        "description": "साल की शुरुआत में, हमने अपना कवरेज 200+ गंतव्यों तक विस्तारित किया और पहले से कहीं अधिक लोगों को कनेक्टेड रहने में मदद की।",
-                        "image": "/images/about/about-us-timeline-step-4.svg"
-                    },
-                    {
-                        "id": 5,
-                        "date": "फरवरी 2025",
-                        "title": "दुनिया को जोड़ना",
-                        "description": "साल की शुरुआत में, हमने अपना कवरेज 200+ गंतव्यों तक विस्तारित किया और पहले से कहीं अधिक लोगों को कनेक्टेड रहने में मदद की।",
-                        "image": "/images/about/about-us-timeline-step-5.svg"
-                    }
-                ]
-            },
-            "VoicesSection": {
-                "heading": "Simfinity टीम की आवाजें",
-                "subheading": "Simfinity के पीछे के लोगों से मिलें और आसान मोबाइल कनेक्शन के लिए उनके दृष्टिकोण को जानें।",
-                "testimonials": [
-                    {
-                        "id": 1,
-                        "quote": "यात्री Simfinity में हम सब कुछ करने के केंद्र में हैं। यही कारण है कि हर टीम यात्रा कनेक्टिविटी को स्मार्ट और सहज बनाने पर काम कर रही है। हम तेजी से आगे बढ़ते हैं और सर्वोत्तम संभव अनुभव प्रदान करने के लिए जिज्ञासु रहते हैं।",
-                        "name": "मटास चेनिस",
-                        "designation": "Simfinity में उत्पाद प्रमुख",
-                        "image": "/images/about/about-us-voices-of-simfinity-vykintas.webp"
-                    },
-                    {
-                        "id": 2,
-                        "quote": "हमारा मिशन विदेश में कनेक्टेड रहना यथासंभव सरल बनाना है। हम एक ऐसा उत्पाद बना रहे हैं जिस पर यात्री भरोसा कर सकें, इसके मूल में पारदर्शिता और विश्वसनीयता के साथ।",
-                        "name": "सारा जॉनसन",
-                        "designation": "Simfinity में प्रमुख डिजाइनर",
-                        "image": "/images/about/about-us-voices-of-simfinity-neringa.webp"
-                    },
-                    {
-                        "id": 3,
-                        "quote": "नवाचार हमें आगे बढ़ाता है। हम लगातार यात्रा के अनुभव को बेहतर बनाने के लिए नए तरीकों की खोज कर रहे हैं अत्याधुनिक प्रौद्योगिकी और निर्बाध कनेक्टिविटी समाधान के माध्यम से।",
-                        "name": "एलेक्स मार्टिनेज",
-                        "designation": "Simfinity में CTO",
-                        "image": "/images/about/about-us-voices-of-simfinity-matas.webp"
-                    }
-                ]
-            },
-            "CareerCTASection": {
-                "backgroundImage": "/images/about/about-us-cta-xl-min.jpg",
-                "backgroundImageAlt": "कैरियर पृष्ठभूमि",
-                "heading": "हमेशा कनेक्टेड। हमेशा ट्रैक पर।",
-                "description": "भावुक यात्रियों की एक टीम से जुड़ें जो मोबाइल कनेक्टिविटी का भविष्य बना रहे हैं।",
-                "ctaButton": "कैरियर खोजें",
-                "ctaLink": "/careers"
-            }
-        },
-        "LifeAtSailySection": {
-            "title": "Simfinity में जीवन",
-            "card": [
-                {
-                    "title": "वृद्धि के अवसर",
-                    "des": "हम सीखने के अवसरों, वास्तविक जिम्मेदारियों और नेतृत्व के मौकों के साथ आपकी वृद्धि का समर्थन करते हैं (केवल पालन नहीं)"
-                },
-                {
-                    "title": "टीम सहयोग",
-                    "des": "हम आश्चर्यजनक उत्पाद बनाने के लिए टीमों और समय क्षेत्रों में एक साथ काम करते हैं"
-                },
-                {
-                    "title": "संस्कृति और समुदाय",
-                    "des": "हम लोगों को प्राथमिकता देते हैं और जीत, मील के पत्थर और हर टीम सदस्य के अद्वितीय योगदान का जश्न मनाते हैं।"
-                },
-                {
-                    "title": "स्वायत्तता और स्वामित्व",
-                    "des": "हम आप पर नेतृत्व, प्रयोग और अपने विचारों को जीवन में लाने के लिए विश्वास करते हैं। Simfinity में, सभी को साहसी निर्णय लेने की स्वतंत्रता है।"
-                },
-                {
-                    "title": "कार्य-जीवन संतुलन",
-                    "des": "दुनिया में कहीं से भी काम करें! हम कई राष्ट्रीयताओं की एक सीमाहीन टीम हैं, विश्वास से जुड़े हैं, समय क्षेत्रों से नहीं।"
-                }
-            ]
-        },
-        "Security_Features": {
-            "heroSec": {
-                "title": "Simfinity सुरक्षा सुविधाओं के साथ सुरक्षित यात्रा करें",
-                "description": "जहां कहीं जाएं कनेक्टेड रहें और अपनी ब्राउजिंग को सुरक्षित रखें।"
-            },
-            "Safe_travels": {
-                "title": "बेहतर eSIM सुरक्षा — अपनी यात्रा में सुरक्षित रहें",
-                "description": "आप डेटा खत्म नहीं करना चाहते क्योंकि कुछ वेबसाइटें बहुत सारे ट्रैकर्स और विज्ञापन का उपयोग करती हैं। आपको विदेश में अपना समय मजे करने की जगह दुर्भावनापूर्ण वेबसाइटों के बारे में चिंता नहीं करनी चाहिए। अपनी eSIM सेटिंग्स में \"Ad blocker\" और \"Web protection\" सक्षम करें और यात्रा के दौरान अपनी गोपनीयता बढ़ाएं।"
-            },
-            "Left_rightImage": {
-                "virtualLocation": {
-                    "subtitle": "आभासी स्थान",
-                    "title": "अपना स्थान बदलना आसान है",
-                    "description": "Simfinity eSIM ऐप आपको कुछ ही सेकंड में अपना आभासी स्थान बदलने देता है। इस सुविधा का उपयोग करते समय, आप कर सकते हैं:",
-                    "benefits": [
-                        {
-                            "text": "115+ आभासी स्थानों में से चुनें।"
-                        },
-                        {
-                            "text": "अधिक निजी रूप से ब्राउज़ करें।"
-                        },
-                        {
-                            "text": "बिना सीमाओं के अपनी घर की सामग्री तक पहुंचें।"
-                        }
-                    ],
-                    "imageSrc": "/images/features/sf-virtual-location.webp",
-                    "imageAlt": "आभासी स्थान ग्लोब",
-                    "imagePosition": "left"
-                },
-                "adBlocker": {
-                    "subtitle": "विज्ञापन अवरोधक",
-                    "title": "अधिक अवरुद्ध विज्ञापन, अधिक आरामदायक ब्राउजिंग",
-                    "description": "Simfinity ऐप में विज्ञापन अवरोधक चालू करना सिर्फ एक क्लिक लेता है। उन बिजली विज्ञापनों को गायब करें और लाभ का आनंद लें:",
-                    "benefits": [
-                        {
-                            "text": "विकर्षण के बिना ब्राउज़ करें।"
-                        },
-                        {
-                            "text": "मोबाइल डेटा बचाएं।"
-                        },
-                        {
-                            "text": "ब्राउजिंग गति बढ़ाएं।"
-                        }
-                    ],
-                    "imageSrc": "/images/features/sf-ad-blocker-lp.webp",
-                    "imageAlt": "विज्ञापन अवरोधक इंटरफेस",
-                    "imagePosition": "right"
-                },
-                "webProtection": {
-                    "subtitle": "वेब संरक्षण",
-                    "title": "ऑनलाइन खतरों को आपकी यात्रा खराब न करने दें",
-                    "description": "एक eSIM जो आपको इंटरनेट खतरों से बचाता है? हाँ कृपया। Simfinity वेब संरक्षण सुविधा आपको अनुमति देती है:",
-                    "benefits": [
-                        {
-                            "text": "दुर्भावनापूर्ण साइटों को अवरुद्ध करें।"
-                        },
-                        {
-                            "text": "ऑनलाइन ट्रैकर्स को सीमित करें।"
-                        },
-                        {
-                            "text": "तेजी से ब्राउज़ करें।"
-                        }
-                    ],
-                    "imageSrc": "/images/features/sf-web-protection-lp.webp",
-                    "imageAlt": "आभासी सुरक्षा",
-                    "imagePosition": "left"
-                },
-                "support24x7": {
-                    "heading": "24/7 eSIM समर्थन",
-                    "description": "यदि आप कनेक्शन समस्याओं का सामना करते हैं, तो Simfinity की सहायता टीम 24/7 उपलब्ध है।",
-                    "button": {
-                        "text": "हमसे संपर्क करें",
-                        "href": "/signup"
-                    },
-                    "contentAlignment": "start",
-                    "backgroundColor": "bg-[#f7f7f8]",
-                    "textColor": "text-gray-900"
-                }
-            },
-            "SecurityFeatures": {
-                "FAQData": {
-                    "title": "eSIM के बारे में अक्सर पूछे जाने वाले प्रश्न",
-                    "faqs": [
-                        {
-                            "id": "faq-1",
-                            "question": "क्या मेरा फोन eSIM के साथ संगत है?",
-                            "answer": "यदि आपको पिछले कुछ वर्षों में एक नया स्मार्टफोन मिला है, तो यह eSIM के साथ संगत होना चाहिए। 2020 के बाद जारी किए गए अधिकांश स्मार्टफोन हैं। हालांकि, यहां तक कि एक नई डिवाइस भी eSIM का समर्थन नहीं कर सकती है अगर यह किसी विशेष स्थान पर खरीदी गई थी, जैसे मुख्य भूमि चीन। निश्चित करने के लिए, eSIM-संगत डिवाइस की सूची देखें।"
-                        },
-                        {
-                            "id": "faq-2",
-                            "question": "अपने फोन पर eSIM को मैन्युअल रूप से कैसे स्थापित करें?",
-                            "answer": "आप अपने वाहक से QR कोड स्कैन करके या \"नेटवर्क सेटिंग्स\" पर जाकर और एक नया eSIM जोड़ने के लिए एक विकल्प देखकर अपने फोन पर eSIM को मैन्युअल रूप से स्थापित और सेट अप कर सकते हैं।"
-                        },
-                        {
-                            "id": "faq-3",
-                            "question": "क्या मैं ऐप के बिना eSIM का उपयोग कर सकता हूं?",
-                            "answer": "आप ऐप के बिना Simfinity eSIM प्लान खरीद सकते हैं, लेकिन eSIM स्थापित करने के लिए आपको Simfinity ऐप डाउनलोड करना होगा।"
-                        },
-                        {
-                            "id": "faq-4",
-                            "question": "eSIM को सक्रिय करने में कितना समय लगता है?",
-                            "answer": "eSIM को सक्रिय करने का मतलब है QR कोड स्कैन करके या जानकारी को मैन्युअल रूप से दर्ज करके अपने फोन में eSIM प्रोफाइल जोड़ना। इस तरह, आपका फोन eSIM को पहचान सकता है और उपयोग कर सकता है, लेकिन यह आवश्यक रूप से डेटा प्लान को तुरंत सक्रिय नहीं करता है। इस प्रक्रिया में कितना समय लगता है यह इस बात पर निर्भर करता है कि आप किस प्रकार का eSIM उपयोग कर रहे हैं। जबकि एक प्राथमिक eSIM को सक्रिय होने में घंटों या दिनों भी लग सकते हैं, यात्रा eSIM, जैसे कि आप Simfinity पर खरीद सकते हैं, लगभग तुरंत सक्रिय हो जाते हैं।"
-                        },
-                        {
-                            "id": "faq-5",
-                            "question": "अंतर्राष्ट्रीय यात्रा के लिए सर्वश्रेष्ठ eSIM कौन सा है?",
-                            "answer": "Simfinity eSIM अंतर्राष्ट्रीय यात्रा के लिए सर्वश्रेष्ठ eSIM में से एक है। यह न केवल सस्ती है, बल्कि आप अपनी मौजूदा Simfinity eSIM में नए गंतव्य जोड़ सकते हैं और नए eSIM कॉन्फ़िगर किए बिना कनेक्टेड रह सकते हैं।"
-                        },
-                        {
-                            "id": "faq-6",
-                            "question": "क्या eSIM मुफ्त हैं?",
-                            "answer": "हमारी eSIM ऐप डाउनलोड करना बिल्कुल मुफ्त है, लेकिन eSIM प्लान स्वयं नहीं हैं। हालांकि, आप हमारे रेफरेल प्रोग्राम के माध्यम से मुफ्त Simfinity क्रेडिट प्राप्त कर सकते हैं। Simfinity को अपने दोस्तों को संदर्भित करके, आप क्रेडिट अर्जित कर सकते हैं और उन्हें अपनी यात्राओं के लिए eSIM प्लान खरीदने के लिए उपयोग कर सकते हैं।"
-                        },
-                        {
-                            "id": "faq-7",
-                            "question": "ऑनलाइन eSIM कैसे प्राप्त करें",
-                            "answer": "ऑनलाइन eSIM प्राप्त करने का सर्वोत्तम तरीका है कि उन्हें Simfinity जैसी प्रतिष्ठित कंपनी से खरीदें। आप ऐप डाउनलोड कर सकते हैं और आसानी से अपनी eSIM योजनाओं को प्रबंधित कर सकते हैं।"
-                        },
-                        {
-                            "id": "faq-8",
-                            "question": "क्या मैं eSIM को स्वयं सेट अप कर सकता हूं?",
-                            "answer": "हाँ, आप eSIM को स्वयं सेट अप कर सकते हैं, लेकिन यह कैसे करें इसके निर्देश आपके नेटवर्क प्रदाता के आधार पर भिन्न हो सकते हैं। यदि आप परेशानी का सामना कर रहे हैं, तो मदद के लिए अपने प्रदाता से संपर्क करें।"
-                        }
-                    ]
-                }
-            },
-            "SecurityFeaturesValues": {
-                "title": "जो मान हमें निर्देशित करते हैं",
-                "values": [
-                    {
-                        "id": 1,
-                        "title": "अपने लिए एक योजना खोजें",
-                        "description": "साप्ताहिक 1 GB योजना से 100 GB डेटा तक जो छह महीने तक चलती है - अपने बजट के लिए एक डेटा योजना खोजें।"
-                    },
-                    {
-                        "id": 2,
-                        "title": "उपयोग में आसान",
-                        "description": "बस Simfinity डाउनलोड करें और एक डेटा प्लान प्राप्त करें - यह आपके गंतव्य पर पहुंचने पर स्वचालित रूप से सक्रिय हो जाएगा।"
-                    },
-                    {
-                        "id": 3,
-                        "title": "रोमिंग लागत से बचें",
-                        "description": "अब चोरी छिपे रोमिंग शुल्क नहीं। बिल्कुल जानें कि आपकी यात्रा के लिए निकलने से पहले आपका इंटरनेट कनेक्शन कितना खर्च होगा!"
-                    },
-                    {
-                        "id": 4,
-                        "title": "आपकी सभी यात्राओं के लिए एक eSIM",
-                        "description": "कई गंतव्यों पर एक eSIM का उपयोग करें - बस रिचार्ज और कनेक्ट करें!"
-                    },
-                    {
-                        "id": 5,
-                        "title": "एक यात्री की तरह सोचें",
-                        "description": "हम जिज्ञासु, लचकदार और अज्ञात के लिए खुले रहते हैं, ठीक वैसे ही जैसे खोजकर्ता जिनके लिए हमने Simfinity बनाया।"
-                    },
-                    {
-                        "id": 6,
-                        "title": "इसे मायने रखें",
-                        "description": "हम यहां अंतर पैदा करने के लिए हैं, इसलिए हम जो सच में मायने रखता है पर ध्यान केंद्रित करते हैं - हमारे उपयोगकर्ता, टीम और हमारे चारों ओर की दुनिया।"
-                    }
-                ]
-            }
-        },
-        "NavbarData": {
-            "rourceMegaMenuConfig": {
-                "see_pack": "गंतव्य देखें",
-                "label": "संसाधन",
-                "badge": "नया",
-                "columns": [
-                    {
-                        "title": "विशेषताएँ",
-                        "items": [
-                            {
-                                "label": "eSIM तकनीक के बारे में जिज्ञासु?",
-                                "href": "/what-is-esim",
-                                "description": "eSIM कैसे काम करता है और यह वैश्विक कनेक्टिविटी को कैसे बदल रहा है।",
-                                "badge": "नया"
-                            },
-                            {
-                                "label": "हमारे बारे में",
-                                "href": "/about-us",
-                                "description": "हम कौन हैं, क्या करते हैं और हमारा मिशन क्या है—इसके बारे में और जानें।",
-                                "badge": "नया"
-                            },
-                            {
-                                "label": "सहयोगी कार्यक्रम",
-                                "href": "/about-us",
-                                "description": "Simfinity के साथ साझेदारी करें और रेफ़रल्स व सहयोग के माध्यम से कमाएँ।",
-                                "badge": "नया"
-                            },
-                            {
-                                "label": "सुरक्षा सुविधाएँ",
-                                "href": "/security-features",
-                                "description": "अपने डेटा को सुरक्षित और निजी रखें।"
-                            },
-                            {
-                                "label": "व्यवसाय के लिए eSIM",
-                                "href": "/esim-for-business",
-                                "description": "आपकी टीमों के लिए भरोसेमंद eSIM डेटा।"
-                            }
-                        ]
-                    },
-                    {
-                        "title": "उपकरण",
-                        "items": [
-                            {
-                                "label": "सपोर्टेड डिवाइसेस",
-                                "href": "/esim-supported-devices",
-                                "description": "जाँचें कि आपका डिवाइस eSIM सपोर्ट करता है या नहीं"
-                            },
-                            {
-                                "label": "ऐप डाउनलोड करें",
-                                "href": "/download-esim-app",
-                                "description": "जाँचें कि आपका डिवाइस eSIM सपोर्ट करता है या नहीं"
-                            },
-                            {
-                                "label": "ब्लॉग",
-                                "href": "/download-esim-app",
-                                "description": "eSIM और ट्रैवल टेक के बारे में लेख, गाइड और अपडेट पढ़ें।"
-                            },
-                            {
-                                "label": "करियर",
-                                "href": "/download-esim-app",
-                                "description": "खुले पदों की जाँच करें और Simfinity टीम में शामिल हों।"
-                            },
-                            {
-                                "label": "Simfinity रिव्यू",
-                                "href": "/download-esim-app",
-                                "description": "जानें कि वास्तविक यात्रियों और उपयोगकर्ताओं का Simfinity के बारे में क्या कहना है।"
-                            }
-                        ]
-                    }
-                ],
-                "slider": {
-                    "title": "एक्सप्लोर करें",
-                    "items": [
-                        {
-                            "id": 1,
-                            "title": "व्यवसाय के लिए eSIM",
-                            "description": "टीमों, कंपनियों और बिजनेस यात्रियों के लिए डिज़ाइन किए गए भरोसेमंद वैश्विक डेटा प्लान"
-                        },
-                        {
-                            "id": 2,
-                            "title": "Simfinity पासपोर्ट",
-                            "description": "टीमों, कंपनियों और बिजनेस यात्रियों के लिए डिज़ाइन किए गए भरोसेमंद वैश्विक डेटा प्लान।"
-                        },
-                        {
-                            "id": 3,
-                            "title": "डेटा उपयोग जांच",
-                            "description": "कुछ सेकंड में अनुमान लगाएँ कि आपकी अगली यात्रा के लिए कितने डेटा की जरूरत होगी।"
-                        }
-                    ]
-                }
-            },
-            "productMegaMenuConfig": {
-                "label": "उत्पाद",
-                "badge": "नया",
-                "columns": [
-                    {
-                        "title": "विशेषताएँ",
-                        "items": [
-                            {
-                                "label": "सभी गंतव्य",
-                                "href": "/all-destinations",
-                                "description": "अपने डेटा को सुरक्षित और निजी रखें।"
-                            },
-                            {
-                                "label": "सभी पैकेज",
-                                "href": "/all-packages",
-                                "description": "आपकी टीमों के लिए भरोसेमंद eSIM डेटा।"
-                            },
-                            {
-                                "label": "सभी देश योजना",
-                                "href": "/country-plan",
-                                "description": "आपकी टीमों के लिए भरोसेमंद eSIM डेटा।"
-                            },
-                            {
-                                "label": "सभी क्षेत्र योजना",
-                                "href": "/region-plan",
-                                "description": "आपकी टीमों के लिए भरोसेमंद eSIM डेटा।"
-                            },
-                            {
-                                "label": "Simfinity पासपोर्ट",
-                                "href": "/region-plan",
-                                "description": "आपकी टीमों के लिए भरोसेमंद eSIM डेटा।"
-                            },
-                            {
-                                "label": "व्यवसाय के लिए eSIM",
-                                "href": "/region-plan",
-                                "description": "आपकी टीमों के लिए भरोसेमंद eSIM डेटा।"
-                            },
-                            {
-                                "label": "eSIM संगतता",
-                                "href": "/region-plan",
-                                "description": "आपकी टीमों के लिए भरोसेमंद eSIM डेटा।"
-                            }
-                        ]
-                    },
-                    {
-                        "title": "उपकरण",
-                        "items": [
-                            {
-                                "label": "गोपनीयता नीति",
-                                "href": "/terms-and-conditions",
-                                "description": "जाँचें कि आपका डिवाइस eSIM सपोर्ट करता है या नहीं।"
-                            },
-                            {
-                                "label": "सेवा की शर्तें",
-                                "href": "/terms-and-conditions",
-                                "description": "जाँचें कि आपका डिवाइस eSIM सपोर्ट करता है या नहीं।"
-                            },
-                            {
-                                "label": "डेटा उपयोग जांच",
-                                "href": "/terms-and-conditions",
-                                "description": "जाँचें कि आपका डिवाइस eSIM सपोर्ट करता है या नहीं।"
-                            },
-                            {
-                                "label": "डेटा टॉप-अप",
-                                "href": "/terms-and-conditions",
-                                "description": "जाँचें कि आपका डिवाइस eSIM सपोर्ट करता है या नहीं।"
-                            }
-                        ]
-                    }
-                ],
-                "slider": {
-                    "title": "एक्सप्लोर करें",
-                    "items": [
-                        {
-                            "id": 1,
-                            "title": "अल्ट्रा प्लान",
-                            "description": "अनलिमिटेड डेटा, 8% क्रेडिट बैक और अतिरिक्त लाभ।"
-                        },
-                        {
-                            "id": 2,
-                            "title": "सुरक्षा सुविधाएँ",
-                            "description": "आपकी डिजिटल लाइफ के लिए इन-बिल्ट सुरक्षा।"
-                        }
-                    ]
-                }
-            },
-            "offersMegaMenuConfig": {
-                "see_pack": "गंतव्य देखें",
-                "label": "ऑफ़र",
-                "badge": "नया",
-                "columns": [
-                    {
-                        "title": "विशेष ऑफ़र",
-                        "items": [
-                            {
-                                "label": "एक दोस्त को रेफ़र करें",
-                                "href": "/refer-friend",
-                                "description": "Simfinity साझा करें। रिवार्ड्स कमाएँ। सस्ते में यात्रा करें।",
-                                "badge": "Hot"
-                            },
-                            {
-                                "label": "छात्र ऑफ़र",
-                                "href": "/student-offer",
-                                "description": "छात्र अधिक बचत करते हैं — कहीं भी यात्रा करें सस्ते डेटा के साथ।",
-                                "badge": "नया"
-                            },
-                            {
-                                "label": "Simfinity डील्स और रिवार्ड्स",
-                                "href": "/deals-rewards",
-                                "description": "नए ऑफ़र प्राप्त करें और सबसे सस्ते वैश्विक डेटा के साथ यात्रा करें।"
-                            }
-                        ]
-                    }
-                ],
-                "slider": {
-                    "title": "एक्सप्लोर करें",
-                    "items": [
-                        {
-                            "id": 1,
-                            "title": "व्यवसाय के लिए eSIM",
-                            "description": "टीमों, कंपनियों और बिजनेस यात्रियों के लिए भरोसेमंद वैश्विक डेटा प्लान"
-                        },
-                        {
-                            "id": 2,
-                            "title": "Simfinity पासपोर्ट",
-                            "description": "टीमों, कंपनियों और बिजनेस यात्रियों के लिए भरोसेमंद वैश्विक डेटा प्लान।"
-                        },
-                        {
-                            "id": 3,
-                            "title": "डेटा उपयोग जांच",
-                            "description": "कुछ सेकंड में अनुमान लगाएँ कि आपकी अगली यात्रा के लिए कितने डेटा की जरूरत होगी।"
-                        }
-                    ]
-                }
-            },
-            "helpMegaMenuConfig": {
-                "label": "सहायता",
-                "badge": "नया",
-                "columns": [
-                    {
-                        "title": "सपोर्ट और गाइड",
-                        "items": [
-                            {
-                                "label": "शुरू करें",
-                                "description": "अपना Simfinity eSIM सेटअप करने में आपकी मदद करने के लिए एक सरल गाइड"
-                            },
-                            {
-                                "label": "हेल्प सेंटर",
-                                "description": "सभी सपोर्ट लेख, ट्यूटोरियल और गाइड एक ही जगह पर ब्राउज़ करें।"
-                            },
-                            {
-                                "label": "ट्रबलशूटिंग",
-                                "description": "आसान चरणों के साथ सामान्य सेटअप या कनेक्टिविटी समस्याओं को ठीक करें।"
-                            }
-                        ]
-                    },
-                    {
-                        "title": "त्वरित उत्तर",
-                        "items": [
-                            {
-                                "label": "FAQ",
-                                "description": "Simfinity eSIM के बारे में सबसे आम प्रश्नों के त्वरित उत्तर।"
-                            }
-                        ]
-                    }
-                ],
-                "slider": {
-                    "title": "एक्सप्लोर करें",
-                    "items": [
-                        {
-                            "id": 1,
-                            "title": "अल्ट्रा प्लान",
-                            "description": "अनलिमिटेड डेटा, 8% क्रेडिट बैक और अतिरिक्त लाभ।"
-                        },
-                        {
-                            "id": 2,
-                            "title": "सुरक्षा सुविधाएँ",
-                            "description": "आपकी डिजिटल लाइफ के लिए इन-बिल्ट सुरक्षा।"
-                        }
-                    ]
-                }
-            }
-        },
-        "AllDestinations": {
-            "subTitle": "वैश्विक कवरेज",
-            "title": "सभी गंतव्य",
-            "des1": "200+ से अधिक में सर्वोत्तम डेटा योजनाएं खोजें ",
-            "des2": "गंतव्य - और जहां भी आप जाएं आसान और सुरक्षित इंटरनेट एक्सेस का आनंद लें। हमारे प्रीमियम eSIM समाधानों के साथ तुरंत कनेक्ट करें।",
-            "buttonTab": [
-                "सभी",
-                "देश",
-                "क्षेत्र"
-            ],
-            "inputPlaceHolder": "गंतव्य खोजें"
-        },
-        "AllCountryPlans": {
-            "subTitle": "वैश्विक कवरेज",
-            "title": "सभी देश योजनाएं",
-            "des1": "200+ से अधिक में सर्वोत्तम डेटा योजनाएं खोजें ",
-            "des2": "देश - और जहां भी आप जाएं आसान और सुरक्षित इंटरनेट एक्सेस का आनंद लें। हमारे प्रीमियम eSIM समाधानों के साथ तुरंत कनेक्ट करें।",
-            "buttonTab": "कुल देश",
-            "inputPlaceHolder": "देश खोजें"
-        },
-        "RegionPlanPage": {
-            "subTitle": "क्षेत्रीय कवरेज",
-            "title": "क्षेत्रीय कवरेज",
-            "des": "एक eSIM समाधान के साथ कई देशों में यात्रा करें। हमारी क्षेत्रीय योजनाएं महाद्वीपों में व्यापक कवरेज प्रदान करती हैं, जो विस्तारित यात्राओं और कई गंतव्यों तक फैली व्यावसायिक यात्राओं के लिए आदर्श हैं।",
-            "badge1": "बहु-देश कवरेज",
-            "badge2": "तत्काल सक्रियण",
-            "badge3": "सुरक्षित कनेक्शन"
-        },
-        "SingleCountryPlan": {
-            "rightSideContent": {
-                "Get_an1": "के लिए eSIM प्राप्त करें",
-                "Get_an2": "और अपनी यात्रा में विश्वसनीय और किफायती इंटरनेट एक्सेस का आनंद लें।",
-                "getTitle": "के लिए eSIM डेटा प्लान प्राप्त करें",
-                "Filters": "फ़िल्टर",
-                "clear_all": "सभी साफ करें",
-                "per_Page": "प्रति पृष्ठ",
-                "data_type": "डेटा प्रकार",
-                "all_plan": "सभी योजनाएं",
-                "un_lim_only": "केवल असीमित",
-                "lim_only": "केवल सीमित डेटा",
-                "sort_by": "मूल्य के अनुसार क्रमबद्ध करें",
-                "def": "डिफ़ॉल्ट",
-                "lw_hi": "कम से अधिक",
-                "hi_low": "अधिक से कम",
-                "b_choice": "सर्वश्रेष्ठ विकल्प",
-                "can_i_title": "क्या मैं अपनी योजना बाद में सक्रिय कर सकता हूं?",
-                "all_plan_para": "सभी योजनाओं में 30 दिन की सक्रियण अवधि है। यदि आप आज योजना प्राप्त करते हैं और 30 नवंबर तक इसे सक्रिय नहीं करते हैं, तो यह स्वचालित रूप से सक्रिय हो जाएगी।"
-            },
-            "KeyFeaturesTabsSection": {
-                "tab1": {
-                    "label": "मुख्य विशेषताएं",
-                    "content": [
-                        {
-                            "des1": "सस्ती डेटा योजनाएं, $5.99 USD से शुरू।"
-                        },
-                        {
-                            "des1": "{countryName} के सर्वश्रेष्ठ नेटवर्क से विश्वसनीय कनेक्शन।"
-                        },
-                        {
-                            "des1": "सभी eSIM-संगत स्मार्टफोन के साथ काम करता है।"
-                        }
-                    ]
-                },
-                "tab2": {
-                    "label": "विवरण",
-                    "content": [
-                        {
-                            "des1": "{countryName} में निर्बाध कनेक्टिविटी का अनुभव करें"
-                        },
-                        {
-                            "des1": "आपकी सभी यात्रा आवश्यकताओं के लिए उच्च गति इंटरनेट।"
-                        },
-                        {
-                            "des1": "आसान सक्रिय करण और तत्काल कनेक्टिविटी।"
-                        }
-                    ]
-                },
-                "tab3": {
-                    "label": "तकनीकी विवरण",
-                    "content": [
-                        {
-                            "title": "डिवाइस संगतता",
-                            "des1": "सभी eSIM-संगत उपकरणों के साथ काम करता है।"
-                        },
-                        {
-                            "title": "योजना सक्रिय करण",
-                            "des1": "स्वचालित, जब आप {countryName} पहुंचते हैं (बशर्ते आपने अपने eSIM को डिवाइस सेटिंग्स में सक्षम किया हो और रोमिंग सक्षम की हो)।"
-                        }
-                    ]
-                },
-                "region": {
-                    "tab1": {
-                        "label": "मुख्य विशेषताएं",
-                        "content": [
-                            {
-                                "des1": "सस्ती क्षेत्रीय डेटा योजनाएं, $5.99 USD से शुरू।"
-                            },
-                            {
-                                "des1": "{countryName} क्षेत्र के सभी देशों में विश्वसनीय कनेक्शन।"
-                            },
-                            {
-                                "des1": "सभी eSIM-संगत स्मार्टफोन के साथ काम करता है।"
-                            }
-                        ]
-                    }
-                }
-            },
-            "WhatIs": {
-                "title": "{countryName} के लिए eSIM क्या है?",
-                "des1": "एक",
-                "des2": "डिजिटल SIM है जो आपको ऑपरेटर स्विच करने और कई मोबाइल योजनाएं बिना कार्ड बदले उपयोग करने देता है। अधिकांश नए फोन eSIM को सपोर्ट करते हैं, और इसे सेट अप करने में केवल कुछ क्षण लगते हैं।"
-            },
-            "HowToGetEsimStatic": {
-                "title": "{countryName} के लिए eSIM कैसे प्राप्त करें",
-                "step1": {
-                    "heading": "अपनी यात्रा के लिए Simfinity डेटा प्लान चुनें",
-                    "description": "चुनें कि आपको कितना डेटा चाहिए, प्लान खरीदें, और QR कोड के साथ पुष्टिकरण ईमेल की प्रतीक्षा करें।"
-                },
-                "step2": {
-                    "heading": "Simfinity डाउनलोड करें और अपना eSIM सेट अप करें",
-                    "description": "Simfinity ऐप डाउनलोड करें, हमारे ईमेल से QR कोड स्कैन करें, और स्क्रीन पर दिए निर्देशों का पालन करें।"
-                },
-                "step3": {
-                    "heading": "अपने डेटा का आनंद लें",
-                    "description": "उड़ान के लिए तैयार हो जाएं — जब आप अपने गंतव्य पर पहुंचेंगे तो आपकी डेटा प्लान स्वचालित रूप से सक्रिय हो जाएगी!",
-                    "activeLabel": "सक्रिय",
-                    "remainingDataLabel": "शेष डेटा",
-                    "remainingDataValue": "3 / 3 GB",
-                    "expiresInLabel": "समाप्त होता है",
-                    "expiresInValue": "29 दिन, 7 घंटे"
-                }
-            },
-            "ValuesSectionCommon": {
-                "title": "हमें मार्गदर्शन करने वाले मूल्य",
-                "subtitle": "हमारे मूल्य केवल प्रेरणादायक शब्द नहीं हैं जो हम दीवार पर रखते हैं — हम उन्हें हर चीज में जीते हैं जो हम बनाते हैं।",
-                "values": [
-                    {
-                        "id": 1,
-                        "title": "आत्मविश्वास से यात्रा करें",
-                        "description": "हम प्लास्टिक SIM कार्ड को आसान और पर्यावरण के अनुकूल समाधान से बदल रहे हैं जो 200+ गंतव्यों में काम करता है।"
-                    },
-                    {
-                        "id": 2,
-                        "title": "इसे सरल रखें",
-                        "description": "कोई तकनीकी शब्दजाल नहीं। कोई गड़बड़ नहीं। हमने एक eSIM ऐप बनाया है जो स्वच्छ, सहज और नेविगेट करने में आसान है।"
-                    },
-                    {
-                        "id": 3,
-                        "title": "मनुष्यों को प्राथमिकता दें",
-                        "description": "हम लोगों की परवाह करते हैं, केवल कठोर प्रक्रियाओं की नहीं। प्रत्येक टीम सदस्य और उपयोगकर्ता को सहानुभूति और सम्मान के साथ व्यवहार किया जाता है।"
-                    },
-                    {
-                        "id": 4,
-                        "title": "हमेशा सुधार करें",
-                        "description": "हम पूर्णता का पीछा नहीं करते — हम प्रगति का पीछा करते हैं। हम मानते हैं कि छोटी जीत बड़े बदलाव लाती हैं।"
-                    },
-                    {
-                        "id": 5,
-                        "title": "यात्री की तरह सोचें",
-                        "description": "हम जिज्ञासु, लचकदार और अज्ञात के लिए खुले रहते हैं, बिल्कुल वैसे ही जैसे खोजकर्ता जिनके लिए हमने Simfinity बनाया।"
-                    },
-                    {
-                        "id": 6,
-                        "title": "इसे मायने रखने दें",
-                        "description": "हम यहाँ फर्क लाने के लिए हैं, इसलिए हम उस पर ध्यान केंद्रित करते हैं जो सच में मायने रखता है — हमारे उपयोगकर्ता, टीम और हमारे आस-पास की दुनिया।"
-                    }
-                ]
-            },
-            "ComparisonTableCommon": {
-                "title": "Simfinity बनाम अन्य eSIM सेवाएं",
-                "mainBrandName": "Simfinity",
-                "ctaButtonText": "योजनाएं देखें",
-                "rows": [
-                    {
-                        "label": "समर्थित गंतव्यों के लिए एक eSIM",
-                        "description": "",
-                        "saily": true,
-                        "competitors": [
-                            false,
-                            false,
-                            false,
-                            true
-                        ]
-                    },
-                    {
-                        "label": "24/7 लाइव चैट सहायता",
-                        "description": "",
-                        "saily": true,
-                        "competitors": [
-                            true,
-                            true,
-                            true,
-                            false
-                        ]
-                    },
-                    {
-                        "label": "रिफंड",
-                        "description": "",
-                        "saily": true,
-                        "competitors": [
-                            true,
-                            true,
-                            true,
-                            true
-                        ]
-                    },
-                    {
-                        "label": "सुरक्षा विशेषताएं",
-                        "description": "",
-                        "saily": true,
-                        "competitors": [
-                            false,
-                            false,
-                            false,
-                            false
-                        ]
-                    },
-                    {
-                        "label": "वर्चुअल लोकेशन",
-                        "description": "",
-                        "saily": "115+",
-                        "competitors": [
-                            "0",
-                            "0",
-                            "0",
-                            "0"
-                        ]
-                    },
-                    {
-                        "label": "दुर्भावनापूर्ण URL ब्लॉक करता है",
-                        "description": "",
-                        "saily": true,
-                        "competitors": [
-                            false,
-                            false,
-                            false,
-                            false
-                        ]
-                    },
-                    {
-                        "label": "डेटा सेवर (विज्ञापन अवरोधक)",
-                        "description": "",
-                        "saily": true,
-                        "competitors": [
-                            false,
-                            false,
-                            false,
-                            false
-                        ]
-                    }
-                ]
-            },
-            "TestimonialsSection": {
-                "title": "यात्रियों से Simfinity समीक्षाएं",
-                "des": "देखें कि अन्य यात्री Simfinity के बारे में क्या कह रहे हैं!"
-            },
-            "faq": {
-                "faqs": [
-                    {
-                        "id": "faq-1",
-                        "question": "क्या Simfinity eSIM सेवा {countryName} में उपलब्ध है?",
-                        "answer": "बिल्कुल! Simfinity {countryName} के लिए लचकदार प्रीपेड eSIM योजनाएं प्रदान करता है। एक बार ऐप डाउनलोड करने और खाता बनाने के बाद, आप 7 दिनों में 1 GB, या 30 दिनों में 3 GB, 5 GB, 10 GB या 20 GB की डेटा योजना चुन सकते हैं।"
-                    },
-                    {
-                        "id": "faq-2",
-                        "question": "मैं {countryName} में eSIM का उपयोग कैसे करूं?",
-                        "answer": "हां! Simfinity स्वचालित रूप से पता लगाता है कि जब आप अपने गंतव्य पर पहुंचते हैं और आपकी डेटा योजना को सक्रिय करता है। इसका मतलब है कि आपको eSIM को मैन्युअल रूप से चालू करने की चिंता करने की आवश्यकता नहीं है।"
-                    },
-                    {
-                        "id": "faq-3",
-                        "question": "क्या मैं Simfinity eSIM डेटा योजना के साथ अपना नंबर रखता हूं?",
-                        "answer": "हां, आप अपना मूल फोन नंबर रख सकते हैं। Simfinity केवल डेटा eSIM योजनाएं प्रदान करता है, इसलिए आपका भौतिक SIM कार्ड सक्रिय रहता है।"
-                    },
-                    {
-                        "id": "faq-4",
-                        "question": "अंतर्राष्ट्रीय यात्रा के लिए सर्वश्रेष्ठ eSIM कौन सा है?",
-                        "answer": "1. Simfinity ऐप या हमारी वेबसाइट के माध्यम से अपनी डेटा योजना खरीदकर शुरुआत करें। 2. अगला, हम सुझाव देते हैं कि {countryName} छोड़ने से पहले अपना eSIM स्थापित करें। 3. सुनिश्चित करें कि आपका eSIM सक्षम है और आपने डेटा सक्षम किया है। 4. {countryName} पहुंचने पर, आपकी योजना स्वचालित रूप से सक्रिय हो जाएगी। 5. ब्राउज़ करना शुरू करें और अपनी यात्रा का आनंद लें!"
-                    },
-                    {
-                        "id": "faq-5",
-                        "question": "मुझे {countryName} के लिए अपना eSIM कब प्राप्त होगा?",
-                        "answer": "चाहे आपने वेबसाइट या ऐप के माध्यम से Simfinity eSIM योजना खरीदी हो, आप तुरंत अपना eSIM स्थापित कर सकेंगे। यदि आपने वेबसाइट पर योजना खरीदी है, तो QR कोड तुरंत आपके ईमेल पर भेज दिया जाएगा।"
-                    },
-                    {
-                        "id": "faq-6",
-                        "question": "{countryName} के लिए मेरी डेटा योजना कब सक्रिय होगी?",
-                        "answer": "यदि आपने अपने डिवाइस की सेटिंग्स के माध्यम से Simfinity eSIM को चालू किया है और रोमिंग सक्षम की है, तो आपकी योजना {countryName} पहुंचने पर स्वचालित रूप से सक्रिय हो जाएगी।"
-                    },
-                    {
-                        "id": "faq-7",
-                        "question": "क्या मैं यदि आवश्यक हो तो अपनी {countryName} eSIM योजना में और डेटा जोड़ सकता हूं?",
-                        "answer": "हां, आप अपनी यात्रा के दौरान Simfinity ऐप के माध्यम से किसी भी समय अधिक डेटा जोड़ सकते हैं।"
-                    },
-                    {
-                        "id": "faq-8",
-                        "question": "{countryName} के लिए मेरी डेटा योजना कब सक्रिय होगी?",
-                        "answer": "यदि आपने अपने डिवाइस की सेटिंग्स के माध्यम से Simfinity eSIM को चालू किया है, तो आपकी योजना {countryName} पहुंचने पर सक्रिय हो जाएगी।"
-                    },
-                    {
-                        "id": "faq-10",
-                        "question": "क्या मैं अपनी {countryName} eSIM से डेटा साझा करने के लिए हॉटस्पॉट का उपयोग कर सकता हूं?",
-                        "answer": "हां, आप हॉटस्पॉट के माध्यम से जितना चाहें उतना अपना Simfinity eSIM डेटा साझा कर सकते हैं! Simfinity असीमित हॉटस्पॉट साझाकरण प्रदान करता है।"
-                    },
-                    {
-                        "id": "faq-11",
-                        "question": "जब मैं {countryName} के लिए Simfinity eSIM योजना प्राप्त करूं तो मेरे फोन नंबर का क्या होगा?",
-                        "answer": "Simfinity {countryName} के लिए केवल डेटा eSIM योजनाएं प्रदान करता है, इसलिए आपका फोन नंबर नहीं बदलेगा। आप WhatsApp, Messenger या Signal जैसे ऐप्स का उपयोग कर सकते हैं।"
-                    },
-                    {
-                        "id": "faq-12",
-                        "question": "{countryName} के लिए सर्वश्रेष्ठ eSIM कौन सा है?",
-                        "answer": "यह आपके बजट और यात्रा की अवधि पर निर्भर करता है। Simfinity प्रतिस्पर्धी दरें, विश्वसनीय इंटरनेट एक्सेस और अद्वितीय सुरक्षा सुविधाएं प्रदान करता है।"
-                    }
-                ]
-            }
-        },
-        "Footer": {
-            "Popular_Country": "लोकप्रिय गंतव्य",
-            "Popular_Regions": "लोकप्रिय क्षेत्र",
-            "copyRight": "© 2025 Simfinity. सर्वाधिकार सुरक्षित।",
-            "Privacy_Policy": "गोपनीयता नीति",
-            "Term": "सेवा की शर्तें",
-            "Simfinity": {
-                "title": "Simfinity",
-                "links": [
-                    "व्यापार",
-                    "हमारे बारे में",
-                    "सभी गंतव्य",
-                    "सभी पैकेज",
-                    "सभी देश योजनाएं",
-                    "सभी क्षेत्र योजनाएं"
-                ]
-            },
-            "eSIM": {
-                "title": "eSIM",
-                "links": [
-                    "eSIM क्या है",
-                    "समर्थित डिवाइस",
-                    "ऐप डाउनलोड करें",
-                    "सुरक्षा सुविधाएं"
-                ]
-            }
-        }
-    }
-  
+    "items": "[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
+  }
 }
