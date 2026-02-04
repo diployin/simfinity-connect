@@ -1052,6 +1052,77 @@
         "noRegions": "No regions available",
         "ultraComing": "Ultra plans coming soon..."
     },
+
+     "whatIsEsimNew": {
+            "whatEsim": "Still buying physical SIM cards?",
+            "An": "An",
+            "para": "That’s old-school! Meet the eSIM — a smart digital SIM already built into your phone that lets you activate mobile data instantly without buying or changing any physical SIM cards. No shops, no plastic, no swapping — just scan, connect, and enjoy fast, reliable internet in seconds. With Simfinity, staying online while traveling becomes effortless, flexible, and 100% hassle-free."
+        },
+
+         "TravelDestinationTabsNew": {
+            "subTitle": "What’s your next destination?",
+            "title": "Choose your travel destination",
+            "btn": "View All Destinations",
+            "des": "Find your destination and let Simfinity handle the rest, Instant data, zero stress.",
+            "Country": "Country",
+            "Region": "Region",
+            "Ultra": "Simfinity Passport",
+            "new": "New"
+        },
+
+         "WhyChooseSailySectionHeader": {
+                "subtitle": "Why choose Simfinity?",
+                "title": "Stay connected the smart way"
+         },
+
+
+         "WhatIsEsim": {
+        "heroTittle": "What is an eSIM — and why travelers love it",
+        "herodes": "An eSIM is a digital SIM built directly into your phone. No physical card. No swapping. No store visits. Just scan, activate, and you’re online instantly. With an eSIM, you can stay connected the moment you land — without paying expensive roaming fees or searching for a local SIM shop. Simfinity eSIMs make travel simple: fast activation, affordable data, and global coverage in minutes.",
+        "ctaButton":"Choose Your Destination"
+    },
+
+
+         
+  "faq": {
+    "title": "Frequently asked questions",
+    "items": [
+      {
+        "id": "faq-1",
+        "question": "After getting an eSIM, do I need to turn anything on?",
+        "answer": "No, your eSIM will activate automatically when you reach your destination. Just make sure the eSIM is installed and mobile data is enabled."
+      },
+      {
+        "id": "faq-2",
+        "question": "Does Simfinity detect when I arrive at my destination?",
+        "answer": "Yes. Simfinity automatically detects your arrival and activates your data plan instantly."
+      },
+      {
+        "id": "faq-3",
+        "question": "Do I keep my phone number with an eSIM?",
+        "answer": "Yes. Your physical SIM stays active for calls and SMS, while the eSIM is used only for data."
+      },
+      {
+        "id": "faq-4",
+        "question": "What is the best eSIM for international travel?",
+        "answer": "Simfinity offers affordable, reliable eSIM plans in 200+ destinations with instant activation and no roaming shock."
+      },
+      {
+        "id": "faq-5",
+        "question": "What is a tourist eSIM?",
+        "answer": "A tourist eSIM is a digital SIM designed for travelers, allowing instant mobile data without buying a physical SIM."
+      },
+      {
+        "id": "faq-6",
+        "question": "How long does it take to activate an eSIM?",
+        "answer": "Activation is instant after installation or automatically when you arrive at your destination."
+      }
+    ]
+  },
+
+
+            
+
     "NewSimfinDes": {
         "heroSec": {
             "title": "Woah! These are the cheapest eSIM plans I’ve ever seen!",
@@ -2867,9 +2938,6 @@
                 ]
             }
         }
-    },
-    "WhatIsEsim": {
-        "heroTittle": "eSIM: What is it, and how does it work?",
-        "herodes": "eSIM: What is it, and how does it work?"
     }
+    
 }
