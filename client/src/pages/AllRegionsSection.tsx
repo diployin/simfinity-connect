@@ -85,8 +85,8 @@ const AllRegionsSection: React.FC<AllRegionsSectionProps> = ({ limit, convertPri
      UI
   ========================= */
   return (
-    <section className="w-full py-12">
-      <div className="container mx-auto max-w-7xl px-4 mt-32">
+    <section className="w-full">
+      <div className="container mx-auto max-w-7xl px-4 ">
         {/* ===== HEADER ===== */}
         <div className="mb-10 text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-purple-100 px-4 py-2 text-sm font-medium text-purple-700">

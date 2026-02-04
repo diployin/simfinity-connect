@@ -64,7 +64,7 @@ const CTASection: React.FC<CTASectionProps> = ({
   };
 
   return (
-    <section className={`py-8 md:py-16 px-4 sm:px-6 lg:px-8 ${containerClassName}`}>
+    <section className={`py-8 md:py-16 px-4 sm:px-6 lg:px-8  ${containerClassName}`}>
       <div className="containers mx-auto max-w-7xl">
         <div
           className={`py-16 px-4 sm:px-6 lg:px-8 ${backgroundColor} flex flex-col ${alignmentClasses[contentAlignment]} justify-center rounded-4xl  ${innerClassName}`}

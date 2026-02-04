@@ -8,126 +8,116 @@ import EsimBenefitsSection from '@/components/sections/whatEsim/EsimBenefitsSect
 import EsimVsSimComparison from '@/components/sections/whatEsim/EsimVsSimComparison';
 import { useTranslation } from '@/contexts/TranslationContext';
 import useStaticData from '@/data/useStaticData';
-import { Link } from 'wouter';
-
-      
+import { Link, useLocation } from 'wouter';
+import ThemeButton from '@/components/ThemeButton';
 
 const WhatEsimNew = () => {
   const staticData = useStaticData();
   const { t } = useTranslation();
-  const title = t("website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title");
+  const title = t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title');
+  const [, navigate] = useLocation();
 
- 
-const esimSetupTabs = [
-  {
-    label: "On iPhone",
-    title: "Set up an eSIM on your iPhone with the Simfinity app",
-    steps: [
-      {
-        number: "1",
-        stepTitle: "Pick an eSIM data plan for your trip",
-        description: "Select the country you're heading to and choose a plan.",
-        image: "/images/whatEsim/1.png",
-      },
-      {
-        number: "2",
-        stepTitle: "Download the Simfinity eSIM app",
-        description:
-          "Get the app, tap Install eSIM, and follow the steps on the screen.",
-        image: "/images/whatEsim/2.png",
-      },
-      {
-        number: "3",
-        stepTitle: "Your plan will automatically activate",
-        description:
-          "Get ready for your trip — your plan will activate when you arrive.",
-        image: "/images/whatEsim/3.png",
-      },
-    ],
-    instructions: {
-      heading: "Set up an eSIM manually on your iPhone",
+  const esimSetupTabs = [
+    {
+      label: 'On iPhone',
+      title: 'Set up an eSIM on your iPhone with the Simfinity app',
       steps: [
-        'Go to "Settings", then "Mobile Service" or "Cellular".',
-        'Tap "Add eSIM" or "Add Cellular Plan".',
-        'Tap "Use QR Code".',
-        "Scan the QR code or enter the details manually.",
+        {
+          number: '1',
+          stepTitle: 'Pick an eSIM data plan for your trip',
+          description: "Select the country you're heading to and choose a plan.",
+          image: '/images/whatEsim/1.png',
+        },
+        {
+          number: '2',
+          stepTitle: 'Download the Simfinity eSIM app',
+          description: 'Get the app, tap Install eSIM, and follow the steps on the screen.',
+          image: '/images/whatEsim/2.png',
+        },
+        {
+          number: '3',
+          stepTitle: 'Your plan will automatically activate',
+          description: 'Get ready for your trip — your plan will activate when you arrive.',
+          image: '/images/whatEsim/3.png',
+        },
+      ],
+      instructions: {
+        heading: 'Set up an eSIM manually on your iPhone',
+        steps: [
+          'Go to "Settings", then "Mobile Service" or "Cellular".',
+          'Tap "Add eSIM" or "Add Cellular Plan".',
+          'Tap "Use QR Code".',
+          'Scan the QR code or enter the details manually.',
+        ],
+      },
+    },
+
+    {
+      label: 'On Android',
+      title: 'Set up an eSIM on your Android with the Simfinity app',
+      steps: [
+        {
+          number: '1',
+          stepTitle: 'Pick an eSIM data plan for your trip',
+          description: "Select the country you're heading to and choose a plan.",
+          image: '/images/whatEsim/1-step.png',
+        },
+        {
+          number: '2',
+          stepTitle: 'Download the Simfinity eSIM app',
+          description:
+            'Get the app, tap Install eSIM and follow the steps on the screen to set it up.',
+          image: '/images/whatEsim/2-step.png',
+        },
+        {
+          number: '3',
+          stepTitle: 'Your plan will automatically activate',
+          description: 'Get ready for your trip — your plan will activate when you arrive.',
+          image: '/images/whatEsim/3-step.png',
+        },
+      ],
+      instructions: {
+        heading: 'Set up an eSIM manually on your Android',
+        steps: [
+          'Go to "Settings", then "Connections".',
+          'Tap "SIM manager".',
+          'Select "Add eSIM".',
+          'Tap "Scan the QR code" or choose another way to add your eSIM.',
+        ],
+      },
+    },
+
+    {
+      label: 'With a QR code',
+      title: 'Set up an eSIM using a QR code',
+      steps: [
+        {
+          number: '1',
+          stepTitle: 'Scan the QR code to download Simfinity',
+          description: 'Use your phone to scan the QR and download the Simfinity app.',
+        },
+        {
+          number: '2',
+          stepTitle: 'Buy an eSIM data plan for your trip',
+          description: "Get a mobile data plan for the country you'll be visiting.",
+        },
+        {
+          number: '3',
+          stepTitle: 'Your plan will automatically activate',
+          description: 'Get online the moment you arrive at your destination.',
+        },
       ],
     },
-  },
-
-  {
-    label: "On Android",
-    title: "Set up an eSIM on your Android with the Simfinity app",
-    steps: [
-      {
-        number: "1",
-        stepTitle: "Pick an eSIM data plan for your trip",
-        description: "Select the country you're heading to and choose a plan.",
-        image: "/images/whatEsim/1-step.png",
-      },
-      {
-        number: "2",
-        stepTitle: "Download the Simfinity eSIM app",
-        description:
-          "Get the app, tap Install eSIM and follow the steps on the screen to set it up.",
-        image: "/images/whatEsim/2-step.png",
-      },
-      {
-        number: "3",
-        stepTitle: "Your plan will automatically activate",
-        description:
-          "Get ready for your trip — your plan will activate when you arrive.",
-        image: "/images/whatEsim/3-step.png",
-      },
-    ],
-    instructions: {
-      heading: "Set up an eSIM manually on your Android",
-      steps: [
-        'Go to "Settings", then "Connections".',
-        'Tap "SIM manager".',
-        'Select "Add eSIM".',
-        'Tap "Scan the QR code" or choose another way to add your eSIM.',
-      ],
-    },
-  },
-
-  {
-    label: "With a QR code",
-    title: "Set up an eSIM using a QR code",
-    steps: [
-      {
-        number: "1",
-        stepTitle: "Scan the QR code to download Simfinity",
-        description:
-          "Use your phone to scan the QR and download the Simfinity app.",
-      },
-      {
-        number: "2",
-        stepTitle: "Buy an eSIM data plan for your trip",
-        description:
-          "Get a mobile data plan for the country you'll be visiting.",
-      },
-      {
-        number: "3",
-        stepTitle: "Your plan will automatically activate",
-        description:
-          "Get online the moment you arrive at your destination.",
-      },
-    ],
-  },
-];
-
-
-
+  ];
 
   return (
     <div>
-      <section className="bg-white px-4 pt-16 pb-8 sm:px-6 lg:px-8 lg:py-16">
+      <section className="bg-white px-4  pb-8 sm:px-6 lg:px-8 ">
         <div className="containers mx-auto">
           <div className="grid grid-cols-1 items-center gap-4 rounded-3xl lg:grid-cols-2 lg:gap-12">
             {/* Left Side - Image */}
             <div className="order-2 lg:order-2">
-              <div className="relative h-[400px] overflow-hidden rounded-[2rem] sm:h-[600px] lg:h-[550px]">
+              <div className="relative h-[400px] overflow-hidden rounded-[2rem] sm:h-[600px] lg:h-[500px]">
                 <img
                   src="/images/whatEsim/What_is_an_esim.png"
                   alt="Business professional using mobile and laptop"
@@ -139,7 +129,7 @@ const esimSetupTabs = [
 
             {/* Right Side - Content */}
             <div className="order-1 space-y-6 text-center md:text-start lg:order-1">
-              <h2 className="lg:text-4.5xl max-w-lg text-3xl leading-tight font-medium text-gray-900 sm:text-4xl">
+              <h2 className="lg:text-5xl max-w-lg text-3xl leading-tight font-medium text-gray-900 sm:text-4xl">
                 {t('website.WhatIsEsim.content.heroTittle')}
               </h2>
 
@@ -148,12 +138,15 @@ const esimSetupTabs = [
               </p>
 
               <div className="">
-                <Link
+                {/* <Link
                   href="/contact"
                   className="bg-themeYellow hover:bg-themeYellowHover inline-block rounded-full border px-8 py-3.5 text-base font-medium text-black transition-colors duration-200"
                 >
                   {t('website.WhatIsEsim.content.ctaButton')}
-                </Link>
+                </Link> */}
+                <ThemeButton onClick={() => navigate('/contact')}>
+                  {t('website.WhatIsEsim.content.ctaButton')}
+                </ThemeButton>
               </div>
             </div>
           </div>
@@ -188,12 +181,11 @@ const esimSetupTabs = [
       </section>
       <section className="px-4 sm:px-6 md:pt-16 lg:px-8">
         <div className="containers mx-auto max-w-7xl">
-          <div className="relative h-[300px] overflow-hidden rounded-[2rem] lg:h-[550px]">
+          <div className="relative h-[300px] lg:h-[550px] overflow-hidden rounded-[2rem]">
             <img
-              src="/images/whatEsim/How does an eSIM work.png" // Your image path
+              src="/images/whatEsim/How does an eSIM work.png"
               alt="Business professional using mobile and laptop"
-              className="object-contain"
-              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="w-full h-full object-cover"
             />
           </div>
 
@@ -241,36 +233,27 @@ const esimSetupTabs = [
       </section> */}
 
       <section className="px-4 py-8 sm:px-6 md:py-16 lg:px-8">
-  <div className="mx-auto max-w-7xl">
-    <div className="flex flex-col items-center justify-center rounded-[48px] bg-[#1F7A63] px-6 py-16 text-center sm:px-10 lg:px-20">
-      
-      <h2 className="text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">
-        {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.title')}
-      </h2>
+        <div className="mx-auto max-w-7xl">
+          <div className="flex flex-col items-center justify-center rounded-[48px] bg-[#1F7A63] px-6 py-16 text-center sm:px-10 lg:px-20">
+            <h2 className="text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">
+              {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.title')}
+            </h2>
 
-      <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/90">
-        {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.description')}
-      </p>
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/90">
+              {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.description')}
+            </p>
 
-      <Link
-        href="/destinations"
-        className="mt-8 inline-flex items-center justify-center rounded-full bg-black px-8 py-3.5 text-base font-medium text-white transition hover:bg-gray-900"
-      >
-        {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.ctaButton')}
-      </Link>
+            <Link
+              href="/destinations"
+              className="mt-8 inline-flex items-center justify-center rounded-full bg-black px-8 py-3.5 text-base font-medium text-white transition hover:bg-gray-900"
+            >
+              {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.ctaButton')}
+            </Link>
+          </div>
+        </div>
+      </section>
 
-    </div>
-  </div>
-</section>
-
-
-
-      <FAQ
-        faqs={staticData.WhatIsEsim.FAQData.faqs}
-        title={title}
-        maxWidth="3xl"
-        className=" "
-      />
+      <FAQ faqs={staticData.WhatIsEsim.FAQData.faqs} title={title} maxWidth="3xl" className=" " />
     </div>
   );
 };

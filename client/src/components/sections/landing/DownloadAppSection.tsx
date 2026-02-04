@@ -14,7 +14,7 @@ const DownloadAppSection = () => {
           <div className="space-y-6 text-center md:text-start lg:space-y-8 lg:pr-2">
             {/* Trustpilot Badge */}
             <div className="bg-primary flex w-fit items-center gap-2 rounded-lg px-3 py-2">
-              <span className="font-medium text-white">Coming soon</span>
+              {/* <span className="font-medium text-white">Coming soon</span> */}
 
               {/* <Image
                                 src='/images/Trustpilot_logo.svg'
@@ -101,8 +101,7 @@ const DownloadAppSection = () => {
             </div>
 
             {/* Ratings */}
-            <div className="flex flex-col gap-6 sm:flex-row sm:gap-12">
-              {/* App Store Rating */}
+            {/* <div className="flex flex-col gap-6 sm:flex-row sm:gap-12">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <svg className="h-5 w-5 text-black" fill="currentColor" viewBox="0 0 20 20">
@@ -113,7 +112,6 @@ const DownloadAppSection = () => {
                 <p className="text-sm font-medium text-gray-600">(35,487+) reviews</p>
               </div>
 
-              {/* Google Play Rating */}
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <svg className="h-5 w-5 text-black" fill="currentColor" viewBox="0 0 20 20">
@@ -123,7 +121,7 @@ const DownloadAppSection = () => {
                 </div>
                 <p className="text-sm font-medium text-gray-600">(61,942+) reviews</p>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Right Side - Phone Image */}

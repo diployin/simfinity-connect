@@ -26,14 +26,14 @@ const DownloadEsimPage = () => {
             <div className="flex flex-col items-start space-y-3 text-start">
               <Plane className="h-5 w-5 text-gray-900" strokeWidth={1.5} />
               <p className="max-w-xs text-sm leading-snug font-medium text-gray-900">
-                {t('NewSimfinDes.download_esim_app.DowonloadEsim.features.0.title')}
+                {t('DownloadEsimPage.freaters1')}
               </p>
             </div>
             {/* Feature 2 */}
             <div className="flex flex-col items-start space-y-3 text-start">
               <Smartphone className="h-5 w-5 text-gray-900" strokeWidth={1.5} />
               <p className="max-w-xs text-sm leading-snug font-medium text-gray-900">
-                {t('NewSimfinDes.download_esim_app.DowonloadEsim.features.1.title')}
+                {t('DownloadEsimPage.freaters2')}
               </p>
             </div>
 
@@ -41,7 +41,7 @@ const DownloadEsimPage = () => {
             <div className="flex flex-col items-start justify-start space-y-3 text-start">
               <MessageSquare className="h-5 w-5 text-gray-900" strokeWidth={1.5} />
               <p className="max-w-xs text-sm leading-snug font-medium text-gray-900">
-                {t('NewSimfinDes.download_esim_app.DowonloadEsim.features.2.title')}
+                {t('DownloadEsimPage.freaters3')}
               </p>
             </div>
 
@@ -49,28 +49,28 @@ const DownloadEsimPage = () => {
             <div className="flex flex-col items-start justify-start space-y-3 text-start">
               <CheckCircle className="h-5 w-5 text-gray-900" strokeWidth={1.5} />
               <p className="max-w-xs text-sm leading-snug font-medium text-gray-900">
-                {t('NewSimfinDes.download_esim_app.DowonloadEsim.features.3.title')}
+                {t('DownloadEsimPage.freaters4')}
               </p>
             </div>
           </div>
         </div>
       </section>
       <ImageContentSection
-        title={t('NewSimfinDes.download_esim_app.DowonloadEsim.heroSection.title')}
-        description={t('NewSimfinDes.download_esim_app.DowonloadEsim.heroSection.description')}
+        title={t('DownloadEsimPage.heroTitle')}
+        description={t('DownloadEsimPage.heroDescription')}
         imageSrc="/images/Simfinity Asia (1).png"
         imageAlt="Woman using eSIM on mobile phone"
         imagePosition="left"
         button={{
-          text: t('NewSimfinDes.download_esim_app.DowonloadEsim.heroSection.ctaButton'),
+          text: t('DownloadEsimPage.ctaButton'),
           href: '/destinations',
         }}
       />
 
       <EsimSetupTabCommon tabs={staticData.DowonloadEsim.setupTabs} />
       <ImageContentSection
-        title={t('NewSimfinDes.download_esim_app.DowonloadEsim.activationSection.title')}
-        description={t('NewSimfinDes.download_esim_app.DowonloadEsim.heroSection.description')}
+        title={t('DownloadEsimPage.activationTitle')}
+        description={t('DownloadEsimPage.activationDescription')}
         imageSrc="/images/simfinity asia.png"
         imageAlt="Woman using eSIM on mobile phone"
         imagePosition="right"
@@ -79,83 +79,69 @@ const DownloadEsimPage = () => {
         <div className="containers mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-12">
-            <h2 className="lg:text-4.5xl mb-4 text-3xl leading-tight font-medium text-gray-900 sm:text-4xl lg:max-w-3xl">
-              {t('NewSimfinDes.download_esim_app.DowonloadEsim.benefitsSection.heading')}
+            <h2 className="lg:text-4.5xl mb-4 text-3xl font-medium text-gray-900">
+              {t('DownloadEsimPage.benefitsHeading')}
             </h2>
-            <p className="text-base text-gray-600 sm:text-base">
-              {t('NewSimfinDes.download_esim_app.DowonloadEsim.benefitsSection.subheading')}
-            </p>
+
+            <p className="text-base text-gray-600">{t('DownloadEsimPage.benefitsSubheading')}</p>
           </div>
 
           {/* Benefits Grid */}
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
-            {/* Benefit 1 */}
             <div className="space-y-4">
               <CheckCircle className="h-10 w-10 text-gray-900" strokeWidth={1.5} />
               <h3 className="text-xl font-medium text-gray-900">
-                {t('NewSimfinDes.download_esim_app.DowonloadEsim.benefitsSection.benefits.0.title')}
+                {t('DownloadEsimPage.benefit1Title')}
               </h3>
-              <p className="text-base leading-relaxed text-gray-600">
-                {t(
-                  'NewSimfinDes.download_esim_app.DowonloadEsim.benefitsSection.benefits.0.description',
-                )}
-              </p>
+              <p className="text-gray-600">{t('DownloadEsimPage.benefit1Desc')}</p>
             </div>
 
-            {/* Benefit 2 */}
             <div className="space-y-4">
               <CreditCard className="h-10 w-10 text-gray-900" strokeWidth={1.5} />
               <h3 className="text-xl font-medium text-gray-900">
-                {t('NewSimfinDes.download_esim_app.DowonloadEsim.benefitsSection.benefits.1.title')}
+                {t('DownloadEsimPage.benefit2Title')}
               </h3>
-              <p className="text-base leading-relaxed text-gray-600">
-                {t(
-                  'NewSimfinDes.download_esim_app.DowonloadEsim.benefitsSection.benefits.1.description',
-                )}
-              </p>
+              <p className="text-gray-600">{t('DownloadEsimPage.benefit2Desc')}</p>
             </div>
 
-            {/* Benefit 3 */}
             <div className="space-y-4">
               <Globe className="h-10 w-10 text-gray-900" strokeWidth={1.5} />
               <h3 className="text-xl font-medium text-gray-900">
-                {t('NewSimfinDes.download_esim_app.DowonloadEsim.benefitsSection.benefits.2.title')}
+                {t('DownloadEsimPage.benefit3Title')}
               </h3>
-              <p className="text-base leading-relaxed text-gray-600">
-                {t(
-                  'NewSimfinDes.download_esim_app.DowonloadEsim.benefitsSection.benefits.2.description',
-                )}
-              </p>
+              <p className="text-gray-600">{t('DownloadEsimPage.benefit3Desc')}</p>
             </div>
           </div>
         </div>
       </section>
 
       <CTASection
-        heading={t('NewSimfinDes.download_esim_app.DowonloadEsim.ctaSections.0.heading')}
-        description={t('NewSimfinDes.download_esim_app.DowonloadEsim.ctaSections.0.description')}
+        heading={t('DownloadEsimPage.ctaHeading')}
+        description={t('DownloadEsimPage.ctaDescription')}
         button={{
-          text: t('NewSimfinDes.download_esim_app.DowonloadEsim.ctaSections.0.ctaButton'),
+          text: t('DownloadEsimPage.ctaButtonContact'),
           href: '/signup',
           variant: 'white',
         }}
         contentAlignment="start"
-        backgroundColor=" bg-[#f7f7f8]  "
-        textColor="text-gray-900"
+        backgroundColor="bg-[#f7f7f8]"
+        textColor="text-gray-900  "
       />
 
       <FAQ faqs={staticData.DowonloadEsim.FAQData.faqs} />
       <CTASection
-        heading={t('NewSimfinDes.download_esim_app.DowonloadEsim.ctaSections.1.heading')}
-        description={t('NewSimfinDes.download_esim_app.DowonloadEsim.ctaSections.1.description')}
+        heading={t('DownloadEsimPage.referCtaHeading')}
+        description={t('DownloadEsimPage.referCtaDescription')}
         button={{
-          text: 'Get Started',
+          text: t('DownloadEsimPage.referCtaButton'),
           href: '/signup',
           variant: 'black',
         }}
         contentAlignment="center"
         backgroundColor="bg-primary "
-        textColor="text-gray-900"
+        textColor="text-white"
+        descriptionColor="text-white/80"
+        containerClassName='rounded-xl'
       />
     </>
   );

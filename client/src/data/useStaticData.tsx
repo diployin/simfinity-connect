@@ -216,164 +216,114 @@ const useStaticData = () => {
     DowonloadEsim: {
       setupTabs: [
         {
-          label: t('NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.label'),
-          title: t('NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.title'),
+          label: t('DownloadEsimPage.setupIphoneLabel'),
+          title: t('DownloadEsimPage.setupIphoneTitle'),
           steps: [
             {
               number: '1',
-              stepTitle: t(
-                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.0.stepTitle',
-              ),
-              description: t(
-                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.0.description',
-              ),
-              // image: '/images/download-app/card-choose-data-plan (1).svg'
+              stepTitle: t('DownloadEsimPage.setupIphoneStep1Title'),
+              description: t('DownloadEsimPage.setupIphoneStep1Desc'),
               image: '/images/setupStep/step1.png',
             },
             {
               number: '2',
-              stepTitle: t(
-                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.1.stepTitle',
-              ),
-              description: t(
-                'NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.1.description',
-              ),
-              // image: '/images/whatEsim/card-setup-instructions.svg'
+              stepTitle: t('DownloadEsimPage.setupIphoneStep2Title'),
+              description: t('DownloadEsimPage.setupIphoneStep2Desc'),
               image: '/images/setupStep/step2.png',
             },
             {
               number: '3',
-              stepTitle: t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.2.stepTitle',
-              ),
-              description: t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.steps.2.description',
-              ),
-              // image: '/images/whatEsim/card-activate-plan.svg'
+              stepTitle: t('DownloadEsimPage.setupIphoneStep3Title'),
+              description: t('DownloadEsimPage.setupIphoneStep3Desc'),
               image: '/images/setupStep/step3.png',
             },
           ],
           instructions: {
-            heading: t(
-              'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.heading',
-            ),
+            heading: t('DownloadEsimPage.setupIphoneManualHeading'),
             steps: [
-              t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.0',
-              ),
-              t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.1',
-              ),
-              t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.2',
-              ),
-              t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.0.instructions.steps.3',
-              ),
+              t('DownloadEsimPage.setupIphoneManualStep1'),
+              t('DownloadEsimPage.setupIphoneManualStep2'),
+              t('DownloadEsimPage.setupIphoneManualStep3'),
+              t('DownloadEsimPage.setupIphoneManualStep4'),
             ],
           },
         },
         {
-          label: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.label'),
-          title: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.title'),
+          label: t('DownloadEsimPage.setupAndroidLabel'),
+          title: t('DownloadEsimPage.setupAndroidTitle'),
           steps: [
             {
               number: '1',
-              stepTitle: t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.0.stepTitle',
-              ),
-              description: t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.0.description',
-              ),
-              // image: '/images/download-app/card-choose-data-plan (1).svg'
+              stepTitle: t('DownloadEsimPage.setupAndroidStep1Title'),
+              description: t('DownloadEsimPage.setupAndroidStep1Desc'),
               image: '/images/setupStep/step1.png',
             },
             {
               number: '2',
-              stepTitle: t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.1.stepTitle',
-              ),
-              description: t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.1.description',
-              ),
-              // image: '/images/download-app/card-download-esim-app.svg'
+              stepTitle: t('DownloadEsimPage.setupAndroidStep2Title'),
+              description: t('DownloadEsimPage.setupAndroidStep2Desc'),
               image: '/images/setupStep/step2.png',
             },
             {
               number: '3',
-              stepTitle: t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.2.stepTitle',
-              ),
-              description: t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.2.description',
-              ),
-              // image: '/images/whatEsim/card-activate-plan.svg'
+              stepTitle: t('DownloadEsimPage.setupAndroidStep3Title'),
+              description: t('DownloadEsimPage.setupAndroidStep3Desc'),
               image: '/images/setupStep/step3.png',
             },
           ],
           instructions: {
-            heading: t(
-              'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.heading',
-            ),
+            heading: t('DownloadEsimPage.setupAndroidManualHeading'),
             steps: [
-              t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.0',
-              ),
-              t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.1',
-              ),
-              t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.2',
-              ),
-              t(
-                'website.NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.3',
-              ),
+              t('DownloadEsimPage.setupAndroidManualStep1'),
+              t('DownloadEsimPage.setupAndroidManualStep2'),
+              t('DownloadEsimPage.setupAndroidManualStep3'),
+              t('DownloadEsimPage.setupAndroidManualStep4'),
             ],
           },
         },
       ],
       FAQData: {
-        title: t('NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title'),
+        title: t('DownloadEsimPage.faqTitle'),
         faqs: [
           {
             id: 'faq-1',
-            question: t('NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.question'),
-            answer: t('NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.answer'),
+            question: t('DownloadEsimPage.faq1Question'),
+            answer: t('DownloadEsimPage.faq1Answer'),
           },
           {
             id: 'faq-2',
-            question: t('NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.question'),
-            answer: t('NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.answer'),
+            question: t('DownloadEsimPage.faq2Question'),
+            answer: t('DownloadEsimPage.faq2Answer'),
           },
           {
             id: 'faq-3',
-            question: t('NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.question'),
-            answer: t('NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.answer'),
+            question: t('DownloadEsimPage.faq3Question'),
+            answer: t('DownloadEsimPage.faq3Answer'),
           },
           {
             id: 'faq-4',
-            question: t('NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.question'),
-            answer: t('NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.answer'),
+            question: t('DownloadEsimPage.faq4Question'),
+            answer: t('DownloadEsimPage.faq4Answer'),
           },
           {
             id: 'faq-5',
-            question: t('NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.question'),
-            answer: t('NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.answer'),
+            question: t('DownloadEsimPage.faq5Question'),
+            answer: t('DownloadEsimPage.faq5Answer'),
           },
           {
             id: 'faq-6',
-            question: t('NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.question'),
-            answer: t('NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.answer'),
+            question: t('DownloadEsimPage.faq6Question'),
+            answer: t('DownloadEsimPage.faq6Answer'),
           },
           {
             id: 'faq-7',
-            question: t('NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.question'),
-            answer: t('NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.answer'),
+            question: t('DownloadEsimPage.faq7Question'),
+            answer: t('DownloadEsimPage.faq7Answer'),
           },
           {
             id: 'faq-8',
-            question: t('NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.question'),
-            answer: t('NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.answer'),
+            question: t('DownloadEsimPage.faq8Question'),
+            answer: t('DownloadEsimPage.faq8Answer'),
           },
         ],
       },
@@ -832,18 +782,18 @@ const useStaticData = () => {
                 href: '/blog',
                 icon: <RiBloggerFill className="h-5 w-5" />,
               },
-              {
-                label: t('HeaderLinks.ResourceCareersTitle'),
-                description: t('HeaderLinks.ResourceCareersDesc'),
-                href: '/career',
-                icon: <Sprout className="h-5 w-5" />,
-              },
-              {
-                label: t('HeaderLinks.ResourceReviewsTitle'),
-                description: t('HeaderLinks.ResourceReviewsDesc'),
-                href: '/review',
-                icon: <Star className="h-5 w-5" />,
-              },
+              // {
+              //   label: t('HeaderLinks.ResourceCareersTitle'),
+              //   description: t('HeaderLinks.ResourceCareersDesc'),
+              //   href: '/career',
+              //   icon: <Sprout className="h-5 w-5" />,
+              // },
+              // {
+              //   label: t('HeaderLinks.ResourceReviewsTitle'),
+              //   description: t('HeaderLinks.ResourceReviewsDesc'),
+              //   href: '/review',
+              //   icon: <Star className="h-5 w-5" />,
+              // },
             ],
           },
         ],
@@ -905,12 +855,12 @@ const useStaticData = () => {
                 href: '/region-plan',
                 icon: <BsGlobeEuropeAfrica className="h-5 w-5" />,
               },
-              {
-                label: t('HeaderLinks.ProductPassportTitle'),
-                description: t('HeaderLinks.ProductPassportDesc'),
-                href: '/passport',
-                icon: <BsPassport className="h-5 w-5" />,
-              },
+              // {
+              //   label: t('HeaderLinks.ProductPassportTitle'),
+              //   description: t('HeaderLinks.ProductPassportDesc'),
+              //   href: '/passport',
+              //   icon: <BsPassport className="h-5 w-5" />,
+              // },
               {
                 label: t('HeaderLinks.ProductBusinessTitle'),
                 description: t('HeaderLinks.ProductBusinessDesc'),

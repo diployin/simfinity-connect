@@ -13,8 +13,8 @@ export default function TopPromoBar() {
       <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-center gap-4">
         {/* Message */}
         <p className="text-sm font-medium text-center">
-          ❄️ Get <span className="font-bold">5% off 10GB+ plans</span> with the code{' '}
-          <span className="font-bold">SNOW5</span>
+          ❄️ Get <span className="font-bold">25% off 5GB+ plans</span> with the code{' '}
+          <span className="font-bold">SIMFINITY</span>
         </p>
 
         {/* Button */}
