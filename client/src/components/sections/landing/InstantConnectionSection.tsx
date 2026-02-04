@@ -68,7 +68,7 @@ const InstantConnectionSection = () => {
                 {/* {t('NewSimfinDes.NewSimfinDes.card2.title')} */}
                 No more SIM card drama
               </h3>
-              <p className="text-base leading-relaxed text-gray-700 sm:text-lg">
+              <p className="text-base leading-relaxed text-gray-700 sm:text-lg pb-5">
                 {/* {t('NewSimfinDes.NewSimfinDes.card2.des')} */}
                 Skip the hassle of finding SIM shops, swapping tiny cards, or carrying ejector pins.
                 With Simfinity eSIM, everything is digital — activate once, travel freely, and enjoy

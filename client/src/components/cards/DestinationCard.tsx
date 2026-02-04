@@ -87,7 +87,7 @@ const DestinationCardSmall: React.FC<DestinationCardProps> = ({
       style={{
         animationDelay: `${index * 50}ms`,
       }}
-      className="group cursor-pointer flex items-center justify-between p-5  border border-gray-200 bg-white  shadow-sm sm:w-auto rounded-2xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 animate-in fade-in slide-in-from-bottom-4"
+      className="group cursor-pointer flex items-center justify-between p-5  border border-gray-200   shadow-sm sm:w-auto rounded-2xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 animate-in fade-in slide-in-from-bottom-4 bg-[#F7F7F8]"
     >
       <div className="flex items-center gap-4">
         <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-white shadow-sm flex-shrink-0">

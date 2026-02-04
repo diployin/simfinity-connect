@@ -5,7 +5,7 @@ const SecurityHeroSection: React.FC = () => {
   const staticData = useStaticData();
 
   return (
-    <section className="w-full overflow-hidden bg-gradient-to-b from-blue-50 via-blue-100 to-blue-200">
+    <section className="w-full overflow-visible bg-gradient-to-b from-blue-50 via-blue-100 to-blue-200">
       {/* Image Container with Background Gradient */}
       <div className="relative min-h-[400px] sm:min-h-[450px] md:min-h-[480px] lg:min-h-[592px] xl:min-h-[683px]">
         {/* Gradient Background */}

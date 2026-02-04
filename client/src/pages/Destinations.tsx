@@ -136,7 +136,7 @@ export default function Destinations() {
         <title>{t('destinations.title')}</title>
       </Helmet>
 
-      <main className=" md:pt-[200px] ">
+      <main className="  ">
         <div className="max-w-6xl mx-auto px-4">
           {/* =========================
              HEADER
