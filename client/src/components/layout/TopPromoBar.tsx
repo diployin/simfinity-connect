@@ -2,11 +2,23 @@
 
 import { useState } from 'react';
 import { X } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/redux/store/store';
+import { toggleMobileMenu } from '@/redux/slice/topNavbarSlice';
 
 export default function TopPromoBar() {
   const [visible, setVisible] = useState(true);
 
-  if (!visible) return null;
+  const dispatch: AppDispatch = useDispatch();
+
+  // Get state from Redux
+  const { isExpanded } = useSelector((state: RootState) => state.topNavbar);
+
+  if (isExpanded) return null;
+
+  const handleClose = () => {
+    dispatch(toggleMobileMenu());
+  };
 
   return (
     <div className="w-full bg-primary text-white relative">
@@ -17,15 +29,16 @@ export default function TopPromoBar() {
           <span className="font-bold">SIMFINITY</span>
         </p>
 
-        {/* Button */}
-        <button className="px-4 py-1.5 text-sm font-semibold border border-white rounded-full hover:bg-black hover:text-white transition">
-          Get the Deal
+        {/* Button - Responsive with different text on mobile */}
+        <button className="px-3 sm:px-4 py-1.5 sm:py-2 text-sm font-semibold border border-white rounded-full hover:bg-black hover:text-white transition whitespace-nowrap min-w-[100px] sm:min-w-[120px]">
+          <span className="hidden sm:inline">Get the Deal</span>
+          <span className="sm:hidden">Get Deal</span>
         </button>
       </div>
 
       {/* Close Button */}
       <button
-        onClick={() => setVisible(false)}
+        onClick={handleClose}
         className="absolute right-4 top-1/2 -translate-y-1/2 p-1 hover:opacity-70"
       >
         <X size={18} />

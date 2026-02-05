@@ -217,7 +217,7 @@ const MegaMenuDropdownDestination: React.FC<MegaMenuDropdownProps> = ({
             'flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors hover:text-gray-600 dark:hover:text-gray-300',
           )}
         >
-          {label}
+          {label}s
           {badge && (
             <span className="rounded-full bg-yellow-400 px-2 py-0.5 text-xs font-medium text-black">
               {badge}
@@ -294,13 +294,12 @@ const MegaMenuDropdownDestination: React.FC<MegaMenuDropdownProps> = ({
         type="button"
         onClick={handleToggle}
         className={cn(
-          `flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors hover:text-gray-600 dark:hover:text-gray-300 ${className}`,
+          `inline-flex items-center gap-1 px-5 py-2 text-sm font-medium transition-colors hover:text-white hover:bg-black ${className} border rounded-3xl border-black gap-3 `,
         )}
       >
+        <Search className="w-4 h-4" />
+
         {label}
-        <ChevronDown
-          className={cn('h-4 w-4 transition-transform duration-200', isOpen && 'rotate-180')}
-        />
       </button>
 
       {/* 🔥 DESTINATIONS MEGA MENU */}

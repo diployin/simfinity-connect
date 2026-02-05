@@ -5,6 +5,7 @@ import { useCurrency } from '@/contexts/CurrencyContext';
 import { useTranslation } from '@/contexts/TranslationContext';
 import useStaticData from '@/data/useStaticData';
 import { useSettingByKey } from '@/hooks/useSettings';
+import { RootState } from '@/redux/store/store';
 import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
 
@@ -55,6 +56,8 @@ const HeroSection = () => {
     return () => clearInterval(interval);
   }, []);
 
+  const { isExpanded } = useSelector((state: RootState) => state.topNavbar);
+
   const { data: destinationsWithPricing, isLoading: destinationsLoading } = useQuery<
     DestinationWithPricing[]
   >({
@@ -78,97 +81,29 @@ const HeroSection = () => {
     { name: 'France', countryCode: 'fr', slug: 'france' },
   ];
 
-  const displayPopular =
-    popularDestinations.length > 0
-      ? popularDestinations.map((d) => ({
-          name: d.name,
-          countryCode: d.countryCode,
-          slug: d.slug,
-          minPrice: d.minPrice,
-        }))
-      : defaultPopularDestinations.map((d) => ({
-          ...d,
-          minPrice: '0',
-        }));
-
-  const defaultPopularRegions = [
-    { id: 1, name: 'Europe', slug: 'europe', minPrice: '0' },
-    { id: 2, name: 'Asia', slug: 'asia', minPrice: '0' },
-    { id: 3, name: 'Americas', slug: 'americas', minPrice: '0' },
-  ];
-
-  const displayPopularRegions =
-    regionsWithPricing && regionsWithPricing.length > 0
-      ? regionsWithPricing.slice(0, 3)
-      : defaultPopularRegions;
-
-  const handlePhoneSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (phoneSearchQuery.trim()) {
-      setLocation(`/search?q=${encodeURIComponent(phoneSearchQuery)}`);
-    }
-  };
-
-  // Get filtered results
-  const getFilteredResults = () => {
-    if (phoneSearchQuery.length === 0) return [];
-
-    if (searchType === 'country') {
-      return (
-        destinationsWithPricing?.filter(
-          (d) =>
-            d.name.toLowerCase().includes(phoneSearchQuery.toLowerCase()) ||
-            d.countryCode.toLowerCase().includes(phoneSearchQuery.toLowerCase()),
-        ) || []
-      ).slice(0, 5);
-    } else {
-      return (
-        regionsWithPricing?.filter((r) =>
-          r.name.toLowerCase().includes(phoneSearchQuery.toLowerCase()),
-        ) || []
-      ).slice(0, 5);
-    }
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: 'easeOut' },
-    },
-  };
-  //   const { logo } = useSelector((state: RootState) => state.appSettings);
-
-  const logo = useSettingByKey('logo');
-
-  const staticData = useStaticData();
-
-  //  <div className="absolute inset-0 overflow-hidden bg-gradient-hero flex items-center justify-center">
-  //   <img
-  //     src="/images/Untitled design1.png"
-  //     alt="Hero"
-  //     className="w-full h-full object-cover object-center"
-  //   />
-  // </div>
-
   return (
     // <div className="relative w-full overflow-hidden bg-[url('/images/Banner.png')] bg-cover bg-center ">
     <div className="relative w-full bg-sky-200   ">
-      {/* <div className="absolute inset-0 bg-black/10"></div> */}
       {/* Desktop Layout */}
       <div className="absolute -top-[72px] bottom-0 w-full flex flex-col items-center overflow-hidden bg-gradient-hero">
+        <div className="absolute bottom-0 min-w-[1038px] md:min-w-[1153px] lg:min-w-[1372px] xl:min-w-[1716px] md:translate-x-[18%] lg:translate-x-[21%] xl:translate-x-[25%]">
+          <div>
+            <picture>
+              <img
+                alt="The Saily international eSIM app."
+                loading="eager"
+                width="1200"
+                height="908"
+                decoding="async"
+                style={{ color: 'transparent' }}
+                srcSet="/images/Untitled_design.png"
+                src="/images/Untitled_design.png"
+              />
+            </picture>
+          </div>
+        </div>
+      </div>
+      {/* <div className="absolute -top-[72px] bottom-0 w-full flex flex-col items-center overflow-hidden bg-gradient-hero">
         <div className="absolute bottom-0 min-w-[1038px] md:min-w-[1153px] lg:min-w-[1372px] xl:min-w-[1716px] md:translate-x-[18%] lg:translate-x-[21%] xl:translate-x-[23%]">
           <div>
             <picture>
@@ -179,13 +114,13 @@ const HeroSection = () => {
                 height="908"
                 decoding="async"
                 style={{ color: 'transparent' }}
-                srcSet="/images/sf-homepage-hero-asset.webp"
-                src="/images/sf-homepage-hero-asset.webp"
+                srcSet="/images/Untitled_design.png"
+                src="/images/Untitled_design.png"
               />
             </picture>
           </div>
         </div>
-      </div>
+      </div> */}
       <div
         data-section="Hero"
         data-testid="section-Hero"
@@ -194,7 +129,9 @@ const HeroSection = () => {
         <div>
           <div className="mx-4 sm:mx-auto">
             <div className="containers mx-auto">
-              <div className="md:flex flex-col justify-center py-16 max-md:pb-[404px] md:max-w-[370px] lg:max-w-[540px] xl:max-w-[680px] min-h-[743px] md:min-h-[480px] lg:min-h-[592px] xl:min-h-[800px] mt-32 md:mt-16 lg:mt-5">
+              <div
+                className={`md:flex flex-col justify-center py-16 max-md:pb-[404px] md:max-w-[370px] lg:max-w-[540px] xl:max-w-[680px] min-h-[743px] md:min-h-[480px] lg:min-h-[592px] xl:min-h-[800px] ${isExpanded ? 'mt-10' : 'mt-32'} mt-10 md:mt-16 lg:mt-5`}
+              >
                 <div className="h-full w-full flex group/stack flex-col text-start justify-start gap-y-6 items-stretch">
                   <div className="flex flex-col justify-end  ">
                     <h1 className="max-w-xl text-4xl leading-tight font-medium text-black lg:text-5xl xl:text-5xl">
@@ -202,13 +139,13 @@ const HeroSection = () => {
                     </h1>
 
                     {/* Search Box */}
-                    <div className="w-full max-w-full sm:max-w-md md:max-w-lg lg:max-w-sm">
+                    <div className="w-full max-w-full sm:max-w-md md:max-w-lg lg:max-w-sm pt-10">
                       <p className="mb-3 text-base sm:text-lg font-medium text-black">
                         {t('hero.searchSubtitle')}
                       </p>
                       <button
                         onClick={() => setIsSearchModalOpen(true)}
-                        className="relative flex w-full items-center justify-between rounded-lg bg-white py-3 px-5 sm:py-3 sm:px-6 shadow-md hover:shadow-lg transition-all"
+                        className="relative flex w-full items-center justify-between rounded-2xl bg-white py-3 px-5 sm:py-4 sm:px-6 shadow-md hover:shadow-lg transition-all "
                       >
                         <span className="text-sm sm:text-base text-gray-500">
                           {t('hero.searchPlaceholder')}
