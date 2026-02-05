@@ -11343,7 +11343,58 @@ ${urls
   // Public: Get translations for a language (by code or id)
 
 /* ===================== HELPER ===================== */
-function setDeep(target: any, path: string[], value: any) {
+
+function setDeep(obj: any, path: string[], value: any) {
+  let current = obj;
+
+  for (let i = 0; i < path.length; i++) {
+    const key = path[i];
+    const isLast = i === path.length - 1;
+    const nextKey = path[i + 1];
+    const nextIsIndex = !isNaN(Number(nextKey));
+
+    // 🔢 numeric index → array
+    if (!isNaN(Number(key))) {
+      const index = Number(key);
+
+      if (!Array.isArray(current)) {
+        // 🔥 force convert
+        current = [];
+      }
+
+      if (isLast) {
+        current[index] = value;
+        return;
+      }
+
+      if (!current[index]) {
+        current[index] = nextIsIndex ? [] : {};
+      }
+
+      current = current[index];
+      continue;
+    }
+
+    // 🔤 object key
+    if (isLast) {
+      current[key] = value;
+      return;
+    }
+
+    if (
+      typeof current[key] !== 'object' ||
+      current[key] === null
+    ) {
+      // 🔥 override anything (string / number / null)
+      current[key] = nextIsIndex ? [] : {};
+    }
+
+    current = current[key];
+  }
+}
+
+
+function setDeepooo(target: any, path: string[], value: any) {
   let current = target;
 
   for (let i = 0; i < path.length; i++) {
