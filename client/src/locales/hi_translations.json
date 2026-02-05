@@ -389,7 +389,144 @@
 "NewSimfinDes.TestimonialsSection.review5": "कई देशों में इस्तेमाल किया। एक मिनट में एक्टिवेशन और शानदार इंटरनेट।",
 "NewSimfinDes.TestimonialsSection.review6": "बेहतरीन कवरेज और कीमत के साथ Simfinity एक शानदार eSIM विकल्प है।",
 
-"NewSimfinDes.TestimonialsSection.review7": "एक भरोसेमंद ब्रांड द्वारा समर्थित, Simfinity आसान इंस्टॉलेशन, किफायती प्लान और विश्वसनीय वैश्विक कवरेज के लिए जाना जाता है।"
+"NewSimfinDes.TestimonialsSection.review7": "एक भरोसेमंद ब्रांड द्वारा समर्थित, Simfinity आसान इंस्टॉलेशन, किफायती प्लान और विश्वसनीय वैश्विक कवरेज के लिए जाना जाता है।",
+
+
+
+"heroReferfriend.title": "रेफर करें और कमाएँ",
+  "heroReferfriend.des": "अपने दोस्तों को Simfinity पर आमंत्रित करें और हर बार जब वे जुड़ें और eSIM प्लान सक्रिय करें तो आकर्षक रिवॉर्ड कमाएँ। कनेक्शन साझा करें और साथ में विशेष लाभ पाएं।",
+  "heroReferfriend.btn": "अभी रेफर करें",
+
+
+
+  "footer.description": "आपका विश्वसनीय ट्रैवल कनेक्टिविटी पार्टनर जो 175+ देशों में सुरक्षित eSIM और SIM कार्ड किफायती दरों पर प्रदान करता है।",
+
+    "footer.global": "{{siteName}} ग्लोबल",
+    "footer.whatIsEsim": "eSIM क्या है",
+    "footer.aboutUs": "हमारे बारे में",
+    "footer.contactUs": "संपर्क करें",
+    "footer.destinations": "डेस्टिनेशन",
+
+    "footer.topDestinations": "टॉप डेस्टिनेशन",
+
+    "footer.resources": "संसाधन",
+    "footer.blog": "ब्लॉग",
+    "footer.faq": "सामान्य प्रश्न",
+    "footer.supportticket": "सपोर्ट टिकट",
+
+    "footer.pages": "पेज",
+
+    "footer.copyrightt": "© 2026 {{siteName}}. सर्वाधिकार सुरक्षित।",
+    "footer.followus": "हमें फ़ॉलो करें",
+    "footer.social.instagram": "इंस्टाग्राम",
+    "footer.social.facebook": "फेसबुक",
+    "footer.social.youtube": "यूट्यूब",
+    "footer.social.linkedin": "लिंक्डइन",
+    "footer.social.twitter": "ट्विटर",
+
+
+    "downloadAppSection.title": "Simfinity ऐप जल्द ही आ रहा है",
+  "downloadAppSection.description": "आपके eSIM को मैनेज करने का एक स्मार्ट और तेज़ तरीका — जल्द ही iOS और Android पर लॉन्च हो रहा है।",
+
+  "downloadAppSection.appstoreSmall": "डाउनलोड करें",
+  "downloadAppSection.appstore": "App Store",
+
+  "downloadAppSection.playstoreSmall": "उपलब्ध है",
+  "downloadAppSection.playstore": "Google Play पर",
+
+
+
+
+  
+  "esimSetupTab.heading": "eSIM कैसे सेट करें",
+  "esimSetupTab.subheading": "अपने iPhone या Android पर eSIM उपयोग शुरू करने के लिए इन चरणों का पालन करें।",
+
+  "esimSetupTab.tabs.iphone.label": "iPhone पर",
+  "esimSetupTab.tabs.iphone.title": "Simfinity ऐप के साथ अपने iPhone पर eSIM सेट करें",
+
+  "esimSetupTab.tabs.iphone.steps.1.title": "अपने ट्रिप के लिए eSIM डेटा प्लान चुनें",
+  "esimSetupTab.tabs.iphone.steps.1.description": "जिस देश में जा रहे हैं उसे चुनें और प्लान सेलेक्ट करें।",
+
+  "esimSetupTab.tabs.iphone.steps.2.title": "Simfinity eSIM ऐप डाउनलोड करें",
+  "esimSetupTab.tabs.iphone.steps.2.description": "ऐप इंस्टॉल करें, Install eSIM पर टैप करें और स्क्रीन पर दिए गए स्टेप्स फॉलो करें।",
+
+  "esimSetupTab.tabs.iphone.steps.3.title": "आपका प्लान अपने आप एक्टिवेट हो जाएगा",
+  "esimSetupTab.tabs.iphone.steps.3.description": "अपने ट्रिप के लिए तैयार रहें — पहुंचते ही प्लान एक्टिवेट हो जाएगा।",
+
+  "esimSetupTab.tabs.iphone.instructions.heading": "अपने iPhone पर eSIM मैन्युअली सेट करें",
+  "esimSetupTab.tabs.iphone.instructions.steps.1": "\"Settings\" में जाएँ, फिर \"Mobile Service\" या \"Cellular\" चुनें।",
+  "esimSetupTab.tabs.iphone.instructions.steps.2": "\"Add eSIM\" या \"Add Cellular Plan\" पर टैप करें।",
+  "esimSetupTab.tabs.iphone.instructions.steps.3": "\"Use QR Code\" पर टैप करें।",
+  "esimSetupTab.tabs.iphone.instructions.steps.4": "QR कोड स्कैन करें या डिटेल्स मैन्युअली दर्ज करें।",
+
+
+  "esimSetupTab.tabs.android.label": "Android पर",
+  "esimSetupTab.tabs.android.title": "Simfinity ऐप के साथ अपने Android पर eSIM सेट करें",
+
+  "esimSetupTab.tabs.android.steps.1.title": "अपने ट्रिप के लिए eSIM डेटा प्लान चुनें",
+  "esimSetupTab.tabs.android.steps.1.description": "जिस देश में जा रहे हैं उसे चुनें और प्लान चुनें।",
+
+  "esimSetupTab.tabs.android.steps.2.title": "Simfinity eSIM ऐप डाउनलोड करें",
+  "esimSetupTab.tabs.android.steps.2.description": "ऐप इंस्टॉल करें, Install eSIM पर टैप करें और सेटअप स्टेप्स फॉलो करें।",
+
+  "esimSetupTab.tabs.android.steps.3.title": "आपका प्लान अपने आप एक्टिवेट हो जाएगा",
+  "esimSetupTab.tabs.android.steps.3.description": "डेस्टिनेशन पर पहुंचते ही प्लान एक्टिवेट हो जाएगा।",
+
+  "esimSetupTab.tabs.android.instructions.heading": "अपने Android पर eSIM मैन्युअली सेट करें",
+  "esimSetupTab.tabs.android.instructions.steps.1": "\"Settings\" में जाएँ, फिर \"Connections\" चुनें।",
+  "esimSetupTab.tabs.android.instructions.steps.2": "\"SIM manager\" पर टैप करें।",
+  "esimSetupTab.tabs.android.instructions.steps.3": "\"Add eSIM\" चुनें।",
+  "esimSetupTab.tabs.android.instructions.steps.4": "\"Scan the QR code\" पर टैप करें या अन्य तरीका चुनें।",
+
+
+  "esimSetupTab.tabs.qr.label": "QR कोड से",
+  "esimSetupTab.tabs.qr.title": "QR कोड का उपयोग करके eSIM सेट करें",
+
+  "esimSetupTab.tabs.qr.steps.1.title": "Simfinity डाउनलोड करने के लिए QR स्कैन करें",
+  "esimSetupTab.tabs.qr.steps.1.description": "अपने फोन से QR स्कैन करें और Simfinity ऐप डाउनलोड करें।",
+
+  "esimSetupTab.tabs.qr.steps.2.title": "अपने ट्रिप के लिए eSIM प्लान खरीदें",
+  "esimSetupTab.tabs.qr.steps.2.description": "जिस देश में जा रहे हैं उसके लिए डेटा प्लान खरीदें।",
+
+  "esimSetupTab.tabs.qr.steps.3.title": "आपका प्लान अपने आप एक्टिवेट हो जाएगा",
+  "esimSetupTab.tabs.qr.steps.3.description": "डेस्टिनेशन पर पहुंचते ही तुरंत इंटरनेट चालू हो जाएगा।",
+
+
+
+
+
+
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title": "eSIM के बारे में अक्सर पूछे जाने वाले प्रश्न",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.question": "क्या मेरा फोन eSIM के साथ संगत है?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.answer": "अगर आपने पिछले कुछ वर्षों में नया स्मार्टफोन खरीदा है, तो उसके eSIM के साथ संगत होने की संभावना है। 2020 के बाद जारी किए गए अधिकांश स्मार्टफोन eSIM सपोर्ट करते हैं। हालांकि, कुछ नए डिवाइस भी eSIM सपोर्ट नहीं करते, खासकर यदि वे किसी विशेष क्षेत्र जैसे मेनलैंड चीन से खरीदे गए हों। सुनिश्चित करने के लिए eSIM-संगत डिवाइस की सूची देखें।",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.question": "फोन में eSIM को मैन्युअली कैसे इंस्टॉल करें?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.answer": "आप अपने कैरियर द्वारा दिए गए QR कोड को स्कैन करके या \"Network settings\" में जाकर नया eSIM जोड़ने के विकल्प को चुनकर eSIM को मैन्युअली इंस्टॉल और सेटअप कर सकते हैं।",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.question": "क्या मैं ऐप के बिना eSIM इस्तेमाल कर सकता हूँ?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.answer": "आप ऐप के बिना Simfinity eSIM प्लान खरीद सकते हैं, लेकिन eSIM इंस्टॉल करने के लिए आपको Simfinity ऐप डाउनलोड करनी होगी।",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.question": "eSIM एक्टिवेट होने में कितना समय लगता है?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.answer": "eSIM एक्टिवेट करने का मतलब है QR कोड स्कैन करके या जानकारी मैन्युअली दर्ज करके eSIM प्रोफाइल को अपने फोन में जोड़ना। इससे आपका फोन eSIM को पहचान सकता है और उपयोग कर सकता है, लेकिन डेटा प्लान तुरंत सक्रिय होना जरूरी नहीं है। यह प्रक्रिया eSIM के प्रकार पर निर्भर करती है। प्राथमिक eSIM को सक्रिय होने में घंटों या दिनों का समय लग सकता है, जबकि यात्रा eSIM, जैसे Simfinity से खरीदे गए eSIM, लगभग तुरंत सक्रिय हो जाते हैं।",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.question": "अंतरराष्ट्रीय यात्रा के लिए सबसे अच्छा eSIM कौन सा है?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.answer": "Simfinity eSIM अंतरराष्ट्रीय यात्रा के लिए सबसे अच्छे eSIM में से एक है। यह न केवल किफायती है, बल्कि आप अपने मौजूदा Simfinity eSIM में नए गंतव्य जोड़ सकते हैं और बिना नया eSIM कॉन्फ़िगर किए कनेक्टेड रह सकते हैं।",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.question": "क्या eSIM मुफ्त होते हैं?",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.question": "ऑनलाइन eSIM कैसे प्राप्त करें?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.answer": "ऑनलाइन eSIM प्राप्त करने का सबसे अच्छा तरीका किसी विश्वसनीय कंपनी, जैसे Simfinity, से खरीदना है। आप ऐप डाउनलोड करके अपने eSIM प्लान को आसानी से मैनेज कर सकते हैं।",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.question": "क्या मैं खुद से eSIM सेटअप कर सकता हूँ?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.answer": "हाँ, आप खुद से eSIM सेटअप कर सकते हैं, लेकिन इसे करने के निर्देश आपके नेटवर्क प्रदाता पर निर्भर करते हैं। यदि आपको कोई समस्या हो, तो अपने प्रदाता से सहायता के लिए संपर्क करें।",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.2.description": "QR कोड स्कैन करें या सेटअप निर्देशों का पालन करें।",
+
+  "WhatIsEsim.howDoesItWorkSection.content.paragraph2": "eSIM का उपयोग शुरू करने के लिए बस एक eSIM प्लान खरीदें और त्वरित सेटअप पूरा करें। आपको अपनी मौजूदा SIM कार्ड निकालने की आवश्यकता नहीं है — वह अपने स्थान पर रह सकती है, चाहे आप उसे उपयोग करें या नहीं।"
+
+
 
 
 

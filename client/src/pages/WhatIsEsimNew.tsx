@@ -17,98 +17,105 @@ const WhatEsimNew = () => {
   const title = t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title');
   const [, navigate] = useLocation();
 
+
+
+
   const esimSetupTabs = [
-    {
-      label: 'On iPhone',
-      title: 'Set up an eSIM on your iPhone with the Simfinity app',
-      steps: [
-        {
-          number: '1',
-          stepTitle: 'Pick an eSIM data plan for your trip',
-          description: "Select the country you're heading to and choose a plan.",
-          image: '/images/whatEsim/1.png',
-        },
-        {
-          number: '2',
-          stepTitle: 'Download the Simfinity eSIM app',
-          description: 'Get the app, tap Install eSIM, and follow the steps on the screen.',
-          image: '/images/whatEsim/2.png',
-        },
-        {
-          number: '3',
-          stepTitle: 'Your plan will automatically activate',
-          description: 'Get ready for your trip — your plan will activate when you arrive.',
-          image: '/images/whatEsim/3.png',
-        },
-      ],
-      instructions: {
-        heading: 'Set up an eSIM manually on your iPhone',
-        steps: [
-          'Go to "Settings", then "Mobile Service" or "Cellular".',
-          'Tap "Add eSIM" or "Add Cellular Plan".',
-          'Tap "Use QR Code".',
-          'Scan the QR code or enter the details manually.',
-        ],
+  {
+    label: t('website.esimSetupTab.tabs.iphone.label'),
+    title: t('website.esimSetupTab.tabs.iphone.title'),
+    steps: [
+      {
+        number: '1',
+        stepTitle: t('website.esimSetupTab.tabs.iphone.steps.1.title'),
+        description: t('website.esimSetupTab.tabs.iphone.steps.1.description'),
+        image: '/images/whatEsim/1.png',
       },
-    },
-
-    {
-      label: 'On Android',
-      title: 'Set up an eSIM on your Android with the Simfinity app',
-      steps: [
-        {
-          number: '1',
-          stepTitle: 'Pick an eSIM data plan for your trip',
-          description: "Select the country you're heading to and choose a plan.",
-          image: '/images/whatEsim/1-step.png',
-        },
-        {
-          number: '2',
-          stepTitle: 'Download the Simfinity eSIM app',
-          description:
-            'Get the app, tap Install eSIM and follow the steps on the screen to set it up.',
-          image: '/images/whatEsim/2-step.png',
-        },
-        {
-          number: '3',
-          stepTitle: 'Your plan will automatically activate',
-          description: 'Get ready for your trip — your plan will activate when you arrive.',
-          image: '/images/whatEsim/3-step.png',
-        },
-      ],
-      instructions: {
-        heading: 'Set up an eSIM manually on your Android',
-        steps: [
-          'Go to "Settings", then "Connections".',
-          'Tap "SIM manager".',
-          'Select "Add eSIM".',
-          'Tap "Scan the QR code" or choose another way to add your eSIM.',
-        ],
+      {
+        number: '2',
+        stepTitle: t('website.esimSetupTab.tabs.iphone.steps.2.title'),
+        description: t('website.esimSetupTab.tabs.iphone.steps.2.description'),
+        image: '/images/whatEsim/2.png',
       },
-    },
-
-    {
-      label: 'With a QR code',
-      title: 'Set up an eSIM using a QR code',
+      {
+        number: '3',
+        stepTitle: t('website.esimSetupTab.tabs.iphone.steps.3.title'),
+        description: t('website.esimSetupTab.tabs.iphone.steps.3.description'),
+        image: '/images/whatEsim/3.png',
+      },
+    ],
+    instructions: {
+      heading: t(
+        'website.esimSetupTab.tabs.iphone.instructions.heading'
+      ),
       steps: [
-        {
-          number: '1',
-          stepTitle: 'Scan the QR code to download Simfinity',
-          description: 'Use your phone to scan the QR and download the Simfinity app.',
-        },
-        {
-          number: '2',
-          stepTitle: 'Buy an eSIM data plan for your trip',
-          description: "Get a mobile data plan for the country you'll be visiting.",
-        },
-        {
-          number: '3',
-          stepTitle: 'Your plan will automatically activate',
-          description: 'Get online the moment you arrive at your destination.',
-        },
+        t('website.esimSetupTab.tabs.iphone.instructions.steps.1'),
+        t('website.esimSetupTab.tabs.iphone.instructions.steps.2'),
+        t('website.esimSetupTab.tabs.iphone.instructions.steps.3'),
+        t('website.esimSetupTab.tabs.iphone.instructions.steps.4'),
       ],
     },
-  ];
+  },
+
+  {
+    label: t('website.esimSetupTab.tabs.android.label'),
+    title: t('website.esimSetupTab.tabs.android.title'),
+    steps: [
+      {
+        number: '1',
+        stepTitle: t('website.esimSetupTab.tabs.android.steps.1.title'),
+        description: t('website.esimSetupTab.tabs.android.steps.1.description'),
+        image: '/images/whatEsim/1-step.png',
+      },
+      {
+        number: '2',
+        stepTitle: t('website.esimSetupTab.tabs.android.steps.2.title'),
+        description: t('website.esimSetupTab.tabs.android.steps.2.description'),
+        image: '/images/whatEsim/2-step.png',
+      },
+      {
+        number: '3',
+        stepTitle: t('website.esimSetupTab.tabs.android.steps.3.title'),
+        description: t('website.esimSetupTab.tabs.android.steps.3.description'),
+        image: '/images/whatEsim/3-step.png',
+      },
+    ],
+    instructions: {
+      heading: t(
+        'website.esimSetupTab.tabs.android.instructions.heading'
+      ),
+      steps: [
+        t('website.esimSetupTab.tabs.android.instructions.steps.1'),
+        t('website.esimSetupTab.tabs.android.instructions.steps.2'),
+        t('website.esimSetupTab.tabs.android.instructions.steps.3'),
+        t('website.esimSetupTab.tabs.android.instructions.steps.4'),
+      ],
+    },
+  },
+
+  {
+    label: t('website.esimSetupTab.tabs.qr.label'),
+    title: t('website.esimSetupTab.tabs.qr.title'),
+    steps: [
+      {
+        number: '1',
+        stepTitle: t('website.esimSetupTab.tabs.qr.steps.1.title'),
+        description: t('website.esimSetupTab.tabs.qr.steps.1.description'),
+      },
+      {
+        number: '2',
+        stepTitle: t('website.esimSetupTab.tabs.qr.steps.2.title'),
+        description: t('website.esimSetupTab.tabs.qr.steps.2.description'),
+      },
+      {
+        number: '3',
+        stepTitle: t('website.esimSetupTab.tabs.qr.steps.3.title'),
+        description: t('website.esimSetupTab.tabs.qr.steps.3.description'),
+      },
+    ],
+  },
+];
+
 
   return (
     <div>

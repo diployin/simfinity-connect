@@ -354,7 +354,83 @@
 "NewSimfinDes.TestimonialsSection.review6": "Gran cobertura y precios justos hacen de Simfinity una excelente opción eSIM.",
 
 
-"NewSimfinDes.TestimonialsSection.review7": "Respaldado por una marca de confianza, Simfinity destaca por su fácil instalación, planes asequibles y cobertura global confiable."
+"NewSimfinDes.TestimonialsSection.review7": "Respaldado por una marca de confianza, Simfinity destaca por su fácil instalación, planes asequibles y cobertura global confiable.",
+
+
+ "heroReferfriend.title": "Refiere y gana",
+  "heroReferfriend.des": "Invita a tus amigos a Simfinity y gana recompensas cada vez que se unan y activen un plan eSIM. Comparte la conexión y disfruta beneficios exclusivos juntos.",
+  "heroReferfriend.btn": "Referir ahora",
+
+
+
+  "footer.description": "Tu socio confiable de conectividad para viajes que ofrece eSIM y tarjetas SIM seguras en más de 175 países a precios accesibles.",
+
+  "footer.global": "{{siteName}} Global",
+  "footer.whatIsEsim": "¿Qué es una eSIM?",
+  "footer.aboutUs": "Sobre nosotros",
+  "footer.contactUs": "Contáctanos",
+  "footer.destinations": "Destinos",
+
+  "footer.topDestinations": "Destinos principales",
+
+  "footer.resources": "Recursos",
+  "footer.blog": "Blog",
+  "footer.faq": "Preguntas frecuentes",
+  "footer.supportticket": "Ticket de soporte",
+
+  "footer.pages": "Páginas",
+
+  "footer.copyrightt": "© 2026 {{siteName}}. Todos los derechos reservados.",
+  "footer.followus": "Síguenos",
+  "footer.social.instagram": "Instagram",
+  "footer.social.facebook": "Facebook",
+  "footer.social.youtube": "YouTube",
+  "footer.social.linkedin": "LinkedIn",
+  "footer.social.twitter": "Twitter",
+
+
+
+  "downloadAppSection.title": "La aplicación de Simfinity está casi aquí",
+  "downloadAppSection.description": "Una forma más inteligente y rápida de gestionar tu eSIM — disponible pronto en iOS y Android.",
+
+  "downloadAppSection.appstoreSmall": "Descargar en",
+  "downloadAppSection.appstore": "App Store",
+
+  "downloadAppSection.playstoreSmall": "DISPONIBLE EN",
+  "downloadAppSection.playstore": "Google Play",
+
+
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title": "Preguntas frecuentes sobre las eSIM",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.question": "¿Mi teléfono es compatible con eSIM?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.answer": "Si compraste un smartphone nuevo en los últimos años, debería ser compatible con eSIM. La mayoría de los teléfonos lanzados después de 2020 lo son. Sin embargo, algunos dispositivos comprados en ciertas regiones, como China continental, pueden no ser compatibles. Consulta la lista de dispositivos compatibles para confirmarlo.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.question": "¿Cómo instalar manualmente una eSIM en tu teléfono?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.answer": "Puedes instalarla escaneando el código QR de tu operador o desde «Configuración de red» añadiendo una nueva eSIM.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.question": "¿Puedo usar una eSIM sin la app?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.answer": "Puedes comprar un plan eSIM de Simfinity sin la app, pero necesitarás descargarla para instalarla.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.question": "¿Cuánto tarda en activarse una eSIM?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.answer": "Activar una eSIM significa añadir el perfil escaneando el QR o introduciendo los datos manualmente. El tiempo depende del tipo de eSIM. Las eSIM de viaje como Simfinity se activan casi al instante.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.question": "¿Cuál es la mejor eSIM para viajes internacionales?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.answer": "La eSIM de Simfinity es una de las mejores para viajes internacionales por su precio y flexibilidad.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.question": "¿Las eSIM son gratuitas?",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.question": "¿Cómo obtener una eSIM en línea?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.answer": "La mejor forma es comprarla a una empresa confiable como Simfinity y gestionarla desde su app.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.question": "¿Puedo configurar una eSIM yo mismo?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.answer": "Sí, aunque depende del operador. Contacta con él si necesitas ayuda.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.2.description": "Escanea el código QR o sigue las instrucciones de configuración.",
+
+  "WhatIsEsim.howDoesItWorkSection.content.paragraph2": "Para empezar a usar una eSIM, compra un plan y completa una configuración rápida sin retirar tu SIM actual."
+
+
 
 
 

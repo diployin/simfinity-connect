@@ -1147,7 +1147,85 @@
 "NewSimfinDes.TestimonialsSection.review4": "لا يمكنك فعل الكثير في الخارج بدون إنترنت. Simfinity يجعل الأمر بسيطًا.",
 "NewSimfinDes.TestimonialsSection.review5": "استخدمته في عدة دول وكان الاتصال ممتازًا.",
 "NewSimfinDes.TestimonialsSection.review6": "بتغطية واسعة وأسعار مناسبة، Simfinity خيار eSIM رائع.",
-"NewSimfinDes.TestimonialsSection.review7":  "بدعم من علامة تجارية موثوقة، يتميز Simfinity بسهولة التثبيت، والأسعار المناسبة، والتغطية العالمية الموثوقة."
+"NewSimfinDes.TestimonialsSection.review7":  "بدعم من علامة تجارية موثوقة، يتميز Simfinity بسهولة التثبيت، والأسعار المناسبة، والتغطية العالمية الموثوقة.",
+
+
+"heroReferfriend.title": "أحِل واربح",
+  "heroReferfriend.des": "ادعُ أصدقاءك إلى Simfinity واحصل على مكافآت مميزة كلما انضموا وفعّلوا باقة eSIM. شارك الاتصال واستمتع بالمزايا الحصرية معًا.",
+  "heroReferfriend.btn": "أحِل الآن",
+
+
+
+
+  "footer.description": "شريكك الموثوق لاتصال السفر، نوفر شرائح eSIM وSIM آمنة في أكثر من 175 دولة بأسعار مناسبة.",
+
+  "footer.global": "{{siteName}} العالمية",
+  "footer.whatIsEsim": "ما هي eSIM",
+  "footer.aboutUs": "من نحن",
+  "footer.contactUs": "اتصل بنا",
+  "footer.destinations": "الوجهات",
+
+  "footer.topDestinations": "أفضل الوجهات",
+
+  "footer.resources": "الموارد",
+  "footer.blog": "المدونة",
+  "footer.faq": "الأسئلة الشائعة",
+  "footer.supportticket": "تذكرة الدعم",
+
+  "footer.pages": "الصفحات",
+
+  "footer.copyrightt": "© 2026 {{siteName}}. جميع الحقوق محفوظة.",
+  "footer.followus": "تابعنا",
+  "footer.social.instagram": "إنستغرام",
+  "footer.social.facebook": "فيسبوك",
+  "footer.social.youtube": "يوتيوب",
+  "footer.social.linkedin": "لينكد إن",
+  "footer.social.twitter": "تويتر",
+
+
+
+  "downloadAppSection.title": "تطبيق Simfinity سيصل قريبًا",
+  "downloadAppSection.description": "طريقة أذكى وأسرع لإدارة شريحة eSIM الخاصة بك — قريبًا على iOS وAndroid.",
+
+  "downloadAppSection.appstoreSmall": "حمّل من",
+  "downloadAppSection.appstore": "App Store",
+
+  "downloadAppSection.playstoreSmall": "متوفر على",
+  "downloadAppSection.playstore": "Google Play",
+
+
+
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title": "الأسئلة الشائعة حول شريحة eSIM",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.question": "هل هاتفي يدعم eSIM؟",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.answer": "إذا اشتريت هاتفًا ذكيًا جديدًا خلال السنوات الأخيرة فمن المحتمل أنه يدعم eSIM. معظم الهواتف بعد 2020 تدعمها، لكن بعض الأجهزة المشتراة من مناطق معينة مثل الصين قد لا تدعمها.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.question": "كيف يمكن تثبيت eSIM يدويًا على الهاتف؟",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.answer": "يمكنك تثبيتها عبر مسح رمز QR من شركة الاتصالات أو من إعدادات الشبكة وإضافة eSIM جديدة.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.question": "هل يمكن استخدام eSIM بدون التطبيق؟",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.answer": "يمكن شراء باقة Simfinity بدون التطبيق، لكنك تحتاج التطبيق لتثبيت الشريحة.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.question": "كم يستغرق تفعيل eSIM؟",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.answer": "تفعيل eSIM يعني إضافة ملف التعريف عبر QR أو إدخال البيانات يدويًا. قد يستغرق التفعيل ساعات أو أيام حسب النوع، بينما شرائح السفر تُفعّل فورًا تقريبًا.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.question": "ما أفضل eSIM للسفر الدولي؟",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.answer": "تُعد Simfinity من أفضل الخيارات للسفر الدولي بفضل سعرها وإمكانية إضافة وجهات جديدة.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.question": "هل eSIM مجانية؟",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.question": "كيف أحصل على eSIM عبر الإنترنت؟",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.answer": "أفضل طريقة هي شراؤها من شركة موثوقة مثل Simfinity وإدارتها عبر التطبيق.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.question": "هل يمكنني إعداد eSIM بنفسي؟",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.answer": "نعم، لكن الخطوات تختلف حسب مزود الشبكة. تواصل معه إذا واجهت مشكلة.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.2.description": "امسح رمز QR أو اتبع تعليمات الإعداد.",
+
+  "WhatIsEsim.howDoesItWorkSection.content.paragraph2": "لبدء استخدام eSIM اشترِ باقة وأكمل الإعداد السريع دون إزالة شريحة SIM الحالية."
+
+
 
 
 
