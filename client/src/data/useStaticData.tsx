@@ -725,6 +725,88 @@ const useStaticData = () => {
       },
     },
     NavbarData: {
+      productMegaMenuConfig: {
+        columns: [
+          {
+            title: t('HeaderLinks.ProductColumnTitle'),
+
+            items: [
+              {
+                label: t('HeaderLinks.ProductFeature1Title'),
+                description: t('HeaderLinks.ProductFeature1Desc'),
+                href: '/all-destinations',
+                icon: <MdModeStandby className="h-5 w-5" />,
+                disabled: true,
+                badge: 'coming soon',
+              },
+              {
+                label: t('HeaderLinks.ProductFeature2Title'),
+                description: t('HeaderLinks.ProductFeature2Desc'),
+                href: '',
+                icon: <GoPackage className="h-5 w-5" />,
+                isExternalUrl: 'https://simfinity.dev/knowledge-base',
+              },
+              {
+                label: t('HeaderLinks.ProductFeature3Title'),
+                description: t('HeaderLinks.ProductFeature3Desc'),
+                href: '/country-plan',
+                icon: <BiWorld className="h-5 w-5" />,
+              },
+            ],
+          },
+
+          {
+            title: t('HeaderLinks.SupportColumnTitle'),
+
+            items: [
+              {
+                label: t('HeaderLinks.ProductTool1Title'),
+                description: t('HeaderLinks.ProductTool1Desc'),
+                href: '/privacy-policy',
+                icon: <MdOutlinePrivacyTip className="h-5 w-5" />,
+              },
+              {
+                label: t('HeaderLinks.ProductTool2Title'),
+                description: t('HeaderLinks.ProductTool2Desc'),
+                href: '/terms-and-conditions',
+                icon: <MdOutlinePolicy className="h-5 w-5" />,
+              },
+              // {
+              //   label: t('HeaderLinks.ProductTool3Title'),
+              //   description: t('HeaderLinks.ProductTool3Desc'),
+              //   href: '/usage-check',
+              //   icon: <MdDataSaverOff className="h-5 w-5" />,
+              // },
+            ],
+          },
+        ],
+        slider: {
+          title: 'Explore Popular Destinations',
+          items: [
+            {
+              id: 1,
+              title: t('HeaderLinks.ProductSlider1Title'),
+              description: t('HeaderLinks.ProductSlider1Description'),
+              image: '/images/menu-images/mega-menu-explore1.png',
+              href: '/ultra-plan',
+            },
+            {
+              id: 2,
+              title: t('HeaderLinks.ProductSlider2Title'),
+              description: t('HeaderLinks.ProductSlider2Description'),
+              image: '/images/menu-images/mega-menu-explore2.png',
+              href: '/security-features',
+            },
+            {
+              id: 3,
+              title: t('HeaderLinks.ProductSlider3Title'),
+              description: t('HeaderLinks.ProductSlider3Description'),
+              image: '/images/menu-images/mega-menu-explore3.png',
+              href: '/security-features',
+            },
+          ],
+        },
+      },
       rouceMegaMenuConfig: {
         columns: [
           {
@@ -732,30 +814,24 @@ const useStaticData = () => {
 
             items: [
               {
-                label: t('HeaderLinks.ResourceWhatIsTitle'),
-                description: t('HeaderLinks.ResourceWhatIsDesc'),
+                label: t('HeaderLinks.Resource1Title'),
+                description: t('HeaderLinks.Resource1Desc'),
                 badge: t('HeaderLinks.ResourceBadgeNew'),
                 href: '/what-is-esim',
                 icon: <MdOutlineSimCard className="h-5 w-5" />,
               },
               {
-                label: t('HeaderLinks.ResourceHowWorksTitle'),
-                description: t('HeaderLinks.ResourceHowWorksDesc'),
+                label: t('HeaderLinks.Resource2Title'),
+                description: t('HeaderLinks.Resource2Desc'),
                 badge: t('HeaderLinks.ResourceBadgeGuide'),
                 href: '/about-us',
                 icon: <TbDeviceUnknown className="h-5 w-5" />,
               },
               {
-                label: t('HeaderLinks.ResourceSecurityTitle'),
-                description: t('HeaderLinks.ResourceSecurityDesc'),
+                label: t('HeaderLinks.Resource3Title'),
+                description: t('HeaderLinks.Resource3Desc'),
                 href: '/security-features',
                 icon: <FaShield className="h-5 w-5" />,
-              },
-              {
-                label: t('HeaderLinks.ResourceBusinessTitle'),
-                description: t('HeaderLinks.ResourceBusinessDesc'),
-                href: '/esim-for-business',
-                icon: <FaBuilding className="h-5 w-5" />,
               },
             ],
           },
@@ -765,20 +841,20 @@ const useStaticData = () => {
 
             items: [
               {
-                label: t('HeaderLinks.ResourceDevicesTitle'),
-                description: t('HeaderLinks.ResourceDevicesDesc'),
+                label: t('HeaderLinks.Resource4Title'),
+                description: t('HeaderLinks.Resource5Desc'),
                 href: '/esim-supported-devices',
                 icon: <MdOutlineSupportAgent className="h-5 w-5" />,
               },
               {
-                label: t('HeaderLinks.ResourceAppTitle'),
-                description: t('HeaderLinks.ResourceAppDesc'),
+                label: t('HeaderLinks.Resource5Title'),
+                description: t('HeaderLinks.Resource5Desc'),
                 href: '/download-esim-app',
                 icon: <IoMdDownload className="h-5 w-5" />,
               },
               {
-                label: t('HeaderLinks.ResourceBlogTitle'),
-                description: t('HeaderLinks.ResourceBlogDesc'),
+                label: t('HeaderLinks.Resource6Title'),
+                description: t('HeaderLinks.Resource6Desc'),
                 href: '/blog',
                 icon: <RiBloggerFill className="h-5 w-5" />,
               },
@@ -802,22 +878,22 @@ const useStaticData = () => {
           items: [
             {
               id: 1,
-              title: 'Unlimited Europe',
-              description: 'Stay connected across 40+ countries with unlimited data',
+              title: t('HeaderLinks.ResourceSlider1Title'),
+              description: t('HeaderLinks.ResourceSlider1Description'),
               image: '/images/menu-images/mega-menu-explore1.png',
               href: '/ultra-plan',
             },
             {
               id: 2,
-              title: 'Asia Explorer',
-              description: 'Perfect plan for Southeast Asia adventures',
+              title: t('HeaderLinks.ResourceSlider2Title'),
+              description: t('HeaderLinks.ResourceSlider2Description'),
               image: '/images/menu-images/mega-menu-explore2.png',
               href: '/security-features',
             },
             {
               id: 3,
-              title: 'USA & Canada',
-              description: 'High-speed data across North America',
+              title: t('HeaderLinks.ResourceSlider3Title'),
+              description: t('HeaderLinks.ResourceSlider3Description'),
               image: '/images/menu-images/mega-menu-explore3.png',
               href: '/security-features',
             },
@@ -825,89 +901,6 @@ const useStaticData = () => {
         },
       },
 
-      productMegaMenuConfig: {
-        columns: [
-          {
-            title: t('HeaderLinks.ProductColumnTitle'),
-
-            items: [
-              {
-                label: t('HeaderLinks.ProductAllDestiTitle'),
-                description: t('HeaderLinks.ProductAllDestiDesc'),
-                href: '/all-destinations',
-                icon: <MdModeStandby className="h-5 w-5" />,
-              },
-              {
-                label: t('HeaderLinks.ProductAllPackagesTitle'),
-                description: t('HeaderLinks.ProductAllPackagesDesc'),
-                href: '/all-packages',
-                icon: <GoPackage className="h-5 w-5" />,
-              },
-              {
-                label: t('HeaderLinks.ProductCountryPlanTitle'),
-                description: t('HeaderLinks.ProductCountryPlanDesc'),
-                href: '/country-plan',
-                icon: <BiWorld className="h-5 w-5" />,
-              },
-              {
-                label: t('HeaderLinks.ProductRegionPlanTitle'),
-                description: t('HeaderLinks.ProductRegionPlanDesc'),
-                href: '/region-plan',
-                icon: <BsGlobeEuropeAfrica className="h-5 w-5" />,
-              },
-              // {
-              //   label: t('HeaderLinks.ProductPassportTitle'),
-              //   description: t('HeaderLinks.ProductPassportDesc'),
-              //   href: '/passport',
-              //   icon: <BsPassport className="h-5 w-5" />,
-              // },
-              {
-                label: t('HeaderLinks.ProductBusinessTitle'),
-                description: t('HeaderLinks.ProductBusinessDesc'),
-                href: '/business',
-                icon: <FaRegBuilding className="h-5 w-5" />,
-              },
-              {
-                label: t('HeaderLinks.ProductCompatibilityTitle'),
-                description: t('HeaderLinks.ProductCompatibilityDesc'),
-                href: '/esim-compatibility',
-                icon: <BrainCog className="h-5 w-5" />,
-              },
-            ],
-          },
-
-          {
-            title: t('HeaderLinks.SupportColumnTitle'),
-
-            items: [
-              {
-                label: t('HeaderLinks.SupportPrivacyTitle'),
-                description: t('HeaderLinks.SupportPrivacyDesc'),
-                href: '/privacy-policy',
-                icon: <MdOutlinePrivacyTip className="h-5 w-5" />,
-              },
-              {
-                label: t('HeaderLinks.SupportTermsTitle'),
-                description: t('HeaderLinks.SupportTermsDesc'),
-                href: '/terms-and-conditions',
-                icon: <MdOutlinePolicy className="h-5 w-5" />,
-              },
-              {
-                label: t('HeaderLinks.SupportUsageTitle'),
-                description: t('HeaderLinks.SupportUsageDesc'),
-                href: '/usage-check',
-                icon: <MdDataSaverOff className="h-5 w-5" />,
-              },
-              {
-                label: t('HeaderLinks.SupportTopupTitle'),
-                description: t('HeaderLinks.SupportTopupDesc'),
-                href: '/top-up',
-                icon: <MdAttachMoney className="h-5 w-5" />,
-              },
-            ],
-          },
-        ],
-      },
       offersMegaMenuConfig: {
         see_pack: t('HeaderLinks.OfferSeePack'),
         label: t('HeaderLinks.OfferMenuLabel'),
@@ -919,22 +912,22 @@ const useStaticData = () => {
 
             items: [
               {
-                label: t('HeaderLinks.OfferReferTitle'),
-                description: t('HeaderLinks.OfferReferDesc'),
+                label: t('HeaderLinks.Offer1Title'),
+                description: t('HeaderLinks.Offer1Desc'),
                 href: '/refer-friend',
                 icon: <Gift className="h-5 w-5" />,
                 badge: t('HeaderLinks.OfferBadgeHot'),
               },
               {
-                label: t('HeaderLinks.OfferStudentTitle'),
-                description: t('HeaderLinks.OfferStudentDesc'),
+                label: t('HeaderLinks.Offer2Title'),
+                description: t('HeaderLinks.Offer2Desc'),
                 href: '/student-offer',
                 icon: <GraduationCap className="h-5 w-5" />,
                 badge: t('HeaderLinks.OfferBadgeNew'),
               },
               {
-                label: t('HeaderLinks.OfferDealsTitle'),
-                description: t('HeaderLinks.OfferDealsDesc'),
+                label: t('HeaderLinks.Offer3Title'),
+                description: t('HeaderLinks.Offer3Desc'),
                 href: '/deals-rewards',
                 icon: <Tag className="h-5 w-5" />,
               },
@@ -943,7 +936,7 @@ const useStaticData = () => {
         ],
 
         slider: {
-          title: t('HeaderLinks.ResourceSliderTitle'), // optional reuse
+          title: t('HeaderLinks.ResourceSliderTitle'),
           items: [
             {
               id: 1,
@@ -975,25 +968,25 @@ const useStaticData = () => {
 
         columns: [
           {
-            title: t('HeaderLinks.HelpColumnStartTitle'),
+            title: t('HeaderLinks.HelpLabel'),
             items: [
               {
-                label: t('HeaderLinks.HelpGettingStartedTitle'),
+                label: t('HeaderLinks.Help1Title'),
+                description: t('HeaderLinks.Help1Desc'),
                 href: '/getting-started',
-                description: t('HeaderLinks.HelpGettingStartedDesc'),
                 icon: <BookOpen className="h-5 w-5" />,
                 badge: 'New',
               },
               {
-                label: t('HeaderLinks.HelpCenterTitle'),
+                label: t('HeaderLinks.Help2Title'),
+                description: t('HeaderLinks.Help2Desc'),
                 href: '/help-center',
-                description: t('HeaderLinks.HelpCenterDesc'),
                 icon: <LifeBuoy className="h-5 w-5" />,
               },
               {
-                label: t('HeaderLinks.HelpTroubleshootingTitle'),
+                label: t('HeaderLinks.Help3Title'),
+                description: t('HeaderLinks.Help3Desc'),
                 href: '/troubleshooting',
-                description: t('HeaderLinks.HelpTroubleshootingDesc'),
                 icon: <Wrench className="h-5 w-5" />,
               },
             ],
@@ -1003,9 +996,9 @@ const useStaticData = () => {
             title: t('HeaderLinks.HelpColumnSupportTitle'),
             items: [
               {
-                label: t('HeaderLinks.HelpFaqTitle'),
+                label: t('HeaderLinks.Help4Title'),
+                description: t('HeaderLinks.Help4Desc'),
                 href: '/faq',
-                description: t('HeaderLinks.HelpFaqDesc'),
                 icon: <HelpCircle className="h-5 w-5" />,
               },
             ],

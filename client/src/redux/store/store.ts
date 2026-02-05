@@ -14,9 +14,11 @@ import storage from 'redux-persist/lib/storage';
 
 // Import your slices
 import settingsReducer from '@/redux/slice/settingsSlice';
+import topNavbarReducer from '@/redux/slice/topNavbarSlice';
 
 const rootReducer = combineReducers({
   settings: settingsReducer,
+  topNavbar: topNavbarReducer,
 });
 
 const persistConfig = {

@@ -15,6 +15,8 @@ interface MegaMenuItem {
   icon?: React.ReactNode;
   description?: string;
   badge?: string;
+  disabled?: boolean;
+  isExternalUrl?: string;
 }
 
 interface SliderItem {
@@ -142,11 +144,13 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
       <button
         type="button"
         onClick={handleToggle}
-        className={cn('flex items-center gap-1 py-2 text-sm font-medium  transition-colors ')}
+        className={cn(
+          'flex items-center gap-1 py-2 text-sm font-medium  transition-colors hover:bg-[#0000000f] px-4 rounded-full  ',
+        )}
       >
         {label}
         {badge && (
-          <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700">
+          <span className="rounded-full border-black border   px-2 py-0.5 text-xs font-medium text-black">
             {badge}
           </span>
         )}
@@ -183,9 +187,16 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
                             {column.items.map((item, itemIndex) => (
                               <li key={itemIndex}>
                                 <Link
-                                  href={item.href}
-                                  className="group flex items-start gap-3 rounded-lg p-3 transition-all hover:bg-gray-50"
-                                  onClick={closeMenu}
+                                  href={item.disabled ? '#' : item.href}
+                                  onClick={(e) => {
+                                    if (item.disabled) e.preventDefault();
+                                    else closeMenu();
+                                  }}
+                                  className={cn(
+                                    'group flex items-start gap-3 rounded-lg p-3 transition-all hover:bg-gray-50',
+                                    item.disabled &&
+                                      'pointer-events-none opacity-50 cursor-not-allowed',
+                                  )}
                                 >
                                   {/* Icon */}
                                   {item.icon && (
