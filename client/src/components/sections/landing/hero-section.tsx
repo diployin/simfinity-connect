@@ -155,177 +155,97 @@ const HeroSection = () => {
 
   const staticData = useStaticData();
 
+  //  <div className="absolute inset-0 overflow-hidden bg-gradient-hero flex items-center justify-center">
+  //   <img
+  //     src="/images/Untitled design1.png"
+  //     alt="Hero"
+  //     className="w-full h-full object-cover object-center"
+  //   />
+  // </div>
+
   return (
     // <div className="relative w-full overflow-hidden bg-[url('/images/Banner.png')] bg-cover bg-center ">
-    <div
-      className="relative w-full bg-sky-200  overflow-hidden bg-[url('/images/Untitled_design.png')]  bg-no-repeat
-  bg-[position:350px__center]  bg-[length:78%]   "
-    >
+    <div className="relative w-full bg-sky-200   ">
       {/* <div className="absolute inset-0 bg-black/10"></div> */}
       {/* Desktop Layout */}
-      <div className="relative hidden min-h-screen containers mx-auto overflow-hidden lg:block z-10">
-        <div className="grid min-h-screen items-center lg:grid-cols-[60%_40%] pt-12">
-          {/* Left Side - Text Content with Container Padding (only left) */}
-          <div className="flex flex-col justify-end  pr-8 ">
-            <h1 className="max-w-xl text-4xl leading-tight font-medium text-black lg:text-5xl xl:text-5xl">
-              {t('hero.headline')}
-            </h1>
-
-            {/* Search Box */}
-            <div className="w-full max-w-sm">
-              <p className="my-4 text-base font-medium text-black xl:text-lg">
-                {/* {t('NewSimfinDes.heroSec.Where_do')} */}
-                {t('hero.searchSubtitle')}
-              </p>
-              <button
-                onClick={() => setIsSearchModalOpen(true)}
-                className="relative flex w-sm items-center justify-between rounded-lg bg-white py-2 pr-2 pl-6 shadow-md"
-              >
-                <span className="text-gray-500">{t('hero.searchPlaceholder')}</span>
-                <div className="bg-primary hover:bg-primaryHover flex-shrink-0 rounded-lg p-4 transition-colors">
-                  <svg
-                    className="h-4 w-4 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2.5}
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    />
-                  </svg>
-                </div>
-              </button>
-            </div>
-
-            {/* Terms Link */}
-            <p className="text-xs font-normal text-black mt-5">
-              {t('hero.termsPromo')}
-              <Link href="#" className="underline transition-colors hover:text-black">
-                {t('hero.termsLink')}
-              </Link>
-            </p>
-          </div>
-
-          {/* Right Side - Image (Full Width, No Padding) */}
-          <div className="relative flex h-full w-full items-center justify-center">
-            <div className="relative ">
+      <div className="absolute -top-[72px] bottom-0 w-full flex flex-col items-center overflow-hidden bg-gradient-hero">
+        <div className="absolute bottom-0 min-w-[1038px] md:min-w-[1153px] lg:min-w-[1372px] xl:min-w-[1716px] md:translate-x-[18%] lg:translate-x-[21%] xl:translate-x-[23%]">
+          <div>
+            <picture>
               <img
-                src={'/images/Untitled_design.png'}
-                alt="Happy traveler with eSIM"
-                className="object-contain object-center lg:hidden"
-                sizes="50vw"
+                alt="The Saily international eSIM app."
+                loading="eager"
+                width="1716"
+                height="908"
+                decoding="async"
+                style={{ color: 'transparent' }}
+                srcSet="/images/sf-homepage-hero-asset.webp"
+                src="/images/sf-homepage-hero-asset.webp"
               />
+            </picture>
+          </div>
+        </div>
+      </div>
+      <div
+        data-section="Hero"
+        data-testid="section-Hero"
+        className="relative scroll-mt-20 xl:scroll-mt-24"
+      >
+        <div>
+          <div className="mx-4 sm:mx-auto">
+            <div className="containers mx-auto">
+              <div className="md:flex flex-col justify-center py-16 max-md:pb-[404px] md:max-w-[370px] lg:max-w-[540px] xl:max-w-[680px] min-h-[743px] md:min-h-[480px] lg:min-h-[592px] xl:min-h-[800px] mt-32 md:mt-16 lg:mt-5">
+                <div className="h-full w-full flex group/stack flex-col text-start justify-start gap-y-6 items-stretch">
+                  <div className="flex flex-col justify-end  ">
+                    <h1 className="max-w-xl text-4xl leading-tight font-medium text-black lg:text-5xl xl:text-5xl">
+                      {t('hero.headline')}
+                    </h1>
+
+                    {/* Search Box */}
+                    <div className="w-full max-w-full sm:max-w-md md:max-w-lg lg:max-w-sm">
+                      <p className="mb-3 text-base sm:text-lg font-medium text-black">
+                        {t('hero.searchSubtitle')}
+                      </p>
+                      <button
+                        onClick={() => setIsSearchModalOpen(true)}
+                        className="relative flex w-full items-center justify-between rounded-lg bg-white py-3 px-5 sm:py-3 sm:px-6 shadow-md hover:shadow-lg transition-all"
+                      >
+                        <span className="text-sm sm:text-base text-gray-500">
+                          {t('hero.searchPlaceholder')}
+                        </span>
+                        <div className="bg-primary hover:bg-primaryHover flex-shrink-0 rounded-lg p-3 transition-colors">
+                          <svg
+                            className="h-4 w-4 text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2.5}
+                              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                            />
+                          </svg>
+                        </div>
+                      </button>
+                    </div>
+
+                    {/* Terms Link */}
+                    <p className="text-xs font-normal text-black mt-5">
+                      {t('hero.termsPromo')}
+                      <Link href="#" className="underline transition-colors hover:text-black">
+                        {t('hero.termsLink')}
+                      </Link>
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
       {/* Mobile & Tablet Layout */}
-      <div className="lg:hidden">
-        <div className="containers pt-10 sm:py-18">
-          {/* Mobile Text Content */}
-          <div className="mt-10 flex flex-col space-y-5 sm:space-y-6 md:space-y-8">
-            <h1 className="text-3xl leading-tight font-medium text-black sm:text-4xl md:text-5xl">
-              {t('NewSimfinDes.heroSec.title')}
-            </h1>
-
-            <div className="space-y-3 sm:space-y-4">
-              <p className="text-lg font-medium text-black sm:text-xl md:text-xl">
-                {t('NewSimfinDes.heroSec.Browse')}
-              </p>
-
-              <div className="space-y-1">
-                <p className="text-sm font-normal text-black sm:text-base md:text-lg">
-                  {t('NewSimfinDes.heroSec.Get')}
-                </p>
-                <p className="text-sm font-normal text-black sm:text-base md:text-lg">
-                  {t('NewSimfinDes.heroSec.Up')}
-                </p>
-              </div>
-            </div>
-
-            {/* Search Box */}
-            <div className="w-full max-w-xl">
-              <p className="mb-4 text-base font-medium text-black xl:text-lg">
-                {t('NewSimfinDes.heroSec.Where_do')}
-              </p>
-              <button
-                onClick={() => setShowDestinationModal(true)}
-                className="relative flex w-xs items-center justify-between rounded-lg bg-white py-2 pr-2 pl-6 shadow-md"
-              >
-                <span className="text-gray-500">{t('NewSimfinDes.heroSec.placeHolder')}</span>
-                <div className="bg-themeYellow hover:bg-themeYellowHover flex-shrink-0 rounded-lg p-4 transition-colors">
-                  <svg
-                    className="h-4 w-4 text-black"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2.5}
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    />
-                  </svg>
-                </div>
-              </button>
-            </div>
-
-            {/* Brand Credit */}
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-              <p className="text-xs font-normal text-gray-700 sm:text-sm md:text-base">
-                {t('NewSimfinDes.heroSec.creators')}
-              </p>
-              <div className="flex items-center gap-2">
-                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-blue-700 sm:h-8 sm:w-8">
-                  <span className="text-xs font-bold text-white sm:text-sm">N</span>
-                </div>
-                {/* <span className="text-black font-bold text-base sm:text-lg">NordVPN</span> */}
-                <img src="/images/brands/nordvpn.svg" className="h-auto w-auto" alt="" />
-              </div>
-            </div>
-
-            {/* Terms Link */}
-            <p className="pb-8 text-xs font-normal text-gray-700 sm:text-sm">
-              {t('NewSimfinDes.heroSec.term')}{' '}
-              <Link href="#" className="underline transition-colors hover:text-black">
-                {t('NewSimfinDes.heroSec.term_Link')}
-              </Link>
-            </p>
-          </div>
-          {/* Mobile Image First */}
-          <div className="relative mb-8 h-[400px] w-full sm:mb-12 sm:h-[500px] md:h-[600px]">
-            <img src="" alt="Happy traveler with eSIM" className="object-contain" sizes="100vw" />
-
-            {/* Mobile Badge */}
-            <div className="absolute top-8 right-4 z-10 rounded-xl bg-white px-3 py-2 shadow-2xl sm:top-12 sm:right-8 sm:rounded-2xl sm:px-4 sm:py-3 md:top-16 md:right-12 md:px-5 md:py-4">
-              <div className="flex items-center gap-2 sm:gap-3">
-                <div className="rounded-lg bg-yellow-400 p-1.5 sm:rounded-xl sm:p-2">
-                  <svg
-                    className="h-3 w-3 text-black sm:h-4 sm:w-4 md:h-5 md:w-5"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-[10px] font-normal whitespace-nowrap text-black sm:text-xs md:text-sm">
-                    {t('NewSimfinDes.heroSec.card_c1')}
-                  </p>
-                  <p className="text-xs font-bold whitespace-nowrap text-black sm:text-sm md:text-base">
-                    {t('NewSimfinDes.heroSec.card_c2')}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {isSearchModalOpen && (
         <SearchModalHero open={isSearchModalOpen} onOpenChange={setIsSearchModalOpen} />

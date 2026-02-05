@@ -36,6 +36,7 @@ import DownloadAppSection from '@/components/sections/landing/DownloadAppSection
 import TestimonialsSection from '@/components/sections/landing/TestimonialsSection';
 import FAQSection from '@/components/sections/landing/FAQSection';
 import ReferralSection from '@/components/sections/landing/ReferralSection';
+import TestHeroSection from '@/components/sections/landing/TestHeroSection';
 
 export default function Home() {
   const { t } = useTranslation();
@@ -87,6 +88,7 @@ export default function Home() {
           <div className="relative min-h-screen flex flex-col ">
             {/* <HeroSection /> */}
             <HeroSection />
+            {/* <TestHeroSection /> */}
             {/* <InfiniteScrollTicker /> */}
             <WhatIsEsimSection />
 

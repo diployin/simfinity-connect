@@ -143,53 +143,43 @@ const TravelDestinationTabsNew = () => {
 
         {/* Tabs */}
         <Tabs defaultValue="country" className="w-full" onValueChange={setActiveTab}>
-          <TabsList className="mb-10 w-fit rounded-full border border-gray-200 bg-white p-1.5 shadow-sm flex gap-1">
-            {/* Country */}
-            <TabsTrigger
-              value="country"
-              className="rounded-full px-5 py-2 text-base font-medium 
-    text-gray-600 
-    data-[state=active]:bg-black 
-    data-[state=active]:text-white"
-            >
-              {t('travelTabs.country')}
-            </TabsTrigger>
+  <TabsList className="mb-6 sm:mb-8 md:mb-10 w-full sm:w-fit rounded-full border border-gray-200 bg-white p-1 sm:p-1.5 shadow-sm flex gap-1 overflow-x-auto">
+  {/* Country Tab */}
+  <TabsTrigger
+    value="country"
+    className="rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-xs sm:text-sm md:text-base font-medium 
+      text-gray-600 whitespace-nowrap
+      data-[state=active]:bg-black 
+      data-[state=active]:text-white
+      transition-all duration-200"
+  >
+    {t('travelTabs.country')}
+  </TabsTrigger>
 
-            {/* Region */}
-            <TabsTrigger
-              value="region"
-              className="rounded-full px-5 py-2 text-base font-medium 
-    text-gray-600 
-    data-[state=active]:bg-black 
-    data-[state=active]:text-white"
-            >
-              {t('travelTabs.region')}
-            </TabsTrigger>
+  {/* Region Tab */}
+  <TabsTrigger
+    value="region"
+    className="rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-xs sm:text-sm md:text-base font-medium 
+      text-gray-600 whitespace-nowrap
+      data-[state=active]:bg-black 
+      data-[state=active]:text-white
+      transition-all duration-200"
+  >
+    {t('travelTabs.region')}
+  </TabsTrigger>
 
-            {/* Ultra */}
-            <TabsTrigger
-              value="ultra"
-              className="rounded-full px-5 py-2 text-base font-medium 
-    text-gray-600 
-    data-[state=active]:bg-black 
-    data-[state=active]:text-white flex items-center"
-            >
-              {t('travelTabs.ultra')}
-              <span className="bg-primary ml-2 rounded-full px-1.5 py-0.5 text-[9px] font-bold uppercase text-white">
-                {t('travelTabs.new')}
-              </span>
-            </TabsTrigger>
-
-            <TabsTrigger
-              value="passport"
-              className="rounded-full px-5 py-2 text-base font-medium 
-    text-gray-600 
-    data-[state=active]:bg-black 
-    data-[state=active]:text-white"
-            >
-              Simfinity Passport
-            </TabsTrigger>
-          </TabsList>
+  {/* Passport Tab */}
+  <TabsTrigger
+    value="passport"
+    className="rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-xs sm:text-sm md:text-base font-medium 
+      text-gray-600 whitespace-nowrap
+      data-[state=active]:bg-black 
+      data-[state=active]:text-white
+      transition-all duration-200"
+  >
+    Simfinity Passport
+  </TabsTrigger>
+</TabsList>
 
           {/* Country */}
           <TabsContent value="country">

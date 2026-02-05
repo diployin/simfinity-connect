@@ -167,10 +167,7 @@ const PUBLIC_ROUTES = [
   { path: '/region-plan', component: AllRegionsSection },
 ];
 
-const AUTH_ROUTES = [
-  { path: '/login', component: Login },
-  // { path: '/', component: MaintenancePage },
-];
+const AUTH_ROUTES = [{ path: '/login', component: Login }];
 
 const ADMIN_ROUTES = [
   { path: '/admin/login', component: AdminLogin, layout: null },

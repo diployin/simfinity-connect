@@ -47,6 +47,7 @@ interface MegaMenuDropdownProps {
   badge?: string;
   config?: any;
   onOpenChange?: (isOpen: boolean) => void;
+  className: string;
 }
 
 const MegaMenuDropdownDestination: React.FC<MegaMenuDropdownProps> = ({
@@ -54,6 +55,7 @@ const MegaMenuDropdownDestination: React.FC<MegaMenuDropdownProps> = ({
   badge,
   config,
   onOpenChange,
+  className,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'top10' | 'countries' | 'regions' | 'global'>('top10');
@@ -292,7 +294,7 @@ const MegaMenuDropdownDestination: React.FC<MegaMenuDropdownProps> = ({
         type="button"
         onClick={handleToggle}
         className={cn(
-          'flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors hover:text-gray-600 dark:hover:text-gray-300',
+          `flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors hover:text-gray-600 dark:hover:text-gray-300 ${className}`,
         )}
       >
         {label}

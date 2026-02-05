@@ -141,14 +141,6 @@
 
 // export default InstantConnectionSection;
 
-
-
-
-
-
-
-
-
 'use client';
 
 import React from 'react';
@@ -259,4 +251,3 @@ const InstantConnectionSection = () => {
 };
 
 export default InstantConnectionSection;
-

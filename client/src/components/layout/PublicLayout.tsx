@@ -20,11 +20,7 @@ export function PublicLayout({ children }: Readonly<PublicLayoutProps>) {
   const isHome = location === '/';
   return (
     <div className="flex flex-col min-h-screen">
-      {/* <TopBanner
-        message="Get your eSIM in just 2 minutes on your mobile"
-        ctaText="Order Here"
-        ctaLink="/destinations"
-      /> */}
+ 
       <NavbarNew />
       <main className={`flex-1 ${isHome ? '' : 'pt-[200px]'}`}>{children}</main>
       <FooterNew />
