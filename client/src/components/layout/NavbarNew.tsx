@@ -852,7 +852,7 @@ export function NavbarNew() {
                               onClick={handleLogout}
                               className="text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
                             >
-                              Sign Out
+                              Sign Out new
                             </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
