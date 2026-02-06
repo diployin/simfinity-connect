@@ -322,7 +322,7 @@ export function NewFooter() {
           <div className="lg:col-span-1">
             <a href="/" className="inline-block mb-4">
               <div className="flex items-center flex-col gap-2">
-                <div className="h-16 w-40 rounded-lg flex items-center justify-center bg-card border">
+                <div className="h-16 w-40 rounded-lg flex items-center justify-center">
                   {logo ? (
                     <img
                       src={logo}
@@ -477,9 +477,7 @@ export function NewFooter() {
         {/* Copyright */}
         <div className="text-center pt-6">
           <p className="text-xs text-gray-400">
-            {t('website.footer.copyrightt', {
-              siteName: settings?.site_name || 'eSIM Global',
-            })}
+            {t('website.footer.copyrightt', { siteName || 'eSIM Global', })}
           </p>
         </div>
       </div>

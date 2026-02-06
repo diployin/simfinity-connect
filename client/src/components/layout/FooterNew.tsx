@@ -7,10 +7,10 @@ import { Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import { SettingsState } from '@/redux/slice/settingsSlice';
 import { PageApiResponse } from '@/types/types';
-import { FaInstagram, FaFacebookF, FaYoutube, FaLinkedinIn } from 'react-icons/fa';
+import { FaInstagram, FaFacebookF, FaYoutube, FaLinkedinIn, FaReddit } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import { SiVisa, SiMastercard, SiApplepay, SiGooglepay } from 'react-icons/si';
-import { useTranslation } from '@/contexts/TranslationContext'; // ✅ added
+import { SiVisa, SiMastercard, SiApplepay, SiGooglepay, SiDiscover, SiJcb } from 'react-icons/si';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 export interface Destination {
   id: string;
@@ -19,7 +19,7 @@ export interface Destination {
 }
 
 const FooterNew = () => {
-  const { t } = useTranslation(); // ✅ added
+  const { t } = useTranslation();
 
   const logo = useSettingByKey('logo');
   const siteName = useSettingByKey('platform_name');
@@ -40,27 +40,23 @@ const FooterNew = () => {
     },
   });
 
-  // Social links translated
+  // Get social URLs
   const getSocialUrl = (socialValue?: string | string[]) => {
     if (!socialValue) return '#';
     return Array.isArray(socialValue) ? socialValue[0] || '#' : socialValue;
   };
 
+  // Social links with icons - updated to match Saily design
   const socialLinks = [
-    {
-      icon: FaInstagram,
-      href: getSocialUrl(settings?.social_instagram),
-      label: t('website.footer.social.instagram'),
-    },
     {
       icon: FaFacebookF,
       href: getSocialUrl(settings?.social_facebook),
       label: t('website.footer.social.facebook'),
     },
     {
-      icon: FaYoutube,
-      href: getSocialUrl(settings?.social_youtube),
-      label: t('website.footer.social.youtube'),
+      icon: FaXTwitter,
+      href: getSocialUrl(settings?.social_twitter),
+      label: t('website.footer.social.twitter'),
     },
     {
       icon: FaLinkedinIn,
@@ -68,136 +64,263 @@ const FooterNew = () => {
       label: t('website.footer.social.linkedin'),
     },
     {
-      icon: FaXTwitter,
-      href: getSocialUrl(settings?.social_twitter),
-      label: t('website.footer.social.twitter'),
+      icon: FaYoutube,
+      href: getSocialUrl(settings?.social_youtube),
+      label: t('website.footer.social.youtube'),
     },
+    {
+      icon: FaInstagram,
+      href: getSocialUrl(settings?.social_instagram),
+      label: t('website.footer.social.instagram'),
+    }
   ];
 
-  const destinationPlan = allDestinations.slice(0, 6);
+  // Payment methods - matching Saily design
+  const paymentMethods = [
+    { icon: SiApplepay, label: 'Apple Pay' },
+    { icon: SiGooglepay, label: 'Google Pay' },
+    { icon: SiVisa, label: 'Visa' },
+    { icon: SiMastercard, label: 'Mastercard' },
+    { icon: SiDiscover, label: 'Discover' }
+  ];
+
+  // Show more destinations (10-12 instead of 6)
+  const popularDestinations = allDestinations.slice(0, 7);
 
   return (
     <footer className="w-full border-t border-gray-200 bg-white">
-      <div className="containers py-12 sm:py-16 lg:py-20">
-        {/* Top Section */}
-        <div className="mb-12">
-          <div className="flex flex-col items-start gap-6 lg:flex-row lg:items-center">
-            {/* Logo + Description */}
-            <div className="flex-1">
-              <Link href="/" className="inline-block mb-4">
-                <div className="h-16 w-40 rounded-lg flex items-center justify-center bg-gray-100 border">
-                  {logo ? (
-                    <img src={logo} className="h-full w-full object-contain rounded" />
-                  ) : (
-                    <span className="text-gray-900 text-lg font-semibold">
-                      {settings?.site_name?.charAt(0) ?? 'E'}
-                    </span>
-                  )}
-                </div>
-              </Link>
+      {/* Top Section - Logo and App Buttons */}
+      <div className="border-b border-gray-200">
+        <div className="containers py-8 sm:py-10">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link href="/" className="inline-block">
+              <div className="h-14 w-36 flex items-center justify-center">
+                {logo ? (
+                  <img src={logo} className="h-full w-full object-contain" alt={siteName} />
+                ) : (
+                  <span className="text-gray-900 text-2xl font-bold">
+                    {siteName?.charAt(0) ?? 'E'}
+                  </span>
+                )}
+              </div>
+            </Link>
 
-              {/* ✅ Description translated */}
-              <p className="text-sm text-gray-600 leading-relaxed">
-                {t('website.footer.description')}
-              </p>
-            </div>
-
-            {/* App Buttons */}
-            <div className="flex flex-wrap gap-3">
+            {/* App Store Buttons */}
+            <div className="flex gap-3">
               <Link href="#">
-                <img src="/images/app-store.svg" className="h-10" />
+                <img src="/images/app-store.svg" alt="App Store" className="h-10" />
               </Link>
               <Link href="#">
-                <img src="/images/google-play.svg" className="h-10" />
+                <img src="/images/google-play.svg" alt="Google Play" className="h-10" />
               </Link>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Links Grid */}
-        <div className="mb-12 grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-5 lg:gap-12">
-          {/* Global */}
+      {/* Main Content - 5 Column Grid */}
+      <div className="containers py-12 sm:py-16 lg:py-20">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-5 lg:gap-12">
+          {/* Column 1: Popular Destinations */}
           <div>
-            <h3 className="mb-4 text-base font-semibold text-gray-900">
-              {t('website.footer.global', { siteName })}
-            </h3>
-
-            <ul className="space-y-3">
-              <li>
-                <Link href="/what-is-esim">{t('website.footer.whatIsEsim')}</Link>
-              </li>
-              <li>
-                <Link href="/about-us">{t('website.footer.aboutUs')}</Link>
-              </li>
-              <li>
-                <Link href="/contact">{t('website.footer.contactUs')}</Link>
-              </li>
-              <li>
-                <Link href="/destinations">{t('website.footer.destinations')}</Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Top Destinations */}
-          <div>
-            <h3 className="mb-4 text-base font-semibold text-gray-900">
+            <h3 className="mb-6 text-base font-semibold text-gray-900">
               {t('website.footer.topDestinations')}
             </h3>
 
             <ul className="space-y-3">
               {loadingDestinations
                 ? Array.from({ length: 6 }).map((_, idx) => (
-                    <Skeleton key={idx} className="h-4 w-32" />
-                  ))
-                : destinationPlan.map((item) => (
-                    <li key={item.id}>
-                      <Link href={`/destination/${item.slug}`}>{item.name}</Link>
-                    </li>
-                  ))}
+                  <li key={idx}>
+                    <Skeleton className="h-4 w-24" />
+                  </li>
+                ))
+                : popularDestinations.map((item) => (
+                  <li key={item.id}>
+                    <Link
+                      href={`/destination/${item.slug}`}
+                      className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </div>
 
-          {/* Resources */}
+          {/* Column 2: Saily */}
           <div>
-            <h3 className="mb-4 text-base font-semibold text-gray-900">
-              {t('website.footer.resources')}
+            <h3 className="mb-6 text-base font-semibold text-gray-900">
+              {siteName || t('website.footer.saily')}
             </h3>
 
             <ul className="space-y-3">
               <li>
-                <Link href="/blog">{t('website.footer.blog')}</Link>
+                <Link
+                  href="/business"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  {t('website.footer.business')}
+                </Link>
               </li>
               <li>
-                <Link href="/faq">{t('website.footer.faq')}</Link>
+                <Link
+                  href="/about-us"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  {t('website.footer.aboutUs')}
+                </Link>
               </li>
               <li>
-                <Link href="/account/support">{t('website.footer.supportticket')}</Link>
+                <Link
+                  href="/careers"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  {t('website.footer.careers')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/refer"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  {t('website.footer.referFriend')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/affiliate"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  {t('website.footer.becomeAffiliate')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/student-discount"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  {t('website.footer.studentDiscount')}
+                </Link>
               </li>
             </ul>
           </div>
 
-          {/* Pages */}
+          {/* Column 3: eSIM */}
           <div>
-            <h3 className="mb-4 text-base font-semibold text-gray-900">
-              {t('website.footer.pages')}
+            <h3 className="mb-6 text-base font-semibold text-gray-900">
+              {t('website.footer.esim')}
             </h3>
 
             <ul className="space-y-3">
-              {pages?.data?.map((link) => (
-                <li key={link.id}>
-                  <Link href={`/pages/${link.slug}`}>{link.title}</Link>
-                </li>
-              ))}
+              <li>
+                <Link
+                  href="/what-is-esim"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  {t('website.footer.whatIsEsim')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/supported-devices"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  {t('website.footer.supportedDevices')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/download"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  {t('website.footer.downloadApp')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/security"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  {t('website.footer.securityFeatures')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/data-calculator"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  {t('website.footer.dataCalculator')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/blog"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  {t('website.footer.blog')}
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Social */}
+          {/* Column 4: Help */}
           <div>
-            <h3 className="mb-4 text-base font-semibold text-gray-900">
+            <h3 className="mb-6 text-base font-semibold text-gray-900">
+              {t('website.footer.help')}
+            </h3>
+
+            <ul className="space-y-3">
+              <li>
+                <Link
+                  href="/help-center"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  {t('website.footer.helpCenter')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/getting-started"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  {t('website.footer.gettingStarted')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/plans"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  {t('website.footer.plansPayments')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/troubleshooting"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  {t('website.footer.troubleshooting')}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/faq"
+                  className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                >
+                  {t('website.footer.faq')}
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 5: Follow Us */}
+          <div>
+            <h3 className="mb-6 text-base font-semibold text-gray-900">
               {t('website.footer.followus')}
             </h3>
 
-            <div className="flex flex-wrap gap-3 pt-2">
+            <div className="flex flex-wrap gap-4">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
@@ -205,20 +328,61 @@ const FooterNew = () => {
                   aria-label={social.label}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="h-10 w-10 flex items-center justify-center border rounded-xl"
+                  className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   <social.icon className="h-5 w-5" />
+                  <span className="hidden sm:inline">{social.label}</span>
                 </a>
               ))}
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Bottom */}
-        <div className="border-t border-gray-200 pt-8 text-center text-sm text-gray-600">
-          {t('website.footer.copyrightt', {
-            siteName: settings?.site_name || 'eSIM Global',
-          })}
+      {/* Bottom Section - Copyright and Payment Methods */}
+      <div className="border-t border-gray-200 bg-gray-50">
+        <div className="containers py-8 sm:py-10">
+          <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
+            {/* Left: Copyright and Links */}
+            <div className="flex flex-col items-center gap-4 sm:items-start sm:flex-row sm:gap-6">
+              <p className="text-xs sm:text-sm text-gray-600">
+                {t('website.footer.copyrighttt', { year: new Date().getFullYear(), siteName })}
+              </p>
+              <div className="flex gap-4 text-xs sm:text-sm">
+                <Link
+                  href="/privacy"
+                  className="text-gray-600 hover:text-gray-900 transition-colors underline"
+                >
+                  {t('website.footer.payment.privacyPolicy')}
+                </Link>
+                <Link
+                  href="/terms"
+                  className="text-gray-600 hover:text-gray-900 transition-colors underline"
+                >
+                  {t('website.footer.payment.termsOfService')}
+                </Link>
+                <Link
+                  href="/cookies"
+                  className="text-gray-600 hover:text-gray-900 transition-colors underline"
+                >
+                  {t('website.footer.payment.cookiePreference')}
+                </Link>
+              </div>
+            </div>
+
+            {/* Right: Payment Methods */}
+            <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-end">
+              {paymentMethods.map((method) => (
+                <div
+                  key={method.label}
+                  className="h-8 w-12 flex items-center justify-center rounded border border-gray-200 bg-white hover:border-gray-300 transition-colors"
+                  title={method.label}
+                >
+                  <method.icon className="h-5 w-5 text-gray-700" />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </footer>

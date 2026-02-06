@@ -128,12 +128,14 @@ import AllRegionsSection from './pages/AllRegionsSection';
 import MaintenancePage from './components/sections/landing/MaintenancePage';
 import { AffiliateProgram } from './pages/AffiliateProgram';
 import ReferFriend from './pages/ReferFriend';
+import SecurityPage from './pages/Security';
 
 // ✅ Route Configs - DRY Approach
 const PUBLIC_ROUTES = [
   { path: '/', component: Home },
   { path: '/destinations', component: Destinations },
   { path: '/destination', component: AllDestinations },
+  { path: '/security', component: SecurityPage },
   { path: '/search', component: Search },
   { path: '/destination/:slug', component: DestinationDetails },
   { path: '/region/:slug', component: RegionDetails },

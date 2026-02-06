@@ -3,6 +3,7 @@
 'use client';
 
 import { useTranslation } from '@/contexts/TranslationContext';
+import { Apple } from 'lucide-react';
 import React from 'react';
 import { Link } from 'wouter';
 
@@ -29,29 +30,36 @@ const DownloadAppSection = () => {
             <div className="flex flex-col gap-4 sm:flex-row">
               {/* App Store */}
               <Link href="#" target="_blank">
-                <div className="flex items-center gap-3 rounded-xl bg-black px-2 py-2">
-                  <div className="flex flex-col items-start">
-                    <span className="text-xs text-white/80">
-                      {t('website.downloadAppSection.appstoreSmall')}
+                <div className="group flex items-center gap-2 px-5 py-3 transition-all hover:scale-[1.02]">
+                  {/* Apple Icon */}
+                  <img src="/images/app-store-1.svg" className="h-12" />
+
+                  {/* <div className="flex flex-col items-start leading-tight">
+                    <span className="text-[11px] text-white/70">
+                      {t("website.downloadAppSection.appstoreSmall")}
                     </span>
-                    <span className="text-lg font-semibold text-white">
-                      {t('website.downloadAppSection.appstore')}
+                    <span className="text-base font-semibold text-white">
+                      {t("website.downloadAppSection.appstore")}
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </Link>
 
               {/* Google Play */}
               <Link href="#" target="_blank">
-                <div className="flex items-center gap-3 rounded-xl bg-black px-2 py-2">
-                  <div className="flex flex-col items-start">
-                    <span className="text-xs text-white/80">
-                      {t('website.downloadAppSection.playstoreSmall')}
+                <div className="group flex items-center gap-2 px-5 py-3 transition-all hover:scale-[1.02]">
+                  {/* Play Store Icon */}
+
+                  <img src="/images/google-play-1.svg" className="h-12" />
+
+                  {/* <div className="flex flex-col items-start leading-tight">
+                    <span className="text-[11px] text-white/70">
+                      {t("website.downloadAppSection.playstoreSmall")}
                     </span>
-                    <span className="text-lg font-semibold text-white">
-                      {t('website.downloadAppSection.playstore')}
+                    <span className="text-base font-semibold text-white">
+                      {t("website.downloadAppSection.playstore")}
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </Link>
             </div>

@@ -37,6 +37,7 @@ import TestimonialsSection from '@/components/sections/landing/TestimonialsSecti
 import FAQSection from '@/components/sections/landing/FAQSection';
 import ReferralSection from '@/components/sections/landing/ReferralSection';
 import TestHeroSection from '@/components/sections/landing/TestHeroSection';
+import FeaturesBar from '@/components/FeaturesBar';
 
 export default function Home() {
   const { t } = useTranslation();
@@ -88,9 +89,8 @@ export default function Home() {
           <div className="relative min-h-screen flex flex-col  ">
             {/* <HeroSection /> */}
             <HeroSection />
-
+            <FeaturesBar />
             <WhatIsEsimSection />
-
             <TravelDestinationTabsNew />
           </div>
           <WhyChooseSailySection />

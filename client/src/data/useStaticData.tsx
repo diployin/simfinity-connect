@@ -742,11 +742,17 @@ const useStaticData = () => {
                 badge: 'coming soon',
               },
               {
+                label: t('website.headerlinks.ProductFeature4Title'),
+                description: t('website.headerlinks.ProductFeature4Desc'),
+                href: '/security',
+                icon: <GoPackage className="h-5 w-5" />
+              },
+              {
                 label: t('website.headerlinks.ProductFeature2Title'),
                 description: t('website.headerlinks.ProductFeature2Desc'),
                 href: '',
                 icon: <GoPackage className="h-5 w-5" />,
-                isExternalUrl: 'https://simfinity.dev/knowledge-base',
+                isExternalUrl: 'https://simfinity.dev',
               },
               {
                 label: t('website.headerlinks.ProductFeature3Title'),
