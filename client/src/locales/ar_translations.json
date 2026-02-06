@@ -1260,6 +1260,33 @@
 
   "WhatIsEsim.howDoesItWorkSection.content.paragraph2": "لبدء استخدام eSIM اشترِ باقة وأكمل الإعداد السريع دون إزالة شريحة SIM الحالية.",
 
+  "WhatIsEsim.content.paragraph2": "تتوفر شرائح eSIM على الهواتف الذكية والأجهزة اللوحية والساعات الذكية وحتى بعض السيارات! وهي رائعة لتبديل أرقام الهواتف بسرعة والحصول على بيانات الهاتف أثناء السفر.",
+
+"WhatIsEsim.content.heroTittle": "ما هي شريحة eSIM — ولماذا يحبها المسافرون",
+
+"WhatIsEsim.content.herodes": "شريحة eSIM هي شريحة SIM رقمية مدمجة مباشرة داخل هاتفك. لا بطاقة فعلية. لا حاجة للتبديل. ولا زيارة للمتاجر. فقط قم بالمسح والتفعيل وستكون متصلاً فورًا. مع eSIM يمكنك البقاء متصلاً لحظة وصولك — دون دفع رسوم تجوال باهظة أو البحث عن متجر SIM محلي. تجعل eSIM من Simfinity السفر أسهل: تفعيل سريع، بيانات بأسعار مناسبة، وتغطية عالمية خلال دقائق.",
+
+"WhatIsEsim.content.ctaButton": "اختر وجهتك",
+
+"WhatIsEsim.content.paragraph1": "شريحة eSIM هي وحدة تعريف مشترك مدمجة — أي شريحة مدمجة داخل هاتفك. تقوم بكل ما تقوم به شريحة SIM التقليدية ولكن دون الحاجة إلى إدخال بطاقة فعلية صغيرة. بالإضافة إلى ذلك، تتيح لك eSIM استخدام عدة شركات اتصالات وأرقام هواتف في وقت واحد، وهو أمر مريح للغاية.",
+
+"WhatIsEsim.content.heading": "ما هي شريحة eSIM — ولماذا يعشقها المسافرون؟",
+
+"WhatIsEsim.content.des": "شريحة eSIM هي شريحة SIM رقمية مدمجة مباشرة داخل هاتفك. بدون بطاقة فعلية.",
+
+"NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.title": "احصل على باقة بيانات eSIM",
+
+"NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.description": "اعثر على باقة بيانات الهاتف لرحلتك القادمة — ابحث في قائمة الوجهات لدينا.",
+
+"WhatIsEsim.content.mainHeading": "كيفية إعداد شريحة eSIM",
+
+"WhatIsEsim.content.mainDescription": "اتبع هذه الخطوات لبدء استخدام شريحة eSIM على جهاز iPhone أو Android الخاص بك.",
+
+"WhatIsEsim.howDoesItWorkSection.heading": "كيف تعمل شريحة eSIM؟",
+
+"WhatIsEsim.howDoesItWorkSection.content.paragraph1": "تستخدم شريحة eSIM برنامجًا مثبتًا مسبقًا على جهازك وتعمل تمامًا مثل شريحة SIM الفعلية. بعد تفعيلها يمكنك الاتصال بشبكة الهاتف وإجراء المكالمات واستخدام بيانات الهاتف. معظم الهواتف الحديثة تدعم eSIM مدمجة، لكن تحقق من قائمة الأجهزة المتوافقة مع eSIM لمعرفة ما إذا كان جهازك مدعومًا.",
+
+
 
 "NewSimfinDes.about_us.HeroSec.card.title": "تعرّف على الأشخاص وراء Simfinity",
 "NewSimfinDes.about_us.HeroSec.card.description": "لقد سافرنا بما يكفي لنعرف مدى صعوبة البقاء متصلًا أثناء السفر. لذلك أنشأنا Simfinity — تطبيق eSIM الذي يجعل الاتصال بسيطًا للجميع.",
@@ -1404,7 +1431,63 @@
 
 "NewSimfinDes.about_us.CareerCTASection.ctaButton": "استكشف الوظائف",
 
-"NewSimfinDes.about_us.CareerCTASection.ctaLink": "/careers"
+"NewSimfinDes.about_us.CareerCTASection.ctaLink": "/careers",
+
+
+
+
+
+"esimSetupTab.tabs.iphone.label": "على iPhone",
+"esimSetupTab.tabs.iphone.title": "قم بإعداد eSIM على iPhone باستخدام تطبيق Simfinity",
+
+"esimSetupTab.tabs.iphone.steps.1.title": "اختر باقة بيانات eSIM لرحلتك",
+"esimSetupTab.tabs.iphone.steps.1.description": "اختر الدولة التي ستسافر إليها وحدد الباقة.",
+
+"esimSetupTab.tabs.iphone.steps.2.title": "قم بتنزيل تطبيق Simfinity eSIM",
+"esimSetupTab.tabs.iphone.steps.2.description": "ثبّت التطبيق، اضغط على «تثبيت eSIM» واتبع الخطوات على الشاشة.",
+
+"esimSetupTab.tabs.iphone.steps.3.title": "سيتم تفعيل باقتك تلقائيًا",
+"esimSetupTab.tabs.iphone.steps.3.description": "استعد لرحلتك — سيتم تفعيل الباقة فور وصولك.",
+
+"esimSetupTab.tabs.iphone.instructions.heading": "قم بإعداد eSIM يدويًا على iPhone",
+"esimSetupTab.tabs.iphone.instructions.steps.1": "انتقل إلى «الإعدادات»، ثم اختر «البيانات الخلوية» أو «الخدمة الخلوية».",
+"esimSetupTab.tabs.iphone.instructions.steps.2": "اضغط على «إضافة eSIM» أو «إضافة خطة خلوية».",
+"esimSetupTab.tabs.iphone.instructions.steps.3": "اضغط على «استخدام رمز QR».",
+"esimSetupTab.tabs.iphone.instructions.steps.4": "امسح رمز QR ضوئيًا أو أدخل التفاصيل يدويًا.",
+
+
+"esimSetupTab.tabs.android.label": "على Android",
+"esimSetupTab.tabs.android.title": "قم بإعداد eSIM على Android باستخدام تطبيق Simfinity",
+
+"esimSetupTab.tabs.android.steps.1.title": "اختر باقة بيانات eSIM لرحلتك",
+"esimSetupTab.tabs.android.steps.1.description": "اختر الدولة التي ستسافر إليها وحدد الباقة.",
+
+"esimSetupTab.tabs.android.steps.2.title": "قم بتنزيل تطبيق Simfinity eSIM",
+"esimSetupTab.tabs.android.steps.2.description": "ثبّت التطبيق، اضغط على «تثبيت eSIM» واتبع خطوات الإعداد.",
+
+"esimSetupTab.tabs.android.steps.3.title": "سيتم تفعيل باقتك تلقائيًا",
+"esimSetupTab.tabs.android.steps.3.description": "سيتم تفعيل الباقة فور وصولك إلى وجهتك.",
+
+"esimSetupTab.tabs.android.instructions.heading": "قم بإعداد eSIM يدويًا على Android",
+"esimSetupTab.tabs.android.instructions.steps.1": "انتقل إلى «الإعدادات»، ثم اختر «الاتصالات».",
+"esimSetupTab.tabs.android.instructions.steps.2": "اضغط على «مدير SIM».",
+"esimSetupTab.tabs.android.instructions.steps.3": "اختر «إضافة eSIM».",
+"esimSetupTab.tabs.android.instructions.steps.4": "اضغط على «مسح رمز QR» أو اختر طريقة أخرى.",
+
+
+"esimSetupTab.tabs.qr.label": "باستخدام رمز QR",
+"esimSetupTab.tabs.qr.title": "قم بإعداد eSIM باستخدام رمز QR",
+
+"esimSetupTab.tabs.qr.steps.1.title": "امسح رمز QR لتنزيل Simfinity",
+"esimSetupTab.tabs.qr.steps.1.description": "امسح رمز QR بهاتفك وقم بتنزيل تطبيق Simfinity.",
+
+"esimSetupTab.tabs.qr.steps.2.title": "اشترِ باقة eSIM لرحلتك",
+"esimSetupTab.tabs.qr.steps.2.description": "اشترِ باقة بيانات للدولة التي ستسافر إليها.",
+
+"esimSetupTab.tabs.qr.steps.3.title": "سيتم تفعيل باقتك تلقائيًا",
+"esimSetupTab.tabs.qr.steps.3.description": "سيتم تفعيل الإنترنت فور وصولك إلى وجهتك.",
+"NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.ctaButton": "عرض جميع الوجهات"
+
 
 
 

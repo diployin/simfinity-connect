@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 // ============================================
 // TypeScript Interfaces
@@ -24,14 +25,9 @@ interface TabData {
 }
 
 interface EsimSetupTabProps {
-  // Header Props (Optional)
   mainHeading?: string;
   mainDescription?: string;
-
-  // Tab Data (Required)
   tabs: TabData[];
-
-  // Styling Props (Optional)
   backgroundColor?: string;
   defaultTab?: number;
 }
@@ -41,25 +37,34 @@ interface EsimSetupTabProps {
 // ============================================
 
 const EsimSetupTabCommon: React.FC<EsimSetupTabProps> = ({
-  mainHeading = 'How to set up an eSIM',
-  mainDescription = 'Follow these steps to start using an eSIM on your iPhone or Android.',
+  mainHeading,
+  mainDescription,
   tabs,
   backgroundColor = 'bg-white',
   defaultTab = 0,
 }) => {
+  const { t } = useTranslation();   // ✅ Hook inside component
+
   const [activeTab, setActiveTab] = useState<number>(defaultTab);
 
+  // ✅ Translation fallback
+  const heading =
+    mainHeading || t('website.WhatIsEsim.content.mainHeading');
+
+  const description =
+    mainDescription || t('website.WhatIsEsim.content.mainDescription');
+
   return (
-    <section className={`w-full ${backgroundColor} `}>
+    <section className={`w-full ${backgroundColor}`}>
       <div className="containers">
         {/* Header Section */}
         <div className="py-4 text-center md:text-start">
           <h2 className="lg:text-4.5xl text-3xl leading-tight font-medium text-gray-900 sm:text-4xl">
-            {mainHeading}
+            {heading}
           </h2>
 
           <p className="py-4 text-base leading-relaxed text-gray-600 sm:text-base">
-            {mainDescription}
+            {description}
           </p>
         </div>
 
@@ -70,7 +75,9 @@ const EsimSetupTabCommon: React.FC<EsimSetupTabProps> = ({
               key={index}
               onClick={() => setActiveTab(index)}
               className={`rounded-full px-4 py-1 text-base font-medium transition-all duration-200 ${
-                activeTab === index ? 'bg-black text-white' : 'bg-white text-gray-700'
+                activeTab === index
+                  ? 'bg-black text-white'
+                  : 'bg-white text-gray-700'
               }`}
             >
               {tab.label}
@@ -95,22 +102,25 @@ const EsimSetupTabCommon: React.FC<EsimSetupTabProps> = ({
                 }`}
               >
                 {/* Text Section */}
-                <div className={`${step.image ? 'p-8 sm:p-6' : ''} flex-1 space-y-4`}>
-                  {/* Step Number */}
+                <div
+                  className={`${
+                    step.image ? 'p-8 sm:p-6' : ''
+                  } flex-1 space-y-4`}
+                >
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-base font-medium text-black shadow-md">
                     {step.number}
                   </div>
 
-                  {/* Step Title */}
                   <h3 className="text-xl leading-tight font-medium text-black sm:text-xl">
                     {step.stepTitle}
                   </h3>
 
-                  {/* Step Description */}
-                  <p className="text-base leading-relaxed text-gray-600">{step.description}</p>
+                  <p className="text-base leading-relaxed text-gray-600">
+                    {step.description}
+                  </p>
                 </div>
 
-                {/* Conditional Image Section */}
+                {/* Image */}
                 {step.image && (
                   <div className="relative flex h-[250px] items-center justify-center sm:h-[300px]">
                     <div className="relative mt-12 h-full w-full">
@@ -118,7 +128,6 @@ const EsimSetupTabCommon: React.FC<EsimSetupTabProps> = ({
                         src={step.image}
                         alt={step.stepTitle}
                         className="object-contain"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     </div>
                   </div>
@@ -127,7 +136,7 @@ const EsimSetupTabCommon: React.FC<EsimSetupTabProps> = ({
             ))}
           </div>
 
-          {/* Optional Instructions Section */}
+          {/* Instructions */}
           {tabs[activeTab].instructions && (
             <div className="mt-16 sm:mt-20">
               <h3 className="sm:text-2.5xl mb-6 text-2xl leading-tight font-medium text-black lg:text-3xl">
@@ -135,11 +144,13 @@ const EsimSetupTabCommon: React.FC<EsimSetupTabProps> = ({
               </h3>
 
               <ol className="list-inside list-decimal space-y-3 text-base text-black marker:font-medium marker:text-gray-900 sm:text-base">
-                {tabs[activeTab].instructions.steps.map((instruction: string, index: number) => (
-                  <li key={index} className="leading-relaxed">
-                    {instruction}
-                  </li>
-                ))}
+                {tabs[activeTab].instructions.steps.map(
+                  (instruction: string, index: number) => (
+                    <li key={index} className="leading-relaxed">
+                      {instruction}
+                    </li>
+                  ),
+                )}
               </ol>
             </div>
           )}

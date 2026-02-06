@@ -260,6 +260,23 @@
     "home.howItWorks.step1Desc": "अपने गंतव्य के लिए डेटा पैकेज चुनें",
     "install.checkDevice": "जाँचें कि आपका डिवाइस eSIM को सपोर्ट करता है या नहीं",
     "compatibleDevices.androidInstructions": "सेटिंग्स > नेटवर्क और इंटरनेट > मोबाइल नेटवर्क पर जाएँ और 'eSIM' विकल्प देखें। यदि आप इसे देखते हैं, तो आपका डिवाइस eSIM को सपोर्ट करता है।",
+    "WhatIsEsim.content.paragraph2": "eSIM स्मार्टफोन, टैबलेट, स्मार्टवॉच और यहां तक कि कुछ कारों में भी उपलब्ध होते हैं! ये फोन नंबर जल्दी बदलने और यात्रा के दौरान मोबाइल डेटा लेने के लिए बेहतरीन हैं।",
+    "WhatIsEsim.content.heroTittle": "eSIM क्या है — और यात्रियों की पहली पसंद क्यों बन रहा है",
+
+"WhatIsEsim.content.herodes": "eSIM एक डिजिटल SIM है जो सीधे आपके फोन में ही बनी होती है। न कोई फिजिकल कार्ड, न बदलने की जरूरत, न स्टोर जाने की झंझट। बस स्कैन करें, एक्टिवेट करें और तुरंत ऑनलाइन हो जाएं। eSIM के साथ आप लैंड करते ही कनेक्टेड रह सकते हैं — बिना महंगे रोमिंग चार्ज दिए या लोकल SIM दुकान ढूंढे। Simfinity eSIM यात्रा को आसान बनाता है: तेज एक्टिवेशन, किफायती डेटा और मिनटों में ग्लोबल कवरेज।",
+
+"WhatIsEsim.content.ctaButton": "अपना गंतव्य चुनें",
+"WhatIsEsim.content.paragraph1": "eSIM एक एम्बेडेड सब्सक्राइबर आइडेंटिटी मॉड्यूल है — यानी आपके फोन में पहले से लगा हुआ एक बिल्ट-इन चिप। यह वही सभी काम करता है जो एक पारंपरिक SIM कार्ड करता है, लेकिन इसमें फोन में छोटी फिजिकल कार्ड डालने की जरूरत नहीं होती। इसके अलावा, eSIM आपको एक साथ कई कैरियर्स और फोन नंबर इस्तेमाल करने की सुविधा देता है, जो काफी सुविधाजनक है।",
+"WhatIsEsim.content.heading": "eSIM क्या है — और यात्री इसे इतना पसंद क्यों करते हैं?",
+"WhatIsEsim.content.des": "eSIM एक डिजिटल सिम है जो सीधे आपके फोन में बिल्ट-इन होती है। कोई फिजिकल कार्ड नहीं।",
+"NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.title": "eSIM डेटा प्लान प्राप्त करें",
+"NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.description": "अपनी अगली यात्रा के लिए मोबाइल डेटा प्लान खोजें — हमारी डेस्टिनेशन सूची में सर्च करें।",
+"WhatIsEsim.content.mainHeading": "eSIM कैसे सेटअप करें",
+
+"WhatIsEsim.content.mainDescription": "अपने iPhone या Android पर eSIM का उपयोग शुरू करने के लिए इन चरणों का पालन करें।",
+
+"WhatIsEsim.howDoesItWorkSection.heading": "eSIM कैसे काम करता है?",
+"WhatIsEsim.howDoesItWorkSection.content.paragraph1": "eSIM आपके डिवाइस में पहले से इंस्टॉल सॉफ्टवेयर का उपयोग करता है और फिजिकल SIM की तरह ही काम करता है। एक्टिवेट होने के बाद आप सेल्युलर नेटवर्क से कनेक्ट हो सकते हैं, कॉल कर सकते हैं और मोबाइल डेटा उपयोग कर सकते हैं। अधिकांश आधुनिक फोनों में बिल्ट-इन eSIM होता है, लेकिन यह देखने के लिए कि आपके फोन में है या नहीं, हमारी eSIM-संगत डिवाइस सूची जरूर जांचें।",
     "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.footerNote": "*Simfinity फिलहाल केवल मोबाइल डेटा पर फोकस करता है, इसलिए अभी फोन नंबर सपोर्ट नहीं करता। चिंता न करें — इस पर काम चल रहा है।",
     "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.feature": "फ़ीचर",
     "NewSimfinDes.what_is_esim.WhatIsEsim.EsimVsSimComparison.tableHeaders.esim": "eSIM",

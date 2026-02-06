@@ -299,6 +299,8 @@
     "NewSimfinDes.Security_Features.SecurityFeaturesValues.values.0.description": "Avoid expensive roaming fees abroad.",
     "WhatIsEsim.content.heading": " What is an eSIM — and why travelers love it?",
     "WhatIsEsim.content.des": " An eSIM is a digital SIM built directly into your phone. No physical card. No",
+    "WhatIsEsim.content.mainHeading":"How to set up an eSIM",
+    "WhatIsEsim.content.mainDescription":"Follow these steps to start using an eSIM on your iPhone or Android.",
     "WhatIsEsim.howDoesItWorkSection.heading": "How does an eSIM work?",
     "NewSimfinDes.Security_Features.SecurityFeaturesValues.values.1.title": "Multiple profiles",
     "NewSimfinDes.Security_Features.SecurityFeaturesValues.values.1.description": "Store more than one eSIM profile.",
@@ -487,6 +489,7 @@
     "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.description": "A single plastic SIM won't destroy the planet, but getting a newly packaged SIM card for every trip adds up over time. Use an eSIM instead.",
     "NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.title": "Get an eSIM data plan",
     "NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.description": "Find a mobile data plan for your next trip search our list of destinations.",
+
     "NewSimfinDes.WhyChooseSailySection.features.0.title": "Travel-friendly prices",
     "NewSimfinDes.WhyChooseSailySection.features.0.description": "Get super-affordable eSIM data anywhere in the world. From short trips to long adventures — Simfinity always gives you the lowest travel data cost.",
     "NewSimfinDes.WhyChooseSailySection.features.1.title": "Activate in seconds",

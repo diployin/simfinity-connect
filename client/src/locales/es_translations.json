@@ -467,6 +467,86 @@
 
   "WhatIsEsim.howDoesItWorkSection.content.paragraph2": "Para empezar a usar una eSIM, compra un plan y completa una configuración rápida sin retirar tu SIM actual.",
 
+  "WhatIsEsim.content.paragraph2": "Las eSIM están disponibles en smartphones, tablets, smartwatches e incluso en algunos coches. Son ideales para cambiar rápidamente de número y obtener datos móviles mientras viajas.",
+
+"WhatIsEsim.content.heroTittle": "¿Qué es una eSIM y por qué a los viajeros les encanta?",
+
+"WhatIsEsim.content.herodes": "Una eSIM es una SIM digital integrada directamente en tu teléfono. Sin tarjeta física. Sin cambios. Sin visitas a tiendas. Solo escanea, activa y estarás en línea al instante. Con una eSIM puedes mantenerte conectado desde el momento en que aterrizas, sin pagar costosos cargos de roaming ni buscar una tienda SIM local. Las eSIM de Simfinity hacen que viajar sea simple: activación rápida, datos asequibles y cobertura global en minutos.",
+
+"WhatIsEsim.content.ctaButton": "Elige tu destino",
+
+"WhatIsEsim.content.paragraph1": "Una eSIM es un módulo de identidad de suscriptor integrado, básicamente un chip incorporado en tu teléfono. Hace todo lo que haría una SIM tradicional, pero sin tener que insertar una pequeña tarjeta física. Además, una eSIM te permite usar varios operadores y números al mismo tiempo, lo cual es muy conveniente.",
+
+"WhatIsEsim.content.heading": "¿Qué es una eSIM y por qué los viajeros la aman tanto?",
+
+"WhatIsEsim.content.des": "Una eSIM es una SIM digital integrada directamente en tu teléfono. Sin tarjeta física.",
+
+"NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.title": "Obtén un plan de datos eSIM",
+
+"NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.description": "Encuentra un plan de datos móviles para tu próximo viaje — busca en nuestra lista de destinos.",
+
+"WhatIsEsim.content.mainHeading": "Cómo configurar una eSIM",
+
+"WhatIsEsim.content.mainDescription": "Sigue estos pasos para comenzar a usar una eSIM en tu iPhone o Android.",
+
+"WhatIsEsim.howDoesItWorkSection.heading": "¿Cómo funciona una eSIM?",
+
+"WhatIsEsim.howDoesItWorkSection.content.paragraph1": "Una eSIM utiliza software preinstalado en tu dispositivo y funciona igual que una SIM física. Una vez activada, puedes conectarte a una red celular, hacer llamadas y usar datos móviles. La mayoría de los teléfonos modernos incluyen eSIM integrada, pero revisa nuestra lista de dispositivos compatibles con eSIM para confirmar si el tuyo lo es.",
+
+
+"esimSetupTab.tabs.iphone.label": "En iPhone",
+"esimSetupTab.tabs.iphone.title": "Configura tu eSIM en iPhone con la app de Simfinity",
+
+"esimSetupTab.tabs.iphone.steps.1.title": "Elige un plan de datos eSIM para tu viaje",
+"esimSetupTab.tabs.iphone.steps.1.description": "Selecciona el país al que viajas y elige un plan.",
+
+"esimSetupTab.tabs.iphone.steps.2.title": "Descarga la app eSIM de Simfinity",
+"esimSetupTab.tabs.iphone.steps.2.description": "Instala la app, toca «Instalar eSIM» y sigue los pasos en pantalla.",
+
+"esimSetupTab.tabs.iphone.steps.3.title": "Tu plan se activará automáticamente",
+"esimSetupTab.tabs.iphone.steps.3.description": "Prepárate para tu viaje — tu plan se activará en cuanto llegues.",
+
+"esimSetupTab.tabs.iphone.instructions.heading": "Configura manualmente la eSIM en tu iPhone",
+"esimSetupTab.tabs.iphone.instructions.steps.1": "Ve a «Configuración», luego selecciona «Datos celulares» o «Servicio móvil».",
+"esimSetupTab.tabs.iphone.instructions.steps.2": "Toca «Agregar eSIM» o «Agregar plan celular».",
+"esimSetupTab.tabs.iphone.instructions.steps.3": "Toca «Usar código QR».",
+"esimSetupTab.tabs.iphone.instructions.steps.4": "Escanea el código QR o introduce los datos manualmente.",
+
+
+"esimSetupTab.tabs.android.label": "En Android",
+"esimSetupTab.tabs.android.title": "Configura tu eSIM en Android con la app de Simfinity",
+
+"esimSetupTab.tabs.android.steps.1.title": "Elige un plan de datos eSIM para tu viaje",
+"esimSetupTab.tabs.android.steps.1.description": "Selecciona el país al que viajas y elige un plan.",
+
+"esimSetupTab.tabs.android.steps.2.title": "Descarga la app eSIM de Simfinity",
+"esimSetupTab.tabs.android.steps.2.description": "Instala la app, toca «Instalar eSIM» y sigue los pasos de configuración.",
+
+"esimSetupTab.tabs.android.steps.3.title": "Tu plan se activará automáticamente",
+"esimSetupTab.tabs.android.steps.3.description": "Tu plan se activará en cuanto llegues a tu destino.",
+
+"esimSetupTab.tabs.android.instructions.heading": "Configura manualmente la eSIM en tu Android",
+"esimSetupTab.tabs.android.instructions.steps.1": "Ve a «Configuración», luego selecciona «Conexiones».",
+"esimSetupTab.tabs.android.instructions.steps.2": "Toca «Administrador de SIM».",
+"esimSetupTab.tabs.android.instructions.steps.3": "Selecciona «Agregar eSIM».",
+"esimSetupTab.tabs.android.instructions.steps.4": "Toca «Escanear código QR» o elige otro método.",
+
+
+"esimSetupTab.tabs.qr.label": "Con código QR",
+"esimSetupTab.tabs.qr.title": "Configura una eSIM usando un código QR",
+
+"esimSetupTab.tabs.qr.steps.1.title": "Escanea el QR para descargar Simfinity",
+"esimSetupTab.tabs.qr.steps.1.description": "Escanea el código QR con tu teléfono y descarga la app de Simfinity.",
+
+"esimSetupTab.tabs.qr.steps.2.title": "Compra un plan eSIM para tu viaje",
+"esimSetupTab.tabs.qr.steps.2.description": "Compra un plan de datos para el país al que viajas.",
+
+"esimSetupTab.tabs.qr.steps.3.title": "Tu plan se activará automáticamente",
+"esimSetupTab.tabs.qr.steps.3.description": "Tu internet se activará en cuanto llegues a tu destino.",
+"NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.ctaButton": "Ver todos los destinos",
+
+
+
 
 
 
