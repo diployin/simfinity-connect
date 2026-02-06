@@ -34,7 +34,8 @@ const ThemeButton: React.FC<YellowButtonProps> = ({
     default:
       'bg-primary hover:bg-primary active:bg-[#FBC02D] text-white shadow-none hover:shadow-md',
     outline:
-      'bg-transparent border-2 border-[#FFEB3B] text-white hover:bg-[#FFEB3B] hover:text-white',
+      'bg-transparent border-2 border-black text-black hover:bg-primary hover:text-white hover:border-primary',
+
     ghost: 'bg-transparent text-white hover:bg-[#FFEB3B]/10',
   };
 

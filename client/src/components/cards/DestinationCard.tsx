@@ -16,8 +16,8 @@ interface DestinationCardProps {
   onClick: (slug: string) => void;
   index?: number;
   type?: 'country' | 'region' | 'global';
-  isfrom: boolean;
-  isname: boolean;
+  isfrom?: boolean;
+  isname?: boolean;
 }
 
 const DestinationCardSmall: React.FC<DestinationCardProps> = ({

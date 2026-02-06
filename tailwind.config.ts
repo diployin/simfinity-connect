@@ -267,6 +267,22 @@ export default {
       width: {
         sm: '24rem',
       },
+      fontSize: {
+        // 24px
+        '1.5': ['1.5rem', { lineHeight: '1.4' }],
+
+        // 40px
+        '2.5': ['2.5rem', { lineHeight: '1.25' }],
+
+        // 56px
+        '3.5': ['3.5rem', { lineHeight: '1.2' }],
+
+        // 72px
+        '4.5': ['4.5rem', { lineHeight: '1.15' }],
+
+        // 90px
+        '5.6': ['5.6rem', { lineHeight: '1.1' }],
+      },
     },
   },
   plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
