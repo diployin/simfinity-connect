@@ -765,7 +765,6 @@ const useStaticData = () => {
 
           {
             title: t('website.headerlinks.SupportColumnTitle'),
-
             items: [
               {
                 label: t('website.headerlinks.ProductTool1Title'),
@@ -917,25 +916,25 @@ const useStaticData = () => {
               {
                 label: t('website.headerlinks.Offer1Title'),
                 description: t('website.headerlinks.Offer1Desc'),
-                href: '/refer-friend',
+                href: '/referral',
                 icon: <Gift className="h-5 w-5" />,
                 badge: t('website.headerlinks.OfferBadgeHot'),
-                disabled: true,
+                // disabled: true,
               },
               {
                 label: t('website.headerlinks.Offer2Title'),
                 description: t('website.headerlinks.Offer2Desc'),
-                href: '/student-offer',
+                href: '/referral',
                 icon: <GraduationCap className="h-5 w-5" />,
                 badge: t('website.headerlinks.OfferBadgeNew'),
-                disabled: true,
+                // disabled: true,
               },
               {
                 label: t('website.headerlinks.Offer3Title'),
                 description: t('website.headerlinks.Offer3Desc'),
-                href: '/deals-rewards',
+                href: '/referral',
                 icon: <Tag className="h-5 w-5" />,
-                disabled: true,
+                // disabled: true,
               },
             ],
           },

@@ -129,6 +129,7 @@ import MaintenancePage from './components/sections/landing/MaintenancePage';
 import { AffiliateProgram } from './pages/AffiliateProgram';
 import ReferFriend from './pages/ReferFriend';
 import SecurityPage from './pages/Security';
+import ReferralPage from './pages/ReferralPage';
 
 // ✅ Route Configs - DRY Approach
 const PUBLIC_ROUTES = [
@@ -136,6 +137,7 @@ const PUBLIC_ROUTES = [
   { path: '/destinations', component: Destinations },
   { path: '/destination', component: AllDestinations },
   { path: '/security', component: SecurityPage },
+  { path: '/referral', component: ReferralPage },
   { path: '/search', component: Search },
   { path: '/destination/:slug', component: DestinationDetails },
   { path: '/region/:slug', component: RegionDetails },

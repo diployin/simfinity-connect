@@ -196,7 +196,7 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
                               const baseClass = cn(
                                 'group flex items-start gap-3 rounded-lg p-3 transition-all hover:bg-gray-50',
                                 item.disabled &&
-                                  'pointer-events-none opacity-50 cursor-not-allowed',
+                                'pointer-events-none opacity-50 cursor-not-allowed',
                               );
 
                               const content = (
@@ -322,11 +322,10 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
                                 <button
                                   key={index}
                                   onClick={() => scrollTo(index)}
-                                  className={`h-2 w-2 rounded-full transition-all ${
-                                    index === selectedIndex
-                                      ? 'w-6 bg-gray-700'
-                                      : 'bg-gray-300 hover:bg-gray-400'
-                                  }`}
+                                  className={`h-2 w-2 rounded-full transition-all ${index === selectedIndex
+                                    ? 'w-6 bg-gray-700'
+                                    : 'bg-gray-300 hover:bg-gray-400'
+                                    }`}
                                   aria-label={`Go to slide ${index + 1}`}
                                 />
                               ))}
@@ -350,7 +349,9 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
                     </span>
                     {config.bottomLink?.label}
                   </Link>
-                  <Button disabled={true}>App Download Soon</Button>
+                  <Link href={'/what-is-esim'}>
+                    <Button>App Download</Button>
+                  </Link>
                 </div>
               </div>
             </div>
