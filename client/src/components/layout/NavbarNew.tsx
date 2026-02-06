@@ -32,7 +32,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useSettingByKey } from '@/hooks/useSettings';
 import useStaticData from '@/data/useStaticData';
 import MegaMenuDropdown from '../MegaMenuDropdown';
-import TopPromoBar from './TopPromoBar';
 import MegaMenuDropdownDestination from '../MegaMenuDropdownDestination';
 import MobileDestinationSearch from '../Mobiledestinationsearch';
 import { AppDispatch, RootState, useAppDispatch } from '@/redux/store/store';
@@ -128,15 +127,6 @@ export function NavbarNew() {
     },
   ];
 
-  // Fetch pages/navlinks
-  const { data: navlinks } = useQuery({
-    queryKey: ['/api/pages'],
-    queryFn: async () => {
-      const res = await apiRequest('GET', '/api/pages');
-      return res.json();
-    },
-  });
-
   // Handle scroll event
   useEffect(() => {
     const handleScroll = () => {
@@ -223,7 +213,7 @@ export function NavbarNew() {
             // When mega menu is open - solid white background
             isMegaMenuOpen && '!bg-white',
             // When scrolled - blur background (but not if mega menu is open)
-            isScrolled && !isMegaMenuOpen && 'backdrop-blur-lg bg-white/80',
+            isScrolled && !isMegaMenuOpen && 'backdrop-blur-3xl ',
             // Shadow when scrolled OR mega menu open
             (isScrolled || isMegaMenuOpen) && 'shadow-sm',
           )}

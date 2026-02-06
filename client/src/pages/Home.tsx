@@ -88,13 +88,11 @@ export default function Home() {
           <div className="relative min-h-screen flex flex-col  ">
             {/* <HeroSection /> */}
             <HeroSection />
-            {/* <TestHeroSection /> */}
-            {/* <InfiniteScrollTicker /> */}
+
             <WhatIsEsimSection />
 
             <TravelDestinationTabsNew />
           </div>
-
           <WhyChooseSailySection />
           <InstantConnectionSection />
           <HowDoesItWorkSection />
@@ -102,30 +100,7 @@ export default function Home() {
           <TestimonialsSection />
           <FAQSection />
           <ReferralSection />
-
-          {/* <TopFeaturesStrip /> */}
-          {/* <DestinationsTabs /> */}
-          {/* <PopularEsims /> */}
-
-          {/* <FeatureSectionCompo /> */}
-          {/* <CompleteEsims /> */}
-          {/* <TrustBadges /> */}
-          {/* <NetworkPartners /> */}
-          {/* <SubscriptionBanner /> */}
-          {/* <TravelReadyBanner /> */}
-          {/* <BenefitsSection /> */}
-          {/* <AgencyProblemsSection /> */}
-
-          {/* <HowItWorksSteps /> */}
-
-          {/* <ComparisonTable /> */}
-          {/* <FAQWithSupport /> */}
-          {/* <TravelerTestimonials /> */}
         </main>
-
-        {/* <SiteFooter /> */}
-        {/* <FloatingButtons /> */}
-        {/* <GlobalFloatingNav /> */}
       </div>
     </>
   );

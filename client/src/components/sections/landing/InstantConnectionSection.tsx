@@ -23,9 +23,11 @@ const InstantConnectionSection = () => {
             {t('website.NewSimfinDes.NewSimfinDes.des')}
           </p>
 
-          <ThemeButton onClick={() => navigate('/all-destinations')} size="md">
-            {t('website.NewSimfinDes.NewSimfinDes.btn')}
-          </ThemeButton>
+          <div className=" flex justify-center">
+            <ThemeButton onClick={() => navigate('/all-destinations')} size="md">
+              {t('website.NewSimfinDes.NewSimfinDes.btn')}
+            </ThemeButton>
+          </div>
         </div>
 
         {/* Two Column Cards */}
@@ -53,12 +55,12 @@ const InstantConnectionSection = () => {
           </div>
 
           {/* Card 2 */}
-          <div className="group relative flex min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] flex-col overflow-hidden rounded-3xl bg-[#A8D5F2] transition-all duration-300 hover:shadow-xl">
+          <div className="group relative flex min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] flex-col overflow-hidden rounded-3xl bg-primary transition-all duration-300 hover:shadow-xl">
             <div className="space-y-4 p-6 sm:p-8 lg:p-10 xl:p-12 flex-shrink-0">
-              <h3 className="text-xl sm:text-2xl lg:text-[32px] font-medium text-black">
+              <h3 className="text-xl sm:text-2xl lg:text-[32px] font-medium text-white">
                 {t('website.NewSimfinDes.NewSimfinDes.card2.title')}
               </h3>
-              <p className="text-sm sm:text-base leading-relaxed text-gray-700">
+              <p className="text-sm sm:text-base leading-relaxed text-gray-100">
                 {t('website.NewSimfinDes.NewSimfinDes.card2.des')}
               </p>
             </div>

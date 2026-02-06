@@ -1,5 +1,4 @@
 import FAQ from '@/components/common/FAQ';
-import DynamicImageSection from '@/components/DynamicImageSection';
 import ThemeButton from '@/components/ThemeButton';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { Dot, TrendingUp, Users } from 'lucide-react';

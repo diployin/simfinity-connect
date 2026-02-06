@@ -163,9 +163,6 @@
 
 // export default TestimonialsSection;
 
-
-
-
 import { useTranslation } from '@/contexts/TranslationContext';
 import React from 'react';
 
@@ -219,9 +216,7 @@ const TestimonialsSection = () => {
         )}
       </div>
 
-      <p className="text-sm font-normal leading-relaxed text-gray-600">
-        {content}
-      </p>
+      <p className="text-sm font-normal leading-relaxed text-gray-600">{content}</p>
 
       {rating && (
         <div className="flex items-center gap-1">
@@ -242,14 +237,14 @@ const TestimonialsSection = () => {
   );
 
   return (
-    <section className="w-full bg-sky-100 py-16 sm:py-20 lg:py-24">
+    <section className="w-full bg-primary py-16 sm:py-20 lg:py-24">
       <div className="containers">
         {/* Header */}
         <div className="mx-auto mb-12 text-center lg:mb-16">
-          <h2 className="mb-4 text-3xl font-medium leading-tight text-black sm:text-4xl lg:text-5xl">
+          <h2 className="mb-4 text-3xl font-medium leading-tight text-white sm:text-4xl lg:text-5xl">
             {t('website.NewSimfinDes.TestimonialsSection.title')}
           </h2>
-          <p className="text-base font-normal text-gray-600 sm:text-lg">
+          <p className="text-base font-normal text-gray-100 sm:text-lg">
             {t('website.NewSimfinDes.TestimonialsSection.des')}
           </p>
         </div>
@@ -325,4 +320,3 @@ const TestimonialsSection = () => {
 };
 
 export default TestimonialsSection;
-
