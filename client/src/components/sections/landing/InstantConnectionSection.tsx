@@ -24,7 +24,7 @@ const InstantConnectionSection = () => {
           </p>
 
           <div className=" flex justify-center">
-            <ThemeButton onClick={() => navigate('/all-destinations')} size="md">
+            <ThemeButton onClick={() => navigate('/destinations')} size="md">
               {t('website.NewSimfinDes.NewSimfinDes.btn')}
             </ThemeButton>
           </div>

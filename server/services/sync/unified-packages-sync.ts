@@ -86,7 +86,7 @@ export class UnifiedPackagesSyncService {
       console.log("check working0")
 
       for (const pkg of providerPackages) {
-        console.log("check working1")
+        // console.log("check working1")
         // Map provider-specific cost field to wholesale price
         // Airalo uses 'airaloPrice', others use 'wholesalePrice'
         let wholesalePriceRaw: any;
@@ -129,7 +129,7 @@ export class UnifiedPackagesSyncService {
         // Extract country code based on provider for local packages
         let countryCode: string | null = null;
         let countryName: string | null = null;
-        console.log("check working2")
+        // console.log("check working2")
         if (pkg.type === "local") {
           if (providerSlug === "airalo") {
             const result = extractCountryCodeFromAiraloSlug(pkg.slug);

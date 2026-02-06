@@ -213,7 +213,7 @@ export function NavbarNew() {
             // When mega menu is open - solid white background
             isMegaMenuOpen && '!bg-white',
             // When scrolled - blur background (but not if mega menu is open)
-            isScrolled && !isMegaMenuOpen && 'backdrop-blur-3xl ',
+            isScrolled && !isMegaMenuOpen && 'backdrop-blur-2xl ',
             // Shadow when scrolled OR mega menu open
             (isScrolled || isMegaMenuOpen) && 'shadow-sm',
           )}
@@ -227,7 +227,7 @@ export function NavbarNew() {
                     <img
                       src={logo}
                       alt="Logo"
-                      className="h-7 sm:h-8 md:h-9 lg:h-10 xl:h-11 w-auto"
+                      className="h-7 sm:h-8 md:h-9 lg:h-12 xl:h-11 w-auto"
                     />
                   ) : (
                     <div className="flex items-center gap-2 cursor-pointer group">
