@@ -600,7 +600,20 @@
     "NewSimfinDes.about_us.CareerCTASection.heading": "Always connected. Always on course.",
     "NewSimfinDes.about_us.CareerCTASection.description": "Join a team of passionate travelers shaping the future of mobile connectivity.",
     "NewSimfinDes.about_us.CareerCTASection.ctaButton": "Explore Careers",
-    "NewSimfinDes.about_us.CareerCTASection.ctaLink": "/careers"
+    "NewSimfinDes.about_us.CareerCTASection.ctaLink": "/careers",
+
+
+"headerlinks.ProductSlider1Title": "eSIM for Business",
+"headerlinks.ProductSlider1Description": "Reliable global data plans designed for teams, companies, and business travelers.",
+
+"headerlinks.ProductSlider2Title": "Simfinity Passport",
+"headerlinks.ProductSlider2Description": "Reliable global data plans designed for teams, companies, and business travelers.",
+
+"headerlinks.ProductSlider3Title": "Data Usage Check",
+"headerlinks.ProductSlider3Description": "Estimate how much data you’ll need for your next trip in seconds.",
+"website.headerlinks.ProductSliderTitle": "Explore Popular Destinations"
+
+
   },
   "userPanel": {
     "dashboard.title": "Dashboard",

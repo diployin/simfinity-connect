@@ -777,7 +777,7 @@ const useStaticData = () => {
           },
         ],
         slider: {
-          title: 'Explore Popular Destinations',
+          title: t('website.headerlinks.ProductSliderTitle'),
           items: [
             {
               id: 1,
