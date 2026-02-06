@@ -23,15 +23,31 @@ declare module 'http' {
     rawBody: unknown
   }
 }
+
+
 app.use(express.json({
+  limit: "20mb",
   verify: (req, _res, buf) => {
     req.rawBody = buf;
-  }
+  },
 }));
-app.use(express.urlencoded({ extended: false }));
+
+app.use(express.urlencoded({
+  limit: "20mb",
+  extended: true,
+}));
+
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
-app.use(express.json({ limit: "20mb" }));
-app.use(express.urlencoded({ limit: "20mb", extended: true }));
+
+// app.use(express.json({
+//   verify: (req, _res, buf) => {
+//     req.rawBody = buf;
+//   }
+// }));
+// app.use(express.urlencoded({ extended: false }));
+// app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+// app.use(express.json({ limit: "20mb" }));
+// app.use(express.urlencoded({ limit: "20mb", extended: true }));
 
 startLowDataUsageCron();
 

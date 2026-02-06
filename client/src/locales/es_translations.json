@@ -400,6 +400,43 @@
   "downloadAppSection.playstore": "Google Play",
 
 
+  
+  "headerlinks.ProductFeature1Title": "Simfinity Passport",
+  "headerlinks.ProductFeature1Desc": "Planes de datos globales confiables diseñados para equipos, empresas y viajeros de negocios.",
+
+  "headerlinks.ProductFeature2Title": "eSIM para empresas",
+  "headerlinks.ProductFeature2Desc": "Planes de datos globales confiables diseñados para equipos y compañías.",
+
+  "headerlinks.ProductFeature3Title": "Compatibilidad eSIM",
+  "headerlinks.ProductFeature3Desc": "Comprueba si tu dispositivo es compatible con la tecnología eSIM.",
+
+  "headerlinks.ProductTool1Title": "Verificación de uso de datos",
+  "headerlinks.ProductTool1Desc": "Calcula cuántos datos necesitarás para tu próximo viaje.",
+
+  "headerlinks.ProductTool2Title": "Recargar datos",
+  "headerlinks.ProductTool2Desc": "Añade más datos fácilmente a tu plan en cualquier momento.",
+
+  "headerlinks.SupportColumnTitle": "Soporte",
+  "headerlinks.SupportPrivacyTitle": "Política de privacidad",
+  "headerlinks.SupportPrivacyDesc": "Descubre cómo protegemos tu información.",
+
+  "headerlinks.SupportTermsTitle": "Términos de servicio",
+  "headerlinks.SupportTermsDesc": "Comprende nuestras condiciones de uso.",
+
+  "headerlinks.ResourceBadgeNew": "Nuevo",
+  "headerlinks.ResourceBadgeGuide": "Guía",
+
+  "headerlinks.OfferMenuLabel": "Ofertas",
+  "headerlinks.OfferMenuBadge": "Promociones",
+
+  "headerlinks.Help4Title": "Preguntas frecuentes",
+  "headerlinks.Help4Desc": "Respuestas rápidas a preguntas comunes.",
+
+  "headerlinks.Offer1Title": "Refiere a un amigo",
+  "headerlinks.Offer1Desc": "Comparte Simfinity y gana recompensas.",
+
+
+
 
   "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title": "Preguntas frecuentes sobre las eSIM",
 

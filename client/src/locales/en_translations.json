@@ -412,6 +412,94 @@
 
 
 
+
+  
+  "headerlinks.ProductFeature1Title": "Simfinity Passport",
+  "headerlinks.ProductFeature1Desc": "Reliable global data plans designed for teams, companies, and business travelers.",
+
+  "headerlinks.ProductFeature2Title": "eSIM for Business",
+  "headerlinks.ProductFeature2Desc": "Reliable global data plans designed for teams, companies, and business travelers.",
+
+  "headerlinks.ProductFeature3Title": "eSIM Compatibility",
+  "headerlinks.ProductFeature3Desc": "Check if your device supports eSIM technology for seamless connectivity.",
+
+  "headerlinks.ProductTool1Title": "Data Usage Check",
+  "headerlinks.ProductTool1Desc": "Estimate how much data you’ll need for your next trip in seconds.",
+
+  "headerlinks.ProductTool2Title": "Top Up Data",
+  "headerlinks.ProductTool2Desc": "Easily add more data to your plan anytime while traveling.",
+
+  "headerlinks.SupportColumnTitle": "Support",
+  "headerlinks.SupportPrivacyTitle": "Privacy Policy",
+  "headerlinks.SupportPrivacyDesc": "Learn how we protect your personal information.",
+
+  "headerlinks.SupportTermsTitle": "Terms of Service",
+  "headerlinks.SupportTermsDesc": "Understand our terms and conditions of use.",
+
+  "headerlinks.SupportUsageTitle": "Data Usage Check",
+  "headerlinks.SupportUsageDesc": "Track and monitor your data usage anytime.",
+
+  "headerlinks.SupportTopupTitle": "Top Up Data",
+  "headerlinks.SupportTopupDesc": "Add more data to your plan instantly.",
+
+  "headerlinks.Resource1Title": "Curious About eSIM Technology?",
+  "headerlinks.Resource1Desc": "How eSIM works and why it's transforming global connectivity.",
+
+  "headerlinks.Resource2Title": "About Us",
+  "headerlinks.Resource2Desc": "Learn more about who we are, what we do, and our mission.",
+
+  "headerlinks.Resource3Title": "Affiliate Program",
+  "headerlinks.Resource3Desc": "Partner with Simfinity and earn through referrals and collaborations.",
+
+  "headerlinks.Resource4Title": "Blog",
+  "headerlinks.Resource4Desc": "Read articles, guides, and updates about eSIM and travel tech.",
+
+  "headerlinks.Resource5Title": "Careers",
+  "headerlinks.Resource5Desc": "Explore open roles and join the Simfinity team.",
+
+  "headerlinks.Resource6Title": "Simfinity Reviews",
+  "headerlinks.Resource6Desc": "See what real travelers and users are saying about Simfinity.",
+
+  "headerlinks.ResourceSlider1Title": "eSIM for Business",
+  "headerlinks.ResourceSlider1Description": "Reliable global data plans designed for teams, companies, and business travelers.",
+
+  "headerlinks.ResourceSlider2Title": "Simfinity Passport",
+  "headerlinks.ResourceSlider2Description": "Reliable global data plans designed for teams, companies, and business travelers.",
+
+  "headerlinks.ResourceSlider3Title": "Data Usage Check",
+  "headerlinks.ResourceSlider3Description": "Estimate how much data you’ll need for your next trip in seconds.",
+
+  "headerlinks.ResourceBadgeNew": "New",
+  "headerlinks.ResourceBadgeGuide": "Guide",
+
+  "headerlinks.OfferMenuLabel": "Offers",
+  "headerlinks.OfferMenuBadge": "Deals",
+
+  "headerlinks.Help1Title": "Getting Started",
+  "headerlinks.Help1Desc": "A simple guide to help you set up your Simfinity eSIM.",
+
+  "headerlinks.Help2Title": "Help Center",
+  "headerlinks.Help2Desc": "Browse all support articles, tutorials, and troubleshooting guides in one place.",
+
+  "headerlinks.Help3Title": "Troubleshooting",
+  "headerlinks.Help3Desc": "Fix common setup or connectivity issues with clear, step-by-step solutions.",
+
+  "headerlinks.Help4Title": "FAQ",
+  "headerlinks.Help4Desc": "Quick answers to the most common questions about Simfinity eSIM.",
+
+  "headerlinks.Offer1Title": "Refer a Friend",
+  "headerlinks.Offer1Desc": "Share Simfinity. Earn rewards. Travel cheaper.",
+
+  "headerlinks.Offer2Title": "Student Travel Offer",
+  "headerlinks.Offer2Desc": "Students save more — travel anywhere with affordable data.",
+
+  "headerlinks.Offer3Title": "Simfinity Deals & Rewards",
+  "headerlinks.Offer3Desc": "Grab fresh offers and travel with the cheapest global eSIM.",
+
+
+
+
+
   
   "esimSetupTab.heading": "How to set up an eSIM",
   "esimSetupTab.subheading": "Follow these steps to start using an eSIM on your iPhone or Android.",

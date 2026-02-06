@@ -437,6 +437,90 @@
 
 
 
+  "headerlinks.ProductFeature1Title": "Simfinity पासपोर्ट",
+  "headerlinks.ProductFeature1Desc": "टीमों, कंपनियों और बिज़नेस यात्रियों के लिए भरोसेमंद ग्लोबल डेटा प्लान।",
+
+  "headerlinks.ProductFeature2Title": "बिज़नेस के लिए eSIM",
+  "headerlinks.ProductFeature2Desc": "टीमों, कंपनियों और बिज़नेस यात्रियों के लिए भरोसेमंद ग्लोबल डेटा प्लान।",
+
+  "headerlinks.ProductFeature3Title": "eSIM संगतता",
+  "headerlinks.ProductFeature3Desc": "जांचें कि आपका डिवाइस eSIM तकनीक को सपोर्ट करता है या नहीं।",
+
+  "headerlinks.ProductTool1Title": "डेटा उपयोग जांच",
+  "headerlinks.ProductTool1Desc": "कुछ ही सेकंड में जानें कि आपकी यात्रा के लिए कितना डेटा चाहिए।",
+
+  "headerlinks.ProductTool2Title": "डेटा टॉप-अप",
+  "headerlinks.ProductTool2Desc": "यात्रा के दौरान कभी भी अपने प्लान में डेटा जोड़ें।",
+
+  "headerlinks.SupportColumnTitle": "सहायता",
+  "headerlinks.SupportPrivacyTitle": "प्राइवेसी पॉलिसी",
+  "headerlinks.SupportPrivacyDesc": "जानें हम आपकी जानकारी की सुरक्षा कैसे करते हैं।",
+
+  "headerlinks.SupportTermsTitle": "सेवा की शर्तें",
+  "headerlinks.SupportTermsDesc": "हमारी उपयोग शर्तों को समझें।",
+
+  "headerlinks.SupportUsageTitle": "डेटा उपयोग जांच",
+  "headerlinks.SupportUsageDesc": "अपने डेटा उपयोग को कभी भी ट्रैक करें।",
+
+  "headerlinks.SupportTopupTitle": "डेटा टॉप-अप",
+  "headerlinks.SupportTopupDesc": "तुरंत अतिरिक्त डेटा जोड़ें।",
+
+  "headerlinks.Resource1Title": "eSIM तकनीक के बारे में जानना चाहते हैं?",
+  "headerlinks.Resource1Desc": "जानें eSIM कैसे काम करता है और यह कनेक्टिविटी को कैसे बदल रहा है।",
+
+  "headerlinks.Resource2Title": "हमारे बारे में",
+  "headerlinks.Resource2Desc": "हम कौन हैं और क्या करते हैं जानें।",
+
+  "headerlinks.Resource3Title": "एफ़िलिएट प्रोग्राम",
+  "headerlinks.Resource3Desc": "Simfinity के साथ पार्टनर बनें और कमाएं।",
+
+  "headerlinks.Resource4Title": "ब्लॉग",
+  "headerlinks.Resource4Desc": "eSIM और ट्रैवल टेक से जुड़े लेख पढ़ें।",
+
+  "headerlinks.Resource5Title": "करियर",
+  "headerlinks.Resource5Desc": "खुले पद देखें और टीम जॉइन करें।",
+
+  "headerlinks.Resource6Title": "Simfinity रिव्यू",
+  "headerlinks.Resource6Desc": "देखें यूज़र्स क्या कहते हैं।",
+
+  "headerlinks.ResourceSlider1Title": "बिज़नेस के लिए eSIM",
+  "headerlinks.ResourceSlider1Description": "टीमों और कंपनियों के लिए भरोसेमंद डेटा प्लान।",
+
+  "headerlinks.ResourceSlider2Title": "Simfinity पासपोर्ट",
+  "headerlinks.ResourceSlider2Description": "ग्लोबल यात्राओं के लिए डेटा समाधान।",
+
+  "headerlinks.ResourceSlider3Title": "डेटा उपयोग जांच",
+  "headerlinks.ResourceSlider3Description": "यात्रा के लिए डेटा अनुमान लगाएँ।",
+
+  "headerlinks.ResourceBadgeNew": "नया",
+  "headerlinks.ResourceBadgeGuide": "गाइड",
+
+  "headerlinks.OfferMenuLabel": "ऑफ़र",
+  "headerlinks.OfferMenuBadge": "डील्स",
+
+  "headerlinks.Help1Title": "शुरुआत करें",
+  "headerlinks.Help1Desc": "Simfinity eSIM सेट करने की आसान गाइड।",
+
+  "headerlinks.Help2Title": "हेल्प सेंटर",
+  "headerlinks.Help2Desc": "सभी सपोर्ट गाइड एक जगह देखें।",
+
+  "headerlinks.Help3Title": "समस्या समाधान",
+  "headerlinks.Help3Desc": "कनेक्टिविटी समस्याएँ हल करें।",
+
+  "headerlinks.Help4Title": "सामान्य प्रश्न",
+  "headerlinks.Help4Desc": "आम सवालों के जवाब।",
+
+  "headerlinks.Offer1Title": "दोस्त को रेफ़र करें",
+  "headerlinks.Offer1Desc": "शेयर करें, रिवॉर्ड पाएं।",
+
+  "headerlinks.Offer2Title": "स्टूडेंट ट्रैवल ऑफ़र",
+  "headerlinks.Offer2Desc": "स्टूडेंट्स के लिए सस्ता डेटा।",
+
+  "headerlinks.Offer3Title": "Simfinity डील्स और रिवॉर्ड्स",
+  "headerlinks.Offer3Desc": "नई डील्स के साथ यात्रा करें।",
+
+
+
   
   "esimSetupTab.heading": "eSIM कैसे सेट करें",
   "esimSetupTab.subheading": "अपने iPhone या Android पर eSIM उपयोग शुरू करने के लिए इन चरणों का पालन करें।",
@@ -1284,32 +1368,5 @@
     "daysValidity": "दिनों की वैधता",
     "noRegions": "कोई क्षेत्र उपलब्ध नहीं है",
     "ultraComing": "अल्ट्रा प्लान जल्द आ रहे हैं..."
-  },
-  "NewSimfinDes": {
-    "heroSec": "[object Object]",
-    "whatIsEsimNew": "[object Object]",
-    "TravelDestinationTabsNew": "[object Object]",
-    "WhyChooseSailySection": "[object Object]",
-    "NewSimfinDes": "[object Object]",
-    "NewSimfinWorkDes": "[object Object]",
-    "DownloadAppSection": "[object Object]",
-    "HeroFAQSection": "[object Object]",
-    "Referfriend": "[object Object]",
-    "esim_for_business": "[object Object]",
-    "what_is_esim": "[object Object]",
-    "download_esim_app": "[object Object]",
-    "about_us": "[object Object]",
-    "LifeAtSailySection": "[object Object]",
-    "Security_Features": "[object Object]",
-    "NavbarData": "[object Object]",
-    "AllDestinations": "[object Object]",
-    "AllCountryPlans": "[object Object]",
-    "RegionPlanPage": "[object Object]",
-    "SingleCountryPlan": "[object Object]",
-    "Footer": "[object Object]"
-  },
-  "faq": {
-    "title": "अक्सर पूछे जाने वाले सवाल",
-    "items": "[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]"
   }
 }

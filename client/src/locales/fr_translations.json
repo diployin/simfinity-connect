@@ -399,6 +399,91 @@
 
 
 
+  "headerlinks.ProductFeature1Title": "Simfinity Passport",
+  "headerlinks.ProductFeature1Desc": "Des forfaits de données mondiaux fiables conçus pour les équipes, les entreprises et les voyageurs d’affaires.",
+
+  "headerlinks.ProductFeature2Title": "eSIM pour les entreprises",
+  "headerlinks.ProductFeature2Desc": "Des forfaits de données mondiaux fiables conçus pour les équipes, les entreprises et les voyageurs d’affaires.",
+
+  "headerlinks.ProductFeature3Title": "Compatibilité eSIM",
+  "headerlinks.ProductFeature3Desc": "Vérifiez si votre appareil prend en charge la technologie eSIM pour une connectivité fluide.",
+
+  "headerlinks.ProductTool1Title": "Vérification de l’utilisation des données",
+  "headerlinks.ProductTool1Desc": "Estimez la quantité de données dont vous aurez besoin pour votre prochain voyage en quelques secondes.",
+
+  "headerlinks.ProductTool2Title": "Recharger les données",
+  "headerlinks.ProductTool2Desc": "Ajoutez facilement des données à votre forfait à tout moment pendant votre voyage.",
+
+  "headerlinks.SupportColumnTitle": "Support",
+  "headerlinks.SupportPrivacyTitle": "Politique de confidentialité",
+  "headerlinks.SupportPrivacyDesc": "Découvrez comment nous protégeons vos informations personnelles.",
+
+  "headerlinks.SupportTermsTitle": "Conditions d’utilisation",
+  "headerlinks.SupportTermsDesc": "Comprenez nos conditions générales d’utilisation.",
+
+  "headerlinks.SupportUsageTitle": "Vérification de l’utilisation des données",
+  "headerlinks.SupportUsageDesc": "Suivez et surveillez votre consommation de données à tout moment.",
+
+  "headerlinks.SupportTopupTitle": "Recharger les données",
+  "headerlinks.SupportTopupDesc": "Ajoutez instantanément plus de données à votre forfait.",
+
+  "headerlinks.Resource1Title": "Curieux à propos de la technologie eSIM ?",
+  "headerlinks.Resource1Desc": "Découvrez comment fonctionne l’eSIM et pourquoi elle transforme la connectivité mondiale.",
+
+  "headerlinks.Resource2Title": "À propos de nous",
+  "headerlinks.Resource2Desc": "Apprenez-en plus sur qui nous sommes et notre mission.",
+
+  "headerlinks.Resource3Title": "Programme d’affiliation",
+  "headerlinks.Resource3Desc": "Associez-vous à Simfinity et gagnez grâce aux parrainages.",
+
+  "headerlinks.Resource4Title": "Blog",
+  "headerlinks.Resource4Desc": "Lisez des articles et guides sur l’eSIM et la technologie de voyage.",
+
+  "headerlinks.Resource5Title": "Carrières",
+  "headerlinks.Resource5Desc": "Découvrez nos postes ouverts et rejoignez l’équipe.",
+
+  "headerlinks.Resource6Title": "Avis Simfinity",
+  "headerlinks.Resource6Desc": "Voyez ce que disent les voyageurs sur Simfinity.",
+
+  "headerlinks.ResourceSlider1Title": "eSIM pour les entreprises",
+  "headerlinks.ResourceSlider1Description": "Des forfaits de données mondiaux fiables pour les équipes et entreprises.",
+
+  "headerlinks.ResourceSlider2Title": "Simfinity Passport",
+  "headerlinks.ResourceSlider2Description": "Des forfaits de données mondiaux fiables pour les voyageurs.",
+
+  "headerlinks.ResourceSlider3Title": "Vérification de l’utilisation des données",
+  "headerlinks.ResourceSlider3Description": "Estimez vos besoins en données en quelques secondes.",
+
+  "headerlinks.ResourceBadgeNew": "Nouveau",
+  "headerlinks.ResourceBadgeGuide": "Guide",
+
+  "headerlinks.OfferMenuLabel": "Offres",
+  "headerlinks.OfferMenuBadge": "Promos",
+
+  "headerlinks.Help1Title": "Bien démarrer",
+  "headerlinks.Help1Desc": "Guide simple pour configurer votre eSIM Simfinity.",
+
+  "headerlinks.Help2Title": "Centre d’aide",
+  "headerlinks.Help2Desc": "Consultez tous les articles et tutoriels d’assistance.",
+
+  "headerlinks.Help3Title": "Dépannage",
+  "headerlinks.Help3Desc": "Résolvez les problèmes de configuration ou de connexion.",
+
+  "headerlinks.Help4Title": "FAQ",
+  "headerlinks.Help4Desc": "Réponses rapides aux questions fréquentes.",
+
+  "headerlinks.Offer1Title": "Parrainez un ami",
+  "headerlinks.Offer1Desc": "Partagez Simfinity. Gagnez des récompenses.",
+
+  "headerlinks.Offer2Title": "Offre voyage étudiant",
+  "headerlinks.Offer2Desc": "Les étudiants économisent plus sur leurs données.",
+
+  "headerlinks.Offer3Title": "Offres & récompenses Simfinity",
+  "headerlinks.Offer3Desc": "Profitez des meilleures offres eSIM.",
+
+
+
+
 
   "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title": "Questions fréquemment posées sur les eSIM",
 
