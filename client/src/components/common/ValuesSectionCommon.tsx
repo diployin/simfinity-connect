@@ -46,21 +46,21 @@ const ValuesSectionCommon: React.FC<ValuesSectionCommonProps> = ({ config }) => 
   };
 
   // ✅ Get translated values with fallback to config
-  const translatedTitle = t('NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.title', {
+  const translatedTitle = t('website.NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.title', {
     defaultValue: config.title,
   });
-  const translatedSubtitle = t('NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.subtitle', {
+  const translatedSubtitle = t('website.NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.subtitlee', {
     defaultValue: config.subtitle,
   });
 
   // ✅ Get translated values array
   const translatedValues: ValueItem[] = config.values.map((value) => ({
     id: value.id,
-    title: t(`NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.${value.id - 1}.title`, {
+    title: t(`website.NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.${value.id - 1}.title`, {
       defaultValue: value.title,
     }),
     description: t(
-      `NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.${value.id - 1}.description`,
+      `website.NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.${value.id - 1}.description`,
       {
         defaultValue: value.description,
       },

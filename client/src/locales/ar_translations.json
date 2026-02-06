@@ -364,7 +364,158 @@
     "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.description": "قد تبدو عملية التفعيل معقدة للمستخدمين الجدد.",
     "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.iconType": "Shield",
     "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.title": "صعوبة تبديل الأجهزة",
-    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.description": "نقل eSIM إلى جهاز آخر يتطلب خطوات إضافية."
+    "NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.description": "نقل eSIM إلى جهاز آخر يتطلب خطوات إضافية.",
+
+
+    
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.title": "كيفية الحصول على eSIM في {countryName}",
+
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step1.heading": "اختر باقة بيانات Simfinity لرحلتك",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step1.description": "حدد كمية البيانات التي تحتاجها، اشترِ الباقة، وانتظر رسالة التأكيد عبر البريد الإلكتروني مع رمز QR.",
+
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step2.heading": "قم بتحميل Simfinity وإعداد eSIM",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step2.description": "حمّل تطبيق Simfinity، امسح رمز QR من البريد الإلكتروني، واتبع التعليمات على الشاشة.",
+
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.heading": "استمتع ببياناتك",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.description": "استعد للانطلاق — سيتم تفعيل باقة البيانات تلقائيًا عند وصولك إلى وجهتك.",
+
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.activeLabel": "نشط",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.remainingDataLabel": "البيانات المتبقية",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.remainingDataValue": "3 / 3 جيجابايت",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.expiresInLabel": "ينتهي خلال",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.expiresInValue": "29 يومًا، 7 ساعات",
+
+
+
+  
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.title": "القيم التي تقودنا",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.subtitle": "قيمنا ليست مجرد كلمات ملهمة نعلّقها على الجدران — بل نعيش بها في كل ما نبنيه.",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.0.title": "سافر بحرية",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.0.description": "نستبدل شرائح SIM البلاستيكية بحل سهل وصديق للبيئة يعمل في أكثر من 200 وجهة.",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.1.title": "اجعلها بسيطة",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.1.description": "لا مصطلحات تقنية معقدة. لا فوضى. قمنا ببناء تطبيق eSIM بسيط، واضح وسهل الاستخدام.",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.2.title": "ضع الإنسان أولاً",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.2.description": "نهتم بالناس أكثر من العمليات الجامدة. نعامل كل مستخدم وعضو فريق بتعاطف واحترام.",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.3.title": "تحسّن باستمرار",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.3.description": "لا نسعى للكمال بل للتقدم. الإنجازات الصغيرة تصنع تغييرات كبيرة.",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.4.title": "فكّر كمسافر",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.4.description": "نظل فضوليين ومرنين ومنفتحين على المجهول، تمامًا كالمستكشفين الذين بُنيت Simfinity من أجلهم.",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.5.title": "اجعل للأمر معنى",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.5.description": "نحن هنا لنُحدث فرقًا حقيقيًا، لذلك نركز على ما يهم فعلًا — مستخدمينا، فريقنا، والعالم من حولنا.",
+
+
+
+  
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.label": "الميزات الرئيسية",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.content.0.des1": "باقات بيانات بأسعار مناسبة تبدأ من ‎5.99‎ دولار أمريكي.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.content.1.des1": "اتصال موثوق عبر أفضل شبكات {{countryName}}.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.content.2.des1": "يعمل مع جميع الهواتف الذكية المتوافقة مع eSIM.",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.label": "الوصف",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.content.0.des1": "استمتع باتصال سلس في جميع أنحاء {{countryName}}.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.content.1.des1": "إنترنت عالي السرعة لجميع احتياجات سفرك.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.content.2.des1": "تفعيل سهل واتصال فوري.",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.label": "التفاصيل التقنية",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.0.title": "توافق الأجهزة",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.0.des1": "يعمل مع جميع الأجهزة المتوافقة مع eSIM.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.1.title": "تفعيل الباقة",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.1.des1": "يتم التفعيل تلقائيًا عند وصولك إلى {{countryName}} (بشرط تشغيل eSIM من إعدادات الجهاز وتفعيل التجوال).",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.2.title": "وقت التسليم",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.2.des1": "فوري. عند الشراء عبر الموقع ستحصل على رمز QR عبر البريد الإلكتروني، وعبر التطبيق سيظهر فورًا في ملفك الشخصي.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.3.title": "مدة الباقة",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.3.des1": "تعتمد على باقتك — إما 7 أو 30 يومًا.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.4.title": "باقات البيانات",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.4.des1": "من 1 جيجابايت إلى 20 جيجابايت.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.5.title": "الرسائل/المكالمات",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.5.des1": "eSIM للبيانات فقط. المكالمات والرسائل متاحة عبر تطبيقات VoIP مثل WhatsApp وViber وSignal.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.6.title": "السرعة",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.6.des1": "3G / 4G / LTE / 5G حسب مزودي الشبكات المحليين.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.7.title": "نقطة الاتصال",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.7.des1": "مشاركة نقطة الاتصال (Hotspot) غير محدودة.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.8.title": "التغطية",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.8.des1": "ابقَ متصلاً في المدن الرئيسية داخل {{countryName}}. قد تختلف جودة التغطية حسب الموقع.",
+
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.label": "الميزات الرئيسية",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.0.des1": "باقات بيانات إقليمية بأسعار مناسبة تبدأ من ‎5.99‎ دولار.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.1.des1": "اتصال موثوق في جميع دول منطقة {{countryName}}.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.2.des1": "يعمل مع جميع الهواتف المتوافقة مع eSIM.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.3.des1": "باقة واحدة لعدة دول — دون الحاجة لشراء eSIM منفصلة.",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.label": "الوصف",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.0.des1": "استمتع باتصال سلس في منطقة {{countryName}} باستخدام eSIM واحدة.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.1.des1": "إنترنت عالي السرعة عبر عدة دول.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.2.des1": "تفعيل سهل واتصال فوري.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.3.des1": "مثالي للمسافرين متعددي الوجهات.",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.label": "التفاصيل التقنية",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.0.title": "توافق الأجهزة",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.0.des1": "يعمل مع جميع الأجهزة المتوافقة مع eSIM.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.1.title": "التغطية الإقليمية",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.1.des1": "يعمل في جميع الدول المدعومة ضمن منطقة {{countryName}}.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.2.title": "تفعيل الباقة",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.2.des1": "يتم التفعيل تلقائيًا عند الوصول إلى أي دولة مدعومة.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.3.title": "وقت التسليم",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.3.des1": "تسليم فوري لرمز QR عبر البريد أو التطبيق.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.4.title": "مدة الباقة",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.4.des1": "عادة من 7 إلى 30 يومًا.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.5.title": "باقات البيانات",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.5.des1": "باقات إقليمية من 1 جيجابايت إلى 20 جيجابايت.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.6.title": "الرسائل/المكالمات",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.6.des1": "eSIM للبيانات فقط مع دعم مكالمات VoIP.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.7.title": "نقطة الاتصال",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.7.des1": "مشاركة غير محدودة لنقطة الاتصال.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.8.title": "السرعة",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.8.des1": "3G / 4G / LTE / 5G حسب شبكات الدول.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.9.title": "الاستخدام متعدد الدول",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.9.des1": "استخدم eSIM واحدة في جميع دول منطقة {{countryName}}."
+
+
+
+
+
+
   },
   "userPanel": {
     "auth.login": "تسجيل الدخول",
@@ -1216,7 +1367,7 @@
   "headerlinks.Offer1Title": "أحِل صديقًا",
   "headerlinks.Offer1Desc": "شارك Simfinity واحصل على مكافآت.",
 
-  "headerlinks.ProductSlider1Title": "eSIM للأعمال",
+"headerlinks.ProductSlider1Title": "eSIM للأعمال",
 "headerlinks.ProductSlider1Description": "باقات بيانات عالمية موثوقة مصممة للفرق والشركات والمسافرين لأغراض العمل.",
 
 "headerlinks.ProductSlider2Title": "Simfinity Passport",
@@ -1225,6 +1376,8 @@
 "headerlinks.ProductSlider3Title": "التحقق من استخدام البيانات",
 "headerlinks.ProductSlider3Description": "قدّر كمية البيانات التي ستحتاجها لرحلتك القادمة خلال ثوانٍ.",
 "headerlinks.ProductSliderTitle": "استكشف الوجهات الأكثر شعبية",
+"headerlinks.OfferBadgeHot": "الأكثر رواجًا",
+"headerlinks.OfferBadgeNew": "جديد",
 
 
 

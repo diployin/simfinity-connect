@@ -448,6 +448,9 @@
 
 
 "headerlinks.ProductSliderTitle": "Explorar destinos populares",
+"headerlinks.OfferBadgeNew": "Nuevo",
+"website.headerlinks.OfferBadgeHot": "Popular",
+
 
 
 
@@ -705,7 +708,164 @@
 
 "NewSimfinDes.about_us.CareerCTASection.ctaButton": "Explorar carreras",
 
-"NewSimfinDes.about_us.CareerCTASection.ctaLink": "/careers"
+"NewSimfinDes.about_us.CareerCTASection.ctaLink": "/careers",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.title": "Cómo obtener una eSIM para {countryName}",
+
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step1.heading": "Elige un plan de datos Simfinity para tu viaje",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step1.description": "Selecciona cuántos datos necesitas, compra el plan y espera el correo de confirmación con el código QR.",
+
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step2.heading": "Descarga Simfinity y configura tu eSIM",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step2.description": "Descarga la app de Simfinity, escanea el código QR recibido por email y sigue las instrucciones en pantalla.",
+
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.heading": "Disfruta tus datos",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.description": "Prepárate para despegar — tu plan se activará automáticamente al llegar a tu destino.",
+
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.activeLabel": "Activo",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.remainingDataLabel": "Datos restantes",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.remainingDataValue": "3 / 3 GB",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.expiresInLabel": "Expira en",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.expiresInValue": "29 días, 7 horas",
+
+
+
+
+
+
+  
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.title": "Los valores que nos guían",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.subtitle": "Nuestros valores no son solo palabras inspiradoras — los vivimos en todo lo que construimos.",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.0.title": "Viaja libremente",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.0.description": "Reemplazamos las tarjetas SIM de plástico por una solución fácil y ecológica que funciona en más de 200 destinos.",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.1.title": "Mantén la simplicidad",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.1.description": "Sin jerga técnica. Sin desorden. Creamos una app eSIM limpia, intuitiva y fácil de usar.",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.2.title": "Priorizar a las personas",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.2.description": "Nos importan las personas más que los procesos rígidos. Tratamos a cada usuario y miembro del equipo con empatía y respeto.",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.3.title": "Mejorar siempre",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.3.description": "No buscamos la perfección, buscamos el progreso. Los pequeños avances generan grandes cambios.",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.4.title": "Pensar como un viajero",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.4.description": "Nos mantenemos curiosos, flexibles y abiertos a lo desconocido, como los exploradores para los que creamos Simfinity.",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.5.title": "Que importe de verdad",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.5.description": "Estamos aquí para marcar la diferencia, centrándonos en lo que realmente importa — nuestros usuarios, equipo y el mundo.",
+
+
+
+
+
+
+  
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.label": "Características clave",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.content.0.des1": "Planes de datos asequibles desde 5,99 USD.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.content.1.des1": "Conexión confiable a través de las mejores redes de {{countryName}}.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.content.2.des1": "Compatible con todos los smartphones compatibles con eSIM.",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.label": "Descripción",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.content.0.des1": "Disfruta de conectividad sin interrupciones en todo {{countryName}}.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.content.1.des1": "Internet de alta velocidad para todas tus necesidades de viaje.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.content.2.des1": "Activación fácil y conectividad instantánea.",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.label": "Detalles técnicos",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.0.title": "Compatibilidad de dispositivos",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.0.des1": "Funciona con todos los dispositivos compatibles con eSIM.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.1.title": "Activación del plan",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.1.des1": "Automática al llegar a {{countryName}} (siempre que hayas activado tu eSIM en la configuración del dispositivo y habilitado el roaming).",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.2.title": "Tiempo de entrega",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.2.des1": "Instantáneo. Si compras vía web, recibirás un código QR por correo. Si es vía app, aparecerá al instante en tu perfil.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.3.title": "Duración del plan",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.3.des1": "Depende de tu plan — 7 o 30 días.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.4.title": "Planes de datos",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.4.des1": "De 1 GB a 20 GB.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.5.title": "SMS/Llamadas",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.5.des1": "eSIM solo de datos. Llamadas y SMS vía apps VoIP como WhatsApp, Viber o Signal.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.6.title": "Velocidad",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.6.des1": "3G/4G/LTE/5G según los operadores locales.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.7.title": "Hotspot",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.7.des1": "Compartición de hotspot móvil ilimitada.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.8.title": "Cobertura",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.8.des1": "Mantente conectado en las principales ciudades de {{countryName}}. La calidad puede variar según la ubicación.",
+
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.label": "Características clave",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.0.des1": "Planes de datos regionales asequibles desde 5,99 USD.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.1.des1": "Conexión confiable en todos los países de la región {{countryName}}.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.2.des1": "Compatible con todos los smartphones compatibles con eSIM.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.3.des1": "Un solo plan para múltiples países — sin necesidad de eSIM separadas.",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.label": "Descripción",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.0.des1": "Disfruta de conectividad fluida en la región {{countryName}} con una sola eSIM.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.1.des1": "Internet de alta velocidad en múltiples países.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.2.des1": "Activación fácil y conectividad instantánea.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.3.des1": "Perfecto para viajeros con múltiples destinos.",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.label": "Detalles técnicos",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.0.title": "Compatibilidad de dispositivos",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.0.des1": "Funciona con todos los dispositivos compatibles con eSIM.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.1.title": "Cobertura regional",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.1.des1": "Funciona en todos los países compatibles de la región {{countryName}}.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.2.title": "Activación del plan",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.2.des1": "Automática al llegar a cualquier país compatible.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.3.title": "Tiempo de entrega",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.3.des1": "Entrega instantánea de QR por correo o app.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.4.title": "Duración del plan",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.4.des1": "Normalmente entre 7 y 30 días.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.5.title": "Planes de datos",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.5.des1": "Planes regionales de 1 GB a 20 GB.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.6.title": "SMS/Llamadas",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.6.des1": "eSIM solo de datos con soporte de llamadas VoIP.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.7.title": "Hotspot",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.7.des1": "Compartición de hotspot ilimitada.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.8.title": "Velocidad",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.8.des1": "3G/4G/LTE/5G según redes locales.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.9.title": "Uso multi-país",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.9.des1": "Usa una sola eSIM en todos los países de la región {{countryName}}."
+
+
+
+
+
+
 
 
 

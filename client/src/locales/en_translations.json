@@ -611,7 +611,200 @@
 
 "headerlinks.ProductSlider3Title": "Data Usage Check",
 "headerlinks.ProductSlider3Description": "Estimate how much data you’ll need for your next trip in seconds.",
-"headerlinks.ProductSliderTitle": "Explore Popular Destinations"
+"headerlinks.ProductSliderTitle": "Explore Popular Destinations",
+"headerlinks.OfferBadgeNew": "New",
+"headerlinks.OfferBadgeHot": "Hot",
+
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.label": "Key features",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.content.0.des1": "Affordable data plans, starting from US$5.99.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.content.1.des1": "Reliable connection from {{countryName}}'s best networks.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.content.2.des1": "Works with all eSIM-compatible smartphones.",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.label": "Description",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.content.0.des1": "Experience seamless connectivity across {{countryName}}.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.content.1.des1": "High-speed internet for all your travel needs.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.content.2.des1": "Easy activation and instant connectivity.",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.label": "Technical details",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.0.title": "Device compatibility",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.0.des1": "Works with all eSIM-compatible devices.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.1.title": "Plan activation",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.1.des1": "Automatic, when you arrive in {{countryName}} (as long as you've turned on your eSIM in the device's settings and enabled roaming).",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.2.title": "Delivery time",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.2.des1": "Instant. If purchased via website, you’ll receive a QR code by email. If via app, it appears in your profile instantly.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.3.title": "Plan duration",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.3.des1": "Depends on your plan — either 7 or 30 days.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.4.title": "Data plans",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.4.des1": "From 1 GB to 20 GB.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.5.title": "SMS/Calls",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.5.des1": "Data-only eSIM. Calls & SMS available via VoIP apps like WhatsApp, Viber, Signal.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.6.title": "Speed",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.6.des1": "3G/4G/LTE/5G depending on local providers.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.7.title": "Hotspot",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.7.des1": "Unlimited mobile hotspot sharing.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.8.title": "Coverage",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.8.des1": "Stay connected in major cities across {{countryName}}. Coverage varies by location.",
+
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.label": "Key features",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.0.des1": "Affordable regional data plans, starting from US$5.99.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.1.des1": "Reliable connection across all countries in {{countryName}} region.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.2.des1": "Works with all eSIM-compatible smartphones.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.3.des1": "One plan for multiple countries — no need for separate eSIMs.",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.label": "Description",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.0.des1": "Experience seamless connectivity across {{countryName}} region with a single eSIM.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.1.des1": "High-speed internet across multiple countries.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.2.des1": "Easy activation and instant connectivity.",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.3.des1": "Perfect for multi-destination travelers.",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.label": "Technical details",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.0.title": "Device compatibility",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.0.des1": "Works with all eSIM-compatible devices.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.1.title": "Regional coverage",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.1.des1": "Works across all supported countries in {{countryName}} region.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.2.title": "Plan activation",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.2.des1": "Automatic when you arrive in any supported country.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.3.title": "Delivery time",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.3.des1": "Instant QR delivery via email or app.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.4.title": "Plan duration",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.4.des1": "Typically 7–30 days.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.5.title": "Data plans",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.5.des1": "1 GB to 20 GB regional plans.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.6.title": "SMS/Calls",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.6.des1": "Data-only eSIM with VoIP calling support.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.7.title": "Hotspot",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.7.des1": "Unlimited hotspot sharing.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.8.title": "Speed",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.8.des1": "3G/4G/LTE/5G depending on country networks.",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.9.title": "Multi-country usage",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.9.des1": "Use one eSIM across all countries in {{countryName}} region.",
+
+
+
+  
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.title": "How to get an eSIM for {countryName}",
+
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step1.heading": "Choose a Simfinity data plan for your trip",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step1.description": "Select how much data you need, buy the plan, and wait for the confirmation email with a QR code.",
+
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step2.heading": "Download Simfinity and set up your eSIM",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step2.description": "Download the Simfinity app, scan the QR code from our email, and follow the instructions on the screen.",
+
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.heading": "Enjoy your data",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.description": "Get ready for takeoff — your data plan will activate automatically when you arrive at your destination!",
+
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.activeLabel": "Active",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.remainingDataLabel": "Remaining data",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.remainingDataValue": "3 / 3 GB",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.expiresInLabel": "Expires in",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.expiresInValue": "29 days, 7 hours",
+
+
+
+
+
+
+  
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.title": "The values that guide us",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.subtitlee": "Our values aren't just inspirational words we put on a wall to look at — we live by them in everything we build.",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.0.title": "Wander freely",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.0.description": "We're replacing plastic SIM cards with an easy and eco-friendly solution that works in 200+ destinations.",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.1.title": "Keep it simple",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.1.description": "No tech jargon. No clutter. We built an eSIM app that's clean, intuitive, and easy to navigate.",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.2.title": "Prioritize humans",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.2.description": "We care about people, not just rigid processes. Every team member and user is treated with empathy and respect.",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.3.title": "Always improve",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.3.description": "We don't chase perfection — we chase progress. We believe that small wins make big shifts.",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.4.title": "Think like a traveler",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.4.description": "We stay curious, flexible, and open to the unknown, just like the explorers we built Simfinity for.",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.5.title": "Make it matter",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.5.description": "We're here to make a difference, so we focus on what truly matters — our users, team, and the world around us.",
+
+
+
+
+  
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.title": "Simfinity vs. other eSIM services",
+
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.mainBrandName": "Simfinity",
+
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.ctaButtonText": "View Plans",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.0.label": "One eSIM for supported destinations",
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.0.description": "",
+
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.1.label": "24/7 live chat support",
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.1.description": "",
+
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.2.label": "Refunds",
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.2.description": "",
+
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.3.label": "Security features",
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.3.description": "",
+
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.4.label": "Virtual locations",
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.4.description": "",
+
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.5.label": "Blocks malicious URLs",
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.5.description": "",
+
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.6.label": "Data saver (ad blocker)",
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.6.description": ""
+
+
+
+
+
+
+
+
+
 
 
   },

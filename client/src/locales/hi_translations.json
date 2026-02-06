@@ -543,6 +543,10 @@
 
   "headerlinks.Offer3Title": "Simfinity डील्स और रिवॉर्ड्स",
   "headerlinks.Offer3Desc": "नई डील्स के साथ यात्रा करें।",
+  "headerlinks.OfferBadgeNew": "नया",
+  "headerlinks.OfferBadgeHot": "हॉट",
+
+
 
 
 
@@ -798,7 +802,200 @@
 
 "NewSimfinDes.about_us.CareerCTASection.ctaButton": "करियर देखें",
 
-"NewSimfinDes.about_us.CareerCTASection.ctaLink": "/careers"
+"NewSimfinDes.about_us.CareerCTASection.ctaLink": "/careers",
+
+
+
+
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.title": "{countryName} के लिए eSIM कैसे प्राप्त करें",
+
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step1.heading": "अपने ट्रिप के लिए Simfinity डेटा प्लान चुनें",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step1.description": "आपको जितना डेटा चाहिए उसे चुनें, प्लान खरीदें और QR कोड के साथ कन्फर्मेशन ईमेल का इंतज़ार करें।",
+
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step2.heading": "Simfinity डाउनलोड करें और अपना eSIM सेट करें",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step2.description": "Simfinity ऐप डाउनलोड करें, ईमेल में मिले QR कोड को स्कैन करें और स्क्रीन पर दिए गए निर्देशों का पालन करें।",
+
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.heading": "अपने डेटा का आनंद लें",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.description": "टेकऑफ़ के लिए तैयार रहें — आपके गंतव्य पर पहुंचते ही आपका डेटा प्लान अपने आप एक्टिवेट हो जाएगा।",
+
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.activeLabel": "सक्रिय",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.remainingDataLabel": "शेष डेटा",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.remainingDataValue": "3 / 3 GB",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.expiresInLabel": "समाप्ति",
+  "NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.expiresInValue": "29 दिन, 7 घंटे",
+
+
+
+
+
+  
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.title": "वे मूल्य जो हमें दिशा देते हैं",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.subtitle": "हमारे मूल्य केवल दीवार पर लिखे शब्द नहीं हैं — हम जो कुछ भी बनाते हैं, उसमें इन्हें जीते हैं।",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.0.title": "आजादी से घूमिए",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.0.description": "हम प्लास्टिक सिम कार्ड को एक आसान और पर्यावरण-अनुकूल समाधान से बदल रहे हैं, जो 200+ गंतव्यों में काम करता है।",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.1.title": "सरल रखें",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.1.description": "कोई तकनीकी जटिलता नहीं। कोई अव्यवस्था नहीं। हमने एक साफ, सहज और आसान eSIM ऐप बनाया है।",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.2.title": "इंसानों को प्राथमिकता दें",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.2.description": "हम प्रक्रियाओं से ज़्यादा लोगों की परवाह करते हैं। हर टीम सदस्य और उपयोगकर्ता के साथ सहानुभूति और सम्मान से पेश आते हैं।",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.3.title": "हमेशा बेहतर बनें",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.3.description": "हम पूर्णता के पीछे नहीं भागते — हम प्रगति पर ध्यान देते हैं। छोटे-छोटे सुधार बड़े बदलाव लाते हैं।",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.4.title": "यात्री की तरह सोचें",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.4.description": "हम जिज्ञासु, लचीले और नए अनुभवों के लिए खुले रहते हैं — ठीक उन्हीं यात्रियों की तरह जिनके लिए Simfinity बनाया गया है।",
+
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.5.title": "मायने रखें",
+  "NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.5.description": "हम फर्क पैदा करने के लिए हैं, इसलिए हम उसी पर ध्यान देते हैं जो सच में मायने रखता है — हमारे उपयोगकर्ता, टीम और दुनिया।",
+
+
+
+
+
+  
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.title": "Simfinity बनाम अन्य eSIM सेवाएँ",
+
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.mainBrandName": "Simfinity",
+
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.ctaButtonText": "प्लान देखें",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.0.label": "सपोर्टेड डेस्टिनेशन के लिए एक ही eSIM",
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.0.description": "",
+
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.1.label": "24/7 लाइव चैट सपोर्ट",
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.1.description": "",
+
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.2.label": "रिफंड सुविधा",
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.2.description": "",
+
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.3.label": "सिक्योरिटी फीचर्स",
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.3.description": "",
+
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.4.label": "वर्चुअल लोकेशन्स",
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.4.description": "",
+
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.5.label": "हानिकारक URLs को ब्लॉक करता है",
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.5.description": "",
+
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.6.label": "डेटा सेवर (ऐड ब्लॉकर)",
+  "NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.6.description": "",
+
+
+
+
+
+
+  
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.label": "मुख्य विशेषताएँ",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.content.0.des1": "किफायती डेटा प्लान, US$5.99 से शुरू।",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.content.1.des1": "{{countryName}} के सर्वश्रेष्ठ नेटवर्क से विश्वसनीय कनेक्शन।",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.content.2.des1": "सभी eSIM-संगत स्मार्टफोनों पर काम करता है।",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.label": "विवरण",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.content.0.des1": "{{countryName}} में निर्बाध कनेक्टिविटी का अनुभव करें।",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.content.1.des1": "आपकी सभी यात्रा आवश्यकताओं के लिए हाई-स्पीड इंटरनेट।",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.content.2.des1": "आसान एक्टिवेशन और तुरंत कनेक्टिविटी।",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.label": "तकनीकी विवरण",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.0.title": "डिवाइस संगतता",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.0.des1": "सभी eSIM-संगत डिवाइस पर कार्य करता है।",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.1.title": "प्लान एक्टिवेशन",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.1.des1": "{{countryName}} पहुँचने पर स्वतः सक्रिय (यदि आपने डिवाइस सेटिंग्स में eSIM चालू कर रखा है और रोमिंग सक्षम है)।",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.2.title": "डिलीवरी समय",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.2.des1": "तुरंत। वेबसाइट से खरीदने पर QR कोड ईमेल से मिलेगा, ऐप से खरीदने पर प्रोफ़ाइल में तुरंत दिखेगा।",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.3.title": "प्लान अवधि",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.3.des1": "आपके प्लान पर निर्भर — 7 या 30 दिन।",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.4.title": "डेटा प्लान",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.4.des1": "1 GB से 20 GB तक।",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.5.title": "SMS/कॉल्स",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.5.des1": "केवल डेटा eSIM। कॉल और SMS VoIP ऐप्स जैसे WhatsApp, Viber, Signal से उपलब्ध।",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.6.title": "स्पीड",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.6.des1": "स्थानीय नेटवर्क प्रदाताओं पर निर्भर 3G/4G/LTE/5G।",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.7.title": "हॉटस्पॉट",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.7.des1": "असीमित मोबाइल हॉटस्पॉट शेयरिंग।",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.8.title": "कवरेज",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.8.des1": "{{countryName}} के प्रमुख शहरों में कनेक्टेड रहें। कवरेज लोकेशन के अनुसार बदल सकता है।",
+
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.label": "मुख्य विशेषताएँ",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.0.des1": "किफायती रीजनल डेटा प्लान, US$5.99 से शुरू।",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.1.des1": "{{countryName}} क्षेत्र के सभी देशों में विश्वसनीय कनेक्शन।",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.2.des1": "सभी eSIM-संगत स्मार्टफोनों पर कार्य करता है।",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.3.des1": "कई देशों के लिए एक ही प्लान — अलग eSIM की जरूरत नहीं।",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.label": "विवरण",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.0.des1": "एक ही eSIM के साथ {{countryName}} क्षेत्र में निर्बाध कनेक्टिविटी का अनुभव करें।",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.1.des1": "कई देशों में हाई-स्पीड इंटरनेट।",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.2.des1": "आसान एक्टिवेशन और तुरंत कनेक्टिविटी।",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.3.des1": "मल्टी-डेस्टिनेशन यात्रियों के लिए बेहतरीन।",
+
+
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.label": "तकनीकी विवरण",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.0.title": "डिवाइस संगतता",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.0.des1": "सभी eSIM-संगत डिवाइस पर कार्य करता है।",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.1.title": "रीजनल कवरेज",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.1.des1": "{{countryName}} क्षेत्र के सभी सपोर्टेड देशों में कार्य करता है।",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.2.title": "प्लान एक्टिवेशन",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.2.des1": "किसी भी सपोर्टेड देश में पहुँचते ही स्वतः सक्रिय।",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.3.title": "डिलीवरी समय",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.3.des1": "ईमेल या ऐप के माध्यम से तुरंत QR डिलीवरी।",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.4.title": "प्लान अवधि",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.4.des1": "आमतौर पर 7–30 दिन।",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.5.title": "डेटा प्लान",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.5.des1": "1 GB से 20 GB तक रीजनल प्लान।",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.6.title": "SMS/कॉल्स",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.6.des1": "डेटा-ओनली eSIM, VoIP कॉलिंग सपोर्ट के साथ।",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.7.title": "हॉटस्पॉट",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.7.des1": "असीमित हॉटस्पॉट शेयरिंग।",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.8.title": "स्पीड",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.8.des1": "देश के नेटवर्क पर निर्भर 3G/4G/LTE/5G।",
+
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.9.title": "मल्टी-कंट्री उपयोग",
+  "NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.9.des1": "{{countryName}} क्षेत्र के सभी देशों में एक ही eSIM उपयोग करें।"
+
+
+
+
+
+
+
+
 
 
 

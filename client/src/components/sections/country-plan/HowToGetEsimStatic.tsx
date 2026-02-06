@@ -19,7 +19,7 @@ const HowToGetEsimStatic: React.FC<CountryName> = ({ countryName, image }) => {
       <div className="containers">
         {/* Header */}
         <h2 className="mb-12 text-3xl leading-tight font-medium text-gray-900 sm:text-4xl lg:text-4xl">
-          {t('NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.title', {
+          {t('website.NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.title', {
             countryName: safeCountryName,
           })}
         </h2>
@@ -33,10 +33,10 @@ const HowToGetEsimStatic: React.FC<CountryName> = ({ countryName, image }) => {
                 1
               </div>
               <h3 className="text-xl leading-tight font-medium text-black sm:text-xl">
-                {t('NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step1.heading')}
+                {t('website.NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step1.heading')}
               </h3>
               <p className="text-base leading-relaxed text-gray-600">
-                {t('NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step1.description')}
+                {t('website.NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step1.description')}
               </p>
             </div>
 
@@ -59,10 +59,10 @@ const HowToGetEsimStatic: React.FC<CountryName> = ({ countryName, image }) => {
                 2
               </div>
               <h3 className="text-xl leading-tight font-medium text-black sm:text-xl">
-                {t('NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step2.heading')}
+                {t('website.NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step2.heading')}
               </h3>
               <p className="text-base leading-relaxed text-gray-600">
-                {t('NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step2.description')}
+                {t('website.NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step2.description')}
               </p>
             </div>
 
@@ -85,10 +85,10 @@ const HowToGetEsimStatic: React.FC<CountryName> = ({ countryName, image }) => {
                 3
               </div>
               <h3 className="text-xl leading-tight font-medium text-black sm:text-xl">
-                {t('NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.heading')}
+                {t('website.NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.heading')}
               </h3>
               <p className="text-base leading-relaxed text-gray-600">
-                {t('NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.description')}
+                {t('website.NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.description')}
               </p>
             </div>
 
@@ -114,28 +114,28 @@ const HowToGetEsimStatic: React.FC<CountryName> = ({ countryName, image }) => {
                     <span className="font-semibold text-black">{safeCountryName}</span>
                   </div>
                   <span className="inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">
-                    {t('NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.activeLabel')}
+                    {t('website.NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.activeLabel')}
                   </span>
                 </div>
                 <div className="space-y-2 text-sm text-gray-600">
                   <div className="flex justify-between">
                     <span>
                       {t(
-                        'NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.remainingDataLabel',
+                        'website.NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.remainingDataLabel',
                       )}
                     </span>
                     <span className="font-medium text-black">
                       {t(
-                        'NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.remainingDataValue',
+                        'website.NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.remainingDataValue',
                       )}
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span>
-                      {t('NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.expiresInLabel')}
+                      {t('website.NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.expiresInLabel')}
                     </span>
                     <span className="font-medium text-black">
-                      {t('NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.expiresInValue')}
+                      {t('website.NewSimfinDes.SingleCountryPlan.HowToGetEsimStatic.step3.expiresInValue')}
                     </span>
                   </div>
                 </div>

@@ -368,42 +368,49 @@ export default function DestinationDetails() {
   const bestChoiceIndex = Math.min(2, packageOptions.length - 1);
 
   const faqs = [
-    {
-      id: 'faq-1',
-      question: t('NewSimfinDes.SingleCountryPlan.faq.faqs.0.question'),
-      answer: t('NewSimfinDes.SingleCountryPlan.faq.faqs.0.answer'),
-    },
-    {
-      id: 'faq-2',
-      question: t('NewSimfinDes.SingleCountryPlan.faq.faqs.1.question'),
-      answer: t('NewSimfinDes.SingleCountryPlan.faq.faqs.1.answer'),
-    },
-    {
-      id: 'faq-3',
-      question: t('NewSimfinDes.SingleCountryPlan.faq.faqs.2.question'),
-      answer: t('NewSimfinDes.SingleCountryPlan.faq.faqs.2.answer'),
-    },
-    {
-      id: 'faq-4',
-      question: t('NewSimfinDes.SingleCountryPlan.faq.faqs.3.question'),
-      answer: t('NewSimfinDes.SingleCountryPlan.faq.faqs.3.answer'),
-    },
-    {
-      id: 'faq-5',
-      question: t('NewSimfinDes.SingleCountryPlan.faq.faqs.4.question'),
-      answer: t('NewSimfinDes.SingleCountryPlan.faq.faqs.4.answer'),
-    },
-    {
-      id: 'faq-6',
-      question: t('NewSimfinDes.SingleCountryPlan.faq.faqs.5.question'),
-      answer: t('NewSimfinDes.SingleCountryPlan.faq.faqs.5.answer'),
-    },
-    {
-      id: 'faq-7',
-      question: t('NewSimfinDes.SingleCountryPlan.faq.faqs.6.question'),
-      answer: t('NewSimfinDes.SingleCountryPlan.faq.faqs.6.answer'),
-    },
-  ];
+  {
+    id: 'faq-1',
+    question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.question'),
+    answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.answer'),
+  },
+  {
+    id: 'faq-2',
+    question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.question'),
+    answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.answer'),
+  },
+  {
+    id: 'faq-3',
+    question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.question'),
+    answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.answer'),
+  },
+  {
+    id: 'faq-4',
+    question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.question'),
+    answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.answer'),
+  },
+  {
+    id: 'faq-5',
+    question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.question'),
+    answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.answer'),
+  },
+  {
+    id: 'faq-6',
+    question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.question'),
+    answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.answer'),
+  },
+  {
+    id: 'faq-7',
+    question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.question'),
+    answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.answer'),
+  },
+  {
+    id: 'faq-8',
+    question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.question'),
+    answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.answer'),
+  },
+];
+
+
 
   const testimonials = [
     {
@@ -463,8 +470,8 @@ export default function DestinationDetails() {
         />
       </Helmet>
 
-      <main className="flex-1 pt-24 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <main className="flex-1 pb-16">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-4">
           {/* Breadcrumb */}
           <Breadcrumb className="mb-6">
             <BreadcrumbList>
@@ -588,19 +595,19 @@ export default function DestinationDetails() {
                   )}
                 </div>
               </div>
-              <div className="space-y-2 rounded-lg bg-gray-50 p-3 md:p-4">
+              {/* <div className="space-y-2 rounded-lg bg-gray-50 p-3 md:p-4">
                 <div className="flex items-start gap-2">
                   <Info className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-600 md:h-5 md:w-5" />
                   <div>
                     <h4 className="text-xs font-semibold text-gray-900 md:text-sm">
-                      {t('NewSimfinDes.SingleCountryPlan.rightSideContent.can_i_title')}
+                      {t('website.NewSimfinDes.SingleCountryPlan.rightSideContent.can_i_title')}
                     </h4>
                     <p className="mt-1 text-xs text-gray-600">
-                      {t('NewSimfinDes.SingleCountryPlan.rightSideContent.all_plan_para')}
+                      {t('website.NewSimfinDes.SingleCountryPlan.rightSideContent.all_plan_para')}
                     </p>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             {/* Right Column */}

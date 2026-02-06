@@ -41,16 +41,16 @@ const KeyFeaturesTabsSection: React.FC<KeyFeaturesTabsProps> = ({
       return [
         {
           id: 'features',
-          label: 'key',
+          label: t('website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.label'),
           content: [
             {
               description: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.content.0.des1',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.content.0.des1',
               ),
             },
             {
               description: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.content.1.des1',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.content.1.des1',
                 {
                   countryName: safeCountryName,
                 },
@@ -58,18 +58,18 @@ const KeyFeaturesTabsSection: React.FC<KeyFeaturesTabsProps> = ({
             },
             {
               description: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.content.2.des1',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab1.content.2.des1',
               ),
             },
           ],
         },
         {
           id: 'description',
-          label: 'key',
+          label: t('website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.label'),
           content: [
             {
               description: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.content.0.des1',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.content.0.des1',
                 {
                   countryName: safeCountryName,
                 },
@@ -77,34 +77,34 @@ const KeyFeaturesTabsSection: React.FC<KeyFeaturesTabsProps> = ({
             },
             {
               description: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.content.1.des1',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.content.1.des1',
               ),
             },
             {
               description: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.content.2.des1',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab2.content.2.des1',
               ),
             },
           ],
         },
         {
           id: 'technical',
-          label: 'key',
+          label: t('website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.label'),
           content: [
             {
               title: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.0.title',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.0.title',
               ),
               description: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.0.des1',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.0.des1',
               ),
             },
             {
               title: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.1.title',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.1.title',
               ),
               description: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.1.des1',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.1.des1',
                 {
                   countryName: safeCountryName,
                 },
@@ -112,58 +112,58 @@ const KeyFeaturesTabsSection: React.FC<KeyFeaturesTabsProps> = ({
             },
             {
               title: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.2.title',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.2.title',
               ),
               description: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.2.des1',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.2.des1',
               ),
             },
             {
               title: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.3.title',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.3.title',
               ),
               description: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.3.des1',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.3.des1',
               ),
             },
             {
               title: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.4.title',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.4.title',
               ),
               description: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.4.des1',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.4.des1',
               ),
             },
             {
               title: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.5.title',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.5.title',
               ),
               description: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.5.des1',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.5.des1',
               ),
             },
             {
               title: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.6.title',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.6.title',
               ),
               description: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.6.des1',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.6.des1',
               ),
             },
             {
               title: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.7.title',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.7.title',
               ),
               description: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.7.des1',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.7.des1',
               ),
             },
             {
               title: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.8.title',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.8.title',
               ),
               description: t(
-                'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.8.des1',
+                'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.tab3.content.8.des1',
                 {
                   countryName: safeCountryName,
                 },
@@ -178,16 +178,16 @@ const KeyFeaturesTabsSection: React.FC<KeyFeaturesTabsProps> = ({
     return [
       {
         id: 'features',
-        label: t('NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.label'),
+        label: t('website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.label'),
         content: [
           {
             description: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.0.des1',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.0.des1',
             ),
           },
           {
             description: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.1.des1',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.1.des1',
               {
                 countryName: safeCountryName,
               },
@@ -195,23 +195,23 @@ const KeyFeaturesTabsSection: React.FC<KeyFeaturesTabsProps> = ({
           },
           {
             description: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.2.des1',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.2.des1',
             ),
           },
           {
             description: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.3.des1',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab1.content.3.des1',
             ),
           },
         ],
       },
       {
         id: 'description',
-        label: t('NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.label'),
+        label: t('website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.label'),
         content: [
           {
             description: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.0.des1',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.0.des1',
               {
                 countryName: safeCountryName,
               },
@@ -219,39 +219,39 @@ const KeyFeaturesTabsSection: React.FC<KeyFeaturesTabsProps> = ({
           },
           {
             description: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.1.des1',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.1.des1',
             ),
           },
           {
             description: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.2.des1',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.2.des1',
             ),
           },
           {
             description: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.3.des1',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab2.content.3.des1',
             ),
           },
         ],
       },
       {
         id: 'technical',
-        label: t('NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.label'),
+        label: t('website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.label'),
         content: [
           {
             title: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.0.title',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.0.title',
             ),
             description: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.0.des1',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.0.des1',
             ),
           },
           {
             title: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.1.title',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.1.title',
             ),
             description: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.1.des1',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.1.des1',
               {
                 countryName: safeCountryName,
               },
@@ -259,10 +259,10 @@ const KeyFeaturesTabsSection: React.FC<KeyFeaturesTabsProps> = ({
           },
           {
             title: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.2.title',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.2.title',
             ),
             description: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.2.des1',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.2.des1',
               {
                 countryName: safeCountryName,
               },
@@ -270,58 +270,58 @@ const KeyFeaturesTabsSection: React.FC<KeyFeaturesTabsProps> = ({
           },
           {
             title: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.3.title',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.3.title',
             ),
             description: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.3.des1',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.3.des1',
             ),
           },
           {
             title: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.4.title',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.4.title',
             ),
             description: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.4.des1',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.4.des1',
             ),
           },
           {
             title: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.5.title',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.5.title',
             ),
             description: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.5.des1',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.5.des1',
             ),
           },
           {
             title: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.6.title',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.6.title',
             ),
             description: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.6.des1',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.6.des1',
             ),
           },
           {
             title: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.7.title',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.7.title',
             ),
             description: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.7.des1',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.7.des1',
             ),
           },
           {
             title: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.8.title',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.8.title',
             ),
             description: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.8.des1',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.8.des1',
             ),
           },
           {
             title: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.9.title',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.9.title',
             ),
             description: t(
-              'NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.9.des1',
+              'website.NewSimfinDes.SingleCountryPlan.KeyFeaturesTabsSection.region.tab3.content.9.des1',
               {
                 countryName: safeCountryName,
               },

@@ -43,9 +43,21 @@ const ComparisonTableCommon: React.FC<ComparisonTableProps> = ({
   const { t } = useTranslation();
 
   // ✅ Use translated data if available, fallback to defaults
-  const translatedTitle = 'Simfinity vs. other eSIM services';
-  const translatedMainBrandName = 'dfjdjf';
-  const translatedCtaButtonText = 'aerwr';
+  const translatedTitle = t(
+  'website.NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.title',
+  { defaultValue: title }
+);
+
+const translatedMainBrandName = t(
+  'website.NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.mainBrandName',
+  { defaultValue: mainBrandName }
+);
+
+const translatedCtaButtonText = t(
+  'website.NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.ctaButtonText',
+  { defaultValue: ctaButtonText }
+);
+
 
   // ✅ Default rows if not provided
   const defaultRows: ComparisonRow[] = [
@@ -98,11 +110,11 @@ const ComparisonTableCommon: React.FC<ComparisonTableProps> = ({
     const finalRows = defaultRows;
     return finalRows.map((row, idx) => ({
       ...row,
-      label: t(`NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.${idx}.label`, {
+      label: t(`website.NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.${idx}.label`, {
         defaultValue: row.label,
       }),
       description: t(
-        `NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.${idx}.description`,
+        `website.NewSimfinDes.SingleCountryPlan.ComparisonTableCommon.rows.${idx}.description`,
         {
           defaultValue: row.description || '',
         },
