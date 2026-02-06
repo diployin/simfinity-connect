@@ -867,7 +867,7 @@ const useStaticData = () => {
           },
         ],
         slider: {
-          title: 'Explore Popular Destinations',
+          title: t('website.headerlinks.ProductSliderTitle'),
           items: [
             {
               id: 1,
@@ -936,26 +936,26 @@ const useStaticData = () => {
         ],
 
         slider: {
-          title: t('website.headerlinks.ResourceSliderTitle'),
+          title: t('website.headerlinks.ProductSliderTitle'),
           items: [
             {
               id: 1,
-              title: t('website.headerlinks.ResourceSliderItem1Title'),
-              description: t('website.headerlinks.ResourceSliderItem1Desc'),
+              title: t('website.headerlinks.ProductSlider1Title'),
+              description: t('website.headerlinks.ProductSlider1Description'),
               image: '/images/menu-images/mega-menu-explore1.png',
               href: '/ultra-plan',
             },
             {
               id: 2,
-              title: t('website.headerlinks.ResourceSliderItem2Title'),
-              description: t('website.headerlinks.ResourceSliderItem2Desc'),
+              title: t('website.headerlinks.ProductSlider2Title'),
+              description: t('website.headerlinks.ProductSlider2Description'),
               image: '/images/menu-images/mega-menu-explore2.png',
               href: '/security-features',
             },
             {
               id: 3,
-              title: t('website.headerlinks.ResourceSliderItem3Title'),
-              description: t('website.headerlinks.ResourceSliderItem3Desc'),
+              title: t('website.headerlinks.ProductSlider3Title'),
+              description: t('website.headerlinks.ProductSlider3Description'),
               image: '/images/menu-images/mega-menu-explore3.png',
               href: '/security-features',
             },
@@ -1012,26 +1012,26 @@ const useStaticData = () => {
         ],
 
         slider: {
-          title: t('website.headerlinks.HelpSliderTitle'),
+          title: t('website.headerlinks.ProductSliderTitle'),
           items: [
             {
               id: 1,
-              title: t('website.headerlinks.HelpSliderItem1Title'),
-              description: t('website.headerlinks.HelpSliderItem1Desc'),
+              title: t('website.headerlinks.ProductSlider1Title'),
+              description: t('website.headerlinks.ProductSlider1Description'),
               image: '/images/menu-images/mega-menu-explore1.png',
               href: '/ultra-plan',
             },
             {
               id: 2,
-              title: t('website.headerlinks.HelpSliderItem2Title'),
-              description: t('website.headerlinks.HelpSliderItem2Desc'),
+              title: t('website.headerlinks.ProductSlider2Title'),
+              description: t('website.headerlinks.ProductSlider2Description'),
               image: '/images/menu-images/mega-menu-explore2.png',
               href: '/security-features',
             },
             {
               id: 3,
-              title: t('website.headerlinks.HelpSliderItem3Title'),
-              description: t('website.headerlinks.HelpSliderItem3Desc'),
+              title: t('website.headerlinks.ProductSlider3Title'),
+              description: t('website.headerlinks.ProductSlider3Description'),
               image: '/images/menu-images/mega-menu-explore3.png',
               href: '/security-features',
             },
