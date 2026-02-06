@@ -120,66 +120,68 @@ const TravelDestinationTabsNew = () => {
     <section className="w-full bg-white">
       <div className="containers py-10">
         {/* Header */}
-        <div className="mb-10 sm:mb-12">
-          <p className="mb-3 text-center text-sm text-gray-400 sm:text-base md:text-start">
-            {t('travelTabs.subtitle')}
-          </p>
+        <div className="flex ">
+          <div className="mb-10 sm:mb-12">
+            <p className="mb-3 text-center text-sm text-gray-400 sm:text-base md:text-start">
+              {t('travelTabs.subtitle')}
+            </p>
 
-          <div className="mb-4 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <h2 className="text-center text-3xl font-normal text-black sm:text-4xl md:text-start lg:text-5xl">
-              {t('travelTabs.title')}
-            </h2>
+            <div className="mb-4  w-full flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+              <h2 className="text-center text-3xl font-normal text-black sm:text-4xl md:text-start lg:text-2.5">
+                {t('travelTabs.title')}
+              </h2>
 
-            {/* <Button onClick={() => navigate('/destinations')}>{t('travelTabs.viewAll')}</Button> */}
-            <ThemeButton onClick={() => navigate('/destinations')} size="md">
-              {t('travelTabs.viewAll')}
-            </ThemeButton>
+              {/* <Button onClick={() => navigate('/destinations')}>{t('travelTabs.viewAll')}</Button> */}
+              <ThemeButton onClick={() => navigate('/destinations')} size="md">
+                {t('travelTabs.viewAll')}
+              </ThemeButton>
+            </div>
+
+            <p className="text-center text-base text-gray-600 sm:text-lg md:text-start">
+              {t('travelTabs.description')}
+            </p>
           </div>
-
-          <p className="text-center text-base text-gray-600 sm:text-lg md:text-start">
-            {t('travelTabs.description')}
-          </p>
         </div>
 
         {/* Tabs */}
         <Tabs defaultValue="country" className="w-full" onValueChange={setActiveTab}>
-  <TabsList className="mb-6 sm:mb-8 md:mb-10 w-full sm:w-fit rounded-full border border-gray-200 bg-white p-1 sm:p-1.5 shadow-sm flex gap-1 overflow-x-auto">
-  {/* Country Tab */}
-  <TabsTrigger
-    value="country"
-    className="rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-xs sm:text-sm md:text-base font-medium 
+          <TabsList className="mb-6 sm:mb-8 md:mb-10 w-fit sm:w-fit rounded-full border border-gray-200 bg-white p-1 sm:p-1.5 shadow-sm flex gap-1 overflow-x-auto">
+            {/* Country Tab */}
+            <TabsTrigger
+              value="country"
+              className="rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-xs sm:text-sm md:text-base font-medium 
       text-gray-600 whitespace-nowrap
       data-[state=active]:bg-black 
       data-[state=active]:text-white
       transition-all duration-200"
-  >
-    {t('travelTabs.country')}
-  </TabsTrigger>
+            >
+              {t('travelTabs.country')}
+            </TabsTrigger>
 
-  {/* Region Tab */}
-  <TabsTrigger
-    value="region"
-    className="rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-xs sm:text-sm md:text-base font-medium 
+            {/* Region Tab */}
+            <TabsTrigger
+              value="region"
+              className="rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-xs sm:text-sm md:text-base font-medium 
       text-gray-600 whitespace-nowrap
       data-[state=active]:bg-black 
       data-[state=active]:text-white
       transition-all duration-200"
-  >
-    {t('travelTabs.region')}
-  </TabsTrigger>
+            >
+              {t('travelTabs.region')}
+            </TabsTrigger>
 
-  {/* Passport Tab */}
-  <TabsTrigger
-    value="passport"
-    className="rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-xs sm:text-sm md:text-base font-medium 
+            {/* Passport Tab */}
+            <TabsTrigger
+              value="passport"
+              className="rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-xs sm:text-sm md:text-base font-medium 
       text-gray-600 whitespace-nowrap
       data-[state=active]:bg-black 
       data-[state=active]:text-white
       transition-all duration-200"
-  >
-    Simfinity Passport
-  </TabsTrigger>
-</TabsList>
+            >
+              Simfinity Passport
+            </TabsTrigger>
+          </TabsList>
 
           {/* Country */}
           <TabsContent value="country">
@@ -248,6 +250,12 @@ const TravelDestinationTabsNew = () => {
             </div>
           </TabsContent>
         </Tabs>
+
+        <div className=" py-10 w-full  ">
+          <ThemeButton fullWidth={true} onClick={() => navigate('/destinations')} size="md">
+            {t('travelTabs.viewAll')}
+          </ThemeButton>
+        </div>
       </div>
     </section>
   );

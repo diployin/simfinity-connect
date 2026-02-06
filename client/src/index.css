@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -94,8 +96,8 @@
   --primary-foreground: #000000;
 
   /* Font Variables */
-  --font-heading: 'Inter';
-  --font-body: 'Inter';
+  --font-heading: 'Poppins';
+  --font-body: 'Poppins';
 
   /* 🖤 SECONDARY */
   --secondary: var(--secondary-hex);
@@ -191,6 +193,8 @@
     0 0 30px color-mix(in srgb, var(--primary-hex) 50%, transparent),
     0 0 60px color-mix(in srgb, var(--primary-hex) 30%, transparent);
   --themeSkyColor: #e4eaf4;
+
+  --font-poppins: 'Poppins', 'Poppins Fallback', system-ui, sans-serif;
 }
 
 .dark {
@@ -202,8 +206,8 @@
   --primary-foreground: #000000;
 
   /* Font Variables */
-  --font-heading: 'Inter';
-  --font-body: 'Inter';
+  --font-heading: 'Poppins';
+  --font-body: 'Poppins';
 
   --secondary: var(--secondary-hex);
   --secondary-second: var(--secondary-second-hex);
@@ -294,19 +298,15 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-heading), sans-serif;
+    font-family: var(--font-poppins), sans-serif;
   }
 
   body,
   p,
   span,
   div {
-    font-family: var(--font-body), sans-serif;
+    font-family: var(--font-poppins), sans-serif;
   }
-
-  /* body {
-    @apply font-sans antialiased bg-background text-foreground;
-  } */
 }
 
 @layer utilities {
@@ -712,7 +712,7 @@
   /* xl */
   @media (min-width: 1280px) {
     .containers {
-      max-width: 1040px;
+      max-width: 1320px;
     }
   }
 
@@ -912,4 +912,21 @@
       color: #d1d5db;
     }
   }
+}
+.max-h-60::-webkit-scrollbar {
+  width: 4px;
+}
+
+.max-h-60::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.max-h-60::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.max-h-60::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

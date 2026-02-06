@@ -85,7 +85,7 @@ const HeroSection = () => {
     // <div className="relative w-full overflow-hidden bg-[url('/images/Banner.png')] bg-cover bg-center ">
     <div className="relative w-full bg-sky-200   ">
       {/* Desktop Layout */}
-      <div className="absolute -top-[72px] bottom-0 w-full flex flex-col items-center overflow-hidden bg-gradient-hero">
+      {/* <div className="absolute -top-[72px] bottom-0 w-full flex flex-col items-center overflow-hidden bg-gradient-hero">
         <div className="absolute bottom-0 min-w-[1038px] md:min-w-[1153px] lg:min-w-[1372px] xl:min-w-[1716px] md:translate-x-[18%] lg:translate-x-[21%] xl:translate-x-[25%]">
           <div>
             <picture>
@@ -102,8 +102,8 @@ const HeroSection = () => {
             </picture>
           </div>
         </div>
-      </div>
-      {/* <div className="absolute -top-[72px] bottom-0 w-full flex flex-col items-center overflow-hidden bg-gradient-hero">
+      </div> */}
+      <div className="absolute -top-[72px] bottom-0 w-full flex flex-col items-center overflow-hidden bg-gradient-hero">
         <div className="absolute bottom-0 min-w-[1038px] md:min-w-[1153px] lg:min-w-[1372px] xl:min-w-[1716px] md:translate-x-[18%] lg:translate-x-[21%] xl:translate-x-[23%]">
           <div>
             <picture>
@@ -114,13 +114,13 @@ const HeroSection = () => {
                 height="908"
                 decoding="async"
                 style={{ color: 'transparent' }}
-                srcSet="/images/Untitled_design.png"
-                src="/images/Untitled_design.png"
+                srcSet="/images/sf-homepage-hero-asset.webp"
+                src="/images/sf-homepage-hero-asset.webp"
               />
             </picture>
           </div>
         </div>
-      </div> */}
+      </div>
       <div
         data-section="Hero"
         data-testid="section-Hero"
@@ -152,7 +152,7 @@ const HeroSection = () => {
                         </span>
                         <div className="bg-primary hover:bg-primaryHover flex-shrink-0 rounded-lg p-3 transition-colors">
                           <svg
-                            className="h-4 w-4 text-white"
+                            className="h-5 w-6 text-white"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -160,7 +160,7 @@ const HeroSection = () => {
                             <path
                               strokeLinecap="round"
                               strokeLinejoin="round"
-                              strokeWidth={2.5}
+                              strokeWidth={2}
                               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                             />
                           </svg>
@@ -169,12 +169,12 @@ const HeroSection = () => {
                     </div>
 
                     {/* Terms Link */}
-                    <p className="text-xs font-normal text-black mt-5">
+                    {/* <p className="text-xs font-normal text-black mt-5">
                       {t('hero.termsPromo')}
                       <Link href="#" className="underline transition-colors hover:text-black">
                         {t('hero.termsLink')}
                       </Link>
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               </div>

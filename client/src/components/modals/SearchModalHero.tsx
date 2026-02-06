@@ -1,19 +1,374 @@
-"use client";
+// 'use client';
 
-import { useState } from "react";
-import { Link, useLocation } from "wouter";
-import { useQuery } from "@tanstack/react-query";
-import { motion, AnimatePresence } from "framer-motion";
-import { Search, Globe, ChevronRight, Check, Sparkles } from "lucide-react";
-import { Input } from "@/components/ui/input";
+// import { useState } from 'react';
+// import { Link, useLocation } from 'wouter';
+// import { useQuery } from '@tanstack/react-query';
+// import { motion, AnimatePresence } from 'framer-motion';
+// import { Search, Globe, ChevronRight, X, MapPin } from 'lucide-react';
+// import { Input } from '@/components/ui/input';
+// import {
+//   Dialog,
+//   DialogContent,
+//   DialogDescription,
+//   DialogHeader,
+//   DialogTitle,
+// } from '@/components/ui/dialog';
+// import { useCurrency } from '@/contexts/CurrencyContext';
+
+// // Types
+// interface DestinationWithPricing {
+//   id: number;
+//   name: string;
+//   slug: string;
+//   countryCode: string;
+//   minPrice: string;
+//   packageCount?: number;
+//   isPopular?: boolean;
+// }
+
+// interface RegionWithPricing {
+//   id: number;
+//   name: string;
+//   slug: string;
+//   minPrice: string;
+//   packageCount?: number;
+//   countries?: string[];
+// }
+
+// interface SearchModalProps {
+//   open: boolean;
+//   onOpenChange: (open: boolean) => void;
+// }
+
+// export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
+//   const [searchQuery, setSearchQuery] = useState('');
+//   const [, setLocation] = useLocation();
+//   const { currency } = useCurrency();
+
+//   const { data: destinationsWithPricing, isLoading: destinationsLoading } = useQuery<
+//     DestinationWithPricing[]
+//   >({
+//     queryKey: ['/api/destinations/with-pricing', { currency }],
+//   });
+
+//   const { data: regionsWithPricing, isLoading: regionsLoading } = useQuery<RegionWithPricing[]>({
+//     queryKey: ['/api/regions/with-pricing', { currency }],
+//   });
+
+//   // Popular destinations for display
+//   const popularDestinations = [
+//     { name: 'Mexico', countryCode: 'mx', slug: 'mexico', price: '$4.99', type: 'country' },
+//     {
+//       name: 'Switzerland',
+//       countryCode: 'ch',
+//       slug: 'switzerland',
+//       price: '$3.99',
+//       type: 'country',
+//     },
+//     { name: 'India', countryCode: 'in', slug: 'india', price: '$3.99', type: 'country' },
+//     { name: 'Global', countries: '121', slug: 'global', price: '$8.99', type: 'global' },
+//     { name: 'Europe', countries: '35', slug: 'europe', price: '$4.99', type: 'region' },
+//   ];
+
+//   const handleSearch = (e: React.FormEvent) => {
+//     e.preventDefault();
+//     if (searchQuery.trim()) {
+//       setLocation(`/search?q=${encodeURIComponent(searchQuery)}`);
+//       onOpenChange(false);
+//     }
+//   };
+
+//   // Combine all data for search results
+//   const getAllFilteredResults = () => {
+//     if (searchQuery.length === 0) return [];
+
+//     const results = [];
+
+//     // Search in countries
+//     if (destinationsWithPricing) {
+//       const filteredCountries = destinationsWithPricing
+//         .filter(
+//           (d) =>
+//             d.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+//             d.countryCode.toLowerCase().includes(searchQuery.toLowerCase()),
+//         )
+//         .map((country) => ({
+//           ...country,
+//           type: 'country',
+//           displayName: country.name,
+//           displayPrice: `From US$${parseFloat(country.minPrice).toFixed(2)}`,
+//           icon: (
+//             <div className="w-8 h-6 rounded overflow-hidden flex-shrink-0">
+//               <img
+//                 src={`https://flagcdn.com/${country.countryCode.toLowerCase()}.svg`}
+//                 alt={country.name}
+//                 className="w-full h-full object-cover"
+//               />
+//             </div>
+//           ),
+//         }));
+//       results.push(...filteredCountries);
+//     }
+
+//     // Search in regions
+//     if (regionsWithPricing) {
+//       const filteredRegions = regionsWithPricing
+//         .filter((r) => r.name.toLowerCase().includes(searchQuery.toLowerCase()))
+//         .map((region) => ({
+//           ...region,
+//           type: 'region',
+//           displayName: region.name,
+//           displayPrice: `From US$${parseFloat(region.minPrice).toFixed(2)}`,
+//           countriesCount: region.countries?.length || 0,
+//           icon: (
+//             <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
+//               <Globe className="h-4 w-4 text-blue-600" />
+//             </div>
+//           ),
+//         }));
+//       results.push(...filteredRegions);
+//     }
+
+//     // Add Global option
+//     if ('global'.includes(searchQuery.toLowerCase())) {
+//       results.unshift({
+//         id: 'global',
+//         name: 'Global',
+//         slug: 'global',
+//         type: 'global',
+//         displayName: 'Global',
+//         displayPrice: 'From US$8.99',
+//         countriesCount: 121,
+//         icon: (
+//           <div className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center flex-shrink-0">
+//             <Globe className="h-4 w-4 text-purple-600" />
+//           </div>
+//         ),
+//       });
+//     }
+
+//     return results.slice(0, 10);
+//   };
+
+//   return (
+//     <Dialog open={open} onOpenChange={onOpenChange}>
+//       <DialogContent className="max-w-[500px] max-h-[80vh] overflow-hidden p-0 rounded-2xl">
+//         <div className="relative">
+//           {/* Header */}
+//           <div className="sticky top-0 z-10 bg-white px-6 pt-6 pb-4 border-b">
+//             <div className="flex items-center justify-between mb-4">
+//               <DialogTitle className="text-2xl font-bold text-gray-900">Where?</DialogTitle>
+//               <button
+//                 onClick={() => onOpenChange(false)}
+//                 className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+//               >
+//                 <X size={20} />
+//               </button>
+//             </div>
+
+//             {/* Search Input */}
+//             <form onSubmit={handleSearch}>
+//               <div className="relative">
+//                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+//                 <Input
+//                   type="text"
+//                   placeholder="Enter your destination"
+//                   value={searchQuery}
+//                   onChange={(e) => setSearchQuery(e.target.value)}
+//                   className="pl-12 pr-4 py-6 text-base rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 bg-gray-50 placeholder:text-gray-400"
+//                   autoFocus
+//                 />
+//               </div>
+//             </form>
+//           </div>
+
+//           {/* Content */}
+//           <div className="max-h-[calc(80vh-140px)] overflow-y-auto">
+//             {searchQuery.length > 0 ? (
+//               // Search Results
+//               <div className="p-6">
+//                 <h3 className="text-sm font-semibold text-gray-700 mb-3">Search Results</h3>
+//                 <div className="space-y-2">
+//                   {getAllFilteredResults().map((item, idx) => (
+//                     <Link
+//                       key={item.id || idx}
+//                       href={
+//                         item.type === 'country'
+//                           ? `/destination/${item.slug}`
+//                           : item.type === 'region'
+//                             ? `/region/${item.slug}`
+//                             : `/global`
+//                       }
+//                       onClick={() => onOpenChange(false)}
+//                     >
+//                       <motion.div
+//                         initial={{ opacity: 0, y: 5 }}
+//                         animate={{ opacity: 1, y: 0 }}
+//                         transition={{ delay: idx * 0.05 }}
+//                         className="flex items-center justify-between p-3 hover:bg-blue-50 rounded-xl cursor-pointer group border border-transparent hover:border-blue-100"
+//                       >
+//                         <div className="flex items-center gap-3">
+//                           {item.icon}
+//                           <div>
+//                             <p className="font-medium text-gray-900">{item.displayName}</p>
+//                             <p className="text-sm text-gray-600">{item.displayPrice}</p>
+//                           </div>
+//                         </div>
+//                         <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-blue-600" />
+//                       </motion.div>
+//                     </Link>
+//                   ))}
+//                 </div>
+//               </div>
+//             ) : (
+//               // Default View - Most Popular
+//               <div className="p-6">
+//                 <h3 className="text-sm font-semibold text-gray-700 mb-4">
+//                   Most popular destinations
+//                 </h3>
+
+//                 <div className="space-y-3">
+//                   {popularDestinations.map((dest, idx) => (
+//                     <Link
+//                       key={dest.slug}
+//                       href={
+//                         dest.type === 'country'
+//                           ? `/destination/${dest.slug}`
+//                           : dest.type === 'region'
+//                             ? `/region/${dest.slug}`
+//                             : `/global`
+//                       }
+//                       onClick={() => onOpenChange(false)}
+//                     >
+//                       <motion.div
+//                         initial={{ opacity: 0, x: -10 }}
+//                         animate={{ opacity: 1, x: 0 }}
+//                         transition={{ delay: idx * 0.1 }}
+//                         className="flex items-center justify-between p-4 bg-gray-50 hover:bg-blue-50 rounded-xl cursor-pointer group border border-gray-100 hover:border-blue-200 transition-all"
+//                       >
+//                         <div className="flex items-center gap-4">
+//                           {dest.type === 'country' ? (
+//                             <div className="w-10 h-7 rounded overflow-hidden border border-gray-200">
+//                               <img
+//                                 src={`https://flagcdn.com/${dest.countryCode.toLowerCase()}.svg`}
+//                                 alt={dest.name}
+//                                 className="w-full h-full object-cover"
+//                               />
+//                             </div>
+//                           ) : (
+//                             <div
+//                               className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+//                                 dest.type === 'global' ? 'bg-purple-100' : 'bg-blue-100'
+//                               }`}
+//                             >
+//                               <Globe
+//                                 className={`h-5 w-5 ${
+//                                   dest.type === 'global' ? 'text-purple-600' : 'text-blue-600'
+//                                 }`}
+//                               />
+//                             </div>
+//                           )}
+//                           <div>
+//                             <p className="font-medium text-gray-900">{dest.name}</p>
+//                             <div className="flex items-center gap-2">
+//                               <span className="text-sm font-medium text-blue-600">
+//                                 {dest.price}
+//                               </span>
+//                               {dest.countries && (
+//                                 <span className="text-xs text-gray-500">
+//                                   · {dest.countries} countries
+//                                 </span>
+//                               )}
+//                             </div>
+//                           </div>
+//                         </div>
+//                         <div className="flex items-center">
+//                           <span
+//                             className={`text-xs font-medium px-2 py-1 rounded ${
+//                               dest.type === 'country'
+//                                 ? 'bg-green-100 text-green-800'
+//                                 : dest.type === 'region'
+//                                   ? 'bg-blue-100 text-blue-800'
+//                                   : 'bg-purple-100 text-purple-800'
+//                             }`}
+//                           >
+//                             {dest.type === 'country'
+//                               ? 'Country'
+//                               : dest.type === 'region'
+//                                 ? 'Region'
+//                                 : 'Global'}
+//                           </span>
+//                           <ChevronRight className="h-5 w-5 text-gray-400 ml-2 group-hover:text-blue-600" />
+//                         </div>
+//                       </motion.div>
+//                     </Link>
+//                   ))}
+//                 </div>
+
+//                 {/* All Countries Section */}
+//                 {destinationsWithPricing && destinationsWithPricing.length > 0 && (
+//                   <div className="mt-8">
+//                     <h3 className="text-sm font-semibold text-gray-700 mb-4">
+//                       All Countries ({destinationsWithPricing.length})
+//                     </h3>
+//                     <div className="max-h-60 overflow-y-auto pr-2 space-y-2">
+//                       {destinationsWithPricing.map((country) => (
+//                         <Link
+//                           key={country.slug}
+//                           href={`/destination/${country.slug}`}
+//                           onClick={() => onOpenChange(false)}
+//                         >
+//                           <motion.div
+//                             whileHover={{ x: 2 }}
+//                             className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg cursor-pointer group"
+//                           >
+//                             <div className="flex items-center gap-3">
+//                               <div className="w-8 h-6 rounded overflow-hidden">
+//                                 <img
+//                                   src={`https://flagcdn.com/${country.countryCode.toLowerCase()}.svg`}
+//                                   alt={country.name}
+//                                   className="w-full h-full object-cover"
+//                                 />
+//                               </div>
+//                               <span className="text-sm text-gray-800">{country.name}</span>
+//                             </div>
+//                             <div className="flex items-center gap-2">
+//                               <span className="text-sm font-medium text-blue-600">
+//                                 From US${parseFloat(country.minPrice).toFixed(2)}
+//                               </span>
+//                               <ChevronRight className="h-4 w-4 text-gray-400 group-hover:text-blue-600" />
+//                             </div>
+//                           </motion.div>
+//                         </Link>
+//                       ))}
+//                     </div>
+//                   </div>
+//                 )}
+//               </div>
+//             )}
+//           </div>
+//         </div>
+//       </DialogContent>
+//     </Dialog>
+//   );
+// }
+
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'wouter';
+import { useQuery } from '@tanstack/react-query';
+import { motion } from 'framer-motion';
+import { Search, Globe, ChevronRight, X } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { useCurrency } from "@/contexts/CurrencyContext";
+} from '@/components/ui/dialog';
+import { useCurrency } from '@/contexts/CurrencyContext';
 
 // Types
 interface DestinationWithPricing {
@@ -41,57 +396,116 @@ interface SearchModalProps {
 }
 
 export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchType, setSearchType] = useState<"country" | "region">("country");
+  const [searchQuery, setSearchQuery] = useState('');
   const [, setLocation] = useLocation();
   const { currency } = useCurrency();
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const { data: destinationsWithPricing, isLoading: destinationsLoading } =
-    useQuery<DestinationWithPricing[]>({
-      queryKey: ["/api/destinations/with-pricing", { currency }],
-    });
+  // Focus input when modal opens
+  useEffect(() => {
+    if (open && inputRef.current) {
+      setTimeout(() => {
+        inputRef.current?.focus();
+      }, 100);
+    }
+  }, [open]);
 
-  const { data: regionsWithPricing, isLoading: regionsLoading } = useQuery<
-    RegionWithPricing[]
-  >({
-    queryKey: ["/api/regions/with-pricing", { currency }],
+  const { data: destinationsWithPricing } = useQuery<DestinationWithPricing[]>({
+    queryKey: ['/api/destinations/with-pricing', { currency }],
   });
 
-  const popularDestinations =
-    destinationsWithPricing?.filter((d) => d.isPopular).slice(0, 6) || [];
+  const { data: regionsWithPricing } = useQuery<RegionWithPricing[]>({
+    queryKey: ['/api/regions/with-pricing', { currency }],
+  });
 
-  const defaultPopularDestinations = [
-    { name: "United States", countryCode: "us", slug: "united-states" },
-    { name: "United Kingdom", countryCode: "gb", slug: "united-kingdom" },
-    { name: "UAE", countryCode: "ae", slug: "united-arab-emirates" },
-    { name: "Japan", countryCode: "jp", slug: "japan" },
-    { name: "Thailand", countryCode: "th", slug: "thailand" },
-    { name: "France", countryCode: "fr", slug: "france" },
-  ];
-
-  const displayPopular =
-    popularDestinations.length > 0
-      ? popularDestinations.map((d) => ({
-          name: d.name,
-          countryCode: d.countryCode,
-          slug: d.slug,
-          minPrice: d.minPrice,
-        }))
-      : defaultPopularDestinations.map((d) => ({
-          ...d,
-          minPrice: "0",
+  // Get popular destinations from API or use default
+  const getPopularDestinations = () => {
+    if (destinationsWithPricing && regionsWithPricing) {
+      // Get top 3 popular countries
+      const popularCountries = destinationsWithPricing
+        .filter((d) => d.isPopular)
+        .slice(0, 3)
+        .map((country) => ({
+          name: country.name,
+          countryCode: country.countryCode,
+          slug: country.slug,
+          price: `US$${parseFloat(country.minPrice).toFixed(2)}`,
+          type: 'country' as const,
         }));
 
-  const defaultPopularRegions = [
-    { id: 1, name: "Europe", slug: "europe", minPrice: "0" },
-    { id: 2, name: "Asia", slug: "asia", minPrice: "0" },
-    { id: 3, name: "Americas", slug: "americas", minPrice: "0" },
-  ];
+      // Get global and europe regions
+      const globalRegion = {
+        name: 'Global',
+        slug: 'global',
+        price: 'US$8.99',
+        countries: '121',
+        type: 'global' as const,
+      };
 
-  const displayPopularRegions =
-    regionsWithPricing && regionsWithPricing.length > 0
-      ? regionsWithPricing.slice(0, 3)
-      : defaultPopularRegions;
+      const europeRegion = regionsWithPricing.find((r) => r.name.toLowerCase() === 'europe') || {
+        name: 'Europe',
+        slug: 'europe',
+        price: 'US$4.99',
+        countries: '35',
+        type: 'region' as const,
+      };
+
+      return [
+        ...popularCountries,
+        globalRegion,
+        {
+          name: europeRegion.name,
+          slug: europeRegion.slug,
+          price: europeRegion.minPrice
+            ? `US$${parseFloat(europeRegion.minPrice).toFixed(2)}`
+            : 'US$4.99',
+          countries: '35',
+          type: 'region' as const,
+        },
+      ];
+    }
+
+    // Default popular destinations
+    return [
+      {
+        name: 'Mexico',
+        countryCode: 'mx',
+        slug: 'mexico',
+        price: 'US$4.99',
+        type: 'country' as const,
+      },
+      {
+        name: 'Switzerland',
+        countryCode: 'ch',
+        slug: 'switzerland',
+        price: 'US$3.99',
+        type: 'country' as const,
+      },
+      {
+        name: 'India',
+        countryCode: 'in',
+        slug: 'india',
+        price: 'US$3.99',
+        type: 'country' as const,
+      },
+      {
+        name: 'Global',
+        slug: 'global',
+        price: 'US$8.99',
+        countries: '121',
+        type: 'global' as const,
+      },
+      {
+        name: 'Europe',
+        slug: 'europe',
+        price: 'US$4.99',
+        countries: '35',
+        type: 'region' as const,
+      },
+    ];
+  };
+
+  const popularDestinations = getPopularDestinations();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -101,352 +515,285 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
     }
   };
 
-  const getFilteredResults = () => {
+  // Combine all data for search results
+  const getAllFilteredResults = () => {
     if (searchQuery.length === 0) return [];
 
-    if (searchType === "country") {
-      return (
-        destinationsWithPricing?.filter(
+    const results = [];
+
+    // Search in countries
+    if (destinationsWithPricing) {
+      const filteredCountries = destinationsWithPricing
+        .filter(
           (d) =>
             d.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            d.countryCode.toLowerCase().includes(searchQuery.toLowerCase())
-        ) || []
-      ).slice(0, 10);
-    } else {
-      return (
-        regionsWithPricing?.filter((r) =>
-          r.name.toLowerCase().includes(searchQuery.toLowerCase())
-        ) || []
-      ).slice(0, 10);
+            d.countryCode.toLowerCase().includes(searchQuery.toLowerCase()),
+        )
+        .map((country) => ({
+          ...country,
+          type: 'country' as const,
+          displayName: country.name,
+          displayPrice: `From US$${parseFloat(country.minPrice).toFixed(2)}`,
+          icon: (
+            <div className="w-8 h-6 rounded overflow-hidden flex-shrink-0">
+              <img
+                src={`https://flagcdn.com/${country.countryCode.toLowerCase()}.svg`}
+                alt={country.name}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ),
+        }));
+      results.push(...filteredCountries);
     }
+
+    // Search in regions
+    if (regionsWithPricing) {
+      const filteredRegions = regionsWithPricing
+        .filter((r) => r.name.toLowerCase().includes(searchQuery.toLowerCase()))
+        .map((region) => ({
+          ...region,
+          type: 'region' as const,
+          displayName: region.name,
+          displayPrice: `From US$${parseFloat(region.minPrice).toFixed(2)}`,
+          countriesCount: region.countries?.length || 0,
+          icon: (
+            <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
+              <Globe className="h-4 w-4 text-blue-600" />
+            </div>
+          ),
+        }));
+      results.push(...filteredRegions);
+    }
+
+    // Add Global option
+    if ('global'.includes(searchQuery.toLowerCase())) {
+      results.unshift({
+        id: 'global',
+        name: 'Global',
+        slug: 'global',
+        type: 'global' as const,
+        displayName: 'Global',
+        displayPrice: 'From US$8.99',
+        countriesCount: 121,
+        icon: (
+          <div className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center flex-shrink-0">
+            <Globe className="h-4 w-4 text-purple-600" />
+          </div>
+        ),
+      });
+    }
+
+    return results.slice(0, 15);
   };
 
-  // Get all countries for listing
-  const getAllCountries = () => {
-    return destinationsWithPricing || [];
-  };
+  const hasSearchQuery = searchQuery.length > 0;
+  const filteredResults = getAllFilteredResults();
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[480px] max-h-[90vh] overflow-hidden p-0 gap-0">
-        <div className="relative">
-          {/* Header */}
-          <DialogHeader className="px-6 pt-6 pb-4 border-b">
-            <DialogTitle className="text-xl font-bold flex items-center gap-2">
-              <Sparkles className="h-5 w-5 text-primary" />
-              Search Destinations
-            </DialogTitle>
-            <DialogDescription className="text-sm">
-              200+ countries & regions available
-            </DialogDescription>
-          </DialogHeader>
-
-          {/* Content */}
-          <div className="max-h-[calc(90vh-120px)] overflow-y-auto custom-scrollbar">
-            <div className="p-6 space-y-5">
-              {/* Toggle Buttons */}
-              <div className="flex gap-2 p-1 bg-muted/50 rounded-full w-fit mx-auto">
-                <button
-                  onClick={() => {
-                    setSearchType("country");
-                    setSearchQuery("");
-                  }}
-                  className={`flex items-center gap-2 text-xs font-medium transition-all px-4 py-2 rounded-full ${
-                    searchType === "country"
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  <div
-                    className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${
-                      searchType === "country"
-                        ? "border-primary-foreground bg-primary-foreground"
-                        : "border-muted-foreground"
-                    }`}
-                  >
-                    {searchType === "country" && (
-                      <Check className="h-2 w-2 text-primary" />
-                    )}
-                  </div>
-                  Countries
-                </button>
-                <button
-                  onClick={() => {
-                    setSearchType("region");
-                    setSearchQuery("");
-                  }}
-                  className={`flex items-center gap-2 text-xs font-medium transition-all px-4 py-2 rounded-full ${
-                    searchType === "region"
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  <div
-                    className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${
-                      searchType === "region"
-                        ? "border-primary-foreground bg-primary-foreground"
-                        : "border-muted-foreground"
-                    }`}
-                  >
-                    {searchType === "region" && (
-                      <Check className="h-2 w-2 text-primary" />
-                    )}
-                  </div>
-                  Regions
-                </button>
-              </div>
-
-              {/* Search Input */}
-              <form onSubmit={handleSearch}>
-                <div className="relative group">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-primary/10 rounded-2xl blur opacity-40 group-hover:opacity-60 transition-opacity"></div>
-                  <div className="relative">
-                    <Input
-                      type="text"
-                      placeholder={
-                        searchType === "country"
-                          ? "Search countries..."
-                          : "Search regions..."
-                      }
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-5 pr-12 py-5 rounded-xl border-2 border-border hover:border-primary/50 focus:border-primary text-sm font-medium bg-background placeholder:text-muted-foreground/60 transition-all"
-                    />
-                    <button
-                      type="submit"
-                      className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg bg-primary text-primary-foreground flex items-center justify-center hover:shadow-md transition-all"
-                    >
-                      <Search className="h-4 w-4" />
-                    </button>
-                  </div>
-                </div>
-              </form>
-
-              {/* Search Results */}
-              {searchQuery.length > 0 ? (
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide">
-                      Results
-                    </h3>
-                    <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
-                      {getFilteredResults().length}
-                    </span>
-                  </div>
-                  {destinationsLoading || regionsLoading ? (
-                    <div className="py-8 text-center">
-                      <div className="inline-block h-6 w-6 animate-spin rounded-full border-3 border-solid border-primary border-r-transparent"></div>
-                    </div>
-                  ) : getFilteredResults().length === 0 ? (
-                    <div className="py-8 text-center text-sm text-muted-foreground">
-                      No results found
-                    </div>
-                  ) : (
-                    <div className="space-y-1.5">
-                      {getFilteredResults().map((item, idx) => (
-                        <Link
-                          key={idx}
-                          href={
-                            searchType === "country"
-                              ? `/destination/${
-                                  (item as DestinationWithPricing).slug
-                                }`
-                              : `/region/${(item as RegionWithPricing).slug}`
-                          }
-                          onClick={() => onOpenChange(false)}
-                        >
-                          <motion.div
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: idx * 0.03 }}
-                            className="flex items-center gap-3 p-3 hover:bg-muted/50 cursor-pointer transition-all rounded-xl group"
-                          >
-                            {searchType === "country" ? (
-                              <div className="w-16 h-11 rounded-lg overflow-hidden shadow-sm border border-border flex-shrink-0">
-                                <img
-                                  src={`https://flagcdn.com/${(
-                                    item as DestinationWithPricing
-                                  ).countryCode.toLowerCase()}.svg`}
-                                  alt={(item as DestinationWithPricing).name}
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
-                            ) : (
-                              <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                                <Globe className="h-5 w-5 text-primary" />
-                              </div>
-                            )}
-                            <div className="flex-1 min-w-0">
-                              <p className="text-sm font-semibold text-foreground truncate">
-                                {(item as any).name}
-                              </p>
-                              <p className="text-xs text-muted-foreground">
-                                From{" "}
-                                <span className="text-primary font-bold">
-                                  $
-                                  {parseFloat((item as any).minPrice).toFixed(
-                                    1
-                                  )}
-                                </span>
-                              </p>
-                            </div>
-                            <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
-                          </motion.div>
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <>
-                  {/* Popular Section */}
-                  <div>
-                    <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide mb-3">
-                      Popular{" "}
-                      {searchType === "country" ? "Countries" : "Regions"}
-                    </h3>
-
-                    {searchType === "country" && (
-                      <div className="grid grid-cols-2 gap-2 mb-4">
-                        {displayPopular.slice(0, 6).map((dest) => (
-                          <Link
-                            key={dest.slug}
-                            href={`/destination/${dest.slug}`}
-                            onClick={() => onOpenChange(false)}
-                          >
-                            <motion.div
-                              whileHover={{ scale: 1.03 }}
-                              whileTap={{ scale: 0.98 }}
-                              className="flex items-center gap-2.5 p-3 cursor-pointer rounded-xl bg-card hover:bg-muted/50 transition-all border border-border/50 hover:border-primary/30"
-                            >
-                              <div className="w-12 h-8 rounded-md overflow-hidden shadow-sm border border-border/50 flex-shrink-0">
-                                <img
-                                  src={`https://flagcdn.com/${dest.countryCode.toLowerCase()}.svg`}
-                                  alt={dest.name}
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
-                              <span className="text-xs text-foreground font-medium truncate">
-                                {dest.name}
-                              </span>
-                            </motion.div>
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-
-                    {searchType === "region" && (
-                      <div className="grid grid-cols-3 gap-2 mb-4">
-                        {displayPopularRegions.map((region) => (
-                          <Link
-                            key={region.id}
-                            href={`/region/${region.slug}`}
-                            onClick={() => onOpenChange(false)}
-                          >
-                            <motion.div
-                              whileHover={{ scale: 1.05 }}
-                              whileTap={{ scale: 0.98 }}
-                              className="flex flex-col items-center gap-2 cursor-pointer rounded-xl p-3 bg-card hover:bg-muted/50 transition-all border border-border/50 hover:border-primary/30"
-                            >
-                              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                                <Globe className="h-5 w-5 text-primary" />
-                              </div>
-                              <span className="text-[10px] text-center text-foreground font-medium leading-tight line-clamp-2">
-                                {region.name}
-                              </span>
-                            </motion.div>
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  {/* All Countries List */}
-                  {searchType === "country" && !destinationsLoading && (
-                    <div>
-                      <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide mb-3">
-                        All Countries ({getAllCountries().length})
-                      </h3>
-                      <div className="space-y-1">
-                        {getAllCountries().map((dest) => (
-                          <Link
-                            key={dest.slug}
-                            href={`/destination/${dest.slug}`}
-                            onClick={() => onOpenChange(false)}
-                          >
-                            <motion.div
-                              whileHover={{ x: 2 }}
-                              className="flex items-center gap-3 p-2.5 hover:bg-muted/50 cursor-pointer transition-all rounded-lg group"
-                            >
-                              <div className="w-14 h-10 rounded-md overflow-hidden shadow-sm border border-border/50 flex-shrink-0">
-                                <img
-                                  src={`https://flagcdn.com/${dest.countryCode.toLowerCase()}.svg`}
-                                  alt={dest.name}
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-foreground truncate">
-                                  {dest.name}
-                                </p>
-                                <p className="text-xs text-muted-foreground">
-                                  From{" "}
-                                  <span className="text-primary font-semibold">
-                                    ${parseFloat(dest.minPrice).toFixed(1)}
-                                  </span>
-                                </p>
-                              </div>
-                              <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
-                            </motion.div>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
-                  {/* All Regions List */}
-                  {searchType === "region" &&
-                    !regionsLoading &&
-                    regionsWithPricing && (
-                      <div>
-                        <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide mb-3">
-                          All Regions ({regionsWithPricing.length})
-                        </h3>
-                        <div className="space-y-1">
-                          {regionsWithPricing.map((region) => (
-                            <Link
-                              key={region.id}
-                              href={`/region/${region.slug}`}
-                              onClick={() => onOpenChange(false)}
-                            >
-                              <motion.div
-                                whileHover={{ x: 2 }}
-                                className="flex items-center gap-3 p-2.5 hover:bg-muted/50 cursor-pointer transition-all rounded-lg group"
-                              >
-                                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                                  <Globe className="h-5 w-5 text-primary" />
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                  <p className="text-sm font-medium text-foreground truncate">
-                                    {region.name}
-                                  </p>
-                                  <p className="text-xs text-muted-foreground">
-                                    From{" "}
-                                    <span className="text-primary font-semibold">
-                                      ${parseFloat(region.minPrice).toFixed(1)}
-                                    </span>
-                                  </p>
-                                </div>
-                                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
-                              </motion.div>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                </>
-              )}
+      <DialogContent className="max-w-[500px] max-h-[80vh] overflow-hidden p-0 rounded-2xl">
+        <div className="relative flex flex-col h-full">
+          {/* Header - Fixed height */}
+          <div className="sticky top-0 z-10 bg-white px-6 pt-6 pb-4 border-b shrink-0">
+            <div className="flex items-center justify-between mb-4">
+              <DialogTitle className="text-2xl font-bold text-gray-900">Where?</DialogTitle>
+              <button
+                onClick={() => onOpenChange(false)}
+                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <X size={20} />
+              </button>
             </div>
+
+            {/* Search Input */}
+            <form onSubmit={handleSearch} className="shrink-0">
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Input
+                  ref={inputRef}
+                  type="text"
+                  placeholder="Enter your destination"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-12 pr-4 py-6 text-base rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 bg-gray-50 placeholder:text-gray-400"
+                />
+              </div>
+            </form>
+          </div>
+
+          {/* Content - Scrollable only when searching */}
+          <div className={`flex-1 overflow-y-auto ${hasSearchQuery ? '' : 'overflow-y-hidden'}`}>
+            {hasSearchQuery ? (
+              // Search Results - Scrollable
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900">Search Results</h3>
+                  <span className="text-sm text-gray-500 bg-gray-100 px-2.5 py-1 rounded-full">
+                    {filteredResults.length} results
+                  </span>
+                </div>
+
+                {filteredResults.length === 0 ? (
+                  <div className="py-12 text-center">
+                    <Globe className="h-12 w-12 text-gray-300 mx-auto mb-3" />
+                    <p className="text-gray-500 font-medium">No results found</p>
+                    <p className="text-sm text-gray-400 mt-1">Try a different search term</p>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    {filteredResults.map((item, idx) => (
+                      <Link
+                        key={item.id || idx}
+                        href={
+                          item.type === 'country'
+                            ? `/destination/${item.slug}`
+                            : item.type === 'region'
+                              ? `/region/${item.slug}`
+                              : `/global`
+                        }
+                        onClick={() => onOpenChange(false)}
+                      >
+                        <motion.div
+                          initial={{ opacity: 0, y: 5 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: idx * 0.03 }}
+                          className="flex items-center justify-between p-4 hover:bg-blue-50 rounded-xl cursor-pointer group border border-transparent hover:border-blue-100 transition-all"
+                        >
+                          <div className="flex items-center gap-4">
+                            {item.icon}
+                            <div className="flex-1 min-w-0">
+                              <p className="font-medium text-gray-900 truncate">
+                                {item.displayName}
+                              </p>
+                              <p className="text-sm text-gray-600">{item.displayPrice}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <span
+                              className={`text-xs font-medium px-2 py-1 rounded ${
+                                item.type === 'country'
+                                  ? 'bg-green-100 text-green-800'
+                                  : item.type === 'region'
+                                    ? 'bg-blue-100 text-blue-800'
+                                    : 'bg-purple-100 text-purple-800'
+                              }`}
+                            >
+                              {item.type === 'country'
+                                ? 'Country'
+                                : item.type === 'region'
+                                  ? 'Region'
+                                  : 'Global'}
+                            </span>
+                            <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-blue-600 transition-colors" />
+                          </div>
+                        </motion.div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              // Default View - Most Popular (No scroll)
+              <div className="p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-6">
+                  Most popular destinations
+                </h3>
+
+                <div className="space-y-3">
+                  {popularDestinations.map((dest, idx) => (
+                    <Link
+                      key={dest.slug || idx}
+                      href={
+                        dest.type === 'country'
+                          ? `/destination/${dest.slug}`
+                          : dest.type === 'region'
+                            ? `/region/${dest.slug}`
+                            : `/global`
+                      }
+                      onClick={() => onOpenChange(false)}
+                    >
+                      <motion.div
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: idx * 0.1 }}
+                        className="flex items-center justify-between p-4 bg-gray-50 hover:bg-blue-50 rounded-xl cursor-pointer group border border-gray-100 hover:border-blue-200 transition-all"
+                      >
+                        <div className="flex items-center gap-4">
+                          {dest.type === 'country' ? (
+                            <div className="w-10 h-7 rounded overflow-hidden border border-gray-200">
+                              <img
+                                src={`https://flagcdn.com/${dest.countryCode.toLowerCase()}.svg`}
+                                alt={dest.name}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                          ) : (
+                            <div
+                              className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                                dest.type === 'global' ? 'bg-purple-100' : 'bg-blue-100'
+                              }`}
+                            >
+                              <Globe
+                                className={`h-5 w-5 ${
+                                  dest.type === 'global' ? 'text-purple-600' : 'text-blue-600'
+                                }`}
+                              />
+                            </div>
+                          )}
+                          <div className="flex-1 min-w-0">
+                            <p className="font-medium text-gray-900 truncate">{dest.name}</p>
+                            <div className="flex items-center gap-2">
+                              <span className="text-sm font-medium text-blue-600">
+                                {dest.price}
+                              </span>
+                              {'countries' in dest && (
+                                <span className="text-xs text-gray-500">
+                                  · {dest.countries} countries
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex items-center">
+                          <span
+                            className={`text-xs font-medium px-2 py-1 rounded ${
+                              dest.type === 'country'
+                                ? 'bg-green-100 text-green-800'
+                                : dest.type === 'region'
+                                  ? 'bg-blue-100 text-blue-800'
+                                  : 'bg-purple-100 text-purple-800'
+                            }`}
+                          >
+                            {dest.type === 'country'
+                              ? 'Country'
+                              : dest.type === 'region'
+                                ? 'Region'
+                                : 'Global'}
+                          </span>
+                          <ChevronRight className="h-5 w-5 text-gray-400 ml-2 group-hover:text-blue-600 transition-colors" />
+                        </div>
+                      </motion.div>
+                    </Link>
+                  ))}
+                </div>
+
+                {/* Info message - No All Countries section */}
+                <div className="mt-8 p-4 bg-blue-50 rounded-xl border border-blue-100">
+                  <div className="flex items-start gap-3">
+                    <Search className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-sm font-medium text-gray-900">
+                        Search for more destinations
+                      </p>
+                      <p className="text-xs text-gray-600 mt-1">
+                        Type in the search bar above to explore all countries and regions
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </DialogContent>

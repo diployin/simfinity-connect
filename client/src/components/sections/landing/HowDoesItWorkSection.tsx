@@ -113,12 +113,6 @@
 
 // export default HowDoesItWorkSection;
 
-
-
-
-
-
-
 import { useTranslation } from '@/contexts/TranslationContext';
 import React from 'react';
 
@@ -174,27 +168,19 @@ const HowDoesItWorkSection = () => {
         {/* Steps Grid */}
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-5">
           {steps.map((step) => (
-            <div key={step.id} className="flex flex-col overflow-hidden rounded-3xl bg-gray-100">
+            <div key={step.id} className="flex flex-col overflow-hidden rounded-3xl bg-gray-100 gap-10 md:gap-0">
               <div className="flex-1 space-y-4 p-8 sm:p-6">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-base font-medium text-black shadow-md">
                   {step.id}
                 </div>
 
-                <h3 className="text-xl font-medium text-black">
-                  {step.title}
-                </h3>
+                <h3 className="text-xl font-medium text-black">{step.title}</h3>
 
-                <p className="text-base text-gray-600">
-                  {step.description}
-                </p>
+                <p className="text-base text-gray-600">{step.description}</p>
               </div>
 
-              <div className="relative flex h-[250px] items-center justify-center sm:h-[300px]">
-                <img
-                  src={step.image}
-                  alt={step.title}
-                  className="object-contain"
-                />
+              <div className="relative flex h-[250px] items-center justify-center sm:h-[250px]">
+                <img src={step.image} alt={step.title} className="object-contain" />
               </div>
             </div>
           ))}
@@ -205,4 +191,3 @@ const HowDoesItWorkSection = () => {
 };
 
 export default HowDoesItWorkSection;
-

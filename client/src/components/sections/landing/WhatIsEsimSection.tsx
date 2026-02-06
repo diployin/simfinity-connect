@@ -7,9 +7,9 @@ const WhatIsEsimSection = () => {
   const staticData = useStaticData();
 
   return (
-    <section className="w-full py-4 md:py-6 lg:py-8">
+    <section className="w-full py-16 md:py-6 lg:py-8">
       <div className="containers">
-        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+        <div className="grid grid-cols-1 items-center  lg:grid-cols-2 lg:gap-12 xl:gap-16">
           {/* Left Side - Image */}
           <div className="order-2 flex items-center justify-center lg:order-1 lg:justify-start">
             <div className="relative aspect-[4/3] w-full max-w-[500px] lg:max-w-[600px]">
@@ -24,7 +24,7 @@ const WhatIsEsimSection = () => {
 
           {/* Right Side - Content */}
           <div className="order-1 flex flex-col space-y-6 lg:order-2">
-            <h2 className="text-xl font-normal leading-tight text-black sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
+            <h2 className=" font-medium leading-tight text-black text-3xl lg:text-4xl xl:text-5xl">
               {t('esimIntro.title')}
             </h2>
 
