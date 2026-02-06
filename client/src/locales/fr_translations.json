@@ -512,7 +512,155 @@
 
   "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.2.description": "Scannez le QR code ou suivez les instructions de configuration.",
 
-  "WhatIsEsim.howDoesItWorkSection.content.paragraph2": "Pour commencer à utiliser une eSIM, achetez simplement un forfait et effectuez une configuration rapide. Pas besoin de retirer votre carte SIM actuelle."
+  "WhatIsEsim.howDoesItWorkSection.content.paragraph2": "Pour commencer à utiliser une eSIM, achetez simplement un forfait et effectuez une configuration rapide. Pas besoin de retirer votre carte SIM actuelle.",
+
+
+
+"NewSimfinDes.about_us.HeroSec.card.title": "Rencontrez les personnes derrière Simfinity",
+"NewSimfinDes.about_us.HeroSec.card.description": "Nous avons assez voyagé pour savoir à quel point rester connecté à l’étranger peut être frustrant. C’est pourquoi nous avons créé Simfinity — l’application eSIM qui simplifie la connectivité pour tous.",
+
+"NewSimfinDes.about_us.WhyBuiltSec.title": "Pourquoi nous avons créé Simfinity",
+
+"NewSimfinDes.about_us.WhyBuiltSec.para1": "Les gens sont des explorateurs par nature, et traverser les mers a toujours été l’aventure ultime. Pendant de nombreuses années, c’était la navigation. Aujourd’hui, vous ne traversez peut-être pas les océans pour découvrir un nouveau continent, mais l’envie de voyager est toujours là. Et c’est ce qui nous anime.",
+
+"NewSimfinDes.about_us.WhyBuiltSec.para2": "Simfinity vous donne les outils pour explorer le monde de manière moderne. Nous construisons un futur où la connectivité est simple, instantanée et entièrement numérique. Pas de plastique. Pas de frontières. Juste connecter et partir.",
+
+
+
+
+"NewSimfinDes.about_us.ValuesSection.heading": "Les valeurs qui nous guident",
+"NewSimfinDes.about_us.ValuesSection.subheading": "Nos valeurs ne sont pas seulement des mots inspirants — nous les appliquons dans tout ce que nous construisons.",
+
+"NewSimfinDes.about_us.ValuesSection.values.0.iconType": "GlobeAmericas",
+"NewSimfinDes.about_us.ValuesSection.values.0.title": "Voyagez librement",
+"NewSimfinDes.about_us.ValuesSection.values.0.description": "Nous remplaçons les cartes SIM plastiques par une solution simple et écologique fonctionnant dans plus de 200 destinations.",
+
+"NewSimfinDes.about_us.ValuesSection.values.1.iconType": "Lightbulb",
+"NewSimfinDes.about_us.ValuesSection.values.1.title": "Rester simple",
+"NewSimfinDes.about_us.ValuesSection.values.1.description": "Pas de jargon technique. Pas de complexité. Une application eSIM intuitive et facile à utiliser.",
+
+"NewSimfinDes.about_us.ValuesSection.values.2.iconType": "Heart",
+"NewSimfinDes.about_us.ValuesSection.values.2.title": "Prioriser l’humain",
+"NewSimfinDes.about_us.ValuesSection.values.2.description": "Nous nous soucions des personnes, pas seulement des processus.",
+
+"NewSimfinDes.about_us.ValuesSection.values.3.iconType": "Seedling",
+"NewSimfinDes.about_us.ValuesSection.values.3.title": "Toujours s’améliorer",
+"NewSimfinDes.about_us.ValuesSection.values.3.description": "Nous ne cherchons pas la perfection — nous cherchons le progrès.",
+
+"NewSimfinDes.about_us.ValuesSection.values.4.iconType": "Compass",
+"NewSimfinDes.about_us.ValuesSection.values.4.title": "Penser comme un voyageur",
+"NewSimfinDes.about_us.ValuesSection.values.4.description": "Nous restons curieux, flexibles et ouverts à l’inconnu.",
+
+"NewSimfinDes.about_us.ValuesSection.values.5.iconType": "Rocket",
+"NewSimfinDes.about_us.ValuesSection.values.5.title": "Donner du sens",
+"NewSimfinDes.about_us.ValuesSection.values.5.description": "Nous sommes là pour faire la différence.",
+
+
+"NewSimfinDes.about_us.SailyTaleSection.heading": "L’histoire de Simfinity",
+
+"NewSimfinDes.about_us.SailyTaleSection.subheading": "Nous avons imaginé une meilleure façon pour les voyageurs de rester connectés en ligne. Aujourd’hui, nous transformons cette vision en réalité pour des milliers de personnes à travers le monde. Voici comment Simfinity en est arrivé là.",
+
+
+
+"NewSimfinDes.about_us.SailyTaleSection.events.0.date": "Novembre 2023",
+"NewSimfinDes.about_us.SailyTaleSection.events.0.title": "Là où tout a commencé",
+"NewSimfinDes.about_us.SailyTaleSection.events.0.description": "L’application eSIM Simfinity est née d’une idée commune — abandonner les cartes SIM en plastique et simplifier la connectivité mobile.",
+
+
+
+"NewSimfinDes.about_us.SailyTaleSection.events.1.date": "Mars 2024",
+"NewSimfinDes.about_us.SailyTaleSection.events.1.title": "Le premier lancement",
+"NewSimfinDes.about_us.SailyTaleSection.events.1.description": "Nous avons lancé nos premiers forfaits eSIM couvrant plus de 160 pays avec un accès mobile instantané et zéro déchet plastique.",
+
+
+
+"NewSimfinDes.about_us.SailyTaleSection.events.2.date": "Décembre 2024",
+"NewSimfinDes.about_us.SailyTaleSection.events.2.title": "Priorité à la sécurité",
+"NewSimfinDes.about_us.SailyTaleSection.events.2.description": "Nous avons ajouté des fonctionnalités de sécurité intégrées à notre application eSIM pour vous permettre de naviguer plus en toute sécurité pendant vos voyages.",
+
+
+
+"NewSimfinDes.about_us.SailyTaleSection.events.3.date": "Février 2025",
+"NewSimfinDes.about_us.SailyTaleSection.events.3.title": "Connecter le monde",
+"NewSimfinDes.about_us.SailyTaleSection.events.3.description": "Au début de l’année, nous avons étendu notre couverture à plus de 200 destinations et aidé plus de voyageurs que jamais à rester connectés.",
+
+
+
+"NewSimfinDes.about_us.SailyTaleSection.events.4.date": "Février 2025",
+"NewSimfinDes.about_us.SailyTaleSection.events.4.title": "Connecter le monde",
+"NewSimfinDes.about_us.SailyTaleSection.events.4.description": "Au début de l’année, nous avons étendu notre couverture à plus de 200 destinations et aidé plus de voyageurs que jamais à rester connectés.",
+
+
+
+
+
+"NewSimfinDes.about_us.VoicesSection.heading": "Les voix de l’équipe Simfinity",
+
+"NewSimfinDes.about_us.VoicesSection.subheading": "Découvrez les personnes derrière Simfinity et leur vision d’une connectivité mobile plus simple.",
+
+
+
+"NewSimfinDes.about_us.VoicesSection.testimonials.0.quote": "Les voyageurs sont au cœur de tout ce que nous faisons chez Simfinity. C’est pourquoi chaque équipe travaille à rendre la connectivité en voyage plus intelligente et plus fluide. Nous avançons vite et restons curieux pour offrir la meilleure expérience possible.",
+"NewSimfinDes.about_us.VoicesSection.testimonials.0.name": "Matas Čenys",
+"NewSimfinDes.about_us.VoicesSection.testimonials.0.designation": "Responsable produit chez Simfinity",
+
+
+
+"NewSimfinDes.about_us.VoicesSection.testimonials.1.quote": "Notre mission est de rendre la connexion à l’étranger aussi simple que possible. Nous construisons un produit auquel les voyageurs peuvent faire confiance, fondé sur la transparence et la fiabilité.",
+"NewSimfinDes.about_us.VoicesSection.testimonials.1.name": "Sarah Johnson",
+"NewSimfinDes.about_us.VoicesSection.testimonials.1.designation": "Lead Designer chez Simfinity",
+
+
+
+"NewSimfinDes.about_us.VoicesSection.testimonials.2.quote": "L’innovation nous fait avancer. Nous explorons constamment de nouvelles façons d’améliorer l’expérience de voyage grâce à des technologies de pointe et des solutions de connectivité fluides.",
+"NewSimfinDes.about_us.VoicesSection.testimonials.2.name": "Alex Martinez",
+"NewSimfinDes.about_us.VoicesSection.testimonials.2.designation": "CTO chez Simfinity",
+
+
+
+
+
+"NewSimfinDes.LifeAtSailySection.title": "La vie chez Simfinity",
+
+
+
+"NewSimfinDes.LifeAtSailySection.card.0.title": "Opportunités de croissance",
+"NewSimfinDes.LifeAtSailySection.card.0.des": "Nous soutenons votre évolution avec des अवसर d’apprentissage, de vraies responsabilités et des अवसर de diriger (pas seulement de suivre).",
+
+
+
+"NewSimfinDes.LifeAtSailySection.card.1.title": "Collaboration d’équipe",
+"NewSimfinDes.LifeAtSailySection.card.1.des": "Nous travaillons ensemble à travers les équipes et les fuseaux horaires pour créer des produits exceptionnels.",
+
+
+
+"NewSimfinDes.LifeAtSailySection.card.2.title": "Culture et communauté",
+"NewSimfinDes.LifeAtSailySection.card.2.des": "Nous donnons la priorité aux personnes et célébrons les réussites, les étapes importantes et la contribution unique de chaque membre de l’équipe.",
+
+
+
+"NewSimfinDes.LifeAtSailySection.card.3.title": "Autonomie et responsabilité",
+"NewSimfinDes.LifeAtSailySection.card.3.des": "Nous vous faisons confiance pour diriger, expérimenter et concrétiser vos idées. Chez Simfinity, chacun est libre de prendre des décisions audacieuses.",
+
+
+
+"NewSimfinDes.LifeAtSailySection.card.4.title": "Équilibre vie pro-perso",
+"NewSimfinDes.LifeAtSailySection.card.4.des": "Travaillez de n’importe où dans le monde ! Nous sommes une équipe sans frontières, composée de nombreuses nationalités, connectée par la confiance et non par les fuseaux horaires.",
+
+
+
+
+
+"NewSimfinDes.about_us.CareerCTASection.backgroundImageAlt": "Arrière-plan carrière",
+
+"NewSimfinDes.about_us.CareerCTASection.heading": "Toujours connecté. Toujours sur la bonne voie.",
+
+"NewSimfinDes.about_us.CareerCTASection.description": "Rejoignez une équipe de voyageurs passionnés qui façonnent l’avenir de la connectivité mobile.",
+
+"NewSimfinDes.about_us.CareerCTASection.ctaButton": "Voir les carrières",
+
+"NewSimfinDes.about_us.CareerCTASection.ctaLink": "/careers"
+
 
 
 

@@ -34,24 +34,24 @@ const VoicesSection = () => {
   const testimonials: Testimonial[] = [
     {
       id: 1,
-      quote: t('NewSimfinDes.about_us.VoicesSection.testimonials.0.quote'),
-      name: t('NewSimfinDes.about_us.VoicesSection.testimonials.0.name'),
-      designation: t('NewSimfinDes.about_us.VoicesSection.testimonials.0.designation'),
+      quote: t('website.NewSimfinDes.about_us.VoicesSection.testimonials.0.quote'),
+      name: t('website.NewSimfinDes.about_us.VoicesSection.testimonials.0.name'),
+      designation: t('website.NewSimfinDes.about_us.VoicesSection.testimonials.0.designation'),
       image: '/images/about/Voices_crew1.png',
     },
     {
       id: 2,
-      quote: t('NewSimfinDes.about_us.VoicesSection.testimonials.1.quote'),
-      name: t('NewSimfinDes.about_us.VoicesSection.testimonials.1.name'),
-      designation: t('NewSimfinDes.about_us.VoicesSection.testimonials.1.designation'),
+      quote: t('website.NewSimfinDes.about_us.VoicesSection.testimonials.1.quote'),
+      name: t('website.NewSimfinDes.about_us.VoicesSection.testimonials.1.name'),
+      designation: t('website.NewSimfinDes.about_us.VoicesSection.testimonials.1.designation'),
       // image: '/images/about/about-us-voices-of-simfinity-neringa.webp'
       image: '/images/about/Voices_crew2.png',
     },
     {
       id: 3,
-      quote: t('NewSimfinDes.about_us.VoicesSection.testimonials.2.quote'),
-      name: t('NewSimfinDes.about_us.VoicesSection.testimonials.2.name'),
-      designation: t('NewSimfinDes.about_us.VoicesSection.testimonials.2.designation'),
+      quote: t('website.NewSimfinDes.about_us.VoicesSection.testimonials.2.quote'),
+      name: t('website.NewSimfinDes.about_us.VoicesSection.testimonials.2.name'),
+      designation: t('website.NewSimfinDes.about_us.VoicesSection.testimonials.2.designation'),
       // image: '/images/about/about-us-voices-of-simfinity-matas.webp'
       image: '/images/about/Voices_crew3.png',
     },
@@ -85,10 +85,10 @@ const VoicesSection = () => {
           {/* Header */}
           <div className="mb-16">
             <h2 className="text-4.5xl mb-4 font-medium text-white">
-              {t('NewSimfinDes.about_us.VoicesSection.heading')}
+              {t('website.NewSimfinDes.about_us.VoicesSection.heading')}
             </h2>
             <p className="max-w-3xl text-base text-gray-300 sm:text-lg">
-              {t('NewSimfinDes.about_us.VoicesSection.subheading')}
+              {t('website.NewSimfinDes.about_us.VoicesSection.subheading')}
             </p>
           </div>
 

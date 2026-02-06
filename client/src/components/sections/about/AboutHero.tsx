@@ -86,12 +86,12 @@ const AboutHero = () => {
                     <div className="flex h-full w-full flex-col gap-y-3">
                       <div>
                         <h1 className="lg:text4.5xl text-3xl leading-tight font-medium text-black sm:text-4xl">
-                          {t('NewSimfinDes.about_us.HeroSec.card.title')}
+                          {t('website.NewSimfinDes.about_us.HeroSec.card.title')}
                         </h1>
                       </div>
                       <div>
                         <p className="text-base font-medium text-gray-600 sm:text-base">
-                          {t('NewSimfinDes.about_us.HeroSec.card.description')}
+                          {t('website.NewSimfinDes.about_us.HeroSec.card.description')}
                         </p>
                       </div>
                     </div>
@@ -177,16 +177,16 @@ const AboutHero = () => {
             {/* Left Side - Text Content */}
             <div className="space-y-6 text-center md:text-start">
               <h2 className="text-4.5xl leading-tight font-medium text-black">
-                {t('NewSimfinDes.about_us.WhyBuiltSec.title')}
+                {t('website.NewSimfinDes.about_us.WhyBuiltSec.title')}
               </h2>
 
               <div className="space-y-4">
                 <p className="text-base leading-relaxed text-gray-700 sm:text-base">
-                  {t('NewSimfinDes.about_us.WhyBuiltSec.para1')}asdsfdf
+                  {t('website.NewSimfinDes.about_us.WhyBuiltSec.para1')}asdsfdf
                 </p>
 
                 <p className="text-base leading-relaxed text-gray-700 sm:text-base">
-                  {t('NewSimfinDes.about_us.WhyBuiltSec.para2')}
+                  {t('website.NewSimfinDes.about_us.WhyBuiltSec.para2')}
                 </p>
               </div>
             </div>

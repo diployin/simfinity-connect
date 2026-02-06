@@ -608,7 +608,174 @@
 
   "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.2.description": "QR कोड स्कैन करें या सेटअप निर्देशों का पालन करें।",
 
-  "WhatIsEsim.howDoesItWorkSection.content.paragraph2": "eSIM का उपयोग शुरू करने के लिए बस एक eSIM प्लान खरीदें और त्वरित सेटअप पूरा करें। आपको अपनी मौजूदा SIM कार्ड निकालने की आवश्यकता नहीं है — वह अपने स्थान पर रह सकती है, चाहे आप उसे उपयोग करें या नहीं।"
+  "WhatIsEsim.howDoesItWorkSection.content.paragraph2": "eSIM का उपयोग शुरू करने के लिए बस एक eSIM प्लान खरीदें और त्वरित सेटअप पूरा करें। आपको अपनी मौजूदा SIM कार्ड निकालने की आवश्यकता नहीं है — वह अपने स्थान पर रह सकती है, चाहे आप उसे उपयोग करें या नहीं।",
+
+
+
+
+
+
+  "NewSimfinDes.about_us.HeroSec.card.title": "Simfinity के पीछे काम करने वाले लोगों से मिलिए",
+
+"NewSimfinDes.about_us.HeroSec.card.description": "हमने इतना सफर किया है कि हमें पता है विदेश में कनेक्टेड रहना कितना परेशान करने वाला हो सकता है। इसी वजह से हमने Simfinity बनाया — एक eSIM ऐप जो सभी के लिए जुड़े रहना आसान बनाता है।",
+
+
+"NewSimfinDes.about_us.WhyBuiltSec.title": "हमने Simfinity क्यों बनाया",
+
+"NewSimfinDes.about_us.WhyBuiltSec.para1": "इंसान स्वभाव से खोजकर्ता होता है, और समुद्र पार करना हमेशा से सबसे बड़ा रोमांच रहा है। कई सालों तक लोग ऐसा ही करते थे। आज भले ही आप किसी नए महाद्वीप की खोज में समुद्र पार न कर रहे हों, लेकिन यात्रा और खोज की चाह आज भी उतनी ही ज़िंदा है। और यही हमारी प्रेरणा है।",
+
+"NewSimfinDes.about_us.WhyBuiltSec.para2": "Simfinity आपको दुनिया को आधुनिक तरीके से एक्सप्लोर करने के टूल्स देता है। हम ऐसा भविष्य बना रहे हैं जहाँ कनेक्टिविटी आसान, तुरंत और पूरी तरह डिजिटल हो। न प्लास्टिक। न सीमाएँ। बस टैप करें, कनेक्ट हों और आगे बढ़ें।",
+
+
+
+"NewSimfinDes.about_us.ValuesSection.heading": "वे मूल्य जो हमारा मार्गदर्शन करते हैं",
+
+"NewSimfinDes.about_us.ValuesSection.subheading": "हमारे मूल्य सिर्फ प्रेरणादायक शब्द नहीं हैं जिन्हें हम दीवार पर सजाकर रखें — हम उन्हें हर उस चीज़ में जीते हैं जो हम बनाते हैं।",
+
+
+
+"NewSimfinDes.about_us.ValuesSection.values.0.iconType": "GlobeAmericas",
+"NewSimfinDes.about_us.ValuesSection.values.0.title": "आजादी से घूमिए",
+"NewSimfinDes.about_us.ValuesSection.values.0.description": "हम प्लास्टिक सिम कार्ड को एक आसान और पर्यावरण-अनुकूल समाधान से बदल रहे हैं जो 200+ डेस्टिनेशनों में काम करता है।",
+
+
+
+"NewSimfinDes.about_us.ValuesSection.values.1.iconType": "Lightbulb",
+"NewSimfinDes.about_us.ValuesSection.values.1.title": "सरल रखें",
+"NewSimfinDes.about_us.ValuesSection.values.1.description": "न कोई तकनीकी जार्गन, न कोई उलझन। हमने एक साफ, सहज और उपयोग में आसान eSIM ऐप बनाया है।",
+
+
+
+"NewSimfinDes.about_us.ValuesSection.values.2.iconType": "Heart",
+"NewSimfinDes.about_us.ValuesSection.values.2.title": "इंसानों को प्राथमिकता दें",
+"NewSimfinDes.about_us.ValuesSection.values.2.description": "हम लोगों की परवाह करते हैं, सिर्फ प्रक्रियाओं की नहीं। हर टीम सदस्य और उपयोगकर्ता के साथ सहानुभूति और सम्मान से पेश आते हैं।",
+
+
+
+"NewSimfinDes.about_us.ValuesSection.values.3.iconType": "Seedling",
+"NewSimfinDes.about_us.ValuesSection.values.3.title": "हमेशा बेहतर बनें",
+"NewSimfinDes.about_us.ValuesSection.values.3.description": "हम परफेक्शन के पीछे नहीं भागते — हम प्रगति के पीछे भागते हैं। हमें विश्वास है कि छोटी जीत बड़े बदलाव लाती है।",
+
+
+
+"NewSimfinDes.about_us.ValuesSection.values.4.iconType": "Compass",
+"NewSimfinDes.about_us.ValuesSection.values.4.title": "यात्री की तरह सोचें",
+"NewSimfinDes.about_us.ValuesSection.values.4.description": "हम जिज्ञासु, लचीले और अनजाने के लिए खुले रहते हैं — ठीक उन यात्रियों की तरह जिनके लिए हमने Simfinity बनाया।",
+
+
+
+"NewSimfinDes.about_us.ValuesSection.values.5.iconType": "Rocket",
+"NewSimfinDes.about_us.ValuesSection.values.5.title": "इसे मायनेपूर्ण बनाएं",
+"NewSimfinDes.about_us.ValuesSection.values.5.description": "हम बदलाव लाने के लिए यहाँ हैं, इसलिए हम उसी पर ध्यान देते हैं जो वास्तव में महत्वपूर्ण है — हमारे उपयोगकर्ता, हमारी टीम और हमारे आसपास की दुनिया।",
+
+
+
+"NewSimfinDes.about_us.SailyTaleSection.heading": "Simfinity की कहानी",
+
+"NewSimfinDes.about_us.SailyTaleSection.subheading": "हमने यात्रियों के लिए ऑनलाइन रहने का एक बेहतर तरीका सोचा था। आज हम उस विज़न को दुनिया भर में हज़ारों लोगों के लिए हकीकत बना रहे हैं। यहाँ जानिए Simfinity यहाँ तक कैसे पहुँचा।",
+
+
+
+"NewSimfinDes.about_us.SailyTaleSection.events.0.date": "नवंबर 2023",
+"NewSimfinDes.about_us.SailyTaleSection.events.0.title": "यहीं से शुरुआत हुई",
+"NewSimfinDes.about_us.SailyTaleSection.events.0.description": "Simfinity eSIM ऐप की शुरुआत एक साझा विचार से हुई — प्लास्टिक सिम कार्ड को खत्म करना और मोबाइल कनेक्टिविटी को सरल बनाना।",
+
+
+
+"NewSimfinDes.about_us.SailyTaleSection.events.1.date": "मार्च 2024",
+"NewSimfinDes.about_us.SailyTaleSection.events.1.title": "पहला लॉन्च",
+"NewSimfinDes.about_us.SailyTaleSection.events.1.description": "हमने अपने पहले eSIM प्लान लॉन्च किए जो 160+ देशों में तुरंत मोबाइल एक्सेस और बिना प्लास्टिक वेस्ट के उपलब्ध थे।",
+
+
+
+"NewSimfinDes.about_us.SailyTaleSection.events.2.date": "दिसंबर 2024",
+"NewSimfinDes.about_us.SailyTaleSection.events.2.title": "सुरक्षा को प्राथमिकता",
+"NewSimfinDes.about_us.SailyTaleSection.events.2.description": "हमने अपने eSIM ऐप में बिल्ट-इन सुरक्षा फीचर्स जोड़े ताकि आप यात्रा के दौरान और सुरक्षित ब्राउज़ कर सकें।",
+
+
+
+"NewSimfinDes.about_us.SailyTaleSection.events.3.date": "फरवरी 2025",
+"NewSimfinDes.about_us.SailyTaleSection.events.3.title": "दुनिया को जोड़ना",
+"NewSimfinDes.about_us.SailyTaleSection.events.3.description": "साल की शुरुआत में हमने अपनी कवरेज 200+ डेस्टिनेशनों तक बढ़ाई और पहले से ज्यादा लोगों को कनेक्टेड रहने में मदद की।",
+
+
+
+"NewSimfinDes.about_us.SailyTaleSection.events.4.date": "फरवरी 2025",
+"NewSimfinDes.about_us.SailyTaleSection.events.4.title": "दुनिया को जोड़ना",
+"NewSimfinDes.about_us.SailyTaleSection.events.4.description": "साल की शुरुआत में हमने अपनी कवरेज 200+ डेस्टिनेशनों तक बढ़ाई और पहले से ज्यादा लोगों को कनेक्टेड रहने में मदद की।",
+
+
+
+
+
+"NewSimfinDes.about_us.VoicesSection.heading": "Simfinity टीम की आवाज़ें",
+
+"NewSimfinDes.about_us.VoicesSection.subheading": "Simfinity के पीछे काम करने वाले लोगों और आसान मोबाइल कनेक्शन के लिए उनके विज़न को जानिए।",
+
+
+
+"NewSimfinDes.about_us.VoicesSection.testimonials.0.quote": "Simfinity में हम जो कुछ भी करते हैं उसके केंद्र में यात्री होते हैं। इसलिए हर टीम यात्रा कनेक्टिविटी को और स्मार्ट और सहज बनाने पर काम कर रही है। हम तेज़ी से आगे बढ़ते हैं और जिज्ञासु बने रहते हैं ताकि बेहतरीन अनुभव दे सकें।",
+"NewSimfinDes.about_us.VoicesSection.testimonials.0.name": "Matas Čenys",
+"NewSimfinDes.about_us.VoicesSection.testimonials.0.designation": "Simfinity में हेड ऑफ प्रोडक्ट",
+
+
+
+"NewSimfinDes.about_us.VoicesSection.testimonials.1.quote": "हमारा मिशन विदेश में जुड़े रहना जितना संभव हो उतना सरल बनाना है। हम ऐसा प्रोडक्ट बना रहे हैं जिस पर यात्री भरोसा कर सकें — पारदर्शिता और विश्वसनीयता इसके केंद्र में है।",
+"NewSimfinDes.about_us.VoicesSection.testimonials.1.name": "Sarah Johnson",
+"NewSimfinDes.about_us.VoicesSection.testimonials.1.designation": "Simfinity में लीड डिज़ाइनर",
+
+
+
+"NewSimfinDes.about_us.VoicesSection.testimonials.2.quote": "नवाचार हमें आगे बढ़ाता है। हम लगातार नई तकनीकों और सहज कनेक्टिविटी समाधानों के ज़रिए यात्रा अनुभव को बेहतर बनाने के तरीके खोजते रहते हैं।",
+"NewSimfinDes.about_us.VoicesSection.testimonials.2.name": "Alex Martinez",
+"NewSimfinDes.about_us.VoicesSection.testimonials.2.designation": "Simfinity में CTO",
+
+
+
+
+
+"NewSimfinDes.LifeAtSailySection.title": "Simfinity में जीवन",
+
+
+
+"NewSimfinDes.LifeAtSailySection.card.0.title": "विकास के अवसर",
+"NewSimfinDes.LifeAtSailySection.card.0.des": "हम आपके विकास को सीखने के अवसरों, वास्तविक जिम्मेदारियों और नेतृत्व करने के मौकों के साथ समर्थन देते हैं (सिर्फ अनुसरण नहीं)।",
+
+
+
+"NewSimfinDes.LifeAtSailySection.card.1.title": "टीम सहयोग",
+"NewSimfinDes.LifeAtSailySection.card.1.des": "हम विभिन्न टीमों और टाइम ज़ोन्स में मिलकर शानदार प्रोडक्ट्स बनाते हैं।",
+
+
+
+"NewSimfinDes.LifeAtSailySection.card.2.title": "संस्कृति और समुदाय",
+"NewSimfinDes.LifeAtSailySection.card.2.des": "हम लोगों को प्राथमिकता देते हैं और हर टीम सदस्य की उपलब्धियों, माइलस्टोन्स और योगदान का जश्न मनाते हैं।",
+
+
+
+"NewSimfinDes.LifeAtSailySection.card.3.title": "स्वायत्तता और स्वामित्व",
+"NewSimfinDes.LifeAtSailySection.card.3.des": "हम आप पर भरोसा करते हैं कि आप नेतृत्व करें, प्रयोग करें और अपने विचारों को वास्तविकता में बदलें। Simfinity में हर किसी को बड़े निर्णय लेने की स्वतंत्रता है।",
+
+
+
+"NewSimfinDes.LifeAtSailySection.card.4.title": "वर्क-लाइफ बैलेंस",
+"NewSimfinDes.LifeAtSailySection.card.4.des": "दुनिया में कहीं से भी काम करें! हम कई राष्ट्रीयताओं की एक सीमाहीन टीम हैं, जो टाइम ज़ोन से नहीं बल्कि भरोसे से जुड़ी है।",
+
+
+
+
+
+"NewSimfinDes.about_us.CareerCTASection.backgroundImageAlt": "करियर बैकग्राउंड",
+
+"NewSimfinDes.about_us.CareerCTASection.heading": "हमेशा जुड़े रहें। हमेशा सही दिशा में बढ़ें।",
+
+"NewSimfinDes.about_us.CareerCTASection.description": "मोबाइल कनेक्टिविटी के भविष्य को आकार देने वाले उत्साही यात्रियों की टीम से जुड़ें।",
+
+"NewSimfinDes.about_us.CareerCTASection.ctaButton": "करियर देखें",
+
+"NewSimfinDes.about_us.CareerCTASection.ctaLink": "/careers"
+
+
 
 
 

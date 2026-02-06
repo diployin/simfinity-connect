@@ -13,7 +13,7 @@ const CareerCTASection = () => {
       <div className="absolute inset-0">
         <img
           src="/images/about/Always connected. Always on course.png"
-          alt={t('NewSimfinDes.about_us.CareerCTASection.backgroundImageAlt')}
+          alt={t('website.NewSimfinDes.about_us.CareerCTASection.backgroundImageAlt')}
           className="object-cover"
         />
       </div>
@@ -23,18 +23,18 @@ const CareerCTASection = () => {
         {/* Glass Card */}
         <div className="w-full rounded-3xl border border-white/20 bg-white/10 p-8 text-center shadow-2xl backdrop-blur-xl md:p-12 lg:p-16">
           <h2 className="lg:text-4.5xl mb-6 text-3xl leading-tight font-medium text-white sm:text-4xl">
-            {t('NewSimfinDes.about_us.CareerCTASection.heading')}
+            {t('website.NewSimfinDes.about_us.CareerCTASection.heading')}
           </h2>
 
           <p className="mx-auto mb-8 max-w-2xl text-base text-white/90 sm:text-base">
-            {t('NewSimfinDes.about_us.CareerCTASection.description')}
+            {t('website.NewSimfinDes.about_us.CareerCTASection.description')}
           </p>
 
           <Link
-            href={t('NewSimfinDes.about_us.CareerCTASection.ctaLink')}
+            href={t('website.NewSimfinDes.about_us.CareerCTASection.ctaLink')}
             className="inline-block rounded-full border border-white/30 bg-white/20 px-8 py-3 text-base font-medium text-white backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-white/30"
           >
-            {t('NewSimfinDes.about_us.CareerCTASection.ctaButton')}
+            {t('website.NewSimfinDes.about_us.CareerCTASection.ctaButton')}
           </Link>
         </div>
       </div>

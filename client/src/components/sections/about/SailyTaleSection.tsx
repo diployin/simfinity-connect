@@ -24,39 +24,39 @@ const SailyTaleSection = () => {
   const events: TimelineEvent[] = [
     {
       id: 1,
-      date: t('NewSimfinDes.about_us.SailyTaleSection.events.0.date'),
-      title: t('NewSimfinDes.about_us.SailyTaleSection.events.0.title'),
-      description: t('NewSimfinDes.about_us.SailyTaleSection.events.0.description'),
+      date: t('website.NewSimfinDes.about_us.SailyTaleSection.events.0.date'),
+      title: t('website.NewSimfinDes.about_us.SailyTaleSection.events.0.title'),
+      description: t('website.NewSimfinDes.about_us.SailyTaleSection.events.0.description'),
       image: '/images/about/Slider_1.png',
     },
     {
       id: 2,
-      date: t('NewSimfinDes.about_us.SailyTaleSection.events.1.date'),
-      title: t('NewSimfinDes.about_us.SailyTaleSection.events.1.title'),
-      description: t('NewSimfinDes.about_us.SailyTaleSection.events.1.description'),
+      date: t('website.NewSimfinDes.about_us.SailyTaleSection.events.1.date'),
+      title: t('website.NewSimfinDes.about_us.SailyTaleSection.events.1.title'),
+      description: t('website.NewSimfinDes.about_us.SailyTaleSection.events.1.description'),
       // image: '/images/about/about-us-timeline-step-2.svg'
       image: '/images/about/Slider_2.png',
     },
     {
       id: 3,
-      date: t('NewSimfinDes.about_us.SailyTaleSection.events.2.date'),
-      title: t('NewSimfinDes.about_us.SailyTaleSection.events.2.title'),
-      description: t('NewSimfinDes.about_us.SailyTaleSection.events.2.description'),
+      date: t('website.NewSimfinDes.about_us.SailyTaleSection.events.2.date'),
+      title: t('website.NewSimfinDes.about_us.SailyTaleSection.events.2.title'),
+      description: t('website.NewSimfinDes.about_us.SailyTaleSection.events.2.description'),
       // image: '/images/about/about-us-timeline-step-3.svg',
       image: '/images/about/Slider_3.png',
     },
     {
       id: 4,
-      date: t('NewSimfinDes.about_us.SailyTaleSection.events.3.date'),
-      title: t('NewSimfinDes.about_us.SailyTaleSection.events.3.title'),
-      description: t('NewSimfinDes.about_us.SailyTaleSection.events.3.description'),
+      date: t('website.NewSimfinDes.about_us.SailyTaleSection.events.3.date'),
+      title: t('website.NewSimfinDes.about_us.SailyTaleSection.events.3.title'),
+      description: t('website.NewSimfinDes.about_us.SailyTaleSection.events.3.description'),
       image: '/images/about/Slider_1.png',
     },
     {
       id: 5,
-      date: t('NewSimfinDes.about_us.SailyTaleSection.events.4.date'),
-      title: t('NewSimfinDes.about_us.SailyTaleSection.events.4.title'),
-      description: t('NewSimfinDes.about_us.SailyTaleSection.events.4.description'),
+      date: t('website.NewSimfinDes.about_us.SailyTaleSection.events.4.date'),
+      title: t('website.NewSimfinDes.about_us.SailyTaleSection.events.4.title'),
+      description: t('website.NewSimfinDes.about_us.SailyTaleSection.events.4.description'),
       image: '/images/about/Slider_2.png',
     },
   ];
@@ -81,10 +81,10 @@ const SailyTaleSection = () => {
         {/* Header */}
         <div className="mb-16 text-center md:text-start">
           <h2 className="text-4.5xl mb-4 font-medium text-black">
-            {t('NewSimfinDes.about_us.SailyTaleSection.heading')}
+            {t('website.NewSimfinDes.about_us.SailyTaleSection.heading')}
           </h2>
           <p className="max-w-3xl text-base text-gray-600 sm:text-lg">
-            {t('NewSimfinDes.about_us.SailyTaleSection.subheading')}
+            {t('website.NewSimfinDes.about_us.SailyTaleSection.subheading')}
           </p>
         </div>
 

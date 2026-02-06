@@ -44,39 +44,39 @@ const ValuesSection = () => {
   const values: Value[] = [
     {
       id: 1,
-      iconType: t('NewSimfinDes.about_us.ValuesSection.values.0.iconType'),
-      title: t('NewSimfinDes.about_us.ValuesSection.values.0.title'),
-      description: t('NewSimfinDes.about_us.ValuesSection.values.0.description'),
+      iconType: t('website.NewSimfinDes.about_us.ValuesSection.values.0.iconType'),
+      title: t('website.NewSimfinDes.about_us.ValuesSection.values.0.title'),
+      description: t('website.NewSimfinDes.about_us.ValuesSection.values.0.description'),
     },
     {
       id: 2,
-      iconType: t('NewSimfinDes.about_us.ValuesSection.values.1.iconType'),
-      title: t('NewSimfinDes.about_us.ValuesSection.values.1.title'),
-      description: t('NewSimfinDes.about_us.ValuesSection.values.1.description'),
+      iconType: t('website.NewSimfinDes.about_us.ValuesSection.values.1.iconType'),
+      title: t('website.NewSimfinDes.about_us.ValuesSection.values.1.title'),
+      description: t('website.NewSimfinDes.about_us.ValuesSection.values.1.description'),
     },
     {
       id: 3,
-      iconType: t('NewSimfinDes.about_us.ValuesSection.values.2.iconType'),
-      title: t('NewSimfinDes.about_us.ValuesSection.values.2.title'),
-      description: t('NewSimfinDes.about_us.ValuesSection.values.2.description'),
+      iconType: t('website.NewSimfinDes.about_us.ValuesSection.values.2.iconType'),
+      title: t('website.NewSimfinDes.about_us.ValuesSection.values.2.title'),
+      description: t('website.NewSimfinDes.about_us.ValuesSection.values.2.description'),
     },
     {
       id: 4,
-      iconType: t('NewSimfinDes.about_us.ValuesSection.values.3.iconType'),
-      title: t('NewSimfinDes.about_us.ValuesSection.values.3.title'),
-      description: t('NewSimfinDes.about_us.ValuesSection.values.3.description'),
+      iconType: t('website.NewSimfinDes.about_us.ValuesSection.values.3.iconType'),
+      title: t('website.NewSimfinDes.about_us.ValuesSection.values.3.title'),
+      description: t('website.NewSimfinDes.about_us.ValuesSection.values.3.description'),
     },
     {
       id: 5,
-      iconType: t('NewSimfinDes.about_us.ValuesSection.values.4.iconType'),
-      title: t('NewSimfinDes.about_us.ValuesSection.values.4.title'),
-      description: t('NewSimfinDes.about_us.ValuesSection.values.4.description'),
+      iconType: t('website.NewSimfinDes.about_us.ValuesSection.values.4.iconType'),
+      title: t('website.NewSimfinDes.about_us.ValuesSection.values.4.title'),
+      description: t('website.NewSimfinDes.about_us.ValuesSection.values.4.description'),
     },
     {
       id: 6,
-      iconType: t('NewSimfinDes.about_us.ValuesSection.values.5.iconType'),
-      title: t('NewSimfinDes.about_us.ValuesSection.values.5.title'),
-      description: t('NewSimfinDes.about_us.ValuesSection.values.5.description'),
+      iconType: t('website.NewSimfinDes.about_us.ValuesSection.values.5.iconType'),
+      title: t('website.NewSimfinDes.about_us.ValuesSection.values.5.title'),
+      description: t('website.NewSimfinDes.about_us.ValuesSection.values.5.description'),
     },
   ];
 
@@ -86,10 +86,10 @@ const ValuesSection = () => {
         {/* Header */}
         <div className="mb-16">
           <h2 className="lg:text-4.5xl mb-4 text-4xl font-medium text-white">
-            {t('NewSimfinDes.about_us.ValuesSection.heading')}
+            {t('website.NewSimfinDes.about_us.ValuesSection.heading')}
           </h2>
           <p className="max-w-3xl text-base text-gray-300 sm:text-lg">
-            {t('NewSimfinDes.about_us.ValuesSection.subheading')}
+            {t('website.NewSimfinDes.about_us.ValuesSection.subheading')}
           </p>
         </div>
 
