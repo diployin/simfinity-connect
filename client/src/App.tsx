@@ -127,6 +127,7 @@ import AllCountriesSection from './pages/AllCountriesSection';
 import AllRegionsSection from './pages/AllRegionsSection';
 import MaintenancePage from './components/sections/landing/MaintenancePage';
 import { AffiliateProgram } from './pages/AffiliateProgram';
+import ReferFriend from './pages/ReferFriend';
 
 // ✅ Route Configs - DRY Approach
 const PUBLIC_ROUTES = [
@@ -167,6 +168,7 @@ const PUBLIC_ROUTES = [
   { path: '/country-plan', component: AllCountriesSection },
   { path: '/region-plan', component: AllRegionsSection },
   { path: '/affiliate-program', component: AffiliateProgram },
+  { path: '/refer-a-friend', component: ReferFriend },
 ];
 
 const AUTH_ROUTES = [

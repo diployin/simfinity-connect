@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "wouter";
-import { useQuery } from "@tanstack/react-query";
-import { motion, AnimatePresence } from "framer-motion";
-import { Search, Globe, Star, ChevronRight, Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useCurrency } from "@/contexts/CurrencyContext";
-import { convertPrice, getCurrencySymbol } from "@/lib/currency";
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'wouter';
+import { useQuery } from '@tanstack/react-query';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Search, Globe, Star, ChevronRight, Check } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useCurrency } from '@/contexts/CurrencyContext';
+import { convertPrice, getCurrencySymbol } from '@/lib/currency';
 
 // Types
 interface DestinationWithPricing {
@@ -31,14 +31,14 @@ interface RegionWithPricing {
 }
 
 export function HeroSection() {
-  const [phoneSearchQuery, setPhoneSearchQuery] = useState("");
-  const [searchType, setSearchType] = useState<"country" | "region">("country");
+  const [phoneSearchQuery, setPhoneSearchQuery] = useState('');
+  const [searchType, setSearchType] = useState<'country' | 'region'>('country');
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [, setLocation] = useLocation();
   const { currency, currencies } = useCurrency();
   const currencySymbol = getCurrencySymbol(currency, currencies);
 
-  const rotatingWords = ["Anywhere", "Traveling", "Abroad", "Roaming"];
+  const rotatingWords = ['Anywhere', 'Traveling', 'Abroad', 'Roaming'];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -47,27 +47,25 @@ export function HeroSection() {
     return () => clearInterval(interval);
   }, []);
 
-  const { data: destinationsWithPricing, isLoading: destinationsLoading } =
-    useQuery<DestinationWithPricing[]>({
-      queryKey: ["/api/destinations/with-pricing", { currency }],
-    });
-
-  const { data: regionsWithPricing, isLoading: regionsLoading } = useQuery<
-    RegionWithPricing[]
+  const { data: destinationsWithPricing, isLoading: destinationsLoading } = useQuery<
+    DestinationWithPricing[]
   >({
-    queryKey: ["/api/regions/with-pricing", { currency }],
+    queryKey: ['/api/destinations/with-pricing', { currency }],
   });
 
-  const popularDestinations =
-    destinationsWithPricing?.filter((d) => d.isPopular).slice(0, 6) || [];
+  const { data: regionsWithPricing, isLoading: regionsLoading } = useQuery<RegionWithPricing[]>({
+    queryKey: ['/api/regions/with-pricing', { currency }],
+  });
+
+  const popularDestinations = destinationsWithPricing?.filter((d) => d.isPopular).slice(0, 6) || [];
 
   const defaultPopularDestinations = [
-    { name: "United States", countryCode: "us", slug: "united-states" },
-    { name: "United Kingdom", countryCode: "gb", slug: "united-kingdom" },
-    { name: "UAE", countryCode: "ae", slug: "united-arab-emirates" },
-    { name: "Japan", countryCode: "jp", slug: "japan" },
-    { name: "Thailand", countryCode: "th", slug: "thailand" },
-    { name: "France", countryCode: "fr", slug: "france" },
+    { name: 'United States', countryCode: 'us', slug: 'united-states' },
+    { name: 'United Kingdom', countryCode: 'gb', slug: 'united-kingdom' },
+    { name: 'UAE', countryCode: 'ae', slug: 'united-arab-emirates' },
+    { name: 'Japan', countryCode: 'jp', slug: 'japan' },
+    { name: 'Thailand', countryCode: 'th', slug: 'thailand' },
+    { name: 'France', countryCode: 'fr', slug: 'france' },
   ];
 
   const displayPopular =
@@ -80,13 +78,13 @@ export function HeroSection() {
         }))
       : defaultPopularDestinations.map((d) => ({
           ...d,
-          minPrice: "0",
+          minPrice: '0',
         }));
 
   const defaultPopularRegions = [
-    { id: 1, name: "Europe", slug: "europe", minPrice: "0" },
-    { id: 2, name: "Asia", slug: "asia", minPrice: "0" },
-    { id: 3, name: "Americas", slug: "americas", minPrice: "0" },
+    { id: 1, name: 'Europe', slug: 'europe', minPrice: '0' },
+    { id: 2, name: 'Asia', slug: 'asia', minPrice: '0' },
+    { id: 3, name: 'Americas', slug: 'americas', minPrice: '0' },
   ];
 
   const displayPopularRegions =
@@ -105,18 +103,18 @@ export function HeroSection() {
   const getFilteredResults = () => {
     if (phoneSearchQuery.length === 0) return [];
 
-    if (searchType === "country") {
+    if (searchType === 'country') {
       return (
         destinationsWithPricing?.filter(
           (d) =>
             d.name.toLowerCase().includes(phoneSearchQuery.toLowerCase()) ||
-            d.countryCode.toLowerCase().includes(phoneSearchQuery.toLowerCase())
+            d.countryCode.toLowerCase().includes(phoneSearchQuery.toLowerCase()),
         ) || []
       ).slice(0, 5);
     } else {
       return (
         regionsWithPricing?.filter((r) =>
-          r.name.toLowerCase().includes(phoneSearchQuery.toLowerCase())
+          r.name.toLowerCase().includes(phoneSearchQuery.toLowerCase()),
         ) || []
       ).slice(0, 5);
     }
@@ -138,14 +136,14 @@ export function HeroSection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.6, ease: 'easeOut' },
     },
   };
 
   const placeholders =
-    searchType === "country"
-      ? ["Search for United Kingdom", "Search for India", "Search for USA"]
-      : ["Search for Europe", "Search for Asia", "Search for Africa"];
+    searchType === 'country'
+      ? ['Search for United Kingdom', 'Search for India', 'Search for USA']
+      : ['Search for Europe', 'Search for Asia', 'Search for Africa'];
 
   return (
     <section className="relative h-[65vh] overflow-hidden bg-background dark:bg-background">
@@ -191,7 +189,7 @@ export function HeroSection() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                    transition={{ duration: 0.4, ease: 'easeInOut' }}
                     className="gradient-text dark:text-primary inline-block min-w-[200px] md:min-w-[280px] neon-text-glow"
                     data-testid="text-rotating-word"
                   >
@@ -215,21 +213,13 @@ export function HeroSection() {
               className="text-lg md:text-xl text-muted-foreground mb-8"
               data-testid="text-hero-subtitle"
             >
-              <span className="font-semibold text-foreground">
-                Data + Voice
-              </span>{" "}
-              | Magic SIM available
+              <span className="font-semibold text-foreground">Data + Voice</span> | Magic SIM
+              available
             </motion.p>
 
             {/* Decorative wavy underline */}
-            <motion.div
-              variants={itemVariants}
-              className="hidden lg:block mb-8"
-            >
-              <img
-                src="/images/heroleft.svg"
-                className="h-12 dark:opacity-80"
-              />
+            <motion.div variants={itemVariants} className="hidden lg:block mb-8">
+              <img src="/images/heroleft.svg" className="h-12 dark:opacity-80" />
             </motion.div>
           </motion.div>
 
@@ -254,24 +244,22 @@ export function HeroSection() {
                   <div className="flex gap-2 mb-4 pointer-events-auto">
                     <button
                       onClick={() => {
-                        setSearchType("country");
-                        setPhoneSearchQuery("");
+                        setSearchType('country');
+                        setPhoneSearchQuery('');
                       }}
                       className={`flex items-center gap-2 text-[10px] font-medium transition-colors ${
-                        searchType === "country"
-                          ? "text-primary"
-                          : "text-muted-foreground"
+                        searchType === 'country' ? 'text-primary' : 'text-muted-foreground'
                       }`}
                       data-testid="toggle-search-country"
                     >
                       <div
                         className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
-                          searchType === "country"
-                            ? "border-primary bg-primary"
-                            : "border-muted-foreground"
+                          searchType === 'country'
+                            ? 'border-primary bg-primary'
+                            : 'border-muted-foreground'
                         }`}
                       >
-                        {searchType === "country" && (
+                        {searchType === 'country' && (
                           <Check className="h-3 w-3 text-primary-foreground" />
                         )}
                       </div>
@@ -279,24 +267,22 @@ export function HeroSection() {
                     </button>
                     <button
                       onClick={() => {
-                        setSearchType("region");
-                        setPhoneSearchQuery("");
+                        setSearchType('region');
+                        setPhoneSearchQuery('');
                       }}
                       className={`flex items-center gap-2 text-[10px] font-medium transition-colors ${
-                        searchType === "region"
-                          ? "text-primary"
-                          : "text-muted-foreground"
+                        searchType === 'region' ? 'text-primary' : 'text-muted-foreground'
                       }`}
                       data-testid="toggle-search-region"
                     >
                       <div
                         className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
-                          searchType === "region"
-                            ? "border-primary bg-primary"
-                            : "border-muted-foreground"
+                          searchType === 'region'
+                            ? 'border-primary bg-primary'
+                            : 'border-muted-foreground'
                         }`}
                       >
-                        {searchType === "region" && (
+                        {searchType === 'region' && (
                           <Check className="h-3 w-3 text-primary-foreground" />
                         )}
                       </div>
@@ -313,9 +299,9 @@ export function HeroSection() {
                         <Input
                           type="text"
                           placeholder={
-                            searchType === "country"
-                              ? "Search for United Kingdom"
-                              : "Search for Europe"
+                            searchType === 'country'
+                              ? 'Search for United Kingdom'
+                              : 'Search for Europe'
                           }
                           value={phoneSearchQuery}
                           onChange={(e) => setPhoneSearchQuery(e.target.value)}
@@ -356,30 +342,22 @@ export function HeroSection() {
                               <Link
                                 key={idx}
                                 href={
-                                  searchType === "country"
-                                    ? `/destination/${
-                                        (item as DestinationWithPricing).slug
-                                      }`
-                                    : `/region/${
-                                        (item as RegionWithPricing).slug
-                                      }`
+                                  searchType === 'country'
+                                    ? `/destination/${(item as DestinationWithPricing).slug}`
+                                    : `/region/${(item as RegionWithPricing).slug}`
                                 }
                               >
                                 <div
                                   className="flex items-center gap-3 p-4 hover:bg-primary/10 dark:hover:bg-primary/20 cursor-pointer transition-colors border-b border-border last:border-b-0 hover:translate-x-1"
-                                  data-testid={`phone-result-${
-                                    (item as any).slug
-                                  }`}
+                                  data-testid={`phone-result-${(item as any).slug}`}
                                 >
-                                  {searchType === "country" ? (
+                                  {searchType === 'country' ? (
                                     <div className="w-10 h-8 rounded-lg overflow-hidden shadow-md border border-border flex-shrink-0 ring-2 ring-primary/20">
                                       <img
                                         src={`https://flagcdn.com/${(
                                           item as DestinationWithPricing
                                         ).countryCode.toLowerCase()}.svg`}
-                                        alt={
-                                          (item as DestinationWithPricing).name
-                                        }
+                                        alt={(item as DestinationWithPricing).name}
                                         className="w-full h-full object-cover"
                                       />
                                     </div>
@@ -396,9 +374,9 @@ export function HeroSection() {
                                       From {currencySymbol}
                                       {convertPrice(
                                         parseFloat((item as any).minPrice),
-                                        "USD",
+                                        'USD',
                                         currency,
-                                        currencies
+                                        currencies,
                                       ).toFixed(2)}
                                     </p>
                                   </div>
@@ -420,13 +398,10 @@ export function HeroSection() {
                       </p>
 
                       {/* Popular Countries Grid */}
-                      {searchType === "country" && (
+                      {searchType === 'country' && (
                         <div className="grid grid-cols-3 ">
                           {displayPopular.slice(0, 3).map((dest) => (
-                            <Link
-                              key={dest.slug}
-                              href={`/destination/${dest.slug}`}
-                            >
+                            <Link key={dest.slug} href={`/destination/${dest.slug}`}>
                               <motion.div
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
@@ -450,13 +425,10 @@ export function HeroSection() {
                       )}
 
                       {/* Popular Regions Grid */}
-                      {searchType === "region" && (
+                      {searchType === 'region' && (
                         <div className="grid grid-cols-3 gap-2">
                           {displayPopularRegions.map((region) => (
-                            <Link
-                              key={region.id}
-                              href={`/region/${region.slug}`}
-                            >
+                            <Link key={region.id} href={`/region/${region.slug}`}>
                               <motion.div
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}

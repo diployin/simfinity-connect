@@ -14,7 +14,7 @@ import { AppDispatch, RootState, useAppDispatch } from '@/redux/store/store';
 interface MegaMenuItem {
   label: string;
   href: string;
-  icon?: React.ReactNode;
+  icon?: string;
   description?: string;
   badge?: string;
   disabled?: boolean;
@@ -201,11 +201,16 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
 
                               const content = (
                                 <>
-                                  {item.icon && (
+                                  {/* {item.icon && (
                                     <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary text-white transition-transform group-hover:scale-110">
                                       {item.icon}
                                     </div>
-                                  )}
+                                  )} */}
+                                  <img
+                                    src="/images/menu-images/sim-card (2).svg"
+                                    className="h-6"
+                                    alt=""
+                                  />
 
                                   <div className="flex-1 pt-0.5">
                                     <div className="flex items-center gap-2">
