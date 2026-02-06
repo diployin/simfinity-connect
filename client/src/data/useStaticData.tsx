@@ -844,9 +844,9 @@ const useStaticData = () => {
               {
                 label: t('website.headerlinks.Resource3Title'),
                 description: t('website.headerlinks.Resource3Desc'),
-                href: '/security-features',
+                href: '/affiliate-program',
                 icon: <FaShield className="h-5 w-5" />,
-                disabled: true,
+                // disabled: true,
               },
               {
                 label: t('website.headerlinks.Resource6Title'),
