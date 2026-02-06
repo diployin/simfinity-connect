@@ -352,7 +352,169 @@
 "NewSimfinDes.TestimonialsSection.review5": "Utilisé dans plusieurs pays avec une connexion parfaite.",
 "NewSimfinDes.TestimonialsSection.review6": "Une excellente couverture et des prix justes font de Simfinity un très bon choix eSIM.",
 
-"NewSimfinDes.TestimonialsSection.review7": "Soutenu par une marque de confiance, Simfinity se distingue par une installation facile, des forfaits abordables et une couverture mondiale fiable."
+"NewSimfinDes.TestimonialsSection.review7": "Soutenu par une marque de confiance, Simfinity se distingue par une installation facile, des forfaits abordables et une couverture mondiale fiable.",
+
+
+"heroReferfriend.title": "Parrainez et gagnez",
+  "heroReferfriend.des": "Invitez vos amis sur Simfinity et gagnez des récompenses chaque fois qu’ils rejoignent et activent un forfait eSIM. Partagez la connexion et profitez d’avantages exclusifs ensemble.",
+  "heroReferfriend.btn": "Parrainer maintenant",
+
+
+
+  "footer.description": "Tu socio confiable de conectividad para viajes que ofrece eSIM y tarjetas SIM seguras en más de 175 países a precios accesibles.",
+
+  "footer.global": "{{siteName}} Global",
+  "footer.whatIsEsim": "¿Qué es una eSIM?",
+  "footer.aboutUs": "Sobre nosotros",
+  "footer.contactUs": "Contáctanos",
+  "footer.destinations": "Destinos",
+
+  "footer.topDestinations": "Destinos principales",
+
+  "footer.resources": "Recursos",
+  "footer.blog": "Blog",
+  "footer.faq": "Preguntas frecuentes",
+  "footer.supportticket": "Ticket de soporte",
+
+  "footer.pages": "Páginas",
+
+  "footer.copyrightt": "© 2026 {{siteName}}. Todos los derechos reservados.",
+  "footer.followus": "Suivez-nous",
+  "footer.social.instagram": "Instagram",
+  "footer.social.facebook": "Facebook",
+  "footer.social.youtube": "YouTube",
+  "footer.social.linkedin": "LinkedIn",
+  "footer.social.twitter": "Twitter",
+
+
+
+  "downloadAppSection.title": "L’application Simfinity arrive bientôt",
+  "downloadAppSection.description": "Une façon plus intelligente et plus rapide de gérer votre eSIM — bientôt disponible sur iOS et Android.",
+
+  "downloadAppSection.appstoreSmall": "Télécharger sur",
+  "downloadAppSection.appstore": "App Store",
+
+  "downloadAppSection.playstoreSmall": "DISPONIBLE SUR",
+  "downloadAppSection.playstore": "Google Play",
+
+
+
+  "headerlinks.ProductFeature1Title": "Simfinity Passport",
+  "headerlinks.ProductFeature1Desc": "Des forfaits de données mondiaux fiables conçus pour les équipes, les entreprises et les voyageurs d’affaires.",
+
+  "headerlinks.ProductFeature2Title": "eSIM pour les entreprises",
+  "headerlinks.ProductFeature2Desc": "Des forfaits de données mondiaux fiables conçus pour les équipes, les entreprises et les voyageurs d’affaires.",
+
+  "headerlinks.ProductFeature3Title": "Compatibilité eSIM",
+  "headerlinks.ProductFeature3Desc": "Vérifiez si votre appareil prend en charge la technologie eSIM pour une connectivité fluide.",
+
+  "headerlinks.ProductTool1Title": "Vérification de l’utilisation des données",
+  "headerlinks.ProductTool1Desc": "Estimez la quantité de données dont vous aurez besoin pour votre prochain voyage en quelques secondes.",
+
+  "headerlinks.ProductTool2Title": "Recharger les données",
+  "headerlinks.ProductTool2Desc": "Ajoutez facilement des données à votre forfait à tout moment pendant votre voyage.",
+
+  "headerlinks.SupportColumnTitle": "Support",
+  "headerlinks.SupportPrivacyTitle": "Politique de confidentialité",
+  "headerlinks.SupportPrivacyDesc": "Découvrez comment nous protégeons vos informations personnelles.",
+
+  "headerlinks.SupportTermsTitle": "Conditions d’utilisation",
+  "headerlinks.SupportTermsDesc": "Comprenez nos conditions générales d’utilisation.",
+
+  "headerlinks.SupportUsageTitle": "Vérification de l’utilisation des données",
+  "headerlinks.SupportUsageDesc": "Suivez et surveillez votre consommation de données à tout moment.",
+
+  "headerlinks.SupportTopupTitle": "Recharger les données",
+  "headerlinks.SupportTopupDesc": "Ajoutez instantanément plus de données à votre forfait.",
+
+  "headerlinks.Resource1Title": "Curieux à propos de la technologie eSIM ?",
+  "headerlinks.Resource1Desc": "Découvrez comment fonctionne l’eSIM et pourquoi elle transforme la connectivité mondiale.",
+
+  "headerlinks.Resource2Title": "À propos de nous",
+  "headerlinks.Resource2Desc": "Apprenez-en plus sur qui nous sommes et notre mission.",
+
+  "headerlinks.Resource3Title": "Programme d’affiliation",
+  "headerlinks.Resource3Desc": "Associez-vous à Simfinity et gagnez grâce aux parrainages.",
+
+  "headerlinks.Resource4Title": "Blog",
+  "headerlinks.Resource4Desc": "Lisez des articles et guides sur l’eSIM et la technologie de voyage.",
+
+  "headerlinks.Resource5Title": "Carrières",
+  "headerlinks.Resource5Desc": "Découvrez nos postes ouverts et rejoignez l’équipe.",
+
+  "headerlinks.Resource6Title": "Avis Simfinity",
+  "headerlinks.Resource6Desc": "Voyez ce que disent les voyageurs sur Simfinity.",
+
+  "headerlinks.ResourceSlider1Title": "eSIM pour les entreprises",
+  "headerlinks.ResourceSlider1Description": "Des forfaits de données mondiaux fiables pour les équipes et entreprises.",
+
+  "headerlinks.ResourceSlider2Title": "Simfinity Passport",
+  "headerlinks.ResourceSlider2Description": "Des forfaits de données mondiaux fiables pour les voyageurs.",
+
+  "headerlinks.ResourceSlider3Title": "Vérification de l’utilisation des données",
+  "headerlinks.ResourceSlider3Description": "Estimez vos besoins en données en quelques secondes.",
+
+  "headerlinks.ResourceBadgeNew": "Nouveau",
+  "headerlinks.ResourceBadgeGuide": "Guide",
+
+  "headerlinks.OfferMenuLabel": "Offres",
+  "headerlinks.OfferMenuBadge": "Promos",
+
+  "headerlinks.Help1Title": "Bien démarrer",
+  "headerlinks.Help1Desc": "Guide simple pour configurer votre eSIM Simfinity.",
+
+  "headerlinks.Help2Title": "Centre d’aide",
+  "headerlinks.Help2Desc": "Consultez tous les articles et tutoriels d’assistance.",
+
+  "headerlinks.Help3Title": "Dépannage",
+  "headerlinks.Help3Desc": "Résolvez les problèmes de configuration ou de connexion.",
+
+  "headerlinks.Help4Title": "FAQ",
+  "headerlinks.Help4Desc": "Réponses rapides aux questions fréquentes.",
+
+  "headerlinks.Offer1Title": "Parrainez un ami",
+  "headerlinks.Offer1Desc": "Partagez Simfinity. Gagnez des récompenses.",
+
+  "headerlinks.Offer2Title": "Offre voyage étudiant",
+  "headerlinks.Offer2Desc": "Les étudiants économisent plus sur leurs données.",
+
+  "headerlinks.Offer3Title": "Offres & récompenses Simfinity",
+  "headerlinks.Offer3Desc": "Profitez des meilleures offres eSIM.",
+
+
+
+
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title": "Questions fréquemment posées sur les eSIM",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.question": "Mon téléphone est-il compatible avec les eSIM ?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.answer": "Si vous avez acheté un nouveau smartphone ces dernières années, il devrait être compatible avec les eSIM. La plupart des smartphones sortis après 2020 le sont. Cependant, certains appareils récents peuvent ne pas prendre en charge les eSIM s’ils ont été achetés dans certaines régions, comme la Chine continentale. Pour en être sûr, consultez la liste des appareils compatibles eSIM.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.question": "Comment installer manuellement une eSIM sur votre téléphone ?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.answer": "Vous pouvez installer et configurer manuellement une eSIM en scannant le QR code fourni par votre opérateur ou en allant dans les « Paramètres réseau » pour ajouter une nouvelle eSIM.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.question": "Puis-je utiliser une eSIM sans l’application ?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.answer": "Vous pouvez acheter un forfait eSIM Simfinity sans l’application, mais vous devrez télécharger l’application Simfinity pour installer l’eSIM.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.question": "Combien de temps faut-il pour activer une eSIM ?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.answer": "Activer une eSIM signifie ajouter le profil eSIM à votre téléphone en scannant le QR code ou en saisissant les informations manuellement. Le téléphone peut alors reconnaître l’eSIM, mais le forfait de données n’est pas forcément activé immédiatement. Le délai dépend du type d’eSIM. Une eSIM principale peut prendre des heures ou des jours, tandis que les eSIM de voyage, comme celles de Simfinity, sont activées presque instantanément.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.question": "Quelle est la meilleure eSIM pour les voyages internationaux ?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.answer": "L’eSIM Simfinity est l’une des meilleures options pour les voyages internationaux. Elle est abordable et permet d’ajouter de nouvelles destinations à votre eSIM existante sans reconfiguration.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.question": "Les eSIM sont-elles gratuites ?",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.question": "Comment obtenir une eSIM en ligne ?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.answer": "Le meilleur moyen d’obtenir une eSIM en ligne est de l’acheter auprès d’une entreprise fiable comme Simfinity. Téléchargez l’application pour gérer facilement vos forfaits.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.question": "Puis-je configurer une eSIM moi-même ?",
+  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.answer": "Oui, mais les instructions peuvent varier selon votre opérateur. Contactez-le si vous rencontrez des difficultés.",
+
+  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.2.description": "Scannez le QR code ou suivez les instructions de configuration.",
+
+  "WhatIsEsim.howDoesItWorkSection.content.paragraph2": "Pour commencer à utiliser une eSIM, achetez simplement un forfait et effectuez une configuration rapide. Pas besoin de retirer votre carte SIM actuelle."
+
+
 
 
 

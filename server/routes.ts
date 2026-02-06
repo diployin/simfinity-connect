@@ -7,6 +7,7 @@ import path from 'path';
 import fs from 'fs';
 import Stripe from 'stripe';
 import { storage } from './storage';
+import bodyParser from "body-parser";
 import { db } from './db';
 import {
   orders,
@@ -11841,36 +11842,100 @@ app.get('/api/translations/:languageCode', async (req: Request, res: Response) =
 }
 
 
-   app.post(
-  '/api/admin/translations/:languageId/import',
+//    app.post(
+//   '/api/admin/translations/:languageId/import',
+//   requireAdmin,
+//   async (req: Request, res: Response) => {
+//     try {
+//       const { languageId } = req.params;
+//       const { translations } = req.body;
+
+//       if (!translations || typeof translations !== 'object') {
+//         return res
+//           .status(400)
+//           .json({ success: false, message: 'Invalid translations data' });
+//       }
+
+//       const language = await storage.getLanguageById(languageId);
+//       if (!language) {
+//         return res
+//           .status(404)
+//           .json({ success: false, message: 'Language not found' });
+//       }
+
+//       let imported = 0;
+
+//       for (const [namespace, rawData] of Object.entries(translations)) {
+//         if (typeof rawData !== 'object' || rawData === null) continue;
+
+//         // ✅ FLATTEN HERE
+//         const flatTranslations = flattenObject(rawData);
+
+//         // fetch once per namespace (performance)
+//         const allKeys = await storage.getTranslationKeysByNamespace(namespace);
+
+//         for (const [key, value] of Object.entries(flatTranslations)) {
+//           let keyRecord = allKeys.find((k) => k.key === key);
+
+//           if (!keyRecord) {
+//             keyRecord = await storage.createTranslationKey({
+//               namespace,
+//               key,
+//             });
+//             allKeys.push(keyRecord);
+//           }
+
+//           await storage.upsertTranslationValue({
+//             keyId: keyRecord.id,
+//             languageId,
+//             value,
+//           });
+
+//           imported++;
+//         }
+//       }
+
+//       ApiResponse.success(res, `Imported ${imported} translations`);
+//     } catch (error: any) {
+//       res
+//         .status(500)
+//         .json({ success: false, message: error.message });
+//     }
+//   }
+// );
+
+
+
+
+
+app.post(
+  "/api/admin/translations/:languageId/import",
+  bodyParser.json({ limit: "100mb" }), // ✅ 100MB ONLY HERE
   requireAdmin,
   async (req: Request, res: Response) => {
     try {
       const { languageId } = req.params;
       const { translations } = req.body;
 
-      if (!translations || typeof translations !== 'object') {
+      if (!translations || typeof translations !== "object") {
         return res
           .status(400)
-          .json({ success: false, message: 'Invalid translations data' });
+          .json({ success: false, message: "Invalid translations data" });
       }
 
       const language = await storage.getLanguageById(languageId);
       if (!language) {
         return res
           .status(404)
-          .json({ success: false, message: 'Language not found' });
+          .json({ success: false, message: "Language not found" });
       }
 
       let imported = 0;
 
       for (const [namespace, rawData] of Object.entries(translations)) {
-        if (typeof rawData !== 'object' || rawData === null) continue;
+        if (typeof rawData !== "object" || rawData === null) continue;
 
-        // ✅ FLATTEN HERE
         const flatTranslations = flattenObject(rawData);
-
-        // fetch once per namespace (performance)
         const allKeys = await storage.getTranslationKeysByNamespace(namespace);
 
         for (const [key, value] of Object.entries(flatTranslations)) {
@@ -11896,9 +11961,10 @@ app.get('/api/translations/:languageCode', async (req: Request, res: Response) =
 
       ApiResponse.success(res, `Imported ${imported} translations`);
     } catch (error: any) {
-      res
-        .status(500)
-        .json({ success: false, message: error.message });
+      res.status(500).json({
+        success: false,
+        message: error.message,
+      });
     }
   }
 );
