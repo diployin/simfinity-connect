@@ -691,28 +691,28 @@
   /* sm */
   @media (min-width: 640px) {
     .containers {
-      max-width: 560px;
+      max-width: 609px;
     }
   }
 
   /* md */
   @media (min-width: 768px) {
     .containers {
-      max-width: 680px;
+      max-width: 737px;
     }
   }
 
   /* lg */
   @media (min-width: 1024px) {
     .containers {
-      max-width: 860px;
+      max-width: 961px;
     }
   }
 
   /* xl */
   @media (min-width: 1280px) {
     .containers {
-      max-width: 1320px;
+      max-width: 1169px;
     }
   }
 

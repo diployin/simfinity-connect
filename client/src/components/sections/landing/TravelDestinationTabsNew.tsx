@@ -119,27 +119,26 @@ const TravelDestinationTabsNew = () => {
   return (
     <section className="w-full bg-white">
       <div className="containers py-10">
-        {/* Header */}
-        <div className="flex ">
+        <div className="flex flex-col lg:flex-row items-center justify-between ">
           <div className="mb-10 sm:mb-12">
-            <p className="mb-3 text-center text-sm text-gray-400 sm:text-base md:text-start">
+            <p className="mb-3  text-sm text-gray-400 sm:text-base md:text-start">
               {t('travelTabs.subtitle')}
             </p>
 
             <div className="mb-4  w-full flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-              <h2 className="text-center text-3xl font-normal text-black sm:text-4xl md:text-start lg:text-2.5">
+              <h2 className=" text-3xl font-medium text-black sm:text-4xl md:text-start lg:text-2.5">
                 {t('travelTabs.title')}
               </h2>
-
-              {/* <Button onClick={() => navigate('/destinations')}>{t('travelTabs.viewAll')}</Button> */}
-              <ThemeButton onClick={() => navigate('/destinations')} size="md">
-                {t('travelTabs.viewAll')}
-              </ThemeButton>
             </div>
 
-            <p className="text-center text-base text-gray-600 sm:text-lg md:text-start">
+            <p className=" text-base font-thin text-gray-600 sm:text-base md:text-start">
               {t('travelTabs.description')}
             </p>
+          </div>
+          <div className=" hidden lg:block w-fit  ">
+            <ThemeButton onClick={() => navigate('/destinations')} size="md">
+              {t('travelTabs.viewAll')}
+            </ThemeButton>
           </div>
         </div>
 
@@ -251,8 +250,8 @@ const TravelDestinationTabsNew = () => {
           </TabsContent>
         </Tabs>
 
-        <div className=" py-10 w-full  ">
-          <ThemeButton fullWidth={true} onClick={() => navigate('/destinations')} size="md">
+        <div className=" py-10 w-full  block lg:hidden  ">
+          <ThemeButton fullWidth={false} onClick={() => navigate('/destinations')} size="md">
             {t('travelTabs.viewAll')}
           </ThemeButton>
         </div>

@@ -85,7 +85,7 @@ const HeroSection = () => {
     // <div className="relative w-full overflow-hidden bg-[url('/images/Banner.png')] bg-cover bg-center ">
     <div className="relative w-full bg-sky-200   ">
       {/* Desktop Layout */}
-      {/* <div className="absolute -top-[72px] bottom-0 w-full flex flex-col items-center overflow-hidden bg-gradient-hero">
+      <div className="absolute -top-[72px] bottom-0 w-full flex flex-col items-center overflow-hidden bg-gradient-hero">
         <div className="absolute bottom-0 min-w-[1038px] md:min-w-[1153px] lg:min-w-[1372px] xl:min-w-[1716px] md:translate-x-[18%] lg:translate-x-[21%] xl:translate-x-[25%]">
           <div>
             <picture>
@@ -102,8 +102,8 @@ const HeroSection = () => {
             </picture>
           </div>
         </div>
-      </div> */}
-      <div className="absolute -top-[72px] bottom-0 w-full flex flex-col items-center overflow-hidden bg-gradient-hero">
+      </div>
+      {/* <div className="absolute -top-[72px] bottom-0 w-full flex flex-col items-center overflow-hidden bg-gradient-hero">
         <div className="absolute bottom-0 min-w-[1038px] md:min-w-[1153px] lg:min-w-[1372px] xl:min-w-[1716px] md:translate-x-[18%] lg:translate-x-[21%] xl:translate-x-[23%]">
           <div>
             <picture>
@@ -120,7 +120,7 @@ const HeroSection = () => {
             </picture>
           </div>
         </div>
-      </div>
+      </div> */}
       <div
         data-section="Hero"
         data-testid="section-Hero"
