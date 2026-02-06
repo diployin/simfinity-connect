@@ -340,7 +340,7 @@
     "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.1": "Tap SIMs > Add eSIM.",
     "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.2": "Scan the QR code shown in the app.",
     "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.3": "Complete the installation prompts.",
-    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title": "Download App – Frequently Asked Questions",
+    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title": "Frequently Asked Questions",
     "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.question": "Is the Simfinity app free?",
     "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.answer": "Yes, downloading and using the app is completely free.",
     "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.answer": "You can install the app on any compatible device, but eSIM plans are tied to a single device.",
