@@ -170,8 +170,6 @@ const AboutHero = () => {
         </div>
       </section>
       <section className="overflow-hidden bg-white py-8 md:py-16">
-        {/* Yellow Background SVG - You'll add this later */}
-
         <div className="containers relative z-10">
           <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
             {/* Left Side - Text Content */}
@@ -182,7 +180,7 @@ const AboutHero = () => {
 
               <div className="space-y-4">
                 <p className="text-base leading-relaxed text-gray-700 sm:text-base">
-                  {t('website.NewSimfinDes.about_us.WhyBuiltSec.para1')}asdsfdf
+                  {t('website.NewSimfinDes.about_us.WhyBuiltSec.para1')}
                 </p>
 
                 <p className="text-base leading-relaxed text-gray-700 sm:text-base">

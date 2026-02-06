@@ -126,6 +126,7 @@ import WhatEsimNew from './pages/WhatIsEsimNew';
 import AllCountriesSection from './pages/AllCountriesSection';
 import AllRegionsSection from './pages/AllRegionsSection';
 import MaintenancePage from './components/sections/landing/MaintenancePage';
+import { AffiliateProgram } from './pages/AffiliateProgram';
 
 // ✅ Route Configs - DRY Approach
 const PUBLIC_ROUTES = [
@@ -165,6 +166,7 @@ const PUBLIC_ROUTES = [
   { path: '/security-features', component: FecurityFeaturesPage },
   { path: '/country-plan', component: AllCountriesSection },
   { path: '/region-plan', component: AllRegionsSection },
+  { path: '/affiliate-program', component: AffiliateProgram },
 ];
 
 const AUTH_ROUTES = [
