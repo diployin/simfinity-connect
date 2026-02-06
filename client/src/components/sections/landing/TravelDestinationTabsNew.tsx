@@ -121,7 +121,7 @@ const TravelDestinationTabsNew = () => {
       <div className="containers py-10">
         <div className="flex flex-col lg:flex-row items-center justify-between ">
           <div className="mb-10 sm:mb-12">
-            <p className="mb-3  text-sm text-gray-400 sm:text-base md:text-start">
+            <p className="mb-3 font-medium  text-sm text-gray-400 sm:text-base md:text-start">
               {t('travelTabs.subtitle')}
             </p>
 
@@ -144,15 +144,15 @@ const TravelDestinationTabsNew = () => {
 
         {/* Tabs */}
         <Tabs defaultValue="country" className="w-full" onValueChange={setActiveTab}>
-          <TabsList className="mb-6 sm:mb-8 md:mb-10 w-fit sm:w-fit rounded-full border border-gray-200 bg-white p-1 sm:p-1.5 shadow-sm flex gap-1 overflow-x-auto">
+          <TabsList className="mb-6 sm:mb-8 md:mb-10 w-full  max-w-max mr-auto rounded-full border border-gray-200 bg-white p-1 sm:p-1.5 shadow-sm flex gap-1 ">
             {/* Country Tab */}
             <TabsTrigger
               value="country"
-              className="rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-xs sm:text-sm md:text-base font-medium 
-      text-gray-600 whitespace-nowrap
+              className="rounded-full px-3 sm:px-4 md:px-5  text-xs sm:text-sm md:text-base font-medium 
+      text-gray-600 whitespace-nowrap flex-shrink-0
       data-[state=active]:bg-black 
       data-[state=active]:text-white
-      transition-all duration-200"
+      transition-all duration-200 hover:bg-gray-50"
             >
               {t('travelTabs.country')}
             </TabsTrigger>
@@ -160,11 +160,11 @@ const TravelDestinationTabsNew = () => {
             {/* Region Tab */}
             <TabsTrigger
               value="region"
-              className="rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-xs sm:text-sm md:text-base font-medium 
-      text-gray-600 whitespace-nowrap
+              className="rounded-full px-3 sm:px-4 md:px-5  text-xs sm:text-sm md:text-base font-medium 
+      text-gray-600 whitespace-nowrap flex-shrink-0
       data-[state=active]:bg-black 
       data-[state=active]:text-white
-      transition-all duration-200"
+      transition-all duration-200 hover:bg-gray-50"
             >
               {t('travelTabs.region')}
             </TabsTrigger>
@@ -172,13 +172,16 @@ const TravelDestinationTabsNew = () => {
             {/* Passport Tab */}
             <TabsTrigger
               value="passport"
-              className="rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 text-xs sm:text-sm md:text-base font-medium 
-      text-gray-600 whitespace-nowrap
+              className="rounded-full px-3 sm:px-4 md:px-5  text-xs sm:text-sm md:text-base font-medium 
+      text-gray-600 whitespace-nowrap flex-shrink-0
       data-[state=active]:bg-black 
       data-[state=active]:text-white
-      transition-all duration-200"
+      transition-all duration-200 hover:bg-gray-50"
             >
               Simfinity Passport
+              <span className="bg-primary ml-2 rounded-full px-3  text-[9px] font-thin uppercase text-white">
+                {t('travelTabs.new')}
+              </span>
             </TabsTrigger>
           </TabsList>
 
@@ -250,7 +253,7 @@ const TravelDestinationTabsNew = () => {
           </TabsContent>
         </Tabs>
 
-        <div className=" py-10 w-full  block lg:hidden  ">
+        <div className=" py-10 w-full flex justify-center  block lg:hidden  ">
           <ThemeButton fullWidth={false} onClick={() => navigate('/destinations')} size="md">
             {t('travelTabs.viewAll')}
           </ThemeButton>

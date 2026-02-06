@@ -31,7 +31,7 @@ const ThemeButton: React.FC<YellowButtonProps> = ({
   // Base responsive styles
   const baseStyles = cn(
     // Mobile first approach
-    'inline-flex items-center justify-center font-medium border border-red-200',
+    'inline-flex items-center justify-center border border-red-200',
     'rounded-full transition-all duration-200 focus:outline-none',
     'focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400',
     'disabled:opacity-50 disabled:cursor-not-allowed',
@@ -50,10 +50,7 @@ const ThemeButton: React.FC<YellowButtonProps> = ({
   );
 
   const variants = {
-    default: cn(
-      'bg-primary hover:bg-primary/90 active:bg-primary text-white',
-      'border-transparent',
-    ),
+    default: cn('bg-primary hover:bg-primary/90 active:bg-primary text-white', 'border-green-800'),
     outline: cn(
       'bg-transparent border-2 border-black text-black',
       'hover:bg-primary hover:text-white hover:border-primary',

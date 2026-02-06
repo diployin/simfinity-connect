@@ -20,7 +20,6 @@ export function PublicLayout({ children }: Readonly<PublicLayoutProps>) {
   const isHome = location === '/';
   return (
     <div className="flex flex-col min-h-screen">
- 
       <NavbarNew />
       <main className={`flex-1 ${isHome ? '' : 'pt-[200px]'}`}>{children}</main>
       <FooterNew />

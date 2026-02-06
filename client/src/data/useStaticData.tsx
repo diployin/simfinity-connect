@@ -725,10 +725,8 @@ const useStaticData = () => {
       },
     },
     //
-    
-    
 
-     NavbarData: {
+    NavbarData: {
       productMegaMenuConfig: {
         columns: [
           {
@@ -804,6 +802,10 @@ const useStaticData = () => {
             },
           ],
         },
+        bottomLink: {
+          label: 'What is an eSIM?',
+          herf: '/what-is-esim',
+        },
       },
       rouceMegaMenuConfig: {
         columns: [
@@ -852,14 +854,15 @@ const useStaticData = () => {
                 href: '/blog',
                 icon: <RiBloggerFill className="h-5 w-5" />,
                 disabled: true,
+                badge: 'coming soon',
               },
-              {
-                label: t('website.headerlinks.Resource5Title'),
-                description: t('website.headerlinks.Resource5Desc'),
-                href: '/download-esim-app',
-                icon: <IoMdDownload className="h-5 w-5" />,
-                disabled: true,
-              },
+              // {
+              //   label: t('website.headerlinks.Resource5Title'),
+              //   description: t('website.headerlinks.Resource5Desc'),
+              //   href: '/download-esim-app',
+              //   icon: <IoMdDownload className="h-5 w-5" />,
+              //   disabled: true,
+              // },
             ],
           },
         ],
@@ -888,6 +891,10 @@ const useStaticData = () => {
               href: '/security-features',
             },
           ],
+        },
+        bottomLink: {
+          label: 'Is Your Devices eSim Compataible?',
+          herf: '/supported-devices',
         },
       },
 
@@ -953,6 +960,10 @@ const useStaticData = () => {
               href: '/security-features',
             },
           ],
+        },
+        bottomLink: {
+          label: 'How to Install eSIM?',
+          herf: '/download-esim-app',
         },
       },
       helpMegaMenuConfig: {
@@ -1026,9 +1037,12 @@ const useStaticData = () => {
             },
           ],
         },
+        bottomLink: {
+          label: 'What is an eSIM?',
+          herf: '/what-is-esim',
+        },
       },
     },
-
   };
   return staticData;
 };

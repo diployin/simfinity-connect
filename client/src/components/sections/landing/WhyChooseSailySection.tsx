@@ -26,48 +26,6 @@ const WhyChooseSailySection = () => {
     6: <img src="/images/features/map-pin.svg" className=" h-10 w-10" alt="global" />,
   };
 
-  // Get features from JSON - manually parse each one
-  // const features: Feature[] = [
-  //   {
-  //     id: 1,
-  //     title: 'Travel-friendly prices',
-  //     description:
-  //       'Get super-affordable eSIM data anywhere in the world. From short trips to long adventures — Simfinity always gives you the lowest travel data cost.',
-  //   },
-  //   {
-  //     id: 2,
-  //     title: 'Activate in seconds',
-  //     description:
-  //       'No stores, no swapping cards. Just scan your Simfinity eSIM and boom — you’re connected instantly when you land.',
-  //   },
-  //   {
-  //     id: 3,
-  //     title: 'Zero roaming shock',
-  //     description:
-  //       'Stop paying crazy roaming charges. Simfinity keeps your bill predictable, clean, and budget-friendly every time you travel.',
-  //   },
-  //   {
-  //     id: 4,
-  //     title: 'One eSIM for every trip',
-  //     description:
-  //       'Keep the same Simfinity eSIM forever. Just add new country plans anytime — no need to reinstall or change SIMs again.',
-  //   },
-  //   {
-  //     id: 5,
-  //     title: 'Smart data alerts',
-  //     description:
-  //       'We notify you before your data runs out — so you never get stuck without internet in the middle of your trip.',
-  //   },
-  //   {
-  //     id: 6,
-  //     title: 'Global & regional plans',
-  //     description:
-  //       "Whether you're traveling to one country or exploring multiple regions, Simfinity has plans that fit your journey perfectly.",
-  //   },
-  // ];
-
-
-
   const features: Feature[] = [
     {
       id: 1,

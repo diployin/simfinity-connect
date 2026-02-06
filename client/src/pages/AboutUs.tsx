@@ -21,8 +21,6 @@ import { Helmet } from 'react-helmet-async';
 import { useSettingByKey } from '@/hooks/useSettings';
 
 import { useLocation } from 'wouter';
-// import { SiteHeader } from '@/components/layout/SiteHeader';
-// import { SiteFooter } from '@/components/layout/SiteFooter';
 
 export function AboutUs() {
   const siteName = useSettingByKey('platform_name');

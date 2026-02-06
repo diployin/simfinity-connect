@@ -17,12 +17,12 @@ const topNavbarSlice = createSlice({
   initialState,
   reducers: {
     // Toggle mobile menu
-    toggleMobileMenu: (state) => {
+    toggleTopBar: (state) => {
       state.isExpanded = !state.isExpanded;
     },
 
     // Open/close mobile menu explicitly
-    setMobileMenuOpen: (state, action: PayloadAction<boolean>) => {
+    setTopBarOpen: (state, action: PayloadAction<boolean>) => {
       state.isExpanded = action.payload;
     },
 
@@ -51,7 +51,7 @@ const topNavbarSlice = createSlice({
 });
 
 export const {
-  toggleMobileMenu,
+  toggleTopBar,
   setMobileMenuOpen,
   toggleSearch,
   setSearchOpen,

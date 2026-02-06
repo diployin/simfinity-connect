@@ -68,8 +68,6 @@ const HeroSection = () => {
     queryKey: ['/api/regions/with-pricing', { currency }],
   });
 
-  console.log('regionsWithPricing', regionsWithPricing);
-
   const popularDestinations = destinationsWithPricing?.filter((d) => d.isPopular).slice(0, 6) || [];
 
   const defaultPopularDestinations = [
@@ -85,7 +83,7 @@ const HeroSection = () => {
     // <div className="relative w-full overflow-hidden bg-[url('/images/Banner.png')] bg-cover bg-center ">
     <div className="relative w-full bg-sky-200   ">
       {/* Desktop Layout */}
-      <div className="absolute -top-[72px] bottom-0 w-full flex flex-col items-center overflow-hidden bg-gradient-hero">
+      <div className="absolute -top-[0px] bottom-0 w-full flex flex-col items-center overflow-hidden bg-gradient-hero">
         <div className="absolute bottom-0 min-w-[1038px] md:min-w-[1153px] lg:min-w-[1372px] xl:min-w-[1716px] md:translate-x-[18%] lg:translate-x-[21%] xl:translate-x-[25%]">
           <div>
             <picture>
@@ -130,7 +128,7 @@ const HeroSection = () => {
           <div className="mx-4 sm:mx-auto">
             <div className="containers mx-auto">
               <div
-                className={`md:flex flex-col justify-center py-16 max-md:pb-[404px] md:max-w-[370px] lg:max-w-[540px] xl:max-w-[680px] min-h-[743px] md:min-h-[480px] lg:min-h-[592px] xl:min-h-[800px] ${isExpanded ? 'mt-10' : 'mt-32'} mt-10 md:mt-16 lg:mt-5`}
+                className={`md:flex flex-col justify-center py-16 max-md:pb-[404px] md:max-w-[370px] lg:max-w-[540px] xl:max-w-[680px] min-h-[743px] md:min-h-[480px] lg:min-h-[592px] xl:min-h-[800px] ${isExpanded ? 'mt-10' : 'mt-28'} mt-10 md:mt-16 lg:mt-5`}
               >
                 <div className="h-full w-full flex group/stack flex-col text-start justify-start gap-y-6 items-stretch">
                   <div className="flex flex-col justify-end  ">

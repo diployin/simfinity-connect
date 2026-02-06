@@ -8,6 +8,8 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Link } from 'wouter';
 import { cn } from '@/lib/utils';
+import { useSelector } from 'react-redux';
+import { AppDispatch, RootState, useAppDispatch } from '@/redux/store/store';
 
 interface MegaMenuItem {
   label: string;
@@ -31,6 +33,10 @@ interface MegaMenuColumn {
   title: string;
   items: MegaMenuItem[];
 }
+interface BottomLinks {
+  label?: string;
+  href?: string;
+}
 
 interface MegaMenuConfig {
   columns: MegaMenuColumn[];
@@ -38,6 +44,7 @@ interface MegaMenuConfig {
     title: string;
     items: SliderItem[];
   };
+  bottomLink?: BottomLinks;
 }
 
 interface MegaMenuDropdownProps {
@@ -56,6 +63,9 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const autoplayRef = useRef(Autoplay({ delay: 4000, stopOnInteraction: true }));
+  const dispatch: AppDispatch = useAppDispatch();
+
+  const { isExpanded } = useSelector((state: RootState) => state.topNavbar);
 
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'start' }, [
     autoplayRef.current,
@@ -166,7 +176,9 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
           <div className="fixed inset-0 z-40" onClick={closeMenu} />
 
           {/* Mega Menu */}
-          <div className="fixed top-[69px] right-0 left-0 z-50">
+          <div
+            className={`fixed  ${isExpanded ? ' top-[70px]' : ' top-[125px]'}  right-0 left-0 z-50`}
+          >
             <div className="mx-auto">
               <div className="over overflow-hidden border border-gray-200 shadow-2xl backdrop-blur-2xl">
                 <div className="grid grid-cols-12 gap-0">
@@ -254,14 +266,14 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
 
                   {/* Right Side - Slider */}
                   {config.slider && (
-                    <div className="b col-span-3 bg-white/85  py-5 px-5">
+                    <div className="b col-span-3 bg-white  py-5 px-5">
                       <div className="flex h-full flex-col">
                         <h4 className="mb-6 text-xs text-start font-semibold text-gray-500">
                           {config.slider.title}
                         </h4>
 
                         {/* Custom Carousel */}
-                        <div className="relative flex-1">
+                        <div className="relative flex-1 ">
                           <div className="overflow-hidden" ref={emblaRef}>
                             <div className="flex  ">
                               {config.slider.items.map((slide) => (
@@ -324,16 +336,16 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
                 {/* Bottom Section */}
                 <div className="flex w-full items-center justify-between border-t border-gray-200 bg-gray-50 px-8 py-4">
                   <Link
-                    href="/what-is-esim"
+                    href={config.bottomLink?.herf}
                     className="flex items-center gap-2 text-sm font-medium text-gray-900 hover:text-gray-600"
                     onClick={closeMenu}
                   >
                     <span className="flex h-5 w-5 items-center justify-center rounded-full border border-gray-400 text-xs">
                       ?{' '}
                     </span>
-                    What is an eSIM?
+                    {config.bottomLink?.label}
                   </Link>
-                  <Button>Download Soon</Button>
+                  <Button disabled={true}>App Download Soon</Button>
                 </div>
               </div>
             </div>
