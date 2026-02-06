@@ -724,254 +724,559 @@ const useStaticData = () => {
         ],
       },
     },
-    // 
+    //
     
-    NavbarData: {
-  productMegaMenuConfig: {
-    columns: [
-      {
-        title: t('website.headerlinks.ProductColumnTitle'),
+    
 
-        items: [
+     NavbarData: {
+      productMegaMenuConfig: {
+        columns: [
           {
-            label: t('website.headerlinks.ProductFeature1Title'),
-            description: t('website.headerlinks.ProductFeature1Desc'),
-            href: '/all-destinations',
-            icon: <MdModeStandby className="h-5 w-5" />,
-            disabled: true,
-            badge: 'coming soon',
+            title: t('website.headerlinks.ProductColumnTitle'),
+
+            items: [
+              {
+                label: t('website.headerlinks.ProductFeature1Title'),
+                description: t('website.headerlinks.ProductFeature1Desc'),
+                href: '/all-destinations',
+                icon: <MdModeStandby className="h-5 w-5" />,
+                disabled: true,
+                badge: 'coming soon',
+              },
+              {
+                label: t('website.headerlinks.ProductFeature2Title'),
+                description: t('website.headerlinks.ProductFeature2Desc'),
+                href: '',
+                icon: <GoPackage className="h-5 w-5" />,
+                isExternalUrl: 'https://simfinity.dev/knowledge-base',
+              },
+              {
+                label: t('website.headerlinks.ProductFeature3Title'),
+                description: t('website.headerlinks.ProductFeature3Desc'),
+                href: '/supported-devices',
+                icon: <BiWorld className="h-5 w-5" />,
+              },
+            ],
           },
+
           {
-            label: t('website.headerlinks.ProductFeature2Title'),
-            description: t('website.headerlinks.ProductFeature2Desc'),
-            href: '',
-            icon: <GoPackage className="h-5 w-5" />,
-            isExternalUrl: 'https://simfinity.dev/knowledge-base',
-          },
-          {
-            label: t('website.headerlinks.ProductFeature3Title'),
-            description: t('website.headerlinks.ProductFeature3Desc'),
-            href: '/country-plan',
-            icon: <BiWorld className="h-5 w-5" />,
+            title: t('website.headerlinks.SupportColumnTitle'),
+
+            items: [
+              {
+                label: t('website.headerlinks.ProductTool1Title'),
+                description: t('website.headerlinks.ProductTool1Desc'),
+                href: '/privacy-policy',
+                icon: <MdOutlinePrivacyTip className="h-5 w-5" />,
+              },
+              {
+                label: t('website.headerlinks.ProductTool2Title'),
+                description: t('website.headerlinks.ProductTool2Desc'),
+                href: '/destinations',
+                icon: <MdOutlinePolicy className="h-5 w-5" />,
+              },
+            ],
           },
         ],
+        slider: {
+          title: 'Explore Popular Destinations',
+          items: [
+            {
+              id: 1,
+              title: t('website.headerlinks.ProductSlider1Title'),
+              description: t('website.headerlinks.ProductSlider1Description'),
+              image: '/images/menu-images/mega-menu-explore1.png',
+              href: '/ultra-plan',
+            },
+            {
+              id: 2,
+              title: t('website.headerlinks.ProductSlider2Title'),
+              description: t('website.headerlinks.ProductSlider2Description'),
+              image: '/images/menu-images/mega-menu-explore2.png',
+              href: '/security-features',
+            },
+            {
+              id: 3,
+              title: t('website.headerlinks.ProductSlider3Title'),
+              description: t('website.headerlinks.ProductSlider3Description'),
+              image: '/images/menu-images/mega-menu-explore3.png',
+              href: '/security-features',
+            },
+          ],
+        },
       },
-
-      {
-        title: t('website.headerlinks.SupportColumnTitle'),
-
-        items: [
+      rouceMegaMenuConfig: {
+        columns: [
           {
-            label: t('website.headerlinks.ProductTool1Title'),
-            description: t('website.headerlinks.ProductTool1Desc'),
-            href: '/privacy-policy',
-            icon: <MdOutlinePrivacyTip className="h-5 w-5" />,
+            title: t('website.headerlinks.ResourceGetStartedTitle'),
+
+            items: [
+              {
+                label: t('website.headerlinks.Resource1Title'),
+                description: t('website.headerlinks.Resource1Desc'),
+                badge: t('website.headerlinks.ResourceBadgeNew'),
+                href: '/what-is-esim',
+                icon: <MdOutlineSimCard className="h-5 w-5" />,
+                // disabled: true,
+              },
+              {
+                label: t('website.headerlinks.Resource4Title'),
+                description: t('website.headerlinks.Resource5Desc'),
+                href: '/blog',
+                icon: <MdOutlineSupportAgent className="h-5 w-5" />,
+              },
+              {
+                label: t('website.headerlinks.Resource2Title'),
+                description: t('website.headerlinks.Resource2Desc'),
+                badge: t('website.headerlinks.ResourceBadgeGuide'),
+                href: '/about-us',
+                icon: <TbDeviceUnknown className="h-5 w-5" />,
+              },
+            ],
           },
+
           {
-            label: t('website.headerlinks.ProductTool2Title'),
-            description: t('website.headerlinks.ProductTool2Desc'),
-            href: '/terms-and-conditions',
-            icon: <MdOutlinePolicy className="h-5 w-5" />,
+            title: t('website.headerlinks.ResourceSupportTitle'),
+
+            items: [
+              {
+                label: t('website.headerlinks.Resource3Title'),
+                description: t('website.headerlinks.Resource3Desc'),
+                href: '/security-features',
+                icon: <FaShield className="h-5 w-5" />,
+                disabled: true,
+              },
+              {
+                label: t('website.headerlinks.Resource6Title'),
+                description: t('website.headerlinks.Resource6Desc'),
+                href: '/blog',
+                icon: <RiBloggerFill className="h-5 w-5" />,
+                disabled: true,
+              },
+              {
+                label: t('website.headerlinks.Resource5Title'),
+                description: t('website.headerlinks.Resource5Desc'),
+                href: '/download-esim-app',
+                icon: <IoMdDownload className="h-5 w-5" />,
+                disabled: true,
+              },
+            ],
           },
         ],
+        slider: {
+          title: 'Explore Popular Destinations',
+          items: [
+            {
+              id: 1,
+              title: t('website.headerlinks.ResourceSlider1Title'),
+              description: t('website.headerlinks.ResourceSlider1Description'),
+              image: '/images/menu-images/mega-menu-explore1.png',
+              href: '/ultra-plan',
+            },
+            {
+              id: 2,
+              title: t('website.headerlinks.ResourceSlider2Title'),
+              description: t('website.headerlinks.ResourceSlider2Description'),
+              image: '/images/menu-images/mega-menu-explore2.png',
+              href: '/security-features',
+            },
+            {
+              id: 3,
+              title: t('website.headerlinks.ResourceSlider3Title'),
+              description: t('website.headerlinks.ResourceSlider3Description'),
+              image: '/images/menu-images/mega-menu-explore3.png',
+              href: '/security-features',
+            },
+          ],
+        },
       },
-    ],
 
-    slider: {
-      title: t('website.headerlinks.ProductSliderTitle'),
+      offersMegaMenuConfig: {
+        see_pack: t('website.headerlinks.OfferSeePack'),
+        label: t('website.headerlinks.OfferMenuLabel'),
+        badge: t('website.headerlinks.OfferMenuBadge'),
 
-      items: [
-        {
-          id: 1,
-          title: t('website.headerlinks.ProductSlider1Title'),
-          description: t('website.headerlinks.ProductSlider1Description'),
-          image: '/images/menu-images/mega-menu-explore1.png',
-          href: '/ultra-plan',
+        columns: [
+          {
+            title: t('website.headerlinks.OfferColumnTitle'),
+
+            items: [
+              {
+                label: t('website.headerlinks.Offer1Title'),
+                description: t('website.headerlinks.Offer1Desc'),
+                href: '/refer-friend',
+                icon: <Gift className="h-5 w-5" />,
+                badge: t('website.headerlinks.OfferBadgeHot'),
+                disabled: true,
+              },
+              {
+                label: t('website.headerlinks.Offer2Title'),
+                description: t('website.headerlinks.Offer2Desc'),
+                href: '/student-offer',
+                icon: <GraduationCap className="h-5 w-5" />,
+                badge: t('website.headerlinks.OfferBadgeNew'),
+                disabled: true,
+              },
+              {
+                label: t('website.headerlinks.Offer3Title'),
+                description: t('website.headerlinks.Offer3Desc'),
+                href: '/deals-rewards',
+                icon: <Tag className="h-5 w-5" />,
+                disabled: true,
+              },
+            ],
+          },
+        ],
+
+        slider: {
+          title: t('website.headerlinks.ResourceSliderTitle'),
+          items: [
+            {
+              id: 1,
+              title: t('website.headerlinks.ResourceSliderItem1Title'),
+              description: t('website.headerlinks.ResourceSliderItem1Desc'),
+              image: '/images/menu-images/mega-menu-explore1.png',
+              href: '/ultra-plan',
+            },
+            {
+              id: 2,
+              title: t('website.headerlinks.ResourceSliderItem2Title'),
+              description: t('website.headerlinks.ResourceSliderItem2Desc'),
+              image: '/images/menu-images/mega-menu-explore2.png',
+              href: '/security-features',
+            },
+            {
+              id: 3,
+              title: t('website.headerlinks.ResourceSliderItem3Title'),
+              description: t('website.headerlinks.ResourceSliderItem3Desc'),
+              image: '/images/menu-images/mega-menu-explore3.png',
+              href: '/security-features',
+            },
+          ],
         },
-        {
-          id: 2,
-          title: t('website.headerlinks.ProductSlider2Title'),
-          description: t('website.headerlinks.ProductSlider2Description'),
-          image: '/images/menu-images/mega-menu-explore2.png',
-          href: '/security-features',
+      },
+      helpMegaMenuConfig: {
+        label: t('website.headerlinks.HelpLabel'),
+        badge: t('website.headerlinks.HelpBadge'),
+
+        columns: [
+          {
+            title: t('website.headerlinks.HelpLabel'),
+            items: [
+              {
+                label: t('website.headerlinks.Help1Title'),
+                description: t('website.headerlinks.Help1Desc'),
+                href: '/destinations',
+                icon: <BookOpen className="h-5 w-5" />,
+                badge: 'New',
+              },
+              {
+                label: t('website.headerlinks.Help2Title'),
+                description: t('website.headerlinks.Help2Desc'),
+                href: '/help-center',
+                icon: <LifeBuoy className="h-5 w-5" />,
+                disabled: true,
+              },
+              {
+                label: t('website.headerlinks.Help3Title'),
+                description: t('website.headerlinks.Help3Desc'),
+                href: '/troubleshooting',
+                icon: <Wrench className="h-5 w-5" />,
+                disabled: true,
+              },
+            ],
+          },
+
+          {
+            title: t('website.headerlinks.HelpColumnSupportTitle'),
+            items: [
+              {
+                label: t('website.headerlinks.Help4Title'),
+                description: t('website.headerlinks.Help4Desc'),
+                href: '/faq',
+                icon: <HelpCircle className="h-5 w-5" />,
+              },
+            ],
+          },
+        ],
+
+        slider: {
+          title: t('website.headerlinks.HelpSliderTitle'),
+          items: [
+            {
+              id: 1,
+              title: t('website.headerlinks.HelpSliderItem1Title'),
+              description: t('website.headerlinks.HelpSliderItem1Desc'),
+              image: '/images/menu-images/mega-menu-explore1.png',
+              href: '/ultra-plan',
+            },
+            {
+              id: 2,
+              title: t('website.headerlinks.HelpSliderItem2Title'),
+              description: t('website.headerlinks.HelpSliderItem2Desc'),
+              image: '/images/menu-images/mega-menu-explore2.png',
+              href: '/security-features',
+            },
+            {
+              id: 3,
+              title: t('website.headerlinks.HelpSliderItem3Title'),
+              description: t('website.headerlinks.HelpSliderItem3Desc'),
+              image: '/images/menu-images/mega-menu-explore3.png',
+              href: '/security-features',
+            },
+          ],
         },
-        {
-          id: 3,
-          title: t('website.headerlinks.ProductSlider3Title'),
-          description: t('website.headerlinks.ProductSlider3Description'),
-          image: '/images/menu-images/mega-menu-explore3.png',
-          href: '/security-features',
-        },
-      ],
+      },
     },
-  },
+  
+    
+//     NavbarData: {
+//   productMegaMenuConfig: {
+//     columns: [
+//       {
+//         title: t('website.website.headerlinks.ProductColumnTitle'),
 
-  rouceMegaMenuConfig: {
-    columns: [
-      {
-        title: t('website.headerlinks.ResourceGetStartedTitle'),
+//         items: [
+//           {
+//             label: t('website.website.headerlinks.ProductFeature1Title'),
+//             description: t('website.website.headerlinks.ProductFeature1Desc'),
+//             href: '/all-destinations',
+//             icon: <MdModeStandby className="h-5 w-5" />,
+//             disabled: true,
+//             badge: 'coming soon',
+//           },
+//           {
+//             label: t('website.website.headerlinks.ProductFeature2Title'),
+//             description: t('website.website.headerlinks.ProductFeature2Desc'),
+//             href: '',
+//             icon: <GoPackage className="h-5 w-5" />,
+//             isExternalUrl: 'https://simfinity.dev/knowledge-base',
+//           },
+//           {
+//             label: t('website.website.headerlinks.ProductFeature3Title'),
+//             description: t('website.website.headerlinks.ProductFeature3Desc'),
+//             href: '/country-plan',
+//             icon: <BiWorld className="h-5 w-5" />,
+//           },
+//         ],
+//       },
 
-        items: [
-          {
-            label: t('website.headerlinks.Resource1Title'),
-            description: t('website.headerlinks.Resource1Desc'),
-            badge: t('website.headerlinks.ResourceBadgeNew'),
-            href: '/what-is-esim',
-            icon: <MdOutlineSimCard className="h-5 w-5" />,
-          },
-          {
-            label: t('website.headerlinks.Resource2Title'),
-            description: t('website.headerlinks.Resource2Desc'),
-            badge: t('website.headerlinks.ResourceBadgeGuide'),
-            href: '/about-us',
-            icon: <TbDeviceUnknown className="h-5 w-5" />,
-          },
-          {
-            label: t('website.headerlinks.Resource3Title'),
-            description: t('website.headerlinks.Resource3Desc'),
-            href: '/security-features',
-            icon: <FaShield className="h-5 w-5" />,
-          },
-        ],
-      },
+//       {
+//         title: t('website.website.headerlinks.SupportColumnTitle'),
 
-      {
-        title: t('website.headerlinks.ResourceSupportTitle'),
+//         items: [
+//           {
+//             label: t('website.website.headerlinks.ProductTool1Title'),
+//             description: t('website.website.headerlinks.ProductTool1Desc'),
+//             href: '/privacy-policy',
+//             icon: <MdOutlinePrivacyTip className="h-5 w-5" />,
+//           },
+//           {
+//             label: t('website.website.headerlinks.ProductTool2Title'),
+//             description: t('website.website.headerlinks.ProductTool2Desc'),
+//             href: '/terms-and-conditions',
+//             icon: <MdOutlinePolicy className="h-5 w-5" />,
+//           },
+//         ],
+//       },
+//     ],
 
-        items: [
-          {
-            label: t('website.headerlinks.Resource4Title'),
-            description: t('website.headerlinks.Resource4Desc'),
-            href: '/esim-supported-devices',
-            icon: <MdOutlineSupportAgent className="h-5 w-5" />,
-          },
-          {
-            label: t('website.headerlinks.Resource5Title'),
-            description: t('website.headerlinks.Resource5Desc'),
-            href: '/download-esim-app',
-            icon: <IoMdDownload className="h-5 w-5" />,
-          },
-          {
-            label: t('website.headerlinks.Resource6Title'),
-            description: t('website.headerlinks.Resource6Desc'),
-            href: '/blog',
-            icon: <RiBloggerFill className="h-5 w-5" />,
-          },
-        ],
-      },
-    ],
+//     slider: {
+//       title: t('website.website.headerlinks.ProductSliderTitle'),
 
-    slider: {
-      title: t('website.headerlinks.ResourceSliderTitle'),
+//       items: [
+//         {
+//           id: 1,
+//           title: t('website.website.headerlinks.ProductSlider1Title'),
+//           description: t('website.website.headerlinks.ProductSlider1Description'),
+//           image: '/images/menu-images/mega-menu-explore1.png',
+//           href: '/ultra-plan',
+//         },
+//         {
+//           id: 2,
+//           title: t('website.website.headerlinks.ProductSlider2Title'),
+//           description: t('website.website.headerlinks.ProductSlider2Description'),
+//           image: '/images/menu-images/mega-menu-explore2.png',
+//           href: '/security-features',
+//         },
+//         {
+//           id: 3,
+//           title: t('website.website.headerlinks.ProductSlider3Title'),
+//           description: t('website.website.headerlinks.ProductSlider3Description'),
+//           image: '/images/menu-images/mega-menu-explore3.png',
+//           href: '/security-features',
+//         },
+//       ],
+//     },
+//   },
 
-      items: [
-        {
-          id: 1,
-          title: t('website.headerlinks.ResourceSlider1Title'),
-          description: t('website.headerlinks.ResourceSlider1Description'),
-          image: '/images/menu-images/mega-menu-explore1.png',
-          href: '/ultra-plan',
-        },
-        {
-          id: 2,
-          title: t('website.headerlinks.ResourceSlider2Title'),
-          description: t('website.headerlinks.ResourceSlider2Description'),
-          image: '/images/menu-images/mega-menu-explore2.png',
-          href: '/security-features',
-        },
-        {
-          id: 3,
-          title: t('website.headerlinks.ResourceSlider3Title'),
-          description: t('website.headerlinks.ResourceSlider3Description'),
-          image: '/images/menu-images/mega-menu-explore3.png',
-          href: '/security-features',
-        },
-      ],
-    },
-  },
+//   rouceMegaMenuConfig: {
+//     columns: [
+//       {
+//         title: t('website.website.headerlinks.ResourceGetStartedTitle'),
 
-  offersMegaMenuConfig: {
-    see_pack: t('website.headerlinks.OfferSeePack'),
-    label: t('website.headerlinks.OfferMenuLabel'),
-    badge: t('website.headerlinks.OfferMenuBadge'),
+//         items: [
+//           {
+//             label: t('website.website.headerlinks.Resource1Title'),
+//             description: t('website.website.headerlinks.Resource1Desc'),
+//             badge: t('website.website.headerlinks.ResourceBadgeNew'),
+//             href: '/what-is-esim',
+//             icon: <MdOutlineSimCard className="h-5 w-5" />,
+//           },
+//           {
+//             label: t('website.website.headerlinks.Resource2Title'),
+//             description: t('website.website.headerlinks.Resource2Desc'),
+//             badge: t('website.website.headerlinks.ResourceBadgeGuide'),
+//             href: '/about-us',
+//             icon: <TbDeviceUnknown className="h-5 w-5" />,
+//           },
+//           {
+//             label: t('website.website.headerlinks.Resource3Title'),
+//             description: t('website.website.headerlinks.Resource3Desc'),
+//             href: '/security-features',
+//             icon: <FaShield className="h-5 w-5" />,
+//           },
+//         ],
+//       },
 
-    columns: [
-      {
-        title: t('website.headerlinks.OfferColumnTitle'),
+//       {
+//         title: t('website.website.headerlinks.ResourceSupportTitle'),
 
-        items: [
-          {
-            label: t('website.headerlinks.Offer1Title'),
-            description: t('website.headerlinks.Offer1Desc'),
-            href: '/refer-friend',
-            icon: <Gift className="h-5 w-5" />,
-            badge: t('website.headerlinks.OfferBadgeHot'),
-          },
-          {
-            label: t('website.headerlinks.Offer2Title'),
-            description: t('website.headerlinks.Offer2Desc'),
-            href: '/student-offer',
-            icon: <GraduationCap className="h-5 w-5" />,
-            badge: t('website.headerlinks.OfferBadgeNew'),
-          },
-          {
-            label: t('website.headerlinks.Offer3Title'),
-            description: t('website.headerlinks.Offer3Desc'),
-            href: '/deals-rewards',
-            icon: <Tag className="h-5 w-5" />,
-          },
-        ],
-      },
+//         items: [
+//           {
+//             label: t('website.website.headerlinks.Resource4Title'),
+//             description: t('website.website.headerlinks.Resource4Desc'),
+//             href: '/esim-supported-devices',
+//             icon: <MdOutlineSupportAgent className="h-5 w-5" />,
+//           },
+//           {
+//             label: t('website.website.headerlinks.Resource5Title'),
+//             description: t('website.website.headerlinks.Resource5Desc'),
+//             href: '/download-esim-app',
+//             icon: <IoMdDownload className="h-5 w-5" />,
+//           },
+//           {
+//             label: t('website.website.headerlinks.Resource6Title'),
+//             description: t('website.website.headerlinks.Resource6Desc'),
+//             href: '/blog',
+//             icon: <RiBloggerFill className="h-5 w-5" />,
+//           },
+//         ],
+//       },
+//     ],
+
+//     slider: {
+//       title: t('website.website.headerlinks.ResourceSliderTitle'),
+
+//       items: [
+//         {
+//           id: 1,
+//           title: t('website.website.headerlinks.ResourceSlider1Title'),
+//           description: t('website.website.headerlinks.ResourceSlider1Description'),
+//           image: '/images/menu-images/mega-menu-explore1.png',
+//           href: '/ultra-plan',
+//         },
+//         {
+//           id: 2,
+//           title: t('website.website.headerlinks.ResourceSlider2Title'),
+//           description: t('website.website.headerlinks.ResourceSlider2Description'),
+//           image: '/images/menu-images/mega-menu-explore2.png',
+//           href: '/security-features',
+//         },
+//         {
+//           id: 3,
+//           title: t('website.website.headerlinks.ResourceSlider3Title'),
+//           description: t('website.website.headerlinks.ResourceSlider3Description'),
+//           image: '/images/menu-images/mega-menu-explore3.png',
+//           href: '/security-features',
+//         },
+//       ],
+//     },
+//   },
+
+//   offersMegaMenuConfig: {
+//     see_pack: t('website.website.headerlinks.OfferSeePack'),
+//     label: t('website.website.headerlinks.OfferMenuLabel'),
+//     badge: t('website.website.headerlinks.OfferMenuBadge'),
+
+//     columns: [
+//       {
+//         title: t('website.website.headerlinks.OfferColumnTitle'),
+
+//         items: [
+//           {
+//             label: t('website.website.headerlinks.Offer1Title'),
+//             description: t('website.website.headerlinks.Offer1Desc'),
+//             href: '/refer-friend',
+//             icon: <Gift className="h-5 w-5" />,
+//             badge: t('website.website.headerlinks.OfferBadgeHot'),
+//           },
+//           {
+//             label: t('website.website.headerlinks.Offer2Title'),
+//             description: t('website.website.headerlinks.Offer2Desc'),
+//             href: '/student-offer',
+//             icon: <GraduationCap className="h-5 w-5" />,
+//             badge: t('website.website.headerlinks.OfferBadgeNew'),
+//           },
+//           {
+//             label: t('website.website.headerlinks.Offer3Title'),
+//             description: t('website.website.headerlinks.Offer3Desc'),
+//             href: '/deals-rewards',
+//             icon: <Tag className="h-5 w-5" />,
+//           },
+//         ],
+//       },
       
-    ],
-  },
+//     ],
+//   },
 
-  helpMegaMenuConfig: {
-    label: t('website.headerlinks.HelpLabel'),
-    badge: t('website.headerlinks.HelpBadge'),
+//   helpMegaMenuConfig: {
+//     label: t('website.website.headerlinks.HelpLabel'),
+//     badge: t('website.website.headerlinks.HelpBadge'),
 
-    columns: [
-      {
-        title: t('website.headerlinks.HelpLabel'),
+//     columns: [
+//       {
+//         title: t('website.website.headerlinks.HelpLabel'),
 
-        items: [
-          {
-            label: t('website.headerlinks.Help1Title'),
-            description: t('website.headerlinks.Help1Desc'),
-            href: '/getting-started',
-            icon: <BookOpen className="h-5 w-5" />,
-            badge: 'New',
-          },
-          {
-            label: t('website.headerlinks.Help2Title'),
-            description: t('website.headerlinks.Help2Desc'),
-            href: '/help-center',
-            icon: <LifeBuoy className="h-5 w-5" />,
-          },
-          {
-            label: t('website.headerlinks.Help3Title'),
-            description: t('website.headerlinks.Help3Desc'),
-            href: '/troubleshooting',
-            icon: <Wrench className="h-5 w-5" />,
-          },
-        ],
-      },
+//         items: [
+//           {
+//             label: t('website.website.headerlinks.Help1Title'),
+//             description: t('website.website.headerlinks.Help1Desc'),
+//             href: '/getting-started',
+//             icon: <BookOpen className="h-5 w-5" />,
+//             badge: 'New',
+//           },
+//           {
+//             label: t('website.website.headerlinks.Help2Title'),
+//             description: t('website.website.headerlinks.Help2Desc'),
+//             href: '/help-center',
+//             icon: <LifeBuoy className="h-5 w-5" />,
+//           },
+//           {
+//             label: t('website.website.headerlinks.Help3Title'),
+//             description: t('website.website.headerlinks.Help3Desc'),
+//             href: '/troubleshooting',
+//             icon: <Wrench className="h-5 w-5" />,
+//           },
+//         ],
+//       },
 
-      {
-        title: t('website.headerlinks.HelpColumnSupportTitle'),
+//       {
+//         title: t('website.website.headerlinks.HelpColumnSupportTitle'),
 
-        items: [
-          {
-            label: t('website.headerlinks.Help4Title'),
-            description: t('website.headerlinks.Help4Desc'),
-            href: '/faq',
-            icon: <HelpCircle className="h-5 w-5" />,
-          },
-        ],
-      },
-    ],
-  },
-},
+//         items: [
+//           {
+//             label: t('website.website.headerlinks.Help4Title'),
+//             description: t('website.website.headerlinks.Help4Desc'),
+//             href: '/faq',
+//             icon: <HelpCircle className="h-5 w-5" />,
+//           },
+//         ],
+//       },
+//     ],
+//   },
+// },
+
 
   };
   return staticData;
