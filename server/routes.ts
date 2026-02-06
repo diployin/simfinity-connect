@@ -76,6 +76,7 @@ import bannerRouter from './routes/banner.routes';
 import privacyPolicyRoutes from './routes/admin/PrivacyPolicy';
 import { adminMessaging } from './config/firebase-admin';
 import axios from 'axios';
+import supportedDevices from "./lib/devices.json";
 
 // Initialize Stripe
 if (!process.env.STRIPE_SECRET_KEY) {
@@ -341,13 +342,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get('/api/devices', async (req, res) => {
+ app.get('/api/devices', async (req, res) => {
+
     try {
       const devices = await airaloAPI.getDevices();
-      res.json({ success: true, message: 'Devices fetched successfully', data: devices });
+      return res.json({
+        success: true,
+        source: "airalo",
+        data: devices?.data,
+      });
     } catch (error: any) {
-      console.error('Error fetching devices list:', error.message);
-      res.status(500).json({ success: false, message: error.message });
+      console.error("Airalo failed, using local JSON:", error.message);
+
+      return res.json({
+        success: true,
+        source: "local",
+        data: supportedDevices,
+      });
     }
   });
 
