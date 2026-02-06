@@ -1,85 +1,11 @@
-// import React from 'react';
-
-// import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-
-// interface FAQItem {
-//     id: string;
-//     question: string;
-//     answer: string;
-// }
-
-// interface FAQSectionProps {
-//     title?: string;
-//     subtitle?: string;
-//     faqs: FAQItem[];
-//     bgColor?: string;
-//     maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
-//     showBorder?: boolean;
-//     className?: string;
-// }
-
-// const FAQ: React.FC<FAQSectionProps> = ({
-//     title = 'Frequently asked questions',
-//     subtitle,
-//     faqs,
-//     bgColor = 'bg-white',
-//     maxWidth = '3xl',
-//     showBorder = true,
-//     className = ''
-// }) => {
-//     const maxWidthClasses = {
-//         sm: 'max-w-sm',
-//         md: 'max-w-md',
-//         lg: 'max-w-lg',
-//         xl: 'max-w-xl',
-//         '2xl': 'max-w-2xl',
-//         '3xl': 'max-w-3xl',
-//         '4xl': 'max-w-4xl'
-//     };
-
-//     return (
-//         <section className={`w-full ${bgColor} py-8 sm:py-20 md:py-16 lg:py-24 ${className}`}>
-//             <div className='containers'>
-//                 {/* Header */}
-//                 <div className='mb-6 text-center sm:mb-10'>
-//                     <h2 className='lg:text-4.5xl mx-auto mb-4 max-w-2xl text-center text-3xl leading-tight font-medium text-black sm:text-4xl'>
-//                         {title}
-//                     </h2>
-//                     {subtitle && <p className='mx-auto max-w-2xl text-base text-gray-600 sm:text-lg'>{subtitle}</p>}
-//                 </div>
-
-//                 {/* FAQ Accordion */}
-//                 <div className={`${maxWidthClasses[maxWidth]} mx-auto`}>
-//                     <Accordion type='single' collapsible className='w-full space-y-4'>
-//                         {faqs.map((faq) => (
-//                             <AccordionItem
-//                                 key={faq.id}
-//                                 value={faq.id}
-//                                 className={`bg-white ${showBorder ? 'border border-gray-200' : ''} rounded-2xl px-6 data-[state=open]:shadow-sm sm:px-8`}>
-//                                 <AccordionTrigger className='text cursor-pointer py-6 text-left text-base font-medium text-black hover:no-underline sm:text-xl'>
-//                                     {faq.question}
-//                                 </AccordionTrigger>
-//                                 <AccordionContent className='pb-6 text-sm leading-relaxed font-normal text-gray-600 sm:text-base'>
-//                                     {faq.answer}
-//                                 </AccordionContent>
-//                             </AccordionItem>
-//                         ))}
-//                     </Accordion>
-//                 </div>
-//             </div>
-//         </section>
-//     );
-// };
-
-// export default FAQ;
-
-
-
-
-
-import React from "react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useTranslation } from "@/contexts/TranslationContext";
+import React from 'react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 interface FAQItem {
   id: string;
@@ -91,62 +17,63 @@ interface FAQSectionProps {
   titleKey?: string;
   subtitleKey?: string;
   bgColor?: string;
-  maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
+  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
   showBorder?: boolean;
   className?: string;
+  title?: string;
+  faqs: FAQItem[];
 }
 
 const FAQ: React.FC<FAQSectionProps> = ({
-  titleKey = "website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title",
+  titleKey = 'website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title',
   subtitleKey,
-  bgColor = "bg-white",
-  maxWidth = "3xl",
+  bgColor = 'bg-white',
+  maxWidth = '3xl',
   showBorder = true,
-  className = "",
+  className = '',
 }) => {
   const { t } = useTranslation();
 
- 
   const faqs: FAQItem[] = [
     {
-      id: "faq-0",
-      question: t("website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.question"),
-      answer: t("website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.answer"),
+      id: 'faq-0',
+      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.question'),
+      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.answer'),
     },
     {
-      id: "faq-1",
-      question: t("website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.question"),
-      answer: t("website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.answer"),
+      id: 'faq-1',
+      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.question'),
+      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.answer'),
     },
     {
-      id: "faq-2",
-      question: t("website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.question"),
-      answer: t("website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.answer"),
+      id: 'faq-2',
+      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.question'),
+      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.answer'),
     },
     {
-      id: "faq-3",
-      question: t("website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.question"),
-      answer: t("website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.answer"),
+      id: 'faq-3',
+      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.question'),
+      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.answer'),
     },
     {
-      id: "faq-4",
-      question: t("website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.question"),
-      answer: t("website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.answer"),
+      id: 'faq-4',
+      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.question'),
+      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.answer'),
     },
     {
-      id: "faq-5",
-      question: t("website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.question"),
-      answer: t("website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.answer"),
+      id: 'faq-5',
+      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.question'),
+      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.answer'),
     },
     {
-      id: "faq-6",
-      question: t("website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.question"),
-      answer: t("website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.answer"),
+      id: 'faq-6',
+      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.question'),
+      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.answer'),
     },
     {
-      id: "faq-7",
-      question: t("website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.question"),
-      answer: t("website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.answer"),
+      id: 'faq-7',
+      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.question'),
+      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.answer'),
     },
   ];
 
@@ -154,13 +81,13 @@ const FAQ: React.FC<FAQSectionProps> = ({
   const subtitle = subtitleKey ? t(subtitleKey) : undefined;
 
   const maxWidthClasses = {
-    sm: "max-w-sm",
-    md: "max-w-md",
-    lg: "max-w-lg",
-    xl: "max-w-xl",
-    "2xl": "max-w-2xl",
-    "3xl": "max-w-3xl",
-    "4xl": "max-w-4xl",
+    sm: 'max-w-sm',
+    md: 'max-w-md',
+    lg: 'max-w-lg',
+    xl: 'max-w-xl',
+    '2xl': 'max-w-2xl',
+    '3xl': 'max-w-3xl',
+    '4xl': 'max-w-4xl',
   };
 
   return (
@@ -171,7 +98,9 @@ const FAQ: React.FC<FAQSectionProps> = ({
           <h2 className="lg:text-4.5xl mx-auto mb-4 max-w-2xl text-center text-3xl leading-tight font-medium text-black sm:text-4xl">
             {title}
           </h2>
-          {subtitle && <p className="mx-auto max-w-2xl text-base text-gray-600 sm:text-lg">{subtitle}</p>}
+          {subtitle && (
+            <p className="mx-auto max-w-2xl text-base text-gray-600 sm:text-lg">{subtitle}</p>
+          )}
         </div>
 
         {/* FAQ Accordion */}
@@ -181,7 +110,7 @@ const FAQ: React.FC<FAQSectionProps> = ({
               <AccordionItem
                 key={faq.id}
                 value={faq.id}
-                className={`bg-white ${showBorder ? "border border-gray-200" : ""} rounded-2xl px-6 data-[state=open]:shadow-sm sm:px-8`}
+                className={`bg-white ${showBorder ? 'border border-gray-200' : ''} rounded-2xl px-6 data-[state=open]:shadow-sm sm:px-8`}
               >
                 <AccordionTrigger className="cursor-pointer py-6 text-left text-base font-medium text-black hover:no-underline sm:text-xl">
                   {faq.question}
@@ -199,4 +128,3 @@ const FAQ: React.FC<FAQSectionProps> = ({
 };
 
 export default FAQ;
-

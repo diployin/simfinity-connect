@@ -52,8 +52,8 @@ const ThemeButton: React.FC<YellowButtonProps> = ({
   const variants = {
     default: cn('bg-primary hover:bg-primary/90 active:bg-primary text-white', 'border-green-800'),
     outline: cn(
-      'bg-transparent border-2 border-black text-black',
-      'hover:bg-primary hover:text-white hover:border-primary',
+      'bg-transparent border border-black text-black',
+      'hover:bg-black hover:text-white hover:border-black',
       'active:bg-primary/90',
     ),
     ghost: cn('bg-transparent text-black hover:bg-[#FFEB3B]/10', 'border-transparent'),
