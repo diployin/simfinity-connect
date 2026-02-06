@@ -274,7 +274,7 @@
     "NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.1.answer": "Sample answer",
     "NewSimfinDes.WhatIsEsim.WhatIsEsim.FAQData.faqs.1.answer": "You can scan the QR code or install through the app—in just a few minutes you'll be online.",
     "NewSimfinDes.WhatIsEsim.WhatIsEsim.FAQData.faqs.2.answer": "Yes, your current SIM stays in your phone while you use the eSIM.",
-    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.answer": "Downloading our eSIM app is completely free, but the eSIM plans themselves are not. However, you can get free Simfinity credits through our referral program. By referring your friends to Simfinity, you can earn credits and use them to buy eSIM plans for your travels.",
+    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.answer": "Previewing plans requires an internet connection.",
     "NewSimfinDes.Security_Features.Left_rightImage.virtualLocation.benefits.2.text": "Hide your real IP address",
     "WhatIsEsim.content.ctaButton": "Choose Your Destination",
     "NewSimfinDes.Security_Features.Left_rightImage.adBlocker.subtitle": "Ad Blocker",
@@ -338,228 +338,24 @@
     "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.1": "Tap SIMs > Add eSIM.",
     "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.2": "Scan the QR code shown in the app.",
     "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.instructions.steps.3": "Complete the installation prompts.",
-
-
-  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title": "Frequently asked questions about eSIMs",
-
-  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.question": "Is my phone compatible with eSIMs?",
-  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.answer": "If you got a new smartphone in the last few years, it should be compatible with eSIMs. Most smartphones released after 2020 are. However, even a new device might not support eSIMs if it was bought in a certain location, such as mainland China. To know for sure, check the list of eSIM-compatible devices.",
-
-  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.question": "How to manually install an eSIM on your phone?",
-  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.answer": "You can manually install and set up eSIMs on your phone by scanning the QR code from your carrier or going to \"Network settings\" and looking for an option to add a new eSIM.",
-
-  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.question": "Can I use an eSIM without the app?",
-  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.answer": "You can buy a Simfinity eSIM plan without the app, but you'll need to download the Simfinity app to install the eSIM.",
-
-  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.question": "How long does it take to activate an eSIM?",
-  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.answer": "Activating an eSIM means adding the eSIM profile to your phone by either scanning the QR code or entering the information manually. This way, your phone can recognize and use the eSIM, but does not necessarily activate the data plan immediately. How long this process takes depends on the type of an eSIM you're using. While a primary eSIM can take hours or even days to activate, travel eSIMs, such as the ones that you can purchase on Simfinity, are activated almost instantly.",
-
-  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.question": "What is the best eSIM for international travel?",
-  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.answer": "The Simfinity eSIM is one of the best eSIMs for international travel. It's not only affordable, but you can add new destinations to your existing Simfinity eSIM and stay connected without configuring new eSIMs.",
-
-  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.question": "Are eSIMs free?",
-
-  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.question": "How to get an eSIM online",
-  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.answer": "The best way to get eSIMs online is to buy them through a reputable company, such as Simfinity. You can download the app and easily manage your eSIM plans.",
-
-  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.question": "Can I set up an eSIM myself?",
-  "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.answer": "Yes, you can set up an eSIM yourself, but the instructions on how to do it may vary depending on your network provider. If you're having trouble, contact your provider for help",
-
-  "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.2.description": "Scan QR code or follow the setup instructions.",
-
-  "WhatIsEsim.howDoesItWorkSection.content.paragraph2": "To start using an eSIM, just buy an eSIM plan and complete a quick setup. No need to remove your current SIM card — it can stay where it is, whether you decide to keep using it or not.",
-
- "heroReferfriend.title": "Refer and Earn",
-  "heroReferfriend.des": "Invite your friends to Simfinity and earn exciting rewards every time they join and activate an eSIM plan. Share the connection and enjoy exclusive benefits together.",
-  "heroReferfriend.btn": "Refer Now",
-
-
-  
-  "footer.description": "Your trusted travel connectivity partner providing secure eSIMs and SIM cards in 175+ countries at affordable rates.",
-
-  "footer.global": "{{siteName}} Global",
-  "footer.whatIsEsim": "What is an eSIM",
-  "footer.aboutUs": "About Us",
-  "footer.contactUs": "Contact Us",
-  "footer.destinations": "Destinations",
-
-  "footer.topDestinations": "Top Destinations",
-
-  "footer.resources": "Resources",
-  "footer.blog": "Blog",
-  "footer.faq": "FAQ's",
-  "footer.supportticket": "Support Ticket",
-
-  "footer.pages": "Pages",
-
-  "footer.copyrightt": "© 2026 {{siteName}}. All rights reserved.",
-  "footer.followus": "Follow Us",
-  "footer.social.instagram": "Instagram",
-  "footer.social.facebook": "Facebook",
-  "footer.social.youtube": "YouTube",
-  "footer.social.linkedin": "LinkedIn",
-  "footer.social.twitter": "Twitter",
-
-
-  "downloadAppSection.title": "The Simfinity app is almost here",
-  "downloadAppSection.description": "A smarter, faster way to manage your eSIM — launching soon on iOS and Android.",
-
-  "downloadAppSection.appstoreSmall": "Download on the",
-  "downloadAppSection.appstore": "App Store",
-
-  "downloadAppSection.playstoreSmall": "GET IT ON",
-  "downloadAppSection.playstore": "Google Play",
-
-
-
-
-  
-  "headerlinks.ProductFeature1Title": "Simfinity Passport",
-  "headerlinks.ProductFeature1Desc": "Reliable global data plans designed for teams, companies, and business travelers.",
-
-  "headerlinks.ProductFeature2Title": "eSIM for Business",
-  "headerlinks.ProductFeature2Desc": "Reliable global data plans designed for teams, companies, and business travelers.",
-
-  "headerlinks.ProductFeature3Title": "eSIM Compatibility",
-  "headerlinks.ProductFeature3Desc": "Check if your device supports eSIM technology for seamless connectivity.",
-
-  "headerlinks.ProductTool1Title": "Data Usage Check",
-  "headerlinks.ProductTool1Desc": "Estimate how much data you’ll need for your next trip in seconds.",
-
-  "headerlinks.ProductTool2Title": "Top Up Data",
-  "headerlinks.ProductTool2Desc": "Easily add more data to your plan anytime while traveling.",
-
-  "headerlinks.SupportColumnTitle": "Support",
-  "headerlinks.SupportPrivacyTitle": "Privacy Policy",
-  "headerlinks.SupportPrivacyDesc": "Learn how we protect your personal information.",
-
-  "headerlinks.SupportTermsTitle": "Terms of Service",
-  "headerlinks.SupportTermsDesc": "Understand our terms and conditions of use.",
-
-  "headerlinks.SupportUsageTitle": "Data Usage Check",
-  "headerlinks.SupportUsageDesc": "Track and monitor your data usage anytime.",
-
-  "headerlinks.SupportTopupTitle": "Top Up Data",
-  "headerlinks.SupportTopupDesc": "Add more data to your plan instantly.",
-
-  "headerlinks.Resource1Title": "Curious About eSIM Technology?",
-  "headerlinks.Resource1Desc": "How eSIM works and why it's transforming global connectivity.",
-
-  "headerlinks.Resource2Title": "About Us",
-  "headerlinks.Resource2Desc": "Learn more about who we are, what we do, and our mission.",
-
-  "headerlinks.Resource3Title": "Affiliate Program",
-  "headerlinks.Resource3Desc": "Partner with Simfinity and earn through referrals and collaborations.",
-
-  "headerlinks.Resource4Title": "Blog",
-  "headerlinks.Resource4Desc": "Read articles, guides, and updates about eSIM and travel tech.",
-
-  "headerlinks.Resource5Title": "Careers",
-  "headerlinks.Resource5Desc": "Explore open roles and join the Simfinity team.",
-
-  "headerlinks.Resource6Title": "Simfinity Reviews",
-  "headerlinks.Resource6Desc": "See what real travelers and users are saying about Simfinity.",
-
-  "headerlinks.ResourceSlider1Title": "eSIM for Business",
-  "headerlinks.ResourceSlider1Description": "Reliable global data plans designed for teams, companies, and business travelers.",
-
-  "headerlinks.ResourceSlider2Title": "Simfinity Passport",
-  "headerlinks.ResourceSlider2Description": "Reliable global data plans designed for teams, companies, and business travelers.",
-
-  "headerlinks.ResourceSlider3Title": "Data Usage Check",
-  "headerlinks.ResourceSlider3Description": "Estimate how much data you’ll need for your next trip in seconds.",
-
-  "headerlinks.ResourceBadgeNew": "New",
-  "headerlinks.ResourceBadgeGuide": "Guide",
-
-  "headerlinks.OfferMenuLabel": "Offers",
-  "headerlinks.OfferMenuBadge": "Deals",
-
-  "headerlinks.Help1Title": "Getting Started",
-  "headerlinks.Help1Desc": "A simple guide to help you set up your Simfinity eSIM.",
-
-  "headerlinks.Help2Title": "Help Center",
-  "headerlinks.Help2Desc": "Browse all support articles, tutorials, and troubleshooting guides in one place.",
-
-  "headerlinks.Help3Title": "Troubleshooting",
-  "headerlinks.Help3Desc": "Fix common setup or connectivity issues with clear, step-by-step solutions.",
-
-  "headerlinks.Help4Title": "FAQ",
-  "headerlinks.Help4Desc": "Quick answers to the most common questions about Simfinity eSIM.",
-
-  "headerlinks.Offer1Title": "Refer a Friend",
-  "headerlinks.Offer1Desc": "Share Simfinity. Earn rewards. Travel cheaper.",
-
-  "headerlinks.Offer2Title": "Student Travel Offer",
-  "headerlinks.Offer2Desc": "Students save more — travel anywhere with affordable data.",
-
-  "headerlinks.Offer3Title": "Simfinity Deals & Rewards",
-  "headerlinks.Offer3Desc": "Grab fresh offers and travel with the cheapest global eSIM.",
-
-
-
-
-
-  
-  "esimSetupTab.heading": "How to set up an eSIM",
-  "esimSetupTab.subheading": "Follow these steps to start using an eSIM on your iPhone or Android.",
-
-  "esimSetupTab.tabs.iphone.label": "On iPhone",
-  "esimSetupTab.tabs.iphone.title": "Set up an eSIM on your iPhone with the Simfinity app",
-
-  "esimSetupTab.tabs.iphone.steps.1.title": "Pick an eSIM data plan for your trip",
-  "esimSetupTab.tabs.iphone.steps.1.description": "Select the country you're heading to and choose a plan.",
-
-  "esimSetupTab.tabs.iphone.steps.2.title": "Download the Simfinity eSIM app",
-  "esimSetupTab.tabs.iphone.steps.2.description": "Get the app, tap Install eSIM, and follow the steps on the screen.",
-
-  "esimSetupTab.tabs.iphone.steps.3.title": "Your plan will automatically activate",
-  "esimSetupTab.tabs.iphone.steps.3.description": "Get ready for your trip — your plan will activate when you arrive.",
-
-  "esimSetupTab.tabs.iphone.instructions.heading": "Set up an eSIM manually on your iPhone",
-  "esimSetupTab.tabs.iphone.instructions.steps.1": "Go to \"Settings\", then \"Mobile Service\" or \"Cellular\".",
-  "esimSetupTab.tabs.iphone.instructions.steps.2": "Tap \"Add eSIM\" or \"Add Cellular Plan\".",
-  "esimSetupTab.tabs.iphone.instructions.steps.3": "Tap \"Use QR Code\".",
-  "esimSetupTab.tabs.iphone.instructions.steps.4": "Scan the QR code or enter the details manually.",
-
-
-  "esimSetupTab.tabs.android.label": "On Android",
-  "esimSetupTab.tabs.android.title": "Set up an eSIM on your Android with the Simfinity app",
-
-  "esimSetupTab.tabs.android.steps.1.title": "Pick an eSIM data plan for your trip",
-  "esimSetupTab.tabs.android.steps.1.description": "Select the country you're heading to and choose a plan.",
-
-  "esimSetupTab.tabs.android.steps.2.title": "Download the Simfinity eSIM app",
-  "esimSetupTab.tabs.android.steps.2.description": "Get the app, tap Install eSIM and follow the steps on the screen to set it up.",
-
-  "esimSetupTab.tabs.android.steps.3.title": "Your plan will automatically activate",
-  "esimSetupTab.tabs.android.steps.3.description": "Get ready for your trip — your plan will activate when you arrive.",
-
-  "esimSetupTab.tabs.android.instructions.heading": "Set up an eSIM manually on your Android",
-  "esimSetupTab.tabs.android.instructions.steps.1": "Go to \"Settings\", then \"Connections\".",
-  "esimSetupTab.tabs.android.instructions.steps.2": "Tap \"SIM manager\".",
-  "esimSetupTab.tabs.android.instructions.steps.3": "Select \"Add eSIM\".",
-  "esimSetupTab.tabs.android.instructions.steps.4": "Tap \"Scan the QR code\" or choose another way to add your eSIM.",
-
-
-  "esimSetupTab.tabs.qr.label": "With a QR code",
-  "esimSetupTab.tabs.qr.title": "Set up an eSIM using a QR code",
-
-  "esimSetupTab.tabs.qr.steps.1.title": "Scan the QR code to download Simfinity",
-  "esimSetupTab.tabs.qr.steps.1.description": "Use your phone to scan the QR and download the Simfinity app.",
-
-  "esimSetupTab.tabs.qr.steps.2.title": "Buy an eSIM data plan for your trip",
-  "esimSetupTab.tabs.qr.steps.2.description": "Get a mobile data plan for the country you'll be visiting.",
-
-  "esimSetupTab.tabs.qr.steps.3.title": "Your plan will automatically activate",
-  "esimSetupTab.tabs.qr.steps.3.description": "Get online the moment you arrive at your destination.",
-
-
-
-
-
-
-   
+    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title": "Download App – Frequently Asked Questions",
+    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.question": "Is the Simfinity app free?",
+    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.answer": "Yes, downloading and using the app is completely free.",
+    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.answer": "You can install the app on any compatible device, but eSIM plans are tied to a single device.",
+    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.question": "Do I need an internet connection?",
+    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.answer": "Yes, you need internet to download and install your eSIM plan.",
+    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.question": "Is support available?",
+    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.question": "Do I need a physical SIM?",
+    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.answer": "No, eSIMs are digital and replace the need for a physical SIM card.",
+    "WhatIsEsim.howDoesItWorkSection.content.paragraph2": "To start using an eSIM, just buy an eSIM plan and complete a quick setup. No need to remove your current SIM card — it can stay where it is, whether you decide to keep using it or not.",
+    "NewSimfinDes.download_esim_app.DowonloadEsim.setupTabs.1.steps.2.description": "Scan QR code or follow the setup instructions.",
+    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.question": "Can I use the app on multiple devices?",
+    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.answer": "Our support team is available 24/7 via chat and email.",
+    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.question": "Can I preview plans offline?",
+    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.question": "Are there in-app notifications?",
+    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.answer": "Yes, you’ll receive updates and alerts in the app.",
+    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.question": "Can I delete my eSIM later?",
+    "NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.answer": "Yes, you can remove the eSIM profile in your phone settings.",
     "NewSimfinDes.Security_Features.heroSec.title": "Safe Travels with Simfinity Security Features",
     "NewSimfinDes.Security_Features.heroSec.description": "Protect your data and browsing wherever you explore.",
     "NewSimfinDes.Security_Features.Safe_travels.title": "Secure Your Connection Abroad",
@@ -1635,7 +1431,7 @@
     "Resource3Desc": "Partner with Simfinity and earn through referrals and collaborations.",
     "Resource4Title": "Blog",
     "Resource4Desc": "Read articles, guides, and updates about eSIM and travel tech.",
-    "Resource5Title": "Careers",
+    "Resource5Title": "Franchise Program",
     "Resource5Desc": "Explore open roles and join the Simfinity team.",
     "Resource6Title": "Simfinity Reviews",
     "Resource6Desc": "See what real travelers and users are saying about Simfinity.",

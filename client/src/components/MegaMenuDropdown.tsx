@@ -190,7 +190,7 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
                               const content = (
                                 <>
                                   {item.icon && (
-                                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-yellow-400 text-black transition-transform group-hover:scale-110">
+                                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary text-white transition-transform group-hover:scale-110">
                                       {item.icon}
                                     </div>
                                   )}

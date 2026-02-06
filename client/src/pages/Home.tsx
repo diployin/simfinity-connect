@@ -85,7 +85,7 @@ export default function Home() {
 
         <main>
           {/* Hero section wrapper - fills viewport with strip at bottom above floating nav */}
-          <div className="relative min-h-screen flex flex-col ">
+          <div className="relative min-h-screen flex flex-col  ">
             {/* <HeroSection /> */}
             <HeroSection />
             {/* <TestHeroSection /> */}
