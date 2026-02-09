@@ -54,7 +54,7 @@ export default function BlogPost() {
         {/* <SiteHeader /> */}
         <main className="flex-1">
           {/* Responsive Loading State */}
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-12 max-w-4xl">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8  max-w-4xl">
             <Skeleton className="h-8 sm:h-10 w-32 sm:w-40 mb-6 sm:mb-8" />
             <Skeleton className="h-10 sm:h-12 md:h-16 w-full sm:w-3/4 mb-4 sm:mb-6" />
             <Skeleton className="h-4 sm:h-5 w-48 sm:w-64 mb-6 sm:mb-8" />

@@ -30,7 +30,7 @@ export function PublicLayout({ children }: Readonly<PublicLayoutProps>) {
       <NavbarNew />
 
       <main
-        className={`flex-1 ${shouldRemovePadding ? 'pt-8' : 'md:pt-40 lg:pt-48 xl:pt-[200px]'}`}
+        className={`flex-1 ${shouldRemovePadding ? 'pt-8 mt-16 md:mt-0' : 'md:pt-40 lg:pt-48 xl:pt-[200px]'}`}
       >
         {children}
       </main>

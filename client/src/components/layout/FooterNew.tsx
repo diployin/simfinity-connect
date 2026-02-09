@@ -157,7 +157,7 @@ const FooterNew = () => {
             <ul className="space-y-3">
               <li>
                 <Link
-                  href="/business"
+                  href="/#"
                   className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   {t('website.footer.business')}
@@ -173,7 +173,7 @@ const FooterNew = () => {
               </li>
               <li>
                 <Link
-                  href="/careers"
+                  href="/#"
                   className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   {t('website.footer.careers')}
@@ -181,7 +181,7 @@ const FooterNew = () => {
               </li>
               <li>
                 <Link
-                  href="/refer"
+                  href="/refer-a-friend"
                   className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   {t('website.footer.referFriend')}
@@ -189,7 +189,7 @@ const FooterNew = () => {
               </li>
               <li>
                 <Link
-                  href="/affiliate"
+                  href="/affiliate-program"
                   className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   {t('website.footer.becomeAffiliate')}
@@ -197,7 +197,7 @@ const FooterNew = () => {
               </li>
               <li>
                 <Link
-                  href="/student-discount"
+                  href="/refer-a-friend"
                   className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   {t('website.footer.studentDiscount')}
@@ -231,7 +231,7 @@ const FooterNew = () => {
               </li>
               <li>
                 <Link
-                  href="/download"
+                  href="/download-esim-app"
                   className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   {t('website.footer.downloadApp')}
@@ -247,7 +247,7 @@ const FooterNew = () => {
               </li>
               <li>
                 <Link
-                  href="/data-calculator"
+                  href="/#"
                   className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   {t('website.footer.dataCalculator')}
@@ -273,7 +273,7 @@ const FooterNew = () => {
             <ul className="space-y-3">
               <li>
                 <Link
-                  href="/help-center"
+                  href="/#"
                   className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   {t('website.footer.helpCenter')}
@@ -281,7 +281,7 @@ const FooterNew = () => {
               </li>
               <li>
                 <Link
-                  href="/getting-started"
+                  href="/#"
                   className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   {t('website.footer.gettingStarted')}
@@ -289,7 +289,7 @@ const FooterNew = () => {
               </li>
               <li>
                 <Link
-                  href="/plans"
+                  href="/destination"
                   className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   {t('website.footer.plansPayments')}
@@ -297,7 +297,7 @@ const FooterNew = () => {
               </li>
               <li>
                 <Link
-                  href="/troubleshooting"
+                  href="/#"
                   className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
                 >
                   {t('website.footer.troubleshooting')}
@@ -369,13 +369,13 @@ const FooterNew = () => {
                   {t('website.footer.payment.privacyPolicy')}
                 </Link>
                 <Link
-                  href="/terms"
+                  href="/terms-of-service"
                   className="text-gray-600 hover:text-gray-900 transition-colors underline"
                 >
                   {t('website.footer.payment.termsOfService')}
                 </Link>
                 <Link
-                  href="/cookies"
+                  href="/#"
                   className="text-gray-600 hover:text-gray-900 transition-colors underline"
                 >
                   {t('website.footer.payment.cookiePreference')}
