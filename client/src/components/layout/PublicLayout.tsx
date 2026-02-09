@@ -14,18 +14,23 @@ interface PublicLayoutProps {
 }
 
 const NO_PADDING_ROUTES = ['/', '/login', '/signup', '/security-features', '/esim-ultra-plan'];
+ 
 
 export function PublicLayout({ children }: Readonly<PublicLayoutProps>) {
   const [location] = useLocation();
 
-  const shouldRemovePadding = NO_PADDING_ROUTES.includes(location);
+  // const shouldRemovePadding = NO_PADDING_ROUTES.includes(location);
+
+  const shouldRemovePadding =
+    NO_PADDING_ROUTES.includes(location) ||
+    location.startsWith('/account');
 
   return (
     <div className="flex flex-col min-h-screen">
       <NavbarNew />
 
       <main
-        className={`flex-1 ${shouldRemovePadding ? '' : 'pt-32 md:pt-40 lg:pt-48 xl:pt-[200px]'}`}
+        className={`flex-1 ${shouldRemovePadding ? 'pt-8' : 'md:pt-40 lg:pt-48 xl:pt-[200px]'}`}
       >
         {children}
       </main>
