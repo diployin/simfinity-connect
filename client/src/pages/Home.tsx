@@ -1,43 +1,20 @@
 import { Helmet } from 'react-helmet-async';
 
-import { EsimNumHero } from '@/components/sections/EsimNumHero';
-import { TopFeaturesStrip } from '@/components/sections/TopFeaturesStrip';
-import { DestinationsTabs } from '@/components/sections/DestinationsTabs';
-import { PopularEsims } from '@/components/sections/PopularEsims';
-import { CompleteEsims } from '@/components/sections/CompleteEsims';
-import { BenefitsSection } from '@/components/sections/BenefitsSection';
-import { HowItWorksSteps } from '@/components/sections/HowItWorksSteps';
-import { FAQWithSupport } from '@/components/sections/FAQWithSupport';
-import { TravelerTestimonials } from '@/components/sections/TravelerTestimonials';
-import { FloatingButtons } from '@/components/sections/FloatingButtons';
-import { GlobalFloatingNav } from '@/components/GlobalFloatingNav';
 import { Wifi, Smartphone, Phone, Headphones, Signal, Globe } from 'lucide-react';
 import { useTranslation } from '@/contexts/TranslationContext';
-import {
-  ComparisonTable,
-  InfiniteScrollTicker,
-  NetworkPartners,
-  TrustBadges,
-} from '@/components/marketing';
-import FeatureSectionCompo from '@/components/sections/FeatureSectionCompo';
-import { SubscriptionBanner } from '@/components/sections/SubscriptionBanner';
-import { TravelReadyBanner } from '@/components/sections/TravelReadyBanner';
-import { AgencyProblemsSection } from '@/components/sections/AgencyProblemsSection';
-import { useSettingByKey, useSettings } from '@/hooks/useSettings';
-import BannerSection from '@/components/sections/BannerSection';
+import { useSettingByKey } from '@/hooks/useSettings';
 import { useUser } from '@/hooks/use-user';
 import HeroSection from '@/components/sections/landing/hero-section';
 import WhatIsEsimSection from '@/components/sections/landing/WhatIsEsimSection';
 import TravelDestinationTabsNew from '@/components/sections/landing/TravelDestinationTabsNew';
-import WhyChooseSailySection from '@/components/sections/landing/WhyChooseSailySection';
 import InstantConnectionSection from '@/components/sections/landing/InstantConnectionSection';
 import HowDoesItWorkSection from '@/components/sections/landing/HowDoesItWorkSection';
 import DownloadAppSection from '@/components/sections/landing/DownloadAppSection';
 import TestimonialsSection from '@/components/sections/landing/TestimonialsSection';
 import FAQSection from '@/components/sections/landing/FAQSection';
 import ReferralSection from '@/components/sections/landing/ReferralSection';
-import TestHeroSection from '@/components/sections/landing/TestHeroSection';
 import FeaturesBar from '@/components/FeaturesBar';
+import WhyChooseSailySection from '@/components/sections/landing/WhyChooseSailySection';
 
 export default function Home() {
   const { t } = useTranslation();

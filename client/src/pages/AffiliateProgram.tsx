@@ -87,10 +87,10 @@ export function AffiliateProgram() {
     <>
       <section className="overflow-hidden bg-white ">
         <div className="containers relative z-10">
-          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
+          <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-8">
             {/* Left Side - Text Content */}
             <div className="space-y-6 text-center md:text-start">
-              <h2 className="text-5xl leading-tight font-medium text-black">
+              <h2 className="text-5xl font-medium text-black">
                 Earn with Simfinity affiliate program
               </h2>
 
@@ -98,7 +98,7 @@ export function AffiliateProgram() {
                 Join Simfinity’s affiliate program, promote Simfinity, and earn 15% with every new
                 user.
               </p>
-              <div className=" gap-5  flex items-center justify-start">
+              <div className=" gap-5  flex items-center justify-center md:justify-start">
                 <ThemeButton onClick={() => navigate('/all-destinations')} size="md">
                   Join The Program
                 </ThemeButton>
@@ -108,6 +108,7 @@ export function AffiliateProgram() {
                   size="md"
                 >
                   Log In
+                  
                 </ThemeButton>
               </div>
             </div>

@@ -340,7 +340,9 @@ const useStaticData = () => {
 
       Left_rightImage: {
         virtualLocation: {
-          subtitle: t('website.NewSimfinDes.Security_Features.Left_rightImage.virtualLocation.subtitle'),
+          subtitle: t(
+            'website.NewSimfinDes.Security_Features.Left_rightImage.virtualLocation.subtitle',
+          ),
           title: t('website.NewSimfinDes.Security_Features.Left_rightImage.virtualLocation.title'),
           description: t(
             'website.NewSimfinDes.Security_Features.Left_rightImage.virtualLocation.description',
@@ -363,22 +365,32 @@ const useStaticData = () => {
             },
           ],
           imageSrc: '/images/features/sf-virtual-location.webp',
-          imageAlt: t('website.NewSimfinDes.Security_Features.Left_rightImage.virtualLocation.imageAlt'),
+          imageAlt: t(
+            'website.NewSimfinDes.Security_Features.Left_rightImage.virtualLocation.imageAlt',
+          ),
           imagePosition: 'left',
         },
         adBlocker: {
           subtitle: t('website.NewSimfinDes.Security_Features.Left_rightImage.adBlocker.subtitle'),
           title: t('website.NewSimfinDes.Security_Features.Left_rightImage.adBlocker.title'),
-          description: t('website.NewSimfinDes.Security_Features.Left_rightImage.adBlocker.description'),
+          description: t(
+            'website.NewSimfinDes.Security_Features.Left_rightImage.adBlocker.description',
+          ),
           benefits: [
             {
-              text: t('website.NewSimfinDes.Security_Features.Left_rightImage.adBlocker.benefits.0.text'),
+              text: t(
+                'website.NewSimfinDes.Security_Features.Left_rightImage.adBlocker.benefits.0.text',
+              ),
             },
             {
-              text: t('website.NewSimfinDes.Security_Features.Left_rightImage.adBlocker.benefits.1.text'),
+              text: t(
+                'website.NewSimfinDes.Security_Features.Left_rightImage.adBlocker.benefits.1.text',
+              ),
             },
             {
-              text: t('website.NewSimfinDes.Security_Features.Left_rightImage.adBlocker.benefits.2.text'),
+              text: t(
+                'website.NewSimfinDes.Security_Features.Left_rightImage.adBlocker.benefits.2.text',
+              ),
             },
           ],
           imageSrc: '/images/features/sf-ad-blocker-lp.webp',
@@ -386,7 +398,9 @@ const useStaticData = () => {
           imagePosition: 'right',
         },
         webProtection: {
-          subtitle: t('website.NewSimfinDes.Security_Features.Left_rightImage.webProtection.subtitle'),
+          subtitle: t(
+            'website.NewSimfinDes.Security_Features.Left_rightImage.webProtection.subtitle',
+          ),
           title: t('website.NewSimfinDes.Security_Features.Left_rightImage.webProtection.title'),
           description: t(
             'website.NewSimfinDes.Security_Features.Left_rightImage.webProtection.description',
@@ -409,15 +423,23 @@ const useStaticData = () => {
             },
           ],
           imageSrc: '/images/features/sf-web-protection-lp.webp',
-          imageAlt: t('website.NewSimfinDes.Security_Features.Left_rightImage.webProtection.imageAlt'),
+          imageAlt: t(
+            'website.NewSimfinDes.Security_Features.Left_rightImage.webProtection.imageAlt',
+          ),
           imagePosition: 'left',
         },
         support24x7: {
           heading: t('website.NewSimfinDes.Security_Features.Left_rightImage.support24x7.heading'),
-          description: t('website.NewSimfinDes.Security_Features.Left_rightImage.support24x7.description'),
+          description: t(
+            'website.NewSimfinDes.Security_Features.Left_rightImage.support24x7.description',
+          ),
           button: {
-            text: t('website.NewSimfinDes.Security_Features.Left_rightImage.support24x7.button.text'),
-            href: t('website.NewSimfinDes.Security_Features.Left_rightImage.support24x7.button.href'),
+            text: t(
+              'website.NewSimfinDes.Security_Features.Left_rightImage.support24x7.button.text',
+            ),
+            href: t(
+              'website.NewSimfinDes.Security_Features.Left_rightImage.support24x7.button.href',
+            ),
             variant: 'white',
           },
           contentAlignment: 'start',
@@ -430,7 +452,7 @@ const useStaticData = () => {
         subtitle: t('website.NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.subtitle'),
         backgroundColor: 'bg-black',
         textColor: 'text-white',
-        theme: 'light' as const,
+        theme: 'dark' as const,
         iconSize: 35,
         descriptionTextColor: 'text-gray-300',
         iconColor: 'text-themeYellow',
@@ -442,7 +464,9 @@ const useStaticData = () => {
           {
             id: 1,
             iconComponent: <CiSearch />,
-            title: t('website.NewSimfinDes.Security_Features.SecurityFeaturesValues.values.0.title'),
+            title: t(
+              'website.NewSimfinDes.Security_Features.SecurityFeaturesValues.values.0.title',
+            ),
             description: t(
               'website.NewSimfinDes.Security_Features.SecurityFeaturesValues.values.0.description',
             ),
@@ -450,7 +474,9 @@ const useStaticData = () => {
           {
             id: 2,
             iconComponent: <FaSimCard />,
-            title: t('website.NewSimfinDes.Security_Features.SecurityFeaturesValues.values.1.title'),
+            title: t(
+              'website.NewSimfinDes.Security_Features.SecurityFeaturesValues.values.1.title',
+            ),
             description: t(
               'website.NewSimfinDes.Security_Features.SecurityFeaturesValues.values.1.description',
             ),
@@ -458,7 +484,9 @@ const useStaticData = () => {
           {
             id: 3,
             iconComponent: <GrStatusGood />,
-            title: t('website.NewSimfinDes.Security_Features.SecurityFeaturesValues.values.2.title'),
+            title: t(
+              'website.NewSimfinDes.Security_Features.SecurityFeaturesValues.values.2.title',
+            ),
             description: t(
               'website.NewSimfinDes.Security_Features.SecurityFeaturesValues.values.2.description',
             ),
@@ -466,7 +494,9 @@ const useStaticData = () => {
           {
             id: 4,
             iconComponent: <FaSeedling />,
-            title: t('website.NewSimfinDes.Security_Features.SecurityFeaturesValues.values.3.title'),
+            title: t(
+              'website.NewSimfinDes.Security_Features.SecurityFeaturesValues.values.3.title',
+            ),
             description: t(
               'website.NewSimfinDes.Security_Features.SecurityFeaturesValues.values.3.description',
             ),
@@ -474,7 +504,9 @@ const useStaticData = () => {
           {
             id: 5,
             iconComponent: <FaCompass />,
-            title: t('website.NewSimfinDes.Security_Features.SecurityFeaturesValues.values.4.title'),
+            title: t(
+              'website.NewSimfinDes.Security_Features.SecurityFeaturesValues.values.4.title',
+            ),
             description: t(
               'website.NewSimfinDes.Security_Features.SecurityFeaturesValues.values.4.description',
             ),
@@ -482,7 +514,9 @@ const useStaticData = () => {
           {
             id: 6,
             iconComponent: <FaRocket />,
-            title: t('website.NewSimfinDes.Security_Features.SecurityFeaturesValues.values.5.title'),
+            title: t(
+              'website.NewSimfinDes.Security_Features.SecurityFeaturesValues.values.5.title',
+            ),
             description: t(
               'website.NewSimfinDes.Security_Features.SecurityFeaturesValues.values.5.description',
             ),
@@ -498,56 +532,72 @@ const useStaticData = () => {
               question: t(
                 'website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.0.question',
               ),
-              answer: t('website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.0.answer'),
+              answer: t(
+                'website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.0.answer',
+              ),
             },
             {
               id: 'faq-2',
               question: t(
                 'website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.1.question',
               ),
-              answer: t('website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.1.answer'),
+              answer: t(
+                'website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.1.answer',
+              ),
             },
             {
               id: 'faq-3',
               question: t(
                 'website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.2.question',
               ),
-              answer: t('website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.2.answer'),
+              answer: t(
+                'website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.2.answer',
+              ),
             },
             {
               id: 'faq-4',
               question: t(
                 'website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.3.question',
               ),
-              answer: t('website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.3.answer'),
+              answer: t(
+                'website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.3.answer',
+              ),
             },
             {
               id: 'faq-5',
               question: t(
                 'website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.4.question',
               ),
-              answer: t('website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.4.answer'),
+              answer: t(
+                'website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.4.answer',
+              ),
             },
             {
               id: 'faq-6',
               question: t(
                 'website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.5.question',
               ),
-              answer: t('website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.5.answer'),
+              answer: t(
+                'website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.5.answer',
+              ),
             },
             {
               id: 'faq-7',
               question: t(
                 'website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.6.question',
               ),
-              answer: t('website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.6.answer'),
+              answer: t(
+                'website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.6.answer',
+              ),
             },
             {
               id: 'faq-8',
               question: t(
                 'website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.7.question',
               ),
-              answer: t('website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.7.answer'),
+              answer: t(
+                'website.NewSimfinDes.Security_Features.SecurityFeatures.FAQData.faqs.7.answer',
+              ),
             },
           ],
         },
@@ -561,7 +611,9 @@ const useStaticData = () => {
           steps: [
             {
               number: '1',
-              stepTitle: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.steps.0.stepTitle'),
+              stepTitle: t(
+                'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.steps.0.stepTitle',
+              ),
               description: t(
                 'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.steps.0.description',
               ),
@@ -569,7 +621,9 @@ const useStaticData = () => {
             },
             {
               number: '2',
-              stepTitle: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.steps.1.stepTitle'),
+              stepTitle: t(
+                'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.steps.1.stepTitle',
+              ),
               description: t(
                 'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.steps.1.description',
               ),
@@ -578,7 +632,9 @@ const useStaticData = () => {
             },
             {
               number: '3',
-              stepTitle: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.steps.2.stepTitle'),
+              stepTitle: t(
+                'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.steps.2.stepTitle',
+              ),
               description: t(
                 'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.0.steps.2.description',
               ),
@@ -604,7 +660,9 @@ const useStaticData = () => {
           steps: [
             {
               number: '1',
-              stepTitle: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.1.steps.0.stepTitle'),
+              stepTitle: t(
+                'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.1.steps.0.stepTitle',
+              ),
               description: t(
                 'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.1.steps.0.description',
               ),
@@ -613,7 +671,9 @@ const useStaticData = () => {
             },
             {
               number: '2',
-              stepTitle: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.1.steps.1.stepTitle'),
+              stepTitle: t(
+                'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.1.steps.1.stepTitle',
+              ),
               description: t(
                 'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.1.steps.1.description',
               ),
@@ -622,7 +682,9 @@ const useStaticData = () => {
             },
             {
               number: '3',
-              stepTitle: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.1.steps.2.stepTitle'),
+              stepTitle: t(
+                'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.1.steps.2.stepTitle',
+              ),
               description: t(
                 'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.1.steps.2.description',
               ),
@@ -631,7 +693,9 @@ const useStaticData = () => {
             },
           ],
           instructions: {
-            heading: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.1.instructions.heading'),
+            heading: t(
+              'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.1.instructions.heading',
+            ),
             steps: [
               t('website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.1.instructions.steps.0'),
               t('website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.1.instructions.steps.1'),
@@ -646,21 +710,27 @@ const useStaticData = () => {
           steps: [
             {
               number: '1',
-              stepTitle: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.2.steps.0.stepTitle'),
+              stepTitle: t(
+                'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.2.steps.0.stepTitle',
+              ),
               description: t(
                 'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.2.steps.0.description',
               ),
             },
             {
               number: '2',
-              stepTitle: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.2.steps.1.stepTitle'),
+              stepTitle: t(
+                'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.2.steps.1.stepTitle',
+              ),
               description: t(
                 'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.2.steps.1.description',
               ),
             },
             {
               number: '3',
-              stepTitle: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.2.steps.2.stepTitle'),
+              stepTitle: t(
+                'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.2.steps.2.stepTitle',
+              ),
               description: t(
                 'website.NewSimfinDes.what_is_esim.WhatIsEsim.setUpEsim.2.steps.2.description',
               ),
@@ -737,7 +807,7 @@ const useStaticData = () => {
                 label: t('website.headerlinks.ProductFeature1Title'),
                 description: t('website.headerlinks.ProductFeature1Desc'),
                 href: '/all-destinations',
-                icon: <MdModeStandby className="h-5 w-5" />,
+                icon: <MdModeStandby className="h4 w-4" />,
                 disabled: true,
                 badge: 'coming soon',
               },
@@ -745,20 +815,20 @@ const useStaticData = () => {
                 label: t('website.headerlinks.ProductFeature4Title'),
                 description: t('website.headerlinks.ProductFeature4Desc'),
                 href: '/security',
-                icon: <GoPackage className="h-5 w-5" />
+                icon: <GoPackage className="h4 w-4" />,
               },
               {
                 label: t('website.headerlinks.ProductFeature2Title'),
                 description: t('website.headerlinks.ProductFeature2Desc'),
                 href: '',
-                icon: <GoPackage className="h-5 w-5" />,
+                icon: <GoPackage className="h4 w-4" />,
                 isExternalUrl: 'https://simfinity.dev',
               },
               {
                 label: t('website.headerlinks.ProductFeature3Title'),
                 description: t('website.headerlinks.ProductFeature3Desc'),
                 href: '/supported-devices',
-                icon: <BiWorld className="h-5 w-5" />,
+                icon: <BiWorld className="h4 w-4" />,
               },
             ],
           },
@@ -770,13 +840,13 @@ const useStaticData = () => {
                 label: t('website.headerlinks.ProductTool1Title'),
                 description: t('website.headerlinks.ProductTool1Desc'),
                 href: '/privacy-policy',
-                icon: <MdOutlinePrivacyTip className="h-5 w-5" />,
+                icon: <MdOutlinePrivacyTip className="h4 w-4" />,
               },
               {
                 label: t('website.headerlinks.ProductTool2Title'),
                 description: t('website.headerlinks.ProductTool2Desc'),
                 href: '/destinations',
-                icon: <MdOutlinePolicy className="h-5 w-5" />,
+                icon: <MdOutlinePolicy className="h4 w-4" />,
               },
             ],
           },
@@ -823,21 +893,20 @@ const useStaticData = () => {
                 description: t('website.headerlinks.Resource1Desc'),
                 badge: t('website.headerlinks.ResourceBadgeNew'),
                 href: '/what-is-esim',
-                icon: <MdOutlineSimCard className="h-5 w-5" />,
-                // disabled: true,
+                icon: <MdOutlineSimCard className="h4 w-4" />,
               },
               {
                 label: t('website.headerlinks.Resource4Title'),
                 description: t('website.headerlinks.Resource5Desc'),
                 href: '/blog',
-                icon: <MdOutlineSupportAgent className="h-5 w-5" />,
+                icon: <MdOutlineSupportAgent className="h4 w-4" />,
               },
               {
                 label: t('website.headerlinks.Resource2Title'),
                 description: t('website.headerlinks.Resource2Desc'),
                 badge: t('website.headerlinks.ResourceBadgeGuide'),
                 href: '/about-us',
-                icon: <TbDeviceUnknown className="h-5 w-5" />,
+                icon: <TbDeviceUnknown className="h4 w-4" />,
               },
             ],
           },
@@ -850,14 +919,14 @@ const useStaticData = () => {
                 label: t('website.headerlinks.Resource3Title'),
                 description: t('website.headerlinks.Resource3Desc'),
                 href: '/affiliate-program',
-                icon: <FaShield className="h-5 w-5" />,
+                icon: <FaShield className="h4 w-4" />,
                 // disabled: true,
               },
               {
                 label: t('website.headerlinks.Resource6Title'),
                 description: t('website.headerlinks.Resource6Desc'),
                 href: '/blog',
-                icon: <RiBloggerFill className="h-5 w-5" />,
+                icon: <RiBloggerFill className="h4 w-4" />,
                 disabled: true,
                 badge: 'coming soon',
               },
@@ -865,7 +934,7 @@ const useStaticData = () => {
               //   label: t('website.headerlinks.Resource5Title'),
               //   description: t('website.headerlinks.Resource5Desc'),
               //   href: '/download-esim-app',
-              //   icon: <IoMdDownload className="h-5 w-5" />,
+              //   icon: <IoMdDownload  className="h4 w-4" />,
               //   disabled: true,
               // },
             ],
@@ -917,7 +986,7 @@ const useStaticData = () => {
                 label: t('website.headerlinks.Offer1Title'),
                 description: t('website.headerlinks.Offer1Desc'),
                 href: '/referral',
-                icon: <Gift className="h-5 w-5" />,
+                icon: <Gift className="h4 w-4" />,
                 badge: t('website.headerlinks.OfferBadgeHot'),
                 // disabled: true,
               },
@@ -925,7 +994,7 @@ const useStaticData = () => {
                 label: t('website.headerlinks.Offer2Title'),
                 description: t('website.headerlinks.Offer2Desc'),
                 href: '/referral',
-                icon: <GraduationCap className="h-5 w-5" />,
+                icon: <GraduationCap className="h4 w-4" />,
                 badge: t('website.headerlinks.OfferBadgeNew'),
                 // disabled: true,
               },
@@ -933,7 +1002,7 @@ const useStaticData = () => {
                 label: t('website.headerlinks.Offer3Title'),
                 description: t('website.headerlinks.Offer3Desc'),
                 href: '/referral',
-                icon: <Tag className="h-5 w-5" />,
+                icon: <Tag className="h4 w-4" />,
                 // disabled: true,
               },
             ],
@@ -983,21 +1052,21 @@ const useStaticData = () => {
                 label: t('website.headerlinks.Help1Title'),
                 description: t('website.headerlinks.Help1Desc'),
                 href: '/destinations',
-                icon: <BookOpen className="h-5 w-5" />,
+                icon: <BookOpen className="h4 w-4" />,
                 badge: 'New',
               },
               {
                 label: t('website.headerlinks.Help2Title'),
                 description: t('website.headerlinks.Help2Desc'),
                 href: '/help-center',
-                icon: <LifeBuoy className="h-5 w-5" />,
+                icon: <LifeBuoy className="h4 w-4" />,
                 disabled: true,
               },
               {
                 label: t('website.headerlinks.Help3Title'),
                 description: t('website.headerlinks.Help3Desc'),
                 href: '/troubleshooting',
-                icon: <Wrench className="h-5 w-5" />,
+                icon: <Wrench className="h4 w-4" />,
                 disabled: true,
               },
             ],
@@ -1010,7 +1079,7 @@ const useStaticData = () => {
                 label: t('website.headerlinks.Help4Title'),
                 description: t('website.headerlinks.Help4Desc'),
                 href: '/faq',
-                icon: <HelpCircle className="h-5 w-5" />,
+                icon: <HelpCircle className="h4 w-4" />,
               },
             ],
           },

@@ -130,6 +130,7 @@ import { AffiliateProgram } from './pages/AffiliateProgram';
 import ReferFriend from './pages/ReferFriend';
 import SecurityPage from './pages/Security';
 import ReferralPage from './pages/ReferralPage';
+import Esim_Ultra_plan from './pages/Esim_Ultra_plan';
 
 // ✅ Route Configs - DRY Approach
 const PUBLIC_ROUTES = [
@@ -173,6 +174,7 @@ const PUBLIC_ROUTES = [
   { path: '/region-plan', component: AllRegionsSection },
   { path: '/affiliate-program', component: AffiliateProgram },
   { path: '/refer-a-friend', component: ReferFriend },
+  { path: '/esim-ultra-plan', component: Esim_Ultra_plan },
 ];
 
 const AUTH_ROUTES = [

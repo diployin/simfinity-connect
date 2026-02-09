@@ -11,6 +11,7 @@ import DownloadAppSection from '@/components/sections/landing/DownloadAppSection
 import { CheckCircle, CreditCard, Globe, MessageSquare, Plane, Smartphone } from 'lucide-react';
 import { useTranslation } from '@/contexts/TranslationContext';
 import useStaticData from '@/data/useStaticData';
+import FAQSection from '@/components/sections/landing/FAQSection';
 
 const DownloadEsimPage = () => {
   const staticData = useStaticData();
@@ -75,10 +76,10 @@ const DownloadEsimPage = () => {
         imageAlt="Woman using eSIM on mobile phone"
         imagePosition="right"
       />
-      <section className="bg-white py-8 md:py-16">
-        <div className="containers mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-white px-4 sm:px-6 lg:px-8 py-8 md:py-16">
+        <div className="containers mx-auto ">
           {/* Header */}
-          <div className="mb-12">
+          <div className="mb-12 ">
             <h2 className="lg:text-4.5xl mb-4 text-3xl font-medium text-gray-900">
               {t('DownloadEsimPage.benefitsHeading')}
             </h2>
@@ -121,27 +122,28 @@ const DownloadEsimPage = () => {
         button={{
           text: t('DownloadEsimPage.ctaButtonContact'),
           href: '/signup',
-          variant: 'white',
+          variant: 'outline',
         }}
         contentAlignment="start"
         backgroundColor="bg-[#f7f7f8]"
         textColor="text-gray-900  "
       />
 
-      <FAQ faqs={staticData.DowonloadEsim.FAQData.faqs} />
+      {/* <FAQ faqs={staticData.DowonloadEsim.FAQData.faqs} /> */}
+      <FAQSection />
       <CTASection
         heading={t('DownloadEsimPage.referCtaHeading')}
         description={t('DownloadEsimPage.referCtaDescription')}
         button={{
           text: t('DownloadEsimPage.referCtaButton'),
           href: '/signup',
-          variant: 'black',
+          variant: 'outline_dark',
         }}
         contentAlignment="center"
         backgroundColor="bg-primary "
         textColor="text-white"
         descriptionColor="text-white/80"
-        containerClassName='rounded-xl'
+        containerClassName="rounded-xl"
       />
     </>
   );

@@ -80,7 +80,7 @@ const SailyTaleSection = () => {
       <div className="containers">
         {/* Header */}
         <div className="mb-16 text-center md:text-start">
-          <h2 className="text-4.5xl mb-4 font-medium text-black">
+          <h2 className="text-2.5 mb-4 font-medium text-black">
             {t('website.NewSimfinDes.about_us.SailyTaleSection.heading')}
           </h2>
           <p className="max-w-3xl text-base text-gray-600 sm:text-lg">

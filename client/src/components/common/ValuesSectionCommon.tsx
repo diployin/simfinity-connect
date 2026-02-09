@@ -49,16 +49,22 @@ const ValuesSectionCommon: React.FC<ValuesSectionCommonProps> = ({ config }) => 
   const translatedTitle = t('website.NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.title', {
     defaultValue: config.title,
   });
-  const translatedSubtitle = t('website.NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.subtitlee', {
-    defaultValue: config.subtitle,
-  });
+  const translatedSubtitle = t(
+    'website.NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.subtitlee',
+    {
+      defaultValue: config.subtitle,
+    },
+  );
 
   // ✅ Get translated values array
   const translatedValues: ValueItem[] = config.values.map((value) => ({
     id: value.id,
-    title: t(`website.NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.${value.id - 1}.title`, {
-      defaultValue: value.title,
-    }),
+    title: t(
+      `website.NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.${value.id - 1}.title`,
+      {
+        defaultValue: value.title,
+      },
+    ),
     description: t(
       `website.NewSimfinDes.SingleCountryPlan.ValuesSectionCommon.values.${value.id - 1}.description`,
       {

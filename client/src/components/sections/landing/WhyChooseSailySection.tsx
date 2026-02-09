@@ -1,8 +1,15 @@
 'use client';
 
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface Feature {
   id: number;
@@ -12,188 +19,114 @@ interface Feature {
 
 const WhyChooseSailySection = () => {
   const { t } = useTranslation();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
+
+  const autoplayPlugin = React.useRef(Autoplay({ delay: 3000, stopOnInteraction: false }));
 
   // Icon mapping by ID
   const iconMap: Record<number, React.ReactNode> = {
-    1: <img src="/images/features/global.svg" className="h-12 w-12 sm:h-14 sm:w-14" alt="price" />,
-    2: <img src="/images/features/time (2).svg" className="h-12 w-12 sm:h-14 sm:w-14" alt="activate" />,
-    3: <img src="/images/features/no-wifi.svg" className="h-12 w-12 sm:h-14 sm:w-14" alt="roaming" />,
-    4: <img src="/images/features/sim-card.svg" className="h-12 w-12 sm:h-14 sm:w-14" alt="esim" />,
-    5: <img src="/images/features/bulb.svg" className="h-12 w-12 sm:h-14 sm:w-14" alt="alert" />,
-    6: <img src="/images/features/map-pin.svg" className="h-12 w-12 sm:h-14 sm:w-14" alt="global" />,
+    1: <img src="/images/features/global.svg" className="h-10 w-10" alt="price" />,
+    2: <img src="/images/features/time (2).svg" className="h-10 w-10" alt="activate" />,
+    3: <img src="/images/features/no-wifi.svg" className="h-10 w-10" alt="roaming" />,
+    4: <img src="/images/features/sim-card.svg" className="h-10 w-10" alt="esim" />,
+    5: <img src="/images/features/bulb.svg" className="h-10 w-10" alt="alert" />,
+    6: <img src="/images/features/map-pin.svg" className="h-10 w-10" alt="global" />,
   };
 
+  // Get features from JSON - manually parse each one
   const features: Feature[] = [
     {
       id: 1,
-      title: t('website.NewSimfinDes.WhyChooseSailySection.features.0.title'),
-      description: t('website.NewSimfinDes.WhyChooseSailySection.features.0.description'),
+      title: 'Travel-friendly prices',
+      description:
+        'Get super-affordable eSIM data anywhere in the world. From short trips to long adventures — Simfinity always gives you the lowest travel data cost.',
     },
     {
       id: 2,
-      title: t('website.NewSimfinDes.WhyChooseSailySection.features.1.title'),
-      description: t('website.NewSimfinDes.WhyChooseSailySection.features.1.description'),
+      title: 'Activate in seconds',
+      description:
+        'No stores, no swapping cards. Just scan your Simfinity eSIM and boom — you’re connected instantly when you land.',
     },
     {
       id: 3,
-      title: t('website.NewSimfinDes.WhyChooseSailySection.features.2.title'),
-      description: t('website.NewSimfinDes.WhyChooseSailySection.features.2.description'),
+      title: 'Zero roaming shock',
+      description:
+        'Stop paying crazy roaming charges. Simfinity keeps your bill predictable, clean, and budget-friendly every time you travel.',
     },
     {
       id: 4,
-      title: t('website.NewSimfinDes.WhyChooseSailySection.features.3.title'),
-      description: t('website.NewSimfinDes.WhyChooseSailySection.features.3.description'),
+      title: 'One eSIM for every trip',
+      description:
+        'Keep the same Simfinity eSIM forever. Just add new country plans anytime — no need to reinstall or change SIMs again.',
     },
     {
       id: 5,
-      title: t('website.NewSimfinDes.WhyChooseSailySection.features.4.title'),
-      description: t('website.NewSimfinDes.WhyChooseSailySection.features.4.description'),
+      title: 'Smart data alerts',
+      description:
+        'We notify you before your data runs out — so you never get stuck without internet in the middle of your trip.',
     },
     {
       id: 6,
-      title: t('website.NewSimfinDes.WhyChooseSailySection.features.5.title'),
-      description: t('website.NewSimfinDes.WhyChooseSailySection.features.5.description'),
+      title: 'Global & regional plans',
+      description:
+        "Whether you're traveling to one country or exploring multiple regions, Simfinity has plans that fit your journey perfectly.",
     },
   ];
 
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev === 0 ? features.length - 1 : prev - 1));
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev === features.length - 1 ? 0 : prev + 1));
-  };
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    setDragStart(e.clientX);
-  };
-
-  const handleMouseUp = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    setIsDragging(false);
-    const dragEnd = e.clientX;
-    const diff = dragStart - dragEnd;
-
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) {
-        handleNext();
-      } else {
-        handlePrev();
-      }
-    }
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setIsDragging(true);
-    setDragStart(e.touches[0].clientX);
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (!isDragging) return;
-    setIsDragging(false);
-    const dragEnd = e.changedTouches[0].clientX;
-    const diff = dragStart - dragEnd;
-
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) {
-        handleNext();
-      } else {
-        handlePrev();
-      }
-    }
-  };
-
   return (
-    <section className="w-full bg-white py-12 sm:py-16 md:hidden">
-      <div className="px-4 sm:px-6">
+    <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
+      <div className="containers">
         {/* Header */}
-        <div className="mb-10 sm:mb-12">
-          <p className="mb-2 text-xs font-normal text-gray-400 sm:text-sm">
-            {t('website.NewSimfinDes.WhyChooseSailySectionHeader.subtitle')}
-          </p>
-          <h2 className="text-2xl leading-tight font-semibold text-black sm:text-3xl">
-            {t('website.NewSimfinDes.WhyChooseSailySectionHeader.title')}
-          </h2>
+        <div className="mb-12 sm:mb-16">
+          {' '}
+          <p className="mb-3 text-center text-sm font-normal text-gray-400 sm:text-base md:text-start">
+            {t('website.NewSimfinDes.WhyChooseSailySectionHeader.subtitle')}{' '}
+          </p>{' '}
+          <h2 className="text-center text-3xl leading-tight font-medium text-black sm:text-4xl md:text-start lg:text-5xl xl:text-4xl">
+            {t('website.NewSimfinDes.WhyChooseSailySectionHeader.title')}{' '}
+          </h2>{' '}
         </div>
 
-        {/* Carousel Container */}
-        <div
-          ref={containerRef}
-          className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 p-6 sm:p-8"
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        >
-          {/* Carousel Slide */}
-          <div className="transition-all duration-500 ease-out">
-            <div className="flex flex-col space-y-5">
-              {/* Icon */}
-              <div className="inline-flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-xl bg-white shadow-sm transition-transform duration-300 hover:scale-110">
-                {iconMap[features[currentIndex].id]}
-              </div>
+        {/* Mobile Carousel (hidden on desktop) */}
+        <div className="block md:hidden relative">
+          <Carousel
+            plugins={[autoplayPlugin.current]}
+            className="w-full"
+            onMouseEnter={autoplayPlugin.current.stop}
+            onMouseLeave={autoplayPlugin.current.reset}
+          >
+            <CarouselContent>
+              {features.map((feature) => (
+                <CarouselItem key={feature.id} className="pl-4">
+                  <div className="flex flex-col space-y-4 p-4 border rounded-lg bg-white shadow-sm">
+                    <div className="text-black">{iconMap[feature.id]}</div>
+                    <h3 className="text-xl font-normal text-black">{feature.title}</h3>
+                    <p className="text-base leading-relaxed font-normal text-gray-600">
+                      {feature.description}
+                    </p>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
 
-              {/* Title */}
-              <h3 className="text-xl font-semibold text-black sm:text-2xl leading-snug">
-                {features[currentIndex].title}
-              </h3>
+            {/* Navigation buttons with rounded circle */}
+            <div className="flex justify-end items-center gap-4 mt-5 ">
+              <CarouselPrevious className="static relative left-0 right-0 transform-none h-12 w-12 rounded-full bg-white border border-gray-200 shadow-md hover:bg-gray-50 hover:shadow-lg" />
+              <CarouselNext className="static relative left-0 right-0 transform-none h-12 w-12 rounded-full bg-white border border-gray-200 shadow-md hover:bg-gray-50 hover:shadow-lg" />
+            </div>
+          </Carousel>
+        </div>
 
-              {/* Description */}
-              <p className="text-sm leading-relaxed font-normal text-gray-600 sm:text-base pr-2">
-                {features[currentIndex].description}
+        {/* Desktop Grid (hidden on mobile) */}
+        <div className="hidden md:grid grid-cols-1 gap-8 sm:gap-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
+          {features.map((feature) => (
+            <div key={feature.id} className="flex flex-col space-y-4">
+              <div className="text-black">{iconMap[feature.id]}</div>
+              <h3 className="text-xl font-normal text-black sm:text-xl">{feature.title}</h3>
+              <p className="text-base leading-relaxed font-normal text-gray-600 sm:text-base">
+                {feature.description}
               </p>
             </div>
-          </div>
-        </div>
-
-        {/* Navigation Section */}
-        <div className="mt-8 sm:mt-10 flex items-center justify-between">
-          {/* Dots Indicator */}
-          <div className="flex gap-2">
-            {features.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`h-2 rounded-full transition-all duration-300 ${index === currentIndex
-                  ? 'w-8 bg-black'
-                  : 'w-2 bg-gray-300 hover:bg-gray-400'
-                  }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
-          </div>
-
-          {/* Arrow Buttons */}
-          <div className="flex gap-3 sm:gap-4">
-            <button
-              onClick={handlePrev}
-              className="inline-flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-gray-300 text-gray-700 transition-all duration-200 hover:border-black hover:text-black hover:bg-gray-50 active:scale-95"
-              aria-label="Previous slide"
-            >
-              <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
-            </button>
-            <button
-              onClick={handleNext}
-              className="inline-flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-gray-300 text-gray-700 transition-all duration-200 hover:border-black hover:text-black hover:bg-gray-50 active:scale-95 bg-black text-white border-black"
-              aria-label="Next slide"
-            >
-              <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
-            </button>
-          </div>
-        </div>
-
-        {/* Slide Counter */}
-        <div className="mt-6 text-center">
-          <p className="text-xs font-medium text-gray-500 sm:text-sm">
-            <span className="text-black font-semibold">{currentIndex + 1}</span>
-            {' '}of{' '}
-            <span className="text-black font-semibold">{features.length}</span>
-          </p>
+          ))}
         </div>
       </div>
     </section>

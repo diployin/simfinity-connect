@@ -89,7 +89,7 @@ const InstantConnectionSection = () => {
                 {t('website.NewSimfinDes.NewSimfinDes.card3.des')}
               </p>
 
-              <div className="mt-4 sm:mt-6">
+              <div className="mt-4 sm:mt-6 flex justify-center md:justify-start">
                 <ThemeButton variant="outline" className="">
                   {t('website.NewSimfinDes.NewSimfinDes.card3.btn')}
                 </ThemeButton>

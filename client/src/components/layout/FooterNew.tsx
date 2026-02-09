@@ -72,7 +72,7 @@ const FooterNew = () => {
       icon: FaInstagram,
       href: getSocialUrl(settings?.social_instagram),
       label: t('website.footer.social.instagram'),
-    }
+    },
   ];
 
   // Payment methods - matching Saily design
@@ -81,7 +81,7 @@ const FooterNew = () => {
     { icon: SiGooglepay, label: 'Google Pay' },
     { icon: SiVisa, label: 'Visa' },
     { icon: SiMastercard, label: 'Mastercard' },
-    { icon: SiDiscover, label: 'Discover' }
+    { icon: SiDiscover, label: 'Discover' },
   ];
 
   // Show more destinations (10-12 instead of 6)
@@ -131,20 +131,20 @@ const FooterNew = () => {
             <ul className="space-y-3">
               {loadingDestinations
                 ? Array.from({ length: 6 }).map((_, idx) => (
-                  <li key={idx}>
-                    <Skeleton className="h-4 w-24" />
-                  </li>
-                ))
+                    <li key={idx}>
+                      <Skeleton className="h-4 w-24" />
+                    </li>
+                  ))
                 : popularDestinations.map((item) => (
-                  <li key={item.id}>
-                    <Link
-                      href={`/destination/${item.slug}`}
-                      className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                ))}
+                    <li key={item.id}>
+                      <Link
+                        href={`/destination/${item.slug}`}
+                        className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                      >
+                        {item.name}
+                      </Link>
+                    </li>
+                  ))}
             </ul>
           </div>
 
@@ -320,7 +320,7 @@ const FooterNew = () => {
               {t('website.footer.followus')}
             </h3>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-col flex-wrap gap-4">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
@@ -378,7 +378,7 @@ const FooterNew = () => {
                   className="h-8 w-12 flex items-center justify-center rounded border border-gray-200 bg-white hover:border-gray-300 transition-colors"
                   title={method.label}
                 >
-                  <method.icon className="h-5 w-5 text-gray-700" />
+                  <method.icon className="h-8 w-8 text-gray-700" />
                 </div>
               ))}
             </div>

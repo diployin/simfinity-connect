@@ -31,22 +31,14 @@ const FAQSection = () => {
     },
   });
 
-  console.log(data);
-
   // 🔹 Flatten all categories into a single FAQ list
-  const faqs: Faq[] =
-    data?.flatMap((category) => category.faqs) ?? [];
+  const faqs: Faq[] = data?.flatMap((category) => category.faqs) ?? [];
 
   console.log(faqs);
 
-
   // 🔹 Loading state
   if (isLoading) {
-    return (
-      <div className="py-10 text-center text-muted-foreground">
-        Loading FAQs...
-      </div>
-    );
+    return <div className="py-10 text-center text-muted-foreground">Loading FAQs...</div>;
   }
 
   // 🔹 Error state
@@ -60,11 +52,7 @@ const FAQSection = () => {
 
   // 🔹 Empty state
   if (!faqs.length) {
-    return (
-      <div className="py-10 text-center text-muted-foreground">
-        No FAQs available.
-      </div>
-    );
+    return <div className="py-10 text-center text-muted-foreground">No FAQs available.</div>;
   }
 
   return <FAQ title={title} faqs={faqs} />;

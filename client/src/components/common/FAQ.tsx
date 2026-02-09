@@ -16,7 +16,7 @@ interface FAQItem {
 interface FAQSectionProps {
   titleKey?: string;
   subtitleKey?: string;
-  bgColor?: string;
+  bgColor?: 'bg-white' | 'bg-black';
   maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
   showBorder?: boolean;
   className?: string;
@@ -62,9 +62,7 @@ const FAQ: React.FC<FAQSectionProps> = ({
           </h2>
 
           {subtitle && (
-            <p className="mx-auto max-w-2xl text-base text-gray-600 sm:text-lg">
-              {subtitle}
-            </p>
+            <p className="mx-auto max-w-2xl text-base text-gray-600 sm:text-lg">{subtitle}</p>
           )}
         </div>
 
@@ -75,8 +73,9 @@ const FAQ: React.FC<FAQSectionProps> = ({
               <AccordionItem
                 key={faq.id}
                 value={faq.id}
-                className={`bg-white ${showBorder ? 'border border-gray-200' : ''
-                  } rounded-2xl px-6 data-[state=open]:shadow-sm sm:px-8`}
+                className={`bg-white ${
+                  showBorder ? 'border border-gray-200' : ''
+                } rounded-2xl px-6 data-[state=open]:shadow-sm sm:px-8`}
               >
                 <AccordionTrigger className="cursor-pointer py-6 text-left text-base font-medium text-black hover:no-underline sm:text-xl">
                   {faq.question}

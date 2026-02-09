@@ -1,13 +1,15 @@
 'use client';
 
+import ThemeButton from '@/components/ThemeButton';
 import { useTranslation } from '@/contexts/TranslationContext';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
 
 const ReferralSection = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   const { t } = useTranslation();
+  const [, navigate] = useLocation();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -39,12 +41,18 @@ const ReferralSection = () => {
                 {t('website.heroReferfriend.des')}
               </p>
 
-              <Link
+              {/* <Link
                 href="/referral"
                 className="inline-flex items-center justify-center rounded-full border border-gray-300 bg-[#eef1f6] px-8 py-4 font-medium text-black transition-colors duration-200 hover:bg-black hover:text-white"
               >
                 {t('website.heroReferfriend.btn')}
-              </Link>
+              </Link> */}
+
+              <div className="flex justify-center md:justify-start">
+                <ThemeButton variant="outline" onClick={() => navigate('/referral')}>
+                  {t('website.heroReferfriend.btn')}
+                </ThemeButton>
+              </div>
             </div>
 
             {/* Right Side - Full Width on Mobile */}

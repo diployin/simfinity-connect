@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
+import ThemeButton from '../ThemeButton';
 
 // ============================================
 // TypeScript Interfaces
@@ -8,7 +9,7 @@ import { Link } from 'wouter';
 interface ButtonProps {
   text: string;
   href: string;
-  variant?: 'black' | 'white' | 'yellow';
+  variant?: 'default' | 'outline' | 'ghost' | 'outline_dark';
 }
 
 interface CTASectionProps {
@@ -45,6 +46,7 @@ const CTASection: React.FC<CTASectionProps> = ({
   containerClassName = '',
   innerClassName = '',
 }) => {
+  const [, navigate] = useLocation();
   // Alignment classes
   const alignmentClasses = {
     center: 'items-center text-center',
@@ -53,21 +55,12 @@ const CTASection: React.FC<CTASectionProps> = ({
   };
 
   // Button variant styles
-  const getButtonStyles = (variant: 'black' | 'white' | 'yellow' = 'black'): string => {
-    const variants = {
-      black: 'bg-black hover:bg-gray-900 text-white border-black',
-      white: 'hover:bg-black hover:text-white text-black',
-      yellow: 'bg-themeYellow hover:bg-themeYellowHover text-black border-yellow-600',
-    };
-
-    return variants[variant];
-  };
 
   return (
-    <section className={`py-8 md:py-16 px-4 sm:px-6 lg:px-8  ${containerClassName}`}>
-      <div className="containers mx-auto max-w-7xl">
+    <section className={`py-8 md:py-16   ${containerClassName}`}>
+      <div className="containers mx-auto max-w-7xl   ">
         <div
-          className={`py-16 px-4 sm:px-6 lg:px-8 ${backgroundColor} flex flex-col ${alignmentClasses[contentAlignment]} justify-center rounded-4xl  ${innerClassName}`}
+          className={`py-16 px-10 ${backgroundColor} flex flex-col ${alignmentClasses[contentAlignment]} justify-center rounded-3xl  ${innerClassName}`}
         >
           {/* Heading */}
           <h2
@@ -85,13 +78,10 @@ const CTASection: React.FC<CTASectionProps> = ({
 
           {/* Optional Button */}
           {button && (
-            <div>
-              <Link
-                href={button.href}
-                className={`inline-block ${getButtonStyles(button.variant)} border px-8 py-3.5 rounded-full font-medium text-base transition-colors duration-200`}
-              >
+            <div className=" flex justify-center md:text-start ">
+              <ThemeButton variant={button.variant} onClick={() => navigate(button.href)}>
                 {button.text}
-              </Link>
+              </ThemeButton>
             </div>
           )}
         </div>

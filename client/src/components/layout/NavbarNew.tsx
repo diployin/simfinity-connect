@@ -180,29 +180,30 @@ export function NavbarNew() {
     <>
       <div className="fixed top-0 left-0 right-0 z-50">
         {/* <TopPromoBar /> */}
-        <div
-          className={`w-full bg-primary text-white relative ${isExpanded ? 'hidden' : ' block'} `}
-        >
-          <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-center gap-4">
+        <div className={`w-full bg-primary text-white relative ${isExpanded ? 'hidden' : 'block'}`}>
+          <div className="max-w-7xl mx-auto px-8 sm:px-4 md:px-6 py-2 flex items-center justify-center gap-2 sm:gap-3 md:gap-4">
             {/* Message */}
-            <p className="text-sm font-medium text-center">
-              ❄️ Get <span className="font-bold">25% off 5GB+ plans</span> with the code{' '}
-              <span className="font-bold">SIMFINITY</span>
+            <p className="text-xs xs:text-sm sm:text-base md:text-sm font-medium text-center">
+              ❄️ Get <span className="font-bold whitespace-nowrap">25% off 5GB+ plans</span> with
+              the code{' '}
+              <span className="font-bold bg-white/10 px-1.5 py-0.5 rounded whitespace-nowrap">
+                SIMFINITY
+              </span>
             </p>
 
             {/* Button - Responsive with different text on mobile */}
-            <button className="px-3 sm:px-4 py-1.5 sm:py-2 text-sm font-semibold border border-white rounded-full hover:bg-black hover:text-white transition whitespace-nowrap min-w-[100px] sm:min-w-[120px]">
-              <span className="hidden sm:inline">Get the Deal</span>
-              <span className="sm:hidden">Get Deal</span>
+            <button className="px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 text-xs sm:text-sm md:text-sm font-semibold border border-white rounded-full hover:bg-black hover:text-white transition whitespace-nowrap min-w-[80px] xs:min-w-[90px] sm:min-w-[110px] md:min-w-[120px]">
+              <span className="hidden xs:inline">Get the Deal</span>
+              <span className="xs:hidden">Get Deal</span>
             </button>
           </div>
 
           {/* Close Button */}
           <button
             onClick={handleClose}
-            className="absolute right-4 top-1/2 -translate-y-1/2 p-1 hover:opacity-70"
+            className="absolute right-2 sm:right-3 md:right-4 top-1/2 -translate-y-1/2 p-1 hover:opacity-70"
           >
-            <X size={18} />
+            <X size={16} className="sm:w-[18px] sm:h-[18px]" />
           </button>
         </div>
         <header

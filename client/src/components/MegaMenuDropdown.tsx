@@ -14,7 +14,7 @@ import { AppDispatch, RootState, useAppDispatch } from '@/redux/store/store';
 interface MegaMenuItem {
   label: string;
   href: string;
-  icon?: string;
+  icon?: React.ReactNode;
   description?: string;
   badge?: string;
   disabled?: boolean;
@@ -196,21 +196,17 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
                               const baseClass = cn(
                                 'group flex items-start gap-3 rounded-lg p-3 transition-all hover:bg-gray-50',
                                 item.disabled &&
-                                'pointer-events-none opacity-50 cursor-not-allowed',
+                                  'pointer-events-none opacity-50 cursor-not-allowed',
                               );
 
                               const content = (
                                 <>
                                   {/* {item.icon && (
-                                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary text-white transition-transform group-hover:scale-110">
+                                    <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary text-white transition-transform group-hover:scale-110">
                                       {item.icon}
                                     </div>
                                   )} */}
-                                  <img
-                                    src="/images/menu-images/sim-card (2).svg"
-                                    className="h-6"
-                                    alt=""
-                                  />
+                                  <img src="/images/message.png" className="h-6" alt="" />
 
                                   <div className="flex-1 pt-0.5">
                                     <div className="flex items-center gap-2">
@@ -322,10 +318,11 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
                                 <button
                                   key={index}
                                   onClick={() => scrollTo(index)}
-                                  className={`h-2 w-2 rounded-full transition-all ${index === selectedIndex
-                                    ? 'w-6 bg-gray-700'
-                                    : 'bg-gray-300 hover:bg-gray-400'
-                                    }`}
+                                  className={`h-2 w-2 rounded-full transition-all ${
+                                    index === selectedIndex
+                                      ? 'w-6 bg-gray-700'
+                                      : 'bg-gray-300 hover:bg-gray-400'
+                                  }`}
                                   aria-label={`Go to slide ${index + 1}`}
                                 />
                               ))}
@@ -340,7 +337,7 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
                 {/* Bottom Section */}
                 <div className="flex w-full items-center justify-between border-t border-gray-200 bg-gray-50 px-8 py-4">
                   <Link
-                    href={config.bottomLink?.herf}
+                    href={config.bottomLink?.href}
                     className="flex items-center gap-2 text-sm font-medium text-gray-900 hover:text-gray-600"
                     onClick={closeMenu}
                   >

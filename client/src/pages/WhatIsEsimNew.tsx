@@ -10,6 +10,7 @@ import { useTranslation } from '@/contexts/TranslationContext';
 import useStaticData from '@/data/useStaticData';
 import { Link, useLocation } from 'wouter';
 import ThemeButton from '@/components/ThemeButton';
+import FAQSection from '@/components/sections/landing/FAQSection';
 
 const WhatEsimNew = () => {
   const staticData = useStaticData();
@@ -113,7 +114,7 @@ const WhatEsimNew = () => {
     <div>
       <section className="bg-white px-4  pb-8 sm:px-6 lg:px-8 ">
         <div className="containers mx-auto">
-          <div className="grid grid-cols-1 items-center gap-4 rounded-3xl lg:grid-cols-2 lg:gap-12">
+          <div className="grid grid-cols-1 items-center gap-8 rounded-3xl lg:grid-cols-2 lg:gap-12">
             {/* Left Side - Image */}
             <div className="order-2 lg:order-2">
               <div className="relative h-[400px] overflow-hidden rounded-[2rem] sm:h-[600px] lg:h-[500px]">
@@ -143,9 +144,11 @@ const WhatEsimNew = () => {
                 >
                   {t('website.WhatIsEsim.content.ctaButton')}
                 </Link> */}
-                <ThemeButton onClick={() => navigate('/contact')}>
-                  {t('website.WhatIsEsim.content.ctaButton')}
-                </ThemeButton>
+                <div className=" flex justify-center md:justify-start ">
+                  <ThemeButton onClick={() => navigate('/contact')}>
+                    {t('website.WhatIsEsim.content.ctaButton')}
+                  </ThemeButton>
+                </div>
               </div>
             </div>
           </div>
@@ -188,7 +191,7 @@ const WhatEsimNew = () => {
             />
           </div>
 
-          <div className="px-4 py-8 sm:px-6 md:py-16 lg:px-8">
+          <div className=" py-8 md:py-16 ">
             <h2 className="lg:text-4.5xl text-3xl leading-tight font-medium text-gray-900 sm:text-4xl">
               {t('website.WhatIsEsim.howDoesItWorkSection.heading')}
             </h2>
@@ -208,33 +211,10 @@ const WhatEsimNew = () => {
       <EsimBenefitsSection />
       <EsimVsSimComparison />
 
-      {/* <section className="px-4 py-8 sm:px-6 md:py-16 lg:px-8">
-        <div className="containers mx-auto max-w-7xl">
-          <div className="bg-themeYellow flex flex-col items-center justify-center rounded-4xl px-4 py-16 sm:px-6 lg:px-8">
-            <h2 className="lg:text-4.5xl text-3xl leading-tight font-medium text-white sm:text-4xl">
-              {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.title')}
-              
-            </h2>
-
-            <p className="py-4 text-base leading-relaxed text-white/80 sm:text-base">
-              {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.description')}
-            </p>
-            <div className="">
-              <Link
-                href="/contact"
-                className="inline-block rounded-full border bg-[#235347] px-8 py-3.5 text-base font-medium text-white transition-colors duration-200 hover:bg-[#0b2b26]"
-              >
-                {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.ctaButton')}
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
       <section className="px-4 py-8 sm:px-6 md:py-16 lg:px-8">
         <div className="mx-auto max-w-7xl">
-          <div className="flex flex-col items-center justify-center rounded-[48px] bg-[#1F7A63] px-6 py-16 text-center sm:px-10 lg:px-20">
-            <h2 className="text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">
+          <div className="flex flex-col items-center justify-center rounded-[48px] bg-primary px-6 py-16 text-center sm:px-10 lg:px-20">
+            <h2 className="text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-2.5">
               {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.title')}
             </h2>
 
@@ -252,7 +232,8 @@ const WhatEsimNew = () => {
         </div>
       </section>
 
-      <FAQ faqs={staticData.WhatIsEsim.FAQData.faqs} title={title} maxWidth="3xl" className=" " />
+      {/* <FAQ faqs={staticData.WhatIsEsim.FAQData.faqs} title={title} maxWidth="3xl" className=" " /> */}
+      <FAQSection />
     </div>
   );
 };

@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 
-import LifeAtSailySection from './LifeAtSailySection';
 import Autoplay from 'embla-carousel-autoplay';
+import LifeAtSailySection from './LifeAtSailySection';
 import { useTranslation } from '@/contexts/TranslationContext';
 
 interface Testimonial {

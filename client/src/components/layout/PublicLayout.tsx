@@ -13,15 +13,23 @@ interface PublicLayoutProps {
   readonly children: ReactNode;
 }
 
+const NO_PADDING_ROUTES = ['/', '/login', '/signup', '/security-features', '/esim-ultra-plan'];
+
 export function PublicLayout({ children }: Readonly<PublicLayoutProps>) {
   const [location] = useLocation();
 
-  // ✅ Only home page without padding
-  const isHome = location === '/';
+  const shouldRemovePadding = NO_PADDING_ROUTES.includes(location);
+
   return (
     <div className="flex flex-col min-h-screen">
       <NavbarNew />
-      <main className={`flex-1 ${isHome ? '' : 'pt-[200px]'}`}>{children}</main>
+
+      <main
+        className={`flex-1 ${shouldRemovePadding ? '' : 'pt-32 md:pt-40 lg:pt-48 xl:pt-[200px]'}`}
+      >
+        {children}
+      </main>
+
       <FooterNew />
     </div>
   );

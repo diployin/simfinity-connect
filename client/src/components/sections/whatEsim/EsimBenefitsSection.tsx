@@ -40,14 +40,18 @@ const EsimBenefitsSection = () => {
       id: 0,
       label: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.label'),
       heading: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.heading'),
-      subheading: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.subheading'),
+      subheading: t(
+        'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.subheading',
+      ),
       items: [
         {
           id: 1,
           iconType: t(
             'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.iconType',
           ),
-          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.title'),
+          title: t(
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.title',
+          ),
           description: t(
             'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.0.description',
           ),
@@ -57,7 +61,9 @@ const EsimBenefitsSection = () => {
           iconType: t(
             'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.iconType',
           ),
-          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.title'),
+          title: t(
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.title',
+          ),
           description: t(
             'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.1.description',
           ),
@@ -67,7 +73,9 @@ const EsimBenefitsSection = () => {
           iconType: t(
             'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.iconType',
           ),
-          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.title'),
+          title: t(
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.title',
+          ),
           description: t(
             'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.2.description',
           ),
@@ -77,7 +85,9 @@ const EsimBenefitsSection = () => {
           iconType: t(
             'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.iconType',
           ),
-          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.title'),
+          title: t(
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.title',
+          ),
           description: t(
             'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.3.description',
           ),
@@ -87,7 +97,9 @@ const EsimBenefitsSection = () => {
           iconType: t(
             'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.iconType',
           ),
-          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.title'),
+          title: t(
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.title',
+          ),
           description: t(
             'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.4.description',
           ),
@@ -97,7 +109,9 @@ const EsimBenefitsSection = () => {
           iconType: t(
             'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.iconType',
           ),
-          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.title'),
+          title: t(
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.title',
+          ),
           description: t(
             'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.0.items.5.description',
           ),
@@ -108,14 +122,18 @@ const EsimBenefitsSection = () => {
       id: 1,
       label: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.label'),
       heading: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.heading'),
-      subheading: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.subheading'),
+      subheading: t(
+        'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.subheading',
+      ),
       items: [
         {
           id: 1,
           iconType: t(
             'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.iconType',
           ),
-          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.title'),
+          title: t(
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.title',
+          ),
           description: t(
             'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.0.description',
           ),
@@ -125,7 +143,9 @@ const EsimBenefitsSection = () => {
           iconType: t(
             'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.iconType',
           ),
-          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.title'),
+          title: t(
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.title',
+          ),
           description: t(
             'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.1.description',
           ),
@@ -135,7 +155,9 @@ const EsimBenefitsSection = () => {
           iconType: t(
             'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.iconType',
           ),
-          title: t('website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.title'),
+          title: t(
+            'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.title',
+          ),
           description: t(
             'website.NewSimfinDes.what_is_esim.WhatIsEsim.EsimBenefitsSection.tabs.1.items.2.description',
           ),
@@ -145,7 +167,7 @@ const EsimBenefitsSection = () => {
   ];
 
   return (
-    <section className="w-full bg-white py-8 md:py-16">
+    <section className="w-full bg-white py-8 md:py-16 px-5">
       <div className="containers m-auto">
         {/* Tab Buttons */}
         <div className="mb-8 flex w-fit flex-wrap justify-center gap-3 rounded-3xl border p-1 md:justify-start">

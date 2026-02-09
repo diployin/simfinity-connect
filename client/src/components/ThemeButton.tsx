@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 interface YellowButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   onClick?: () => void;
-  variant?: 'default' | 'outline' | 'ghost';
+  variant?: 'default' | 'outline' | 'ghost' | 'outline_dark';
   size?: 'sm' | 'md' | 'lg' | 'xl';
   fullWidth?: boolean;
   loading?: boolean;
@@ -57,6 +57,11 @@ const ThemeButton: React.FC<YellowButtonProps> = ({
       'active:bg-primary/90',
     ),
     ghost: cn('bg-transparent text-black hover:bg-[#FFEB3B]/10', 'border-transparent'),
+    outline_dark: cn(
+      'bg-transparent border border-white/70 text-white',
+      'hover:bg-white hover:text-black hover:border-white',
+      'active:bg-white/90',
+    ),
   };
 
   // Responsive sizes - using breakpoints for different screen sizes

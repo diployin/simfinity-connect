@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
+import ThemeButton from '../ThemeButton';
 
 // ============================================
 // TypeScript Interfaces
@@ -31,10 +32,6 @@ interface ImageContentSectionProps {
   containerClassName?: string;
 }
 
-// ============================================
-// Main Component
-// ============================================
-
 const ImageContentSection: React.FC<ImageContentSectionProps> = ({
   title,
   description,
@@ -51,6 +48,8 @@ const ImageContentSection: React.FC<ImageContentSectionProps> = ({
   const imageOrder = imagePosition === 'left' ? 'order-1 lg:order-1' : 'order-2 lg:order-2';
   const contentOrder = imagePosition === 'left' ? 'order-2 lg:order-2' : 'order-1 lg:order-1';
 
+  const [, navigate] = useLocation();
+
   return (
     <section className={`px-4 py-16 sm:px-6 lg:px-8 ${backgroundColor}`}>
       <div className={`containers mx-auto ${containerClassName}`}>
@@ -61,10 +60,8 @@ const ImageContentSection: React.FC<ImageContentSectionProps> = ({
               <img
                 src={imageSrc}
                 alt={imageAlt}
-                fill
                 className="object-contain"
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                priority
               />
             </div>
           </div>
@@ -87,8 +84,8 @@ const ImageContentSection: React.FC<ImageContentSectionProps> = ({
 
             {/* Optional Button */}
             {button && (
-              <div>
-                <Link
+              <div className=" flex justify-center md:justify-start">
+                {/* <Link
                   href={button.href}
                   className={`inline-block rounded-full px-8 py-3.5 text-base font-medium transition-colors duration-200 ${
                     button.variant === 'secondary'
@@ -97,7 +94,11 @@ const ImageContentSection: React.FC<ImageContentSectionProps> = ({
                   }`}
                 >
                   {button.text}
-                </Link>
+                </Link> */}
+
+                <ThemeButton variant="outline" onClick={() => navigate('button.href')}>
+                  {button.text}
+                </ThemeButton>
               </div>
             )}
           </div>

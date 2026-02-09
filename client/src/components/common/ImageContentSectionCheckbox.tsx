@@ -57,20 +57,20 @@ const ImageContentSectionCheckbox: React.FC<ImageContentSectionCheckboxProps> = 
           {/* Image Section */}
           <div className={`${imageOrder} relative`}>
             <div className="relative flex h-[400px] w-full items-center justify-center sm:h-[500px] lg:h-[600px]">
-              <img src={imageSrc} alt={imageAlt}  className="object-contain" />
+              <img src={imageSrc} alt={imageAlt} className="object-contain" />
             </div>
           </div>
 
           {/* Content Section */}
           <div className={`${contentOrder} space-y-6 sm:space-y-8`}>
             {/* Subtitle with Icon */}
-            <div className="flex w-fit items-center gap-2 rounded-3xl bg-gray-100 px-2 py-1">
+            <div className="flex w-fit items-center gap-2 rounded-3xl bg-primary px-2 py-1">
               {/* ✅ Use passed icon OR default SVG */}
               {subtitleIcon ? (
-                <div className="h-5 w-5 text-gray-600">{subtitleIcon}</div>
+                <div className="h-5 w-5 text-white">{subtitleIcon}</div>
               ) : (
                 <svg
-                  className="h-5 w-5 text-gray-600"
+                  className="h-5 w-5 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -83,7 +83,7 @@ const ImageContentSectionCheckbox: React.FC<ImageContentSectionCheckboxProps> = 
                   />
                 </svg>
               )}
-              <span className="text-xs font-medium text-gray-600">{subtitle}</span>
+              <span className="text-xs font-medium text-white">{subtitle}</span>
             </div>
 
             {/* Title */}
