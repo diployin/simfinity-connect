@@ -112,7 +112,7 @@ const WhatEsimNew = () => {
 
   return (
     <div>
-      <section className="bg-white px-4  pb-8 sm:px-6 lg:px-8 ">
+      <section className="bg-white px-4  pb-8 sm:px-6 lg:px-8 mt-16 md:mt-0">
         <div className="containers mx-auto">
           <div className="grid grid-cols-1 items-center gap-8 rounded-3xl lg:grid-cols-2 lg:gap-12">
             {/* Left Side - Image */}

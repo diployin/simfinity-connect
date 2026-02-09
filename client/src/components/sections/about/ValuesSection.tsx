@@ -134,7 +134,7 @@ const ValuesSection = () => {
             </CarouselContent>
 
             {/* Navigation Buttons */}
-            <div className="mt-8 flex justify-end gap-2">
+            <div className="mt-8 flex justify-end mr-10">
               <CarouselPrevious className="static h-14 w-14 translate-y-0 border-2 border-white bg-transparent text-white transition-colors hover:bg-white hover:text-black [&_svg]:!h-8 [&_svg]:!w-8" />
               <CarouselNext className="static h-14 w-14 translate-y-0 border-2 border-white bg-transparent text-white transition-colors hover:bg-white hover:text-black [&_svg]:!h-8 [&_svg]:!w-8" />
             </div>

@@ -131,20 +131,20 @@ const FooterNew = () => {
             <ul className="space-y-3">
               {loadingDestinations
                 ? Array.from({ length: 6 }).map((_, idx) => (
-                    <li key={idx}>
-                      <Skeleton className="h-4 w-24" />
-                    </li>
-                  ))
+                  <li key={idx}>
+                    <Skeleton className="h-4 w-24" />
+                  </li>
+                ))
                 : popularDestinations.map((item) => (
-                    <li key={item.id}>
-                      <Link
-                        href={`/destination/${item.slug}`}
-                        className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
-                      >
-                        {item.name}
-                      </Link>
-                    </li>
-                  ))}
+                  <li key={item.id}>
+                    <Link
+                      href={`/destination/${item.slug}`}
+                      className="text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </div>
 
@@ -315,12 +315,17 @@ const FooterNew = () => {
           </div>
 
           {/* Column 5: Follow Us */}
-          <div>
-            <h3 className="mb-6 text-base font-semibold text-gray-900">
-              {t('website.footer.followus')}
+          <div className="flex flex-col">
+            <h3 className="mb-4 text-base font-semibold text-gray-900 text-center sm:text-left">
+              {t("website.footer.followus")}
             </h3>
 
-            <div className="flex flex-col flex-wrap gap-4">
+            <div
+              className="
+      flex justify-center gap-4
+      sm:flex-col sm:items-start sm:gap-3
+    "
+            >
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
@@ -328,10 +333,18 @@ const FooterNew = () => {
                   aria-label={social.label}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                  className="
+          flex items-center justify-center
+          h-10 w-10 sm:w-auto sm:h-auto
+          rounded-full sm:rounded-none
+          text-gray-600 hover:text-gray-900
+          transition-colors
+        "
                 >
                   <social.icon className="h-5 w-5" />
-                  <span className="hidden sm:inline">{social.label}</span>
+                  <span className="hidden sm:inline ml-2 text-sm">
+                    {social.label}
+                  </span>
                 </a>
               ))}
             </div>

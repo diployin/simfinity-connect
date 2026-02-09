@@ -136,7 +136,7 @@ export default function Destinations() {
         <title>{t('destinations.title')}</title>
       </Helmet>
 
-      <main className="  ">
+      <main className=" mt-20 ">
         <div className="max-w-6xl mx-auto px-4">
           {/* =========================
              HEADER
@@ -157,7 +157,16 @@ export default function Destinations() {
              TABS
           ========================= */}
           <Tabs defaultValue="all" onValueChange={setActiveTab}>
-            <TabsList className="mb-10 w-fit rounded-full border bg-white p-1 shadow-sm flex gap-1">
+            <TabsList
+              className="
+    mb-10 w-full sm:w-fit
+    rounded-full border bg-white p-1 shadow-sm
+    flex gap-1
+    overflow-x-auto sm:overflow-visible
+    whitespace-nowrap
+    no-scrollbar
+  "
+            >
               {[
                 { id: 'all', label: 'All' },
                 { id: 'country', label: 'Country' },
@@ -168,7 +177,16 @@ export default function Destinations() {
                 <TabsTrigger
                   key={tab.id}
                   value={tab.id}
-                  className="rounded-full px-5 py-2 text-base font-medium text-gray-600 data-[state=active]:bg-black data-[state=active]:text-white"
+                  className="
+        rounded-full
+        px-3 py-1.5 sm:px-5 sm:py-2
+        text-sm sm:text-base
+        font-medium
+        text-gray-600
+        data-[state=active]:bg-black
+        data-[state=active]:text-white
+        flex items-center
+      "
                 >
                   {tab.label}
                   {tab.badge && (
@@ -179,6 +197,7 @@ export default function Destinations() {
                 </TabsTrigger>
               ))}
             </TabsList>
+
 
             <div className="relative mb-8  border-2 rounded-xl">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
