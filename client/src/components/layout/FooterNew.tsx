@@ -350,7 +350,7 @@ const FooterNew = () => {
               </p>
               <div className="flex gap-4 text-xs sm:text-sm">
                 <Link
-                  href="/privacy"
+                  href="/privacy-policy"
                   className="text-gray-600 hover:text-gray-900 transition-colors underline"
                 >
                   {t('website.footer.payment.privacyPolicy')}
