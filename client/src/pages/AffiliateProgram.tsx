@@ -85,7 +85,7 @@ export function AffiliateProgram() {
 
   return (
     <>
-      <section className="overflow-hidden bg-white ">
+      <section className="overflow-hidden bg-white mt-16 md:mt-0">
         <div className="containers relative z-10">
           <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-8">
             {/* Left Side - Text Content */}
@@ -108,7 +108,7 @@ export function AffiliateProgram() {
                   size="md"
                 >
                   Log In
-                  
+
                 </ThemeButton>
               </div>
             </div>

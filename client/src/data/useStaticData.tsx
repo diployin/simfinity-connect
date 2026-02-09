@@ -1,5 +1,7 @@
 import { useTranslation } from '@/contexts/TranslationContext';
 import React from 'react';
+import { PiLinkFill, PiUserSwitchBold } from "react-icons/pi";
+import { HiShieldExclamation } from "react-icons/hi";
 
 import {
   BookOpen,
@@ -13,13 +15,14 @@ import {
   Tag,
   Wrench,
 } from 'lucide-react';
-import { BiWorld } from 'react-icons/bi';
+import { BiSolidMessageAltDetail, BiSolidMessageSquareDetail, BiWorld } from 'react-icons/bi';
 import { BsGlobeEuropeAfrica, BsPassport } from 'react-icons/bs';
 import { CiSearch } from 'react-icons/ci';
 import {
   FaBuilding,
   FaCalculator,
   FaCompass,
+  FaGears,
   FaMobile,
   FaRegBuilding,
   FaRocket,
@@ -31,6 +34,8 @@ import { GoPackage } from 'react-icons/go';
 import { GrStatusGood } from 'react-icons/gr';
 import { IoMdDownload } from 'react-icons/io';
 import {
+  MdAccountBalanceWallet,
+  MdAssistantNavigation,
   MdAttachMoney,
   MdDataSaverOff,
   MdModeStandby,
@@ -38,9 +43,14 @@ import {
   MdOutlinePrivacyTip,
   MdOutlineSimCard,
   MdOutlineSupportAgent,
+  MdSettingsSuggest,
+  MdSupportAgent,
+  MdTouchApp,
 } from 'react-icons/md';
-import { RiBloggerFill } from 'react-icons/ri';
+import { RiBloggerFill, RiDiscountPercentFill, RiPieChart2Fill } from 'react-icons/ri';
 import { TbDeviceUnknown } from 'react-icons/tb';
+import { FaHandshake, FaQuestionCircle, FaUsers } from 'react-icons/fa';
+import { GiPassport } from 'react-icons/gi';
 
 const useStaticData = () => {
   const { t } = useTranslation();
@@ -806,8 +816,8 @@ const useStaticData = () => {
               {
                 label: t('website.headerlinks.ProductFeature1Title'),
                 description: t('website.headerlinks.ProductFeature1Desc'),
-                href: '/all-destinations',
-                icon: <MdModeStandby className="h4 w-4" />,
+                href: '/destinations',
+                icon: <GiPassport className="h4 w-4" />,
                 disabled: true,
                 badge: 'coming soon',
               },
@@ -815,24 +825,23 @@ const useStaticData = () => {
                 label: t('website.headerlinks.ProductFeature4Title'),
                 description: t('website.headerlinks.ProductFeature4Desc'),
                 href: '/security',
-                icon: <GoPackage className="h4 w-4" />,
+                icon: <HiShieldExclamation className="h4 w-4" />,
               },
               {
                 label: t('website.headerlinks.ProductFeature2Title'),
                 description: t('website.headerlinks.ProductFeature2Desc'),
                 href: '',
-                icon: <GoPackage className="h4 w-4" />,
+                icon: <FaSimCard className="h4 w-4" />,
                 isExternalUrl: 'https://simfinity.dev',
               },
               {
                 label: t('website.headerlinks.ProductFeature3Title'),
                 description: t('website.headerlinks.ProductFeature3Desc'),
                 href: '/supported-devices',
-                icon: <BiWorld className="h4 w-4" />,
+                icon: <FaGears className="h4 w-4" />,
               },
             ],
           },
-
           {
             title: t('website.headerlinks.SupportColumnTitle'),
             items: [
@@ -840,13 +849,13 @@ const useStaticData = () => {
                 label: t('website.headerlinks.ProductTool1Title'),
                 description: t('website.headerlinks.ProductTool1Desc'),
                 href: '/privacy-policy',
-                icon: <MdOutlinePrivacyTip className="h4 w-4" />,
+                icon: <RiPieChart2Fill className="h4 w-4" />,
               },
               {
                 label: t('website.headerlinks.ProductTool2Title'),
                 description: t('website.headerlinks.ProductTool2Desc'),
                 href: '/destinations',
-                icon: <MdOutlinePolicy className="h4 w-4" />,
+                icon: <MdAccountBalanceWallet className="h4 w-4" />,
               },
             ],
           },
@@ -886,31 +895,29 @@ const useStaticData = () => {
         columns: [
           {
             title: t('website.headerlinks.ResourceGetStartedTitle'),
-
             items: [
               {
                 label: t('website.headerlinks.Resource1Title'),
                 description: t('website.headerlinks.Resource1Desc'),
                 badge: t('website.headerlinks.ResourceBadgeNew'),
                 href: '/what-is-esim',
-                icon: <MdOutlineSimCard className="h4 w-4" />,
+                icon: <MdTouchApp className="h4 w-4" />,
               },
               {
                 label: t('website.headerlinks.Resource4Title'),
                 description: t('website.headerlinks.Resource5Desc'),
                 href: '/blog',
-                icon: <MdOutlineSupportAgent className="h4 w-4" />,
+                icon: <BiSolidMessageSquareDetail className="h4 w-4" />,
               },
               {
                 label: t('website.headerlinks.Resource2Title'),
                 description: t('website.headerlinks.Resource2Desc'),
                 badge: t('website.headerlinks.ResourceBadgeGuide'),
                 href: '/about-us',
-                icon: <TbDeviceUnknown className="h4 w-4" />,
+                icon: <FaUsers className="h4 w-4" />,
               },
             ],
           },
-
           {
             title: t('website.headerlinks.ResourceSupportTitle'),
 
@@ -919,14 +926,14 @@ const useStaticData = () => {
                 label: t('website.headerlinks.Resource3Title'),
                 description: t('website.headerlinks.Resource3Desc'),
                 href: '/affiliate-program',
-                icon: <FaShield className="h4 w-4" />,
+                icon: <PiLinkFill className="h4 w-4" />,
                 // disabled: true,
               },
               {
                 label: t('website.headerlinks.Resource6Title'),
                 description: t('website.headerlinks.Resource6Desc'),
                 href: '/blog',
-                icon: <RiBloggerFill className="h4 w-4" />,
+                icon: <BiSolidMessageAltDetail className="h4 w-4" />,
                 disabled: true,
                 badge: 'coming soon',
               },
@@ -985,24 +992,24 @@ const useStaticData = () => {
               {
                 label: t('website.headerlinks.Offer1Title'),
                 description: t('website.headerlinks.Offer1Desc'),
-                href: '/referral',
-                icon: <Gift className="h4 w-4" />,
+                href: '/refer-a-friend',
+                icon: <PiUserSwitchBold className="h4 w-4" />,
                 badge: t('website.headerlinks.OfferBadgeHot'),
                 // disabled: true,
               },
               {
                 label: t('website.headerlinks.Offer2Title'),
                 description: t('website.headerlinks.Offer2Desc'),
-                href: '/referral',
-                icon: <GraduationCap className="h4 w-4" />,
+                href: '/refer-a-friend',
+                icon: <FaHandshake className="h4 w-4" />,
                 badge: t('website.headerlinks.OfferBadgeNew'),
                 // disabled: true,
               },
               {
                 label: t('website.headerlinks.Offer3Title'),
                 description: t('website.headerlinks.Offer3Desc'),
-                href: '/referral',
-                icon: <Tag className="h4 w-4" />,
+                href: '/refer-a-friend',
+                icon: <Gift className="h4 w-4" />,
                 // disabled: true,
               },
             ],
@@ -1052,21 +1059,21 @@ const useStaticData = () => {
                 label: t('website.headerlinks.Help1Title'),
                 description: t('website.headerlinks.Help1Desc'),
                 href: '/destinations',
-                icon: <BookOpen className="h4 w-4" />,
+                icon: <MdAssistantNavigation className="h4 w-4" />,
                 badge: 'New',
               },
               {
                 label: t('website.headerlinks.Help2Title'),
                 description: t('website.headerlinks.Help2Desc'),
-                href: '/help-center',
-                icon: <LifeBuoy className="h4 w-4" />,
+                href: '/',
+                icon: <MdSupportAgent className="h4 w-4" />,
                 disabled: true,
               },
               {
                 label: t('website.headerlinks.Help3Title'),
                 description: t('website.headerlinks.Help3Desc'),
-                href: '/troubleshooting',
-                icon: <Wrench className="h4 w-4" />,
+                href: '/',
+                icon: <MdSettingsSuggest className="h4 w-4" />,
                 disabled: true,
               },
             ],
@@ -1079,7 +1086,7 @@ const useStaticData = () => {
                 label: t('website.headerlinks.Help4Title'),
                 description: t('website.headerlinks.Help4Desc'),
                 href: '/faq',
-                icon: <HelpCircle className="h4 w-4" />,
+                icon: <FaQuestionCircle className="h4 w-4" />,
               },
             ],
           },

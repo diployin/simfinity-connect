@@ -196,17 +196,17 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
                               const baseClass = cn(
                                 'group flex items-start gap-3 rounded-lg p-3 transition-all hover:bg-gray-50',
                                 item.disabled &&
-                                  'pointer-events-none opacity-50 cursor-not-allowed',
+                                'pointer-events-none opacity-50 cursor-not-allowed',
                               );
 
                               const content = (
                                 <>
-                                  {/* {item.icon && (
+                                  {item.icon && (
                                     <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary text-white transition-transform group-hover:scale-110">
                                       {item.icon}
                                     </div>
-                                  )} */}
-                                  <img src="/images/message.png" className="h-6" alt="" />
+                                  )}
+                                  {/* <img src="/images/message.png" className="h-6" alt="" /> */}
 
                                   <div className="flex-1 pt-0.5">
                                     <div className="flex items-center gap-2">
@@ -318,11 +318,10 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
                                 <button
                                   key={index}
                                   onClick={() => scrollTo(index)}
-                                  className={`h-2 w-2 rounded-full transition-all ${
-                                    index === selectedIndex
+                                  className={`h-2 w-2 rounded-full transition-all ${index === selectedIndex
                                       ? 'w-6 bg-gray-700'
                                       : 'bg-gray-300 hover:bg-gray-400'
-                                  }`}
+                                    }`}
                                   aria-label={`Go to slide ${index + 1}`}
                                 />
                               ))}

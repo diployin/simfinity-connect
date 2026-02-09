@@ -107,7 +107,7 @@ export default function CompatibleDevices() {
     <div className="min-h-screen bg-background">
       {/* Header */}
 
-      <div className="container mx-auto px-4  pt-[150px]">
+      <div className="container mx-auto px-4 mt-24 md:mt-0">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <Smartphone className="h-16 w-16 text-primary mx-auto mb-4" />

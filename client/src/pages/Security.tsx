@@ -45,7 +45,7 @@ const SecurityPage: React.FC = () => {
                     content="Stay connected wherever you go and protect your browsing."
                 />
             </Helmet>
-            <div className="min-h-screen bg-gradient-to-br from-background to-accent/5">
+            <div className="min-h-screen bg-gradient-to-br from-background to-accent/5 mt-10">
                 <div className="container mx-auto px-4 py-8 max-w-6xl">
                     {/* HERO SECTION */}
                     <section className="">
