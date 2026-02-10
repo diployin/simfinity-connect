@@ -3,6 +3,7 @@
 import React from 'react';
 import { ChevronRightIcon, Globe } from 'lucide-react';
 import ReactCountryFlag from 'react-country-flag';
+import { useCurrency } from '@/contexts/CurrencyContext';
 
 interface DestinationCardProps {
   id: number;
@@ -32,6 +33,13 @@ const DestinationCardSmall: React.FC<DestinationCardProps> = ({
   index = 0,
   type = 'country',
 }) => {
+
+  const { currency, currencies } = useCurrency();
+
+  const getCurrencySymbol = (currencyCode: string) => {
+    return currencies.find((c) => c.code === currencyCode)?.symbol || '$';
+  };
+
   // Render icon based on priority: image -> country flag -> fallback
   const renderIcon = () => {
     // Helper function to check if value is valid (not null, undefined, or empty string)
@@ -98,7 +106,7 @@ const DestinationCardSmall: React.FC<DestinationCardProps> = ({
         <div className="text-left">
           <h3 className="text-base sm:text-lg font-semibold text-black">{name}</h3>
           <p className="text-sm text-gray-500 font-normal">
-            From US${startPrice.toFixed(2)}
+            From {getCurrencySymbol(currency)}{startPrice.toFixed(2)}
             {additionalInfo && ` • ${additionalInfo}`}
           </p>
         </div>
