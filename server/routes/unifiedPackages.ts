@@ -720,6 +720,8 @@ router.get("/slug/:slug", async (req: Request, res: Response) => {
       limit: 1,
     });
 
+    console.log("uni-in", pkg)
+
     if (!pkg || !pkg.provider || !pkg.provider.enabled) {
       return ApiResponse.notFound(res, "Package not found");
     }
@@ -1276,4 +1278,3 @@ router.get("/by-region/:slug", async (req: Request, res: Response) => {
 
 
 export default router;
-
