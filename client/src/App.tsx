@@ -145,7 +145,7 @@ const PUBLIC_ROUTES = [
   { path: '/global', component: GlobalDetails },
   { path: '/packages/:slug', component: PackageDetails },
   { path: '/checkout/:slug', component: Checkout },
-  { path: '/unified-checkout/:packageSlug', component: UnifiedCheckout },
+
   { path: '/blog', component: Blog },
   { path: '/blog/:slug', component: BlogPost },
   { path: '/enterprise', component: EnterprisePage },
@@ -180,6 +180,7 @@ const PUBLIC_ROUTES = [
 const AUTH_ROUTES = [
   { path: '/login', component: Login },
   { path: '/', component: MaintenancePage },
+  { path: '/unified-checkout/:packageSlug', component: UnifiedCheckout },
 ];
 
 const ADMIN_ROUTES = [
