@@ -361,32 +361,59 @@
   "heroReferfriend.des": "Invita a tus amigos a Simfinity y gana recompensas cada vez que se unan y activen un plan eSIM. Comparte la conexión y disfruta beneficios exclusivos juntos.",
   "heroReferfriend.btn": "Referir ahora",
 
-
-
-  "footer.description": "Tu socio confiable de conectividad para viajes que ofrece eSIM y tarjetas SIM seguras en más de 175 países a precios accesibles.",
-
+  "footer.description": "Tu socio confiable de conectividad que ofrece eSIM y tarjetas SIM seguras a precios accesibles en más de 175 países.",
   "footer.global": "{{siteName}} Global",
-  "footer.whatIsEsim": "¿Qué es una eSIM?",
+  "footer.whatIsEsim": "Qué es una eSIM",
   "footer.aboutUs": "Sobre nosotros",
   "footer.contactUs": "Contáctanos",
   "footer.destinations": "Destinos",
-
   "footer.topDestinations": "Destinos principales",
-
   "footer.resources": "Recursos",
   "footer.blog": "Blog",
   "footer.faq": "Preguntas frecuentes",
   "footer.supportticket": "Ticket de soporte",
-
   "footer.pages": "Páginas",
-
-  "footer.copyrightt": "© 2026 {{siteName}}. Todos los derechos reservados.",
+  "footer.copyrighttt": "© 2026 {{siteName}}. Todos los derechos reservados.",
   "footer.followus": "Síguenos",
   "footer.social.instagram": "Instagram",
   "footer.social.facebook": "Facebook",
   "footer.social.youtube": "YouTube",
-  "footer.social.linkedin": "LinkedIn",
   "footer.social.twitter": "Twitter",
+  "footer.social.reddit": "Reddit",
+  "footer.business": "Negocios",
+  "footer.careers": "Carreras",
+  "footer.referFriend": "Recomendar a un amigo",
+  "footer.becomeAffiliate": "Hazte afiliado",
+  "footer.studentDiscount": "Descuento estudiantil",
+  "footer.esim": "eSIM",
+  "footer.supportedDevices": "Dispositivos compatibles",
+  "footer.downloadApp": "Descargar la app",
+  "footer.securityFeatures": "Funciones de seguridad",
+  "footer.dataCalculator": "Calculadora de uso de datos",
+  "footer.help": "Ayuda",
+  "footer.helpCenter": "Centro de ayuda",
+  "footer.gettingStarted": "Cómo empezar",
+  "footer.plansPayments": "Planes y pagos",
+  "footer.troubleshooting": "Solución de problemas",
+  "footer.destinations.mexico": "México",
+  "footer.destinations.switzerland": "Suiza",
+  "footer.destinations.unitedStates": "Estados Unidos",
+  "footer.destinations.costaRica": "Costa Rica",
+  "footer.destinations.austria": "Austria",
+  "footer.destinations.saudiArabia": "Arabia Saudita",
+  "footer.destinations.thailand": "Tailandia",
+  "footer.destinations.southAfrica": "Sudáfrica",
+  "footer.destinations.vietnam": "Vietnam",
+  "footer.payment.applePay": "Apple Pay",
+  "footer.payment.googlePay": "Google Pay",
+  "footer.payment.visa": "Visa",
+  "footer.payment.mastercard": "Mastercard",
+  "footer.payment.discover": "Discover",
+  "footer.payment.unionpay": "UnionPay",
+  "footer.payment.jcb": "JCB",
+  "footer.payment.privacyPolicy": "Política de privacidad",
+  "footer.payment.termsOfService": "Términos de servicio",
+  "footer.payment.cookiePreference": "Preferencias de cookies",
 
 
 
@@ -409,6 +436,10 @@
 
   "headerlinks.ProductFeature3Title": "Compatibilidad eSIM",
   "headerlinks.ProductFeature3Desc": "Comprueba si tu dispositivo es compatible con la tecnología eSIM.",
+
+  "headerlinks.ProductFeature4Title": "Funciones de seguridad",
+"headerlinks.ProductFeature4Desc": "Mantén tus datos seguros y privados",
+
 
   "headerlinks.ProductTool1Title": "Verificación de uso de datos",
   "headerlinks.ProductTool1Desc": "Calcula cuántos datos necesitarás para tu próximo viaje.",

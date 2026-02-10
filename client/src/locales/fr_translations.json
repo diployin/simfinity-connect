@@ -440,30 +440,59 @@
 
 
 
-  "footer.description": "Tu socio confiable de conectividad para viajes que ofrece eSIM y tarjetas SIM seguras en más de 175 países a precios accesibles.",
-
+ "footer.description": "Votre partenaire de connectivité de confiance, offrant des eSIM et des cartes SIM sécurisées à des tarifs abordables dans plus de 175 pays.",
   "footer.global": "{{siteName}} Global",
-  "footer.whatIsEsim": "¿Qué es una eSIM?",
-  "footer.aboutUs": "Sobre nosotros",
-  "footer.contactUs": "Contáctanos",
-  "footer.destinations": "Destinos",
-
-  "footer.topDestinations": "Destinos principales",
-
-  "footer.resources": "Recursos",
+  "footer.whatIsEsim": "Qu’est‑ce qu’une eSIM",
+  "footer.aboutUs": "À propos de nous",
+  "footer.contactUs": "Nous contacter",
+  "footer.destinations": "Destinations",
+  "footer.topDestinations": "Destinations populaires",
+  "footer.resources": "Ressources",
   "footer.blog": "Blog",
-  "footer.faq": "Preguntas frecuentes",
-  "footer.supportticket": "Ticket de soporte",
-
-  "footer.pages": "Páginas",
-
-  "footer.copyrightt": "© 2026 {{siteName}}. Todos los derechos reservados.",
-  "footer.followus": "Suivez-nous",
+  "footer.faq": "FAQ",
+  "footer.supportticket": "Ticket de support",
+  "footer.pages": "Pages",
+  "footer.copyrighttt": "© 2026 {{siteName}}. Tous droits réservés.",
+  "footer.followus": "Suivez‑nous",
   "footer.social.instagram": "Instagram",
   "footer.social.facebook": "Facebook",
   "footer.social.youtube": "YouTube",
-  "footer.social.linkedin": "LinkedIn",
   "footer.social.twitter": "Twitter",
+  "footer.social.reddit": "Reddit",
+  "footer.business": "Entreprise",
+  "footer.careers": "Carrières",
+  "footer.referFriend": "Parrainer un ami",
+  "footer.becomeAffiliate": "Devenir affilié",
+  "footer.studentDiscount": "Réduction étudiante",
+  "footer.esim": "eSIM",
+  "footer.supportedDevices": "Appareils compatibles",
+  "footer.downloadApp": "Télécharger l’application",
+  "footer.securityFeatures": "Fonctions de sécurité",
+  "footer.dataCalculator": "Calculateur d’usage de données",
+  "footer.help": "Aide",
+  "footer.helpCenter": "Centre d’aide",
+  "footer.gettingStarted": "Pour commencer",
+  "footer.plansPayments": "Forfaits et paiements",
+  "footer.troubleshooting": "Dépannage",
+  "footer.destinations.mexico": "Mexique",
+  "footer.destinations.switzerland": "Suisse",
+  "footer.destinations.unitedStates": "États‑Unis",
+  "footer.destinations.costaRica": "Costa Rica",
+  "footer.destinations.austria": "Autriche",
+  "footer.destinations.saudiArabia": "Arabie Saoudite",
+  "footer.destinations.thailand": "Thaïlande",
+  "footer.destinations.southAfrica": "Afrique du Sud",
+  "footer.destinations.vietnam": "Vietnam",
+  "footer.payment.applePay": "Apple Pay",
+  "footer.payment.googlePay": "Google Pay",
+  "footer.payment.visa": "Visa",
+  "footer.payment.mastercard": "Mastercard",
+  "footer.payment.discover": "Discover",
+  "footer.payment.unionpay": "UnionPay",
+  "footer.payment.jcb": "JCB",
+  "footer.payment.privacyPolicy": "Politique de confidentialité",
+  "footer.payment.termsOfService": "Conditions d’utilisation",
+  "footer.payment.cookiePreference": "Préférences de cookies",
 
 
 
@@ -492,6 +521,10 @@
 
   "headerlinks.ProductTool2Title": "Recharger les données",
   "headerlinks.ProductTool2Desc": "Ajoutez facilement des données à votre forfait à tout moment pendant votre voyage.",
+
+  "headerlinks.ProductFeature4Title": "Fonctionnalités de sécurité",
+  "headerlinks.ProductFeature4Desc": "Gardez vos données sécurisées et privées",
+
 
   "headerlinks.SupportColumnTitle": "Support",
   "headerlinks.SupportPrivacyTitle": "Politique de confidentialité",

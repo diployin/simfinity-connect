@@ -169,6 +169,7 @@
     "footer.terms": "सेवा की शर्तें",
     "footer.privacy": "गोपनीयता नीति",
     "footer.cookies": "कुकी नीति",
+    "footer.copyrighttt": "© 2026 {{siteName}}. सर्वाधिकार सुरक्षित।",
     "destinations.subtitle": "अपनी यात्रा के लिए सही eSIM पैकेज खोजें",
     "destinations.search": "गंतव्य खोजें...",
     "destinations.filter.all": "सभी",
@@ -475,6 +476,10 @@
 
 "headerlinks.ProductSlider3Title": "डेटा उपयोग जांच",
 "headerlinks.ProductSlider3Description": "कुछ ही सेकंड में अनुमान लगाएं कि आपकी अगली यात्रा के लिए कितना डेटा चाहिए।",
+
+"headerlinks.ProductFeature4Title": "सुरक्षा सुविधाएँ",
+"headerlinks.ProductFeature4Desc": "अपने डेटा को सुरक्षित और निजी रखें",
+
 
   "headerlinks.ProductFeature1Title": "Simfinity पासपोर्ट",
   "headerlinks.ProductFeature1Desc": "टीमों, कंपनियों और बिज़नेस यात्रियों के लिए भरोसेमंद ग्लोबल डेटा प्लान।",
