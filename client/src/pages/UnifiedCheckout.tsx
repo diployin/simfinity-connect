@@ -444,10 +444,10 @@ export default function UnifiedCheckout() {
           return;
         }
 
-        console.log(selectedGateway.provider, {
-          redirectData: resData.powertranz.redirectData,
-          spiToken: resData.powertranz.spiToken,
-        });
+        // console.log(selectedGateway.provider, {
+        //   redirectData: resData.powertranz.redirectData,
+        //   spiToken: resData.powertranz.spiToken,
+        // });
 
         if (selectedGateway.provider === 'powertranz') {
           setInitResponse({

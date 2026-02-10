@@ -11,6 +11,7 @@ import { useCurrency } from '@/contexts/CurrencyContext';
 import { convertPrice } from '@/lib/currency';
 import DestinationCardSmall from '@/components/cards/DestinationCard';
 import CountryRegionSkeleton from '@/components/skeleton/CountryRegionSkeleton';
+import { useLocation } from 'wouter';
 
 export interface Destination {
   id: string;
@@ -57,7 +58,7 @@ interface GlobalPackage {
 export default function Destinations() {
   const { t } = useTranslation();
   const { currency, currencies } = useCurrency();
-
+  const [, navigate] = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('all');
 
@@ -232,6 +233,7 @@ export default function Destinations() {
                       key={item.id}
                       {...item}
                       startPrice={convertPrice(item.startPrice, 'USD', currency, currencies)}
+                      onClick={(slug) => navigate(`/destination/${slug}`)}
                       index={i}
                     />
                   ))
@@ -252,6 +254,7 @@ export default function Destinations() {
                       key={c.id}
                       {...c}
                       startPrice={convertPrice(c.startPrice, 'USD', currency, currencies)}
+                      onClick={(slug) => navigate(`/destination/${slug}`)}
                       index={i}
                     />
                   ))
@@ -274,6 +277,7 @@ export default function Destinations() {
                       additionalInfo={`${r.countryCount} countries`}
                       startPrice={convertPrice(r.startPrice, 'USD', currency, currencies)}
                       index={i}
+                      onClick={(slug) => navigate(`/region/${slug}`)}
                     />
                   ))
                 )}
@@ -294,6 +298,7 @@ export default function Destinations() {
                       {...g}
                       additionalInfo={`${g.validity} days`}
                       startPrice={convertPrice(g.startPrice, 'USD', currency, currencies)}
+                      onClick={(slug) => navigate(`/global`)}
                       index={i}
                     />
                   ))
