@@ -319,8 +319,8 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
                                   key={index}
                                   onClick={() => scrollTo(index)}
                                   className={`h-2 w-2 rounded-full transition-all ${index === selectedIndex
-                                      ? 'w-6 bg-gray-700'
-                                      : 'bg-gray-300 hover:bg-gray-400'
+                                    ? 'w-6 bg-gray-700'
+                                    : 'bg-gray-300 hover:bg-gray-400'
                                     }`}
                                   aria-label={`Go to slide ${index + 1}`}
                                 />
@@ -345,7 +345,7 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
                     </span>
                     {config.bottomLink?.label}
                   </Link>
-                  <Link href={'/what-is-esim'}>
+                  <Link href={'/download-esim-app'}>
                     <Button>App Download</Button>
                   </Link>
                 </div>
