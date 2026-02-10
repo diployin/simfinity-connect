@@ -88,13 +88,10 @@ const HeroSection = () => {
           <div>
             <picture>
               <img
-                alt="The Saily international eSIM app."
+                alt="Simfinity international eSIM app."
                 loading="eager"
-                width="1200"
-                height="908"
                 decoding="async"
-                style={{ color: 'transparent' }}
-                srcSet="/images/Untitled_design.png"
+                className="w-[820px] md:w-[1200px] h-auto"
                 src="/images/Untitled_design.png"
               />
             </picture>

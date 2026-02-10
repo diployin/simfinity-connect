@@ -45,6 +45,8 @@ import ReactCountryFlag from 'react-country-flag';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { useUser } from '@/hooks/use-user';
 import { useToast } from '@/hooks/use-toast';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store/store';
 
 const formatDataAmount = (pkg: {
   dataMb: number | null;
@@ -147,6 +149,8 @@ export default function RegionDetails() {
   const [filterPopular, setFilterPopular] = useState(false);
   const [filterDataPack, setFilterDataPack] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+  const { isExpanded } = useSelector((state: RootState) => state.topNavbar);
+  const isTopBarVisible = !isExpanded;
 
   const getCurrencySymbol = (currencyCode: string) => {
     return currencies.find((c) => c.code === currencyCode)?.symbol || '$';
@@ -381,7 +385,9 @@ export default function RegionDetails() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className={`min-h-screen bg-background flex flex-col ${isTopBarVisible
+      ? 'mt-28 md:mt-0'
+      : 'mt-18 md:mt-0'}`}>
       <Helmet>
         <title>
           eSIM for {region.name} - Regional Data Plans | {siteName}
@@ -392,7 +398,7 @@ export default function RegionDetails() {
         />
       </Helmet>
 
-      <main className="flex-1 pt-24 pb-16">
+      <main className="flex-1 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb className="mb-6">
             <BreadcrumbList>

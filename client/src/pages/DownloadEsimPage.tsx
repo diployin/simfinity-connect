@@ -12,50 +12,63 @@ import { CheckCircle, CreditCard, Globe, MessageSquare, Plane, Smartphone } from
 import { useTranslation } from '@/contexts/TranslationContext';
 import useStaticData from '@/data/useStaticData';
 import FAQSection from '@/components/sections/landing/FAQSection';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store/store';
+
 
 const DownloadEsimPage = () => {
   const staticData = useStaticData();
   const { t } = useTranslation();
 
+  const { isExpanded } = useSelector((state: RootState) => state.topNavbar);
+  const isTopBarVisible = !isExpanded;
+
+
   return (
-    <>
+    <div className={`min-h-screen bg-background flex flex-col ${isTopBarVisible
+      ? 'mt-28 md:mt-0'
+      : 'mt-18 md:mt-0'}`}>
       <DownloadAppSection />
-      <section className="bg-white py-8 md:py-16">
-        <div className="containers mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
+      <section className="bg-white py-10 sm:py-14 lg:py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+
             {/* Feature 1 */}
-            <div className="flex flex-col items-start space-y-3 text-start">
-              <Plane className="h-5 w-5 text-gray-900" strokeWidth={1.5} />
-              <p className="max-w-xs text-sm leading-snug font-medium text-gray-900">
-                {t('DownloadEsimPage.freaters1')}
+            <div className="group rounded-2xl border border-gray-100 bg-gray-50 p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-lg">
+              <Plane className="h-6 w-6 text-gray-900 transition-colors group-hover:text-primary" strokeWidth={1.5} />
+              <p className="mt-4 text-sm leading-relaxed font-medium text-gray-900">
+                {t('website.DownloadEsimPage.freaters1')}
               </p>
             </div>
+
             {/* Feature 2 */}
-            <div className="flex flex-col items-start space-y-3 text-start">
-              <Smartphone className="h-5 w-5 text-gray-900" strokeWidth={1.5} />
-              <p className="max-w-xs text-sm leading-snug font-medium text-gray-900">
-                {t('DownloadEsimPage.freaters2')}
+            <div className="group rounded-2xl border border-gray-100 bg-gray-50 p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-lg">
+              <Smartphone className="h-6 w-6 text-gray-900 transition-colors group-hover:text-primary" strokeWidth={1.5} />
+              <p className="mt-4 text-sm leading-relaxed font-medium text-gray-900">
+                {t('website.DownloadEsimPage.freaters2')}
               </p>
             </div>
 
             {/* Feature 3 */}
-            <div className="flex flex-col items-start justify-start space-y-3 text-start">
-              <MessageSquare className="h-5 w-5 text-gray-900" strokeWidth={1.5} />
-              <p className="max-w-xs text-sm leading-snug font-medium text-gray-900">
-                {t('DownloadEsimPage.freaters3')}
+            <div className="group rounded-2xl border border-gray-100 bg-gray-50 p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-lg">
+              <MessageSquare className="h-6 w-6 text-gray-900 transition-colors group-hover:text-primary" strokeWidth={1.5} />
+              <p className="mt-4 text-sm leading-relaxed font-medium text-gray-900">
+                {t('website.DownloadEsimPage.freaters3')}
               </p>
             </div>
 
             {/* Feature 4 */}
-            <div className="flex flex-col items-start justify-start space-y-3 text-start">
-              <CheckCircle className="h-5 w-5 text-gray-900" strokeWidth={1.5} />
-              <p className="max-w-xs text-sm leading-snug font-medium text-gray-900">
-                {t('DownloadEsimPage.freaters4')}
+            <div className="group rounded-2xl border border-gray-100 bg-gray-50 p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-lg">
+              <CheckCircle className="h-6 w-6 text-gray-900 transition-colors group-hover:text-primary" strokeWidth={1.5} />
+              <p className="mt-4 text-sm leading-relaxed font-medium text-gray-900">
+                {t('website.DownloadEsimPage.freaters4')}
               </p>
             </div>
+
           </div>
         </div>
       </section>
+
       <ImageContentSection
         title={t('DownloadEsimPage.heroTitle')}
         description={t('DownloadEsimPage.heroDescription')}
@@ -145,7 +158,7 @@ const DownloadEsimPage = () => {
         descriptionColor="text-white/80"
         containerClassName="rounded-xl"
       />
-    </>
+    </div>
   );
 };
 

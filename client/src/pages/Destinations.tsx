@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Helmet } from 'react-helmet-async';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -12,6 +12,8 @@ import { convertPrice } from '@/lib/currency';
 import DestinationCardSmall from '@/components/cards/DestinationCard';
 import CountryRegionSkeleton from '@/components/skeleton/CountryRegionSkeleton';
 import { useLocation } from 'wouter';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store/store';
 
 export interface Destination {
   id: string;
@@ -61,71 +63,88 @@ export default function Destinations() {
   const [, navigate] = useLocation();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeTab, setActiveTab] = useState('all');
+  const { isExpanded } = useSelector((state: RootState) => state.topNavbar);
+  const isTopBarVisible = !isExpanded;
+
 
   /* =========================
      API CALLS
   ========================= */
 
-  const { data: allDestinations = [], isLoading: loadingDest } = useQuery<Destination>({
-    queryKey: ['/api/destinations/with-pricing'],
-  });
+  const { data: allDestinations = [], isLoading: loadingDest } =
+    useQuery<Destination[]>({
+      queryKey: ['/api/destinations/with-pricing'],
+    });
 
-  const { data: allRegions = [], isLoading: loadingRegions } = useQuery<Region>({
-    queryKey: ['/api/regions/with-pricing'],
-  });
+  const { data: allRegions = [], isLoading: loadingRegions } =
+    useQuery<Region[]>({
+      queryKey: ['/api/regions/with-pricing'],
+    });
 
-  const { data: allGlobalPackages = [], isLoading: loadingGlobal } = useQuery<GlobalPackage>({
-    queryKey: ['/api/packages/global'],
-  });
+  const { data: allGlobalPackages = [], isLoading: loadingGlobal } =
+    useQuery<GlobalPackage[]>({
+      queryKey: ['/api/packages/global'],
+    });
+
 
   /* =========================
      FILTER LOGIC
   ========================= */
 
-  const countries = useMemo(
-    () =>
-      allDestinations
-        .filter((d: any) => d.name.toLowerCase().includes(searchQuery.toLowerCase()))
-        .map((d: any) => ({
-          id: parseInt(d.id),
-          name: d.name,
-          slug: d.slug,
-          countryCode: d.countryCode,
-          startPrice: parseFloat(d.minPrice),
-          type: 'country' as const,
-        })),
-    [allDestinations, searchQuery],
-  );
+  const countries = useMemo(() => {
+    return allDestinations
+      .filter((d) =>
+        d.name?.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      .map((d) => ({
+        id: Number(d.id),
+        name: d.name,
+        slug: d.slug,
+        countryCode: d.countryCode,
+        startPrice: Number(d.minPrice),
+        type: 'country' as const,
+      }));
+  }, [allDestinations, searchQuery]);
 
-  const regions = useMemo(
-    () =>
-      allRegions
-        .filter((r: any) => r.name.toLowerCase().includes(searchQuery.toLowerCase()))
-        .map((r: any) => ({
-          id: parseInt(r.id),
-          name: r.name,
-          slug: r.slug,
-          startPrice: parseFloat(r.minPrice),
-          countryCount: r.countries?.length || 0,
-          type: 'region' as const,
-        })),
-    [allRegions, searchQuery],
-  );
 
-  const globalPackages = useMemo(
-    () =>
-      allGlobalPackages
-        .filter((g: any) => g.title.toLowerCase().includes(searchQuery.toLowerCase()))
-        .map((g: any) => ({
-          id: parseInt(g.id),
-          name: `Global (${g.dataAmount})`,
-          slug: 'global',
-          startPrice: parseFloat(g.retailPrice),
-          validity: g.validity,
-          type: 'global' as const,
-        })),
-    [allGlobalPackages, searchQuery],
-  );
+  const regions = useMemo(() => {
+    return allRegions
+      .filter((r) =>
+        r.name?.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      .map((r) => ({
+        id: Number(r.id),
+        name: r.name,
+        slug: r.slug,
+        startPrice: Number(r.minPrice),
+        countryCount: r.countries?.length || 0,
+        type: 'region' as const,
+      }));
+  }, [allRegions, searchQuery]);
+
+
+  const globalPackages = useMemo(() => {
+    return allGlobalPackages
+      .filter((g) =>
+        g.title?.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      .map((g) => ({
+        id: Number(g.id),
+        name: `Global (${g.dataAmount})`,
+        slug: 'global',
+        startPrice: Number(g.retailPrice),
+        validity: g.validity,
+        type: 'global' as const,
+      }));
+  }, [allGlobalPackages, searchQuery]);
+
+
+  useEffect(() => {
+    if (searchQuery) {
+      setActiveTab('all');
+    }
+  }, [searchQuery]);
+
 
   /* =========================
      UI
@@ -137,7 +156,9 @@ export default function Destinations() {
         <title>{t('destinations.title')}</title>
       </Helmet>
 
-      <main className=" mt-20 ">
+      <main className={isTopBarVisible
+        ? 'mt-28 md:mt-0'
+        : 'mt-18 md:mt-0'}>
         <div className="max-w-6xl mx-auto px-4">
           {/* =========================
              HEADER
@@ -172,7 +193,7 @@ export default function Destinations() {
                 { id: 'all', label: 'All' },
                 { id: 'country', label: 'Country' },
                 { id: 'region', label: 'Region' },
-                { id: 'ultra', label: 'Ultra Plan', badge: 'New' },
+                // { id: 'ultra', label: 'Ultra Plan', badge: 'New' },
                 { id: 'passport', label: 'Simfinity Passport' },
               ].map((tab) => (
                 <TabsTrigger
@@ -287,7 +308,7 @@ export default function Destinations() {
             {/* =========================
                ULTRA
             ========================= */}
-            <TabsContent value="ultra">
+            <TabsContent value="passport">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {loadingGlobal ? (
                   <CountryRegionSkeleton count={6} />

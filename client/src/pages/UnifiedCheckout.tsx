@@ -1018,7 +1018,7 @@ export default function UnifiedCheckout() {
                         )}
 
 
-                        <Button type="submit" className="w-full bg-teal-500 text-white">
+                        <Button type="submit" className="w-full bg-primary-gradient text-white">
                           Continue to Payment
                         </Button>
                       </form>

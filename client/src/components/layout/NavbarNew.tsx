@@ -619,7 +619,7 @@ export function NavbarNew() {
                                 <Link
                                   href="/register"
                                   onClick={closeMobileMenu}
-                                  className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-2.5 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all text-sm active:scale-[0.98]"
+                                  className="flex items-center justify-center bg-primary-gradient text-white font-semibold py-2.5 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all text-sm active:scale-[0.98]"
                                 >
                                   Get Started
                                 </Link>

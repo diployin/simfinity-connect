@@ -65,6 +65,8 @@ import {
   FaRocket,
 } from 'react-icons/fa';
 import FAQ from './FAQ';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store/store';
 
 type UnifiedPackage = {
   id: string;
@@ -224,6 +226,9 @@ export default function DestinationDetails() {
   const [filterPopular, setFilterPopular] = useState(false);
   const [filterDataPack, setFilterDataPack] = useState(false);
   const [showFilters, setShowFilters] = useState(false); // Collapsed by default
+  const { isExpanded } = useSelector((state: RootState) => state.topNavbar);
+  const isTopBarVisible = !isExpanded;
+
 
   const getCurrencySymbol = (currencyCode: string) => {
     return currencies.find((c) => c.code === currencyCode)?.symbol || '$';
@@ -368,47 +373,47 @@ export default function DestinationDetails() {
   const bestChoiceIndex = Math.min(2, packageOptions.length - 1);
 
   const faqs = [
-  {
-    id: 'faq-1',
-    question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.question'),
-    answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.answer'),
-  },
-  {
-    id: 'faq-2',
-    question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.question'),
-    answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.answer'),
-  },
-  {
-    id: 'faq-3',
-    question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.question'),
-    answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.answer'),
-  },
-  {
-    id: 'faq-4',
-    question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.question'),
-    answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.answer'),
-  },
-  {
-    id: 'faq-5',
-    question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.question'),
-    answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.answer'),
-  },
-  {
-    id: 'faq-6',
-    question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.question'),
-    answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.answer'),
-  },
-  {
-    id: 'faq-7',
-    question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.question'),
-    answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.answer'),
-  },
-  {
-    id: 'faq-8',
-    question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.question'),
-    answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.answer'),
-  },
-];
+    {
+      id: 'faq-1',
+      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.question'),
+      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.answer'),
+    },
+    {
+      id: 'faq-2',
+      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.question'),
+      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.answer'),
+    },
+    {
+      id: 'faq-3',
+      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.question'),
+      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.answer'),
+    },
+    {
+      id: 'faq-4',
+      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.question'),
+      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.answer'),
+    },
+    {
+      id: 'faq-5',
+      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.question'),
+      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.answer'),
+    },
+    {
+      id: 'faq-6',
+      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.question'),
+      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.answer'),
+    },
+    {
+      id: 'faq-7',
+      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.question'),
+      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.answer'),
+    },
+    {
+      id: 'faq-8',
+      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.question'),
+      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.answer'),
+    },
+  ];
 
 
 
@@ -459,7 +464,9 @@ export default function DestinationDetails() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className={`min-h-screen bg-background flex flex-col ${isTopBarVisible
+      ? 'mt-28 md:mt-0'
+      : 'mt-18 md:mt-0'}`}>
       <Helmet>
         <title>
           eSIM for {destination.name} - Data Plans | {siteName}
@@ -509,22 +516,20 @@ export default function DestinationDetails() {
                 <div className="flex border-b border-border">
                   <button
                     onClick={() => setActiveTab('details')}
-                    className={`flex-1 py-4 text-sm font-medium text-center transition-colors ${
-                      activeTab === 'details'
-                        ? 'text-orange-500 border-b-2 border-orange-500 -mb-px bg-orange-50 dark:bg-orange-500/10'
-                        : 'text-muted-foreground hover:text-foreground'
-                    }`}
+                    className={`flex-1 py-4 text-sm font-medium text-center transition-colors ${activeTab === 'details'
+                      ? 'text-orange-500 border-b-2 border-orange-500 -mb-px bg-orange-50 dark:bg-orange-500/10'
+                      : 'text-muted-foreground hover:text-foreground'
+                      }`}
                     data-testid="tab-esim-details"
                   >
                     eSIM Details
                   </button>
                   <button
                     onClick={() => setActiveTab('coverage')}
-                    className={`flex-1 py-4 text-sm font-medium text-center transition-colors ${
-                      activeTab === 'coverage'
-                        ? 'text-orange-500 border-b-2 border-orange-500 -mb-px bg-orange-50 dark:bg-orange-500/10'
-                        : 'text-muted-foreground hover:text-foreground'
-                    }`}
+                    className={`flex-1 py-4 text-sm font-medium text-center transition-colors ${activeTab === 'coverage'
+                      ? 'text-orange-500 border-b-2 border-orange-500 -mb-px bg-orange-50 dark:bg-orange-500/10'
+                      : 'text-muted-foreground hover:text-foreground'
+                      }`}
                     data-testid="tab-coverage"
                   >
                     Coverage
@@ -690,9 +695,8 @@ export default function DestinationDetails() {
 
                 {/* Collapsible Filter Panel */}
                 <div
-                  className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                    showFilters ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0'
-                  }`}
+                  className={`transition-all duration-300 ease-in-out overflow-hidden ${showFilters ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0'
+                    }`}
                 >
                   <div className="bg-gradient-to-br from-card to-card/50 border border-border rounded-xl p-4 space-y-4 shadow-sm">
                     {/* Sort By */}
@@ -807,11 +811,10 @@ export default function DestinationDetails() {
                       <button
                         key={pkg.id}
                         onClick={() => setSelectedPackage(pkg)}
-                        className={`relative p-4 rounded-xl border-2 transition-all text-left overflow-visible group ${
-                          isSelected
-                            ? 'border-teal-500 bg-gradient-to-br from-teal-50/50 to-teal-100/30 dark:from-teal-500/10 dark:to-teal-500/20 shadow-lg shadow-teal-500/20 scale-[1.02]'
-                            : 'border-border bg-card hover:border-teal-500/30 hover:shadow-md hover:scale-[1.01]'
-                        }`}
+                        className={`relative p-4 rounded-xl border-2 transition-all text-left overflow-visible group ${isSelected
+                          ? 'border-teal-500 bg-gradient-to-br from-teal-50/50 to-teal-100/30 dark:from-teal-500/10 dark:to-teal-500/20 shadow-lg shadow-teal-500/20 scale-[1.02]'
+                          : 'border-border bg-card hover:border-teal-500/30 hover:shadow-md hover:scale-[1.01]'
+                          }`}
                         data-testid={`button-package-${pkg.dataAmount}`}
                       >
                         {/* Badge row */}
@@ -855,11 +858,10 @@ export default function DestinationDetails() {
                         {/* Data Amount with icon */}
                         <div className="flex items-center gap-2 mb-2 mt-1">
                           <div
-                            className={`w-8 h-8 rounded-lg flex items-center justify-center ${
-                              isSelected
-                                ? 'bg-teal-500 text-white'
-                                : 'bg-gradient-to-br from-teal-100 to-teal-50 dark:from-teal-500/20 dark:to-teal-500/10 text-teal-600 dark:text-teal-400'
-                            }`}
+                            className={`w-8 h-8 rounded-lg flex items-center justify-center ${isSelected
+                              ? 'bg-teal-500 text-white'
+                              : 'bg-gradient-to-br from-teal-100 to-teal-50 dark:from-teal-500/20 dark:to-teal-500/10 text-teal-600 dark:text-teal-400'
+                              }`}
                           >
                             <Wifi className="w-4 h-4" />
                           </div>
@@ -879,27 +881,27 @@ export default function DestinationDetails() {
                         {/* Voice & SMS info */}
                         {((pkg.voiceMinutes !== null && pkg.voiceMinutes > 0) ||
                           (pkg.smsCount !== null && pkg.smsCount > 0)) && (
-                          <div className="flex flex-wrap gap-2 mb-3 p-2 bg-accent/50 rounded-lg">
-                            {pkg.voiceMinutes !== null && pkg.voiceMinutes > 0 && (
-                              <span
-                                className="flex items-center gap-1 text-xs font-medium text-foreground"
-                                data-testid={`voice-${pkg.id}`}
-                              >
-                                <Phone className="w-3.5 h-3.5 text-green-600 dark:text-green-400" />
-                                {pkg.voiceMinutes === -1 ? 'Unlimited' : `${pkg.voiceMinutes}m`}
-                              </span>
-                            )}
-                            {pkg.smsCount !== null && pkg.smsCount > 0 && (
-                              <span
-                                className="flex items-center gap-1 text-xs font-medium text-foreground"
-                                data-testid={`sms-${pkg.id}`}
-                              >
-                                <MessageCircle className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-                                {pkg.smsCount === -1 ? 'Unlimited' : `${pkg.smsCount} SMS`}
-                              </span>
-                            )}
-                          </div>
-                        )}
+                            <div className="flex flex-wrap gap-2 mb-3 p-2 bg-accent/50 rounded-lg">
+                              {pkg.voiceMinutes !== null && pkg.voiceMinutes > 0 && (
+                                <span
+                                  className="flex items-center gap-1 text-xs font-medium text-foreground"
+                                  data-testid={`voice-${pkg.id}`}
+                                >
+                                  <Phone className="w-3.5 h-3.5 text-green-600 dark:text-green-400" />
+                                  {pkg.voiceMinutes === -1 ? 'Unlimited' : `${pkg.voiceMinutes}m`}
+                                </span>
+                              )}
+                              {pkg.smsCount !== null && pkg.smsCount > 0 && (
+                                <span
+                                  className="flex items-center gap-1 text-xs font-medium text-foreground"
+                                  data-testid={`sms-${pkg.id}`}
+                                >
+                                  <MessageCircle className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                                  {pkg.smsCount === -1 ? 'Unlimited' : `${pkg.smsCount} SMS`}
+                                </span>
+                              )}
+                            </div>
+                          )}
 
                         {/* Price and Radio */}
                         <div className="flex items-center justify-between pt-3 border-t border-border">
@@ -920,11 +922,10 @@ export default function DestinationDetails() {
 
                           {/* Radio indicator with checkmark */}
                           <div
-                            className={`w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all ${
-                              isSelected
-                                ? 'border-teal-500 bg-teal-500 scale-110'
-                                : 'border-muted-foreground/30 group-hover:border-teal-500/50'
-                            }`}
+                            className={`w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all ${isSelected
+                              ? 'border-teal-500 bg-teal-500 scale-110'
+                              : 'border-muted-foreground/30 group-hover:border-teal-500/50'
+                              }`}
                           >
                             {isSelected && <Check className="h-4 w-4 text-white font-bold" />}
                           </div>
@@ -997,7 +998,7 @@ export default function DestinationDetails() {
                         </div>
                         <Button
                           onClick={(e) => handleGetPlanClick(e, selectedPackage)}
-                          className="w-full bg-primary-gradient hover:bg-primary-gradient-hover text-white"
+                          className="w-full bg-primary-gradient text-white"
                           data-testid="button-checkout"
                         >
                           Buy Now

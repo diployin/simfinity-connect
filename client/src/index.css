@@ -859,9 +859,10 @@
     min-width: 140px;
   }
 
-  .bg-primary-gradient-hover:hover {
-    background: var(--hero-gradient-hover);
-  }
+  /* Hover gradient */
+.bg-primary-gradient-hover {
+  background: var(--hero-gradient-hover);
+}
 
   .btn-primary {
     background: linear-gradient(135deg, var(--primary), var(--primary-dark));

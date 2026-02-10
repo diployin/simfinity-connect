@@ -46,6 +46,9 @@ import ReactCountryFlag from 'react-country-flag';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { useUser } from '@/hooks/use-user';
 import { useToast } from '@/hooks/use-toast';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store/store';
+
 
 type GlobalPackage = {
   id: string;
@@ -214,7 +217,8 @@ export default function GlobalDetails() {
   const [, navigate] = useLocation();
   const { isAuthenticated, user } = useUser();
   const { toast } = useToast();
-
+  const { isExpanded } = useSelector((state: RootState) => state.topNavbar);
+  const isTopBarVisible = !isExpanded;
   const siteName = useSettingByKey('platform_name') || 'eSIM Connect';
 
   // Filter states
@@ -370,7 +374,9 @@ export default function GlobalDetails() {
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className={`min-h-screen bg-background flex flex-col ${isTopBarVisible
+      ? 'mt-28 md:mt-0'
+      : 'mt-18 md:mt-0'}`}>
       <Helmet>
         <title>Global eSIM Plans - Worldwide Data Coverage | {siteName}</title>
         <meta
@@ -379,7 +385,7 @@ export default function GlobalDetails() {
         />
       </Helmet>
 
-      <main className="flex-1 pt-24 pb-16">
+      <main className="flex-1 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb className="mb-6">
             <BreadcrumbList>

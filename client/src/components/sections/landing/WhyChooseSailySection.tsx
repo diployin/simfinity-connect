@@ -85,19 +85,19 @@ const WhyChooseSailySection = () => {
         <div className="block md:hidden relative">
           <Carousel
             plugins={[autoplayPlugin.current]}
-            className="w-full"
+            className="relative w-full px-4"
             onMouseEnter={autoplayPlugin.current.stop}
             onMouseLeave={autoplayPlugin.current.reset}
           >
-            <CarouselContent>
+            <CarouselContent className="pb-16">
               {features.map((feature) => (
-                <CarouselItem key={feature.id} className="pl-4">
+                <CarouselItem key={feature.id} className="px-1">
                   <div className="flex flex-col space-y-4 p-4 border rounded-lg bg-white shadow-sm">
-                    <div className="text-black">{iconMap[feature.id]}</div>
+                    {iconMap[feature.id]}
                     <h3 className="text-xl font-normal text-black">
                       {t(feature.titleKey)}
                     </h3>
-                    <p className="text-base leading-relaxed font-normal text-gray-600">
+                    <p className="text-base text-gray-600">
                       {t(feature.descriptionKey)}
                     </p>
                   </div>
@@ -105,12 +105,14 @@ const WhyChooseSailySection = () => {
               ))}
             </CarouselContent>
 
-            <div className="flex justify-end items-center gap-4 mt-5">
-              <CarouselPrevious className="static h-12 w-12 rounded-full bg-white border border-gray-200 shadow-md hover:bg-gray-50 hover:shadow-lg" />
-              <CarouselNext className="static h-12 w-12 rounded-full bg-white border border-gray-200 shadow-md hover:bg-gray-50 hover:shadow-lg" />
+            {/* Mobile arrows */}
+            <div className="absolute bottom-4 right-4 flex gap-1 z-10">
+              <CarouselPrevious className="h-8 w-8 rounded-full bg-white border shadow-md -left-1" />
+              <CarouselNext className="h-8 w-8 rounded-full bg-white border shadow-md -right-1" />
             </div>
           </Carousel>
         </div>
+
 
         {/* Desktop Grid */}
         <div className="hidden md:grid grid-cols-1 gap-8 sm:gap-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">

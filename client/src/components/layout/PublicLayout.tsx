@@ -8,18 +8,23 @@ import FooterNew from './FooterNew';
 // import { TopBanner } from './marketing';
 import NavbarNew from './NavbarNew';
 import { useLocation } from 'wouter';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store/store';
+import { cn } from '@/lib/utils';
 
 interface PublicLayoutProps {
   readonly children: ReactNode;
 }
 
 const NO_PADDING_ROUTES = ['/', '/login', '/signup', '/security-features', '/esim-ultra-plan'];
- 
+
 
 export function PublicLayout({ children }: Readonly<PublicLayoutProps>) {
   const [location] = useLocation();
+  const { isExpanded } = useSelector((state: RootState) => state.topNavbar);
 
   // const shouldRemovePadding = NO_PADDING_ROUTES.includes(location);
+  const isTopBarVisible = !isExpanded;
 
   const shouldRemovePadding =
     NO_PADDING_ROUTES.includes(location) ||
@@ -30,10 +35,18 @@ export function PublicLayout({ children }: Readonly<PublicLayoutProps>) {
       <NavbarNew />
 
       <main
-        className={`flex-1 ${shouldRemovePadding ? 'pt-8 mt-16 md:mt-0' : 'md:pt-40 lg:pt-48 xl:pt-[200px]'}`}
+        className={cn(
+          'flex-1',
+          shouldRemovePadding
+            ? isTopBarVisible
+              ? 'mt-12 md:mt-0'
+              : 'mt-0'
+            : 'md:pt-32 lg:pt-36 xl:pt-[150px]',
+        )}
       >
         {children}
       </main>
+
 
       <FooterNew />
     </div>

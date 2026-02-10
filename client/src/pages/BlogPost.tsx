@@ -10,10 +10,18 @@ import { ArrowLeft, Calendar, Clock, Share2, User } from 'lucide-react';
 import { ArticleSchema } from '@/components/StructuredData';
 // import { calculateReadingTime } from "@/lib/imageOptimization";
 import type { BlogPost as BlogPostType } from '@shared/schema';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store/store';
+
 
 export default function BlogPost() {
   const [, params] = useRoute('/blog/:slug');
   const API_BASE_URL = window.location.origin;
+
+
+  const { isExpanded } = useSelector((state: RootState) => state.topNavbar);
+  const isTopBarVisible = !isExpanded;
+
 
   const { data: response, isLoading } = useQuery<{
     success: boolean;
@@ -32,7 +40,7 @@ export default function BlogPost() {
   // Extract post from API response
   const post = response?.data;
 
-  console.log('post', post);
+  // console.log('post', post);
 
   const handleShare = async () => {
     if (navigator.share && post) {
@@ -75,7 +83,9 @@ export default function BlogPost() {
 
   if (!post) {
     return (
-      <div className="min-h-screen flex flex-col pt-[100px]">
+      <div className={`min-h-screen bg-background flex flex-col ${isTopBarVisible
+        ? 'mt-28 md:mt-0'
+        : 'mt-18 md:mt-0'}`}>
         {/* <SiteHeader /> */}
         <main className="flex-1">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
@@ -165,10 +175,10 @@ export default function BlogPost() {
                 <span className="whitespace-nowrap">
                   {post.publishedAt
                     ? new Date(post.publishedAt).toLocaleDateString('en-US', {
-                        month: 'long',
-                        day: 'numeric',
-                        year: 'numeric',
-                      })
+                      month: 'long',
+                      day: 'numeric',
+                      year: 'numeric',
+                    })
                     : 'Draft'}
                 </span>
               </div>

@@ -517,7 +517,7 @@ const MegaMenuDropdownDestination: React.FC<MegaMenuDropdownProps> = ({
                       navigate('/destinations');
                       closeMenu();
                     }}
-                    className="bg-black dark:bg-white text-white dark:text-black hover:bg-gray-800 dark:hover:bg-gray-200 rounded-full px-6"
+                    className="bg-primary-gradient text-white rounded-full px-6"
                   >
                     View All Destinations
                   </Button>
