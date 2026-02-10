@@ -154,7 +154,7 @@ export default function AdminLogin() {
             </Button>
           </form>
 
-          <div className="mt-6 p-4 bg-muted rounded-md">
+          {/* <div className="mt-6 p-4 bg-muted rounded-md">
             <p className="text-sm text-muted-foreground text-center">
               {t('admin.login.testCredentialsTitle', 'Default credentials for testing:')}
             </p>
@@ -168,7 +168,7 @@ export default function AdminLogin() {
                 <span className="font-semibold">admin123</span>
               </p>
             </div>
-          </div>
+          </div> */}
         </CardContent>
       </Card>
     </div>
