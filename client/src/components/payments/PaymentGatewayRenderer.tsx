@@ -32,8 +32,9 @@ export default function PaymentGatewayRenderer({
       }
 
       // ✅ Stripe public key (later DB se bhi la sakte ho)
-      const stripePromise = loadStripe(initData?.publicKey);
-
+      // console.log("ini dataaa", "publicKey initData?.publicKey", initData, initData?.publicKey)
+      // const stripePromisee = loadStripe(initData?.publicKey);
+      const stripePromise = loadStripe("pk_test_51Ry5KK74FnUP6weT399cLIDdcCBWhpjWmXLocmgLUiKLZfr65EUffqu6uUdgriGHExfFroFvLTzLkAlV6gCL1TXk0096kTqcJr")
       return (
         <Elements
           stripe={stripePromise}
