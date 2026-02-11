@@ -1,235 +1,113 @@
-// import { useTranslation } from '@/contexts/TranslationContext';
-// import React from 'react';
-
-// interface TestimonialCardProps {
-//   name: string;
-//   platform?: string;
-//   avatar?: string;
-//   content?: string;
-//   rating?: number;
-//   platformBadge?: string;
-// }
-
-// const TestimonialsSection = () => {
-//   const { t } = useTranslation();
-//   const TestimonialCard = ({
-//     name,
-//     platform,
-//     avatar,
-//     content,
-//     rating,
-//     platformBadge,
-//   }: TestimonialCardProps) => (
-//     <div className="flex flex-col space-y-4 rounded-3xl bg-white p-2 lg:p-8">
-//       <div className="flex items-center justify-between">
-//         <div className="flex items-center gap-3">
-//           {avatar && (
-//             <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-full bg-gray-100">
-//               <img
-//                 src={avatar}
-//                 alt={name}
-//                 width={40}
-//                 height={40}
-//                 className="h-full w-full object-cover"
-//               />
-//             </div>
-//           )}
-//           <span className="text-base font-normal text-gray-900">{name}</span>
-//         </div>
-
-//         {/* {platformBadge} */}
-//         {platformBadge && (
-//           <div className="h-10 w-10 flex-shrink-0">
-//             <img
-//               src={platformBadge}
-//               alt={name}
-//               width={100}
-//               height={100}
-//               className="object-cover object-center"
-//             />
-//           </div>
-//         )}
-//       </div>
-
-//       {/* Content */}
-//       <p className="text-sm leading-relaxed font-normal text-gray-600">{content}</p>
-
-//       {/* Rating */}
-//       {rating && (
-//         <div className="flex items-center gap-1">
-//           <span className="text-sm font-normal text-gray-900">{rating}</span>
-//           {[...Array(5)].map((_, i) => (
-//             <svg
-//               key={i}
-//               className="h-4 w-4 text-yellow-400"
-//               fill="currentColor"
-//               viewBox="0 0 20 20"
-//             >
-//               <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-//             </svg>
-//           ))}
-//         </div>
-//       )}
-//     </div>
-//   );
-
-//   return (
-//     <section className="bg-sky-100 w-full py-16 sm:py-20 lg:py-24">
-//       <div className="containers">
-//         {/* Header */}
-//         <div className="mb-12 text-center lg:mb-16  mx-auto">
-//           <h2 className="lg:text-5xl mb-4 text-3xl leading-tight font-medium text-black sm:text-4xl">
-//             {/* {t('NewSimfinDes.SingleCountryPlan.TestimonialsSection.title')} */}
-//             Simfinity reviews from travelers” to - Real travelers. Real experiences. Real Simfinity.
-//           </h2>
-//           <p className="text-base font-normal text-gray-600 sm:text-lg">
-//             {/* {t('NewSimfinDes.SingleCountryPlan.TestimonialsSection.des')} */}
-//             Watch quick video reviews from global travelers who use Simfinity on every trip.
-//           </p>
-//         </div>
-
-//         {/* 4-Column Grid Layout */}
-//         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-//           {/* Column 1 - Left */}
-//           <div className="flex flex-col gap-6">
-//             <TestimonialCard
-//               name="Jorge A."
-//               platformBadge="/images/Trustpilot_logo.svg"
-//               content="Easy, cheap and fast. Easy step to step setup and troubleshooting, super fast speed (around 100 mbps). Cheap, great coverage and helpful chat/assistance. Keep up the good work."
-//               rating={5}
-//             />
-//             <TestimonialCard
-//               name="PewDiePie"
-//               avatar="/images/pewdiepie.png"
-//               platformBadge="/images/youtube-logo.svg"
-//               content="I can set it up at home right now, activate it when I'm ready (it takes literally just a couple of minutes, I've tried it myself), and boom! I have internet on my phone when traveling, as it should be... So I recommend checking out Simfinity next time you're traveling — it's a must!"
-//             />
-//           </div>
-
-//           {/* Column 2 - Center-Left (Highlight Card) */}
-//           <div className="mt-10 flex flex-col gap-6">
-//             <div className="flex min-h-[400px] flex-col justify-center space-y-6 rounded-3xl bg-white p-8 md:min-h-[600px] lg:p-10">
-//               <p className="text-lg leading-relaxed font-normal text-black lg:text-xl">
-//                 {' '}
-//                 <span className="text-6xl leading-none text-black">"</span> Simfinity is an
-//                 affordable, easy-to-use, and sustainable eSIM service that gives reliable mobile and
-//                 internet connections from anywhere in the world. That's why we recommend Simfinity
-//                 as our eSIM partner.
-//               </p>
-//               <img
-//                 src="/images/Trustpilot_logo.svg"
-//                 alt="Lonely Planet"
-//                 width={120}
-//                 height={30}
-//                 className="md:mt-auto"
-//               />
-//             </div>
-//           </div>
-
-//           {/* Column 3 - Center-Right */}
-//           <div className="flex flex-col gap-6">
-//             <TestimonialCard
-//               name="DutchPilotGirl"
-//               platformBadge="/images/youtube-logo.svg"
-//               avatar="/images/dutchpilotgirl.webp"
-//               content="There's so much you can't do abroad without a proper internet connection. Simfinity takes care of everything. It's simple to buy and easy to install. I love it."
-//             />
-//             <TestimonialCard
-//               name="Domas R."
-//               platformBadge="/images/Trustpilot_logo.svg"
-//               content="Awesome — used Simfinity across 3 countries already (UK, Netherlands and Belgium). Took me like 1min to buy esim and activate it. My internet was way better than my friends' who remained connected to their local providers and used roaming plans instead."
-//               rating={5}
-//             />
-//           </div>
-
-//           {/* Column 4 - Right */}
-//           <div className="mt-18 flex flex-col gap-6">
-//             <TestimonialCard
-//               name="cybernews"
-//               platformBadge="/images/Trustpilot_logo.svg"
-//               content="With comprehensive coverage and affordable prices, Simfinity is the best eSIM for Europe. Activating Simfinity is straightforward. Download the app, choose your plan, and surf the internet. You can contact the Simfinity customer support team via live chat or email if you encounter any issues."
-//             />
-//             <TestimonialCard
-//               name="TechRadar"
-//               platformBadge="/images/Trustpilot_logo.svg"
-//               content="As a product backed by the reputable NordVPN brand, Simfinity benefits from the company's focus on security and privacy. Users praise its easy installation process, affordable pricing, and reliable coverage across the world."
-//             />
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default TestimonialsSection;
+'use client';
 
 import { useTranslation } from '@/contexts/TranslationContext';
 import React from 'react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
+import { Star, Quote } from 'lucide-react';
 
-interface TestimonialCardProps {
+interface Testimonial {
+  id: string;
   name: string;
-  platform?: string;
   avatar?: string;
-  content?: string;
+  content: string;
   rating?: number;
   platformBadge?: string;
+  isHighlight?: boolean;
 }
 
 const TestimonialsSection = () => {
   const { t } = useTranslation();
 
-  const TestimonialCard = ({
-    name,
-    platform,
-    avatar,
-    content,
-    rating,
-    platformBadge,
-  }: TestimonialCardProps) => (
-    <div className="flex flex-col space-y-4 rounded-3xl bg-white p-2 lg:p-8">
-      <div className="flex items-center justify-between">
+  const autoplayPlugin = React.useRef(
+    Autoplay({ delay: 5000, stopOnInteraction: false })
+  );
+
+  const testimonials: Testimonial[] = [
+    {
+      id: "1",
+      name: "Jorge A.",
+      platformBadge: "/images/Trustpilot_logo.svg",
+      content: t('website.NewSimfinDes.TestimonialsSection.review1'),
+      rating: 5,
+    },
+    {
+      id: "2",
+      name: "PewDiePie",
+      avatar: "/images/pewdiepie.png",
+      platformBadge: "/images/youtube-logo.svg",
+      content: t('website.NewSimfinDes.TestimonialsSection.review2'),
+      rating: 5,
+    },
+    {
+      id: "3",
+      name: "Lonely Planet",
+      platformBadge: "/images/Trustpilot_logo.svg",
+      content: t('website.NewSimfinDes.TestimonialsSection.review3'),
+      rating: 5,
+      isHighlight: true,
+    },
+    {
+      id: "4",
+      name: "DutchPilotGirl",
+      avatar: "/images/dutchpilotgirl.webp",
+      platformBadge: "/images/youtube-logo.svg",
+      content: t('website.NewSimfinDes.TestimonialsSection.review4'),
+      rating: 5,
+    },
+    {
+      id: "5",
+      name: "Domas R.",
+      platformBadge: "/images/Trustpilot_logo.svg",
+      content: t('website.NewSimfinDes.TestimonialsSection.review5'),
+      rating: 5,
+    },
+    {
+      id: "6",
+      name: "Cybernews",
+      platformBadge: "/images/Trustpilot_logo.svg",
+      content: t('website.NewSimfinDes.TestimonialsSection.review6'),
+      rating: 5,
+    },
+    {
+      id: "7",
+      name: "TechRadar",
+      platformBadge: "/images/Trustpilot_logo.svg",
+      content: t('website.NewSimfinDes.TestimonialsSection.review7'),
+      rating: 5,
+    },
+  ];
+
+  const TestimonialCard = ({ item }: { item: Testimonial }) => (
+    <div className="flex flex-col h-full space-y-5 rounded-[2rem] bg-white p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-300">
+      <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          {avatar && (
-            <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-full bg-gray-100">
-              <img
-                src={avatar}
-                alt={name}
-                width={40}
-                height={40}
-                className="h-full w-full object-cover"
-              />
+          {item.avatar && (
+            <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-full border border-gray-100">
+              <img src={item.avatar} alt={item.name} className="h-full w-full object-cover" />
             </div>
           )}
-          <span className="text-base font-normal text-gray-900">{name}</span>
+          <span className="text-base font-bold text-gray-900">{item.name}</span>
         </div>
-
-        {platformBadge && (
-          <div className="h-10 w-10 flex-shrink-0">
-            <img
-              src={platformBadge}
-              alt={name}
-              width={100}
-              height={100}
-              className="object-cover object-center"
-            />
-          </div>
+        {item.platformBadge && (
+          <img src={item.platformBadge} alt="Platform" className="h-6 w-auto grayscale opacity-50" />
         )}
       </div>
 
-      <p className="text-sm font-normal leading-relaxed text-gray-600">{content}</p>
+      <p className="text-sm font-medium leading-relaxed text-gray-600 flex-grow">
+        "{item.content}"
+      </p>
 
-      {rating && (
-        <div className="flex items-center gap-1">
-          <span className="text-sm font-normal text-gray-900">{rating}</span>
+      {item.rating && (
+        <div className="flex items-center gap-0.5">
           {[...Array(5)].map((_, i) => (
-            <svg
-              key={i}
-              className="h-4 w-4 text-yellow-400"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-            </svg>
+            <Star key={i} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />
           ))}
         </div>
       )}
@@ -237,81 +115,101 @@ const TestimonialsSection = () => {
   );
 
   return (
-    <section className="w-full bg-primary py-16 sm:py-20 lg:py-24">
-      <div className="containers">
+    <section className="w-full bg-slate-50 py-16 sm:py-24 lg:py-32 overflow-hidden">
+      <div className="containers mx-auto px-4">
         {/* Header */}
-        <div className="mx-auto mb-12 text-center lg:mb-16">
-          <h2 className="mb-4 text-3xl font-medium leading-tight text-white sm:text-4xl lg:text-5xl">
-            {t('website.NewSimfinDes.TestimonialsSection.title')}
+        <div className="mb-12 sm:mb-20 text-start flex flex-col items-start max-w-4xl">
+          <p className="text-gray-400 font-medium uppercase tracking-[0.2em] text-xs sm:text-sm mb-4">
+            Real travelers. Real experiences. Real Simfinity.
+          </p>
+          <h2 className="mb-6 text-3xl sm:text-4xl lg:text-2.5 font-medium leading-tight text-gray-900 tracking-tight">
+            Simfinity reviews from travelers”
           </h2>
-          <p className="text-base font-normal text-gray-100 sm:text-lg">
-            {t('website.NewSimfinDes.TestimonialsSection.des')}
+          <p className="text-base font-thin text-gray-600 sm:text-lg leading-relaxed max-w-2xl">
+            Watch quick video reviews from global travelers who use Simfinity on every trip.
           </p>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {/* MOBILE SLIDER (Carousel) */}
+        <div className="block lg:hidden mx-auto max-w-md">
+          <Carousel
+            plugins={[autoplayPlugin.current]}
+            className="w-full"
+            opts={{
+              align: "center",
+              loop: true,
+            }}
+          >
+            <CarouselContent>
+              {testimonials.map((item) => (
+                <CarouselItem key={item.id}>
+                  <div className="px-1 py-10 h-full">
+                    <div className="flex flex-col items-center text-center space-y-8 rounded-[2.5rem] bg-white p-10 shadow-xl border border-gray-100 h-full min-h-[500px] justify-center">
+                      <div className="w-16 h-16 rounded-2xl bg-primary/5 flex items-center justify-center">
+                        <Quote className="w-8 h-8 text-primary fill-primary" />
+                      </div>
+                      <blockquote className="px-2">
+                        <p className="text-lg font-bold text-gray-900 leading-relaxed italic">
+                          "{item.content}"
+                        </p>
+                      </blockquote>
+                      <div className="flex flex-col items-center gap-4 pt-4">
+                        <div className="flex items-center gap-3">
+                          {item.avatar && (
+                            <img src={item.avatar} alt={item.name} className="h-12 w-12 rounded-full border-2 border-white shadow-sm" />
+                          )}
+                          <span className="text-lg font-bold text-gray-900">{item.name}</span>
+                        </div>
+                        {item.platformBadge && (
+                          <img src={item.platformBadge} alt="Platform" className="h-8 grayscale opacity-60" />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="flex justify-center gap-4 mt-4">
+              <CarouselPrevious className="static translate-y-0 h-12 w-12 bg-white shadow-lg border-primary/10" />
+              <CarouselNext className="static translate-y-0 h-12 w-12 bg-white shadow-lg border-primary/10" />
+            </div>
+          </Carousel>
+        </div>
+
+        {/* DESKTOP GRID */}
+        <div className="hidden lg:grid grid-cols-4 gap-6 items-start">
           {/* Column 1 */}
           <div className="flex flex-col gap-6">
-            <TestimonialCard
-              name="Jorge A."
-              platformBadge="/images/Trustpilot_logo.svg"
-              content={t('website.NewSimfinDes.TestimonialsSection.review1')}
-              rating={5}
-            />
-            <TestimonialCard
-              name="PewDiePie"
-              avatar="/images/pewdiepie.png"
-              platformBadge="/images/youtube-logo.svg"
-              content={t('website.NewSimfinDes.TestimonialsSection.review2')}
-            />
+            <TestimonialCard item={testimonials[0]} />
+            <TestimonialCard item={testimonials[1]} />
           </div>
 
-          {/* Column 2 – Highlight */}
-          <div className="mt-10 flex flex-col gap-6">
-            <div className="flex min-h-[400px] flex-col justify-center space-y-6 rounded-3xl bg-white p-8 md:min-h-[600px] lg:p-10">
-              <p className="text-lg font-normal leading-relaxed text-black lg:text-xl">
-                <span className="text-6xl leading-none text-black">"</span>{' '}
-                {t('website.NewSimfinDes.TestimonialsSection.review3')}
+          {/* Column 2 - Highlight Card */}
+          <div className="flex flex-col h-full pt-12">
+            <div className="flex flex-col space-y-10 rounded-[2.5rem] bg-white p-12 shadow-md border border-gray-100 h-[600px] justify-center relative overflow-hidden group">
+              <div className="absolute top-10 left-10 opacity-10 flex flex-col gap-4">
+                <Quote className="w-20 h-20 text-primary fill-primary" />
+              </div>
+              <p className="text-2xl font-bold text-gray-900 leading-[1.4] tracking-tight relative z-10 italic">
+                "{testimonials[2].content}"
               </p>
-              <img
-                src="/images/Trustpilot_logo.svg"
-                alt="Trustpilot"
-                width={120}
-                height={30}
-                className="md:mt-auto"
-              />
+              <div className="pt-8 border-t border-gray-100 relative z-10">
+                <img src={testimonials[2].platformBadge} alt="Trustpilot" className="h-10 w-autograyscale group-hover:grayscale-0 transition-all duration-500" />
+                <p className="mt-4 text-sm font-bold text-gray-500 uppercase tracking-widest">Featured Review</p>
+              </div>
             </div>
           </div>
 
           {/* Column 3 */}
           <div className="flex flex-col gap-6">
-            <TestimonialCard
-              name="DutchPilotGirl"
-              avatar="/images/dutchpilotgirl.webp"
-              platformBadge="/images/youtube-logo.svg"
-              content={t('website.NewSimfinDes.TestimonialsSection.review4')}
-            />
-            <TestimonialCard
-              name="Domas R."
-              platformBadge="/images/Trustpilot_logo.svg"
-              content={t('website.NewSimfinDes.TestimonialsSection.review5')}
-              rating={5}
-            />
+            <TestimonialCard item={testimonials[3]} />
+            <TestimonialCard item={testimonials[4]} />
           </div>
 
           {/* Column 4 */}
-          <div className="flex flex-col gap-6">
-            <TestimonialCard
-              name="Cybernews"
-              platformBadge="/images/Trustpilot_logo.svg"
-              content={t('website.NewSimfinDes.TestimonialsSection.review6')}
-            />
-            <TestimonialCard
-              name="TechRadar"
-              platformBadge="/images/Trustpilot_logo.svg"
-              content={t('website.NewSimfinDes.TestimonialsSection.review7')}
-            />
+          <div className="flex flex-col gap-6 mt-12">
+            <TestimonialCard item={testimonials[5]} />
+            <TestimonialCard item={testimonials[6]} />
           </div>
         </div>
       </div>

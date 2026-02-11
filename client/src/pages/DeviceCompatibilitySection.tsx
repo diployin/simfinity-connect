@@ -374,9 +374,8 @@ const DeviceCompatibilitySection: React.FC<DeviceCompatibilitySectionProps> = ({
               <button
                 key={category.id}
                 onClick={() => handleTabChange(category.id)}
-                className={`rounded-full px-6 py-1 text-sm font-medium transition-all duration-200 md:text-base ${
-                  activeTab === category.id ? 'bg-black text-white' : 'bg-white text-gray-700'
-                }`}
+                className={`rounded-full px-6 py-1 text-sm font-medium transition-all duration-200 md:text-base ${activeTab === category.id ? 'bg-black text-white' : 'bg-white text-gray-700'
+                  }`}
               >
                 {category.name}
               </button>
@@ -433,9 +432,8 @@ const DeviceCompatibilitySection: React.FC<DeviceCompatibilitySectionProps> = ({
                             </div>
                           </div>
                           <svg
-                            className={`h-5 w-5 text-gray-500 transition-transform duration-200 ${
-                              isOpen ? 'rotate-180' : ''
-                            }`}
+                            className={`h-5 w-5 text-gray-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
+                              }`}
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"

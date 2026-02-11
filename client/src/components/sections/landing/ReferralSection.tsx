@@ -6,63 +6,46 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'wouter';
 
 const ReferralSection = () => {
-  const [isMobile, setIsMobile] = useState(false);
-
   const { t } = useTranslation();
   const [, navigate] = useLocation();
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024);
-    };
-
-    // Initial check
-    checkMobile();
-
-    // Add event listener
-    window.addEventListener('resize', checkMobile);
-
-    // Cleanup
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
   return (
-    <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
-      <div className="containers">
-        <div className="relative overflow-hidden rounded-3xl bg-[#eef1f6]">
-          <div className="grid grid-cols-1 items-center lg:grid-cols-2">
+    <section className="w-full bg-white py-16 md:py-24 overflow-hidden">
+      <div className="containers mx-auto px-4">
+        <div className="relative overflow-hidden rounded-[2rem] bg-[#eef1f6] border border-gray-100 dark:border-gray-800">
+          <div className="grid grid-cols-1 items-stretch lg:grid-cols-2">
             {/* Left Side - Content */}
-            <div className="relative z-10 order-1 space-y-6 p-8 sm:p-10 lg:p-16 xl:p-20">
-              <h2 className="text-4xl leading-tight font-medium text-black">
-                {t('website.heroReferfriend.title')}
-              </h2>
+            <div className="relative z-10 flex flex-col justify-center space-y-8 p-8 sm:p-12 lg:p-16 xl:p-20">
+              <div className="space-y-4">
+                <p className="text-gray-400 font-medium uppercase tracking-[0.2em] text-xs sm:text-sm">
+                  Refer & Earn
+                </p>
+                <h2 className="text-3xl sm:text-4xl lg:text-2.5 font-medium leading-[1.1] text-gray-900 tracking-tight">
+                  {t('website.heroReferfriend.title')}
+                </h2>
+                <p className="max-w-md text-base sm:text-lg text-gray-700 leading-relaxed font-thin">
+                  {t('website.heroReferfriend.des')}
+                </p>
+              </div>
 
-              <p className="max-w-md text-base leading-relaxed text-gray-700 sm:text-lg">
-                {t('website.heroReferfriend.des')}
-              </p>
-
-              {/* <Link
-                href="/referral"
-                className="inline-flex items-center justify-center rounded-full border border-gray-300 bg-[#eef1f6] px-8 py-4 font-medium text-black transition-colors duration-200 hover:bg-black hover:text-white"
-              >
-                {t('website.heroReferfriend.btn')}
-              </Link> */}
-
-              <div className="flex justify-center md:justify-start">
-                <ThemeButton variant="outline" onClick={() => navigate('/referral')}>
+              {/* Action Button - Full Width */}
+              <div className="w-full">
+                <ThemeButton
+                  onClick={() => navigate('/referral')}
+                  className="w-full bg-transparent border border-primary text-primary py-3 rounded-full text-lg font-bold shadow-lg hover:shadow-primary/20 transition-all duration-300 transform hover:-translate-y-1"
+                >
                   {t('website.heroReferfriend.btn')}
                 </ThemeButton>
               </div>
             </div>
 
-            {/* Right Side - Full Width on Mobile */}
-            <div className="relative order-2 h-[400px] lg:h-[420px]">
-              {/* src={isMobile ? '/images/refer-a-friend-xs.webp' : '/images/refer-a-friend-xl.webp'} */}
+            {/* Right Side - Image Box */}
+            <div className="relative h-[350px] sm:h-[450px] lg:h-auto min-h-[400px]">
               <img
-                src={'/images/One device. Unlimited travel freedom.png'}
-                alt="Refer a friend - Friends taking selfie"
-                className="rounded-2xl object-cover object-center lg:object-contain lg:object-center"
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                src={'/images/referral_modern_hero_1770800025686.png'}
+                alt="Refer a friend"
+                className="absolute inset-0 h-full w-full object-cover lg:object-contain object-center lg:object-right lg:p-0"
+                loading="lazy"
               />
             </div>
           </div>

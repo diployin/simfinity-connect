@@ -369,6 +369,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { useCurrency } from '@/contexts/CurrencyContext';
+import { convertPrice, getCurrencySymbol } from '@/lib/currency';
 
 // Types
 interface DestinationWithPricing {
@@ -398,7 +399,8 @@ interface SearchModalProps {
 export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [, setLocation] = useLocation();
-  const { currency } = useCurrency();
+  const { currency, currencies } = useCurrency();
+  const currencySymbol = getCurrencySymbol(currency, currencies);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Focus input when modal opens
@@ -429,7 +431,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
           name: country.name,
           countryCode: country.countryCode,
           slug: country.slug,
-          price: `US$${parseFloat(country.minPrice).toFixed(2)}`,
+          price: `${currencySymbol}${convertPrice(parseFloat(country.minPrice), 'USD', currency, currencies).toFixed(2)}`,
           type: 'country' as const,
         }));
 
@@ -437,7 +439,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
       const globalRegion = {
         name: 'Global',
         slug: 'global',
-        price: 'US$8.99',
+        price: `${currencySymbol}${convertPrice(8.99, 'USD', currency, currencies).toFixed(2)}`,
         countries: '121',
         type: 'global' as const,
       };
@@ -445,7 +447,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
       const europeRegion = regionsWithPricing.find((r) => r.name.toLowerCase() === 'europe') || {
         name: 'Europe',
         slug: 'europe',
-        price: 'US$4.99',
+        price: `${currencySymbol}${convertPrice(4.99, 'USD', currency, currencies).toFixed(2)}`,
         countries: '35',
         type: 'region' as const,
       };
@@ -457,8 +459,8 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
           name: europeRegion.name,
           slug: europeRegion.slug,
           price: europeRegion.minPrice
-            ? `US$${parseFloat(europeRegion.minPrice).toFixed(2)}`
-            : 'US$4.99',
+            ? `${currencySymbol}${parseFloat(europeRegion.minPrice).toFixed(2)}`
+            : `${currencySymbol}${convertPrice(4.99, 'USD', currency, currencies).toFixed(2)}`,
           countries: '35',
           type: 'region' as const,
         },
@@ -471,34 +473,34 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
         name: 'Mexico',
         countryCode: 'mx',
         slug: 'mexico',
-        price: 'US$4.99',
+        price: `${currencySymbol}${convertPrice(4.99, 'USD', currency, currencies).toFixed(2)}`,
         type: 'country' as const,
       },
       {
         name: 'Switzerland',
         countryCode: 'ch',
         slug: 'switzerland',
-        price: 'US$3.99',
+        price: `${currencySymbol}${convertPrice(3.99, 'USD', currency, currencies).toFixed(2)}`,
         type: 'country' as const,
       },
       {
         name: 'India',
         countryCode: 'in',
         slug: 'india',
-        price: 'US$3.99',
+        price: `${currencySymbol}${convertPrice(3.99, 'USD', currency, currencies).toFixed(2)}`,
         type: 'country' as const,
       },
       {
         name: 'Global',
         slug: 'global',
-        price: 'US$8.99',
+        price: `${currencySymbol}${convertPrice(8.99, 'USD', currency, currencies).toFixed(2)}`,
         countries: '121',
         type: 'global' as const,
       },
       {
         name: 'Europe',
         slug: 'europe',
-        price: 'US$4.99',
+        price: `${currencySymbol}${convertPrice(4.99, 'USD', currency, currencies).toFixed(2)}`,
         countries: '35',
         type: 'region' as const,
       },
@@ -533,7 +535,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
           ...country,
           type: 'country' as const,
           displayName: country.name,
-          displayPrice: `From US$${parseFloat(country.minPrice).toFixed(2)}`,
+          displayPrice: `From ${currencySymbol}${parseFloat(country.minPrice).toFixed(2)}`,
           icon: (
             <div className="w-8 h-6 rounded overflow-hidden flex-shrink-0">
               <img
@@ -555,11 +557,11 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
           ...region,
           type: 'region' as const,
           displayName: region.name,
-          displayPrice: `From US$${parseFloat(region.minPrice).toFixed(2)}`,
+          displayPrice: `From ${currencySymbol}${parseFloat(region.minPrice).toFixed(2)}`,
           countriesCount: region.countries?.length || 0,
           icon: (
-            <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
-              <Globe className="h-4 w-4 text-blue-600" />
+            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+              <Globe className="h-4 w-4 text-primary" />
             </div>
           ),
         }));
@@ -574,11 +576,11 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
         slug: 'global',
         type: 'global' as const,
         displayName: 'Global',
-        displayPrice: 'From US$8.99',
+        displayPrice: `From ${currencySymbol}${convertPrice(8.99, 'USD', currency, currencies).toFixed(2)}`,
         countriesCount: 121,
         icon: (
-          <div className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center flex-shrink-0">
-            <Globe className="h-4 w-4 text-purple-600" />
+          <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <Globe className="h-4 w-4 text-primary" />
           </div>
         ),
       });
@@ -616,7 +618,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                   placeholder="Enter your destination"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 pr-4 py-6 text-base rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 bg-gray-50 placeholder:text-gray-400"
+                  className="pl-12 pr-4 py-6 text-base rounded-xl border border-primary/30 focus:border-primary focus:ring-2 focus:ring-primary/20 bg-gray-50 placeholder:text-gray-400"
                 />
               </div>
             </form>
@@ -658,7 +660,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                           initial={{ opacity: 0, y: 5 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: idx * 0.03 }}
-                          className="flex items-center justify-between p-4 hover:bg-blue-50 rounded-xl cursor-pointer group border border-transparent hover:border-blue-100 transition-all"
+                          className="flex items-center justify-between p-4 hover:bg-primary/5 rounded-xl cursor-pointer group border border-transparent hover:border-primary/20 transition-all"
                         >
                           <div className="flex items-center gap-4">
                             {item.icon}
@@ -671,13 +673,10 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                           </div>
                           <div className="flex items-center gap-3">
                             <span
-                              className={`text-xs font-medium px-2 py-1 rounded ${
-                                item.type === 'country'
-                                  ? 'bg-green-100 text-green-800'
-                                  : item.type === 'region'
-                                    ? 'bg-blue-100 text-blue-800'
-                                    : 'bg-purple-100 text-purple-800'
-                              }`}
+                              className={`text-xs font-medium px-2 py-1 rounded ${item.type === 'country'
+                                ? 'bg-green-100 text-green-800'
+                                : 'bg-primary/10 text-primary'
+                                }`}
                             >
                               {item.type === 'country'
                                 ? 'Country'
@@ -685,7 +684,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                                   ? 'Region'
                                   : 'Global'}
                             </span>
-                            <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-blue-600 transition-colors" />
+                            <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-primary transition-colors" />
                           </div>
                         </motion.div>
                       </Link>
@@ -717,7 +716,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: idx * 0.1 }}
-                        className="flex items-center justify-between p-4 bg-gray-50 hover:bg-blue-50 rounded-xl cursor-pointer group border border-gray-100 hover:border-blue-200 transition-all"
+                        className="flex items-center justify-between p-4 bg-gray-50 hover:bg-primary/5 rounded-xl cursor-pointer group border border-gray-100 hover:border-primary/20 transition-all"
                       >
                         <div className="flex items-center gap-4">
                           {dest.type === 'country' ? (
@@ -730,21 +729,17 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                             </div>
                           ) : (
                             <div
-                              className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                                dest.type === 'global' ? 'bg-purple-100' : 'bg-blue-100'
-                              }`}
+                              className="w-10 h-10 rounded-lg flex items-center justify-center bg-primary/10"
                             >
                               <Globe
-                                className={`h-5 w-5 ${
-                                  dest.type === 'global' ? 'text-purple-600' : 'text-blue-600'
-                                }`}
+                                className="h-5 w-5 text-primary"
                               />
                             </div>
                           )}
                           <div className="flex-1 min-w-0">
                             <p className="font-medium text-gray-900 truncate">{dest.name}</p>
                             <div className="flex items-center gap-2">
-                              <span className="text-sm font-medium text-blue-600">
+                              <span className="text-sm font-bold text-primary">
                                 {dest.price}
                               </span>
                               {'countries' in dest && (
@@ -757,13 +752,10 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                         </div>
                         <div className="flex items-center">
                           <span
-                            className={`text-xs font-medium px-2 py-1 rounded ${
-                              dest.type === 'country'
-                                ? 'bg-green-100 text-green-800'
-                                : dest.type === 'region'
-                                  ? 'bg-blue-100 text-blue-800'
-                                  : 'bg-purple-100 text-purple-800'
-                            }`}
+                            className={`text-xs font-bold px-2 py-1 rounded ${dest.type === 'country'
+                              ? 'bg-green-100 text-green-800'
+                              : 'bg-primary/10 text-primary'
+                              }`}
                           >
                             {dest.type === 'country'
                               ? 'Country'
@@ -771,7 +763,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                                 ? 'Region'
                                 : 'Global'}
                           </span>
-                          <ChevronRight className="h-5 w-5 text-gray-400 ml-2 group-hover:text-blue-600 transition-colors" />
+                          <ChevronRight className="h-5 w-5 text-gray-400 ml-2 group-hover:text-primary transition-colors" />
                         </div>
                       </motion.div>
                     </Link>
@@ -779,9 +771,9 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                 </div>
 
                 {/* Info message - No All Countries section */}
-                <div className="mt-8 p-4 bg-blue-50 rounded-xl border border-blue-100">
+                <div className="mt-8 p-4 bg-primary/5 rounded-xl border border-primary/10">
                   <div className="flex items-start gap-3">
-                    <Search className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <Search className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
                     <div>
                       <p className="text-sm font-medium text-gray-900">
                         Search for more destinations

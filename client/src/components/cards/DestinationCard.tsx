@@ -97,22 +97,27 @@ const DestinationCardSmall: React.FC<DestinationCardProps> = ({
       style={{
         animationDelay: `${index * 50}ms`,
       }}
-      className="group cursor-pointer flex items-center justify-between p-5  border border-gray-200   shadow-sm sm:w-auto rounded-2xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 animate-in fade-in slide-in-from-bottom-4 bg-[#F7F7F8]"
+      className="group cursor-pointer flex items-center justify-between p-3 sm:p-4 md:p-5 border border-gray-200 shadow-sm rounded-xl sm:rounded-2xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2 animate-in fade-in slide-in-from-bottom-4 bg-[#F7F7F8] w-full"
     >
-      <div className="flex items-center gap-4">
-        <div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-white shadow-sm flex-shrink-0">
+      <div className="flex items-center gap-2 sm:gap-3 md:gap-4 min-w-0">
+        <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center overflow-hidden rounded-full bg-white shadow-sm flex-shrink-0">
           {renderIcon()}
         </div>
-        <div className="text-left">
-          <h3 className="text-base sm:text-lg font-semibold text-black">{name}</h3>
-          <p className="text-sm text-gray-500 font-normal">
-            From {getCurrencySymbol(currency)}{startPrice.toFixed(2)}
-            {additionalInfo && ` • ${additionalInfo}`}
+        <div className="text-left min-w-0">
+          <h3 className="text-sm sm:text-base md:text-lg font-bold text-black truncate leading-tight">
+            {name}
+          </h3>
+          <p className="text-[10px] sm:text-xs md:text-sm text-gray-500 font-medium whitespace-nowrap overflow-hidden text-ellipsis">
+            From {getCurrencySymbol(currency)}
+            <span className="font-bold text-primary">
+              {startPrice.toFixed(2)}
+            </span>
+            {additionalInfo && <span className="hidden xs:inline"> • {additionalInfo}</span>}
           </p>
         </div>
       </div>
 
-      <ChevronRightIcon className="h-5 w-5 text-gray-400 group-hover:text-black transition-colors flex-shrink-0" />
+      <ChevronRightIcon className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400 group-hover:text-black transition-colors flex-shrink-0 ml-1" />
     </button>
   );
 };

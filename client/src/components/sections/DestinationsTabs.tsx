@@ -192,33 +192,36 @@ export function DestinationsTabs() {
               ) : destinations.length > 0 ? (
                 destinations.map((destination) => (
                   <Link key={destination.id} href={`/destination/${destination.slug}`}>
-                    <Card className="hover-elevate active-elevate-2 cursor-pointer border-border/50 h-full group">
-                      <CardContent className="p-4 flex flex-col items-center text-center">
-                        <div className="h-14 w-14 rounded-full overflow-hidden mb-3 flex items-center justify-center bg-gradient-to-br from-teal-100 to-teal-50 dark:from-violet-950 dark:to-teal-900 shadow-sm group-hover:shadow-md transition-shadow">
+                    <Card className="hover-elevate active-elevate-2 cursor-pointer border-border/50 h-full group bg-white dark:bg-slate-900 overflow-hidden">
+                      <CardContent className="p-3 sm:p-4 flex flex-col items-center text-center">
+                        <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-full overflow-hidden mb-2 sm:mb-3 flex items-center justify-center bg-gradient-to-br from-teal-100 to-teal-50 dark:from-slate-800 dark:to-slate-900 shadow-sm group-hover:shadow-md transition-shadow">
                           <ReactCountryFlag
                             countryCode={destination.countryCode}
                             svg
                             style={{
-                              width: '40px',
-                              height: '40px',
+                              width: '32px',
+                              height: '32px',
                               objectFit: 'cover',
                               borderRadius: '50%',
                             }}
                           />
                         </div>
-                        <h3 className="font-medium text-sm text-foreground mb-1 line-clamp-1">
+                        <h3 className="font-bold text-xs sm:text-sm text-foreground mb-1 line-clamp-1 w-full px-1">
                           {destination.name}
                         </h3>
                         {destination.minPrice && (
-                          <p className="text-xs text-primary font-semibold">
-                            {t('website.home.destinations.from', 'From')} {currencySymbol}
-                            {convertPrice(
-                              parseFloat(destination.minPrice),
-                              'USD',
-                              currency,
-                              currencies,
-                            ).toFixed(2)}
-                          </p>
+                          <div className="text-[10px] sm:text-xs font-medium text-muted-foreground flex items-center gap-1">
+                            <span>{t('website.home.destinations.from', 'From')}</span>
+                            <span className="text-teal-600 dark:text-teal-400 font-bold">
+                              {currencySymbol}
+                              {convertPrice(
+                                parseFloat(destination.minPrice),
+                                'USD',
+                                currency,
+                                currencies,
+                              ).toFixed(2)}
+                            </span>
+                          </div>
                         )}
                       </CardContent>
                     </Card>
@@ -241,38 +244,41 @@ export function DestinationsTabs() {
 
                   return (
                     <Link key={region.id} href={`/region/${region.slug}`}>
-                      <Card className="hover-elevate active-elevate-2 cursor-pointer border-border/50 h-full group">
-                        <CardContent className="p-4 flex flex-col items-center text-center">
-                          <div className="h-14 w-14 rounded-full overflow-hidden mb-3 flex items-center justify-center bg-gradient-to-br from-amber-100 to-amber-50 dark:from-amber-950 dark:to-amber-900 shadow-sm group-hover:shadow-md transition-shadow">
+                      <Card className="hover-elevate active-elevate-2 cursor-pointer border-border/50 h-full group bg-white dark:bg-slate-900 overflow-hidden">
+                        <CardContent className="p-3 sm:p-4 flex flex-col items-center text-center">
+                          <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-full overflow-hidden mb-2 sm:mb-3 flex items-center justify-center bg-gradient-to-br from-amber-100 to-amber-50 dark:from-slate-800 dark:to-slate-900 shadow-sm group-hover:shadow-md transition-shadow">
                             <ReactCountryFlag
                               countryCode={iconCode}
                               svg
                               style={{
-                                width: '40px',
-                                height: '40px',
+                                width: '32px',
+                                height: '32px',
                                 objectFit: 'cover',
                                 borderRadius: '50%',
                               }}
                             />
                           </div>
-                          <h3 className="font-medium text-sm text-foreground mb-1 line-clamp-2">
+                          <h3 className="font-bold text-xs sm:text-sm text-foreground mb-1 line-clamp-1 w-full px-1">
                             {region.name}
                           </h3>
                           {countryCount > 0 && (
-                            <p className="text-xs text-muted-foreground mb-1">
+                            <p className="text-[10px] text-muted-foreground mb-0.5">
                               {countryCount} {t('website.home.destinations.countries', 'countries')}
                             </p>
                           )}
                           {region.minPrice && (
-                            <p className="text-xs text-orange-500 font-semibold">
-                              {t('website.home.destinations.from', 'From')} {currencySymbol}
-                              {convertPrice(
-                                parseFloat(region.minPrice),
-                                'USD',
-                                currency,
-                                currencies,
-                              ).toFixed(2)}
-                            </p>
+                            <div className="text-[10px] sm:text-xs font-medium text-muted-foreground flex items-center gap-1">
+                              <span>{t('website.home.destinations.from', 'From')}</span>
+                              <span className="text-amber-600 dark:text-amber-400 font-bold">
+                                {currencySymbol}
+                                {convertPrice(
+                                  parseFloat(region.minPrice),
+                                  'USD',
+                                  currency,
+                                  currencies,
+                                ).toFixed(2)}
+                              </span>
+                            </div>
                           )}
                         </CardContent>
                       </Card>
@@ -306,21 +312,21 @@ export function DestinationsTabs() {
                 globalPackages.map((pkg) => (
                   <Link key={pkg.id} href="/global">
                     <Card className="hover-elevate active-elevate-2 cursor-pointer border-border/50 h-full group bg-muted/30">
-                      <CardContent className="p-4 flex items-center gap-4">
-                        <div className="h-12 w-12 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 flex-shrink-0">
-                          <Globe className="h-6 w-6 text-slate-500 dark:text-slate-400" />
+                      <CardContent className="p-3 sm:p-4 flex items-center gap-3 sm:gap-4">
+                        <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full flex items-center justify-center bg-slate-100 dark:bg-slate-800 flex-shrink-0">
+                          <Globe className="h-5 w-5 sm:h-6 sm:w-6 text-slate-500 dark:text-slate-400" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-medium text-sm text-foreground">
+                          <h3 className="font-bold text-xs sm:text-sm text-foreground truncate">
                             {t('website.home.destinations.global', 'Global')} ({pkg.dataAmount})
                           </h3>
-                          <p className="text-xs text-muted-foreground">
+                          <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
                             {pkg.validity}{' '}
                             {t('website.home.destinations.daysValidity', 'days validity')}
                           </p>
                         </div>
                         <div className="text-right flex-shrink-0">
-                          <span className="font-semibold text-foreground">
+                          <span className="font-bold text-sm sm:text-base text-teal-600 dark:text-teal-400">
                             {currencySymbol}
                             {convertPrice(
                               parseFloat(pkg.retailPrice),
@@ -329,7 +335,6 @@ export function DestinationsTabs() {
                               currencies,
                             ).toFixed(2)}
                           </span>
-                          <span className="text-xs text-muted-foreground ml-1">{currency}</span>
                         </div>
                       </CardContent>
                     </Card>

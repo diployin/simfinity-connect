@@ -48,6 +48,7 @@ interface MegaMenuDropdownProps {
   config?: any;
   onOpenChange?: (isOpen: boolean) => void;
   className: string;
+  isDarkBackground?: boolean;
 }
 
 const MegaMenuDropdownDestination: React.FC<MegaMenuDropdownProps> = ({
@@ -56,6 +57,7 @@ const MegaMenuDropdownDestination: React.FC<MegaMenuDropdownProps> = ({
   config,
   onOpenChange,
   className,
+  isDarkBackground = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'top10' | 'countries' | 'regions' | 'global'>('top10');
@@ -294,10 +296,14 @@ const MegaMenuDropdownDestination: React.FC<MegaMenuDropdownProps> = ({
         type="button"
         onClick={handleToggle}
         className={cn(
-          `inline-flex items-center gap-1 px-5 py-2 text-sm font-medium transition-colors hover:text-white hover:bg-black ${className} border rounded-3xl border-black gap-3 `,
+          `inline-flex items-center gap-1 px-5 py-2 text-sm font-medium transition-all border rounded-3xl gap-3`,
+          isDarkBackground
+            ? "text-white border-white/30 hover:bg-white/10"
+            : "text-gray-900 border-black hover:text-white hover:bg-black",
+          className
         )}
       >
-        <Search className="w-4 h-4" />
+        <Search className={cn("w-4 h-4 transition-colors", isDarkBackground ? "text-white" : "text-black group-hover:text-white")} />
 
         {label}
       </button>

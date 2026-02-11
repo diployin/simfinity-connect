@@ -1,129 +1,173 @@
+import { RootState } from '@/redux/store/store';
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useSelector } from 'react-redux';
 
 const features = [
     {
-        tag: 'Virtual location',
-        title: 'Changing your location is effortless',
+        tag: 'IP PRIVACY',
+        title: 'Change your digital location with a tap',
         description:
-            'The Simfinity eSIM app lets you change your virtual location in a matter of seconds. While using this feature, you can:',
+            'Route your traffic through servers in 115+ countries. Mask your real IP address to browse more privately and access your home content from anywhere.',
         bullets: [
             'Choose from 115+ virtual locations.',
-            'Browse more privately.',
-            'Access your home content without borders.',
+            'Mask your real IP address.',
+            'Access your favorite content anywhere.',
         ],
-        img: '/images/security2.jpeg',
+        img: '/images/security_hero_premium_1770810831045.png',
         reverse: false,
     },
     {
-        tag: 'Ad blocker',
-        title: 'More blocked ads, more relaxed browsing',
+        tag: 'AD BLOCKER',
+        title: 'Stop annoying ads and save your data',
         description:
-            'Turning on the ad blocker in the Simfinity app takes just a single click. Make those annoying advertisements disappear and enjoy the benefits:',
-        bullets: ['Browse without distractions.', 'Save mobile data.', 'Increase browsing speed.'],
-        img: '/images/security3.jpeg',
+            'Block intrusive advertisements and trackers before they reach your device. Save up to 28% of your mobile data and enjoy a smoother browsing experience.',
+        bullets: [
+            'Browse without distractions.',
+            'Save up to 28% of mobile data.',
+            'Increase browsing speed.'
+        ],
+        img: '/images/security_hero_shield_phone_premium_1770810803937.png',
         reverse: true,
     },
     {
-        tag: 'Web protection',
-        title: 'Don’t let online threats ruin your trip',
+        tag: 'WEB PROTECTION',
+        title: 'Guard against malicious websites',
         description:
-            'An eSIM that guards you against internet dangers? Yes, please. The Simfinity Web protection feature allows you to:',
-        bullets: ['Block malicious sites.', 'Limit online trackers.', 'Browse faster.'],
-        img: '/images/security4.jpeg',
+            'Simfinity checks every site you visit against a global database of threats. Block phishing attempts and malicious domains automatically.',
+        bullets: [
+            'Block dangerous websites.',
+            'Limit online trackers.',
+            'Browse with peace of mind.'
+        ],
+        img: '/images/security_hero_illustration_v1_1770810852628.png',
         reverse: false,
     },
 ];
 
 const SecurityPage: React.FC = () => {
+
+    const { isExpanded } = useSelector((state: RootState) => state.topNavbar);
+    const isTopBarVisible = !isExpanded;
+
     return (
         <>
             <Helmet>
-                <title>Security features</title>
+                <title>Security features | Simfinity</title>
                 <meta
                     name="description"
-                    content="Stay connected wherever you go and protect your browsing."
+                    content="Stay connected wherever you go and protect your browsing with built-in security features."
                 />
             </Helmet>
-            <div className="min-h-screen bg-gradient-to-br from-background to-accent/5 mt-10">
-                <div className="container mx-auto px-4 py-8 max-w-6xl">
-                    {/* HERO SECTION */}
-                    <section className="">
-                        <div className="max-w-6xl mx-auto text-center px-4">
-                            <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">
-                                Safe travels with the <br />
-                                Simfinity security features
-                            </h1>
-                            <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-                                Stay connected wherever you go and protect your browsing.
-                            </p>
+            <main className={isTopBarVisible
+                ? 'mt-28 md:mt-0'
+                : 'mt-24 md:mt-0'}>
+                <div className="min-h-screen bg-white">
+                    <div className="container mx-auto px-4  sm:py-32 max-w-6xl">
+                        {/* 🔥 SECTION 1: HERO */}
+                        <section className="text-center mb-24 sm:mb-40">
+                            <div className="max-w-4xl mx-auto px-4">
+                                <h1 className="text-3xl md:text-5xl font-medium text-gray-900 leading-[1.1] tracking-tight mb-8">
+                                    Security features that <br className="hidden sm:block" /> go where you go
+                                </h1>
+                                <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed mb-12 font-thin">
+                                    Enjoy safer, more private browsing on any trip with a built-in ad blocker and web protection.
+                                </p>
 
-                            <div className="mt-10 flex justify-center">
-                                <img
-                                    src="/images/security1.jpeg"
-                                    alt="Security features"
-                                    // className="max-w-md w-full h-80"
-                                    className="max-w-md w-full h-80 object-contain"
-                                />
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* INTRO TEXT */}
-                    <section className="max-w-6xl mx-auto py-16 px-4 grid md:grid-cols-2 gap-10">
-                        <h2 className="text-3xl font-bold">
-                            Better eSIM security — stay safer across your travels
-                        </h2>
-                        <p className="text-gray-600">
-                            You don’t want to run out of data because some websites use too many trackers and ads. You
-                            also shouldn’t have to worry about malicious websites instead of enjoying your time
-                            abroad. Enable “Ad blocker” and “Web protection” in your eSIM settings and increase your
-                            privacy when traveling.
-                        </p>
-                    </section>
-
-                    {/* FEATURE SECTIONS */}
-                    <section className="space-y-24 max-w-6xl mx-auto px-4 pb-20">
-                        {features.map((f, i) => (
-                            <div
-                                key={i}
-                                className={`grid md:grid-cols-2 gap-12 items-center ${f.reverse ? 'md:flex-row-reverse' : ''
-                                    }`}
-                            >
-                                {/* Image */}
-                                <div className="bg-gray-100 rounded-2xl p-6 flex justify-center">
-                                    <img src={f.img} alt={f.title} className="max-w-md w-full rounded-xl" />
+                                <div className="relative mx-auto max-w-3xl">
+                                    <div className="absolute inset-0 bg-primary/10 rounded-[4rem] blur-[80px] -z-10 opacity-60" />
+                                    <img
+                                        src="/images/security_hero_illustration_v1_1770810852628.png"
+                                        alt="Security Hero"
+                                        className="w-full h-auto object-contain rounded-[2.5rem] shadow-[0_32px_64px_-12px_rgba(0,0,0,0.1)] transition-transform duration-1000 hover:scale-[1.01]"
+                                    />
                                 </div>
+                            </div>
+                        </section>
 
-                                {/* Content */}
-                                <div>
-                                    <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
-                                        <span>•</span> {f.tag}
+                        {/* 🔥 SECTION 2: INTRO BLOCK */}
+                        <section className="max-w-5xl mx-auto py-24 px-4 border-t border-gray-100 grid md:grid-cols-2 gap-12 lg:gap-24 items-start">
+                            <div className="space-y-4">
+                                <p className="text-sm font-medium text-gray-400 uppercase tracking-widest">WHY PRIVACY MATTERS</p>
+                                <h2 className="text-2xl md:text-3xl lg:text-2.5 font-medium text-gray-900 leading-tight">
+                                    Enjoy a safer <br /> browsing experience
+                                </h2>
+                            </div>
+                            <p className="text-base md:text-lg text-gray-600 leading-relaxed pt-2 md:pt-14 font-thin">
+                                Your eSIM should do more than just connect you. Simfinity protects your digital life automatically, so you can focus on the journey ahead without worrying about online threats or intrusive tracking.
+                            </p>
+                        </section>
+
+                        {/* FEATURE SECTIONS */}
+                        <section className="space-y-32 md:space-y-48 py-24 sm:py-32">
+                            {features.map((f, i) => (
+                                <div
+                                    key={i}
+                                    className={`flex flex-col md:flex-row gap-16 md:gap-24 items-center ${f.reverse ? 'md:flex-row-reverse' : ''}`}
+                                >
+                                    {/* Image side */}
+                                    <div className="flex-1 w-full">
+                                        <div className="relative aspect-square sm:aspect-[4/3] rounded-[2.5rem] overflow-hidden bg-gray-50 flex items-center justify-center p-8 sm:p-12 shadow-sm border border-gray-100">
+                                            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-50" />
+                                            <img
+                                                src={f.img}
+                                                alt={f.title}
+                                                className="relative z-10 w-full h-full object-contain rounded-2xl transition-transform duration-500 hover:scale-105"
+                                            />
+                                        </div>
                                     </div>
 
-                                    <h3 className="text-3xl font-bold">{f.title}</h3>
+                                    {/* Content side */}
+                                    <div className="flex-1 max-w-xl">
+                                        <div className="flex items-center gap-2 text-sm font-medium text-gray-400 uppercase tracking-[0.1em] mb-6">
+                                            <span className="h-1.5 w-1.5 rounded-full bg-gray-400" /> {f.tag}
+                                        </div>
 
-                                    <p className="mt-4 text-gray-600">{f.description}</p>
+                                        <h3 className="text-2xl md:text-3xl font-medium text-gray-900 mb-6 leading-tight">
+                                            {f.title}
+                                        </h3>
 
-                                    <ul className="mt-4 space-y-2">
-                                        {f.bullets.map((b, j) => (
-                                            <li key={j} className="flex items-start gap-2 text-gray-700">
-                                                <span className="text-[#2c7338]">✔</span> {b}
-                                            </li>
-                                        ))}
-                                    </ul>
+                                        <p className="text-base text-gray-600 mb-8 leading-relaxed font-thin">
+                                            {f.description}
+                                        </p>
+
+                                        <ul className="space-y-4">
+                                            {f.bullets.map((b, j) => (
+                                                <li key={j} className="flex items-start gap-4 text-gray-700 group">
+                                                    <div className="mt-1 flex-shrink-0 w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center transition-colors group-hover:bg-primary/20">
+                                                        <svg className="w-3.5 h-3.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+                                                        </svg>
+                                                    </div>
+                                                    <span className="text-base font-thin text-gray-600">{b}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+                            ))}
+                        </section>
+
+                        {/* 🔥 SECTION 6: BOTTOM CALL TO ACTION */}
+                        <section className="max-w-5xl mx-auto text-center py-10 sm:py-28 px-6 sm:px-12 bg-gray-50 rounded-[3rem] border border-gray-100">
+                            <div className="space-y-8">
+                                <p className="text-sm font-medium text-gray-400 uppercase tracking-[0.2em]">GET STARTED</p>
+                                <h3 className="text-2xl md:text-2.5 font-medium text-gray-900 leading-tight tracking-tight">
+                                    Stay connected <br className="sm:hidden" /> wherever you go
+                                </h3>
+                                <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed font-thin">
+                                    Download the Simfinity app and start your journey with protected, high-speed data in over 200 destinations.
+                                </p>
+                                <div className="pt-8">
+                                    <button className="bg-gray-900 text-white text-lg font-semibold py-5 px-12 rounded-[1.25rem] hover:bg-black transition-all shadow-xl hover:shadow-2xl active:scale-[0.98] duration-300">
+                                        Get Started with Simfinity
+                                    </button>
                                 </div>
                             </div>
-                        ))}
-                    </section>
-
-                    {/* BOTTOM SECTION (PLACEHOLDER) */}
-                    <section className="text-center py-12">
-                        <h3 className="text-2xl font-semibold">Stay connected wherever you go</h3>
-                    </section>
+                        </section>
+                    </div>
                 </div>
-            </div>
-
+            </main>
 
         </>
     );

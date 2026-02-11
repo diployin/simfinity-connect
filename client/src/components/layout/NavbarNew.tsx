@@ -55,7 +55,14 @@ export function NavbarNew() {
   const { isExpanded } = useSelector((state: RootState) => state.topNavbar);
 
   const logo = useSettingByKey('logo');
+  const whiteLogo = useSettingByKey('white_logo');
+  const [location] = useLocation();
   const staticData = useStaticData();
+
+  const isHomePage = location === '/';
+  // Use white logo only on homepage and only when NOT scrolled AND NOT mega menu open
+  const displayLogo = (isHomePage && !isScrolled && !isMegaMenuOpen) ? (whiteLogo || logo) : logo;
+  const isDarkBackground = isHomePage && !isScrolled && !isMegaMenuOpen;
 
   const handleMegaMenuOpenChange = (isOpen: boolean) => {
     setIsMegaMenuOpen(isOpen);
@@ -179,32 +186,36 @@ export function NavbarNew() {
   return (
     <>
       <div className="fixed top-0 left-0 right-0 z-50">
-        {/* <TopPromoBar /> */}
-        <div className={`w-full bg-primary text-white relative ${isExpanded ? 'hidden' : 'block'}`}>
-          <div className="max-w-7xl mx-auto px-8 sm:px-4 md:px-6 py-2 flex items-center justify-center gap-2 sm:gap-3 md:gap-4">
-            {/* Message */}
-            <p className="text-xs xs:text-sm sm:text-base md:text-sm font-medium text-center">
-              ❄️ Get <span className="font-bold whitespace-nowrap">25% off 5GB+ plans</span> with
-              the code{' '}
-              <span className="font-bold bg-white/10 px-1.5 py-0.5 rounded whitespace-nowrap">
-                SIMFINITY
-              </span>
-            </p>
+        {/* TopPromoBar*/}
+        <div className={`w-full bg-black text-white relative ${isExpanded ? 'hidden' : 'block'}`}>
+          <div className="max-w-[1500px] mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-2 flex items-center justify-between">
+            {/* Promo Content (Left aligned) */}
+            <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
+              {/* Message */}
+              <p className="text-xs xs:text-sm sm:text-base md:text-sm font-medium">
+                ❄️ Get <span className="font-bold whitespace-nowrap">25% off 5GB+ plans</span> with
+                the code{' '}
+                <span className="font-bold bg-white/10 px-1.5 py-0.5 rounded whitespace-nowrap">
+                  SIMFINITY
+                </span>
+              </p>
 
-            {/* Button - Responsive with different text on mobile */}
-            <button className="px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 text-xs sm:text-sm md:text-sm font-semibold border border-white rounded-full hover:bg-black hover:text-white transition whitespace-nowrap min-w-[80px] xs:min-w-[90px] sm:min-w-[110px] md:min-w-[120px]">
-              <span className="hidden xs:inline">Get the Deal</span>
-              <span className="xs:hidden">Get Deal</span>
+              {/* Button */}
+              <button className="px-2.5 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 text-xs sm:text-sm md:text-sm font-semibold border border-white rounded-full hover:bg-white hover:text-black transition whitespace-nowrap">
+                <span className="hidden xs:inline">Get the Deal</span>
+                <span className="xs:hidden">Get Deal</span>
+              </button>
+            </div>
+
+            {/* Close Button (Right aligned) */}
+            <button
+              onClick={handleClose}
+              className="p-1 hover:opacity-70 transition-opacity"
+              aria-label="Close promotion"
+            >
+              <X size={16} className="sm:w-[18px] sm:h-[18px]" />
             </button>
           </div>
-
-          {/* Close Button */}
-          <button
-            onClick={handleClose}
-            className="absolute right-2 sm:right-3 md:right-4 top-1/2 -translate-y-1/2 p-1 hover:opacity-70"
-          >
-            <X size={16} className="sm:w-[18px] sm:h-[18px]" />
-          </button>
         </div>
         <header
           className={cn(
@@ -224,18 +235,18 @@ export function NavbarNew() {
               <div className="flex items-center justify-between h-14 sm:h-16 md:h-18 lg:h-[72px] gap-2 sm:gap-3 md:gap-4 lg:gap-4 xl:gap-5">
                 {/* 🔥 LEFT SIDE - LOGO */}
                 <Link href="/" className="flex-shrink-0 z-10" data-testid="link-home">
-                  {logo ? (
+                  {displayLogo ? (
                     <img
-                      src={logo}
+                      src={displayLogo}
                       alt="Logo"
-                      className="h-7 sm:h-8 md:h-9 lg:h-12 xl:h-11 w-auto"
+                      className="h-12 sm:h-14 md:h-16 lg:h-20 xl:h-18 w-auto py-2"
                     />
                   ) : (
                     <div className="flex items-center gap-2 cursor-pointer group">
-                      <div className="h-7 w-7 sm:h-8 sm:w-8 md:h-9 md:w-9 lg:h-10 lg:w-10 xl:h-11 xl:w-11 rounded-lg bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center transition-transform duration-200 group-hover:rotate-6">
-                        <Globe className="h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-4.5 md:w-4.5 lg:h-5 lg:w-5 text-white" />
+                      <div className="h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 lg:h-11 lg:w-11 xl:h-10 xl:w-10 rounded-lg bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center transition-transform duration-200 group-hover:rotate-6">
+                        <Globe className="h-4 w-4 sm:h-4.5 sm:w-4.5 md:h-5 md:w-5 lg:h-5.5 lg:w-5.5 text-white" />
                       </div>
-                      <span className="font-bold text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl dark:text-white text-gray-900 whitespace-nowrap">
+                      <span className="font-bold text-base sm:text-lg md:text-xl lg:text-xl xl:text-2xl dark:text-white text-gray-900 whitespace-nowrap">
                         Simfinity
                       </span>
                     </div>
@@ -251,21 +262,25 @@ export function NavbarNew() {
                       label={'Product'}
                       badge={'New'}
                       config={staticData?.NavbarData?.productMegaMenuConfig}
+                      isDarkBackground={isDarkBackground}
                     />
                     <MegaMenuDropdown
                       onOpenChange={handleMegaMenuOpenChange}
                       label={'Resources'}
                       config={staticData?.NavbarData?.rouceMegaMenuConfig}
+                      isDarkBackground={isDarkBackground}
                     />
                     <MegaMenuDropdown
                       onOpenChange={handleMegaMenuOpenChange}
                       label={'Offers'}
                       config={staticData?.NavbarData?.offersMegaMenuConfig}
+                      isDarkBackground={isDarkBackground}
                     />
                     <MegaMenuDropdown
                       onOpenChange={handleMegaMenuOpenChange}
                       label={'Help'}
                       config={staticData?.NavbarData?.helpMegaMenuConfig}
+                      isDarkBackground={isDarkBackground}
                     />
                   </nav>
 
@@ -278,18 +293,24 @@ export function NavbarNew() {
                     label="Destinations"
                     onOpenChange={handleMegaMenuOpenChange}
                     className="hidden lg:inline-flex ml-1 md:ml-2"
+                    isDarkBackground={isDarkBackground}
                   />
-                  <NotificationBell />
+                  <div className="hidden lg:flex">
+                    <NotificationBell className={isDarkBackground ? 'text-white' : 'text-foreground'} />
+                  </div>
 
                   {/* 🔥 3. LANGUAGE SELECTOR - MD+ */}
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <button className="hidden md:flex items-center gap-1 px-2 py-1.5 sm:px-2.5 sm:py-2 md:px-3 md:py-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
-                        <Globe className="h-3.5 w-3.5 md:h-4 md:w-4 text-black dark:text-gray-400" />
-                        <span className="text-xs sm:text-sm md:text-sm font-medium text-black dark:text-gray-300 hidden sm:inline">
+                      <button className={cn(
+                        "hidden md:flex items-center gap-1 px-2 py-1.5 sm:px-2.5 sm:py-2 md:px-3 md:py-2 rounded-full transition-all",
+                        isDarkBackground ? "hover:bg-white/10" : "hover:bg-gray-100 dark:hover:bg-gray-800"
+                      )}>
+                        <Globe className={cn("h-3.5 w-3.5 md:h-4 md:w-4 transition-colors", isDarkBackground ? "text-white" : "text-black dark:text-gray-400")} />
+                        <span className={cn("text-xs sm:text-sm md:text-sm font-medium hidden sm:inline transition-colors", isDarkBackground ? "text-white" : "text-black dark:text-gray-300")}>
                           {languageCode.toUpperCase()}
                         </span>
-                        <ChevronDown className="h-3 w-3 text-gray-500" />
+                        <ChevronDown className={cn("h-3 w-3 transition-colors", isDarkBackground ? "text-white/70" : "text-gray-500")} />
                       </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="w-56">
@@ -324,7 +345,7 @@ export function NavbarNew() {
 
                   {/* 🔥 4. UTILITIES - SM+ */}
                   <div className="hidden sm:flex items-center gap-1 md:gap-1.5 lg:gap-2">
-                    <CurrencySelector />
+                    <CurrencySelector isDarkBackground={isDarkBackground} />
                     {/* <ThemeToggle /> */}
                   </div>
 
@@ -333,8 +354,13 @@ export function NavbarNew() {
                     <>
                       {!isAuthenticated ? (
                         <Link href="/login" className="hidden lg:flex">
-                          <button className="flex items-center gap-1.5 px-3 py-1.5 lg:px-4 lg:py-2 rounded-full border border-gray-300 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-600 transition-all text-sm font-medium">
-                            <User className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
+                          <button className={cn(
+                            "flex items-center gap-1.5 px-3 py-1.5 lg:px-4 lg:py-2 rounded-full border transition-all text-sm font-medium",
+                            isDarkBackground
+                              ? "text-white border-white/30 hover:bg-white/10"
+                              : "border-gray-300 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-600"
+                          )}>
+                            <User className={cn("h-3.5 w-3.5 lg:h-4 lg:w-4 transition-colors", isDarkBackground ? "text-white" : "text-black")} />
                             <span>{t('website.nav.signIn', 'Sign In')}</span>
                           </button>
                         </Link>
@@ -381,141 +407,88 @@ export function NavbarNew() {
                   {/* 🔥 MOBILE SEARCH ICON - SM & BELOW */}
                   <button
                     onClick={() => setIsMobileDestinationSearchOpen(true)}
-                    className="lg:hidden p-1.5 sm:p-2 md:p-2.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all"
+                    className={cn(
+                      "lg:hidden p-1.5 sm:p-2 md:p-2.5 rounded-lg transition-all",
+                      isDarkBackground ? "hover:bg-white/10" : "hover:bg-gray-100 dark:hover:bg-gray-800"
+                    )}
                     aria-label="Search destinations"
                   >
-                    <Search className="h-5 w-5 sm:h-6 sm:w-6" />
+                    <Search className={cn("h-6 w-6 sm:h-6.5 sm:w-6.5 transition-colors", isDarkBackground ? "text-white" : "text-black")} />
                   </button>
 
                   {/* 🔥 MOBILE HAMBURGER - XL & BELOW */}
                   <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
                     <SheetTrigger asChild>
                       <button
-                        className="xl:hidden p-1.5 sm:p-2 md:p-2.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all ml-1 sm:ml-2"
+                        className={cn(
+                          "xl:hidden p-1.5 sm:p-2 md:p-2.5 rounded-lg transition-all ml-1 sm:ml-2",
+                          isDarkBackground ? "hover:bg-white/10" : "hover:bg-gray-100 dark:hover:bg-gray-800"
+                        )}
                         aria-label="Open menu"
                       >
-                        <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
+                        <Menu className={cn("h-7 w-7 sm:h-8 sm:w-8 transition-colors", isDarkBackground ? "text-white" : "text-black")} />
                       </button>
                     </SheetTrigger>
                     <SheetContent
                       side="right"
-                      className="w-full p-0 pt-0 bg-white dark:bg-background flex flex-col"
+                      className="w-full p-0 pt-0 bg-[#f9fafb] dark:bg-background flex flex-col"
                     >
                       {/* 🔥 MOBILE HEADER WITH LOGO & CLOSE */}
-                      <SheetHeader className="border-b p-4 sticky top-0 bg-background/95 backdrop-blur-sm z-20">
+                      <SheetHeader className="p-4 px-6 bg-white z-20">
                         <div className="flex items-center justify-between w-full">
-                          <div className="flex items-center gap-2">
-                            {logo ? (
-                              <img src={logo} alt="Logo" className="h-7 w-auto" />
+                          <Link href="/" onClick={closeMobileMenu}>
+                            {displayLogo ? (
+                              <img src={displayLogo} alt="Logo" className="h-10 w-auto" />
                             ) : (
-                              <>
-                                <div className="h-6 w-6 rounded-lg bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center">
-                                  <Globe className="h-3.5 w-3.5 text-white" />
-                                </div>
-                                <span className="font-bold text-lg dark:text-white text-gray-900">
-                                  Simfinity
-                                </span>
-                              </>
+                              <span className="font-bold text-2xl text-teal-600">Simfinity</span>
                             )}
-                          </div>
+                          </Link>
                           <button
                             onClick={() => closeMobileMenu()}
-                            className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all flex-shrink-0"
-                            aria-label="Close menu"
+                            className="p-1 hover:bg-gray-100 rounded-full transition-all"
                           >
-                            <X className="h-5 w-5" />
+                            <X className="h-6 w-6 text-gray-500" />
                           </button>
                         </div>
                       </SheetHeader>
 
                       {/* 🔥 MOBILE CONTENT - SCROLLABLE */}
-                      <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600">
-                        {/* 🔥 AUTHENTICATED USER PROFILE */}
-                        {!isLoading && isAuthenticated && (
-                          <div className="mb-4 pb-4 border-b rounded-xl p-3 bg-gradient-to-r from-teal-50/80 to-blue-50/80 dark:from-teal-900/30 dark:to-blue-900/30 backdrop-blur-sm">
-                            <div className="flex items-center gap-3 mb-3">
-                              <div className="h-10 w-10 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center flex-shrink-0 shadow-lg">
-                                <User className="h-5 w-5 text-white" />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <p className="text-sm font-semibold truncate">
-                                  {user?.name || 'User'}
-                                </p>
-                                <p className="text-xs text-muted-foreground truncate">
-                                  {user?.email}
-                                </p>
-                              </div>
-                            </div>
-                            <div className="grid grid-cols-2 gap-2">
-                              <Link
-                                href="/account/profile"
-                                onClick={closeMobileMenu}
-                                className="flex items-center justify-center gap-2 p-2.5 rounded-lg border border-teal-200 dark:border-teal-700 hover:bg-white dark:hover:bg-gray-800 hover:shadow-md transition-all text-xs font-medium hover:border-teal-300"
-                              >
-                                <User className="h-4 w-4 flex-shrink-0" />
-                                Profile
-                              </Link>
-                              <Link
-                                href="/account/orders"
-                                onClick={closeMobileMenu}
-                                className="flex items-center justify-center gap-2 p-2.5 rounded-lg border border-teal-200 dark:border-teal-700 hover:bg-white dark:hover:bg-gray-800 hover:shadow-md transition-all text-xs font-medium hover:border-teal-300"
-                              >
-                                <ShoppingBag className="h-4 w-4 flex-shrink-0" />
-                                Orders
-                              </Link>
-                            </div>
-                          </div>
-                        )}
-
+                      <div className="flex-1 overflow-y-auto p-4 px-6 space-y-3">
                         {/* 🔥 ALL MOBILE MENU SECTIONS */}
-                        <div className="space-y-2">
+                        <div className="space-y-3">
                           {mobileMenuConfig.map((menu) => (
                             <div
                               key={menu.id}
-                              className="rounded-xl border border-gray-100 dark:border-gray-800 overflow-hidden"
+                              className="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden"
                             >
                               <button
                                 type="button"
                                 onClick={() => toggleMobileMenu(menu.id)}
-                                onKeyDown={(e) => handleKeyDown(e, () => toggleMobileMenu(menu.id))}
-                                className="flex w-full items-center justify-between py-3 px-4 text-left text-sm font-semibold hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all group"
-                                aria-expanded={activeMobileMenu === menu.id}
+                                className="flex w-full items-center justify-between py-4 px-5 text-left text-base font-bold text-gray-900"
                               >
-                                <span className="flex items-center gap-3">
-                                  {/* <span className="text-lg">{menu.icon}</span> */}
-                                  <span className="group-hover:text-teal-600 dark:group-hover:text-teal-400">
-                                    {menu.label}
-                                  </span>
-                                </span>
+                                <span>{menu.label}</span>
                                 <ChevronDown
                                   className={cn(
-                                    'h-4 w-4 transition-transform duration-200 flex-shrink-0',
+                                    'h-5 w-5 transition-transform duration-300 text-gray-400',
                                     activeMobileMenu === menu.id && 'rotate-180',
                                   )}
                                 />
                               </button>
 
                               {activeMobileMenu === menu.id && (
-                                <div className="bg-gray-50/80 dark:bg-gray-900/30 border-t border-gray-100 dark:border-gray-800 space-y-1 p-2">
+                                <div className="border-t border-gray-50 space-y-1 p-3 bg-white">
                                   {menu.items.map((item, idx) => (
                                     <Link
                                       key={idx}
                                       href={item.href}
                                       onClick={closeMobileMenu}
-                                      className="group flex items-center gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-gray-800 hover:shadow-sm transition-all text-sm"
+                                      className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-all text-sm font-medium"
                                     >
-                                      <span className="text-base flex-shrink-0">
-                                        {item.icon || '•'}
-                                      </span>
+                                      <span className="text-gray-400">{item.icon || '•'}</span>
                                       <div className="flex-1 min-w-0">
-                                        <div className="font-medium text-sm group-hover:text-teal-600 dark:group-hover:text-teal-400 truncate">
+                                        <div className="text-gray-900 group-hover:text-teal-600">
                                           {item.label}
                                         </div>
-                                        {item.description && (
-                                          <div className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
-                                            {item.description}
-                                          </div>
-                                        )}
                                       </div>
                                     </Link>
                                   ))}
@@ -525,117 +498,119 @@ export function NavbarNew() {
                           ))}
                         </div>
 
-                        {/* 🔥 LANGUAGE & CURRENCY IN MOBILE MENU */}
-                        <div className="space-y-2 mt-6 pt-4 border-t">
-                          {/* Language Selector */}
-                          <button
-                            onClick={() => toggleMobileMenu('language')}
-                            className="flex w-full items-center justify-between py-3 px-4 text-left text-sm font-semibold hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-all rounded-lg border border-gray-100 dark:border-gray-800 group"
-                          >
-                            <span className="flex items-center gap-3">
-                              <Globe className="h-4 w-4" />
-                              <span className="group-hover:text-teal-600 dark:group-hover:text-teal-400">
-                                {languageCode.toUpperCase()}
+                        {/* 🔥 LANGUAGE SELECTOR AS ACCORDION CARD */}
+                        <div className="pt-2">
+                          <div className="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden">
+                            <button
+                              onClick={() => toggleMobileMenu('language')}
+                              className="flex w-full items-center justify-between py-4 px-5 text-left text-base font-bold text-primary"
+                            >
+                              <span className="flex items-center gap-3 uppercase">
+                                <Globe className="h-5 w-5" />
+                                {languageCode}
                               </span>
-                            </span>
-                            <ChevronDown
-                              className={cn(
-                                'h-4 w-4 transition-transform duration-200',
-                                activeMobileMenu === 'language' && 'rotate-180',
-                              )}
-                            />
-                          </button>
+                              <ChevronDown
+                                className={cn(
+                                  'h-5 w-5 transition-transform duration-300 text-primary/40',
+                                  activeMobileMenu === 'language' && 'rotate-180',
+                                )}
+                              />
+                            </button>
 
-                          {activeMobileMenu === 'language' && (
-                            <div className="bg-gray-50/80 dark:bg-gray-900/30 border border-gray-100 dark:border-gray-800 rounded-lg overflow-hidden space-y-1 p-2">
-                              {languages.map((lang) => {
-                                const active = languageCode === lang.code;
-                                return (
-                                  <button
-                                    key={lang.code}
-                                    onClick={() => {
-                                      setLanguage(lang.code);
-                                      setActiveMobileMenu(null);
-                                    }}
-                                    className={cn(
-                                      'flex items-center justify-between w-full p-3 rounded-lg text-sm transition-all hover:bg-white dark:hover:bg-gray-800',
-                                      active && 'bg-white dark:bg-gray-800 border border-teal-500',
-                                    )}
-                                  >
-                                    <div className="flex items-center gap-3">
-                                      <ReactCountryFlag
-                                        countryCode={lang.flagCode}
-                                        svg
-                                        style={{ width: '18px', height: '13px' }}
-                                      />
-                                      <div className="text-left">
-                                        <div className="font-medium text-sm">{lang.nativeName}</div>
-                                        <div className="text-xs text-muted-foreground">
-                                          {lang.name}
+                            {activeMobileMenu === 'language' && (
+                              <div className="border-t border-gray-50 p-3 space-y-2 bg-gray-50/30">
+                                {languages.map((lang) => {
+                                  const active = languageCode === lang.code;
+                                  return (
+                                    <button
+                                      key={lang.code}
+                                      onClick={() => {
+                                        setLanguage(lang.code);
+                                        setActiveMobileMenu(null);
+                                      }}
+                                      className={cn(
+                                        'flex items-center justify-between w-full p-4 rounded-xl transition-all bg-white border',
+                                        active
+                                          ? 'border-primary shadow-sm'
+                                          : 'border-transparent text-gray-700',
+                                      )}
+                                    >
+                                      <div className="flex items-center gap-3">
+                                        <ReactCountryFlag
+                                          countryCode={lang.flagCode}
+                                          svg
+                                          style={{ width: '24px', height: '18px' }}
+                                        />
+                                        <div className="text-left">
+                                          <div className="font-bold text-gray-900">
+                                            {lang.nativeName}
+                                          </div>
+                                          <div className="text-xs text-gray-400 font-medium">
+                                            {lang.name}
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
-                                    {active && <div className="h-2 w-2 rounded-full bg-teal-600" />}
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          )}
-
-                          {/* Currency Selector */}
-                          <div className="pt-2">
-                            <CurrencySelector />
+                                      {active && (
+                                        <div className="h-2.5 w-2.5 rounded-full bg-primary" />
+                                      )}
+                                    </button>
+                                  );
+                                })}
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
 
                       {/* 🔥 MOBILE BOTTOM FIXED CTA SECTION */}
-                      <div className="p-4 border-t bg-gradient-to-r from-teal-50/90 to-blue-50/90 dark:from-teal-900/20 dark:to-blue-900/20 backdrop-blur-sm space-y-3 sticky bottom-0 shadow-lg">
-                        {/* Primary CTA */}
+                      <div className="p-6 px-6 bg-[#f0f5f9] border-t space-y-3 sticky bottom-0 z-30 shadow-[0_-10px_30px_rgba(0,0,0,0.03)]">
+                        {/* Search Destinations Button */}
                         <button
                           onClick={() => {
                             setIsMobileDestinationSearchOpen(true);
                             closeMobileMenu();
                           }}
-                          className="block w-full bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white font-semibold py-3 px-6 rounded-2xl text-center text-sm shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 active:scale-[0.98]"
+                          className="flex items-center justify-center gap-2 w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 px-6 rounded-2xl transition-all shadow-md active:scale-[0.98]"
                         >
-                          <Search className="h-4 w-4 flex-shrink-0" />
-                          Search Destinations
+                          <Search className="h-5 w-5" />
+                          <span>Search Destinations</span>
                         </button>
 
-                        {/* Auth Actions */}
+                        {/* Sign In / Sign Out Button */}
                         {!isLoading && (
                           <>
                             {!isAuthenticated ? (
-                              <>
-                                <Link
-                                  href="/login"
-                                  onClick={closeMobileMenu}
-                                  className="flex items-center justify-center gap-2 w-full border-2 border-teal-200 dark:border-teal-700 bg-white/90 dark:bg-gray-800 backdrop-blur-sm py-2.5 px-6 rounded-xl hover:bg-teal-50 dark:hover:bg-teal-900/30 hover:border-teal-300 hover:shadow-lg transition-all text-sm font-semibold text-teal-700 dark:text-teal-300 active:scale-[0.98]"
-                                >
-                                  <User className="h-4 w-4 flex-shrink-0" />
-                                  Sign In
-                                </Link>
-                                <Link
-                                  href="/register"
-                                  onClick={closeMobileMenu}
-                                  className="flex items-center justify-center bg-primary-gradient text-white font-semibold py-2.5 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all text-sm active:scale-[0.98]"
-                                >
-                                  Get Started
-                                </Link>
-                              </>
+                              <Link
+                                href="/login"
+                                onClick={closeMobileMenu}
+                                className="flex items-center justify-center gap-2 w-full bg-white border-2 border-primary/20 text-primary font-bold py-4 px-6 rounded-2xl transition-all hover:border-primary/40 active:scale-[0.98]"
+                              >
+                                <User className="h-5 w-5" />
+                                <span>Sign In</span>
+                              </Link>
                             ) : (
                               <button
                                 onClick={() => {
                                   handleLogout();
                                   closeMobileMenu();
                                 }}
-                                className="w-full text-red-600 dark:text-red-400 border-2 border-red-200 dark:border-red-800 hover:bg-red-50 dark:hover:bg-red-900/20 py-2.5 px-6 rounded-xl hover:shadow-md transition-all text-sm font-semibold active:scale-[0.98]"
+                                className="w-full bg-white border-2 border-red-500/20 text-red-600 font-bold py-4 px-6 rounded-2xl transition-all hover:bg-red-50 active:scale-[0.98]"
                               >
                                 Sign Out
                               </button>
                             )}
                           </>
+                        )}
+
+                        {/* Get Started Button */}
+                        {!isAuthenticated && (
+                          <Link
+                            href="/register"
+                            onClick={closeMobileMenu}
+                            className="flex items-center justify-center w-full bg-primary-dark hover:opacity-90 text-white font-bold py-4 px-6 rounded-2xl transition-all shadow-sm active:scale-[0.98]"
+                          >
+                            Get Started
+                          </Link>
                         )}
                       </div>
                     </SheetContent>

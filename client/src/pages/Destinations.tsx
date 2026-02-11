@@ -153,7 +153,7 @@ export default function Destinations() {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>{t('destinations.title')}</title>
+        <title>Destinations</title>
       </Helmet>
 
       <main className={isTopBarVisible
@@ -163,9 +163,11 @@ export default function Destinations() {
           {/* =========================
              HEADER
           ========================= */}
-          <div className="text-start mb-10">
-            <h1 className="text-5xl font-semibold">All destinations</h1>
-            <p className="mx-auto my-8 text-lg text-gray-600">
+          <div className="flex flex-col items-start text-start mb-12 max-w-4xl">
+            <h1 className="text-3xl sm:text-4xl lg:text-2.5 font-medium tracking-tight text-foreground">
+              All Destinations
+            </h1>
+            <p className="max-w-2xl mt-4 text-base md:text-lg text-gray-600 leading-relaxed font-thin">
               Find the best data plans worldwide and connect instantly with our premium eSIM
               solutions.
             </p>
@@ -313,7 +315,7 @@ export default function Destinations() {
                 {loadingGlobal ? (
                   <CountryRegionSkeleton count={6} />
                 ) : (
-                  globalPackages.map((g: any, i) => (
+                  globalPackages.slice(0, 1).map((g: any, i) => (
                     <DestinationCardSmall
                       key={g.id}
                       {...g}
@@ -328,6 +330,7 @@ export default function Destinations() {
             </TabsContent>
           </Tabs>
         </div>
+        <div className="h-24 sm:h-32 md:h-40" /> {/* Dynamic bottom spacing before footer */}
       </main>
     </div>
   );

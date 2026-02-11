@@ -27,7 +27,7 @@ const WhyChooseSailySection = () => {
   // Icon mapping by ID
   const iconMap: Record<number, React.ReactNode> = {
     1: <img src="/images/features/global.svg" className="h-10 w-10" alt="price" />,
-    2: <img src="/images/features/time (2).svg" className="h-10 w-10" alt="activate" />,
+    2: <img src="/images/features/time2.svg" className="h-10 w-10" alt="activate" />,
     3: <img src="/images/features/no-wifi.svg" className="h-10 w-10" alt="roaming" />,
     4: <img src="/images/features/sim-card.svg" className="h-10 w-10" alt="esim" />,
     5: <img src="/images/features/bulb.svg" className="h-10 w-10" alt="alert" />,
@@ -69,60 +69,68 @@ const WhyChooseSailySection = () => {
   ];
 
   return (
-    <section className="w-full bg-white py-16 sm:py-20 lg:py-24">
+    <section className="w-full bg-white pt-0 pb-16 sm:py-20 lg:py-24">
       <div className="containers">
         {/* Header */}
-        <div className="mb-12 sm:mb-16">
-          <p className="mb-3 text-center text-sm font-normal text-gray-400 sm:text-base md:text-start">
+        <div className="mb-12 sm:mb-16 flex flex-col items-start text-start max-w-4xl">
+          <p className="mb-3 text-sm font-medium text-gray-400 sm:text-base uppercase tracking-wider">
             {t('website.NewSimfinDes.WhyChooseSailySectionHeader.subtitle')}
           </p>
-          <h2 className="text-center text-3xl leading-tight font-medium text-black sm:text-4xl md:text-start lg:text-5xl xl:text-4xl">
+          <h2 className="text-3xl sm:text-4xl lg:text-2.5 font-medium leading-tight text-gray-900 tracking-tight">
             {t('website.NewSimfinDes.WhyChooseSailySectionHeader.title')}
           </h2>
         </div>
 
-        {/* Mobile Carousel */}
-        <div className="block md:hidden relative">
+        <div className="block md:hidden">
           <Carousel
             plugins={[autoplayPlugin.current]}
-            className="relative w-full px-4"
+            className="w-full"
             onMouseEnter={autoplayPlugin.current.stop}
             onMouseLeave={autoplayPlugin.current.reset}
+            opts={{
+              align: "start",
+              loop: true,
+            }}
           >
-            <CarouselContent className="pb-16">
+            <CarouselContent className="-ml-4 pb-16">
               {features.map((feature) => (
-                <CarouselItem key={feature.id} className="px-1">
-                  <div className="flex flex-col space-y-4 p-4 border rounded-lg bg-white shadow-sm">
-                    {iconMap[feature.id]}
-                    <h3 className="text-xl font-normal text-black">
-                      {t(feature.titleKey)}
-                    </h3>
-                    <p className="text-base text-gray-600">
-                      {t(feature.descriptionKey)}
-                    </p>
+                <CarouselItem key={feature.id} className="pl-4 basis-[85%]">
+                  <div className="p-1">
+                    <div className="flex flex-col space-y-5 p-6 border border-gray-100 dark:border-gray-800 rounded-2xl bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-all h-full">
+                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                        {iconMap[feature.id]}
+                      </div>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                        {t(feature.titleKey)}
+                      </h3>
+                      <p className="text-base text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {t(feature.descriptionKey)}
+                      </p>
+                    </div>
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
 
             {/* Mobile arrows */}
-            <div className="absolute bottom-4 right-4 flex gap-1 z-10">
-              <CarouselPrevious className="h-8 w-8 rounded-full bg-white border shadow-md -left-1" />
-              <CarouselNext className="h-8 w-8 rounded-full bg-white border shadow-md -right-1" />
+            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 flex gap-4 z-10">
+              <CarouselPrevious className="h-11 w-11 rounded-full bg-white dark:bg-slate-800 border-primary/20 shadow-lg static translate-y-0" />
+              <CarouselNext className="h-11 w-11 rounded-full bg-white dark:bg-slate-800 border-primary/20 shadow-lg static translate-y-0" />
             </div>
           </Carousel>
         </div>
 
 
-        {/* Desktop Grid */}
         <div className="hidden md:grid grid-cols-1 gap-8 sm:gap-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
           {features.map((feature) => (
-            <div key={feature.id} className="flex flex-col space-y-4">
-              <div className="text-black">{iconMap[feature.id]}</div>
-              <h3 className="text-xl font-normal text-black sm:text-xl">
+            <div key={feature.id} className="group flex flex-col space-y-5 p-6 rounded-2xl border border-transparent hover:border-primary/20 hover:bg-primary/[0.02] transition-all">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                {iconMap[feature.id]}
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white sm:text-xl tracking-tight">
                 {t(feature.titleKey)}
               </h3>
-              <p className="text-base leading-relaxed font-normal text-gray-600 sm:text-base">
+              <p className="text-base leading-relaxed font-thin text-gray-600 dark:text-gray-400 sm:text-base">
                 {t(feature.descriptionKey)}
               </p>
             </div>

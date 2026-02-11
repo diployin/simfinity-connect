@@ -1,61 +1,7 @@
-// 'use client';
-
-// import { useTranslation } from '@/contexts/TranslationContext';
-// import { Apple } from 'lucide-react';
-// import React from 'react';
-// import { Link } from 'wouter';
-
-// const DownloadAppSection = () => {
-//   const { t } = useTranslation();
-
-//   return (
-//     <section className="w-full bg-white py-8 md:py-16">
-//       <div className="containers">
-//         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-//           {/* Left */}
-//           <div className="space-y-6 text-center md:text-start lg:space-y-8 lg:pr-2">
-//             {/* Heading */}
-//             <h2 className="xl:text-2.5 text-3xl leading-tight font-medium text-black sm:text-4xl lg:text-5xl">
-//               {t('website.downloadAppSection.title')}
-//             </h2>
-
-//             {/* Description */}
-//             <p className="max-w-lg text-base leading-relaxed text-gray-600 sm:text-base">
-//               {t('website.downloadAppSection.description')}
-//             </p>
-
-//             {/* Store Buttons */}
-//             <div className="flex flex-wrap gap-3">
-//               <Link href="#">
-//                 <img src="/images/app-store.svg" className="h-12" />
-//               </Link>
-//               <Link href="#">
-//                 <img src="/images/google-play.svg" className="h-12" />
-//               </Link>
-//             </div>
-//           </div>
-
-//           {/* Right Side - Phone Image */}
-//           <div className="relative flex items-center justify-center lg:justify-end">
-//             <div className="relative h-[400px] w-full max-w-[600px] rounded-2xl sm:h-[450px] lg:h-[550px]">
-//               {/* src='/images/download-asset-xl.webp' */}
-//               <img
-//                 src="/images/The Simfinity app is almost heres.png"
-//                 className="max-h-[70vh] w-auto object-contain"
-//               />
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default DownloadAppSection;
 'use client';
 
 import { useTranslation } from '@/contexts/TranslationContext';
-import { Apple } from 'lucide-react';
+import { Star } from 'lucide-react';
 import React from 'react';
 import { Link } from 'wouter';
 
@@ -63,47 +9,53 @@ const DownloadAppSection = () => {
   const { t } = useTranslation();
 
   return (
-    <section className="w-full bg-white py-8 md:py-16">
-      <div className="containers">
-        <div className="grid grid-cols-1 items-center gap-8 md:gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Left */}
-          <div className="space-y-6 text-center md:text-start lg:space-y-8 lg:pr-4">
-            {/* Heading */}
-            <h2 className="text-2xl leading-tight font-medium text-black sm:text-3xl md:text-4xl lg:text-4xl xl:text-5xl">
-              {t('website.downloadAppSection.title')}
-            </h2>
+    <section className="w-full bg-slate-50 py-16 md:py-24 lg:py-32 overflow-hidden">
+      <div className="containers mx-auto px-4">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20">
+          {/* Left Content */}
+          <div className="flex flex-col space-y-10 text-left order-2 lg:order-1">
+            <div className="space-y-6">
+              <p className="text-gray-400 font-medium uppercase tracking-[0.2em] text-xs sm:text-sm">
+                Simple & Seamless
+              </p>
+              <h2 className="text-3xl sm:text-4xl lg:text-2.5 font-medium leading-[1.1] text-gray-900 tracking-tight">
+                {t('website.downloadAppSection.title')}
+              </h2>
+              <p className="max-w-xl text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed font-thin">
+                {t('website.downloadAppSection.description')}
+              </p>
+            </div>
 
-            {/* Description */}
-            <p className="max-w-lg text-sm leading-relaxed text-gray-600 sm:text-base md:text-lg">
-              {t('website.downloadAppSection.description')}
-            </p>
-
-            {/* Store Buttons */}
-            <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-              <Link href="#">
-                <img
-                  src="/images/app-store.svg"
-                  className="h-10 sm:h-12"
-                  alt="Download on App Store"
-                />
-              </Link>
-              <Link href="#">
-                <img
-                  src="/images/google-play.svg"
-                  className="h-10 sm:h-12"
-                  alt="Get it on Google Play"
-                />
-              </Link>
+            {/* Store Buttons & Ratings */}
+            <div className="space-y-6">
+              <div className="flex flex-row gap-4 items-start">
+                <Link href="#">
+                  <img
+                    src="/images/app-store.svg"
+                    className="h-10 sm:h-12 w-auto transition-all hover:scale-105 active:scale-95 drop-shadow-sm"
+                    alt="Download on App Store"
+                  />
+                </Link>
+                <Link href="#">
+                  <img
+                    src="/images/google-play.svg"
+                    className="h-10 sm:h-12 w-auto transition-all hover:scale-105 active:scale-95 drop-shadow-sm"
+                    alt="Get it on Google Play"
+                  />
+                </Link>
+              </div>
             </div>
           </div>
 
-          {/* Right Side - Phone Image */}
-          <div className="relative flex items-center justify-center lg:justify-end">
-            <div className="relative h-[250px] w-full max-w-[300px] sm:h-[300px] sm:max-w-[350px] md:h-[350px] md:max-w-[400px] lg:h-[450px] lg:max-w-[500px]">
+          {/* Right Image */}
+          <div className="relative flex items-center justify-center lg:justify-end order-1 lg:order-2">
+            <div className="relative w-full max-w-[500px] md:max-w-[650px] lg:max-w-[750px] transform lg:translate-x-12">
+              {/* Subtle background glow */}
+              <div className="absolute -inset-10 bg-primary/5 rounded-full blur-[100px] opacity-60" />
               <img
                 src="/images/The Simfinity app is almost heres.png"
                 alt="Simfinity App Preview"
-                className="h-full w-full object-contain"
+                className="relative w-full h-auto object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)]"
               />
             </div>
           </div>

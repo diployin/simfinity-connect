@@ -81,7 +81,7 @@ const HeroSection = () => {
 
   return (
     // <div className="relative w-full overflow-hidden bg-[url('/images/Banner.png')] bg-cover bg-center ">
-    <div className="relative w-full bg-sky-200   ">
+    <div className="relative w-full bg-[#4c9540]">
       {/* Desktop Layout */}
       <div className="absolute -top-[0px] bottom-0 w-full flex flex-col items-center overflow-hidden bg-gradient-hero">
         <div className="absolute bottom-0 min-w-[1038px] md:min-w-[1153px] lg:min-w-[1372px] xl:min-w-[1716px] md:translate-x-[18%] lg:translate-x-[21%] xl:translate-x-[25%]">
@@ -129,13 +129,13 @@ const HeroSection = () => {
               >
                 <div className="h-full w-full flex group/stack flex-col text-start justify-start gap-y-6 items-stretch">
                   <div className="flex flex-col justify-end  ">
-                    <h1 className="max-w-xl text-4xl leading-tight font-medium text-black lg:text-5xl xl:text-5xl">
+                    <h1 className="max-w-xl text-4xl leading-tight font-medium text-white lg:text-5xl xl:text-5xl">
                       {t('hero.headline')}
                     </h1>
 
                     {/* Search Box */}
                     <div className="w-full max-w-full sm:max-w-md md:max-w-lg lg:max-w-sm pt-10">
-                      <p className="mb-3 text-base sm:text-lg font-medium text-black">
+                      <p className="mb-3 text-base sm:text-lg font-medium text-white">
                         {t('hero.searchSubtitle')}
                       </p>
                       <button

@@ -11,12 +11,19 @@ import useStaticData from '@/data/useStaticData';
 import { Link, useLocation } from 'wouter';
 import ThemeButton from '@/components/ThemeButton';
 import FAQSection from '@/components/sections/landing/FAQSection';
+import { Helmet } from 'react-helmet-async';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store/store';
 
 const WhatEsimNew = () => {
   const staticData = useStaticData();
   const { t } = useTranslation();
   const title = t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.title');
   const [, navigate] = useLocation();
+
+  const { isExpanded } = useSelector((state: RootState) => state.topNavbar);
+  const isTopBarVisible = !isExpanded;
+
 
   const esimSetupTabs = [
     {
@@ -111,7 +118,12 @@ const WhatEsimNew = () => {
   ];
 
   return (
-    <div>
+    <main className={isTopBarVisible
+      ? 'mt-28 md:mt-0'
+      : 'mt-24 md:mt-0'}>
+      <Helmet>
+        <title>{t('website.WhatIsEsim.content.heroTittle')}</title>
+      </Helmet>
       <section className="bg-white px-4  pb-8 sm:px-6 lg:px-8 mt-16 md:mt-0">
         <div className="containers mx-auto">
           <div className="grid grid-cols-1 items-center gap-8 rounded-3xl lg:grid-cols-2 lg:gap-12">
@@ -127,13 +139,12 @@ const WhatEsimNew = () => {
               </div>
             </div>
 
-            {/* Right Side - Content */}
-            <div className="order-1 space-y-6 text-center md:text-start lg:order-1">
-              <h2 className="lg:text-5xl max-w-lg text-3xl leading-tight font-medium text-gray-900 sm:text-4xl">
+            <div className="order-1 space-y-6 text-start lg:order-1">
+              <h1 className="lg:text-2.5 max-w-lg text-3xl leading-tight font-medium text-gray-900 sm:text-4xl">
                 {t('website.WhatIsEsim.content.heroTittle')}
-              </h2>
+              </h1>
 
-              <p className="text-base leading-relaxed text-gray-600 sm:text-base">
+              <p className="text-base leading-relaxed text-gray-600 sm:text-base font-thin">
                 {t('website.WhatIsEsim.content.herodes')}
               </p>
 
@@ -159,22 +170,22 @@ const WhatEsimNew = () => {
           <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-16">
             {/* Left Side - Heading */}
             <div>
-              <h2 className="lg:text-4.5xl text-4xl leading-tight font-medium text-gray-900 sm:text-4xl">
+              <h2 className="lg:text-2.5 text-3xl leading-tight font-medium text-gray-900 sm:text-4xl">
                 {t('website.WhatIsEsim.content.heading')}
               </h2>
 
-              <p className="text-base leading-relaxed text-gray-600 sm:text-base">
+              <p className="text-base leading-relaxed text-gray-600 sm:text-base font-thin">
                 {t('website.WhatIsEsim.content.des')}
               </p>
             </div>
 
             {/* Right Side - Content */}
             <div className="space-y-6">
-              <p className="text-base leading-relaxed text-gray-700 sm:text-base">
+              <p className="text-base leading-relaxed text-gray-700 sm:text-base font-thin">
                 {t('website.WhatIsEsim.content.paragraph1')}
               </p>
 
-              <p className="text-base leading-relaxed text-gray-700 sm:text-base">
+              <p className="text-base leading-relaxed text-gray-700 sm:text-base font-thin">
                 {t('website.WhatIsEsim.content.paragraph2')}
               </p>
             </div>
@@ -192,14 +203,14 @@ const WhatEsimNew = () => {
           </div>
 
           <div className=" py-8 md:py-16 ">
-            <h2 className="lg:text-4.5xl text-3xl leading-tight font-medium text-gray-900 sm:text-4xl">
+            <h2 className="lg:text-2.5 text-3xl leading-tight font-medium text-gray-900 sm:text-4xl">
               {t('website.WhatIsEsim.howDoesItWorkSection.heading')}
             </h2>
 
-            <p className="py-4 text-base leading-relaxed text-gray-600 sm:text-base">
+            <p className="py-4 text-base leading-relaxed text-gray-600 sm:text-base font-thin">
               {t('website.WhatIsEsim.howDoesItWorkSection.content.paragraph1')}
             </p>
-            <p className="py-4 text-base leading-relaxed text-gray-600 sm:text-base">
+            <p className="py-4 text-base leading-relaxed text-gray-600 sm:text-base font-thin">
               {t('website.WhatIsEsim.howDoesItWorkSection.content.paragraph2')}
             </p>
           </div>
@@ -214,11 +225,11 @@ const WhatEsimNew = () => {
       <section className="px-4 py-8 sm:px-6 md:py-16 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col items-center justify-center rounded-[48px] bg-primary px-6 py-16 text-center sm:px-10 lg:px-20">
-            <h2 className="text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-2.5">
+            <h2 className="text-3xl font-medium leading-tight text-white sm:text-4xl lg:text-2.5">
               {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.title')}
             </h2>
 
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/90">
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/90 font-thin">
               {t('website.NewSimfinDes.what_is_esim.WhatIsEsim.getEsimSection.description')}
             </p>
 
@@ -234,7 +245,7 @@ const WhatEsimNew = () => {
 
       {/* <FAQ faqs={staticData.WhatIsEsim.FAQData.faqs} title={title} maxWidth="3xl" className=" " /> */}
       <FAQSection />
-    </div>
+    </main>
   );
 };
 

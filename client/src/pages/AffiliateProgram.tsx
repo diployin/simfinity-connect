@@ -10,7 +10,7 @@ export function AffiliateProgram() {
 
   const iconMap: Record<number, React.ReactNode> = {
     1: <img src="/images/features/global.svg" className=" h-10 w-10" alt="price" />,
-    2: <img src="/images/features/time (2).svg" className=" h-10 w-10" alt="activate" />,
+    2: <img src="/images/features/time2.svg" className=" h-10 w-10" alt="activate" />,
     3: <img src="/images/features/no-wifi.svg" className=" h-10 w-10" alt="roaming" />,
     4: <img src="/images/features/sim-card.svg" className=" h-10 w-10" alt="esim" />,
     5: <img src="/images/features/bulb.svg" className=" h-10 w-10" alt="alert" />,
@@ -90,11 +90,11 @@ export function AffiliateProgram() {
           <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-8">
             {/* Left Side - Text Content */}
             <div className="space-y-6 text-center md:text-start">
-              <h2 className="text-5xl font-medium text-black">
+              <h2 className="text-3xl sm:text-4xl lg:text-2.5 font-medium text-black">
                 Earn with Simfinity affiliate program
               </h2>
 
-              <p className="text-base leading-relaxed text-gray-700 sm:text-xl">
+              <p className="text-base leading-relaxed text-gray-600 sm:text-xl font-thin">
                 Join Simfinity’s affiliate program, promote Simfinity, and earn 15% with every new
                 user.
               </p>
@@ -131,10 +131,10 @@ export function AffiliateProgram() {
         <div className="containers">
           {/* Header */}
           <div className="mb-12 sm:mb-16">
-            <h2 className="text-center text-3xl leading-tight font-medium text-black sm:text-4xl md:text-start lg:text-5xl xl:text-2.5">
+            <h2 className="text-center text-3xl leading-tight font-medium text-black sm:text-4xl md:text-start lg:text-2.5">
               Why Simfinnity
             </h2>
-            <p className="mb-3 text-center text-sm font-normal text-gray-600 sm:text-base md:text-start mt-8">
+            <p className="mb-3 text-center text-sm font-thin text-gray-600 sm:text-base md:text-start mt-8">
               Join Simfinity affiliate program, promote Simfinity, and earn 15% with every new user.
               It’s easy!
             </p>
@@ -148,10 +148,10 @@ export function AffiliateProgram() {
                 <div className="text-black">{iconMap[feature.id]}</div>
 
                 {/* Title */}
-                <h3 className="text-xl font-normal text-black sm:text-xl">{feature.title}</h3>
+                <h3 className="text-xl font-medium text-black sm:text-xl">{feature.title}</h3>
 
                 {/* Description */}
-                <p className="text-base leading-relaxed font-normal text-gray-600 sm:text-base">
+                <p className="text-base leading-relaxed font-thin text-gray-600 sm:text-base">
                   {feature.description}
                 </p>
               </div>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -96,8 +96,9 @@
   --primary-foreground: #000000;
 
   /* Font Variables */
-  --font-heading: 'Poppins';
-  --font-body: 'Poppins';
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-sans: 'Inter', sans-serif;
 
   /* 🖤 SECONDARY */
   --secondary: var(--secondary-hex);

@@ -52,6 +52,7 @@ interface MegaMenuDropdownProps {
   badge?: string;
   config: MegaMenuConfig;
   onOpenChange?: (isOpen: boolean) => void;
+  isDarkBackground?: boolean;
 }
 
 const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
@@ -59,6 +60,7 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
   badge,
   config,
   onOpenChange,
+  isDarkBackground = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -155,17 +157,29 @@ const MegaMenuDropdown: React.FC<MegaMenuDropdownProps> = ({
         type="button"
         onClick={handleToggle}
         className={cn(
-          'flex items-center gap-1 py-2 text-sm font-medium  transition-colors hover:bg-[#0000000f] px-4 rounded-full  ',
+          'flex items-center gap-1 py-2 text-sm font-medium transition-all px-4 rounded-full',
+          isDarkBackground
+            ? 'text-white hover:bg-white/10'
+            : 'text-gray-900 hover:bg-gray-100'
         )}
       >
         {label}
         {badge && (
-          <span className="rounded-full border-black border   px-2 py-0.5 text-xs font-medium text-black">
+          <span className={cn(
+            "rounded-full border px-2 py-0.5 text-xs font-medium transition-colors",
+            isDarkBackground
+              ? "border-white/40 text-white"
+              : "border-black text-black"
+          )}>
             {badge}
           </span>
         )}
         <ChevronDown
-          className={`h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          className={cn(
+            "h-4 w-4 transition-all duration-200",
+            isOpen && "rotate-180",
+            isDarkBackground ? "text-white/70" : "text-gray-500"
+          )}
         />
       </button>
 

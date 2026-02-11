@@ -626,11 +626,11 @@ export default function DestinationDetails() {
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
                   </div>
-                  <h1 className="text-2xl md:text-3xl font-bold text-foreground">
+                  <h1 className="text-3xl sm:text-4xl lg:text-2.5 font-medium text-foreground">
                     eSIM for {destination.name}
                   </h1>
                 </div>
-                <p className="text-muted-foreground">
+                <p className="text-gray-600 text-base font-thin leading-relaxed">
                   Buy prepaid eSIM for {destination.name}. Enjoy reliable and fast connections when
                   traveling to {destination.name}.
                 </p>

@@ -14,98 +14,104 @@ const InstantConnectionSection = () => {
     <section className="w-full bg-white py-8 sm:py-20 lg:py-24">
       <div className="containers">
         {/* Header */}
-        <div className="mb-12 text-center sm:mb-16">
-          <h2 className="mx-auto mb-6 max-w-5xl text-3xl font-normal leading-tight text-black sm:text-4xl lg:text-5xl xl:text-5xl">
+        <div className="mb-12 text-start sm:mb-20 flex flex-col items-start max-w-4xl">
+          <h2 className="mb-6 text-3xl sm:text-4xl lg:text-2.5 font-medium leading-[1.1] text-gray-900 tracking-tight">
             {t('website.NewSimfinDes.NewSimfinDes.title')}
           </h2>
 
-          <p className="mx-auto mb-8 max-w-4xl text-base text-gray-600 sm:text-lg lg:text-base">
+          <p className="mb-10 max-w-2xl text-base font-thin leading-relaxed text-gray-600 sm:text-lg">
             {t('website.NewSimfinDes.NewSimfinDes.des')}
           </p>
 
-          <div className=" flex justify-center">
-            <ThemeButton onClick={() => navigate('/destinations')} size="md">
+          <div className="flex justify-start w-full">
+            <ThemeButton
+              onClick={() => navigate('/destinations')}
+              className="px-10 py-6 rounded-full text-lg font-bold shadow-lg hover:shadow-primary/20 transition-all duration-300 transform hover:-translate-y-1"
+            >
               {t('website.NewSimfinDes.NewSimfinDes.btn')}
             </ThemeButton>
           </div>
         </div>
 
         {/* Two Column Cards */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
-          {/* Card 1 */}
-          <div className="group relative flex min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] flex-col overflow-hidden rounded-3xl bg-gray-100 transition-all duration-300 hover:shadow-xl">
-            <div className="space-y-4 p-6 sm:p-8 lg:p-10 xl:p-12 flex-shrink-0">
-              <h3 className="text-xl sm:text-2xl lg:text-[32px] font-medium text-black">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:gap-8">
+          {/* Card 1 - Connect Instantly (Keep Image) */}
+          <div className="group relative flex flex-col overflow-hidden rounded-[2.5rem] bg-slate-50 border border-gray-100 dark:border-gray-800 transition-all duration-500 hover:shadow-2xl">
+            <div className="space-y-4 p-8 sm:p-10 lg:p-12">
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight">
                 {t('website.NewSimfinDes.NewSimfinDes.card1.title')}
               </h3>
-              <p className="text-sm sm:text-base leading-relaxed text-gray-600">
+              <p className="text-sm md:text-base leading-relaxed text-gray-600 dark:text-gray-400 font-thin max-w-md">
                 {t('website.NewSimfinDes.NewSimfinDes.card1.des')}
               </p>
             </div>
 
-            <div className="relative w-full flex-1 overflow-hidden">
+            <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[450px] overflow-hidden">
               <img
                 src="/images/By_Simfinitys.png"
-                alt="Connect instantly - Travel destinations"
-                className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                alt="Connect instantly"
+                className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
               />
             </div>
           </div>
 
-          {/* Card 2 */}
-          <div className="group relative flex min-h-[500px] sm:min-h-[600px] lg:min-h-[700px] flex-col overflow-hidden rounded-3xl bg-primary transition-all duration-300 hover:shadow-xl">
-            <div className="space-y-4 p-6 sm:p-8 lg:p-10 xl:p-12 flex-shrink-0">
-              <h3 className="text-xl sm:text-2xl lg:text-[32px] font-medium text-white">
+          {/* Card 2 - Avoid Waiting In Line (Hide Image on Mobile) */}
+          <div className="group relative flex flex-col overflow-hidden rounded-[2.5rem] bg-primary transition-all duration-500 hover:shadow-2xl hover:shadow-primary/20">
+            <div className="space-y-5 p-8 sm:p-10 lg:p-12">
+              <div className="w-14 h-14 rounded-2xl bg-white/20 flex items-center justify-center mb-2">
+                <img src="/images/features/time2.svg" className="h-8 w-8 " alt="icon" />
+              </div>
+              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight">
                 {t('website.NewSimfinDes.NewSimfinDes.card2.title')}
               </h3>
-              <p className="text-sm sm:text-base leading-relaxed text-gray-100">
+              <p className="text-sm md:text-base leading-relaxed text-white/90 font-thin max-w-md">
                 {t('website.NewSimfinDes.NewSimfinDes.card2.des')}
               </p>
             </div>
 
-            <div className="relative w-full flex-1 overflow-hidden">
+            <div className="hidden md:block relative w-full flex-1 overflow-hidden min-h-[300px]">
               <img
                 src="/images/No more SIM card drama.png"
-                alt="Avoid waiting in line - Woman with phone"
-                className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                alt="Avoid waiting in line"
+                className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
               />
             </div>
           </div>
         </div>
 
-        {/* Stay Protected Online */}
-        <div className="group relative mt-8 sm:mt-12 lg:mt-16 overflow-hidden rounded-3xl bg-gradient-to-br from-gray-50 to-gray-100 transition-all duration-300 hover:shadow-xl">
-          <div className="grid grid-cols-1 lg:grid-cols-2">
-            <div className="flex flex-col justify-center space-y-4 sm:space-y-6 p-6 sm:p-8 lg:p-10 xl:p-12 text-center md:text-start">
-              <h3 className="text-xl sm:text-2xl lg:text-3xl lg:text-[32px] font-medium leading-tight text-black">
-                {t('website.NewSimfinDes.NewSimfinDes.card3.title')}
-              </h3>
+        {/* Card 3 - Stay Protected (Hide Image on Mobile) */}
+        <div className="group relative mt-8 sm:mt-12 overflow-hidden rounded-[2.5rem] bg-slate-50 border border-gray-100 dark:border-gray-800 transition-all duration-500 hover:shadow-2xl">
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            <div className="flex flex-col justify-center space-y-6 p-8 sm:p-10 lg:p-12 xl:p-16">
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center">
+                <img src="/images/features/bulb.svg" className="h-8 w-8" alt="icon" />
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
+                  {t('website.NewSimfinDes.NewSimfinDes.card3.title')}
+                </h3>
 
-              <p className="text-sm sm:text-base leading-relaxed text-gray-600 max-w-lg mx-auto md:mx-0">
-                {t('website.NewSimfinDes.NewSimfinDes.card3.des')}
-              </p>
+                <p className="text-sm md:text-base lg:text-lg leading-relaxed text-gray-600 dark:text-gray-400 font-thin max-w-lg text-left">
+                  {t('website.NewSimfinDes.NewSimfinDes.card3.des')}
+                </p>
+              </div>
 
-              <div className="mt-4 sm:mt-6 flex justify-center md:justify-start">
-                <ThemeButton variant="outline" className="">
+              <div className="flex justify-start">
+                <ThemeButton variant="outline" className="px-8 py-5 rounded-full font-bold border-2 hover:bg-gray-100 transition-all w-full">
                   {t('website.NewSimfinDes.NewSimfinDes.card3.btn')}
                 </ThemeButton>
               </div>
             </div>
 
-            <div className="relative flex items-end justify-center lg:justify-end">
-              <div className="relative w-full max-w-[400px] sm:max-w-[450px] lg:max-w-[500px] xl:max-w-[550px] h-[400px] sm:h-[450px] lg:h-[500px] xl:h-[550px]">
-                <img
-                  src="/images/By_Simfinitys.png"
-                  alt="Stay protected online - Phone security features"
-                  className="absolute inset-0 h-full w-full rounded-2xl object-cover object-bottom transition-transform duration-500 group-hover:scale-105"
-                  loading="lazy"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
-                />
-              </div>
+            <div className="hidden md:flex relative items-end justify-end overflow-hidden h-full">
+              <img
+                src="/images/By_Simfinitys.png"
+                alt="Stay protected"
+                className="h-full w-full object-cover object-bottom transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
             </div>
           </div>
         </div>

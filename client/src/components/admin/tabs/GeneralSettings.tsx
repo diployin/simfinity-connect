@@ -412,6 +412,7 @@ export function GeneralSettings() {
   const [platformName, setPlatformName] = useState('');
   const [platformTagline, setPlatformTagline] = useState('');
   const [logo, setLogo] = useState<string | null>(null);
+  const [whiteLogo, setWhiteLogo] = useState<string | null>(null);
   const [favicon, setFavicon] = useState<string | null>(null);
   const [copyrightText, setCopyrightText] = useState('');
   const [currency, setCurrency] = useState('USD');
@@ -448,6 +449,7 @@ export function GeneralSettings() {
       setPlatformName(settings.platform_name || '');
       setPlatformTagline(settings.platform_tagline || '');
       setLogo(settings.logo || null);
+      setWhiteLogo(settings.white_logo || null);
       setFavicon(settings.favicon || null);
       setCopyrightText(settings.copyright_text || '');
       setCurrency(settings.currency || 'USD');
@@ -514,6 +516,9 @@ export function GeneralSettings() {
     if (logo) {
       await saveSetting('logo', logo, 'general');
     }
+    if (whiteLogo) {
+      await saveSetting('white_logo', whiteLogo, 'general');
+    }
     if (favicon) {
       await saveSetting('favicon', favicon, 'general');
     }
@@ -553,6 +558,28 @@ export function GeneralSettings() {
       toast({
         title: 'Error',
         description: 'Failed to upload logo',
+        variant: 'destructive',
+      });
+    }
+  };
+
+  // Handle white logo upload
+  const handleWhiteLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const path = await uploadImage(file);
+      setWhiteLogo(path);
+      toast({
+        title: 'Success',
+        description: 'White logo uploaded successfully',
+      });
+    } catch (err) {
+      console.error(err);
+      toast({
+        title: 'Error',
+        description: 'Failed to upload white logo',
         variant: 'destructive',
       });
     }
@@ -600,105 +627,113 @@ export function GeneralSettings() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Left Column - Text Inputs */}
             <div className="space-y-6">
-              <div className="space-y-3">
-                <Label className="text-lg font-semibold flex items-center gap-2">
-                  <Building2 className="h-5 w-5 text-[var(--primary-hex)]" />
-                  {t('admin.settings.general.platformName', 'Platform Name')}
-                </Label>
-                <Input
-                  value={platformName}
-                  onChange={(e) => setPlatformName(e.target.value)}
-                  placeholder={t('admin.settings.general.platformNamePlaceholder', 'My eSIM Store')}
-                  className="h-14 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
-                  data-testid="input-platform-name"
-                />
-              </div>
+              <div className="p-6 bg-white border border-gray-100 rounded-2xl space-y-6 shadow-sm">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label className="text-base font-bold text-gray-700 flex items-center gap-2">
+                      <Building2 className="h-4 w-4 text-primary" />
+                      {t('admin.settings.general.platformName', 'Platform Name')}
+                    </Label>
+                    <Input
+                      value={platformName}
+                      onChange={(e) => setPlatformName(e.target.value)}
+                      placeholder={t('admin.settings.general.platformNamePlaceholder', 'My eSIM Store')}
+                      className="h-11 text-base ring-1 ring-gray-200 focus:ring-primary focus:border-primary transition-all duration-300 bg-gray-50/30"
+                      data-testid="input-platform-name"
+                    />
+                  </div>
 
+                  <div className="space-y-2">
+                    <Label className="text-base font-bold text-gray-700 flex items-center gap-2">
+                      <Zap className="h-4 w-4 text-primary" />
+                      {t('admin.settings.general.tagline', 'Tagline')}
+                    </Label>
+                    <Input
+                      value={platformTagline}
+                      onChange={(e) => setPlatformTagline(e.target.value)}
+                      placeholder={t(
+                        'admin.settings.general.taglinePlaceholder',
+                        'Global connectivity made easy',
+                      )}
+                      className="h-11 text-base ring-1 ring-gray-200 focus:ring-primary focus:border-primary transition-all duration-300 bg-gray-50/30"
+                      data-testid="input-platform-tagline"
+                    />
+                  </div>
 
-              <div className="space-y-3">
-                <Label className="text-lg font-semibold">
-                  {t('admin.settings.general.tagline', 'Tagline')}
-                </Label>
-                <Input
-                  value={platformTagline}
-                  onChange={(e) => setPlatformTagline(e.target.value)}
-                  placeholder={t(
-                    'admin.settings.general.taglinePlaceholder',
-                    'Global connectivity made easy',
-                  )}
-                  className="h-12 ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
-                  data-testid="input-platform-tagline"
-                />
-              </div>
-              <div className="space-y-3">
-                <Label className="text-lg font-semibold flex items-center gap-2">
-                  <Building2 className="h-5 w-5 text-[var(--primary-hex)]" />
-                  {t('admin.settings.general.email', 'Email')}
-                </Label>
-                <Input
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder={t('admin.settings.general.emailPlaceholder', 'My Email')}
-                  className="h-14 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
-                  data-testid="input-platform-email"
-                />
-              </div>
+                  <div className="space-y-2">
+                    <Label className="text-base font-bold text-gray-700 flex items-center gap-2">
+                      <ImageIcon className="h-4 w-4 text-primary" />
+                      {t('admin.settings.general.email', 'Email')}
+                    </Label>
+                    <Input
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder={t('admin.settings.general.emailPlaceholder', 'My Email')}
+                      className="h-11 text-base ring-1 ring-gray-200 focus:ring-primary focus:border-primary transition-all duration-300 bg-gray-50/30"
+                      data-testid="input-platform-email"
+                    />
+                  </div>
 
+                  <div className="space-y-2">
+                    <Label className="text-base font-bold text-gray-700 flex items-center gap-2">
+                      <Settings2 className="h-4 w-4 text-primary" />
+                      {t('admin.settings.general.currency', 'Default Currency')}
+                    </Label>
+                    <Select value={currency} onValueChange={setCurrency}>
+                      <SelectTrigger
+                        className="h-11 text-base ring-1 ring-gray-200 focus:ring-primary focus:border-primary bg-gray-50/30"
+                        data-testid="select-currency"
+                      >
+                        <SelectValue placeholder="Select a currency" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {currencies.map((curr) => (
+                          <SelectItem key={curr.id} value={curr.code}>
+                            <span className="flex items-center gap-2">
+                              <span className="font-mono">{curr.symbol}</span>
+                              <span>{curr.code}</span>
+                              <span className="text-muted-foreground">- {curr.name}</span>
+                            </span>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
 
-              <div className="space-y-3">
-                <Label className="text-lg font-semibold">
-                  {t('admin.settings.general.currency', 'Default Currency')}
-                </Label>
-                <Select value={currency} onValueChange={setCurrency}>
-                  <SelectTrigger
-                    className="h-12 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)]"
-                    data-testid="select-currency"
-                  >
-                    <SelectValue placeholder="Select a currency" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {currencies.map((curr) => (
-                      <SelectItem key={curr.id} value={curr.code}>
-                        <span className="flex items-center gap-2">
-                          <span className="font-mono">{curr.symbol}</span>
-                          <span>{curr.code}</span>
-                          <span className="text-muted-foreground">- {curr.name}</span>
-                        </span>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <p className="text-sm font-medium px-3 py-2 bg-[var(--primary-light-hex)]/20 rounded-lg border border-[var(--primary-hex)]/20">
-                  {t(
-                    'admin.settings.general.currencyHelp',
-                    'Select the default currency for your platform. Manage currencies in Platform Setup > Currencies.',
-                  )}
-                </p>
+                <div className="p-4 bg-primary/5 rounded-xl border border-primary/10">
+                  <p className="text-xs text-primary font-medium leading-relaxed">
+                    {t(
+                      'admin.settings.general.currencyHelp',
+                      'Select the default currency for your platform. Manage currencies in Platform Setup > Currencies.',
+                    )}
+                  </p>
+                </div>
               </div>
             </div>
 
             {/* Right Column - Logo & Favicon */}
             <div className="space-y-6">
               {/* Logo Upload */}
-              <div className="space-y-4 p-6 bg-gradient-to-br from-[var(--primary-light-hex)]/10 to-transparent border border-[var(--primary-hex)]/20 rounded-2xl">
-                <Label className="text-lg font-bold text-[var(--primary-hex)] flex items-center gap-2">
-                  <ImageIcon className="h-5 w-5" />
+              <div className="space-y-4 p-6 bg-white border border-gray-100 rounded-2xl shadow-sm">
+                <Label className="text-base font-bold text-gray-700 flex items-center gap-2">
+                  <ImageIcon className="h-4 w-4 text-primary" />
                   {t('admin.settings.general.logo', 'Platform Logo')}
                 </Label>
 
                 <div className="flex items-center gap-4">
                   {logo ? (
-                    <div className="h-24 w-24 rounded-xl overflow-hidden bg-white dark:bg-black/20 shadow-xl border-2 border-[var(--primary-hex)]/30 flex items-center justify-center hover:scale-105 transition-all duration-300">
+                    <div className="h-14 w-14 rounded-lg overflow-hidden bg-white shadow-sm border border-gray-100 flex items-center justify-center hover:scale-105 transition-all duration-300">
                       <img
                         src={logo}
                         alt="Logo Preview"
-                        className="max-h-20 max-w-20 object-contain"
+                        className="max-h-11 max-w-11 object-contain"
                       />
                     </div>
                   ) : (
-                    <div className="h-24 w-24 rounded-xl border-2 border-dashed border-[var(--primary-hex)]/50 flex flex-col items-center justify-center text-[var(--primary-hex)] bg-[var(--primary-light-hex)]/20 hover:scale-105 transition-all duration-300">
-                      <Building2 className="h-8 w-8 mb-1 opacity-70" />
-                      <span className="text-xs font-semibold">No Logo</span>
+                    <div className="h-14 w-14 rounded-lg border-2 border-dashed border-gray-200 flex flex-col items-center justify-center text-gray-300 bg-gray-50/50 hover:scale-105 transition-all duration-300">
+                      <Building2 className="h-5 w-5 mb-0.5 opacity-50" />
+                      <span className="text-[7px] font-bold uppercase tracking-wider">No Logo</span>
                     </div>
                   )}
 
@@ -707,12 +742,12 @@ export function GeneralSettings() {
                       type="file"
                       accept="image/*"
                       onChange={handleLogoUpload}
-                      className="h-12 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-[var(--primary-hex)] file:to-[var(--primary-second-hex)] file:text-black hover:file:brightness-110 cursor-pointer"
+                      className="h-11 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-bold file:bg-primary file:text-white hover:file:bg-primary-dark cursor-pointer ring-1 ring-gray-100"
                     />
                   </div>
                 </div>
 
-                <p className="text-xs text-[var(--primary-hex)]/70 px-3 py-1.5 bg-[var(--primary-light-hex)]/30 rounded-lg">
+                <p className="text-[11px] text-gray-400 font-medium">
                   {t(
                     'admin.settings.general.logoHelp',
                     'Recommended: PNG or SVG, transparent background',
@@ -720,24 +755,66 @@ export function GeneralSettings() {
                 </p>
               </div>
 
+              {/* White Logo Upload */}
+              <div className="space-y-4 p-6 bg-slate-900 border border-slate-800 rounded-2xl shadow-inner">
+                <Label className="text-base font-bold text-white/90 flex items-center gap-2">
+                  <ImageIcon className="h-4 w-4 text-primary" />
+                  {t('admin.settings.general.whiteLogo', 'Platform Logo (White)')}
+                </Label>
+
+                <div className="flex items-center gap-4">
+                  {whiteLogo ? (
+                    <div className="h-14 w-14 rounded-lg overflow-hidden bg-slate-800 shadow-sm border border-white/10 flex items-center justify-center hover:scale-105 transition-all duration-300">
+                      <img
+                        src={whiteLogo}
+                        alt="White Logo Preview"
+                        className="max-h-11 max-w-11 object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <div className="h-14 w-14 rounded-lg border-2 border-dashed border-white/10 flex flex-col items-center justify-center text-white/20 bg-white/5 hover:scale-105 transition-all duration-300">
+                      <Building2 className="h-5 w-5 mb-0.5 opacity-30" />
+                      <span className="text-[7px] font-bold uppercase tracking-wider">No Logo</span>
+                    </div>
+                  )}
+
+                  <div className="flex-1">
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleWhiteLogoUpload}
+                      className="h-11 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-bold file:bg-primary file:text-white hover:file:bg-primary-dark cursor-pointer ring-1 ring-white/5"
+                    />
+                  </div>
+                </div>
+
+                <p className="text-[11px] text-white/40 font-medium">
+                  {t(
+                    'admin.settings.general.whiteLogoHelp',
+                    'Recommended: PNG or SVG white version for dark backgrounds',
+                  )}
+                </p>
+              </div>
+
               {/* Favicon Upload */}
-              <div className="space-y-4 p-6 bg-gradient-to-br from-[var(--primary-light-hex)]/10 to-transparent border border-[var(--primary-hex)]/20 rounded-2xl">
-                <Label className="text-lg font-bold text-[var(--primary-hex)]">
+              <div className="space-y-4 p-6 bg-white border border-gray-100 rounded-2xl shadow-sm">
+                <Label className="text-base font-bold text-gray-700 flex items-center gap-2">
+                  <ImageIcon className="h-4 w-4 text-primary" />
                   {t('admin.settings.general.favicon', 'Favicon')}
                 </Label>
 
                 <div className="flex items-center gap-4">
                   {favicon ? (
-                    <div className="h-16 w-16 rounded-lg overflow-hidden bg-white dark:bg-black/20 shadow-lg border-2 border-[var(--primary-hex)]/30 flex items-center justify-center hover:scale-105 transition-all duration-300">
+                    <div className="h-11 w-11 rounded-lg overflow-hidden bg-white shadow-sm border border-gray-100 flex items-center justify-center hover:scale-105 transition-all duration-300">
                       <img
                         src={favicon}
                         alt="Favicon Preview"
-                        className="h-10 w-10 object-contain"
+                        className="h-8 w-8 object-contain"
                       />
                     </div>
                   ) : (
-                    <div className="h-16 w-16 rounded-lg border-2 border-dashed border-[var(--primary-hex)]/50 flex items-center justify-center text-[var(--primary-hex)] bg-[var(--primary-light-hex)]/20 text-xs font-semibold hover:scale-105 transition-all duration-300">
-                      No Favicon
+                    <div className="h-11 w-11 rounded-lg border-2 border-dashed border-gray-200 flex items-center justify-center text-gray-300 bg-gray-50/50 text-[7px] font-bold hover:scale-105 transition-all duration-300 tracking-wider">
+                      NO FAV
                     </div>
                   )}
 
@@ -746,12 +823,12 @@ export function GeneralSettings() {
                       type="file"
                       accept="image/png,image/x-icon,image/svg+xml"
                       onChange={handleFaviconUpload}
-                      className="h-12 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-[var(--primary-hex)] file:to-[var(--primary-second-hex)] file:text-black hover:file:brightness-110 cursor-pointer"
+                      className="h-11 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-[11px] file:font-bold file:bg-primary file:text-white hover:file:bg-primary-dark cursor-pointer ring-1 ring-gray-100"
                     />
                   </div>
                 </div>
 
-                <p className="text-xs text-[var(--primary-hex)]/70 px-3 py-1.5 bg-[var(--primary-light-hex)]/30 rounded-lg">
+                <p className="text-[11px] text-gray-400 font-medium">
                   {t('admin.settings.general.faviconHelp', 'Recommended: 32×32 or 48×48 PNG/ICO')}
                 </p>
               </div>

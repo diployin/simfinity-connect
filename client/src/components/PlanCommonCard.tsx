@@ -104,14 +104,14 @@ export function PlanCommonCard({
      RENDER - NO VISUAL CHANGES
   ======================= */
   return (
-    <Card className="w-full max-w-[320px] min-w-[280px] border-border/50 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative">
+    <Card className="w-full border-border/50 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative bg-white dark:bg-slate-900">
       {/* Badge */}
       <div className="absolute top-3 right-3 z-10">
         <Badge className={badgeClassName}>{badgeText}</Badge>
       </div>
 
       <CardContent className="p-0">
-        <div className="p-5 pt-10">
+        <div className="p-4 sm:p-5 pt-8 sm:pt-10">
           {/* Country */}
           <div className="flex items-center gap-2 mb-3">
             {countryCode && (
@@ -126,12 +126,12 @@ export function PlanCommonCard({
           </div>
 
           {/* Data Summary */}
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2 mb-4 h-6">
             <div className="h-5 w-5 rounded-full bg-gradient-to-br from-primary to-primary-light flex items-center justify-center flex-shrink-0">
               <Wifi className="h-2.5 w-2.5 text-white" />
             </div>
-            <p className="text-muted-foreground text-sm truncate">
-              {formatDataAmount(dataAmount)} – {validity} Days
+            <p className="text-muted-foreground text-sm font-medium truncate">
+              {formatDataAmount(dataAmount)} • {validity} Days
             </p>
           </div>
 
@@ -164,14 +164,16 @@ export function PlanCommonCard({
           </div>
 
           {/* Price */}
-          <div className="mb-4">
-            <span className="text-2xl font-bold text-primary">
-              {currencySymbol}
-              {price}
-            </span>
-            <p className="text-xs text-muted-foreground">
-              {currencySymbol}
-              {pricePerDay} per day
+          <div className="mb-5 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50">
+            <div className="flex items-baseline gap-1">
+              <span className="text-base font-semibold text-primary">{currencySymbol}</span>
+              <span className="text-2xl font-bold text-primary leading-none">
+                {price}
+              </span>
+            </div>
+            <p className="text-[10px] text-muted-foreground mt-1 font-medium italic">
+              ≈ {currencySymbol}
+              {pricePerDay} / day
             </p>
           </div>
 

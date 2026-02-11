@@ -384,15 +384,15 @@ export class DatabaseStorage implements IStorage {
     return this.getUser(id);
   }
 
-async deleteUser(id: string) {
-  await db
-    .update(users)
-    .set({
-      isDeleted: true,
-      updatedAt: new Date(),
-    })
-    .where(eq(users.id, id));
-}
+  async deleteUser(id: string) {
+    await db
+      .update(users)
+      .set({
+        isDeleted: true,
+        updatedAt: new Date(),
+      })
+      .where(eq(users.id, id));
+  }
 
 
   // OTP
@@ -1021,6 +1021,7 @@ async deleteUser(id: string) {
           'platform_name',
           'platform_tagline',
           'logo',
+          'white_logo',
           'email',
           'favicon',
           'currency',

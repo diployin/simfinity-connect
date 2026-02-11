@@ -167,7 +167,8 @@ const MobileDestinationSearch: React.FC<MobileDestinationSearchProps> = ({ isOpe
     <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent
         side="right"
-        className="w-full sm:w-full p-0 bg-white dark:bg-background flex flex-col"
+        overlayClassName="bg-transparent"
+        className="w-full sm:w-full p-0 bg-white/90 dark:bg-background/90 backdrop-blur-lg flex flex-col border-none shadow-none"
       >
         {/* 🔥 MOBILE HEADER - Logo + Search */}
         <div className="sticky top-0 z-20 bg-white dark:bg-background border-b border-gray-200 dark:border-gray-700">
@@ -194,7 +195,7 @@ const MobileDestinationSearch: React.FC<MobileDestinationSearchProps> = ({ isOpe
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 autoFocus
-                className="pl-12 pr-12 h-11 text-base rounded-full border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 focus:ring-2 focus:ring-teal-500 dark:focus:ring-teal-400"
+                className="pl-12 pr-12 h-11 text-lg border-none bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 shadow-none"
               />
               {searchQuery && (
                 <button
@@ -211,10 +212,10 @@ const MobileDestinationSearch: React.FC<MobileDestinationSearchProps> = ({ isOpe
           <div className="border-t border-gray-200 dark:border-gray-700 px-4">
             <div className="flex gap-0 overflow-x-auto scrollbar-hide">
               {[
-                { id: 'top10', label: 'Top 10', icon: '⭐' },
-                { id: 'countries', label: 'Country', icon: '🗺️' },
-                { id: 'regions', label: 'Region', icon: '🌍' },
-                { id: 'global', label: 'Ultra', icon: '🚀', badge: 'New' },
+                { id: 'top10', label: 'Top 10' },
+                { id: 'countries', label: 'Country' },
+                { id: 'regions', label: 'Region' },
+                { id: 'global', label: 'Simfinity Passport', badge: 'New' },
               ].map((tab) => (
                 <button
                   key={tab.id}
@@ -222,14 +223,13 @@ const MobileDestinationSearch: React.FC<MobileDestinationSearchProps> = ({ isOpe
                   className={cn(
                     'flex items-center gap-2 px-4 py-3 text-sm font-medium transition-all whitespace-nowrap border-b-2 flex-shrink-0',
                     activeTab === tab.id
-                      ? 'border-teal-500 text-teal-600 dark:text-teal-400'
+                      ? 'border-primary text-primary'
                       : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white',
                   )}
                 >
-                  <span>{tab.icon}</span>
                   {tab.label}
                   {tab.badge && (
-                    <span className="ml-1 rounded-full bg-yellow-400 px-1.5 py-0.5 text-xs font-bold text-black">
+                    <span className="ml-1 rounded-full bg-yellow-400 px-1.5 py-0.5 text-[10px] font-bold text-black uppercase">
                       {tab.badge}
                     </span>
                   )}
@@ -262,7 +262,7 @@ const MobileDestinationSearch: React.FC<MobileDestinationSearchProps> = ({ isOpe
                         slug={item.slug}
                         image={item.image}
                         countryCode={item.countryCode}
-                        startPrice={convertPrice(item.startPrice, 'USD', currency, currencies)}
+                        startPrice={item.startPrice}
                         onClick={handleCountryClick}
                         index={index}
                         type="country"
@@ -300,7 +300,7 @@ const MobileDestinationSearch: React.FC<MobileDestinationSearchProps> = ({ isOpe
                         slug={item.slug}
                         image={item.image}
                         countryCode={item.countryCode}
-                        startPrice={convertPrice(item.startPrice, 'USD', currency, currencies)}
+                        startPrice={item.startPrice}
                         onClick={handleCountryClick}
                         index={index}
                         type="country"
@@ -337,9 +337,8 @@ const MobileDestinationSearch: React.FC<MobileDestinationSearchProps> = ({ isOpe
                         name={item.name}
                         slug={item.slug}
                         image={item.image}
-                        startPrice={convertPrice(item.startPrice, 'USD', currency, currencies)}
+                        startPrice={item.startPrice}
                         additionalInfo={`${item.countryCount} countries`}
-                        fallbackIcon="🌍"
                         onClick={handleRegionClick}
                         index={index}
                         type="region"
@@ -361,7 +360,7 @@ const MobileDestinationSearch: React.FC<MobileDestinationSearchProps> = ({ isOpe
             {activeTab === 'global' && (
               <div className="space-y-4">
                 <div className="text-sm font-semibold text-gray-700 dark:text-gray-300 px-2 py-2">
-                  Ultra Plans ({globalPackages.length})
+                  Simfinity Passport Plans ({globalPackages.length})
                 </div>
                 {loadingGlobal ? (
                   <div className="grid grid-cols-2 gap-3">
@@ -377,7 +376,6 @@ const MobileDestinationSearch: React.FC<MobileDestinationSearchProps> = ({ isOpe
                         slug={item.slug}
                         startPrice={convertPrice(item.startPrice, 'USD', currency, currencies)}
                         additionalInfo={`${item.validity} days`}
-                        fallbackIcon="🚀"
                         onClick={handleGlobalClick}
                         index={index}
                         type="global"
@@ -416,7 +414,7 @@ const MobileDestinationSearch: React.FC<MobileDestinationSearchProps> = ({ isOpe
               navigate('/destinations');
               onClose();
             }}
-            className="w-full bg-black dark:bg-white text-white dark:text-black font-semibold py-3 px-6 rounded-full hover:bg-gray-800 dark:hover:bg-gray-200 transition-all active:scale-[0.98]"
+            className="w-full bg-primary text-white font-bold py-3 px-6 rounded-full hover:bg-primary/90 transition-all active:scale-[0.98]"
           >
             View All Destinations
           </button>
