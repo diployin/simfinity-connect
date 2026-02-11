@@ -10,9 +10,16 @@ export interface SettingsState {
   currency: string;
   logo: string;
   favicon: string;
+  theme_primary?: string;
+  theme_primary_second?: string;
+  theme_primary_light?: string;
+  theme_primary_dark?: string;
+  theme_font_heading?: string;
+  theme_font_body?: string;
   isLoading: boolean;
   error: string | null;
   lastFetched: number | null;
+  updated_at?: string;
 
   website_url?: string | string[];
   social_facebook?: string | string[];

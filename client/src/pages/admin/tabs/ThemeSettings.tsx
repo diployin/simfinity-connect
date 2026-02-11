@@ -62,13 +62,13 @@ export function ThemeSettings() {
   useEffect(() => {
     if (!settings || Object.keys(settings).length === 0) return;
 
-    updateColor('primary', settings.theme_primary || colors.primary);
-    updateColor('primarySecond', settings.theme_primary_second || colors.primarySecond);
-    updateColor('primaryLight', settings.theme_primary_light || colors.primaryLight);
-    updateColor('primaryDark', settings.theme_primary_dark || colors.primaryDark);
+    if (settings.theme_primary) updateColor('primary', settings.theme_primary);
+    if (settings.theme_primary_second) updateColor('primarySecond', settings.theme_primary_second);
+    if (settings.theme_primary_light) updateColor('primaryLight', settings.theme_primary_light);
+    if (settings.theme_primary_dark) updateColor('primaryDark', settings.theme_primary_dark);
 
-    updateFont('primary', settings.theme_font_primary || fonts.primary);
-    updateFont('secondary', settings.theme_font_secondary || fonts.secondary);
+    if (settings.theme_font_heading) updateFont('heading', settings.theme_font_heading);
+    if (settings.theme_font_body) updateFont('body', settings.theme_font_body);
   }, [settings]);
 
   /* ---------------- Save Mutation ---------------- */
@@ -81,6 +81,7 @@ export function ThemeSettings() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/settings'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/public/settings'] });
     },
   });
 

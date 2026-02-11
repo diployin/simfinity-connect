@@ -1,5 +1,6 @@
 // ThemeContext.tsx - Complete with Colors + Fonts Management
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 type ThemeMode = 'light' | 'dark';
 
@@ -98,6 +99,42 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }
     return defaultFonts;
   });
+
+  // Fetch Public Settings from API
+  const { data: serverSettings } = useQuery<any>({
+    queryKey: ['/api/public/settings'],
+    staleTime: 1000 * 60 * 10, // Cache for 10 minutes
+  });
+
+  // Sync with Server Settings
+  useEffect(() => {
+    if (serverSettings) {
+      const {
+        theme_primary,
+        theme_primary_second,
+        theme_primary_light,
+        theme_primary_dark,
+        theme_font_heading,
+        theme_font_body,
+      } = serverSettings;
+
+      if (theme_primary) {
+        setColors({
+          primary: theme_primary,
+          primarySecond: theme_primary_second || theme_primary,
+          primaryLight: theme_primary_light || theme_primary,
+          primaryDark: theme_primary_dark || theme_primary,
+        });
+      }
+
+      if (theme_font_heading || theme_font_body) {
+        setFonts({
+          heading: theme_font_heading || defaultFonts.heading,
+          body: theme_font_body || defaultFonts.body,
+        });
+      }
+    }
+  }, [serverSettings]);
 
   // Light/Dark theme effect
   useEffect(() => {
