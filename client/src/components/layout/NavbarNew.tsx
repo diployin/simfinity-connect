@@ -13,6 +13,12 @@ import {
   Package,
   Bell,
   Search,
+  MapPin,
+  Star,
+  Map,
+  BookOpen,
+  Gift,
+  HelpCircle,
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -69,42 +75,42 @@ export function NavbarNew() {
   };
 
   const mobileMenuConfig = [
-    {
-      id: 'destinations',
-      label: 'Destinations',
-      icon: '📍',
-      items: [
-        {
-          href: '/destinations',
-          label: 'All Destinations',
-          icon: '📍',
-          description: 'Browse all countries & regions',
-        },
-        {
-          href: '/destinations/popular',
-          label: 'Popular',
-          icon: '⭐',
-          description: 'Top travel destinations',
-        },
-        {
-          href: '/regions/europe',
-          label: 'Europe',
-          icon: '🇪🇺',
-          description: '40+ European countries',
-        },
-        { href: '/regions/asia', label: 'Asia', icon: '🇨🇳', description: '25+ Asian destinations' },
-        {
-          href: '/regions/north-america',
-          label: 'North America',
-          icon: '🇺🇸',
-          description: 'USA, Canada & more',
-        },
-      ],
-    },
+    // {
+    //   id: 'destinations',
+    //   label: 'Destinations',
+    //   icon: <MapPin className="h-4 w-4" />,
+    //   items: [
+    //     {
+    //       href: '/destinations',
+    //       label: 'All Destinations',
+    //       icon: <Globe className="h-4 w-4" />,
+    //       description: 'Browse all countries & regions',
+    //     },
+    //     {
+    //       href: '/destinations/popular',
+    //       label: 'Popular',
+    //       icon: <Star className="h-4 w-4" />,
+    //       description: 'Top travel destinations',
+    //     },
+    //     {
+    //       href: '/regions/europe',
+    //       label: 'Europe',
+    //       icon: <Map className="h-4 w-4" />,
+    //       description: '40+ European countries',
+    //     },
+    //     { href: '/regions/asia', label: 'Asia', icon: <Map className="h-4 w-4" />, description: '25+ Asian destinations' },
+    //     {
+    //       href: '/regions/north-america',
+    //       label: 'North America',
+    //       icon: <Map className="h-4 w-4" />,
+    //       description: 'USA, Canada & more',
+    //     },
+    //   ],
+    // },
     {
       id: 'product',
       label: 'Product',
-      icon: '🎁',
+      icon: <Package className="h-4 w-4" />,
       items:
         staticData?.NavbarData?.productMegaMenuConfig?.columns?.flatMap((col: any) => col.items) ||
         [],
@@ -112,7 +118,7 @@ export function NavbarNew() {
     {
       id: 'resource',
       label: 'Resources',
-      icon: '📚',
+      icon: <BookOpen className="h-4 w-4" />,
       items:
         staticData?.NavbarData?.rouceMegaMenuConfig?.columns?.flatMap((col: any) => col.items) ||
         [],
@@ -120,7 +126,7 @@ export function NavbarNew() {
     {
       id: 'offers',
       label: 'Offers',
-      icon: '🎉',
+      icon: <Gift className="h-4 w-4" />,
       items:
         staticData?.NavbarData?.offersMegaMenuConfig?.columns?.flatMap((col: any) => col.items) ||
         [],
@@ -128,7 +134,7 @@ export function NavbarNew() {
     {
       id: 'help',
       label: 'Help',
-      icon: '❓',
+      icon: <HelpCircle className="h-4 w-4" />,
       items:
         staticData?.NavbarData?.helpMegaMenuConfig?.columns?.flatMap((col: any) => col.items) || [],
     },
@@ -368,7 +374,7 @@ export function NavbarNew() {
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <button className="hidden lg:flex items-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 p-1.5 lg:p-2 transition-all">
-                              <div className="h-7 w-7 lg:h-8 lg:w-8 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center">
+                              <div className="h-7 w-7 lg:h-8 lg:w-8 rounded-full bg-gray-500 flex items-center justify-center">
                                 <User className="h-4 w-4 text-white" />
                               </div>
                             </button>
@@ -380,13 +386,13 @@ export function NavbarNew() {
                                 {user?.email}
                               </p>
                             </div>
-                            <DropdownMenuItem asChild>
+                            <DropdownMenuItem asChild className="focus:text-primary focus:bg-primary/10 cursor-pointer">
                               <Link href="/account/profile" className="flex items-center gap-2">
                                 <User className="h-4 w-4" />
                                 Profile
                               </Link>
                             </DropdownMenuItem>
-                            <DropdownMenuItem asChild>
+                            <DropdownMenuItem asChild className="focus:text-primary focus:bg-primary/10 cursor-pointer">
                               <Link href="/account/orders" className="flex items-center gap-2">
                                 <ShoppingBag className="h-4 w-4" />
                                 My Orders
@@ -431,187 +437,202 @@ export function NavbarNew() {
                     </SheetTrigger>
                     <SheetContent
                       side="right"
-                      className="w-full p-0 pt-0 bg-[#f9fafb] dark:bg-background flex flex-col"
+                      className="w-full p-0 pt-0 bg-white flex flex-col"
                     >
                       {/* 🔥 MOBILE HEADER WITH LOGO & CLOSE */}
-                      <SheetHeader className="p-4 px-6 bg-white z-20">
+                      <SheetHeader className="p-4 px-6 bg-white z-20 flex-shrink-0">
                         <div className="flex items-center justify-between w-full">
                           <Link href="/" onClick={closeMobileMenu}>
-                            {displayLogo ? (
-                              <img src={displayLogo} alt="Logo" className="h-10 w-auto" />
+                            {logo ? (
+                              <img src={logo} alt="Logo" className="h-8 w-auto" />
                             ) : (
                               <span className="font-bold text-2xl text-teal-600">Simfinity</span>
                             )}
                           </Link>
-                          <button
-                            onClick={() => closeMobileMenu()}
-                            className="p-1 hover:bg-gray-100 rounded-full transition-all"
-                          >
-                            <X className="h-6 w-6 text-gray-500" />
-                          </button>
+                          <div className="flex items-center gap-3">
+                            {isAuthenticated && user ? (
+                              <Link
+                                href="/account/profile"
+                                onClick={closeMobileMenu}
+                                className="flex items-center justify-center"
+                              >
+                                <div className="h-8 w-8 rounded-full bg-gray-500 flex items-center justify-center shadow-sm">
+                                  <User className="h-4 w-4 text-white" />
+                                </div>
+                              </Link>
+                            ) : (
+                              <Link href="/login" onClick={closeMobileMenu}>
+                                <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-300 text-sm font-medium text-gray-900 hover:bg-gray-50 transition-all">
+                                  <User className="h-3.5 w-3.5" />
+                                  <span>Sign In</span>
+                                </button>
+                              </Link>
+                            )}
+                            <button
+                              onClick={() => closeMobileMenu()}
+                              className="p-1 hover:bg-gray-100 rounded-full transition-all"
+                            >
+                              <X className="h-6 w-6 text-gray-900" />
+                            </button>
+                          </div>
                         </div>
                       </SheetHeader>
 
-                      {/* 🔥 MOBILE CONTENT - SCROLLABLE */}
-                      <div className="flex-1 overflow-y-auto p-4 px-6 space-y-3">
-                        {/* 🔥 ALL MOBILE MENU SECTIONS */}
-                        <div className="space-y-3">
-                          {mobileMenuConfig.map((menu) => (
-                            <div
-                              key={menu.id}
-                              className="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden"
-                            >
-                              <button
-                                type="button"
-                                onClick={() => toggleMobileMenu(menu.id)}
-                                className="flex w-full items-center justify-between py-4 px-5 text-left text-base font-bold text-gray-900"
-                              >
-                                <span>{menu.label}</span>
-                                <ChevronDown
-                                  className={cn(
-                                    'h-5 w-5 transition-transform duration-300 text-gray-400',
-                                    activeMobileMenu === menu.id && 'rotate-180',
-                                  )}
-                                />
-                              </button>
-
-                              {activeMobileMenu === menu.id && (
-                                <div className="border-t border-gray-50 space-y-1 p-3 bg-white">
-                                  {menu.items.map((item, idx) => (
-                                    <Link
-                                      key={idx}
-                                      href={item.href}
-                                      onClick={closeMobileMenu}
-                                      className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 transition-all text-sm font-medium"
-                                    >
-                                      <span className="text-gray-400">{item.icon || '•'}</span>
-                                      <div className="flex-1 min-w-0">
-                                        <div className="text-gray-900 group-hover:text-teal-600">
-                                          {item.label}
-                                        </div>
-                                      </div>
-                                    </Link>
-                                  ))}
-                                </div>
-                              )}
-                            </div>
-                          ))}
-                        </div>
-
-                        {/* 🔥 LANGUAGE SELECTOR AS ACCORDION CARD */}
-                        <div className="pt-2">
-                          <div className="rounded-2xl border border-gray-100 bg-white shadow-sm overflow-hidden">
-                            <button
-                              onClick={() => toggleMobileMenu('language')}
-                              className="flex w-full items-center justify-between py-4 px-5 text-left text-base font-bold text-primary"
-                            >
-                              <span className="flex items-center gap-3 uppercase">
-                                <Globe className="h-5 w-5" />
-                                {languageCode}
-                              </span>
-                              <ChevronDown
-                                className={cn(
-                                  'h-5 w-5 transition-transform duration-300 text-primary/40',
-                                  activeMobileMenu === 'language' && 'rotate-180',
-                                )}
-                              />
-                            </button>
-
-                            {activeMobileMenu === 'language' && (
-                              <div className="border-t border-gray-50 p-3 space-y-2 bg-gray-50/30">
-                                {languages.map((lang) => {
-                                  const active = languageCode === lang.code;
-                                  return (
-                                    <button
-                                      key={lang.code}
-                                      onClick={() => {
-                                        setLanguage(lang.code);
-                                        setActiveMobileMenu(null);
-                                      }}
-                                      className={cn(
-                                        'flex items-center justify-between w-full p-4 rounded-xl transition-all bg-white border',
-                                        active
-                                          ? 'border-primary shadow-sm'
-                                          : 'border-transparent text-gray-700',
-                                      )}
-                                    >
-                                      <div className="flex items-center gap-3">
-                                        <ReactCountryFlag
-                                          countryCode={lang.flagCode}
-                                          svg
-                                          style={{ width: '24px', height: '18px' }}
-                                        />
-                                        <div className="text-left">
-                                          <div className="font-bold text-gray-900">
-                                            {lang.nativeName}
-                                          </div>
-                                          <div className="text-xs text-gray-400 font-medium">
-                                            {lang.name}
-                                          </div>
-                                        </div>
-                                      </div>
-                                      {active && (
-                                        <div className="h-2.5 w-2.5 rounded-full bg-primary" />
-                                      )}
-                                    </button>
-                                  );
-                                })}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* 🔥 MOBILE BOTTOM FIXED CTA SECTION */}
-                      <div className="p-6 px-6 bg-[#f0f5f9] border-t space-y-3 sticky bottom-0 z-30 shadow-[0_-10px_30px_rgba(0,0,0,0.03)]">
-                        {/* Search Destinations Button */}
+                      {/* 🔥 1. SEARCH BAR (New) */}
+                      <div className="px-5 pb-2">
                         <button
                           onClick={() => {
                             setIsMobileDestinationSearchOpen(true);
                             closeMobileMenu();
                           }}
-                          className="flex items-center justify-center gap-2 w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 px-6 rounded-2xl transition-all shadow-md active:scale-[0.98]"
+                          className="w-full flex items-center justify-between bg-gray-100 rounded-full pl-5 pr-2 py-2 text-gray-500 hover:bg-gray-200 transition-colors"
                         >
-                          <Search className="h-5 w-5" />
-                          <span>Search Destinations</span>
+                          <span className="text-base text-gray-500 font-normal">
+                            Where are you travelling to?
+                          </span>
+                          <div className="bg-black rounded-full p-2.5 text-white">
+                            <Search size={18} />
+                          </div>
                         </button>
+                      </div>
 
-                        {/* Sign In / Sign Out Button */}
-                        {!isLoading && (
-                          <>
-                            {!isAuthenticated ? (
-                              <Link
-                                href="/login"
-                                onClick={closeMobileMenu}
-                                className="flex items-center justify-center gap-2 w-full bg-white border-2 border-primary/20 text-primary font-bold py-4 px-6 rounded-2xl transition-all hover:border-primary/40 active:scale-[0.98]"
-                              >
-                                <User className="h-5 w-5" />
-                                <span>Sign In</span>
-                              </Link>
-                            ) : (
-                              <button
-                                onClick={() => {
-                                  handleLogout();
-                                  closeMobileMenu();
-                                }}
-                                className="w-full bg-white border-2 border-red-500/20 text-red-600 font-bold py-4 px-6 rounded-2xl transition-all hover:bg-red-50 active:scale-[0.98]"
-                              >
-                                Sign Out
-                              </button>
-                            )}
-                          </>
-                        )}
-
-                        {/* Get Started Button */}
-                        {!isAuthenticated && (
-                          <Link
-                            href="/register"
-                            onClick={closeMobileMenu}
-                            className="flex items-center justify-center w-full bg-primary-dark hover:opacity-90 text-white font-bold py-4 px-6 rounded-2xl transition-all shadow-sm active:scale-[0.98]"
+                      {/* 🔥 MOBILE CONTENT - SCROLLABLE */}
+                      <div className="flex-1 overflow-y-auto px-5 py-2 space-y-1">
+                        {/* 🔥 MENU ITEMS */}
+                        {mobileMenuConfig.map((menu) => (
+                          <div
+                            key={menu.id}
+                            className="overflow-hidden border-b border-gray-100 last:border-0"
                           >
-                            Get Started
-                          </Link>
-                        )}
+                            <button
+                              type="button"
+                              onClick={() => toggleMobileMenu(menu.id)}
+                              className="flex w-full items-center justify-between py-4 text-left text-base font-semibold text-gray-900"
+                            >
+                              <div className="flex items-center gap-2">
+                                <span>{menu.label}</span>
+                                {menu.id === 'product' && (
+                                  <span className="px-2 py-0.5 rounded-full border border-gray-300 text-[10px] font-bold uppercase tracking-wide text-gray-600">
+                                    New
+                                  </span>
+                                )}
+                              </div>
+                              <ChevronDown
+                                className={cn(
+                                  'h-5 w-5 transition-transform duration-300 text-gray-400',
+                                  activeMobileMenu === menu.id && 'rotate-180',
+                                )}
+                              />
+                            </button>
+
+                            <div
+                              className={cn(
+                                'grid transition-all duration-300 ease-in-out',
+                                activeMobileMenu === menu.id
+                                  ? 'grid-rows-[1fr] opacity-100 mb-4'
+                                  : 'grid-rows-[0fr] opacity-0',
+                              )}
+                            >
+                              <div className="overflow-hidden">
+                                <div className="bg-gray-50 rounded-2xl p-2 space-y-1">
+                                  {menu.items.map((item, idx) => (
+                                    <Link
+                                      key={idx}
+                                      href={item.href || '#'}
+                                      onClick={closeMobileMenu}
+                                      className="flex items-center gap-3 p-3 rounded-xl hover:bg-gray-200/50 transition-all group"
+                                    >
+                                      {item.icon ? (
+                                        <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-primary text-white transition-transform group-hover:scale-110">
+                                          {item.icon}
+                                        </div>
+                                      ) : (
+                                        <div className="h-8 w-8 rounded-full bg-yellow-400" />
+                                      )}
+                                      <span className="text-sm font-medium text-gray-900">
+                                        {item.label}
+                                      </span>
+                                    </Link>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+
+                        {/* 🔥 LANGUAGE SELECTOR */}
+                        <div className="border-t border-gray-100">
+                          <button
+                            onClick={() => toggleMobileMenu('language')}
+                            className="flex w-full items-center justify-between py-4 text-left text-base font-semibold text-gray-900"
+                          >
+                            <span className="flex items-center gap-2">
+                              <Globe className="h-5 w-5" />
+                              {languageCode.toUpperCase()}
+                            </span>
+                            <ChevronDown
+                              className={cn(
+                                'h-5 w-5 transition-transform duration-300 text-gray-400',
+                                activeMobileMenu === 'language' && 'rotate-180',
+                              )}
+                            />
+                          </button>
+
+                          <div
+                            className={cn(
+                              'grid transition-all duration-300 ease-in-out',
+                              activeMobileMenu === 'language'
+                                ? 'grid-rows-[1fr] opacity-100 mb-4'
+                                : 'grid-rows-[0fr] opacity-0',
+                            )}
+                          >
+                            <div className="overflow-hidden">
+                              <div className="bg-gray-50 rounded-2xl p-2 space-y-1">
+                                {languages.map((lang) => (
+                                  <button
+                                    key={lang.code}
+                                    onClick={() => {
+                                      setLanguage(lang.code);
+                                      setActiveMobileMenu(null);
+                                    }}
+                                    className={cn(
+                                      'flex items-center justify-between w-full p-3 rounded-xl transition-all hover:bg-gray-200/50',
+                                      languageCode === lang.code && 'bg-white shadow-sm',
+                                    )}
+                                  >
+                                    <div className="flex items-center gap-3">
+                                      <ReactCountryFlag
+                                        countryCode={lang.flagCode}
+                                        svg
+                                        style={{ width: '20px', height: '15px' }}
+                                      />
+                                      <span className="text-sm font-medium text-gray-900">
+                                        {lang.nativeName}
+                                      </span>
+                                    </div>
+                                    {languageCode === lang.code && (
+                                      <div className="h-2 w-2 rounded-full bg-green-500" />
+                                    )}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* 🔥 BOTTOM ACTIONS */}
+                      <div className="p-5 pb-8 space-y-3 bg-white border-t border-gray-100">
+                        <button className="w-full bg-black text-white rounded-full py-3.5 text-base font-bold hover:opacity-90 transition-opacity">
+                          Download App
+                        </button>
+                        <Link
+                          href="/destinations"
+                          onClick={closeMobileMenu}
+                          className="flex items-center justify-center w-full bg-white border border-black text-black rounded-full py-3.5 text-base font-bold hover:bg-gray-50 transition-colors"
+                        >
+                          View All Destinations
+                        </Link>
                       </div>
                     </SheetContent>
                   </Sheet>
