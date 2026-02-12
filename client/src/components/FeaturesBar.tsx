@@ -37,7 +37,7 @@ export default function FeaturesBar() {
     );
 
     return (
-        <div className="w-full bg-primary/[0.03] dark:bg-primary/[0.02] border-y border-primary/20 mt-8 py-4 shadow-sm backdrop-blur-sm">
+        <div className="w-full bg-primary/[0.03] dark:bg-primary/[0.02] mt-8 py-4 shadow-sm backdrop-blur-sm">
             <div className="max-w-7xl mx-auto px-4">
                 <Carousel
                     plugins={[plugin.current]}

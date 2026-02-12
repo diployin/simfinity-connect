@@ -9,7 +9,7 @@ import { SettingsState } from '@/redux/slice/settingsSlice';
 import { PageApiResponse } from '@/types/types';
 import { FaInstagram, FaFacebookF, FaYoutube, FaLinkedinIn, FaReddit } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import { SiVisa, SiMastercard, SiApplepay, SiGooglepay, SiDiscover, SiJcb } from 'react-icons/si';
+import { SiVisa, SiMastercard, SiApplepay, SiGooglepay, SiDiscover, SiJcb, SiAmericanexpress } from 'react-icons/si';
 import {
   Accordion,
   AccordionContent,
@@ -75,12 +75,13 @@ const FooterNew = () => {
 
   // Payment methods
   const paymentMethods = [
-    { icon: SiApplepay, label: 'Apple Pay' },
-    { icon: SiGooglepay, label: 'Google Pay' },
-    { icon: SiVisa, label: 'Visa' },
-    { icon: SiMastercard, label: 'Mastercard' },
-    { icon: SiApplepay, label: 'American Express' }, // Placeholder for Amex if not in Si
-    { icon: SiDiscover, label: 'Discover' }
+    { icon: SiApplepay, label: 'Apple Pay', color: 'text-black' },
+    { icon: SiGooglepay, label: 'Google Pay', color: 'text-black' },
+    { icon: SiVisa, label: 'Visa', color: 'text-[#1434CB]' },
+    { icon: SiMastercard, label: 'Mastercard', color: 'text-[#EB001B]' },
+    { icon: SiAmericanexpress, label: 'American Express', color: 'text-[#2E77BC]' },
+    { icon: SiDiscover, label: 'Discover', color: 'text-[#FF6000]' },
+    // { icon: SiJcb, label: 'JCB', color: 'text-[#1F2F5F]' },
   ];
 
   const popularDestinations = allDestinations.slice(0, 7);
@@ -267,7 +268,7 @@ const FooterNew = () => {
             <div className="flex flex-wrap items-center gap-1.5">
               {paymentMethods.map((method, idx) => (
                 <div key={idx} className="h-8 w-14 md:h-10 md:w-18 flex items-center justify-center rounded-md border border-gray-100 bg-white shadow-sm" title={method.label}>
-                  <method.icon className="h-6 w-10 md:h-8 md:w-14 text-gray-700" />
+                  <method.icon className={`h-6 w-10 md:h-8 md:w-14 ${method.color}`} />
                 </div>
               ))}
             </div>

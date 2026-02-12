@@ -76,13 +76,13 @@ const HowDoesItWorkSection = () => {
               {steps.map((step) => (
                 <CarouselItem key={step.id} className="pl-4 basis-[85%]">
                   <div className="p-1">
-                    <div className="flex flex-col space-y-5 p-7 rounded-[2rem] bg-slate-50 border border-gray-100 dark:border-gray-800 shadow-sm min-h-[220px]">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white text-lg font-bold shadow-md shadow-primary/20">
+                    <div className="flex flex-col space-y-5 p-7 rounded-lg bg-slate-50 border border-gray-100 dark:border-gray-800 shadow-sm min-h-[220px]">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary text-white text-lg font-medium shadow-md shadow-primary/20">
                         {step.id}
                       </div>
 
                       <div className="space-y-3">
-                        <h3 className="text-xl font-bold text-gray-900 tracking-tight">{step.title}</h3>
+                        <h3 className="text-xl font-medium text-gray-900 tracking-tight">{step.title}</h3>
                         <p className="text-sm leading-relaxed text-gray-600 font-medium">{step.description}</p>
                       </div>
                     </div>
@@ -92,9 +92,10 @@ const HowDoesItWorkSection = () => {
             </CarouselContent>
 
             {/* Carousel Navigation */}
-            <div className="flex justify-center gap-4 mt-2">
-              <CarouselPrevious className="h-11 w-11 rounded-full bg-white border-primary/20 shadow-lg static translate-y-0" />
-              <CarouselNext className="h-11 w-11 rounded-full bg-white border-primary/20 shadow-lg static translate-y-0" />
+            {/* Carousel Navigation */}
+            <div className="flex justify-end gap-2 mt-2">
+              <CarouselPrevious className="h-11 w-11 rounded-md bg-white border-primary/20 shadow-lg relative left-0 top-0 translate-y-0" />
+              <CarouselNext className="h-11 w-11 rounded-md bg-white border-primary/20 shadow-lg relative right-0 top-0 translate-y-0" />
             </div>
           </Carousel>
         </div>
@@ -102,23 +103,23 @@ const HowDoesItWorkSection = () => {
         {/* Desktop Grid - With Images */}
         <div className="hidden md:grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
           {steps.map((step) => (
-            <div key={step.id} className="group flex flex-col overflow-hidden rounded-[2.5rem] bg-slate-50 border border-transparent hover:border-primary/20 transition-all duration-500 hover:shadow-2xl">
+            <div key={step.id} className="group flex flex-col overflow-hidden rounded-lg bg-slate-50 border border-transparent hover:border-primary/20 transition-all duration-500 hover:shadow-2xl">
               <div className="flex-1 space-y-5 p-10 sm:p-8">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white text-lg font-bold shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
+                <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary text-white text-lg font-medium shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
                   {step.id}
                 </div>
 
                 <div className="space-y-3">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white tracking-tight leading-snug">{step.title}</h3>
+                  <h3 className="text-xl font-medium text-gray-900 dark:text-white tracking-tight leading-snug">{step.title}</h3>
                   <p className="text-base leading-relaxed text-gray-600 dark:text-gray-400 font-medium">{step.description}</p>
                 </div>
               </div>
 
-              <div className="relative flex h-[280px] items-center justify-center overflow-hidden">
+              <div className="relative flex h-[280px] items-end justify-center overflow-hidden">
                 <img
                   src={step.image}
                   alt={step.title}
-                  className="object-contain h-full w-full p-4 transform group-hover:scale-105 transition-transform duration-700"
+                  className="object-contain object-bottom h-full w-full transform group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
             </div>

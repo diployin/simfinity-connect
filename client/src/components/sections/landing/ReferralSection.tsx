@@ -18,7 +18,7 @@ const ReferralSection = () => {
             <div className="relative z-10 flex flex-col justify-center space-y-8 p-8 sm:p-12 lg:p-16 xl:p-20">
               <div className="space-y-4">
                 <p className="text-gray-400 font-medium uppercase tracking-[0.2em] text-xs sm:text-sm">
-                  Refer & Earn
+                  {t('website.heroReferfriend.title')}
                 </p>
                 <h2 className="text-3xl sm:text-4xl lg:text-2.5 font-medium leading-[1.1] text-gray-900 tracking-tight">
                   {t('website.heroReferfriend.title')}
@@ -28,11 +28,11 @@ const ReferralSection = () => {
                 </p>
               </div>
 
-              {/* Action Button - Full Width */}
-              <div className="w-full">
+              {/* Action Button - Auto Width */}
+              <div className="flex justify-start w-full">
                 <ThemeButton
                   onClick={() => navigate('/referral')}
-                  className="w-full bg-transparent border border-primary text-primary py-3 rounded-full text-lg font-bold shadow-lg hover:shadow-primary/20 transition-all duration-300 transform hover:-translate-y-1"
+                  className="w-full bg-transparent border border-primary text-primary px-6 py-3 sm:px-10 sm:py-6 rounded-full text-base sm:text-lg font-bold shadow-lg hover:shadow-primary/20 transition-all duration-300 transform hover:-translate-y-1"
                 >
                   {t('website.heroReferfriend.btn')}
                 </ThemeButton>

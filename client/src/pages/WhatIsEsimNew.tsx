@@ -118,77 +118,81 @@ const WhatEsimNew = () => {
   ];
 
   return (
-    <main className={isTopBarVisible
-      ? 'mt-28 md:mt-0'
-      : 'mt-24 md:mt-0'}>
+    <main>
       <Helmet>
         <title>{t('website.WhatIsEsim.content.heroTittle')}</title>
       </Helmet>
-      <section className="bg-white px-4  pb-8 sm:px-6 lg:px-8 mt-16 md:mt-0">
+
+      {/* SECTION 1: Hero Section */}
+      <section className="bg-white px-4 pt-32 pb-16 sm:px-6 lg:px-8 md:pt-40">
         <div className="containers mx-auto">
-          <div className="grid grid-cols-1 items-center gap-8 rounded-3xl lg:grid-cols-2 lg:gap-12">
-            {/* Left Side - Image */}
-            <div className="order-2 lg:order-2">
-              <div className="relative h-[400px] overflow-hidden rounded-[2rem] sm:h-[600px] lg:h-[500px]">
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+
+            {/* Left Side - Image (Desktop: Left, Mobile: Bottom) */}
+            <div className="order-2 lg:order-1">
+              <div className="relative w-full h-[350px] sm:h-[500px] lg:h-[600px] overflow-hidden rounded-2xl shadow-sm">
                 <img
                   src="/images/whatEsim/What_is_an_esim.png"
-                  alt="Business professional using mobile and laptop"
-                  className="object-contain"
+                  alt="What is an eSIM"
+                  className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
             </div>
 
-            <div className="order-1 space-y-6 text-start lg:order-1">
-              <h1 className="lg:text-2.5 max-w-lg text-3xl leading-tight font-medium text-gray-900 sm:text-4xl">
+            {/* Right Side - Content (Desktop: Right, Mobile: Top) */}
+            <div className="order-1 lg:order-2 flex flex-col items-start text-start space-y-6 lg:pl-8">
+              <h1 className="text-3xl sm:text-4xl lg:text-2.5 font-medium text-gray-900 leading-tight">
                 {t('website.WhatIsEsim.content.heroTittle')}
               </h1>
 
-              <p className="text-base leading-relaxed text-gray-600 sm:text-base font-thin">
+              <p className="text-base font-thin leading-relaxed text-gray-600 sm:text-base max-w-lg">
                 {t('website.WhatIsEsim.content.herodes')}
               </p>
 
-              <div className="">
-                {/* <Link
-                  href="/contact"
-                  className="bg-themeYellow hover:bg-themeYellowHover inline-block rounded-full border px-8 py-3.5 text-base font-medium text-black transition-colors duration-200"
+              <div className="w-full pt-4">
+                <ThemeButton
+                  onClick={() => navigate('/contact')}
+                  className="w-full sm:w-auto min-w-[200px] px-8 py-4 rounded-xl text-lg font-bold shadow-lg hover:shadow-primary/20 transition-all duration-300 transform hover:-translate-y-1 block text-center"
                 >
                   {t('website.WhatIsEsim.content.ctaButton')}
-                </Link> */}
-                <div className=" flex justify-center md:justify-start ">
-                  <ThemeButton onClick={() => navigate('/contact')}>
-                    {t('website.WhatIsEsim.content.ctaButton')}
-                  </ThemeButton>
-                </div>
+                </ThemeButton>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <section className="px-4 py-8 sm:px-6 md:py-16 lg:px-8">
-        <div className="containers mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-16">
-            {/* Left Side - Heading */}
-            <div>
-              <h2 className="lg:text-2.5 text-3xl leading-tight font-medium text-gray-900 sm:text-4xl">
-                {t('website.WhatIsEsim.content.heading')}
+
+      {/* SECTION 2: What is an eSIM */}
+      <section className="bg-slate-50 px-4 py-16 sm:px-6 md:py-24 lg:px-8">
+        <div className="containers mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+
+            {/* Left Side - Content (Aligned Right-End visually in this col) */}
+            <div className="space-y-6 lg:pr-12">
+              <h2 className="text-3xl sm:text-4xl lg:text-2.5 font-medium text-gray-900 leading-tight">
+                What is an eSIM and why travelers love it?
               </h2>
 
-              <p className="text-base leading-relaxed text-gray-600 sm:text-base font-thin">
-                {t('website.WhatIsEsim.content.des')}
-              </p>
+              <div className="space-y-6 text-base text-gray-600 font-thin leading-relaxed">
+                <p>
+                  {t('website.WhatIsEsim.content.paragraph1')}
+                </p>
+                <p>
+                  {t('website.WhatIsEsim.content.paragraph2')}
+                </p>
+              </div>
             </div>
 
-            {/* Right Side - Content */}
-            <div className="space-y-6">
-              <p className="text-base leading-relaxed text-gray-700 sm:text-base font-thin">
-                {t('website.WhatIsEsim.content.paragraph1')}
-              </p>
-
-              <p className="text-base leading-relaxed text-gray-700 sm:text-base font-thin">
-                {t('website.WhatIsEsim.content.paragraph2')}
-              </p>
+            {/* Right Side - Image */}
+            <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] w-full overflow-hidden rounded-2xl shadow-md">
+              <img
+                src="/images/whatEsim/How does an eSIM work.png"
+                alt="How does an eSIM work"
+                className="w-full h-full object-cover object-center transform hover:scale-105 transition-transform duration-700"
+              />
             </div>
+
           </div>
         </div>
       </section>

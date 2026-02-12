@@ -830,9 +830,9 @@ const useStaticData = () => {
               {
                 label: t('website.headerlinks.ProductFeature2Title'),
                 description: t('website.headerlinks.ProductFeature2Desc'),
-                href: '',
+                href: '/esim-for-business',
                 icon: <FaSimCard className="h4 w-4" />,
-                isExternalUrl: 'https://simfinity.dev',
+                // isExternalUrl: 'https://simfinity.dev',
               },
               {
                 label: t('website.headerlinks.ProductFeature3Title'),
@@ -848,7 +848,7 @@ const useStaticData = () => {
               {
                 label: t('website.headerlinks.ProductTool1Title'),
                 description: t('website.headerlinks.ProductTool1Desc'),
-                href: '/privacy-policy',
+                href: '/data-usages',
                 icon: <RiPieChart2Fill className="h4 w-4" />,
               },
               {

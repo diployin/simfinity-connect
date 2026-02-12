@@ -96,8 +96,8 @@ const WhyChooseSailySection = () => {
               {features.map((feature) => (
                 <CarouselItem key={feature.id} className="pl-4 basis-[85%]">
                   <div className="p-1">
-                    <div className="flex flex-col space-y-5 p-6 border border-gray-100 dark:border-gray-800 rounded-2xl bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-all h-full">
-                      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <div className="flex flex-col space-y-5 p-6 border border-gray-100 dark:border-gray-800 rounded-md bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-all h-full">
+                      <div className="w-12 h-12 rounded-md bg-primary/10 flex items-center justify-center">
                         {iconMap[feature.id]}
                       </div>
                       <h3 className="text-xl font-bold text-gray-900 dark:text-white">
@@ -113,9 +113,9 @@ const WhyChooseSailySection = () => {
             </CarouselContent>
 
             {/* Mobile arrows */}
-            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 flex gap-4 z-10">
-              <CarouselPrevious className="h-11 w-11 rounded-full bg-white dark:bg-slate-800 border-primary/20 shadow-lg static translate-y-0" />
-              <CarouselNext className="h-11 w-11 rounded-full bg-white dark:bg-slate-800 border-primary/20 shadow-lg static translate-y-0" />
+            <div className="absolute -bottom-2 right-4 flex gap-2 z-10">
+              <CarouselPrevious className="h-11 w-11 rounded-lg bg-white dark:bg-slate-800 border-primary/20 shadow-lg relative left-0 top-0 translate-y-0" />
+              <CarouselNext className="h-11 w-11 rounded-lg bg-white dark:bg-slate-800 border-primary/20 shadow-lg relative right-0 top-0 translate-y-0" />
             </div>
           </Carousel>
         </div>
@@ -123,8 +123,8 @@ const WhyChooseSailySection = () => {
 
         <div className="hidden md:grid grid-cols-1 gap-8 sm:gap-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-12">
           {features.map((feature) => (
-            <div key={feature.id} className="group flex flex-col space-y-5 p-6 rounded-2xl border border-transparent hover:border-primary/20 hover:bg-primary/[0.02] transition-all">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <div key={feature.id} className="group flex flex-col space-y-5 p-6 rounded-md border border-transparent hover:border-primary/20 hover:bg-primary/[0.02] transition-all">
+              <div className="w-12 h-12 rounded-md bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                 {iconMap[feature.id]}
               </div>
               <h3 className="text-xl font-bold text-gray-900 dark:text-white sm:text-xl tracking-tight">

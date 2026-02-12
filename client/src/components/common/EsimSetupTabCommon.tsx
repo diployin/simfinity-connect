@@ -69,16 +69,15 @@ const EsimSetupTabCommon: React.FC<EsimSetupTabProps> = ({
         </div>
 
         {/* Tab Buttons */}
-        <div className="mb-8 flex w-fit flex-wrap justify-center gap-3 rounded-3xl border p-1 sm:justify-start">
+        <div className="mb-8 flex w-full max-w-full overflow-x-auto gap-3 rounded-3xl border p-1 md:w-fit md:flex-wrap md:overflow-visible no-scrollbar">
           {tabs.map((tab: TabData, index: number) => (
             <button
               key={index}
               onClick={() => setActiveTab(index)}
-              className={`rounded-full px-4 py-1 text-base font-medium transition-all duration-200 ${
-                activeTab === index
-                  ? 'bg-black text-white'
-                  : 'bg-white text-gray-700'
-              }`}
+              className={`flex-shrink-0 rounded-full px-2 py-1 text-base font-medium transition-all duration-200 whitespace-nowrap ${activeTab === index
+                ? 'bg-black text-white'
+                : 'bg-white text-gray-700'
+                }`}
             >
               {tab.label}
             </button>
@@ -97,15 +96,13 @@ const EsimSetupTabCommon: React.FC<EsimSetupTabProps> = ({
             {tabs[activeTab].steps.map((step: Step, index: number) => (
               <div
                 key={index}
-                className={`flex flex-col overflow-hidden rounded-3xl bg-gray-100 ${
-                  !step.image ? 'p-8 sm:p-6' : ''
-                }`}
+                className={`flex flex-col overflow-hidden rounded-3xl bg-gray-100 ${!step.image ? 'p-8 sm:p-6' : ''
+                  }`}
               >
                 {/* Text Section */}
                 <div
-                  className={`${
-                    step.image ? 'p-8 sm:p-6' : ''
-                  } flex-1 space-y-4`}
+                  className={`${step.image ? 'p-8 sm:p-6' : ''
+                    } flex-1 space-y-4`}
                 >
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-base font-medium text-black shadow-md">
                     {step.number}

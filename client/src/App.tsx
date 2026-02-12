@@ -131,6 +131,8 @@ import ReferFriend from './pages/ReferFriend';
 import SecurityPage from './pages/Security';
 import ReferralPage from './pages/ReferralPage';
 import Esim_Ultra_plan from './pages/Esim_Ultra_plan';
+import EsimForBusiness from './pages/EsimForBussiness';
+import DataUsages from './pages/DataUsages';
 
 // ✅ Route Configs - DRY Approach
 const PUBLIC_ROUTES = [
@@ -165,6 +167,8 @@ const PUBLIC_ROUTES = [
   { path: '/faq', component: FaqPage },
   // { path: '/what-is-esim', component: WhatIsESIM },
   { path: '/what-is-esim', component: WhatEsimNew },
+  { path: '/esim-for-business', component: EsimForBusiness },
+  { path: '/data-usages', component: DataUsages },
   { path: '/notifications', component: NotificationsPage },
   { path: '/populer-packages', component: PopularPackagesPage },
   { path: '/download-esim-app', component: DownloadEsimPage },

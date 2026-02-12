@@ -125,7 +125,7 @@ const HeroSection = () => {
           <div className="mx-4 sm:mx-auto">
             <div className="containers mx-auto">
               <div
-                className={`md:flex flex-col justify-center py-16 max-md:pb-[404px] md:max-w-[370px] lg:max-w-[540px] xl:max-w-[680px] min-h-[743px] md:min-h-[480px] lg:min-h-[592px] xl:min-h-[800px] ${isExpanded ? 'mt-10' : 'mt-28'} mt-10 md:mt-16 lg:mt-5`}
+                className={`md:flex flex-col justify-center py-16 max-md:pb-[404px] md:max-w-[370px] lg:max-w-[540px] xl:max-w-[680px] min-h-[743px] md:min-h-[480px] lg:min-h-[592px] xl:min-h-[800px] ${isExpanded ? 'mt-10' : 'mt-16'} mt-10 md:mt-16 lg:mt-5`}
               >
                 <div className="h-full w-full flex group/stack flex-col text-start justify-start gap-y-6 items-stretch">
                   <div className="flex flex-col justify-end  ">

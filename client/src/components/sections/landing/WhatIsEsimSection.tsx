@@ -9,10 +9,10 @@ const WhatIsEsimSection = () => {
   return (
     <section className="w-full py-16 md:py-12 lg:py-20 bg-white dark:bg-transparent">
       <div className="containers mx-auto px-4">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16 xl:gap-24">
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16 xl:gap-24">
           {/* Left Side - Image */}
           <div className="order-2 flex items-center justify-center lg:order-1 lg:justify-start">
-            <div className="relative w-full max-w-[800px] md:max-w-[1000px] lg:max-w-full transform hover:scale-[1.05] transition-transform duration-500">
+            <div className="relative w-full transform hover:scale-[1.05] transition-transform duration-500">
               <img
                 src="/images/homepage-what-is-esim.png"
                 alt={t('esimIntro.imageAlt')}

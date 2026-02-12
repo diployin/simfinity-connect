@@ -134,44 +134,61 @@ const TestimonialsSection = () => {
         <div className="block lg:hidden mx-auto max-w-md">
           <Carousel
             plugins={[autoplayPlugin.current]}
-            className="w-full"
+            className="w-full px-2"
             opts={{
-              align: "center",
+              align: "start",
               loop: true,
             }}
           >
-            <CarouselContent>
+            <CarouselContent className="-ml-2">
               {testimonials.map((item) => (
-                <CarouselItem key={item.id}>
-                  <div className="px-1 py-10 h-full">
-                    <div className="flex flex-col items-center text-center space-y-8 rounded-[2.5rem] bg-white p-10 shadow-xl border border-gray-100 h-full min-h-[500px] justify-center">
-                      <div className="w-16 h-16 rounded-2xl bg-primary/5 flex items-center justify-center">
-                        <Quote className="w-8 h-8 text-primary fill-primary" />
-                      </div>
-                      <blockquote className="px-2">
-                        <p className="text-lg font-bold text-gray-900 leading-relaxed italic">
-                          "{item.content}"
-                        </p>
-                      </blockquote>
-                      <div className="flex flex-col items-center gap-4 pt-4">
-                        <div className="flex items-center gap-3">
-                          {item.avatar && (
-                            <img src={item.avatar} alt={item.name} className="h-12 w-12 rounded-full border-2 border-white shadow-sm" />
-                          )}
-                          <span className="text-lg font-bold text-gray-900">{item.name}</span>
+                <CarouselItem key={item.id} className="pl-2">
+                  <div className="py-8 h-full">
+                    <div className="flex flex-col space-y-6 rounded-[2rem] bg-white p-8 shadow-xl border border-gray-100 h-full min-h-[400px]">
+                      {item.isHighlight ? (
+                        /* Style for Lonely Planet (Highlight) */
+                        <div className="flex flex-col h-full text-start">
+                          <Quote className="w-8 h-8 text-black fill-black mb-6 rotate-180" />
+                          <p className="text-xl font-bold text-gray-900 leading-[1.4] mb-auto">
+                            {item.content}
+                          </p>
+                          <div className="mt-8 pt-6">
+                            {item.platformBadge && (
+                              <img src={item.platformBadge} alt={item.name} className="h-8 grayscale-0" />
+                            )}
+                          </div>
                         </div>
-                        {item.platformBadge && (
-                          <img src={item.platformBadge} alt="Platform" className="h-8 grayscale opacity-60" />
-                        )}
-                      </div>
+                      ) : (
+                        /* Style for PewDiePie and others */
+                        <div className="flex flex-col h-full text-start">
+                          <div className="flex items-center justify-between mb-8">
+                            <div className="flex items-center gap-3">
+                              {item.avatar && (
+                                <img src={item.avatar} alt={item.name} className="h-12 w-12 rounded-full object-cover border-2 border-gray-100 shadow-sm" />
+                              )}
+                              <span className="text-lg font-bold text-gray-900">{item.name}</span>
+                            </div>
+                            {item.platformBadge && (
+                              <div className="flex-shrink-0">
+                                <img src={item.platformBadge} alt="Platform" className="h-7 w-auto" />
+                              </div>
+                            )}
+                          </div>
+                          <p className="text-base font-medium text-gray-700 leading-relaxed mb-auto">
+                            {item.content}
+                          </p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <div className="flex justify-center gap-4 mt-4">
-              <CarouselPrevious className="static translate-y-0 h-12 w-12 bg-white shadow-lg border-primary/10" />
-              <CarouselNext className="static translate-y-0 h-12 w-12 bg-white shadow-lg border-primary/10" />
+
+            {/* Navigation Buttons aligned to right */}
+            <div className="flex justify-end gap-2 mt-2 px-2">
+              <CarouselPrevious className="h-11 w-11 rounded-full bg-white border-primary/20 shadow-lg relative left-0 top-0 translate-y-0" />
+              <CarouselNext className="h-11 w-11 rounded-full bg-white border-primary/20 shadow-lg relative right-0 top-0 translate-y-0" />
             </div>
           </Carousel>
         </div>
