@@ -7,7 +7,6 @@ import path from 'path';
 import fs from 'fs';
 import Stripe from 'stripe';
 import { storage } from './storage';
-import bodyParser from "body-parser";
 import { db } from './db';
 import {
   orders,
@@ -35,7 +34,7 @@ import {
   notifications,
   customNotifications,
 } from '@shared/schema';
-import { eq, and, sql, or, ilike, gte, lte, asc, desc, isNull, count } from 'drizzle-orm';
+import { eq, and, sql, or, ilike, gte, lte, asc, desc, isNull, count, ne, gt } from 'drizzle-orm';
 import { airaloAPI } from './services/airalo/airalo-sdk';
 import {
   sendEmail,
@@ -76,7 +75,11 @@ import bannerRouter from './routes/banner.routes';
 import privacyPolicyRoutes from './routes/admin/PrivacyPolicy';
 import { adminMessaging } from './config/firebase-admin';
 import axios from 'axios';
+import { optionalAdminAuth } from './middleware/auth';
+import { demoCrudBlock } from './utils/demoCrudBlock';
+import { demoMaskResponse } from './utils/demoMaskResponse';
 import supportedDevices from "./lib/devices.json";
+
 
 // Initialize Stripe
 if (!process.env.STRIPE_SECRET_KEY) {
@@ -256,6 +259,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }),
   );
 
+  // console.log("optionalAdminAuth")
+  app.use(optionalAdminAuth);      // sets req.user
+  app.use('/api', demoCrudBlock);
+  app.use('/api', demoMaskResponse);
+
+
   // Authentication middleware
   const requireAuthh = (req: any, res: Response, next: Function) => {
     if (req.session?.userId || req.session?.adminId) {
@@ -342,7 +351,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
- app.get('/api/devices', async (req, res) => {
+  app.get('/api/devices', async (req, res) => {
 
     try {
       const devices = await airaloAPI.getDevices();
@@ -361,6 +370,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+
 
   app.get('/api/countries', async (req, res) => {
     try {
@@ -659,8 +669,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (batchOrders.length !== orderDetails.sims.length) {
         console.warn(
           `⚠️ Quantity mismatch for request_id ${payload.request_id}: ` +
-            `${batchOrders.length} order records but ${orderDetails.sims.length} SIMs received. ` +
-            `Processing ${Math.min(batchOrders.length, orderDetails.sims.length)} eSIMs.`,
+          `${batchOrders.length} order records but ${orderDetails.sims.length} SIMs received. ` +
+          `Processing ${Math.min(batchOrders.length, orderDetails.sims.length)} eSIMs.`,
         );
       }
 
@@ -1784,10 +1794,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         guestPhone: order.guestPhone,
         package: pkg
           ? {
-              title: pkg.title,
-              countryCode: pkg.countryCode,
-              countryName: pkg.countryName,
-            }
+            title: pkg.title,
+            countryCode: pkg.countryCode,
+            countryName: pkg.countryName,
+          }
           : null,
       });
     } catch (error: any) {
@@ -3484,14 +3494,14 @@ Sitemap: ${req.protocol}://${req.get('host')}/sitemap.xml`);
       const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
-  .map(
-    (url) => `  <url>
+          .map(
+            (url) => `  <url>
     <loc>${url.loc}</loc>
     <changefreq>${url.changefreq}</changefreq>
     <priority>${url.priority}</priority>
   </url>`,
-  )
-  .join('\n')}
+          )
+          .join('\n')}
 </urlset>`;
 
       res.type('application/xml');
@@ -3562,11 +3572,11 @@ ${urls
             regionId: pkg.regionId,
             destination: destination
               ? {
-                  id: destination.id,
-                  name: destination.name,
-                  countryCode: destination.countryCode,
-                  slug: destination.slug,
-                }
+                id: destination.id,
+                name: destination.name,
+                countryCode: destination.countryCode,
+                slug: destination.slug,
+              }
               : null,
           };
         }),
@@ -3686,6 +3696,8 @@ ${urls
     try {
       const requestedCurrency = (req.query.currency as string) || 'USD';
 
+      console.log('requestedCurrency', requestedCurrency)
+
       const [pkg] = await db.query.unifiedPackages.findMany({
         where: (unifiedPackages, { eq, and }) =>
           and(eq(unifiedPackages.slug, req.params.slug), eq(unifiedPackages.isEnabled, true)),
@@ -3696,6 +3708,8 @@ ${urls
         },
         limit: 1,
       });
+
+      console.log(pkg)
 
       if (!pkg || !pkg.provider || !pkg.provider.enabled) {
         return res.status(404).json({ success: false, message: 'Package not found' });
@@ -6148,103 +6162,322 @@ ${urls
   // ==================== ADMIN - UNIFIED PACKAGES ====================
 
   // Get all unified packages with full details and pagination
-  app.get('/api/admin/unified-packages', requireAdmin, async (req: Request, res: Response) => {
+  // app.get('/api/admin/unified-packages', requireAdmin, async (req: Request, res: Response) => {
+  //   try {
+  //     // Parse pagination params
+  //     const page = parseInt(req.query.page as string) || 1;
+  //     const limit = parseInt(req.query.limit as string) || 50; // Default 50 items per page
+  //     const offset = (page - 1) * limit;
+
+  //     // Parse filter params
+  //     const providerFilter = req.query.provider as string;
+  //     const typeFilter = req.query.type as string;
+  //     const destinationFilter = req.query.destination as string;
+  //     const bestPriceFilter =
+  //       req.query.bestPrice === 'true' ? true : req.query.bestPrice === 'false' ? false : null;
+  //     const search = req.query.search as string;
+
+  //     // Build WHERE conditions
+  //     const conditions: any[] = [];
+
+  //     // Look up provider ID from slug BEFORE query to apply filter correctly
+  //     if (providerFilter && providerFilter !== 'all') {
+  //       const providerRecord = await db.query.providers.findFirst({
+  //         where: eq(providers.slug, providerFilter),
+  //       });
+  //       if (providerRecord) {
+  //         conditions.push(eq(unifiedPackages.providerId, providerRecord.id));
+  //       }
+  //     }
+
+  //     if (search) {
+  //       conditions.push(
+  //         sql`(
+  //           ${unifiedPackages.title} ILIKE ${`%${search}%`} OR
+  //           ${unifiedPackages.dataAmount} ILIKE ${`%${search}%`}
+  //         )`,
+  //       );
+  //     }
+
+  //     if (typeFilter && typeFilter !== 'all') {
+  //       conditions.push(eq(unifiedPackages.type, typeFilter));
+  //     }
+
+  //     if (destinationFilter && destinationFilter !== 'all') {
+  //       conditions.push(eq(unifiedPackages.destinationId, destinationFilter));
+  //     }
+
+  //     if (bestPriceFilter !== null) {
+  //       conditions.push(eq(unifiedPackages.isBestPrice, bestPriceFilter));
+  //     }
+
+  //     // Build final WHERE clause
+  //     const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+
+  //     // Get total count for pagination metadata (with filters)
+  //     const [countResult] = await db
+  //       .select({ count: sql<number>`count(*)::int` })
+  //       .from(unifiedPackages)
+  //       .where(whereClause);
+  //     const totalCount = countResult.count;
+
+  //     // Fetch paginated packages (with filters applied in WHERE clause)
+  //     let query = db.query.unifiedPackages.findMany({
+  //       where: whereClause,
+  //       with: {
+  //         provider: true,
+  //         destination: true,
+  //         region: true,
+  //       },
+  //       limit,
+  //       offset,
+  //       orderBy: (packages, { desc }) => [desc(packages.createdAt)],
+  //     });
+
+  //     let allPackages = await query;
+
+  //     // Transform to include provider/destination/region names and calculate dynamic pricing
+  //     const packagesWithDetails = allPackages.map((pkg) => {
+  //       // Calculate retail price dynamically from current provider margin
+  //       const wholesalePrice = parseFloat(pkg.wholesalePrice);
+  //       const providerMargin = pkg.provider ? parseFloat(pkg.provider.pricingMargin) : 0;
+  //       const retailPrice = wholesalePrice * (1 + providerMargin / 100);
+
+  //       return {
+  //         ...pkg,
+  //         wholesalePrice: pkg.wholesalePrice,
+  //         retailPrice: retailPrice.toFixed(2), // Override with dynamically calculated price
+  //         providerPrice: pkg.wholesalePrice, // Frontend expects 'providerPrice' for wholesale
+  //         price: retailPrice.toFixed(2), // Frontend expects 'price' for retail
+  //         providerName: pkg.provider?.name || 'Unknown',
+  //         providerSlug: pkg.provider?.slug || 'unknown',
+  //         destinationName: pkg.destination?.name || null,
+  //         destinationFlag: pkg.destination?.flagEmoji || null,
+  //         destinationCountryCode: pkg.destination?.countryCode || null,
+  //         regionName: pkg.region?.name || null,
+  //       };
+  //     });
+
+  //     // Calculate total stats for all packages (not just current page)
+  //     const [statsResult] = await db
+  //       .select({
+  //         totalEnabled: sql<number>`count(*) filter (where is_enabled = true)::int`,
+  //         totalBestPrice: sql<number>`count(*) filter (where is_best_price = true)::int`,
+  //         totalManualOverride: sql<number>`count(*) filter (where manual_override = true)::int`,
+  //       })
+  //       .from(unifiedPackages);
+
+  //     // Return paginated response with metadata and total stats
+  //     res.json({
+  //       data: packagesWithDetails,
+  //       pagination: {
+  //         page,
+  //         limit,
+  //         total: totalCount,
+  //         totalPages: Math.ceil(totalCount / limit),
+  //       },
+  //       stats: {
+  //         total: totalCount,
+  //         enabled: statsResult.totalEnabled,
+  //         bestPrice: statsResult.totalBestPrice,
+  //         manualOverride: statsResult.totalManualOverride,
+  //       },
+  //     });
+  //   } catch (error: any) {
+  //     console.error('Error fetching unified packages:', error);
+  //     res.status(500).json({ success: false, message: error.message });
+  //   }
+  // });
+
+  app.get("/api/admin/unified-packages", requireAdmin, async (req: Request, res: Response) => {
     try {
-      // Parse pagination params
-      const page = parseInt(req.query.page as string) || 1;
-      const limit = parseInt(req.query.limit as string) || 50; // Default 50 items per page
+      // =========================
+      // PAGINATION
+      // =========================
+      const page = Math.max(parseInt(req.query.page as string) || 1, 1);
+      const limit = Math.min(parseInt(req.query.limit as string) || 50, 100);
       const offset = (page - 1) * limit;
 
-      // Parse filter params
-      const providerFilter = req.query.provider as string;
-      const typeFilter = req.query.type as string;
-      const destinationFilter = req.query.destination as string;
-      const bestPriceFilter =
-        req.query.bestPrice === 'true' ? true : req.query.bestPrice === 'false' ? false : null;
-      const search = req.query.search as string;
+      // =========================
+      // FILTERS
+      // =========================
+      const providerSlug = req.query.provider as string | null;
+      const packageType = req.query.type as string | null;
+      const bestPriceParam = req.query.isBestPrice as string | null;
+      const sort = req.query.sort as string | null;
+      const search = (req.query.search as string)?.trim();
 
-      // Build WHERE conditions
-      const conditions: any[] = [];
+      // Boolean filters from public API
+      const filterUnlimited = req.query.isUnlimited === "true";
+      const filterBestPrice = req.query.isBestPrice === "true";
+      const filterPopular = req.query.isPopular === "true";
 
-      // Look up provider ID from slug BEFORE query to apply filter correctly
-      if (providerFilter && providerFilter !== 'all') {
-        const providerRecord = await db.query.providers.findFirst({
-          where: eq(providers.slug, providerFilter),
-        });
-        if (providerRecord) {
-          conditions.push(eq(unifiedPackages.providerId, providerRecord.id));
-        }
+      // Package type filters
+      const filterDataPack = req.query.dataPack === "true";
+      const filterVoicePack = req.query.voicePack === "true";
+      const filterSmsPack = req.query.smsPack === "true";
+      const filterVoiceAndDataPack = req.query.voiceAndDataPack === "true";
+      const filterVoiceAndSmsPack = req.query.voiceAndSmsPack === "true";
+      const filterDataAndSmsPack = req.query.dataAndSmsPack === "true";
+      const filterVoiceAndDataAndSmsPack = req.query.voiceAndDataAndSmsPack === "true";
+
+      console.log("Admin packages filters:", req.query);
+
+      // =========================
+      // BUILD WHERE CLAUSE
+      // =========================
+      const whereClauses: any[] = [];
+
+      // Provider filter
+      if (providerSlug && providerSlug !== "all") {
+        whereClauses.push(eq(providers.slug, providerSlug));
       }
 
-      if (search) {
-        conditions.push(
-          sql`(
-            ${unifiedPackages.title} ILIKE ${`%${search}%`} OR
-            ${unifiedPackages.dataAmount} ILIKE ${`%${search}%`}
-          )`,
+      // Package type filter (local, regional, global)
+      if (packageType && packageType !== "all") {
+        whereClauses.push(eq(unifiedPackages.type, packageType));
+      }
+
+      // ⚠️ FIXED: Only apply isBestPrice filter if explicitly requested
+      // Don't add a default "false" filter!
+      if (bestPriceParam === "true") {
+        whereClauses.push(eq(unifiedPackages.isBestPrice, true));
+      } else if (bestPriceParam === "false") {
+        whereClauses.push(eq(unifiedPackages.isBestPrice, false));
+      }
+      // If bestPriceParam is null or "all", don't add any filter
+
+      // Boolean filters
+      if (filterUnlimited) {
+        whereClauses.push(eq(unifiedPackages.isUnlimited, true));
+      }
+
+      if (filterBestPrice) {
+        whereClauses.push(eq(unifiedPackages.isBestPrice, true));
+      }
+
+      if (filterPopular) {
+        whereClauses.push(eq(unifiedPackages.isPopular, true));
+      }
+
+      // ============================================================
+      // Package composition filters
+      // ============================================================
+
+      if (filterDataPack) {
+        whereClauses.push(
+          and(
+            eq(unifiedPackages.voiceMinutes, 0),
+            eq(unifiedPackages.smsCount, 0),
+            gt(unifiedPackages.dataMb, 0)
+          )
         );
       }
 
-      if (typeFilter && typeFilter !== 'all') {
-        conditions.push(eq(unifiedPackages.type, typeFilter));
+      if (filterVoicePack) {
+        whereClauses.push(
+          and(
+            eq(unifiedPackages.dataMb, 0),
+            eq(unifiedPackages.smsCount, 0),
+            gt(unifiedPackages.voiceMinutes, 0)
+          )
+        );
       }
 
-      if (destinationFilter && destinationFilter !== 'all') {
-        conditions.push(eq(unifiedPackages.destinationId, destinationFilter));
+      if (filterSmsPack) {
+        whereClauses.push(
+          and(
+            eq(unifiedPackages.voiceMinutes, 0),
+            eq(unifiedPackages.dataMb, 0),
+            gt(unifiedPackages.smsCount, 0)
+          )
+        );
       }
 
-      if (bestPriceFilter !== null) {
-        conditions.push(eq(unifiedPackages.isBestPrice, bestPriceFilter));
+      if (filterVoiceAndDataPack) {
+        whereClauses.push(
+          and(
+            gt(unifiedPackages.voiceMinutes, 0),
+            gt(unifiedPackages.dataMb, 0),
+            eq(unifiedPackages.smsCount, 0)
+          )
+        );
       }
 
-      // Build final WHERE clause
-      const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+      if (filterVoiceAndSmsPack) {
+        whereClauses.push(
+          and(
+            gt(unifiedPackages.voiceMinutes, 0),
+            gt(unifiedPackages.smsCount, 0),
+            eq(unifiedPackages.dataMb, 0)
+          )
+        );
+      }
 
-      // Get total count for pagination metadata (with filters)
-      const [countResult] = await db
-        .select({ count: sql<number>`count(*)::int` })
-        .from(unifiedPackages)
-        .where(whereClause);
-      const totalCount = countResult.count;
+      if (filterDataAndSmsPack) {
+        whereClauses.push(
+          and(
+            gt(unifiedPackages.dataMb, 0),
+            gt(unifiedPackages.smsCount, 0),
+            eq(unifiedPackages.voiceMinutes, 0)
+          )
+        );
+      }
 
-      // Fetch paginated packages (with filters applied in WHERE clause)
-      let query = db.query.unifiedPackages.findMany({
-        where: whereClause,
-        with: {
-          provider: true,
-          destination: true,
-          region: true,
-        },
-        limit,
-        offset,
-        orderBy: (packages, { desc }) => [desc(packages.createdAt)],
-      });
+      if (filterVoiceAndDataAndSmsPack) {
+        whereClauses.push(
+          and(
+            gt(unifiedPackages.voiceMinutes, 0),
+            gt(unifiedPackages.dataMb, 0),
+            gt(unifiedPackages.smsCount, 0)
+          )
+        );
+      }
 
-      let allPackages = await query;
+      // Search filter
+      if (search) {
+        const searchTerm = `%${search.toLowerCase()}%`;
+        const isNumericId = !isNaN(Number(search));
 
-      // Transform to include provider/destination/region names and calculate dynamic pricing
-      const packagesWithDetails = allPackages.map((pkg) => {
-        // Calculate retail price dynamically from current provider margin
-        const wholesalePrice = parseFloat(pkg.wholesalePrice);
-        const providerMargin = pkg.provider ? parseFloat(pkg.provider.pricingMargin) : 0;
-        const retailPrice = wholesalePrice * (1 + providerMargin / 100);
+        whereClauses.push(
+          or(
+            isNumericId
+              ? eq(unifiedPackages.id, Number(search))
+              : sql`CAST(${unifiedPackages.id} AS TEXT) ILIKE ${searchTerm}`,
+            sql`LOWER(${unifiedPackages.slug}) ILIKE ${searchTerm}`,
+            sql`LOWER(${unifiedPackages.title}) ILIKE ${searchTerm}`,
+            sql`LOWER(${destinations.name}) ILIKE ${searchTerm}`,
+            sql`LOWER(${regions.name}) ILIKE ${searchTerm}`,
+            sql`LOWER(${providers.name}) ILIKE ${searchTerm}`
+          )
+        );
+      }
 
-        return {
-          ...pkg,
-          wholesalePrice: pkg.wholesalePrice,
-          retailPrice: retailPrice.toFixed(2), // Override with dynamically calculated price
-          providerPrice: pkg.wholesalePrice, // Frontend expects 'providerPrice' for wholesale
-          price: retailPrice.toFixed(2), // Frontend expects 'price' for retail
-          providerName: pkg.provider?.name || 'Unknown',
-          providerSlug: pkg.provider?.slug || 'unknown',
-          destinationName: pkg.destination?.name || null,
-          destinationFlag: pkg.destination?.flagEmoji || null,
-          destinationCountryCode: pkg.destination?.countryCode || null,
-          regionName: pkg.region?.name || null,
-        };
-      });
+      const whereCondition =
+        whereClauses.length > 1
+          ? and(...whereClauses)
+          : whereClauses.length === 1
+            ? whereClauses[0]
+            : undefined;
 
-      // Calculate total stats for all packages (not just current page)
+      // console.log("🔍 Where Condition:", whereCondition);
+
+      // =========================
+      // SORTING
+      // =========================
+      let orderBy: any[];
+
+      if (sort === "priceLowToHigh") {
+        orderBy = [asc(unifiedPackages.retailPrice)];
+      } else if (sort === "priceHighToLow") {
+        orderBy = [desc(unifiedPackages.retailPrice)];
+      } else {
+        orderBy = [desc(unifiedPackages.isPopular)];
+      }
+
+      // =========================
+      // GET STATISTICS (UNFILTERED)
+      // =========================
       const [statsResult] = await db
         .select({
           totalEnabled: sql<number>`count(*) filter (where is_enabled = true)::int`,
@@ -6253,25 +6486,123 @@ ${urls
         })
         .from(unifiedPackages);
 
-      // Return paginated response with metadata and total stats
+      // =========================
+      // TOTAL COUNT (FOR PAGINATION)
+      // =========================
+      const countQuery = db
+        .select({ count: sql<number>`count(*)::int` })
+        .from(unifiedPackages)
+        .leftJoin(providers, eq(unifiedPackages.providerId, providers.id))
+        .leftJoin(destinations, eq(unifiedPackages.destinationId, destinations.id))
+        .leftJoin(regions, eq(unifiedPackages.regionId, regions.id));
+
+      if (whereCondition) {
+        countQuery.where(whereCondition);
+      }
+
+      const [{ count }] = await countQuery;
+      const total = Number(count);
+      const totalPages = Math.ceil(total / limit);
+
+      console.log("📊 Total filtered packages:", total);
+
+      // =========================
+      // FETCH DATA
+      // =========================
+      const packagesQuery = db
+        .select({
+          pkg: unifiedPackages,
+          provider: providers,
+          destination: destinations,
+          region: regions,
+        })
+        .from(unifiedPackages)
+        .leftJoin(providers, eq(unifiedPackages.providerId, providers.id))
+        .leftJoin(destinations, eq(unifiedPackages.destinationId, destinations.id))
+        .leftJoin(regions, eq(unifiedPackages.regionId, regions.id))
+        .orderBy(...orderBy)
+        .limit(limit)
+        .offset(offset);
+
+      if (whereCondition) {
+        packagesQuery.where(whereCondition);
+      }
+
+      // DEBUG: Log the SQL
+      // const countSql = countQuery.toSQL();
+      // const packagesSql = packagesQuery.toSQL();
+      // console.log("📊 Count Query SQL:", countSql);
+      // console.log("📦 Packages Query SQL:", packagesSql);
+
+      const unifiedPackagesData = await packagesQuery;
+
+      console.log("📦 Returned packages:", unifiedPackagesData.length);
+
+      // =========================
+      // FORMAT RESPONSE
+      // =========================
+      const formattedPackages = unifiedPackagesData.map((row) => {
+        const { pkg, provider, destination, region } = row;
+
+        return {
+          id: pkg.id,
+          providerId: provider?.id || null,
+          providerSlug: provider?.slug || null,
+          providerName: provider?.name || null,
+          providerPackageId: pkg.providerPackageId,
+          destinationId: destination?.id || null,
+          destinationName: destination?.name || null,
+          destinationFlag: destination?.flagEmoji || null,
+          destinationCountryCode: destination?.countryCode || null,
+          regionId: region?.id || null,
+          regionName: region?.name || null,
+          slug: pkg.slug,
+          title: pkg.title,
+          dataAmount: pkg.dataAmount,
+          validity: pkg.validity,
+          providerPrice: pkg.wholesalePrice,
+          price: pkg.retailPrice,
+          currency: "USD",
+          type: pkg.type,
+          operator: pkg.operator,
+          operatorImage: pkg.operatorImage,
+          coverage: pkg.coverage || [],
+          voiceCredits: pkg.voiceMinutes,
+          smsCredits: pkg.smsCount,
+          isBestPrice: pkg.isBestPrice,
+          isPopular: pkg.isPopular,
+          isTrending: pkg.isTrending,
+          isRecommended: pkg.isRecommended,
+          isBestValue: pkg.isBestValue,
+          isUnlimited: pkg.isUnlimited,
+          isEnabled: pkg.isEnabled,
+          manualOverride: pkg.manualOverride,
+          createdAt: pkg.createdAt,
+          updatedAt: pkg.updatedAt,
+        };
+      });
+
+      // =========================
+      // RESPONSE
+      // =========================
       res.json({
-        data: packagesWithDetails,
+        data: formattedPackages,
         pagination: {
           page,
           limit,
-          total: totalCount,
-          totalPages: Math.ceil(totalCount / limit),
+          total,
+          totalPages,
         },
         stats: {
-          total: totalCount,
+          total: statsResult.totalEnabled,
           enabled: statsResult.totalEnabled,
           bestPrice: statsResult.totalBestPrice,
           manualOverride: statsResult.totalManualOverride,
         },
       });
     } catch (error: any) {
-      console.error('Error fetching unified packages:', error);
-      res.status(500).json({ success: false, message: error.message });
+      console.error("🔥 Admin packages fetch error:", error);
+      return ApiResponse.serverError(res, error.message);
     }
   });
 
@@ -8641,9 +8972,9 @@ ${urls
         const metaKeywords =
           typeof data.metaKeywords === 'string'
             ? data.metaKeywords
-                .split(',')
-                .map((k) => k.trim())
-                .filter(Boolean)
+              .split(',')
+              .map((k) => k.trim())
+              .filter(Boolean)
             : [];
 
         const [post] = await db
@@ -8685,9 +9016,9 @@ ${urls
         const metaKeywords =
           typeof data.metaKeywords === 'string'
             ? data.metaKeywords
-                .split(',')
-                .map((k) => k.trim())
-                .filter(Boolean)
+              .split(',')
+              .map((k) => k.trim())
+              .filter(Boolean)
             : [];
         const updateData: any = {
           title: data.title,
@@ -11354,195 +11685,161 @@ ${urls
 
   // Public: Get translations for a language (by code or id)
 
-/* ===================== HELPER ===================== */
+  /* ===================== HELPER ===================== */
 
-function setDeep(obj: any, path: string[], value: any) {
-  let current = obj;
+  function setDeep(obj: any, path: string[], value: any) {
+    let current = obj;
 
-  for (let i = 0; i < path.length; i++) {
-    const key = path[i];
-    const isLast = i === path.length - 1;
-    const nextKey = path[i + 1];
-    const nextIsIndex = !isNaN(Number(nextKey));
+    for (let i = 0; i < path.length; i++) {
+      const key = path[i];
+      const isLast = i === path.length - 1;
+      const nextKey = path[i + 1];
+      const nextIsIndex = !isNaN(Number(nextKey));
 
-    // 🔢 numeric index → array
-    if (!isNaN(Number(key))) {
-      const index = Number(key);
+      // 🔢 numeric index → array
+      if (!isNaN(Number(key))) {
+        const index = Number(key);
 
-      if (!Array.isArray(current)) {
-        // 🔥 force convert
-        current = [];
+        if (!Array.isArray(current)) {
+          // 🔥 force convert
+          current = [];
+        }
+
+        if (isLast) {
+          current[index] = value;
+          return;
+        }
+
+        if (!current[index]) {
+          current[index] = nextIsIndex ? [] : {};
+        }
+
+        current = current[index];
+        continue;
       }
 
+      // 🔤 object key
       if (isLast) {
-        current[index] = value;
+        current[key] = value;
         return;
       }
 
-      if (!current[index]) {
-        current[index] = nextIsIndex ? [] : {};
+      if (
+        typeof current[key] !== 'object' ||
+        current[key] === null
+      ) {
+        // 🔥 override anything (string / number / null)
+        current[key] = nextIsIndex ? [] : {};
       }
 
-      current = current[index];
-      continue;
-    }
-
-    // 🔤 object key
-    if (isLast) {
-      current[key] = value;
-      return;
-    }
-
-    if (
-      typeof current[key] !== 'object' ||
-      current[key] === null
-    ) {
-      // 🔥 override anything (string / number / null)
-      current[key] = nextIsIndex ? [] : {};
-    }
-
-    current = current[key];
-  }
-}
-
-
-function setDeepooo(target: any, path: string[], value: any) {
-  let current = target;
-
-  for (let i = 0; i < path.length; i++) {
-    const key = path[i];
-    const nextKey = path[i + 1];
-    const isLast = i === path.length - 1;
-
-    const index = Number(key);
-    const isArrayIndex = !Number.isNaN(index);
-
-    if (isLast) {
-      if (isArrayIndex) {
-        current[index] = value;
-      } else {
-        current[key] = value;
-      }
-      return;
-    }
-
-    if (isArrayIndex) {
-      if (!Array.isArray(current)) current = [];
-      if (!current[index]) {
-        current[index] = Number.isNaN(Number(nextKey)) ? {} : [];
-      }
-      current = current[index];
-    } else {
-      if (!current[key]) {
-        current[key] = Number.isNaN(Number(nextKey)) ? {} : [];
-      }
       current = current[key];
     }
   }
-}
-
-/* ===================== API ===================== */
-
-app.get('/api/translations/:languageCode', async (req: Request, res: Response) => {
-  try {
-    const { languageCode } = req.params;
-    const { namespace } = req.query;
-
-    // 🔎 Find language
-    const language = await storage.getLanguageByCode(languageCode);
-    if (!language) {
-      return res
-        .status(404)
-        .json({ success: false, message: 'Language not found' });
-    }
-
-    let translations;
-
-    /* ===================== SINGLE NAMESPACE ===================== */
-    if (namespace && typeof namespace === 'string') {
-      translations = await storage.getTranslationsForNamespace(
-        namespace,
-        language.id
-      );
-
-      const result: Record<string, any> = {};
-
-      translations.forEach((t) => {
-        let parsedValue: any = t.value;
-
-        // ✅ JSON auto-parse
-        if (
-          typeof t.value === 'string' &&
-          (t.value.startsWith('{') || t.value.startsWith('['))
-        ) {
-          try {
-            parsedValue = JSON.parse(t.value);
-          } catch {
-            parsedValue = t.value;
-          }
-        }
-
-        const path = t.key.split('.');
-        setDeep(result, path, parsedValue);
-      });
-
-      return res.json({
-        success: true,
-        message: 'Translations retrieved',
-        data: {
-          language,
-          namespace,
-          translations: result,
-        },
-      });
-    }
-
-    /* ===================== ALL NAMESPACES ===================== */
-    translations = await storage.getTranslationsForLanguage(language.id);
-
-    const grouped: Record<string, any> = {};
-
-    translations.forEach((t) => {
-      if (!grouped[t.namespace]) grouped[t.namespace] = {};
-
-      let parsedValue: any = t.value;
-
-      // ✅ JSON auto-parse
-      if (
-        typeof t.value === 'string' &&
-        (t.value.startsWith('{') || t.value.startsWith('['))
-      ) {
-        try {
-          parsedValue = JSON.parse(t.value);
-        } catch {
-          parsedValue = t.value;
-        }
-      }
-
-      const path = t.key.split('.');
-      setDeep(grouped[t.namespace], path, parsedValue);
-    });
-
-    return res.json({
-      success: true,
-      message: 'Translations retrieved',
-      data: {
-        language,
-        translations: grouped,
-      },
-    });
-  } catch (error: any) {
-    console.error('Translations API error:', error);
-    return res.status(500).json({
-      success: false,
-      message: error.message || 'Internal Server Error',
-    });
-  }
-});
 
 
-  
-  app.get('/api/translations-olddd/:languageCode', async (req: Request, res: Response) => {
+
+  /* ===================== API ===================== */
+
+  // app.get('/api/translations/:languageCode', async (req: Request, res: Response) => {
+  //   try {
+  //     const { languageCode } = req.params;
+  //     const { namespace } = req.query;
+
+  //     // 🔎 Find language
+  //     const language = await storage.getLanguageByCode(languageCode);
+  //     if (!language) {
+  //       return res
+  //         .status(404)
+  //         .json({ success: false, message: 'Language not found' });
+  //     }
+
+  //     let translations;
+
+  //     /* ===================== SINGLE NAMESPACE ===================== */
+  //     if (namespace && typeof namespace === 'string') {
+  //       translations = await storage.getTranslationsForNamespace(
+  //         namespace,
+  //         language.id
+  //       );
+
+  //       const result: Record<string, any> = {};
+
+  //       translations.forEach((t) => {
+  //         let parsedValue: any = t.value;
+
+  //         // ✅ JSON auto-parse
+  //         if (
+  //           typeof t.value === 'string' &&
+  //           (t.value.startsWith('{') || t.value.startsWith('['))
+  //         ) {
+  //           try {
+  //             parsedValue = JSON.parse(t.value);
+  //           } catch {
+  //             parsedValue = t.value;
+  //           }
+  //         }
+
+  //         const path = t.key.split('.');
+  //         setDeep(result, path, parsedValue);
+  //       });
+
+  //       return res.json({
+  //         success: true,
+  //         message: 'Translations retrieved',
+  //         data: {
+  //           language,
+  //           namespace,
+  //           translations: result,
+  //         },
+  //       });
+  //     }
+
+  //     /* ===================== ALL NAMESPACES ===================== */
+  //     translations = await storage.getTranslationsForLanguage(language.id);
+
+  //     const grouped: Record<string, any> = {};
+
+  //     translations.forEach((t) => {
+  //       if (!grouped[t.namespace]) grouped[t.namespace] = {};
+
+  //       let parsedValue: any = t.value;
+
+  //       // ✅ JSON auto-parse
+  //       if (
+  //         typeof t.value === 'string' &&
+  //         (t.value.startsWith('{') || t.value.startsWith('['))
+  //       ) {
+  //         try {
+  //           parsedValue = JSON.parse(t.value);
+  //         } catch {
+  //           parsedValue = t.value;
+  //         }
+  //       }
+
+  //       const path = t.key.split('.');
+  //       setDeep(grouped[t.namespace], path, parsedValue);
+  //     });
+
+  //     return res.json({
+  //       success: true,
+  //       message: 'Translations retrieved',
+  //       data: {
+  //         language,
+  //         translations: grouped,
+  //       },
+  //     });
+  //   } catch (error: any) {
+  //     console.error('Translations API error:', error);
+  //     return res.status(500).json({
+  //       success: false,
+  //       message: error.message || 'Internal Server Error',
+  //     });
+  //   }
+  // });
+
+
+
+  app.get('/api/translations/:languageCode', async (req: Request, res: Response) => {
     try {
       const { languageCode } = req.params;
       const { namespace } = req.query;
@@ -11823,167 +12120,8 @@ app.get('/api/translations/:languageCode', async (req: Request, res: Response) =
   );
 
   // Admin: Bulk import translations (for a language)
-
-
-  function flattenObject(
-  obj: any,
-  parentKey = '',
-  result: Record<string, string> = {}
-) {
-  if (typeof obj !== 'object' || obj === null) return result;
-
-  if (Array.isArray(obj)) {
-    obj.forEach((item, index) => {
-      flattenObject(item, `${parentKey}.${index}`, result);
-    });
-    return result;
-  }
-
-  for (const [key, value] of Object.entries(obj)) {
-    const newKey = parentKey ? `${parentKey}.${key}` : key;
-
-    if (typeof value === 'object' && value !== null) {
-      flattenObject(value, newKey, result);
-    } else {
-      result[newKey] = String(value);
-    }
-  }
-
-  return result;
-}
-
-
-//    app.post(
-//   '/api/admin/translations/:languageId/import',
-//   requireAdmin,
-//   async (req: Request, res: Response) => {
-//     try {
-//       const { languageId } = req.params;
-//       const { translations } = req.body;
-
-//       if (!translations || typeof translations !== 'object') {
-//         return res
-//           .status(400)
-//           .json({ success: false, message: 'Invalid translations data' });
-//       }
-
-//       const language = await storage.getLanguageById(languageId);
-//       if (!language) {
-//         return res
-//           .status(404)
-//           .json({ success: false, message: 'Language not found' });
-//       }
-
-//       let imported = 0;
-
-//       for (const [namespace, rawData] of Object.entries(translations)) {
-//         if (typeof rawData !== 'object' || rawData === null) continue;
-
-//         // ✅ FLATTEN HERE
-//         const flatTranslations = flattenObject(rawData);
-
-//         // fetch once per namespace (performance)
-//         const allKeys = await storage.getTranslationKeysByNamespace(namespace);
-
-//         for (const [key, value] of Object.entries(flatTranslations)) {
-//           let keyRecord = allKeys.find((k) => k.key === key);
-
-//           if (!keyRecord) {
-//             keyRecord = await storage.createTranslationKey({
-//               namespace,
-//               key,
-//             });
-//             allKeys.push(keyRecord);
-//           }
-
-//           await storage.upsertTranslationValue({
-//             keyId: keyRecord.id,
-//             languageId,
-//             value,
-//           });
-
-//           imported++;
-//         }
-//       }
-
-//       ApiResponse.success(res, `Imported ${imported} translations`);
-//     } catch (error: any) {
-//       res
-//         .status(500)
-//         .json({ success: false, message: error.message });
-//     }
-//   }
-// );
-
-
-
-
-
-app.post(
-  "/api/admin/translations/:languageId/import",
-  bodyParser.json({ limit: "100mb" }), // ✅ 100MB ONLY HERE
-  requireAdmin,
-  async (req: Request, res: Response) => {
-    try {
-      const { languageId } = req.params;
-      const { translations } = req.body;
-
-      if (!translations || typeof translations !== "object") {
-        return res
-          .status(400)
-          .json({ success: false, message: "Invalid translations data" });
-      }
-
-      const language = await storage.getLanguageById(languageId);
-      if (!language) {
-        return res
-          .status(404)
-          .json({ success: false, message: "Language not found" });
-      }
-
-      let imported = 0;
-
-      for (const [namespace, rawData] of Object.entries(translations)) {
-        if (typeof rawData !== "object" || rawData === null) continue;
-
-        const flatTranslations = flattenObject(rawData);
-        const allKeys = await storage.getTranslationKeysByNamespace(namespace);
-
-        for (const [key, value] of Object.entries(flatTranslations)) {
-          let keyRecord = allKeys.find((k) => k.key === key);
-
-          if (!keyRecord) {
-            keyRecord = await storage.createTranslationKey({
-              namespace,
-              key,
-            });
-            allKeys.push(keyRecord);
-          }
-
-          await storage.upsertTranslationValue({
-            keyId: keyRecord.id,
-            languageId,
-            value,
-          });
-
-          imported++;
-        }
-      }
-
-      ApiResponse.success(res, `Imported ${imported} translations`);
-    } catch (error: any) {
-      res.status(500).json({
-        success: false,
-        message: error.message,
-      });
-    }
-  }
-);
-
-  
-
   app.post(
-    '/api/admin/translations/:languageId/importtt',
+    '/api/admin/translations/:languageId/import',
     requireAdmin,
     async (req: Request, res: Response) => {
       try {

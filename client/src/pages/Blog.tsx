@@ -50,7 +50,7 @@ export default function Blog() {
 
       <main className="flex-1">
         {/* Hero Section - With Max Width Container */}
-        <section className="relative py-32 md:py-10 lg:py-4 bg-white dark:bg-background overflow-hidden">
+        <section className="relative py-20 md:py-28 lg:py-36 bg-white dark:bg-background overflow-hidden">
           {/* Background gradient */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 dark:from-primary/10 dark:via-transparent dark:to-primary/5"></div>
 

@@ -11,7 +11,7 @@ async function addSlugsToPackages() {
 
   for (const pkg of allPackages) {
     let destinationName = "";
-
+    
     if (pkg.destinationId) {
       const [dest] = await db.select().from(destinations).where(eq(destinations.id, pkg.destinationId));
       if (dest) {

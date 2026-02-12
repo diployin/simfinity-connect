@@ -129,10 +129,10 @@ export default function CompatibleDevices() {
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 pt-[150px] max-w-5xl">
         {/* Header */}
-        <div className="text-start mb-12 flex flex-col items-start max-w-4xl px-4">
-          <Smartphone className="h-16 w-16 text-primary mb-4" />
-          <h1 className="text-3xl sm:text-4xl lg:text-2.5 font-medium mb-4">{t('website.compatibleDevices.title', 'Compatible Devices')}</h1>
-          <p className="text-base sm:text-lg text-gray-600 font-thin leading-relaxed">
+        <div className="text-center mb-12">
+          <Smartphone className="h-16 w-16 text-primary mx-auto mb-4" />
+          <h1 className="text-4xl font-bold mb-4">{t('website.compatibleDevices.title', 'Compatible Devices')}</h1>
+          <p className="text-lg text-muted-foreground">
             {t('website.compatibleDevices.description', 'Check if your device supports eSIM technology')}
           </p>
         </div>

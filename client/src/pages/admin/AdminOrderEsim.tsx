@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Search, ShoppingCart, Package, Globe, Check, ArrowLeft, ChevronLeft, ChevronRight, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -20,6 +20,7 @@ import { Link } from "wouter";
 import { useTranslation } from "@/contexts/TranslationContext";
 import { useDebounce } from "@/hooks/use-debounce";
 import type { Provider, Destination, UnifiedPackage } from "@shared/schema";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface PackageWithDetails extends UnifiedPackage {
   destination?: Destination | null;
@@ -45,6 +46,7 @@ export default function AdminOrderEsim() {
   const [selectedProviderId, setSelectedProviderId] = useState<string>("");
   const [selectedDestinationId, setSelectedDestinationId] = useState<string>("");
   const { toast } = useToast();
+  const { currency } = useCurrency();
 
   // Debounce search query
   const debouncedSearch = useDebounce(searchQuery, 500);
@@ -56,8 +58,23 @@ export default function AdminOrderEsim() {
 
   // Fetch destinations for filter dropdown
   const { data: destinationsData } = useQuery<Destination[]>({
-    queryKey: ["/api/destinations"],
+    queryKey: [`/api/destinations/with-pricing?currency=${currency}`],
   });
+
+
+  const [search, setSearch] = useState("");
+
+  const filteredDestinations = useMemo(() => {
+    if (!destinationsData) return [];
+    return destinationsData
+      .filter((d) =>
+        d.name.toLowerCase().includes(search.toLowerCase())
+      )
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }, [destinationsData, search]);
+
+
+  // console.log(destinationsData)
 
   const { data: response, isLoading } = useQuery({
     queryKey: ["/api/admin/packages", page, limit, debouncedSearch, selectedProviderId, selectedDestinationId],
@@ -88,11 +105,11 @@ export default function AdminOrderEsim() {
       setOrderDialogOpen(false);
       setSelectedPackage(null);
       setQuantity(1);
-      
+
       const isMultiple = data.orders && data.orders.length > 1;
       toast({
         title: t('admin.orderEsim.success.title', 'Order Placed Successfully'),
-        description: isMultiple 
+        description: isMultiple
           ? t('admin.orderEsim.success.batch', `${data.quantity} eSIMs ordered. Request ID: ${data.requestId}`)
           : t('admin.orderEsim.success.single', 'eSIM provisioned successfully. You can now assign it to a customer.'),
       });
@@ -175,8 +192,8 @@ export default function AdminOrderEsim() {
               <Filter className="h-4 w-4 text-slate-400" />
               <span className="text-sm text-slate-600 dark:text-slate-400">Filters:</span>
             </div>
-            <Select 
-              value={selectedProviderId} 
+            <Select
+              value={selectedProviderId}
               onValueChange={(value) => {
                 setSelectedProviderId(value === "all" ? "" : value);
                 setPage(1);
@@ -194,28 +211,49 @@ export default function AdminOrderEsim() {
                 ))}
               </SelectContent>
             </Select>
-            <Select 
-              value={selectedDestinationId} 
+            <Select
+              value={selectedDestinationId}
               onValueChange={(value) => {
                 setSelectedDestinationId(value === "all" ? "" : value);
                 setPage(1);
               }}
             >
-              <SelectTrigger className="w-[200px]" data-testid="select-destination-filter">
+              <SelectTrigger
+                className="w-[200px]"
+                data-testid="select-destination-filter"
+              >
                 <SelectValue placeholder="All Countries" />
               </SelectTrigger>
+
               <SelectContent>
+                {/* 🔍 Search Input */}
+                <div className="p-2">
+                  <Input
+                    placeholder="Search country..."
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    className="h-8"
+                  />
+                </div>
+
                 <SelectItem value="all">All Countries</SelectItem>
-                {destinationsData?.sort((a, b) => a.name.localeCompare(b.name)).map((destination) => (
+
+                {filteredDestinations.map((destination) => (
                   <SelectItem key={destination.id} value={destination.id}>
                     {destination.name}
                   </SelectItem>
                 ))}
+
+                {filteredDestinations.length === 0 && (
+                  <div className="px-2 py-2 text-sm text-muted-foreground">
+                    No results found
+                  </div>
+                )}
               </SelectContent>
             </Select>
             {(selectedProviderId || selectedDestinationId) && (
-              <Button 
-                variant="ghost" 
+              <Button
+                variant="ghost"
                 size="sm"
                 onClick={() => {
                   setSelectedProviderId("");
@@ -378,13 +416,13 @@ export default function AdminOrderEsim() {
                 >
                   <ChevronLeft className="h-4 w-4" />
                 </Button>
-                
+
                 {/* Page Numbers */}
                 {(() => {
                   const pages = [];
                   const totalPages = pagination.totalPages;
                   const currentPage = page;
-                  
+
                   // Always show first page
                   if (totalPages > 0) {
                     pages.push(
@@ -399,7 +437,7 @@ export default function AdminOrderEsim() {
                       </Button>
                     );
                   }
-                  
+
                   // Show ellipsis if needed before current range
                   if (currentPage > 3) {
                     pages.push(
@@ -408,11 +446,11 @@ export default function AdminOrderEsim() {
                       </span>
                     );
                   }
-                  
+
                   // Show pages around current page
                   const startPage = Math.max(2, currentPage - 1);
                   const endPage = Math.min(totalPages - 1, currentPage + 1);
-                  
+
                   for (let i = startPage; i <= endPage; i++) {
                     pages.push(
                       <Button
@@ -426,7 +464,7 @@ export default function AdminOrderEsim() {
                       </Button>
                     );
                   }
-                  
+
                   // Show ellipsis if needed after current range
                   if (currentPage < totalPages - 2) {
                     pages.push(
@@ -435,7 +473,7 @@ export default function AdminOrderEsim() {
                       </span>
                     );
                   }
-                  
+
                   // Always show last page
                   if (totalPages > 1) {
                     pages.push(
@@ -450,10 +488,10 @@ export default function AdminOrderEsim() {
                       </Button>
                     );
                   }
-                  
+
                   return pages;
                 })()}
-                
+
                 <Button
                   variant="outline"
                   size="sm"

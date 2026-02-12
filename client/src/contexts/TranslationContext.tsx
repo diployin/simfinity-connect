@@ -1,9 +1,12 @@
-'use client';
-
-import { createContext, useContext, useState, useCallback, useEffect, ReactNode } from 'react';
-import { useQuery } from '@tanstack/react-query';
-
-/* ===================== TYPES ===================== */
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+  ReactNode,
+} from "react";
+import { useQuery } from "@tanstack/react-query";
 
 interface Language {
   id: string;
@@ -17,9 +20,6 @@ interface Language {
   sortOrder: number;
 }
 
-/* ✅ FIX: allow arrays + nested objects */
-type TranslationData = Record<string, any>;
-
 interface TranslationContextType {
   language: Language | null;
   languages: Language[];
@@ -30,37 +30,36 @@ interface TranslationContextType {
   t: (
     key: string,
     fallbackOrParams?: string | Record<string, string | number>,
-    params?: Record<string, string | number>,
+    params?: Record<string, string | number>
   ) => string;
 }
 
-/* ===================== CONTEXT ===================== */
+const TranslationContext = createContext<TranslationContextType | undefined>(
+  undefined
+);
 
-const TranslationContext = createContext<TranslationContextType | undefined>(undefined);
+type TranslationData = Record<string, Record<string, string>>;
 
-const STORAGE_KEY = 'esim_language';
-
-/* ===================== PROVIDER ===================== */
+const STORAGE_KEY = "esim_language";
 
 export function TranslationProvider({ children }: { children: ReactNode }) {
   const [languageCode, setLanguageCode] = useState<string>(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem(STORAGE_KEY) || 'en';
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      return saved || "en";
     }
-    return 'en';
+    return "en";
   });
 
-  /* -------- Languages -------- */
+  const [translations, setTranslations] = useState<TranslationData>({});
+
   const { data: languages = [], isLoading: languagesLoading } = useQuery<Language[]>({
-    queryKey: ['/api/languages'],
+    queryKey: ["/api/languages"],
     staleTime: 5 * 60 * 1000,
   });
-
   const currentLanguage = languages.find((l) => l.code === languageCode) || null;
+  const isRTL = currentLanguage?.isRTL || false;
 
-  const isRTL = currentLanguage?.isRTL ?? false;
-
-  /* -------- Translations -------- */
   const { data: translationsData, isLoading: translationsLoading } = useQuery<{
     language: Language;
     translations: TranslationData;
@@ -71,73 +70,91 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     cacheTime: 5 * 60 * 1000,
   });
 
-  /* -------- HTML lang + dir -------- */
   useEffect(() => {
-    if (typeof document !== 'undefined') {
-      document.documentElement.lang = languageCode;
-      document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
+    if (translationsData?.translations) {
+      setTranslations(translationsData.translations);
     }
-  }, [languageCode, isRTL]);
+  }, [translationsData]);
 
-  /* -------- Change language -------- */
-  const setLanguage = useCallback((code: string) => {
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      document.documentElement.dir = isRTL ? "rtl" : "ltr";
+      document.documentElement.lang = languageCode;
+    }
+  }, [isRTL, languageCode]);
+
+  const setLanguageOLD = useCallback((code: string) => {
     setLanguageCode(code);
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       localStorage.setItem(STORAGE_KEY, code);
     }
   }, []);
 
-  /* -------- Translate function (ARRAY + OBJECT SUPPORT) -------- */
+
+  const setLanguage = useCallback((code: string) => {
+  console.log("Language changed to:", code);
+  setLanguageCode(code);
+  setTranslations({}); // ✅ CLEAR OLD TRANSLATIONS
+  if (typeof window !== "undefined") {
+    localStorage.setItem(STORAGE_KEY, code);
+  }
+}, []);
+
+
   const t = useCallback(
     (
       key: string,
       fallbackOrParams?: string | Record<string, string | number>,
-      params?: Record<string, string | number>,
+      params?: Record<string, string | number>
     ): string => {
-      const translations = translationsData?.translations || {};
-
       let fallback: string | undefined;
       let actualParams: Record<string, string | number> | undefined;
 
-      if (typeof fallbackOrParams === 'string') {
+      if (typeof fallbackOrParams === "string") {
         fallback = fallbackOrParams;
         actualParams = params;
       } else {
+        fallback = undefined;
         actualParams = fallbackOrParams;
       }
 
-      const path = key.split('.');
-      let value: any = translations;
+      const keyParts = key.split(".");
+      const namespace = keyParts[0];
+      const translationKey = keyParts.slice(1).join(".");
 
-      for (const part of path) {
-        if (value == null) break;
-
-        if (Array.isArray(value)) {
-          const index = Number(part);
-          value = Number.isNaN(index) ? undefined : value[index];
-        } else {
-          value = value[part];
+      let value: string | undefined;
+      
+      if (translations[namespace] && translationKey) {
+        value = translations[namespace][translationKey];
+      } else if (!translationKey) {
+        for (const ns of Object.values(translations)) {
+          if (ns[key]) {
+            value = ns[key];
+            break;
+          }
         }
       }
 
-      if (typeof value !== 'string') {
+      if (!value) {
         const result = fallback || key;
         if (actualParams) {
-          return result.replace(/\{(\w+)\}/g, (_, k) => actualParams?.[k]?.toString() ?? `{${k}}`);
+          return result.replace(/\{(\w+)\}/g, (match, paramKey) => {
+            return actualParams[paramKey]?.toString() || match;
+          });
         }
         return result;
       }
 
       if (actualParams) {
-        return value.replace(/\{(\w+)\}/g, (_, k) => actualParams?.[k]?.toString() ?? `{${k}}`);
+        return value.replace(/\{(\w+)\}/g, (match, paramKey) => {
+          return actualParams[paramKey]?.toString() || match;
+        });
       }
 
       return value;
     },
-    [translationsData],
+    [translations, languageCode]
   );
-
-  console.log('translationsData@@@@@@@@@@@@@@@@', translationsData);
 
   const isLoading = languagesLoading || translationsLoading;
 
@@ -158,12 +175,10 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
   );
 }
 
-/* ===================== HOOK ===================== */
-
 export function useTranslation() {
   const context = useContext(TranslationContext);
   if (!context) {
-    throw new Error('useTranslation must be used within TranslationProvider');
+    throw new Error("useTranslation must be used within TranslationProvider");
   }
   return context;
 }

@@ -45,10 +45,6 @@ export const requireAdminOLD = (req: Request, res: Response, next: Function) => 
 };
 
 
-
-
-;
-
 export const requireAdmin = async (
   req: Request,
   res: Response,
@@ -74,5 +70,46 @@ export const requireAdmin = async (
   } catch (error) {
     console.error("requireAdmin error:", error);
     return ApiResponse.serverError(res, "Admin auth failed");
+  }
+};
+
+
+export const optionalAdminAuth = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+
+  // console.log("req.session", req.session)
+
+  // 1️⃣ Session-based auth (same as requireAdmin)
+  if (req.session?.adminId) {
+    const admin = await storage.getAdminById(req.session.adminId);
+    req.adminId = req.session.adminId;
+    req.email = admin.email;
+    return next();
+  }
+
+  // 2️⃣ Token-based auth (optional)
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    return next(); // ✅ Public route – no auth required
+  }
+
+  try {
+    const token = authHeader.split(" ")[1];
+    if (!token) return next();
+
+    const decoded: any = verifyToken(token);
+
+    // console.log("Decoded token:", decoded);
+
+    req.adminId = decoded.id;
+    req.email = decoded.email;
+
+    return next();
+  } catch (err) {
+    // ❌ Token was sent but invalid
+    return ApiResponse.unauthorized(res, "Invalid token");
   }
 };

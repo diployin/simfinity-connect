@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useTranslation } from "@/contexts/TranslationContext";
+import { Switch } from "@/components/ui/switch";
+import { cn } from "@/lib/utils";
 
 interface PriceBracket {
     id?: string;
@@ -25,10 +28,92 @@ interface PriceBracket {
 
 export default function AdminPriceBrackets() {
     const { toast } = useToast();
+    const { t } = useTranslation();
+    const [inAppPurchase, setInAppPurchase] = useState(false);
     const [currency, setCurrency] = useState("USD");
     const [priceDiff, setPriceDiff] = useState(5);
     const [previewOpen, setPreviewOpen] = useState(false);
     const [page, setPage] = useState(1);
+
+
+    // Fetch settings
+    const { data: settingsResponse } = useQuery({
+        queryKey: ["/api/admin/settings"],
+    });
+
+    // console.log("nsd sdfds", settingsResponse)
+    // Convert array → object
+    const settings = useMemo(() => {
+        if (!settingsResponse) return {};
+        return settingsResponse.reduce(
+            (acc: Record<string, string>, s: any) => {
+                acc[s.key] = s.value;
+                return acc;
+            },
+            {}
+        );
+    }, [settingsResponse]);
+
+    // console.log("sdfafasasdas", settings)
+
+    // Load values
+    useEffect(() => {
+        if (!settings) return;
+
+        setInAppPurchase(settings.in_app_purchase === "true");
+    }, [settings]);
+
+
+    // Mutation
+    const updateSettingMutation = useMutation({
+        mutationFn: async ({
+            key,
+            value,
+            category,
+        }: {
+            key: string;
+            value: string;
+            category: string;
+        }) =>
+            apiRequest("PUT", `/api/admin/settings/${key}`, {
+                value,
+                category,
+            }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["/api/admin/settings"] });
+            toast({
+                title: t("admin.settings.success", "Success"),
+                description: t(
+                    "admin.settings.settingsUpdatedSuccess",
+                    "Settings updated successfully"
+                ),
+            });
+        },
+        onError: (err: any) => {
+            toast({
+                title: t("admin.settings.error", "Error"),
+                description:
+                    err.message ||
+                    t(
+                        "admin.settings.failedToUpdateSettings",
+                        "Failed to update settings"
+                    ),
+                variant: "destructive",
+            });
+        },
+    });
+
+    const save = async (key: string, value: string) =>
+        updateSettingMutation.mutateAsync({
+            key,
+            value,
+            category: "in_app_purchase",
+        });
+
+    const handleSave = async () => {
+        await save("in_app_purchase", inAppPurchase);
+    };
+
 
     const { data: resData, isLoading } = useQuery({
         queryKey: ["/api/admin/price-brackets/list", page, currency],
@@ -76,6 +161,25 @@ export default function AdminPriceBrackets() {
                     <h1 className="text-3xl font-bold tracking-tight text-foreground">Price Brackets</h1>
                     <p className="text-muted-foreground">Manage and generate pricing tiers for mobile stores.</p>
                 </div>
+                {/* Toggle */}
+                <div className={cn(
+                    "flex items-center gap-3 rounded-lg border px-4 py-2 transition-opacity",
+                    updateSettingMutation.isPending && "opacity-60"
+                )}>
+                    <span className="text-sm font-medium text-foreground">
+                        Allow In-App Purchase
+                    </span>
+
+                    <Switch
+                        checked={inAppPurchase}
+                        disabled={updateSettingMutation.isPending}
+                        onCheckedChange={(checked) => {
+                            setInAppPurchase(checked);
+                            save("in_app_purchase", String(checked));
+                        }}
+                    />
+                </div>
+
             </div>
 
             <Card className="border-primary/20">
@@ -112,14 +216,14 @@ export default function AdminPriceBrackets() {
                         <Button
                             variant="outline"
                             onClick={() => previewMutation.mutate()}
-                            disabled={previewMutation.isPending}
+                            disabled={!inAppPurchase || previewMutation.isPending}
                         >
                             {previewMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                             Preview
                         </Button>
                         <Button
                             onClick={() => generateMutation.mutate()}
-                            disabled={generateMutation.isPending}
+                            disabled={!inAppPurchase || generateMutation.isPending}
                         >
                             {generateMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                             Generate & Save

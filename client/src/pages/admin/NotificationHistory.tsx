@@ -630,7 +630,7 @@ export default function NotificationHistory() {
                     <TableHead>{t('admin.notifications.table.type', 'Type')}</TableHead>
                     <TableHead>{t('admin.notifications.table.iccid', 'ICCID')}</TableHead>
                     <TableHead>{t('admin.notifications.table.processed', 'Processed')}</TableHead>
-                    <TableHead>{t('admin.notifications.table.emailSent', 'Email Sent')}</TableHead>
+                    {/* <TableHead>{t('admin.notifications.table.emailSent', 'Email Sent')}</TableHead> */}
                     <TableHead>{t('admin.notifications.table.error', 'Error')}</TableHead>
                     <TableHead className="text-right">
                       {t('admin.notifications.table.actions', 'Actions')}
@@ -671,7 +671,7 @@ export default function NotificationHistory() {
                             </Badge>
                           )}
                         </TableCell>
-                        <TableCell>
+                        {/* <TableCell>
                           {notification.emailSent ? (
                             <Badge variant="default" className="gap-1">
                               <CheckCircle className="h-3 w-3" />
@@ -683,7 +683,7 @@ export default function NotificationHistory() {
                               {t('admin.notifications.badge.no', 'No')}
                             </Badge>
                           )}
-                        </TableCell>
+                        </TableCell> */}
                         <TableCell>
                           {notification.error ? (
                             <div className="flex items-center gap-2">
@@ -967,7 +967,7 @@ export default function NotificationHistory() {
               <Label className="text-sm font-medium">
                 {t('admin.notifications.custom.deliveryMethods', 'Delivery Methods')}
               </Label>
-              <div className="flex items-center space-x-2">
+              {/* <div className="flex items-center space-x-2">
                 <Checkbox
                   id="send-email"
                   checked={sendEmail}
@@ -980,7 +980,7 @@ export default function NotificationHistory() {
                 >
                   {t('admin.notifications.custom.sendEmail', 'Send Email')}
                 </label>
-              </div>
+              </div> */}
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="send-in-app"
@@ -1027,15 +1027,15 @@ export default function NotificationHistory() {
                 {sendCustomNotificationMutation.isPending
                   ? t('admin.notifications.custom.sending', 'Sending...')
                   : t(
-                      'admin.notifications.custom.sendButton',
-                      `Send to ${recipientType === 'all' ? 'All Customers' : 'Customer'}`,
-                      {
-                        recipient:
-                          recipientType === 'all'
-                            ? t('admin.notifications.custom.allCustomers', 'All Customers')
-                            : t('admin.notifications.custom.singleCustomer', 'Customer'),
-                      },
-                    )}
+                    'admin.notifications.custom.sendButton',
+                    `Send to ${recipientType === 'all' ? 'All Customers' : 'Customer'}`,
+                    {
+                      recipient:
+                        recipientType === 'all'
+                          ? t('admin.notifications.custom.allCustomers', 'All Customers')
+                          : t('admin.notifications.custom.singleCustomer', 'Customer'),
+                    },
+                  )}
               </Button>
             </div>
           </div>

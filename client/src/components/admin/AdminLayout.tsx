@@ -56,7 +56,6 @@ import { useAdmin } from '@/hooks/use-admin';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { useSettingByKey } from '@/hooks/useSettings';
 
 type NavItem = {
   name: string;
@@ -113,7 +112,7 @@ const navigation: NavigationEntry[] = [
       { name: 'Vouchers', href: '/admin/vouchers', icon: Gift },
       { name: 'Gift Cards', href: '/admin/gift-cards', icon: Gift },
       { name: 'Referral Program', href: '/admin/referrals', icon: Gift },
-      { name: 'Email Marketing', href: '/admin/email-marketing', icon: Send },
+      // { name: 'Email Marketing', href: '/admin/email-marketing', icon: Send },
     ],
   },
   {
@@ -136,7 +135,7 @@ const navigation: NavigationEntry[] = [
     icon: Bell,
     items: [
       { name: 'Notifications', href: '/admin/notifications', icon: Bell },
-      { name: 'Email Templates', href: '/admin/email-templates', icon: Mail },
+      // { name: 'Email Templates', href: '/admin/email-templates', icon: Mail },
     ],
   },
   {
@@ -170,7 +169,7 @@ const navigation: NavigationEntry[] = [
       { name: 'Translations', href: '/admin/translations', icon: FileText },
     ],
   },
-  { name: 'Enterprise', href: '/admin/enterprise', icon: Users },
+  // { name: 'Enterprise', href: '/admin/enterprise', icon: Users },
   { name: 'Blog', href: '/admin/blog', icon: MessageSquare },
   { name: 'API Docs', href: '/admin/api-docs', icon: Code },
 ];
@@ -200,9 +199,6 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
   const { user, refetchUser } = useAdmin();
   const { t } = useTranslation();
   const { toast } = useToast();
-
-  const logo = useSettingByKey('logo');
-  const tagline = useSettingByKey('platform_tagline');
 
   useEffect(() => {
     for (const entry of navigation) {
@@ -267,15 +263,14 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         )}
       >
         {/* Sidebar Header */}
-        <div className="flex h-16 items-center justify-center px-6 border-b border-slate-200 dark:border-slate-800 shrink-0">
-          <div className="">
-            {/* <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-dark shadow-lg shadow-teal-500/50">
+        <div className="flex h-16 items-center justify-between px-6 border-b border-slate-200 dark:border-slate-800 shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-dark shadow-lg shadow-teal-500/50">
               <LayoutDashboard className="h-5 w-5 text-white" />
-            </div> */}
-            <div className="flex items-center flex-col  justify-center">
-              {/* <h1 className="font-bold text-slate-900 dark:text-white">Admin</h1> */}
-              <img src={logo} className="h-10 w-24" alt="" />
-              <p className="text-xs font-bold text-slate-500 dark:text-slate-400">{tagline}</p>
+            </div>
+            <div>
+              <h1 className="font-bold text-slate-900 dark:text-white">Admin</h1>
+              <p className="text-xs text-slate-500 dark:text-slate-400">eSIM Global</p>
             </div>
           </div>
           <Button
@@ -444,10 +439,10 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
                     <AvatarFallback className="bg-primary-gradient text-white text-sm font-semibold">
                       {user?.name
                         ? user.name
-                            .split(' ')
-                            .map((word) => word.charAt(0).toUpperCase())
-                            .join('')
-                            .slice(0, 2)
+                          .split(' ')
+                          .map((word) => word.charAt(0).toUpperCase())
+                          .join('')
+                          .slice(0, 2)
                         : 'NA'}
                     </AvatarFallback>
                   </Avatar>
@@ -483,7 +478,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
                   data-testid="button-logout"
                 >
                   <LogOut className="mr-2 h-4 w-4" />
-                  <span>{t('header.logout')}</span>
+                  <span>{t('adminPanel.header.logout')}</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

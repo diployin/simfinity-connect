@@ -13,6 +13,7 @@ import {
   Wallet,
   Loader2,
   Palette,
+  User,
 } from 'lucide-react';
 import { SiPaypal, SiApplepay, SiGooglepay } from 'react-icons/si';
 import { Button } from '@/components/ui/button';
@@ -33,6 +34,7 @@ import { SMTPSettings } from '@/components/admin/tabs/SMTPSettings';
 import { ThemeSettings } from './tabs/ThemeSettings';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { SocialMediaSettings } from '@/components/admin/tabs/SocialMediaSettings';
+import { AdminAccountSettings } from '@/components/admin/tabs/AdminAccountSettings';
 // import { ThemeSettings } from '@/components/admin/tabs/ThemeSettings';
 
 function PaymentMethodsManagement() {
@@ -425,7 +427,7 @@ export default function Settings() {
       <Tabs defaultValue="general" className="w-full">
         <div className="relative">
           <div className="flex overflow-x-auto pb-2 scrollbar-hide">
-            <TabsList className="flex w-full min-w-max gap-1 p-1 lg:w-auto lg:grid lg:grid-cols-5">
+            <TabsList className="flex w-full min-w-max gap-1 p-1 lg:w-auto lg:grid lg:grid-cols-6">
               <TabsTrigger
                 value="general"
                 className="gap-2 whitespace-nowrap"
@@ -473,6 +475,15 @@ export default function Settings() {
                 <span className="hidden sm:inline">Social Media</span>
                 <span className="sm:hidden">Theme</span>
               </TabsTrigger>
+              <TabsTrigger
+                value="account"
+                className="gap-2 whitespace-nowrap"
+                data-testid="tab-account"
+              >
+                <User className="h-4 w-4 shrink-0" />
+                <span className="hidden sm:inline">Account & Security</span>
+                <span className="sm:hidden">Account</span>
+              </TabsTrigger>
             </TabsList>
           </div>
         </div>
@@ -501,6 +512,9 @@ export default function Settings() {
 
         <TabsContent value="social-media" className="space-y-4">
           <SocialMediaSettings />
+        </TabsContent>
+        <TabsContent value="account" className="space-y-4">
+          <AdminAccountSettings />
         </TabsContent>
       </Tabs>
     </div>

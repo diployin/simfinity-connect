@@ -505,7 +505,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               packageName: packageName,
               iccid: order.iccid || "N/A",
               expiryDate: normalizedPayload.data?.expiryDate as string,
-              topupUrl: `https://${process.env.REPLIT_DEV_DOMAIN}/esims/${order.id}`,
+              topupUrl: `https://${process.env.BASE_URL}/esims/${order.id}`,
             });
 
             await sendEmail({
@@ -6402,7 +6402,7 @@ ${urls.map(url => `  <url>
         notif_low_data_90: settingsObj.notif_low_data_90 || "true",
         notif_expiring_3days: settingsObj.notif_expiring_3days || "true",
         notif_expiring_1day: settingsObj.notif_expiring_1day || "true",
-        notif_webhook_url: settingsObj.notif_webhook_url || `https://${process.env.REPLIT_DEV_DOMAIN || 'localhost:5000'}/api/webhooks/airalo/low-data`,
+        notif_webhook_url: settingsObj.notif_webhook_url || `https://${process.env.BASE_URL || 'localhost:5000'}/api/webhooks/airalo/low-data`,
         notif_opted_in: settingsObj.notif_opted_in || "false",
       };
 
@@ -6454,7 +6454,7 @@ ${urls.map(url => `  <url>
   // Opt-in to Airalo low data notifications
   app.post("/api/admin/notifications/opt-in", requireAdmin, async (req: Request, res: Response) => {
     try {
-      const webhookUrl = `https://${process.env.REPLIT_DEV_DOMAIN || 'localhost:5000'}/api/webhooks/airalo/low-data`;
+      const webhookUrl = `https://${process.env.BASE_URL || 'localhost:5000'}/api/webhooks/airalo/low-data`;
 
       const success = await airaloNotificationService.optInLowData(webhookUrl);
 
@@ -8450,7 +8450,7 @@ ${urls.map(url => `  <url>
               </ul>
               ${order.qr_code_url || order.qrCodeUrl ? `<p>QR Code: <a href="${order.qr_code_url || order.qrCodeUrl}">Download QR Code</a></p>` : ''}
               ${order.activation_code || order.activationCode ? `<p>Activation Code: ${order.activation_code || order.activationCode}</p>` : ''}
-              <p><a href="${process.env.REPLIT_DEV_DOMAIN || 'http://localhost:5000'}/enterprise/download/${downloadToken}">Download eSIM Details</a></p>
+              <p><a href="${process.env.BASE_URL || 'http://localhost:5000'}/enterprise/download/${downloadToken}">Download eSIM Details</a></p>
             `,
           });
 

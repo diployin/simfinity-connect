@@ -57,6 +57,7 @@ import type { Order, UnifiedPackage, User, Destination } from '@shared/schema';
 import { formatDisplayOrderId, formatDisplayUserId } from '@shared/utils';
 import { ESimDetailsModal } from '@/components/admin/ESimDetailsModal';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { useAdmin } from '@/hooks/use-admin';
 
 type FailoverAttempt = {
   providerId: string;
@@ -91,9 +92,11 @@ export default function OrderManagement() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const { toast } = useToast();
+  const { user } = useAdmin();
 
-  console.log('orders', selectedOrder);
-  console.log('esimDetailsOrderId', esimDetailsOrderId);
+
+  // console.log('orders', selectedOrder);
+  // console.log('esimDetailsOrderId', esimDetailsOrderId);
 
   const { data: orders, isLoading } = useQuery<OrderWithDetails[]>({
     queryKey: ['/api/admin/orders'],
@@ -190,6 +193,17 @@ export default function OrderManagement() {
 
   // CSV Export Function
   const exportToCSV = () => {
+
+    // console.log(user?.email, user?.email === "de****@di***")
+    // return
+    if (user?.email === "de****@di***") {
+      return toast({
+        title: t("comman.error", "Error"),
+        description: "Demo users are not allowed to perform this action",
+        variant: 'destructive',
+      })
+    }
+
     if (!orders || orders.length === 0) {
       toast({
         title: t('common.noData', 'No Data'),
@@ -339,7 +353,7 @@ export default function OrderManagement() {
   });
 
 
-    const formatPrice = (amount: string | number, currency = "USD") => {
+  const formatPrice = (amount: string | number, currency = "USD") => {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
       currency,
@@ -385,7 +399,7 @@ export default function OrderManagement() {
             data-testid="button-export-orders"
           >
             <Download className="h-4 w-4" />
-            {t('admin.orders.exportOrders', 'Export Orders')}
+            {t('admin.orders.exportOrders', 'Export Orders 1')}
           </Button>
         </div>
       </div>
@@ -509,9 +523,9 @@ export default function OrderManagement() {
                         {searchQuery || statusFilter !== 'all'
                           ? t('common.tryAdjustingFilters', 'Try adjusting your filters')
                           : t(
-                              'admin.orders.ordersWillAppear',
-                              'Orders will appear here once customers start purchasing',
-                            )}
+                            'admin.orders.ordersWillAppear',
+                            'Orders will appear here once customers start purchasing',
+                          )}
                       </p>
                     </div>
                   </TableCell>
@@ -559,7 +573,7 @@ export default function OrderManagement() {
                     </TableCell>
                     <TableCell className="font-semibold text-emerald-600 dark:text-emerald-400">
                       {/* ${order.price} */}
-                       {formatPrice(order.price, order.currency || order.orderCurrency)}
+                      {formatPrice(order.price, order.currency || order.orderCurrency)}
                     </TableCell>
                     <TableCell>
                       <Badge className={statusStyles[order.status]} variant="outline">
@@ -861,7 +875,7 @@ export default function OrderManagement() {
                             </p>
                             {selectedOrder.originalProviderId &&
                               selectedOrder.originalProviderId !==
-                                selectedOrder.finalProviderId && (
+                              selectedOrder.finalProviderId && (
                                 <Badge
                                   variant="outline"
                                   className="bg-amber-50 text-amber-700 dark:bg-amber-900/20 dark:text-amber-400 text-xs"

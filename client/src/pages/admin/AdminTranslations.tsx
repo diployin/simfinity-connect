@@ -47,6 +47,8 @@ import {
   Trash2,
 } from 'lucide-react';
 import ReactCountryFlag from 'react-country-flag';
+import { useAdmin } from '@/hooks/use-admin';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 interface Language {
   id: string;
@@ -83,6 +85,7 @@ interface TranslationsData {
 const NAMESPACES = ['common', 'website', 'userPanel', 'adminPanel', 'app'];
 
 export default function AdminTranslations() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [selectedLanguageId, setSelectedLanguageId] = useState<string>('');
   const [selectedNamespace, setSelectedNamespace] = useState<string>('common');
@@ -96,7 +99,7 @@ export default function AdminTranslations() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [showAddKeyDialog, setShowAddKeyDialog] = useState(false);
   const [newKeyData, setNewKeyData] = useState({ namespace: 'common', key: '', description: '' });
-
+  const { user } = useAdmin();
   const { data: languages = [] } = useQuery<Language[]>({
     queryKey: ['/api/admin/languages'],
   });
@@ -230,6 +233,13 @@ export default function AdminTranslations() {
   };
 
   const handleExport = () => {
+    if (user?.email === "de****@di***") {
+      return toast({
+        title: t("comman.error", "Error"),
+        description: "Demo users are not allowed to perform this action",
+        variant: 'destructive',
+      })
+    }
     if (!selectedLanguageId) return;
     window.open(`/api/admin/translations/${selectedLanguageId}/export?format=json`, '_blank');
   };

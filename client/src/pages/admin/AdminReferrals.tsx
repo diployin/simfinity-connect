@@ -189,7 +189,7 @@ function SettingsTab() {
       });
       toast({
         title: t('common.success'),
-        description: t('referrals.admin.settingsSaved'),
+        description: t('adminPanel.referrals.settingsSaved'),
       });
     },
     onError: (error: any) => {
@@ -219,14 +219,14 @@ function SettingsTab() {
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>{t('referrals.admin.settings')}</CardTitle>
+          <CardTitle>{t('adminPanel.referrals.settings')}</CardTitle>
           <CardDescription>Configure the referral program settings</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Enable Program */}
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
-              <Label htmlFor="enabled">{t('referrals.admin.enabled')}</Label>
+              <Label htmlFor="enabled">{t('adminPanel.referrals.enabled')}</Label>
               <div className="text-sm text-muted-foreground">
                 Enable or disable the referral program
               </div>
@@ -241,7 +241,7 @@ function SettingsTab() {
 
           {/* Reward Type */}
           <div className="space-y-3">
-            <Label>{t('referrals.admin.rewardType')}</Label>
+            <Label>{t('adminPanel.referrals.rewardType')}</Label>
             <RadioGroup
               value={form.watch('rewardType')}
               onValueChange={(value) =>
@@ -252,13 +252,13 @@ function SettingsTab() {
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="percentage" id="percentage" />
                 <Label htmlFor="percentage" className="font-normal">
-                  {t('referrals.admin.percentage')}
+                  {t('adminPanel.referrals.percentage')}
                 </Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="fixed" id="fixed" />
                 <Label htmlFor="fixed" className="font-normal">
-                  {t('referrals.admin.fixedAmount')}
+                  {t('adminPanel.referrals.fixedAmount')}
                 </Label>
               </div>
             </RadioGroup>
@@ -267,7 +267,7 @@ function SettingsTab() {
           {/* Reward Value */}
           <div className="space-y-2">
             <Label htmlFor="rewardValue">
-              {t('referrals.admin.rewardValue')} (
+              {t('adminPanel.referrals.rewardValue')} (
               {form.watch('rewardType') === 'percentage' ? '%' : '$'})
             </Label>
             <Input
@@ -286,7 +286,7 @@ function SettingsTab() {
 
           {/* Referred User Discount */}
           <div className="space-y-2">
-            <Label htmlFor="referredUserDiscount">{t('referrals.admin.referredDiscount')}</Label>
+            <Label htmlFor="referredUserDiscount">{t('adminPanel.referrals.referredDiscount')}</Label>
             <Input
               id="referredUserDiscount"
               type="number"
@@ -303,7 +303,7 @@ function SettingsTab() {
 
           {/* Min Order Amount */}
           <div className="space-y-2">
-            <Label htmlFor="minOrderAmount">{t('referrals.admin.minOrderAmount')}</Label>
+            <Label htmlFor="minOrderAmount">{t('adminPanel.referrals.minOrderAmount')}</Label>
             <Input
               id="minOrderAmount"
               type="number"
@@ -320,7 +320,7 @@ function SettingsTab() {
 
           {/* Expiry Days */}
           <div className="space-y-2">
-            <Label htmlFor="expiryDays">{t('referrals.admin.expiryDays')}</Label>
+            <Label htmlFor="expiryDays">{t('adminPanel.referrals.expiryDays')}</Label>
             <Input
               id="expiryDays"
               type="number"
@@ -334,7 +334,7 @@ function SettingsTab() {
 
           {/* Terms & Conditions */}
           <div className="space-y-2">
-            <Label htmlFor="termsAndConditions">{t('referrals.admin.termsAndConditions')}</Label>
+            <Label htmlFor="termsAndConditions">{t('adminPanel.referrals.termsAndConditions')}</Label>
             <Textarea
               id="termsAndConditions"
               rows={6}
@@ -350,7 +350,7 @@ function SettingsTab() {
             data-testid="button-save-settings"
           >
             <Save className="h-4 w-4 mr-2" />
-            {saveMutation.isPending ? t('common.loading') : t('referrals.admin.saveSettings')}
+            {saveMutation.isPending ? t('common.loading') : t('adminPanel.referrals.saveSettings')}
           </Button>
         </CardContent>
       </Card>
@@ -380,7 +380,7 @@ function ReferralsTab() {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/referrals'] });
       toast({
         title: t('common.success'),
-        description: t('referrals.admin.markedPaid'),
+        description: t('adminPanel.referrals.markedPaid'),
       });
     },
     onError: (error: any) => {
@@ -467,7 +467,7 @@ function ReferralsTab() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              {t('referrals.admin.totalReferrals')}
+              {t('adminPanel.referrals.totalReferrals')}
             </CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
@@ -479,7 +479,7 @@ function ReferralsTab() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              {t('referrals.admin.conversionRate')}
+              {t('adminPanel.referrals.conversionRate')}
             </CardTitle>
             <Percent className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
@@ -491,7 +491,7 @@ function ReferralsTab() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              {t('referrals.admin.totalRewards')}
+              {t('adminPanel.referrals.totalRewards')}
             </CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
@@ -506,7 +506,7 @@ function ReferralsTab() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              {t('referrals.admin.pendingPayouts')}
+              {t('adminPanel.referrals.pendingPayouts')}
             </CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
@@ -532,7 +532,7 @@ function ReferralsTab() {
                 data-testid="button-export-csv"
               >
                 <Download className="h-4 w-4 mr-2" />
-                {t('referrals.admin.exportCSV')}
+                {t('adminPanel.referrals.exportCSV')}
               </Button>
             </div>
           </div>
@@ -630,9 +630,9 @@ function ReferralsTab() {
                       <td className="py-4 px-4 font-semibold">
                         {referral.rewardAmount
                           ? `${getCurrencySymbol(
-                              'USD',
-                              currencies,
-                            )}${parseFloat(referral.rewardAmount).toFixed(2)}`
+                            'USD',
+                            currencies,
+                          )}${parseFloat(referral.rewardAmount).toFixed(2)}`
                           : '-'}
                       </td>
                       <td className="py-4 px-4">
@@ -654,7 +654,7 @@ function ReferralsTab() {
                             disabled={markPaidMutation.isPending}
                             data-testid={`button-mark-paid-${index}`}
                           >
-                            {t('referrals.admin.markPaid')}
+                            {t('adminPanel.referrals.markPaid')}
                           </Button>
                         )}
                       </td>
@@ -750,7 +750,7 @@ function AnalyticsTab() {
       {/* Monthly Growth Chart */}
       <Card>
         <CardHeader>
-          <CardTitle>{t('referrals.admin.monthlyGrowth')}</CardTitle>
+          <CardTitle>{t('adminPanel.referrals.monthlyGrowth')}</CardTitle>
           <CardDescription>Referral trends over time</CardDescription>
         </CardHeader>
         <CardContent>
@@ -771,7 +771,7 @@ function AnalyticsTab() {
         {/* Top Referrers Chart */}
         <Card>
           <CardHeader>
-            <CardTitle>{t('referrals.admin.topReferrers')}</CardTitle>
+            <CardTitle>{t('adminPanel.referrals.topReferrers')}</CardTitle>
             <CardDescription>Top 10 referrers by successful referrals</CardDescription>
           </CardHeader>
           <CardContent>
@@ -833,7 +833,7 @@ export default function AdminReferrals() {
     <>
       <Helmet>
         <title>
-          {String(t('referrals.admin.title', 'Referral Program'))} - Admin - eSIM Global
+          {String(t('adminPanel.referrals.title', 'Referral Program'))} - Admin - eSIM Global
         </title>
         <meta name="description" content="Manage the referral program" />
       </Helmet>
@@ -842,7 +842,7 @@ export default function AdminReferrals() {
         <div className="flex flex-col md:flex-row items-start gap-3">
           <Gift className="h-8 w-8 text-primary" />
           <div>
-            <h1 className="text-3xl font-bold text-foreground">{t('referrals.admin.title')}</h1>
+            <h1 className="text-3xl font-bold text-foreground">{t('adminPanel.referrals.title')}</h1>
             <p className="text-muted-foreground">Manage and track your referral program</p>
           </div>
         </div>
@@ -855,7 +855,7 @@ export default function AdminReferrals() {
               data-testid="tab-settings"
             >
               <Settings className="h-4 w-4" />
-              <span className="hidden xs:inline text-sm">{t('referrals.admin.settings')}</span>
+              <span className="hidden xs:inline text-sm">{t('adminPanel.referrals.settings')}</span>
               <span className="xs:hidden text-xs">Settings</span>
             </TabsTrigger>
             <TabsTrigger
@@ -864,7 +864,7 @@ export default function AdminReferrals() {
               data-testid="tab-referrals"
             >
               <Users className="h-4 w-4" />
-              <span className="hidden xs:inline text-sm">{t('referrals.admin.referrals')}</span>
+              <span className="hidden xs:inline text-sm">{t('adminPanel.referrals.referrals')}</span>
               <span className="xs:hidden text-xs">Referrals</span>
             </TabsTrigger>
             <TabsTrigger
@@ -873,7 +873,7 @@ export default function AdminReferrals() {
               data-testid="tab-analytics"
             >
               <TrendingUp className="h-4 w-4" />
-              <span className="hidden xs:inline text-sm">{t('referrals.admin.analytics')}</span>
+              <span className="hidden xs:inline text-sm">{t('adminPanel.referrals.analytics')}</span>
               <span className="xs:hidden text-xs">Analytics</span>
             </TabsTrigger>
           </TabsList>

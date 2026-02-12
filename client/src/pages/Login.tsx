@@ -181,7 +181,7 @@ export default function Login() {
           const parsed = JSON.parse(match[1]);
           errorMessage = parsed.message || errorMessage;
         }
-      } catch {}
+      } catch { }
 
       toast({
         title: 'Login Failed',
@@ -273,6 +273,7 @@ export default function Login() {
       await apiRequest('PATCH', '/api/user/profile', { name });
 
       await apiRequest('POST', '/api/auth/set-password', {
+        name: name,
         password: newPassword,
         confirmPassword: confirmPassword,
       });
@@ -990,11 +991,11 @@ export default function Login() {
 
           <p className="text-center text-sm text-muted-foreground mt-6">
             {t('checkout.termsAgreement', 'By continuing, you agree to our')}{' '}
-            <Link href="/terms">
+            <Link href="/pages/terms-and-condition">
               <span className="text-primary hover:underline cursor-pointer">Terms of Service</span>
             </Link>{' '}
             and{' '}
-            <Link href="/privacy">
+            <Link href="/pages/privacy-policy">
               <span className="text-primary hover:underline cursor-pointer">Privacy Policy</span>
             </Link>
           </p>

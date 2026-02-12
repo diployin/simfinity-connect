@@ -87,15 +87,15 @@ export function HeroSection() {
   const displayPopular =
     popularDestinations.length > 0
       ? popularDestinations.map((d) => ({
-          name: d.name,
-          countryCode: d.countryCode,
-          slug: d.slug,
-          minPrice: d.minPrice,
-        }))
+        name: d.name,
+        countryCode: d.countryCode,
+        slug: d.slug,
+        minPrice: d.minPrice,
+      }))
       : defaultPopularDestinations.map((d) => ({
-          ...d,
-          minPrice: '0',
-        }));
+        ...d,
+        minPrice: '0',
+      }));
 
   const defaultPopularRegions = [
     { id: 1, name: 'Europe', slug: 'europe', minPrice: '0' },
@@ -182,7 +182,7 @@ export function HeroSection() {
                 ))}
               </div>
               <span className="text-foreground text-xs sm:text-sm font-medium whitespace-nowrap">
-                Rated 4.7/5 with 500K+ Downloads
+                {t('website.home.hero.rating', 'Rated 4.7/5 with 500K+ Downloads')}
               </span>
             </motion.div>
 
@@ -192,7 +192,7 @@ export function HeroSection() {
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-foreground mb-2 sm:mb-3 leading-tight tracking-tight"
               data-testid="text-hero-headline"
             >
-              Global{' '}
+              {t('website.home.hero.global', 'Global')}
               <span className="inline-flex items-baseline gap-1 sm:gap-2">
                 <AnimatePresence mode="wait">
                   <motion.span
@@ -204,7 +204,8 @@ export function HeroSection() {
                     className="gradient-text dark:text-primary inline-block min-w-[140px] sm:min-w-[180px] md:min-w-[240px] lg:min-w-[280px] neon-text-glow"
                     data-testid="text-rotating-word"
                   >
-                    {rotatingWords[currentWordIndex]}
+                    {/* {rotatingWords[currentWordIndex]} */}
+                    {t(`website.home.hero.${rotatingWords[currentWordIndex]}`, rotatingWords[currentWordIndex])}
                   </motion.span>
                 </AnimatePresence>
               </span>
@@ -215,7 +216,7 @@ export function HeroSection() {
               className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-foreground mb-3 sm:mb-4 leading-tight tracking-tight"
               data-testid="text-hero-headline-2"
             >
-              for Lifetime
+              {t('website.home.hero.forLifetime', 'for Lifetime')}
             </motion.h1>
 
             {/* Subtitle */}
@@ -224,8 +225,8 @@ export function HeroSection() {
               className="text-base sm:text-lg md:text-xl text-muted-foreground mb-4 sm:mb-6"
               data-testid="text-hero-subtitle"
             >
-              <span className="font-semibold text-foreground">Data + Voice</span> | Magic SIM
-              available
+              <span className="font-semibold text-foreground">{t('website.home.hero.dataVoice', 'Data + Voice')}</span> |
+              {t('website.home.hero.magicSIM', 'Magic SIM available')}
             </motion.p>
 
             {/* Description & Search Button */}
@@ -241,7 +242,7 @@ export function HeroSection() {
               >
                 <Search className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
                 <span className=" text-xs sm:text-sm  md:text-base text-muted-foreground group-hover:text-foreground transition-colors flex-1">
-                  Search for countries or regions...
+                  {t('website.home.hero.search', 'Search for countries or regions...')}
                 </span>
                 <div className="w-8 h-8 rounded-full bg-primary/10 group-hover:bg-primary flex items-center justify-center transition-all flex-shrink-0">
                   <Search className="h-4 w-4 text-primary group-hover:text-primary-foreground transition-colors" />
@@ -390,46 +391,42 @@ export function HeroSection() {
                           setSearchType('country');
                           setPhoneSearchQuery('');
                         }}
-                        className={`flex items-center gap-2 text-xs sm:text-sm font-medium transition-all px-4 py-2 rounded-full shadow-md ${
-                          searchType === 'country'
-                            ? 'bg-primary text-white shadow-primary/30'
-                            : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                        }`}
+                        className={`flex items-center gap-2 text-xs sm:text-sm font-medium transition-all px-4 py-2 rounded-full shadow-md ${searchType === 'country'
+                          ? 'bg-primary text-white shadow-primary/30'
+                          : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                          }`}
                         data-testid="toggle-search-country"
                       >
                         <div
-                          className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
-                            searchType === 'country'
-                              ? ' text-white bg-white'
-                              : 'border-muted-foreground'
-                          }`}
+                          className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${searchType === 'country'
+                            ? ' text-white bg-white'
+                            : 'border-muted-foreground'
+                            }`}
                         >
                           {searchType === 'country' && <Check className="h-3 w-3 text-primary" />}
                         </div>
-                        Country
+                        {t('common.form.country', 'Country')}
                       </button>
                       <button
                         onClick={() => {
                           setSearchType('region');
                           setPhoneSearchQuery('');
                         }}
-                        className={`flex items-center gap-2 text-xs sm:text-sm font-medium transition-all px-4 py-2 rounded-full shadow-md ${
-                          searchType === 'region'
-                            ? 'bg-primary text-white shadow-primary/30'
-                            : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                        }`}
+                        className={`flex items-center gap-2 text-xs sm:text-sm font-medium transition-all px-4 py-2 rounded-full shadow-md ${searchType === 'region'
+                          ? 'bg-primary text-white shadow-primary/30'
+                          : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                          }`}
                         data-testid="toggle-search-region"
                       >
                         <div
-                          className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${
-                            searchType === 'region'
-                              ? 'text-foreground bg-white'
-                              : 'border-muted-foreground'
-                          }`}
+                          className={`w-4 h-4 rounded-full border-2 flex items-center justify-center transition-all ${searchType === 'region'
+                            ? 'text-foreground bg-white'
+                            : 'border-muted-foreground'
+                            }`}
                         >
                           {searchType === 'region' && <Check className="h-3 w-3 text-primary" />}
                         </div>
-                        Region
+                        {t('nav.regions', 'Region')}
                       </button>
                     </div>
 
@@ -441,7 +438,9 @@ export function HeroSection() {
                           <Input
                             type="text"
                             placeholder={
-                              searchType === 'country' ? 'Search country...' : 'Search region...'
+                              searchType === 'country'
+                                ? t('common.form.country', 'Country')
+                                : t('nav.regions', 'Region')
                             }
                             value={phoneSearchQuery}
                             onChange={(e) => setPhoneSearchQuery(e.target.value)}
@@ -471,11 +470,11 @@ export function HeroSection() {
                           >
                             {destinationsLoading || regionsLoading ? (
                               <div className="p-4 text-center text-sm text-muted-foreground">
-                                Searching...
+                                {t('common.search', 'Search')}
                               </div>
                             ) : getFilteredResults().length === 0 ? (
                               <div className="p-4 text-center text-sm text-muted-foreground">
-                                No {searchType}s found
+                                {t('common.message.noResults', 'No results found')}
                               </div>
                             ) : (
                               getFilteredResults().map((item, idx) => (
@@ -528,13 +527,13 @@ export function HeroSection() {
                     {phoneSearchQuery.length === 0 && (
                       <div className="space-y-3">
                         <p className="text-xs font-semibold text-muted-foreground text-center">
-                          Popular Destinations
+                          {t('website.home.destinations.title', 'Popular Destinations')}
                         </p>
 
                         {/* Popular Countries Grid */}
                         {searchType === 'country' && (
                           <div className="grid grid-cols-3 gap-2">
-                            {displayPopular.slice(0, 6).map((dest) => (
+                            {displayPopular.slice(0, 9).map((dest) => (
                               <Link key={dest.slug} href={`/destination/${dest.slug}`}>
                                 <motion.div
                                   whileHover={{ scale: 1.05 }}
@@ -587,7 +586,7 @@ export function HeroSection() {
                             className="w-full text-white font-semibold border-none rounded-xl mt-4 bg-primary hover:bg-primary/90 shadow-lg hover:shadow-primary/50 transition-all text-sm py-3"
                             data-testid="button-phone-view-all"
                           >
-                            View All Destinations
+                            {t('website.home.destinations.viewAll', 'View All Destinations')}
                           </Button>
                         </Link>
                       </div>

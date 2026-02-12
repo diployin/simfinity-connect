@@ -46,9 +46,6 @@ import ReactCountryFlag from 'react-country-flag';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { useUser } from '@/hooks/use-user';
 import { useToast } from '@/hooks/use-toast';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/store/store';
-
 
 type GlobalPackage = {
   id: string;
@@ -217,8 +214,7 @@ export default function GlobalDetails() {
   const [, navigate] = useLocation();
   const { isAuthenticated, user } = useUser();
   const { toast } = useToast();
-  const { isExpanded } = useSelector((state: RootState) => state.topNavbar);
-  const isTopBarVisible = !isExpanded;
+
   const siteName = useSettingByKey('platform_name') || 'eSIM Connect';
 
   // Filter states
@@ -230,6 +226,10 @@ export default function GlobalDetails() {
   const [filterPopular, setFilterPopular] = useState(false);
   const [filterDataPack, setFilterDataPack] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
+  const [filterDataAndVoice, setFilterDataAndVoice] = useState(false);
+  const [filterVoiceAndDataAndSmsPack, setFilterVoiceAndDataAndSmsPack] = useState(false);
+
+
 
   const isKycComplete = () => {
     return isAuthenticated && user?.kycStatus === 'approved';
@@ -246,6 +246,8 @@ export default function GlobalDetails() {
     if (filterBestPrice) params.append('isBestPrice', 'true');
     if (filterPopular) params.append('isPopular', 'true');
     if (filterDataPack) params.append('dataPack', 'true');
+    if (filterDataAndVoice) params.append('voiceAndDataPack', 'true');
+    if (filterVoiceAndDataAndSmsPack) params.append('voiceAndDataAndSmsPack', 'true');
 
     return params.toString();
   };
@@ -263,6 +265,8 @@ export default function GlobalDetails() {
           filterBestPrice,
           filterPopular,
           filterDataPack,
+          filterDataAndVoice,
+          filterVoiceAndDataAndSmsPack
         },
       ],
       queryFn: () =>
@@ -303,12 +307,15 @@ export default function GlobalDetails() {
     navigate(`/unified-checkout/${selectedPkg.slug}`);
   };
 
+
   const clearAllFilters = () => {
     setSortBy('');
     setFilterUnlimited(false);
     setFilterBestPrice(false);
     setFilterPopular(false);
     setFilterDataPack(false);
+    setFilterDataAndVoice(false);
+    setFilterVoiceAndDataAndSmsPack(false);
     setPage(1);
   };
 
@@ -318,6 +325,8 @@ export default function GlobalDetails() {
     filterBestPrice,
     filterPopular,
     filterDataPack,
+    filterDataAndVoice,
+    filterVoiceAndDataAndSmsPack
   ].filter(Boolean).length;
 
   const globalPackages = packagesResponse?.data || [];
@@ -374,9 +383,7 @@ export default function GlobalDetails() {
   }
 
   return (
-    <div className={`min-h-screen bg-background flex flex-col ${isTopBarVisible
-      ? 'mt-28 md:mt-0'
-      : 'mt-18 md:mt-0'}`}>
+    <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
         <title>Global eSIM Plans - Worldwide Data Coverage | {siteName}</title>
         <meta
@@ -385,7 +392,7 @@ export default function GlobalDetails() {
         />
       </Helmet>
 
-      <main className="flex-1 pb-16">
+      <main className="flex-1 pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb className="mb-6">
             <BreadcrumbList>
@@ -656,7 +663,7 @@ export default function GlobalDetails() {
                         </div>
                         Filter By
                       </label>
-                      <div className="grid grid-cols-2 gap-2">
+                      <div className="grid grid-cols-3 gap-2">
                         <Button
                           variant={filterUnlimited ? 'default' : 'outline'}
                           size="sm"
@@ -704,6 +711,30 @@ export default function GlobalDetails() {
                         >
                           <Wifi className="w-3.5 h-3.5 mr-2" />
                           Data Only
+                        </Button>
+                        <Button
+                          variant={filterDataAndVoice ? 'default' : 'outline'}
+                          size="sm"
+                          onClick={() => {
+                            setFilterDataAndVoice(!filterDataAndVoice);
+                            setPage(1);
+                          }}
+                          className="w-full justify-start text-xs h-9 font-medium"
+                        >
+                          <Wifi className="w-3.5 h-3.5 mr-2" />
+                          Data + Voice
+                        </Button>
+                        <Button
+                          variant={filterVoiceAndDataAndSmsPack ? 'default' : 'outline'}
+                          size="sm"
+                          onClick={() => {
+                            setFilterVoiceAndDataAndSmsPack(!filterVoiceAndDataAndSmsPack);
+                            setPage(1);
+                          }}
+                          className="w-full justify-start text-xs h-9 font-medium"
+                        >
+                          <Wifi className="w-3.5 h-3.5 mr-2" />
+                          Data + Voice + SMS
                         </Button>
                       </div>
                     </div>
@@ -853,9 +884,9 @@ export default function GlobalDetails() {
                                   {currency}
                                 </span>
                               </div>
-                              <p className="text-xs text-muted-foreground mt-0.5">
+                              {/* <p className="text-xs text-muted-foreground mt-0.5">
                                 {pkg.providerName}
-                              </p>
+                              </p> */}
                             </div>
 
                             {/* Radio indicator with checkmark */}

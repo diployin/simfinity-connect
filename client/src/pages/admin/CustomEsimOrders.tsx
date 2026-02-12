@@ -339,7 +339,7 @@ export default function CustomEsimOrders() {
                         <p className="text-sm text-slate-600 dark:text-slate-400">
                           {t('admin.customOrders.empty.description', 'Order eSIMs to assign to customers')}
                         </p>
-                        <Link href="/admin/orders/purchase">
+                        <Link href="/admin/purchase-orders">
                           <Button className="mt-4" data-testid="button-start-ordering">
                             <PackageIcon className="h-4 w-4 mr-2" />
                             {t('admin.customOrders.button.orderEsims', 'Order eSIMs')}

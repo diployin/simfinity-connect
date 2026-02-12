@@ -1,20 +1,33 @@
 import { Helmet } from 'react-helmet-async';
-
+// import { SiteHeader } from '@/components/layout/SiteHeader';
+// import { SiteFooter } from '@/components/layout/SiteFooter';
+import { EsimNumHero } from '@/components/sections/EsimNumHero';
+import { TopFeaturesStrip } from '@/components/sections/TopFeaturesStrip';
+import { DestinationsTabs } from '@/components/sections/DestinationsTabs';
+import { PopularEsims } from '@/components/sections/PopularEsims';
+import { CompleteEsims } from '@/components/sections/CompleteEsims';
+import { BenefitsSection } from '@/components/sections/BenefitsSection';
+import { HowItWorksSteps } from '@/components/sections/HowItWorksSteps';
+import { FAQWithSupport } from '@/components/sections/FAQWithSupport';
+import { TravelerTestimonials } from '@/components/sections/TravelerTestimonials';
+import { FloatingButtons } from '@/components/sections/FloatingButtons';
+import { GlobalFloatingNav } from '@/components/GlobalFloatingNav';
 import { Wifi, Smartphone, Phone, Headphones, Signal, Globe } from 'lucide-react';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { useSettingByKey } from '@/hooks/useSettings';
+import { HeroSection } from '../components/sections/HeroSection';
+import {
+  ComparisonTable,
+  InfiniteScrollTicker,
+  NetworkPartners,
+  TrustBadges,
+} from '@/components/marketing';
+import FeatureSectionCompo from '@/components/sections/FeatureSectionCompo';
+import { SubscriptionBanner } from '@/components/sections/SubscriptionBanner';
+import { TravelReadyBanner } from '@/components/sections/TravelReadyBanner';
+import { AgencyProblemsSection } from '@/components/sections/AgencyProblemsSection';
+import { useSettingByKey, useSettings } from '@/hooks/useSettings';
+import BannerSection from '@/components/sections/BannerSection';
 import { useUser } from '@/hooks/use-user';
-import HeroSection from '@/components/sections/landing/hero-section';
-import WhatIsEsimSection from '@/components/sections/landing/WhatIsEsimSection';
-import TravelDestinationTabsNew from '@/components/sections/landing/TravelDestinationTabsNew';
-import InstantConnectionSection from '@/components/sections/landing/InstantConnectionSection';
-import HowDoesItWorkSection from '@/components/sections/landing/HowDoesItWorkSection';
-import DownloadAppSection from '@/components/sections/landing/DownloadAppSection';
-import TestimonialsSection from '@/components/sections/landing/TestimonialsSection';
-import FAQSection from '@/components/sections/landing/FAQSection';
-import ReferralSection from '@/components/sections/landing/ReferralSection';
-import FeaturesBar from '@/components/FeaturesBar';
-import WhyChooseSailySection from '@/components/sections/landing/WhyChooseSailySection';
 
 export default function Home() {
   const { t } = useTranslation();
@@ -63,21 +76,39 @@ export default function Home() {
 
         <main>
           {/* Hero section wrapper - fills viewport with strip at bottom above floating nav */}
-          <div className="relative min-h-screen flex flex-col  ">
-            {/* <HeroSection /> */}
+          <div className="relative min-h-screen flex flex-col md:pt-[140px] pt-[50px]">
             <HeroSection />
-            <FeaturesBar />
-            <WhatIsEsimSection />
-            <TravelDestinationTabsNew />
+
+            <InfiniteScrollTicker />
+
+            {/* <EsimNumHero /> */}
+
+            {/* Spacer to push strip to bottom */}
+            {/* <BannerSection /> */}
           </div>
-          <WhyChooseSailySection />
-          <InstantConnectionSection />
-          <HowDoesItWorkSection />
-          <DownloadAppSection />
-          <TestimonialsSection />
-          <FAQSection />
-          <ReferralSection />
+
+          <TopFeaturesStrip />
+          <DestinationsTabs />
+          <PopularEsims />
+          <FeatureSectionCompo />
+          <CompleteEsims />
+          <TrustBadges />
+          <NetworkPartners />
+          <SubscriptionBanner />
+          <TravelReadyBanner />
+          <BenefitsSection />
+          <AgencyProblemsSection />
+
+          <HowItWorksSteps />
+
+          <ComparisonTable />
+          <FAQWithSupport />
+          <TravelerTestimonials />
         </main>
+
+        {/* <SiteFooter /> */}
+        <FloatingButtons />
+        <GlobalFloatingNav />
       </div>
     </>
   );

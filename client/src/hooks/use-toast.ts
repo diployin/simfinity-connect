@@ -4,6 +4,7 @@ import type {
   ToastActionElement,
   ToastProps,
 } from "@/components/ui/toast"
+import { formatErrorMessage } from "@/lib/formatError"
 
 const TOAST_LIMIT = 1
 const TOAST_REMOVE_DELAY = 1000000
@@ -33,21 +34,21 @@ type ActionType = typeof actionTypes
 
 type Action =
   | {
-      type: ActionType["ADD_TOAST"]
-      toast: ToasterToast
-    }
+    type: ActionType["ADD_TOAST"]
+    toast: ToasterToast
+  }
   | {
-      type: ActionType["UPDATE_TOAST"]
-      toast: Partial<ToasterToast>
-    }
+    type: ActionType["UPDATE_TOAST"]
+    toast: Partial<ToasterToast>
+  }
   | {
-      type: ActionType["DISMISS_TOAST"]
-      toastId?: ToasterToast["id"]
-    }
+    type: ActionType["DISMISS_TOAST"]
+    toastId?: ToasterToast["id"]
+  }
   | {
-      type: ActionType["REMOVE_TOAST"]
-      toastId?: ToasterToast["id"]
-    }
+    type: ActionType["REMOVE_TOAST"]
+    toastId?: ToasterToast["id"]
+  }
 
 interface State {
   toasts: ToasterToast[]
@@ -105,9 +106,9 @@ export const reducer = (state: State, action: Action): State => {
         toasts: state.toasts.map((t) =>
           t.id === toastId || toastId === undefined
             ? {
-                ...t,
-                open: false,
-              }
+              ...t,
+              open: false,
+            }
             : t
         ),
       }
@@ -140,32 +141,40 @@ function dispatch(action: Action) {
 type Toast = Omit<ToasterToast, "id">
 
 function toast({ ...props }: Toast) {
-  const id = genId()
+  const id = genId();
+
+  // 🔥 Sanitize description globally
+  const safeDescription =
+    typeof props.description === "string"
+      ? formatErrorMessage(props.description)
+      : props.description;
 
   const update = (props: ToasterToast) =>
     dispatch({
       type: "UPDATE_TOAST",
       toast: { ...props, id },
-    })
-  const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id })
+    });
+
+  const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id });
 
   dispatch({
     type: "ADD_TOAST",
     toast: {
       ...props,
+      description: safeDescription, // 👈 always clean
       id,
       open: true,
       onOpenChange: (open) => {
-        if (!open) dismiss()
+        if (!open) dismiss();
       },
     },
-  })
+  });
 
   return {
-    id: id,
+    id,
     dismiss,
     update,
-  }
+  };
 }
 
 function useToast() {

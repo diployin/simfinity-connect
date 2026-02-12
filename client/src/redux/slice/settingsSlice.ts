@@ -16,7 +16,6 @@ export interface SettingsState {
   theme_primary_dark?: string;
   theme_font_heading?: string;
   theme_font_body?: string;
-  white_logo?: string;
   isLoading: boolean;
   error: string | null;
   lastFetched: number | null;
@@ -39,7 +38,6 @@ const initialState: SettingsState = {
   currency: '',
   logo: '',
   favicon: '',
-  white_logo: '',
   isLoading: false,
   error: null,
   lastFetched: null,

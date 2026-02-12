@@ -434,6 +434,12 @@ export class DatabaseStorage implements IStorage {
     return admin || undefined;
   }
 
+
+  async updateAdmin(id: string, data: Partial<{ email: string; password: string }>) {
+    return db.update(admins).set(data).where(eq(admins.id, id));
+  }
+
+
   async createAdmin(insertAdmin: InsertAdmin) {
     const [admin] = await db.insert(admins).values(insertAdmin).returning();
     return admin;
@@ -1021,7 +1027,6 @@ export class DatabaseStorage implements IStorage {
           'platform_name',
           'platform_tagline',
           'logo',
-          'white_logo',
           'email',
           'favicon',
           'currency',
@@ -1040,6 +1045,9 @@ export class DatabaseStorage implements IStorage {
           'social_twitter',
           'social_linkedin',
           'social_youtube',
+          'social_ios',
+          'social_android',
+          'in_app_purchase'
         ]),
       );
   }

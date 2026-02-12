@@ -167,7 +167,7 @@ export default function ProviderConfigModal({
               <CardHeader>
                 <CardTitle>API Settings</CardTitle>
                 <CardDescription>
-                  Configure API connection and rate limiting. API keys are stored securely in Replit
+                  Configure API connection and rate limiting. API keys are stored securely in
                   Secrets.
                 </CardDescription>
               </CardHeader>
@@ -201,7 +201,7 @@ export default function ProviderConfigModal({
                 <div className="p-4 rounded-md bg-muted">
                   <p className="text-sm font-medium mb-2">API Key Configuration</p>
                   <p className="text-sm text-muted-foreground">
-                    API keys for {provider.name} are stored securely in Replit Secrets:
+                    API keys for {provider.name} are stored securely in  Secrets:
                   </p>
                   <ul className="list-disc list-inside text-sm text-muted-foreground mt-2 space-y-1">
                     {provider.slug === 'airalo' && (

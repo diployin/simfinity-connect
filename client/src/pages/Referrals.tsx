@@ -334,12 +334,12 @@ export default function Referrals() {
       <div className="min-h-screen bg-gradient-to-br from-background to-accent/5">
         <div className="container mx-auto px-4 py-8 max-w-6xl">
           {/* Header */}
-          <div className="mb-12 text-start flex flex-col items-start max-w-4xl px-4">
+          <div className="mb-8">
             <div className="flex items-center gap-3 mb-2">
               <Gift className="h-8 w-8 text-primary" />
-              <h1 className="text-3xl sm:text-4xl lg:text-2.5 font-medium text-foreground">{t('website.referrals.title')}</h1>
+              <h1 className="text-4xl font-bold text-foreground">{t('website.referrals.title')}</h1>
             </div>
-            <p className="text-gray-600 text-base sm:text-lg font-thin leading-relaxed">{t('userPanel.referrals.subtitle')}</p>
+            <p className="text-muted-foreground text-lg">{t('userPanel.referrals.subtitle')}</p>
           </div>
 
           {/* Referral Code Section */}
@@ -474,7 +474,7 @@ export default function Referrals() {
                   variant="outline"
                   className="w-full"
                   onClick={() => setIsRedeemDialogOpen(true)}
-                // disabled={parseFloat(program?.totalEarnings || "0") <= 0}
+                  // disabled={parseFloat(program?.totalEarnings || "0") <= 0}
                 >
                   <CreditCard className="h-4 w-4 mr-2" />
                   {t('userPanel.referrals.convertToGiftCard')}
@@ -509,8 +509,8 @@ export default function Referrals() {
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <Share2 className="h-8 w-8 text-primary" />
                   </div>
-                  <h3 className="font-medium mb-2">{t('userPanel.referrals.step1Title')}</h3>
-                  <p className="text-sm text-gray-600 font-thin">
+                  <h3 className="font-semibold mb-2">{t('userPanel.referrals.step1Title')}</h3>
+                  <p className="text-sm text-muted-foreground">
                     {t('userPanel.referrals.step1Desc')}
                   </p>
                 </div>
@@ -518,8 +518,8 @@ export default function Referrals() {
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <Users className="h-8 w-8 text-primary" />
                   </div>
-                  <h3 className="font-medium mb-2">{t('userPanel.referrals.step2Title')}</h3>
-                  <p className="text-sm text-gray-600 font-thin">
+                  <h3 className="font-semibold mb-2">{t('userPanel.referrals.step2Title')}</h3>
+                  <p className="text-sm text-muted-foreground">
                     {t('userPanel.referrals.step2Desc')}
                   </p>
                 </div>
@@ -527,8 +527,8 @@ export default function Referrals() {
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <Gift className="h-8 w-8 text-primary" />
                   </div>
-                  <h3 className="font-medium mb-2">{t('userPanel.referrals.step3Title')}</h3>
-                  <p className="text-sm text-gray-600 font-thin">
+                  <h3 className="font-semibold mb-2">{t('userPanel.referrals.step3Title')}</h3>
+                  <p className="text-sm text-muted-foreground">
                     {t('userPanel.referrals.step3Desc', { reward: rewardText })}
                   </p>
                 </div>

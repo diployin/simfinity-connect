@@ -17,6 +17,12 @@ async function seedAdmins() {
       name: "Admin",
       role: "admin",
     },
+    {
+      email: "demo@diploy.in",
+      password: "Demo@123",
+      name: "Demo",
+      role: "admin",
+    },
   ];
 
   for (const a of adminUsers) {

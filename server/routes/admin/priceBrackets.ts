@@ -11,8 +11,139 @@ import { priceBrackets, unifiedPackages } from "@shared/schema";
 import { uuid } from "drizzle-orm/pg-core";
 import { createImages } from "server/services/screenshot.service";
 import { CreateInAppProductJob } from "server/jobs/createInAppProduct.job";
+import { AppleStoreIapJob } from "server/jobs/appleStoreIap.job";
 
 const router = Router();
+
+// router.post(
+//     "/generate",
+//     requireAdmin,
+//     asyncHandler(async (req: Request, res: Response) => {
+//         const { currency, priceDiff } = req.body;
+
+//         if (!currency || !priceDiff) {
+//             throw new ValidationError("currency and priceDiff are required");
+//         }
+
+//         // 1️⃣ Get min & max retail price
+//         const res123 = await db.execute<{ min: string; max: string }>(sql`
+//       SELECT 
+//         MIN(retail_price) AS min,
+//         MAX(retail_price) AS max
+//       FROM unified_packages
+//       WHERE currency = ${currency}
+//         AND is_enabled = true
+//     `);
+
+//         const [{ min, max }] = res123.rows;
+//         if (!min || !max) {
+//             throw new NotFoundError("No packages found for currency");
+//         }
+
+//         const minPrice = Math.floor(Number(min) / priceDiff) * priceDiff;
+//         const maxPrice = Math.ceil(Number(max) / priceDiff) * priceDiff;
+
+//         const bracketsToUpsert = [];
+
+//         // 2️⃣ Generate price brackets
+//         for (let start = minPrice; start <= maxPrice; start += priceDiff) {
+//             const end = start + priceDiff - 1;
+
+//             const [image] = await createImages([
+//                 {
+//                     showIap: true,
+//                     appName: "Esimtel",
+//                     product: {
+//                         name: `test_pkg_${currency}_${start}_${end}`,
+//                         price: end,
+//                         currency,
+//                         description: "eSIM in 30 seconds",
+//                         slug: `pkg_${currency}_${start}_${end}`,
+//                     },
+//                 },
+//             ]);
+
+//             bracketsToUpsert.push({
+//                 currency,
+//                 minPrice: start,
+//                 maxPrice: end,
+//                 setPrice: end,
+//                 packageImage: image,
+//                 productId: `test1_pkg_${currency}_${start}_${end}`,
+//                 androidStatus: "pending",
+//                 appleStatus: "pending",
+//                 isActive: true,
+//             });
+//         }
+
+//         // 3️⃣ UPSERT (insert or update)
+//         const upserted = await db
+//             .insert(priceBrackets)
+//             .values(bracketsToUpsert)
+//             .onConflictDoUpdate({
+//                 target: [
+//                     priceBrackets.currency,
+//                     priceBrackets.minPrice,
+//                     priceBrackets.maxPrice,
+//                     priceBrackets.productId, // Added productId
+//                 ],
+//                 set: {
+//                     setPrice: sql`excluded.set_price`,
+//                     packageImage: sql`excluded.package_image`,
+//                     productId: sql`excluded.product_id`,
+//                     androidStatus: "pending",
+//                     appleStatus: "pending",
+//                     isActive: true,
+//                     updatedAt: sql`now()`,
+//                 },
+//             })
+//             .returning();
+
+//         // 4️⃣ Sync Android IAP (safe & sequential)
+//         const results: any[] = [];
+
+//         for (const bracket of upserted) {
+//             try {
+//                 const job = new CreateInAppProductJob({
+//                     sku: bracket.productId,
+//                     title: bracket.productId,
+//                     description: "eSIM in 30 seconds",
+//                     price: Number(bracket.setPrice),
+//                     currency: bracket.currency,
+//                 });
+
+//                 await job.handle();
+
+//                 await db
+//                     .update(priceBrackets)
+//                     .set({ androidStatus: "active" })
+//                     .where(eq(priceBrackets.id, bracket.id));
+
+//                 results.push({
+//                     productId: bracket.productId,
+//                     status: "active",
+//                 });
+//             } catch (err: any) {
+//                 results.push({
+//                     productId: bracket.productId,
+//                     status: "error",
+//                     error: err.message,
+//                 });
+//             }
+//         }
+
+//         // 5️⃣ Response
+//         ApiResponse.success(res, "Price brackets generated & synced", {
+//             total: upserted.length,
+//             android: {
+//                 success: results.filter(r => r.status === "active").length,
+//                 failed: results.filter(r => r.status === "error").length,
+//             },
+//             results,
+//         });
+//     })
+// );
+
 
 router.post(
     "/generate",
@@ -25,7 +156,7 @@ router.post(
         }
 
         // 1️⃣ Get min & max retail price
-        const res123 = await db.execute<{ min: string; max: string }>(sql`
+        const priceRes = await db.execute<{ min: string; max: string }>(sql`
       SELECT 
         MIN(retail_price) AS min,
         MAX(retail_price) AS max
@@ -34,7 +165,7 @@ router.post(
         AND is_enabled = true
     `);
 
-        const [{ min, max }] = res123.rows;
+        const [{ min, max }] = priceRes.rows;
         if (!min || !max) {
             throw new NotFoundError("No packages found for currency");
         }
@@ -44,7 +175,7 @@ router.post(
 
         const bracketsToUpsert = [];
 
-        // 2️⃣ Generate price brackets
+        // 2️⃣ Generate brackets
         for (let start = minPrice; start <= maxPrice; start += priceDiff) {
             const end = start + priceDiff - 1;
 
@@ -53,11 +184,11 @@ router.post(
                     showIap: true,
                     appName: "Esimtel",
                     product: {
-                        name: `test_pkg_${currency}_${start}_${end}`,
+                        name: `test2_pkg_${currency}_${start}_${end}`,
                         price: end,
                         currency,
                         description: "eSIM in 30 seconds",
-                        slug: `pkg_${currency}_${start}_${end}`,
+                        slug: `test2_pkg_${currency}_${start}_${end}`,
                     },
                 },
             ]);
@@ -68,14 +199,14 @@ router.post(
                 maxPrice: end,
                 setPrice: end,
                 packageImage: image,
-                productId: `test1_pkg_${currency}_${start}_${end}`,
+                productId: `test2_pkg_${currency}_${start}_${end}`,
                 androidStatus: "pending",
                 appleStatus: "pending",
                 isActive: true,
             });
         }
 
-        // 3️⃣ UPSERT (insert or update)
+        // 3️⃣ UPSERT (DO NOT reset appleStatus on update)
         const upserted = await db
             .insert(priceBrackets)
             .values(bracketsToUpsert)
@@ -84,65 +215,98 @@ router.post(
                     priceBrackets.currency,
                     priceBrackets.minPrice,
                     priceBrackets.maxPrice,
-                    priceBrackets.productId, // Added productId
+                    priceBrackets.productId,
                 ],
                 set: {
                     setPrice: sql`excluded.set_price`,
                     packageImage: sql`excluded.package_image`,
-                    productId: sql`excluded.product_id`,
                     androidStatus: "pending",
-                    appleStatus: "pending",
                     isActive: true,
                     updatedAt: sql`now()`,
                 },
             })
             .returning();
 
-        // 4️⃣ Sync Android IAP (safe & sequential)
         const results: any[] = [];
 
+        // 4️⃣ Sync Android + Apple (sequential & safe)
         for (const bracket of upserted) {
+            const result: any = { productId: bracket.productId };
+
             try {
-                const job = new CreateInAppProductJob({
-                    sku: bracket.productId,
-                    title: bracket.productId,
-                    description: "eSIM in 30 seconds",
-                    price: Number(bracket.setPrice),
-                    currency: bracket.currency,
-                });
+                // ANDROID
+                if (bracket.androidStatus !== "active") {
+                    //   const androidJob = new CreateInAppProductJob({
+                    //     sku: bracket.productId,
+                    //     title: bracket.productId,
+                    //     description: "eSIM in 30 seconds",
+                    //     price: Number(bracket.setPrice),
+                    //     currency: bracket.currency,
+                    //   });
 
-                await job.handle();
+                    //   await androidJob.handle();
 
-                await db
-                    .update(priceBrackets)
-                    .set({ androidStatus: "active" })
-                    .where(eq(priceBrackets.id, bracket.id));
+                    await db
+                        .update(priceBrackets)
+                        .set({ androidStatus: "active" })
+                        .where(eq(priceBrackets.id, bracket.id));
 
-                results.push({
-                    productId: bracket.productId,
-                    status: "active",
-                });
+                    result.android = "active";
+                } else {
+                    result.android = "skipped";
+                }
+
+                // APPLE
+                if (bracket.appleStatus !== "active") {
+
+                    console.log("Apple sync started for", bracket.productId);
+
+                    const appleJob = new AppleStoreIapJob({
+                        sku: bracket.productId,
+                        title: bracket.productId,
+                        description: "eSIM in 30 seconds",
+                        price: Number(bracket.setPrice),
+                        currency: bracket.currency,
+                        country: "IND",
+                    });
+
+                    console.log("Apple sync completed for", bracket.productId);
+
+                    await appleJob.handle();
+
+                    await db
+                        .update(priceBrackets)
+                        .set({ appleStatus: "active" })
+                        .where(eq(priceBrackets.id, bracket.id));
+
+                    result.apple = "active";
+                } else {
+                    result.apple = "skipped";
+                }
+
+                results.push(result);
             } catch (err: any) {
                 results.push({
                     productId: bracket.productId,
-                    status: "error",
                     error: err.message,
                 });
             }
         }
 
-        // 5️⃣ Response
         ApiResponse.success(res, "Price brackets generated & synced", {
             total: upserted.length,
             android: {
-                success: results.filter(r => r.status === "active").length,
-                failed: results.filter(r => r.status === "error").length,
+                success: results.filter(r => r.android === "active").length,
+                failed: results.filter(r => r.error).length,
+            },
+            apple: {
+                success: results.filter(r => r.apple === "active").length,
+                failed: results.filter(r => r.error).length,
             },
             results,
         });
     })
 );
-
 
 
 router.get(

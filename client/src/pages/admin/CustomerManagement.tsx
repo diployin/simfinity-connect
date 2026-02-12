@@ -52,10 +52,19 @@ import type { User, Order, Package as PackageType, Destination } from '@shared/s
 import { MoreVertical } from 'lucide-react';
 import { formatDisplayUserId, formatDisplayOrderId } from '@shared/utils';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { useAdmin } from '@/hooks/use-admin';
 
 type OrderWithDetails = Order & {
   package: PackageType & { destination?: Destination };
 };
+
+
+
+const userStatusStyles: Record<string, string> = {
+  active: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
+  deleted: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
+};
+
 
 export default function CustomerManagement() {
   const { t } = useTranslation();
@@ -68,6 +77,8 @@ export default function CustomerManagement() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const { toast } = useToast();
+
+  const { user } = useAdmin();
 
   // ---------------------------------------------------------------------------
   // UPDATED BACKEND DATA FETCHING (pagination + search + kycFilter)
@@ -177,6 +188,15 @@ export default function CustomerManagement() {
 
   const exportToCSV = async () => {
     try {
+
+      if (user?.email === "de****@di***") {
+        return toast({
+          title: t("comman.error", "Error"),
+          description: "Demo users are not allowed to perform this action",
+          variant: 'destructive',
+        })
+      }
+
       const res = await fetch(`/api/admin/customers?page=1&limit=1000000`);
 
       const json = await res.json();
@@ -429,6 +449,10 @@ export default function CustomerManagement() {
                   {t('admin.customers.kycStatus', 'KYC Status')}
                 </TableHead>
                 <TableHead className="font-semibold">
+                  User Status
+                </TableHead>
+
+                <TableHead className="font-semibold">
                   {t('admin.customers.joined', 'Joined')}
                 </TableHead>
                 <TableHead className="font-semibold text-right">
@@ -462,9 +486,9 @@ export default function CustomerManagement() {
                         {searchQuery || kycFilter !== 'all'
                           ? t('common.tryAdjustingFilters', 'Try adjusting your filters')
                           : t(
-                              'admin.customers.customersWillAppear',
-                              'Customers will appear here once they register',
-                            )}
+                            'admin.customers.customersWillAppear',
+                            'Customers will appear here once they register',
+                          )}
                       </p>
                     </div>
                   </TableCell>
@@ -505,6 +529,21 @@ export default function CustomerManagement() {
                         {customer.kycStatus}
                       </Badge>
                     </TableCell>
+
+
+                    <TableCell>
+  <Badge
+    className={
+      customer.isDeleted
+        ? userStatusStyles.deleted
+        : userStatusStyles.active
+    }
+    variant="outline"
+  >
+    {customer.isDeleted ? 'Deleted' : 'Active'}
+  </Badge>
+</TableCell>
+
 
                     <TableCell className="text-sm text-slate-600 dark:text-slate-400">
                       {new Date(customer.createdAt).toLocaleDateString()}
@@ -836,7 +875,7 @@ export default function CustomerManagement() {
                 <TabsContent value="orders">
                   <ScrollArea className="h-[400px] pr-4">
                     {customerOrders &&
-                    customerOrders.filter((o) => o.userId === selectedCustomer.id).length > 0 ? (
+                      customerOrders.filter((o) => o.userId === selectedCustomer.id).length > 0 ? (
                       <div className="space-y-3">
                         {customerOrders
                           .filter((o) => o.userId === selectedCustomer.id)
@@ -948,22 +987,20 @@ export default function CustomerManagement() {
 
                       <div className="flex gap-3" data-testid="activity-kyc-status">
                         <div
-                          className={`flex h-8 w-8 items-center justify-center rounded-full ${
-                            selectedCustomer.kycStatus === 'verified'
+                          className={`flex h-8 w-8 items-center justify-center rounded-full ${selectedCustomer.kycStatus === 'verified'
                               ? 'bg-green-100 dark:bg-green-900/30'
                               : selectedCustomer.kycStatus === 'rejected'
                                 ? 'bg-red-100 dark:bg-red-900/30'
                                 : 'bg-yellow-100 dark:bg-yellow-900/30'
-                          }`}
+                            }`}
                         >
                           <Activity
-                            className={`h-4 w-4 ${
-                              selectedCustomer.kycStatus === 'verified'
+                            className={`h-4 w-4 ${selectedCustomer.kycStatus === 'verified'
                                 ? 'text-green-600 dark:text-green-400'
                                 : selectedCustomer.kycStatus === 'rejected'
                                   ? 'text-red-600 dark:text-red-400'
                                   : 'text-yellow-600 dark:text-yellow-400'
-                            }`}
+                              }`}
                           />
                         </div>
 
@@ -1003,17 +1040,17 @@ export default function CustomerManagement() {
 
                       {(!customerOrders ||
                         customerOrders.filter((o) => o.userId === selectedCustomer.id).length ===
-                          0) && (
-                        <div className="flex flex-col items-center justify-center py-8 text-center">
-                          <Activity className="h-12 w-12 text-slate-400 mb-3" />
-                          <p className="font-medium text-slate-900 dark:text-white">
-                            No Activity Yet
-                          </p>
-                          <p className="text-sm text-slate-600 dark:text-slate-400">
-                            Customer activity will appear here
-                          </p>
-                        </div>
-                      )}
+                        0) && (
+                          <div className="flex flex-col items-center justify-center py-8 text-center">
+                            <Activity className="h-12 w-12 text-slate-400 mb-3" />
+                            <p className="font-medium text-slate-900 dark:text-white">
+                              No Activity Yet
+                            </p>
+                            <p className="text-sm text-slate-600 dark:text-slate-400">
+                              Customer activity will appear here
+                            </p>
+                          </div>
+                        )}
                     </div>
                   </ScrollArea>
                 </TabsContent>

@@ -9,8 +9,8 @@ export class AppleStoreIapJob {
         private title: string,
         private description: string,
         private price: number,
-        private currency = "INR",
-        private country = "IND"
+        private currency = "USD",
+        private country = "USA"
     ) {
         this.sku = this.sku.toLowerCase().replace(/-/g, "_");
     }
@@ -35,7 +35,7 @@ export class AppleStoreIapJob {
 
     // 1️⃣ Check existing
     private async checkExistingIAP(api: any, appId: string) {
-        const res = await api.get(`/v1/apps/${appId}/inAppPurchasesV2`, {
+        const res = await api.get(`/v2/apps/${appId}/inAppPurchasesV2`, {
             params: { "filter[productId]": this.sku },
         });
 
@@ -44,6 +44,7 @@ export class AppleStoreIapJob {
 
     // 2️⃣ Create IAP
     private async createIAP(api: any, appId: string) {
+        console.log("Creating IAP", this.sku);
         const res = await api.post("/v2/inAppPurchases", {
             data: {
                 type: "inAppPurchases",
@@ -100,7 +101,7 @@ export class AppleStoreIapJob {
 
         const tempId = `tmp-${Date.now()}`;
 
-        await api.post("/v1/inAppPurchasePriceSchedules", {
+        await api.post("/v2/inAppPurchasePriceSchedules", {
             data: {
                 type: "inAppPurchasePriceSchedules",
                 relationships: {
@@ -155,19 +156,19 @@ export class AppleStoreIapJob {
 
         if (existing) {
             await api.patch(
-                `/v1/inAppPurchaseLocalizations/${existing.id}`,
+                `/v2/inAppPurchaseLocalizations/${existing.id}`,
                 { data: { ...payload.data, id: existing.id } }
             );
         } else {
-            await api.post("/v1/inAppPurchaseLocalizations", payload);
+            await api.post("/v2/inAppPurchaseLocalizations", payload);
         }
     }
 
     // 6️⃣ Territories
     private async setTerritories(api: any, iapId: string) {
-        const t = await api.get("/v1/territories", { params: { limit: 200 } });
+        const t = await api.get("/v2/territories", { params: { limit: 200 } });
 
-        await api.post("/v1/inAppPurchaseAvailabilities", {
+        await api.post("/v2/inAppPurchaseAvailabilities", {
             data: {
                 type: "inAppPurchaseAvailabilities",
                 attributes: { availableInNewTerritories: true },
@@ -199,7 +200,7 @@ export class AppleStoreIapJob {
         const stat = fs.statSync(img);
 
         const reserve = await api.post(
-            "/v1/inAppPurchaseAppStoreReviewScreenshots",
+            "/v2/inAppPurchaseAppStoreReviewScreenshots",
             {
                 data: {
                     type: "inAppPurchaseAppStoreReviewScreenshots",
@@ -225,7 +226,7 @@ export class AppleStoreIapJob {
         });
 
         await api.patch(
-            `/v1/inAppPurchaseAppStoreReviewScreenshots/${reserve.data.data.id}`,
+            `/v2/inAppPurchaseAppStoreReviewScreenshots/${reserve.data.data.id}`,
             { data: { id: reserve.data.data.id, type: "inAppPurchaseAppStoreReviewScreenshots", attributes: { uploaded: true } } }
         );
     }

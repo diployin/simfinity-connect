@@ -68,4 +68,48 @@ router.post("/logout", requireAdmin, (req: Request, res: Response) => {
   });
 });
 
+
+
+router.put(
+  "/account",
+  requireAdmin,
+  asyncHandler(async (req: Request, res: Response) => {
+    const adminId = req.session.adminId!;
+    const { currentPassword, email, newPassword } = req.body;
+
+    if (!currentPassword) {
+      throw new ValidationError("Current password is required");
+    }
+
+    const admin = await storage.getAdminById(adminId);
+    if (!admin) {
+      throw new UnauthorizedError("Admin not found");
+    }
+
+    const isValid = await bcrypt.compare(currentPassword, admin.password);
+    if (!isValid) {
+      throw new UnauthorizedError("Current password is incorrect");
+    }
+
+    let updateData: any = {};
+
+    if (email) updateData.email = email;
+
+    if (newPassword) {
+      if (newPassword.length < 6) {
+        throw new ValidationError("Password must be at least 6 characters");
+      }
+      updateData.password = await bcrypt.hash(newPassword, 10);
+    }
+
+    if (!email && !newPassword) {
+      throw new ValidationError("Nothing to update");
+    }
+
+    await storage.updateAdmin(adminId, updateData);
+
+    return ApiResponse.success(res, "Account updated successfully");
+  })
+);
+
 export default router;

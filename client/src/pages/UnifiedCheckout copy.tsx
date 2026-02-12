@@ -684,14 +684,14 @@ export default function UnifiedCheckout() {
                                       <FormLabel className="text-sm font-normal cursor-pointer">
                                         I agree to the{' '}
                                         <Link
-                                          href="/terms"
+                                          href="/terms-and-condition"
                                           className="text-teal-600 hover:underline"
                                         >
                                           Terms of Service
                                         </Link>{' '}
                                         and{' '}
                                         <Link
-                                          href="/privacy"
+                                          href="/privacy-policy"
                                           className="text-teal-600 hover:underline"
                                         >
                                           Privacy Policy

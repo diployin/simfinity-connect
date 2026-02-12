@@ -607,11 +607,11 @@ export default function GuestCheckout() {
                                 <div className="space-y-1 leading-none">
                                   <FormLabel className="text-sm font-normal cursor-pointer">
                                     I agree to the{' '}
-                                    <Link href="/terms" className="text-teal-600 hover:underline">
+                                    <Link href="/terms-and-condition" className="text-teal-600 hover:underline">
                                       Terms of Service
                                     </Link>{' '}
                                     and{' '}
-                                    <Link href="/privacy" className="text-teal-600 hover:underline">
+                                    <Link href="/privacy-policy" className="text-teal-600 hover:underline">
                                       Privacy Policy
                                     </Link>
                                   </FormLabel>

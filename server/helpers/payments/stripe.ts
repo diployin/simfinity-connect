@@ -112,11 +112,11 @@ type InitStripeInput = {
     iccid?: string;
     orderId?: string;
     packageId?: string;
-    promoCode?: string;
-    promoType?: string;
-    voucherId?: string;
-    giftCardId?: string;
-    referralCredits?: string;
+    promoCode?:string;
+    promoType?:string;
+    voucherId?:string;
+    giftCardId?:string;
+    referralCredits?:string;
     promoDiscount?: string;
   };
 };
@@ -138,13 +138,13 @@ export async function initStripePayment({
 
   console.log("Initializing Stripe payment with:", metadata);
   const {
-    promoCode,
-    promoType,
-    voucherId,
-    giftCardId,
-    referralCredits,
-    promoDiscount,
-  } = metadata || {};
+promoCode,
+promoType,
+voucherId,
+giftCardId,
+referralCredits,
+promoDiscount,
+} = metadata || {};
 
   const stripe = new Stripe(secretKey, {
     apiVersion: "2024-04-10",
@@ -175,7 +175,7 @@ export async function initStripePayment({
         promoType: promoType || "",
         voucherId: voucherId || "",
         giftCardId: giftCardId || "",
-        referralCredits: referralCredits || "",
+        referralCredits:referralCredits || "",
         promoDiscount: promoDiscount || ""
 
       },
@@ -209,7 +209,7 @@ export async function initStripePayment({
         promoType: promoType || "",
         voucherId: voucherId || "",
         giftCardId: giftCardId || "",
-        referralCredits: referralCredits || "",
+        referralCredits:referralCredits || "",
         promoDiscount: promoDiscount || ""
       },
     });
@@ -282,8 +282,8 @@ export async function initStripePayment({
         promoType: promoType || "",
         voucherId: voucherId || "",
         giftCardId: giftCardId || "",
-        referralCredits: String(referralCredits ?? ""),
-        promoDiscount: String(promoDiscount ?? ""),
+       referralCredits: String(referralCredits ?? ""),
+       promoDiscount: String(promoDiscount ?? ""),
       }
     };
   }

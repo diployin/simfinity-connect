@@ -24,6 +24,7 @@ import { useTranslation } from "@/contexts/TranslationContext";
 import { useToast } from "@/hooks/use-toast";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { FaAndroid, FaAppStoreIos } from "react-icons/fa";
 
 export function SocialMediaSettings() {
   const { t } = useTranslation();
@@ -36,13 +37,15 @@ export function SocialMediaSettings() {
   const [twitter, setTwitter] = useState("");
   const [linkedin, setLinkedin] = useState("");
   const [youtube, setYoutube] = useState("");
+  const [android, setAndroid] = useState("");
+  const [ios, setIos] = useState("");
 
   // Fetch settings
   const { data: settingsResponse } = useQuery({
     queryKey: ["/api/admin/settings"],
   });
 
-  console.log("nsd sdfds", settingsResponse)
+  // console.log("nsd sdfds", settingsResponse)
   // Convert array → object
   const settings = useMemo(() => {
     if (!settingsResponse) return {};
@@ -55,7 +58,7 @@ export function SocialMediaSettings() {
     );
   }, [settingsResponse]);
 
-  console.log("sdfafasasdas", settings)
+  // console.log("sdfafasasdas", settings)
 
   // Load values
   useEffect(() => {
@@ -67,6 +70,8 @@ export function SocialMediaSettings() {
     setTwitter(settings.social_twitter || "");
     setLinkedin(settings.social_linkedin || "");
     setYoutube(settings.social_youtube || "");
+    setAndroid(settings.social_android || "");
+    setIos(settings.social_ios || "");
   }, [settings]);
 
   // Mutation
@@ -122,6 +127,8 @@ export function SocialMediaSettings() {
     await save("social_twitter", twitter);
     await save("social_linkedin", linkedin);
     await save("social_youtube", youtube);
+    await save("social_android", android);
+    await save("social_ios", ios);
   };
 
   return (
@@ -194,6 +201,22 @@ export function SocialMediaSettings() {
             value={youtube}
             onChange={setYoutube}
             placeholder="https://youtube.com/@yourchannel"
+          />
+
+          <Field
+            icon={<FaAndroid />}
+            label="Android"
+            value={android}
+            onChange={setAndroid}
+            placeholder="https://play.google.com/store/apps/details?id=com.yourapp"
+          />
+
+          <Field
+            icon={<FaAppStoreIos />}
+            label="IOS"
+            value={ios}
+            onChange={setIos}
+            placeholder="https://apps.apple.com/app/yourapp"
           />
 
           <Button

@@ -1,5 +1,4 @@
 import { Bell } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Badge } from '@/components/ui/badge';
@@ -22,7 +21,7 @@ interface Notification {
   createdAt: string;
 }
 
-export function NotificationBell({ className }: { className?: string }) {
+export function NotificationBell() {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
 
@@ -75,7 +74,7 @@ export function NotificationBell({ className }: { className?: string }) {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="ghost" size="icon" className="relative" data-testid="button-notifications">
-          <Bell className={cn("h-5 w-5", className)} />
+          <Bell className="h-5 w-5 text-foreground" />
           {unreadCount > 0 && (
             <span
               className="
@@ -137,29 +136,30 @@ export function NotificationBell({ className }: { className?: string }) {
                   id: Key | null | undefined;
                   read: any;
                   title:
-                  | string
-                  | number
-                  | boolean
-                  | ReactElement<any, string | JSXElementConstructor<any>>
-                  | Iterable<ReactNode>
-                  | ReactPortal
-                  | null
-                  | undefined;
+                    | string
+                    | number
+                    | boolean
+                    | ReactElement<any, string | JSXElementConstructor<any>>
+                    | Iterable<ReactNode>
+                    | ReactPortal
+                    | null
+                    | undefined;
                   message:
-                  | string
-                  | number
-                  | boolean
-                  | ReactElement<any, string | JSXElementConstructor<any>>
-                  | Iterable<ReactNode>
-                  | ReactPortal
-                  | null
-                  | undefined;
+                    | string
+                    | number
+                    | boolean
+                    | ReactElement<any, string | JSXElementConstructor<any>>
+                    | Iterable<ReactNode>
+                    | ReactPortal
+                    | null
+                    | undefined;
                   createdAt: string | number | Date;
                 }) => (
                   <div
                     key={notification.id}
-                    className={`p-4 hover-elevate cursor-pointer transition-colors ${!notification.read ? 'bg-muted/50' : ''
-                      }`}
+                    className={`p-4 hover-elevate cursor-pointer transition-colors ${
+                      !notification.read ? 'bg-muted/50' : ''
+                    }`}
                     onClick={() => {
                       if (!notification.read) {
                         handleMarkAsRead(notification.id);
@@ -169,8 +169,9 @@ export function NotificationBell({ className }: { className?: string }) {
                   >
                     <div className="flex items-start justify-between gap-2 mb-1">
                       <h4
-                        className={`text-sm font-medium ${!notification.read ? 'font-semibold' : ''
-                          }`}
+                        className={`text-sm font-medium ${
+                          !notification.read ? 'font-semibold' : ''
+                        }`}
                         data-testid={`notification-title-${notification.id}`}
                       >
                         {notification.title}

@@ -50,7 +50,7 @@ export function SiteHeader() {
 
   const logo = useSettingByKey('logo');
 
-  console.log('logo', logo);
+  // console.log('logo', logo);
 
   const { data: navlinks } = useQuery({
     queryKey: ['/api/pages'],
@@ -63,7 +63,7 @@ export function SiteHeader() {
     queryKey: ['/api/public/settings'],
   });
 
-  console.log('settings_users', settings);
+  // console.log('settings_users', settings);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -96,10 +96,9 @@ export function SiteHeader() {
     <header
       className={`
         fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-sm
-        ${
-          isScrolled
-            ? 'dark:bg-background/95 bg-white/95 dark:bg-black/95 shadow-sm border-b dark:border-border/50 border-border/50'
-            : 'bg-transparent backdrop-blur-sm'
+        ${isScrolled
+          ? 'dark:bg-background/95 bg-white/95 dark:bg-black/95 shadow-sm border-b dark:border-border/50 border-border/50'
+          : 'bg-transparent backdrop-blur-sm'
         }
       `}
     >
@@ -133,7 +132,7 @@ export function SiteHeader() {
 
             <Link href="/about-us">
               <span className="px-3 py-2 text-sm font-medium 0 dark:text-white/90 text-foreground/90  hover:text-primary   transition-all duration-200 cursor-pointer">
-                {t('website.nav.aboutUs', 'About Us')}
+                {t('website.nav.about', 'About Us')}
               </span>
             </Link>
 
@@ -155,7 +154,7 @@ export function SiteHeader() {
                     className="flex items-center gap-2 cursor-pointer   hover:bg-accent dark:text-black "
                   >
                     <Headphones className="h-4 w-4" />
-                    {t('website.nav.helpCenter', 'Support Ticket')}
+                    {t('website.nav.helpCenter', 'Help Center')}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
@@ -194,7 +193,7 @@ export function SiteHeader() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <span className="px-3 py-2 text-sm font-medium dark:text-white/90 text-foreground/90 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5  transition-all duration-200 cursor-pointer flex items-center gap-1 group">
-                  Pages
+                  {t('website.nav.pages', 'Pages')}
                   <ChevronDown className="h-4 w-4 dark:text-white/80 transition-transform duration-200 group-hover:rotate-180" />
                 </span>
               </DropdownMenuTrigger>
@@ -381,10 +380,10 @@ export function SiteHeader() {
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="w-[85vw] sm:w-80 p-0 dark:bg-background/95 bg-white/95 backdrop-blur-lg overflow-y-auto"
+                className="w-[85vw] sm:w-80 p-0  bg-white dark:bg-background backdrop-blur-lg overflow-y-auto"
               >
                 <SheetHeader className="border-b p-4 sm:p-6 flex flex-row items-center justify-between">
-                  <SheetTitle className="dark:text-foreground text-foreground text-lg">
+                  <SheetTitle className="dark:text-white text-foreground text-lg">
                     Menu
                   </SheetTitle>
                   <button
@@ -395,7 +394,7 @@ export function SiteHeader() {
                   </button>
                 </SheetHeader>
 
-                <nav className="flex flex-col p-4 sm:p-6 space-y-1">
+                <nav className="flex flex-col p-4 sm:p-6 space-y-1 bg-white dark:bg-background">
                   {/* User Profile - Mobile */}
                   {isAuthenticated && (
                     <div className="mb-4 pb-4 border-b dark:border-white/20 border-black/20">
@@ -434,7 +433,7 @@ export function SiteHeader() {
 
                   <Link href="/about-us" onClick={closeMobileMenu}>
                     <span className="block py-2.5 sm:py-3 px-3 text-sm sm:text-base font-medium dark:text-white/90 text-foreground/90 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5 rounded-md transition-all">
-                      {t('website.nav.aboutUs', 'About Us')}
+                      {t('website.nav.about', 'About Us')}
                     </span>
                   </Link>
 
@@ -446,9 +445,8 @@ export function SiteHeader() {
                     >
                       {t('website.nav.resources', 'Resources')}
                       <ChevronRight
-                        className={`h-4 w-4  text-foreground/80 transition-transform duration-200 ${
-                          resourcesOpen ? 'rotate-90' : ''
-                        }`}
+                        className={`h-4 w-4  text-foreground/80 transition-transform duration-200 ${resourcesOpen ? 'rotate-90' : ''
+                          }`}
                       />
                     </button>
                     {resourcesOpen && (
@@ -456,7 +454,7 @@ export function SiteHeader() {
                         <Link href="/account/support" onClick={closeMobileMenu}>
                           <span className="flex items-center gap-2 py-2 px-3 text-sm dark:text-BLACK text-foreground/80 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5 rounded-md transition-all">
                             <Headphones className="h-4 w-4" />
-                            {t('website.nav.helpCenter', 'Support Ticket')}
+                            {t('website.nav.helpCenter', 'Help Center')}
                           </span>
                         </Link>
                         <Link href="/blog" onClick={closeMobileMenu}>
@@ -495,9 +493,8 @@ export function SiteHeader() {
                       >
                         Pages
                         <ChevronRight
-                          className={`h-4 w-4 dark:text-white/80 text-foreground/80 transition-transform duration-200 ${
-                            pagesOpen ? 'rotate-90' : ''
-                          }`}
+                          className={`h-4 w-4 dark:text-white/80 text-foreground/80 transition-transform duration-200 ${pagesOpen ? 'rotate-90' : ''
+                            }`}
                         />
                       </button>
                       {pagesOpen && (
@@ -559,9 +556,8 @@ export function SiteHeader() {
                             {languageCode.toUpperCase()}
                           </span>
                           <ChevronRight
-                            className={`h-4 w-4 dark:text-white/80 text-foreground/80 transition-transform duration-200 ${
-                              languageOpen ? 'rotate-90' : ''
-                            }`}
+                            className={`h-4 w-4 dark:text-white/80 text-foreground/80 transition-transform duration-200 ${languageOpen ? 'rotate-90' : ''
+                              }`}
                           />
                         </div>
                       </button>
@@ -574,11 +570,10 @@ export function SiteHeader() {
                                 setLanguage(lang.code);
                                 setLanguageOpen(false);
                               }}
-                              className={`w-full flex items-center justify-between py-2 px-3 text-sm rounded-md transition-all ${
-                                languageCode === lang.code
-                                  ? 'bg-gradient-to-r from-teal-500 to-teal-600 text-white'
-                                  : 'dark:text-white/80 text-foreground/80 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5'
-                              }`}
+                              className={`w-full flex items-center justify-between py-2 px-3 text-sm rounded-md transition-all ${languageCode === lang.code
+                                ? 'bg-gradient-to-r from-teal-500 to-teal-600 text-white'
+                                : 'dark:text-white/80 text-foreground/80 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5'
+                                }`}
                             >
                               <div className="flex items-center gap-2">
                                 <ReactCountryFlag

@@ -37,9 +37,7 @@ const AdminTranslations = lazy(() => import('@/pages/admin/AdminTranslations'));
 const BannerManagement = lazy(() => import('@/pages/admin/BannerManagement'));
 const PagesManagement = lazy(() => import('@/pages/admin/PagesManagement'));
 const FaqManagement = lazy(() => import('@/pages/admin/FaqManagement'));
-const PrivacyPolicyManagement = lazy(() => import('@/pages/admin/PrivacyPolicyManagement'));
 const PaymentGatewayManagement = lazy(() => import('@/pages/admin/PaymentGatewayManagement'));
-const TermsConditionsManagement = lazy(() => import('@/pages/admin/TermsConditionsManagement'));
 
 export default function AdminShell() {
   return (
@@ -88,8 +86,6 @@ export default function AdminShell() {
           <Route path="/admin/banner-management" component={BannerManagement} />
           <Route path="/admin/pages" component={PagesManagement} />
           <Route path="/admin/faq-management" component={FaqManagement} />
-          <Route path="/admin/privacy-policy" component={PrivacyPolicyManagement} />
-          <Route path="/admin/terms-conditions" component={TermsConditionsManagement} />
           <Route path="/admin/payment-gateway" component={PaymentGatewayManagement} />
           <Route path="/admin/price-brackets" component={AdminPriceBrackets} />
         </Switch>

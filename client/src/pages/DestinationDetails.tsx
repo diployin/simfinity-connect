@@ -27,7 +27,6 @@ import {
   TrendingUp,
   Award,
   Sparkles,
-  Info,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -48,25 +47,6 @@ import type { Destination } from '@shared/schema';
 import { useUser } from '@/hooks/use-user';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { useToast } from '@/hooks/use-toast';
-import KeyFeaturesTabsPropsPlan from '@/components/sections/country-plan/KeyFeaturesTabsPropsPlan';
-import HowToGetEsimStatic from '@/components/sections/country-plan/HowToGetEsimStatic';
-import ValuesSectionCommon from '@/components/common/ValuesSectionCommon';
-import BrandShowcase from '@/components/carousel/BrandShowcase';
-import ComparisonTableCommon from '@/components/common/ComparisonTableCommon';
-import CareerCTASection from '@/components/sections/about/CareerCTASection';
-import DownloadAppSection from '@/components/sections/landing/DownloadAppSection';
-import TestimonialsSection from '@/components/sections/landing/TestimonialsSection';
-import {
-  FaGlobeAmericas,
-  FaLightbulb,
-  FaHeart,
-  FaSeedling,
-  FaCompass,
-  FaRocket,
-} from 'react-icons/fa';
-import FAQ from './FAQ';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/store/store';
 
 type UnifiedPackage = {
   id: string;
@@ -157,66 +137,6 @@ export default function DestinationDetails() {
 
   const siteName = useSettingByKey('platform_name') || 'eSIM Connect';
 
-  const valuesConfig = {
-    title: 'The values that guide us',
-    subtitle:
-      "Our values aren't just inspirational words we put on a wall to look at — we live by them in everything we build.",
-    backgroundColor: 'bg-black',
-    textColor: 'text-white',
-    theme: 'light' as const,
-    iconSize: 35,
-    descriptionTextColor: 'text-gray-300',
-    iconColor: 'text-themeYellow',
-    buttonBorderColor: 'border-white',
-    buttonHoverBgColor: 'hover:bg-white',
-    buttonHoverTextColor: 'hover:text-black',
-    gridCols: 3,
-    values: [
-      {
-        id: 1,
-        iconComponent: <FaGlobeAmericas />,
-        title: 'Wander freely',
-        description:
-          "We're replacing plastic SIM cards with an easy and eco-friendly solution that works in 200+ destinations.",
-      },
-      {
-        id: 2,
-        iconComponent: <FaLightbulb />,
-        title: 'Keep it simple',
-        description:
-          "No tech jargon. No clutter. We built an eSIM app that's clean, intuitive, and easy to navigate.",
-      },
-      {
-        id: 3,
-        iconComponent: <FaHeart />,
-        title: 'Prioritize humans',
-        description:
-          'We care about people, not just rigid processes. Every team member and user is treated with empathy and respect.',
-      },
-      {
-        id: 4,
-        iconComponent: <FaSeedling />,
-        title: 'Always improve',
-        description:
-          "We don't chase perfection — we chase progress. We believe that small wins make big shifts.",
-      },
-      {
-        id: 5,
-        iconComponent: <FaCompass />,
-        title: 'Think like a traveler',
-        description:
-          'We stay curious, flexible, and open to the unknown, just like the explorers we built Simfinity for.',
-      },
-      {
-        id: 6,
-        iconComponent: <FaRocket />,
-        title: 'Make it matter',
-        description:
-          "We're here to make a difference, so we focus on what truly matters — our users, team, and the world around us.",
-      },
-    ],
-  };
-
   // Filter states
   const [page, setPage] = useState(1);
   const limit = 10;
@@ -225,10 +145,10 @@ export default function DestinationDetails() {
   const [filterBestPrice, setFilterBestPrice] = useState(false);
   const [filterPopular, setFilterPopular] = useState(false);
   const [filterDataPack, setFilterDataPack] = useState(false);
-  const [showFilters, setShowFilters] = useState(false); // Collapsed by default
-  const { isExpanded } = useSelector((state: RootState) => state.topNavbar);
-  const isTopBarVisible = !isExpanded;
+  const [filterDataAndVoice, setFilterDataAndVoice] = useState(false);
+  const [filterVoiceAndDataAndSmsPack, setFilterVoiceAndDataAndSmsPack] = useState(false);
 
+  const [showFilters, setShowFilters] = useState(false); // Collapsed by default
 
   const getCurrencySymbol = (currencyCode: string) => {
     return currencies.find((c) => c.code === currencyCode)?.symbol || '$';
@@ -250,6 +170,8 @@ export default function DestinationDetails() {
     if (filterBestPrice) params.append('isBestPrice', 'true');
     if (filterPopular) params.append('isPopular', 'true');
     if (filterDataPack) params.append('dataPack', 'true');
+    if (filterDataAndVoice) params.append('voiceAndDataPack', 'true');
+    if (filterVoiceAndDataAndSmsPack) params.append('voiceAndDataAndSmsPack', 'true');
 
     return params.toString();
   };
@@ -267,6 +189,8 @@ export default function DestinationDetails() {
           filterBestPrice,
           filterPopular,
           filterDataPack,
+          filterDataAndVoice,
+          filterVoiceAndDataAndSmsPack
         },
       ],
       queryFn: () =>
@@ -316,6 +240,8 @@ export default function DestinationDetails() {
     setFilterBestPrice(false);
     setFilterPopular(false);
     setFilterDataPack(false);
+    setFilterDataAndVoice(false);
+    setFilterVoiceAndDataAndSmsPack(false);
     setPage(1);
   };
 
@@ -325,6 +251,8 @@ export default function DestinationDetails() {
     filterBestPrice,
     filterPopular,
     filterDataPack,
+    filterDataAndVoice,
+    filterVoiceAndDataAndSmsPack
   ].filter(Boolean).length;
 
   const destination = packagesResponse?.data?.destination;
@@ -374,48 +302,31 @@ export default function DestinationDetails() {
 
   const faqs = [
     {
-      id: 'faq-1',
-      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.question'),
-      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.0.answer'),
+      question: 'What is an eSIM and how does it work?',
+      answer:
+        'An eSIM is a built-in digital SIM that lets you activate a mobile data plan without a physical card. Just choose a plan, scan a QR code, and connect instantly when you travel.',
     },
     {
-      id: 'faq-2',
-      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.question'),
-      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.1.answer'),
+      question: 'How do I set up my eSIM on my phone?',
+      answer:
+        "After purchase, you'll receive an email with a QR code. Open your phone's settings, scan the code, and follow the quick setup guide to start using data.",
     },
     {
-      id: 'faq-3',
-      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.question'),
-      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.2.answer'),
+      question: 'Can I use my physical SIM and eSIM together?',
+      answer:
+        'Yes. You can keep your regular SIM for calls and SMS while using your eSIM for data during international travel.',
     },
     {
-      id: 'faq-4',
-      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.question'),
-      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.3.answer'),
+      question: `Where does ${siteName} work?`,
+      answer:
+        'Our data plans cover over 200 destinations across Europe, Asia, the Americas, and more - giving you high-speed internet without roaming fees.',
     },
     {
-      id: 'faq-5',
-      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.question'),
-      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.4.answer'),
-    },
-    {
-      id: 'faq-6',
-      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.question'),
-      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.5.answer'),
-    },
-    {
-      id: 'faq-7',
-      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.question'),
-      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.6.answer'),
-    },
-    {
-      id: 'faq-8',
-      question: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.question'),
-      answer: t('website.NewSimfinDes.download_esim_app.DowonloadEsim.FAQData.faqs.7.answer'),
+      question: 'Can I top up or reuse my plan?',
+      answer:
+        'Yes. Some plans let you add more data or extend your validity directly from your account dashboard, so you can stay connected without buying a new QR code.',
     },
   ];
-
-
 
   const testimonials = [
     {
@@ -464,9 +375,7 @@ export default function DestinationDetails() {
   }
 
   return (
-    <div className={`min-h-screen bg-background flex flex-col ${isTopBarVisible
-      ? 'mt-28 md:mt-0'
-      : 'mt-18 md:mt-0'}`}>
+    <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
         <title>
           eSIM for {destination.name} - Data Plans | {siteName}
@@ -477,8 +386,8 @@ export default function DestinationDetails() {
         />
       </Helmet>
 
-      <main className="flex-1 pb-16">
-        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-4">
+      <main className="flex-1 pt-24 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb */}
           <Breadcrumb className="mb-6">
             <BreadcrumbList>
@@ -600,19 +509,6 @@ export default function DestinationDetails() {
                   )}
                 </div>
               </div>
-              {/* <div className="space-y-2 rounded-lg bg-gray-50 p-3 md:p-4">
-                <div className="flex items-start gap-2">
-                  <Info className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-600 md:h-5 md:w-5" />
-                  <div>
-                    <h4 className="text-xs font-semibold text-gray-900 md:text-sm">
-                      {t('website.NewSimfinDes.SingleCountryPlan.rightSideContent.can_i_title')}
-                    </h4>
-                    <p className="mt-1 text-xs text-gray-600">
-                      {t('website.NewSimfinDes.SingleCountryPlan.rightSideContent.all_plan_para')}
-                    </p>
-                  </div>
-                </div>
-              </div> */}
             </div>
 
             {/* Right Column */}
@@ -626,11 +522,11 @@ export default function DestinationDetails() {
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
                   </div>
-                  <h1 className="text-3xl sm:text-4xl lg:text-2.5 font-medium text-foreground">
+                  <h1 className="text-2xl md:text-3xl font-bold text-foreground">
                     eSIM for {destination.name}
                   </h1>
                 </div>
-                <p className="text-gray-600 text-base font-thin leading-relaxed">
+                <p className="text-muted-foreground">
                   Buy prepaid eSIM for {destination.name}. Enjoy reliable and fast connections when
                   traveling to {destination.name}.
                 </p>
@@ -640,13 +536,14 @@ export default function DestinationDetails() {
               <div className="space-y-4">
                 {/* Top Bar: Filters Toggle + Choose Plan Heading */}
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+
+
                   {/* Choose Plan Section */}
                   <div className="flex-1 w-full sm:w-auto">
                     <h2 className="text-xl font-bold text-foreground">Choose your data plan</h2>
                     <div className="flex items-center gap-2 mt-1">
                       <p className="text-sm text-muted-foreground">
-                        {packageOptions.length} plan{packageOptions.length !== 1 ? 's' : ''}{' '}
-                        available
+                        {packageOptions.length} plan{packageOptions.length !== 1 ? 's' : ''} available
                       </p>
                       {activeFiltersCount > 0 && (
                         <Button
@@ -682,15 +579,16 @@ export default function DestinationDetails() {
                       <p className="text-xs text-muted-foreground">
                         {activeFiltersCount > 0
                           ? `${activeFiltersCount} filter${activeFiltersCount !== 1 ? 's' : ''} active`
-                          : 'Click to filter plans'}
+                          : 'Click to filter plans'
+                        }
                       </p>
                     </div>
-                    <div
-                      className={`transition-transform duration-200 ${showFilters ? 'rotate-180' : ''}`}
-                    >
+                    <div className={`transition-transform duration-200 ${showFilters ? 'rotate-180' : ''}`}>
                       <ChevronDown className="w-5 h-5 text-muted-foreground" />
                     </div>
                   </button>
+
+
                 </div>
 
                 {/* Collapsible Filter Panel */}
@@ -741,7 +639,7 @@ export default function DestinationDetails() {
                         </div>
                         Filter By
                       </label>
-                      <div className="grid grid-cols-2 gap-2">
+                      <div className="grid grid-cols-3 gap-2">
                         <Button
                           variant={filterUnlimited ? 'default' : 'outline'}
                           size="sm"
@@ -789,6 +687,30 @@ export default function DestinationDetails() {
                         >
                           <Wifi className="w-3.5 h-3.5 mr-2" />
                           Data Only
+                        </Button>
+                        <Button
+                          variant={filterDataAndVoice ? 'default' : 'outline'}
+                          size="sm"
+                          onClick={() => {
+                            setFilterDataAndVoice(!filterDataAndVoice);
+                            setPage(1);
+                          }}
+                          className="w-full justify-start text-xs h-9 font-medium"
+                        >
+                          <Wifi className="w-3.5 h-3.5 mr-2" />
+                          Data + Voice
+                        </Button>
+                        <Button
+                          variant={filterVoiceAndDataAndSmsPack ? 'default' : 'outline'}
+                          size="sm"
+                          onClick={() => {
+                            setFilterVoiceAndDataAndSmsPack(!filterVoiceAndDataAndSmsPack);
+                            setPage(1);
+                          }}
+                          className="w-full justify-start text-xs h-9 font-medium"
+                        >
+                          <Wifi className="w-3.5 h-3.5 mr-2" />
+                          Data + Voice + SMS
                         </Button>
                       </div>
                     </div>
@@ -857,12 +779,10 @@ export default function DestinationDetails() {
 
                         {/* Data Amount with icon */}
                         <div className="flex items-center gap-2 mb-2 mt-1">
-                          <div
-                            className={`w-8 h-8 rounded-lg flex items-center justify-center ${isSelected
-                              ? 'bg-teal-500 text-white'
-                              : 'bg-gradient-to-br from-teal-100 to-teal-50 dark:from-teal-500/20 dark:to-teal-500/10 text-teal-600 dark:text-teal-400'
-                              }`}
-                          >
+                          <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isSelected
+                            ? 'bg-teal-500 text-white'
+                            : 'bg-gradient-to-br from-teal-100 to-teal-50 dark:from-teal-500/20 dark:to-teal-500/10 text-teal-600 dark:text-teal-400'
+                            }`}>
                             <Wifi className="w-4 h-4" />
                           </div>
                           <p className="text-xl font-bold text-foreground">
@@ -915,9 +835,9 @@ export default function DestinationDetails() {
                                 {pkg.currency}
                               </span>
                             </div>
-                            <p className="text-xs text-muted-foreground mt-0.5">
+                            {/* <p className="text-xs text-muted-foreground mt-0.5">
                               {pkg.providerName}
-                            </p>
+                            </p> */}
                           </div>
 
                           {/* Radio indicator with checkmark */}
@@ -998,7 +918,7 @@ export default function DestinationDetails() {
                         </div>
                         <Button
                           onClick={(e) => handleGetPlanClick(e, selectedPackage)}
-                          className="w-full bg-primary-gradient text-white"
+                          className="w-full bg-primary-gradient hover:bg-primary-gradient-hover text-white"
                           data-testid="button-checkout"
                         >
                           Buy Now
@@ -1029,48 +949,6 @@ export default function DestinationDetails() {
               </div>
             </div>
           </div>
-
-          <KeyFeaturesTabsPropsPlan countryName={'india'} forWhoom="country" />
-
-          <div className="containers">
-            <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
-              {/* Left Side - Image/Illustration */}
-              <div className="order-1 flex justify-center lg:order-2 lg:justify-start">
-                <div className="relative aspect-[4/3] w-full max-w-[500px] lg:max-w-[600px]">
-                  <img
-                    src="/images/homepage-what-is-esim.png"
-                    alt="eSIM illustration"
-                    className="object-contain"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
-                </div>
-              </div>
-
-              {/* Right Side - Content */}
-              <div className="order-2 flex flex-col space-y-6 lg:order-1">
-                <h2 className="text-xl leading-tight font-normal text-black sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl">
-                  {/* What is an eSIM for {countryName}? */}
-                  What is an eSIM for Unknown
-                </h2>
-
-                <p className="text-base leading-relaxed text-gray-700 opacity-90 sm:text-base md:text-base">
-                  An eSim is a digital SIM that lets you switch carriers and use multiple mobile
-                  plans without swapping cards. Most new phones support eSIMs, and setting them up
-                  takes just a few taps. Unknown;
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <HowToGetEsimStatic countryName={'india'} image={'dfdfdf'} />
-          <ValuesSectionCommon config={valuesConfig} />
-
-          <ComparisonTableCommon />
-          <BrandShowcase />
-          <TestimonialsSection />
-          <DownloadAppSection />
-          {/* <FAQ faqs={faqs} /> */}
-          <CareerCTASection />
 
           {/* How to Setup Section */}
           <section className="mb-16">

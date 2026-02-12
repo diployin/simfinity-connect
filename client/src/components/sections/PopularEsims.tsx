@@ -35,10 +35,11 @@ export function PopularEsims() {
   const transformPackageToCardProps = (pkg: CompletePackageType): PlanCommonCardProps => {
     const convertedPrice = convertPrice(parseFloat(pkg.retailPrice), 'USD', currency, currencies);
 
+    // console.log('pkg', pkg)
     return {
       id: pkg.id,
       countryCode: pkg.destination?.countryCode,
-      countryName: pkg.destination?.name || 'Global',
+      countryName: pkg.destination?.name || pkg.region?.name || 'Global',
       dataAmount: pkg.dataAmount,
       validity: pkg.validity,
       price: convertedPrice.toFixed(2),
@@ -47,6 +48,7 @@ export function PopularEsims() {
       voiceMinutes: pkg.voiceMinutes,
       smsCount: pkg.smsCount,
       destinationSlug: pkg.destination?.slug,
+      regionSlug: pkg.region?.slug,
       isComplete: true,
       slug: pkg.slug,
     };
@@ -119,15 +121,15 @@ export function PopularEsims() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {isLoading
             ? Array(4)
-                .fill(0)
-                .map((_, i) => (
-                  <div key={`skeleton-${i}`} className="w-full sm:w-80 max-w-[300px]">
-                    <SkeletonCard />
-                  </div>
-                ))
+              .fill(0)
+              .map((_, i) => (
+                <div key={`skeleton-${i}`} className="w-full sm:w-80 max-w-[300px]">
+                  <SkeletonCard />
+                </div>
+              ))
             : popularPackages.map((pkg) => (
-                <PlanCommonCard {...transformPackageToCardProps(pkg)} />
-              ))}
+              <PlanCommonCard {...transformPackageToCardProps(pkg)} />
+            ))}
         </div>
       </div>
     </section>

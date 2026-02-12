@@ -1,5 +1,4 @@
 import { Coins, Check } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -9,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
-export function CurrencySelector({ isDarkBackground = false }: { isDarkBackground?: boolean }) {
+export function CurrencySelector() {
   const { currency, setCurrency, currencies, isLoading } = useCurrency();
 
   if (isLoading || currencies.length === 0) {
@@ -30,12 +29,7 @@ export function CurrencySelector({ isDarkBackground = false }: { isDarkBackgroun
         <Button
           variant="outline"
           size="sm"
-          className={cn(
-            "hidden md:flex items-center gap-1.5 rounded-full px-3 transition-all",
-            isDarkBackground
-              ? "text-white border-white/30 hover:bg-white/10"
-              : "border-border/50 text-black dark:text-gray-300 hover:bg-gray-100"
-          )}
+          className="flex items-center gap-1.5 rounded-full px-3 border-border/50"
           data-testid="button-currency-selector"
         >
           <span className="text-base font-semibold">{currentCurrency.symbol}</span>

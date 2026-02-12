@@ -24,12 +24,33 @@ export function PlanCommonCard({
   voiceMinutes,
   smsCount,
   destinationSlug,
+  regionSlug,
   badgeText = 'Plan',
   badgeClassName = 'bg-gradient-to-r from-primary to-primary-dark text-white text-xs px-2 py-0.5',
   primaryButtonText = 'Get Plan',
   primaryButtonClassName = 'w-full bg-primary-gradient text-white text-sm rounded-lg',
   isComplete = false,
 }: Readonly<PlanCommonCardProps>) {
+  console.log({
+    id,
+    countryCode,
+    slug,
+    countryName,
+    dataAmount,
+    validity,
+    price,
+    pricePerDay,
+    currencySymbol,
+    voiceMinutes,
+    smsCount,
+    destinationSlug,
+    regionSlug,
+    badgeText,
+    badgeClassName,
+    primaryButtonText,
+    primaryButtonClassName,
+    isComplete,
+  })
   const destinationUrl = slug ? `/unified-checkout/${slug}` : `/destination/${destinationSlug}`;
   const { isAuthenticated, user } = useUser();
   const [, navigate] = useLocation();
@@ -104,14 +125,14 @@ export function PlanCommonCard({
      RENDER - NO VISUAL CHANGES
   ======================= */
   return (
-    <Card className="w-full border-border/50 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative bg-white dark:bg-slate-900">
+    <Card className="w-full max-w-[320px] min-w-[280px] border-border/50 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative">
       {/* Badge */}
       <div className="absolute top-3 right-3 z-10">
         <Badge className={badgeClassName}>{badgeText}</Badge>
       </div>
 
       <CardContent className="p-0">
-        <div className="p-4 sm:p-5 pt-8 sm:pt-10">
+        <div className="p-5 pt-10">
           {/* Country */}
           <div className="flex items-center gap-2 mb-3">
             {countryCode && (
@@ -126,12 +147,12 @@ export function PlanCommonCard({
           </div>
 
           {/* Data Summary */}
-          <div className="flex items-center gap-2 mb-4 h-6">
+          <div className="flex items-center gap-2 mb-4">
             <div className="h-5 w-5 rounded-full bg-gradient-to-br from-primary to-primary-light flex items-center justify-center flex-shrink-0">
               <Wifi className="h-2.5 w-2.5 text-white" />
             </div>
-            <p className="text-muted-foreground text-sm font-medium truncate">
-              {formatDataAmount(dataAmount)} • {validity} Days
+            <p className="text-muted-foreground text-sm truncate">
+              {formatDataAmount(dataAmount)} – {validity} Days
             </p>
           </div>
 
@@ -164,16 +185,14 @@ export function PlanCommonCard({
           </div>
 
           {/* Price */}
-          <div className="mb-5 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50">
-            <div className="flex items-baseline gap-1">
-              <span className="text-base font-semibold text-primary">{currencySymbol}</span>
-              <span className="text-2xl font-bold text-primary leading-none">
-                {price}
-              </span>
-            </div>
-            <p className="text-[10px] text-muted-foreground mt-1 font-medium italic">
-              ≈ {currencySymbol}
-              {pricePerDay} / day
+          <div className="mb-4">
+            <span className="text-2xl font-bold text-primary">
+              {currencySymbol}
+              {price}
+            </span>
+            <p className="text-xs text-muted-foreground">
+              {currencySymbol}
+              {pricePerDay} per day
             </p>
           </div>
 
@@ -201,7 +220,7 @@ export function PlanCommonCard({
 
           {/* Actions - REDIRECT LOGIC HERE ONLY */}
           <div className="space-y-2 flex flex-col">
-            <Link href={`/destination/${destinationSlug}`}>
+            <Link href={destinationSlug ? `/destination/${destinationSlug}` : regionSlug ? `/region/${regionSlug}` : `/global`}>
               <Button
                 variant="outline"
                 className="w-full text-sm rounded-lg"

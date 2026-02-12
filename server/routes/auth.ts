@@ -287,6 +287,14 @@ router.post('/login-password', async (req: Request, res: Response) => {
       return ApiResponse.badRequest(res, 'Invalid email or password');
     }
 
+    // ✅ NEW CHECK — isDeleted
+    if (user.isDeleted) {
+      return ApiResponse.badRequest(
+        res,
+        'Your account has been deleted or deactivated. Please contact support.'
+      );
+    }
+
     if (!user.hashedPassword) {
       return ApiResponse.badRequest(res, 'Password not set. Please login with OTP first.');
     }
@@ -296,6 +304,8 @@ router.post('/login-password', async (req: Request, res: Response) => {
     if (!isValid) {
       return ApiResponse.badRequest(res, 'Invalid email or password');
     }
+
+    
 
     await storage.updateUser(user.id, {
       lastPasswordLoginAt: new Date(),
@@ -344,6 +354,15 @@ router.post('/app/login-password', async (req, res) => {
       return ApiResponse.badRequest(res, 'Invalid email or password');
     }
 
+
+    // ✅ NEW CHECK — isDeleted
+    if (user.isDeleted) {
+      return ApiResponse.badRequest(
+        res,
+        'Your account has been deleted or deactivated. Please contact support.'
+      );
+    }
+
     const isValid = await bcrypt.compare(password, user.hashedPassword);
     if (!isValid) {
       return ApiResponse.badRequest(res, 'Invalid email or password');
@@ -377,7 +396,7 @@ router.post('/app/login-password', async (req, res) => {
 
 router.post('/set-password', requireAuth, async (req: any, res: Response) => {
   try {
-    const { password, confirmPassword } = req.body;
+    const { password, confirmPassword, name } = req.body;
     const userId = req.userId;
 
     console.log('password:', password, 'confirmPassword:', confirmPassword);
@@ -408,6 +427,7 @@ router.post('/set-password', requireAuth, async (req: any, res: Response) => {
     await storage.updateUser(userId, {
       hashedPassword,
       passwordSetAt: new Date(),
+      name
     });
 
     logger.info('Password set for user', { userId });

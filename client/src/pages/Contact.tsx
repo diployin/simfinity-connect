@@ -14,7 +14,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: 'Email Us',
-    description: 'support@esimmasters.net',
+    description: 'cs@diploy.in',
     detail: 'We respond within 24 hours',
   },
   {

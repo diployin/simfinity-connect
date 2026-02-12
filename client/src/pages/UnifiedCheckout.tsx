@@ -444,10 +444,10 @@ export default function UnifiedCheckout() {
           return;
         }
 
-        // console.log(selectedGateway.provider, {
-        //   redirectData: resData.powertranz.redirectData,
-        //   spiToken: resData.powertranz.spiToken,
-        // });
+        console.log(selectedGateway.provider, {
+          redirectData: resData.powertranz.redirectData,
+          spiToken: resData.powertranz.spiToken,
+        });
 
         if (selectedGateway.provider === 'powertranz') {
           setInitResponse({
@@ -455,6 +455,23 @@ export default function UnifiedCheckout() {
             orderId: resData.powertranz.orderId,
             redirectData: resData.powertranz.redirectData,
             spiToken: resData.powertranz.spiToken,
+            packageData: packageData,
+            gatewayId: selectedGateway.id,
+
+            // 🔑 Pricing inputs (NOT amount)
+            packageId: packageData.id,
+            quantity,
+            currency: packageData.currency,
+            orderId: `ORDER_${Date.now()}`,
+
+            // Promo
+            promoCode: appliedPromo?.code || null,
+            promoType: appliedPromo?.type || null,
+            voucherId: appliedPromo?.voucherId || null,
+            giftCardId: appliedPromo?.giftCardId || null,
+
+            // Referral
+            referralCredits: appliedReferralCredits || 0,
           });
           return;
         }
@@ -963,11 +980,11 @@ export default function UnifiedCheckout() {
                               <div className="space-y-1 leading-none">
                                 <FormLabel className="text-sm font-normal cursor-pointer">
                                   I agree to the{' '}
-                                  <Link href="/terms" className="text-teal-600 hover:underline">
+                                  <Link href="/terms-and-condition" className="text-teal-600 hover:underline">
                                     Terms of Service
                                   </Link>{' '}
                                   and{' '}
-                                  <Link href="/privacy" className="text-teal-600 hover:underline">
+                                  <Link href="/privacy-policy" className="text-teal-600 hover:underline">
                                     Privacy Policy
                                   </Link>
                                 </FormLabel>
@@ -1018,7 +1035,7 @@ export default function UnifiedCheckout() {
                         )}
 
 
-                        <Button type="submit" className="w-full bg-primary-gradient text-white">
+                        <Button type="submit" className="w-full bg-teal-500 text-white">
                           Continue to Payment
                         </Button>
                       </form>

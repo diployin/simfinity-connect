@@ -9,7 +9,6 @@ import { useSettingByKey } from '@/hooks/useSettings';
 
 function PlanSelectionMockup() {
   const { t } = useTranslation();
-  
 
   return (
     <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 mt-4">

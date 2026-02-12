@@ -118,42 +118,25 @@ import {
 } from '@/hooks/useSettings'; // path apne project ke hisaab se
 import NotificationsPage from './pages/Notifications';
 import PopularPackagesPage from './pages/PopularPackagesPage';
-import AboutUsNewPage from './pages/AboutUsNewPage';
-import AllDestinations from './pages/AllDestinations';
-import DownloadEsimPage from './pages/DownloadEsimPage';
-import FecurityFeaturesPage from './pages/FecurityFeaturesPage';
-import WhatEsimNew from './pages/WhatIsEsimNew';
-import AllCountriesSection from './pages/AllCountriesSection';
-import AllRegionsSection from './pages/AllRegionsSection';
-import MaintenancePage from './components/sections/landing/MaintenancePage';
-import { AffiliateProgram } from './pages/AffiliateProgram';
-import ReferFriend from './pages/ReferFriend';
-import SecurityPage from './pages/Security';
-import ReferralPage from './pages/ReferralPage';
-import Esim_Ultra_plan from './pages/Esim_Ultra_plan';
-import EsimForBusiness from './pages/EsimForBussiness';
-import DataUsages from './pages/DataUsages';
+import DemoPage from './pages/DemoPage';
 
 // ✅ Route Configs - DRY Approach
 const PUBLIC_ROUTES = [
   { path: '/', component: Home },
   { path: '/destinations', component: Destinations },
-  { path: '/destination', component: AllDestinations },
-  { path: '/security', component: SecurityPage },
-  { path: '/referral', component: ReferralPage },
   { path: '/search', component: Search },
   { path: '/destination/:slug', component: DestinationDetails },
   { path: '/region/:slug', component: RegionDetails },
   { path: '/global', component: GlobalDetails },
   { path: '/packages/:slug', component: PackageDetails },
   { path: '/checkout/:slug', component: Checkout },
-
+  { path: '/unified-checkout/:packageSlug', component: UnifiedCheckout },
   { path: '/blog', component: Blog },
   { path: '/blog/:slug', component: BlogPost },
   { path: '/enterprise', component: EnterprisePage },
   { path: '/unsubscribe', component: Unsubscribe },
   { path: '/gift-cards', component: GiftCards },
-  { path: '/about-us', component: AboutUsNewPage },
+  { path: '/about-us', component: AboutUs },
   { path: '/privacy-policy', component: PrivacyPolicy },
   { path: '/terms-of-service', component: TermsOfService },
   { path: '/refund-policy', component: RefundPolicy },
@@ -165,26 +148,15 @@ const PUBLIC_ROUTES = [
   { path: '/order/:token', component: OrderConfirmation },
   { path: '/pages/:slug', component: DynamicPage },
   { path: '/faq', component: FaqPage },
-  // { path: '/what-is-esim', component: WhatIsESIM },
-  { path: '/what-is-esim', component: WhatEsimNew },
-  { path: '/esim-for-business', component: EsimForBusiness },
-  { path: '/data-usages', component: DataUsages },
+  { path: '/checkout', component: PaymentPage },
+  { path: '/what-is-esim', component: WhatIsESIM },
   { path: '/notifications', component: NotificationsPage },
   { path: '/populer-packages', component: PopularPackagesPage },
-  { path: '/download-esim-app', component: DownloadEsimPage },
-  { path: '/security-features', component: FecurityFeaturesPage },
-  { path: '/country-plan', component: AllCountriesSection },
-  { path: '/region-plan', component: AllRegionsSection },
-  { path: '/affiliate-program', component: AffiliateProgram },
-  { path: '/refer-a-friend', component: ReferFriend },
-  { path: '/esim-ultra-plan', component: Esim_Ultra_plan },
 ];
 
 const AUTH_ROUTES = [
   { path: '/login', component: Login },
-  { path: '/', component: MaintenancePage },
-  { path: '/unified-checkout/:packageSlug', component: UnifiedCheckout },
-  { path: '/checkout', component: PaymentPage },
+  { path: '/demo', component: DemoPage },
 ];
 
 const ADMIN_ROUTES = [
@@ -468,8 +440,6 @@ function Router() {
     queryKey: ['/api/public/settings'],
   });
 
-  // console.log('settingsResponse', settingsResponse);
-
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (
@@ -560,7 +530,7 @@ function App() {
                             <AuthDialog />
                             <Suspense fallback={<LoadingFallback />}>
                               <Router />
-                              {/* <GlobalFloatingNav /> */}
+                              <GlobalFloatingNav />
                             </Suspense>
                           </TooltipProvider>
                         </AuthDialogProvider>

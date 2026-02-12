@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import useStaticData from '@/data/useStaticData';
-import { Timeline } from './ui/timeline';
+import useStaticData from "@/data/useStaticData";
+import { Timeline } from "./ui/timeline";
 
 // import { Timeline } from "@/components/Timeline";
 // import useStaticData from "@/hooks/useStaticData";

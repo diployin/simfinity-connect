@@ -14,21 +14,21 @@ const router = Router();
 router.get("/", async (req: Request, res: Response) => {
   try {
     const packages = await storage.getAllPackages();
-    
+
     const marginSetting = await storage.getSettingByKey("pricing_margin");
     const marginPercent = marginSetting ? parseFloat(marginSetting.value) : 0;
-    
+
     const packagesWithDestinations = await Promise.all(
       packages.map(async (pkg) => {
         const airaloPrice = pkg.airaloPrice ? parseFloat(pkg.airaloPrice) : parseFloat(pkg.price);
         const customerPrice = airaloPrice * (1 + marginPercent / 100);
-        
+
         const packageWithPrice = {
           ...pkg,
           airaloPrice: airaloPrice.toFixed(2),
           price: customerPrice.toFixed(2),
         };
-        
+
         if (pkg.destinationId) {
           const destination = await storage.getDestinationById(pkg.destinationId);
           return { ...packageWithPrice, destination };
@@ -36,7 +36,7 @@ router.get("/", async (req: Request, res: Response) => {
         return packageWithPrice;
       })
     );
-    
+
     return ApiResponse.success(res, "Packages fetched successfully", packagesWithDestinations);
   } catch (error: any) {
     return ApiResponse.serverError(res, error.message);
@@ -45,39 +45,51 @@ router.get("/", async (req: Request, res: Response) => {
 
 router.get("/featured", async (req: Request, res: Response) => {
   try {
-    // Get packages marked as Popular (isPopular=true) from unified_packages
-    const featuredPackages = await db.query.unifiedPackages.findMany({
-      where: and(
-        eq(unifiedPackages.isPopular, true),
-        eq(unifiedPackages.isEnabled, true)
-      ),
-      orderBy: [desc(unifiedPackages.salesCount)],
-      limit: 8,
-    });
-    
+    const packages = await storage.getFeaturedPackages();
+
     const packagesWithDestinations = await Promise.all(
-      featuredPackages.map(async (pkg) => {
+      packages.map(async (pkg) => {
         let destination = null;
+        let region = null;
         if (pkg.destinationId) {
           destination = await storage.getDestinationById(pkg.destinationId);
+        }
+        if (pkg.regionId) {
+          region = await storage.getRegionById(pkg.regionId);
         }
         return {
           id: pkg.id,
           title: pkg.title,
           slug: pkg.slug,
           dataAmount: pkg.dataAmount,
-          validity: pkg.validity,
+          validity: pkg.validityDays || pkg.validity,
           retailPrice: pkg.retailPrice,
+          price: pkg.retailPrice,
+          currency: pkg.currency || 'USD',
           destinationId: pkg.destinationId,
           regionId: pkg.regionId,
-          destination,
+          destination: destination
+            ? {
+              id: destination.id,
+              name: destination.name,
+              countryCode: destination.countryCode,
+              slug: destination.slug,
+            }
+            : null,
+          region: region
+            ? {
+              id: region.id,
+              name: region.name,
+              slug: region.slug,
+            }
+            : null,
         };
-      })
+      }),
     );
-    
-    return ApiResponse.success(res, "Featured packages fetched successfully", packagesWithDestinations);
+
+    ApiResponse.success(res, 'Packages retrieved successfully', packagesWithDestinations);
   } catch (error: any) {
-    return ApiResponse.serverError(res, error.message);
+    res.status(500).json({ success: false, message: error.message });
   }
 });
 
@@ -94,7 +106,7 @@ router.get("/complete", async (req: Request, res: Response) => {
       orderBy: [desc(unifiedPackages.salesCount)],
       limit: 8,
     });
-    
+
     const packagesWithDestinations = await Promise.all(
       completePackages.map(async (pkg) => {
         let destination = null;
@@ -116,7 +128,7 @@ router.get("/complete", async (req: Request, res: Response) => {
         };
       })
     );
-    
+
     return ApiResponse.success(res, "Complete packages fetched successfully", packagesWithDestinations);
   } catch (error: any) {
     return ApiResponse.serverError(res, error.message);
@@ -128,11 +140,11 @@ router.get("/global", async (req: Request, res: Response) => {
     const globalRegion = await db.query.regions.findFirst({
       where: sql`LOWER(name) = 'global'`,
     });
-    
+
     if (!globalRegion) {
       return ApiResponse.success(res, "Global packages fetched successfully", []);
     }
-    
+
     const globalPackages = await db.query.unifiedPackages.findMany({
       where: and(
         eq(unifiedPackages.regionId, globalRegion.id),
@@ -141,7 +153,7 @@ router.get("/global", async (req: Request, res: Response) => {
       limit: 12,
       orderBy: [desc(unifiedPackages.salesCount)],
     });
-    
+
     const formattedPackages = globalPackages.map(pkg => ({
       id: pkg.id,
       title: pkg.title,
@@ -150,7 +162,7 @@ router.get("/global", async (req: Request, res: Response) => {
       retailPrice: pkg.retailPrice,
       slug: pkg.slug,
     }));
-    
+
     return ApiResponse.success(res, "Global packages fetched successfully", formattedPackages);
   } catch (error: any) {
     console.error("Error fetching global packages:", error);
@@ -162,10 +174,10 @@ router.get("/stats", async (req: Request, res: Response) => {
   try {
     const packagesResult = await db.execute(sql`SELECT COUNT(*) as count FROM unified_packages WHERE is_enabled = true`);
     const destinationsResult = await db.execute(sql`SELECT COUNT(*) as count FROM destinations WHERE active = true`);
-    
+
     const totalPackages = Number(packagesResult.rows[0]?.count) || 0;
     const totalDestinations = Number(destinationsResult.rows[0]?.count) || 0;
-    
+
     return ApiResponse.success(res, "Package stats fetched successfully", {
       totalPackages,
       totalDestinations,
