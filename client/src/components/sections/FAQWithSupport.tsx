@@ -54,66 +54,56 @@ export function FAQWithSupport() {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-muted/30">
+    <section className="py-16 md:py-24 bg-white dark:bg-zinc-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground text-center mb-12">
-          {t('website.home.faq.title', 'Frequently Asked Questions about Travel eSIMs')}
-        </h2>
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            {t('website.home.faq.title', 'Frequently Asked Questions')}
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            {t('website.home.faq.subtitle', 'Find answers to common questions about eSIMs and how we can help you stay connected while traveling')}
+          </p>
+        </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
-          <Card className="lg:col-span-1 h-fit border-primary dark:border-orange-800/30 bg-gradient-to-br from-primary-50 to-amber-100/50 dark:from-primary-950/30 dark:to-amber-900/20">
-            <CardContent className="p-6">
-              <div className="h-14 w-14 rounded-2xl bg-gradient-to-r from-primary to-primary-dark flex items-center justify-center mb-4">
-                <MessageCircle className="h-7 w-7 text-white" />
-              </div>
+        <div className="max-w-3xl mx-auto mb-16">
+          <Accordion type="single" collapsible className="space-y-3">
+            {faqs.map((faq, index) => (
+              <AccordionItem
+                key={index}
+                value={`item-${index}`}
+                className="border border-zinc-100 dark:border-zinc-800 rounded-xl px-6 bg-white dark:bg-zinc-900"
+                data-testid={`faq-item-${index}`}
+              >
+                <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-5">
+                  {t(faq.questionKey, faq.questionFallback)}
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground pb-5">
+                  {t(faq.answerKey, faq.answerFallback)}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
 
-              <span className="text-xs font-semibold text-primary uppercase tracking-wide">
-                {t('website.home.faq.support.label', 'Support')}
-              </span>
-
-              <h3 className="text-xl font-bold text-foreground mt-2 mb-3">
-                {t('website.home.faq.support.title', 'Need more help?')}
-              </h3>
-
-              <p className="text-sm text-muted-foreground mb-6">
-                {t(
-                  'website.home.faq.support.description',
-                  "Can't find what you're looking for? Our support team is available 24/7 by email or chat to guide you through setup and troubleshooting.",
-                )}
-              </p>
-
-              <Link href="/account/support">
-                <Button
-                  variant="outline"
-                  className="w-full border-teal-300 dark:border-teal-700 hover:bg-orange-100 dark:hover:bg-orange-900/30"
-                  data-testid="button-help-center"
-                >
-                  <HelpCircle className="h-4 w-4 mr-2" />
-                  {t('website.home.faq.support.button', 'Visit Help Center')}
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-
-          <div className="lg:col-span-2">
-            <Accordion type="single" collapsible className="space-y-3">
-              {faqs.map((faq, index) => (
-                <AccordionItem
-                  key={index}
-                  value={`item-${index}`}
-                  className="border border-border/50 rounded-xl px-6 bg-background"
-                  data-testid={`faq-item-${index}`}
-                >
-                  <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-5">
-                    {t(faq.questionKey, faq.questionFallback)}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground pb-5">
-                    {t(faq.answerKey, faq.answerFallback)}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
+        <div className="max-w-3xl mx-auto text-center">
+          <h3 className="text-xl font-semibold text-foreground mb-2">
+            {t('website.home.faq.support.title', 'Still have questions?')}
+          </h3>
+          <p className="text-muted-foreground mb-6">
+            {t(
+              'website.home.faq.support.description',
+              "Can't find what you're looking for? Our support team is available 24/7 by email or chat to guide you through setup and troubleshooting.",
+            )}
+          </p>
+          <Link href="/account/support">
+            <Button
+              variant="outline"
+              className="rounded-full border-teal-300 dark:border-teal-700 text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              data-testid="button-help-center"
+            >
+              {t('website.home.faq.support.button', 'Visit Help Center')}
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

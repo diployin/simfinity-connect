@@ -35,30 +35,74 @@ function TestimonialCard({ testimonial, index }: { testimonial: Testimonial; ind
   const { t } = useTranslation();
 
   return (
-    <Card className="border-border/50 h-full" data-testid={`testimonial-card-${index}`}>
-      <CardContent className="p-6">
-        <div className="flex items-center gap-3 mb-4">
-          <Avatar className="h-12 w-12 bg-gradient-to-br from-primary to-primary-light">
-            <AvatarFallback className="bg-gradient-to-br from-primary to-primary-light text-white font-semibold">
-              {testimonial.initials}
-            </AvatarFallback>
-          </Avatar>
-          <div className="flex-1">
-            <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
-            <p className="text-xs text-muted-foreground">{testimonial.handle}</p>
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2 mb-3">
-          <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-900/30 px-2 py-0.5 rounded">
-            Trustpilot
+    <div
+      className="break-inside-avoid mb-4 bg-white dark:bg-zinc-800 rounded-2xl p-6 shadow-sm border border-zinc-100 dark:border-zinc-700/50"
+      data-testid={`testimonial-card-${index}`}
+    >
+      <div className="flex items-center justify-between mb-3">
+        <h4 className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">{testimonial.name}</h4>
+        <div className="flex items-center gap-1.5">
+          <span className="text-emerald-500">
+            <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
           </span>
-          <StarRating rating={testimonial.rating} />
+          <span className="text-xs font-semibold text-zinc-600 dark:text-zinc-400">Trustpilot</span>
         </div>
+      </div>
 
-        <p className="text-sm text-muted-foreground leading-relaxed">{testimonial.content}</p>
-      </CardContent>
-    </Card>
+      <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4">{testimonial.content}</p>
+
+      <div className="flex items-center gap-1.5">
+        <span className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{testimonial.rating}</span>
+        <StarRating rating={testimonial.rating} />
+      </div>
+    </div>
+  );
+}
+
+function FeaturedQuoteCard({ testimonial, siteName }: { testimonial: Testimonial; siteName: string | undefined }) {
+  const { t } = useTranslation();
+
+  return (
+    <div className="break-inside-avoid mb-4 bg-white dark:bg-zinc-800 rounded-2xl p-8 shadow-sm border border-zinc-100 dark:border-zinc-700/50">
+      <div className="text-6xl font-serif text-primary/30 dark:text-primary/40 leading-none mb-4">&ldquo;</div>
+      <p className="text-lg md:text-xl font-medium text-zinc-800 dark:text-zinc-100 leading-relaxed mb-6">
+        {t(
+          'website.home.testimonials.featuredQuote',
+          `${siteName} makes staying connected abroad effortless. Fast setup, reliable coverage, and no hidden fees — exactly what every traveler needs.`,
+        )}
+      </p>
+      <div className="border-t border-zinc-200 dark:border-zinc-700 pt-4">
+        <span className="text-xs font-bold uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
+          {t('website.home.testimonials.partnerName', 'Lonely Planet')}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+function PressCard({ siteName }: { siteName: string | undefined }) {
+  const { t } = useTranslation();
+
+  return (
+    <div className="break-inside-avoid mb-4 bg-white dark:bg-zinc-800 rounded-2xl p-6 shadow-sm border border-zinc-100 dark:border-zinc-700/50">
+      <div className="flex items-center gap-1.5 mb-3">
+        <svg viewBox="0 0 24 24" className="h-4 w-4 text-red-500 fill-current">
+          <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+        </svg>
+        <span className="text-xs font-semibold text-zinc-600 dark:text-zinc-400">YouTube</span>
+      </div>
+      <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
+        {t(
+          'website.home.testimonials.pressQuote',
+          `"One of the best eSIM services for international travelers — easy setup, great coverage, and competitive pricing."`,
+        )}
+      </p>
+      <p className="text-xs text-zinc-400 dark:text-zinc-500 mt-3 font-medium">
+        {t('website.home.testimonials.pressSource', 'Tech Travel Review')}
+      </p>
+    </div>
   );
 }
 
@@ -157,61 +201,94 @@ export function TravelerTestimonials() {
   }, [emblaApi, onSelect]);
 
   return (
-    <section className="py-16 md:py-24 bg-background">
+    <section className="py-16 md:py-24 bg-zinc-50 dark:bg-zinc-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8 md:mb-12">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
-            {t('website.home.testimonials.title', `What travelers say about ${siteName}`)}
+        <div className="text-center mb-10 md:mb-14">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-zinc-900 dark:text-zinc-100 mb-3">
+            {t('website.home.testimonials.title', `${siteName} reviews from travelers`)}
           </h2>
-          <div className="flex items-center gap-2">
-            <div className="flex md:hidden gap-2">
-              <Button
-                size="icon"
-                variant="outline"
-                onClick={scrollPrev}
-                disabled={!canScrollPrev}
-                className="rounded-full"
-                data-testid="button-testimonial-prev"
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
-              <Button
-                size="icon"
-                variant="outline"
-                onClick={scrollNext}
-                disabled={!canScrollNext}
-                className="rounded-full"
-                data-testid="button-testimonial-next"
-              >
-                <ChevronRight className="h-4 w-4" />
-              </Button>
+          <p className="text-base md:text-lg text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto">
+            {t(
+              'website.home.testimonials.subtitle',
+              `Check out what fellow travelers are saying about ${siteName}!`,
+            )}
+          </p>
+        </div>
+
+        <div className="md:hidden">
+          <div className="flex items-center justify-end gap-2 mb-4">
+            <Button
+              size="icon"
+              variant="outline"
+              onClick={scrollPrev}
+              disabled={!canScrollPrev}
+              className="rounded-full h-8 w-8"
+              data-testid="button-testimonial-prev"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <Button
+              size="icon"
+              variant="outline"
+              onClick={scrollNext}
+              disabled={!canScrollNext}
+              className="rounded-full h-8 w-8"
+              data-testid="button-testimonial-next"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </Button>
+          </div>
+          <div className="overflow-hidden" ref={emblaRef}>
+            <div className="flex gap-4">
+              {testimonials.map((testimonial, index) => (
+                <div key={index} className="flex-shrink-0 w-[85%]">
+                  <div className="bg-white dark:bg-zinc-800 rounded-2xl p-6 shadow-sm border border-zinc-100 dark:border-zinc-700/50">
+                    <div className="flex items-center justify-between mb-3">
+                      <h4 className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">{testimonial.name}</h4>
+                      <div className="flex items-center gap-1.5">
+                        <span className="text-emerald-500">
+                          <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                          </svg>
+                        </span>
+                        <span className="text-xs font-semibold text-zinc-600 dark:text-zinc-400">Trustpilot</span>
+                      </div>
+                    </div>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4">{testimonial.content}</p>
+                    <div className="flex items-center gap-1.5">
+                      <span className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{testimonial.rating}</span>
+                      <StarRating rating={testimonial.rating} />
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
-            <Link href="/destinations">
-              <Button
-                variant="outline"
-                className="rounded-full"
-                data-testid="button-view-all-destinations"
-              >
-                {t('website.home.testimonials.viewAll', 'View all destinations')}
-              </Button>
-            </Link>
           </div>
         </div>
 
-        <div className="md:hidden overflow-hidden" ref={emblaRef}>
-          <div className="flex gap-4">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="flex-shrink-0 w-[85%]">
-                <TestimonialCard testimonial={testimonial} index={index} />
-              </div>
-            ))}
-          </div>
+        <div className="hidden md:block columns-1 md:columns-2 lg:columns-4 gap-4">
+          <TestimonialCard testimonial={testimonials[1]} index={1} />
+          <TestimonialCard testimonial={testimonials[2]} index={2} />
+
+          <FeaturedQuoteCard testimonial={testimonials[0]} siteName={siteName} />
+
+          <TestimonialCard testimonial={testimonials[3]} index={3} />
+          <PressCard siteName={siteName} />
+
+          <TestimonialCard testimonial={testimonials[4]} index={4} />
+          <TestimonialCard testimonial={testimonials[5]} index={5} />
         </div>
 
-        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {testimonials.map((testimonial, index) => (
-            <TestimonialCard key={index} testimonial={testimonial} index={index} />
-          ))}
+        <div className="text-center mt-10">
+          <Link href="/destinations">
+            <Button
+              variant="outline"
+              className="rounded-full px-6"
+              data-testid="button-view-all-destinations"
+            >
+              {t('website.home.testimonials.viewAll', 'View all destinations')}
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
