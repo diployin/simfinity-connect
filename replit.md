@@ -45,4 +45,14 @@ migrations/       - Drizzle database migrations
 - Stripe initialization is conditional (requires STRIPE_SECRET_KEY env var)
 
 ## Recent Changes
+- 2026-02-12: Complete homepage redesign to match saily.com premium aesthetic
+  - HeroSection: Left-aligned bold headline, rotating keywords, search bar, popular destinations strip
+  - DestinationsTabs: Pill-style tabs, 3x3 grid list cards with flags, country names, pricing, chevrons
+  - BenefitsSection: Feature cards grid (horizontal scroll on mobile, 3-column on desktop)
+  - HowItWorksSteps: Clean 3-step numbered layout with interactive mockups
+  - TravelerTestimonials: Masonry-style layout with Trustpilot badges and star ratings
+  - FAQWithSupport: Minimal full-width accordion with centered help section
+  - Home.tsx: Cleaned up to only include Hero → Destinations → Benefits → HowItWorks → Testimonials → FAQ
+  - All translation hooks (t()), currency contexts, and API data fetching preserved
+  - GlobalFloatingNav unchanged
 - 2026-02-12: Initial Replit setup - configured database, allowed all hosts, made Stripe init conditional
