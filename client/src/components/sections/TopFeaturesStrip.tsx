@@ -35,25 +35,66 @@ export function TopFeaturesStrip() {
     },
   ];
 
+  const marqueeItems = features.map((feature) => ({
+    icon: feature.icon,
+    text: t(feature.titleKey, feature.titleFallback),
+  }));
+
+  // Duplicate items for seamless infinite loop
+  const doubledItems = [...marqueeItems, ...marqueeItems];
+
   return (
-    <section className="py-12 md:py-16 bg-background border-b border-border/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center text-center group"
-              data-testid={`feature-card-${index}`}
-            >
-              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary to-secondary dark:from-orange-950/50 dark:to-amber-900/30 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
-                <feature.icon className="h-8 w-8 text-white " />
-              </div>
-              <h3 className="font-semibold text-foreground mb-1 text-sm md:text-base">
-                {t(feature.titleKey, feature.titleFallback)}
-              </h3>
-              <p className="text-xs md:text-sm text-muted-foreground">
-                {t(feature.descKey, feature.descFallback)}
-              </p>
+    <section className="bg-muted/40 dark:bg-muted/20 border-y border-border/30 overflow-hidden py-3">
+      <style>{`
+        @keyframes marquee {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        
+        .marquee-container {
+          display: flex;
+          animation: marquee 30s linear infinite;
+          gap: 2rem;
+          width: fit-content;
+        }
+        
+        .marquee-container:hover {
+          animation-play-state: paused;
+        }
+        
+        .marquee-item {
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-weight: 500;
+          font-size: 0.95rem;
+          color: var(--foreground);
+          white-space: nowrap;
+        }
+        
+        .dark .marquee-item {
+          color: var(--foreground);
+        }
+        
+        .marquee-separator {
+          color: var(--muted-foreground);
+          opacity: 0.4;
+          margin: 0 1.5rem;
+        }
+      `}</style>
+      
+      <div className="relative overflow-hidden">
+        <div className="marquee-container">
+          {doubledItems.map((item, index) => (
+            <div key={index} className="marquee-item">
+              <item.icon className="h-4 w-4" />
+              <span>{item.text}</span>
+              {index < doubledItems.length - 1 && <span className="marquee-separator">•</span>}
             </div>
           ))}
         </div>

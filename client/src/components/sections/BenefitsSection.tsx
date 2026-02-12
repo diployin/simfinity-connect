@@ -49,71 +49,92 @@ export function BenefitsSection() {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-muted/30">
+    <section className="py-20 md:py-28 bg-zinc-50 dark:bg-slate-900/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-8">
-              {t('website.home.benefits.title', 'What are the benefits of eSIM')}
-            </h2>
+        {/* Section Header */}
+        <div className="text-center mb-16 md:mb-20">
+          <h2 className="text-4xl md:text-5xl lg:text-5xl font-bold text-foreground mb-4">
+            {t('website.home.benefits.title', 'Why choose us?')}
+          </h2>
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+            {t('website.home.benefits.subtitle', 'Stay connected while traveling')}
+          </p>
+        </div>
 
-            <ul className="space-y-5">
-              {benefits.map((benefit, index) => (
-                <li key={index} className="flex gap-4" data-testid={`benefit-item-${index}`}>
-                  <div className="flex-shrink-0 h-6 w-6 rounded-full bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center mt-0.5">
-                    <Check className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+        {/* Cards Grid - Horizontal scroll on mobile, 3-column grid on desktop */}
+        <div className="flex md:hidden overflow-x-auto gap-4 pb-4 snap-x snap-mandatory scrollbar-hide -mx-4 px-4" style={{ scrollBehavior: 'smooth' }}>
+          {benefits.map((benefit, index) => {
+            const Icon = benefit.icon;
+            return (
+              <div
+                key={index}
+                className="flex-shrink-0 w-72 snap-start bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-md hover:-translate-y-1 transition-all duration-300 ease-out"
+                data-testid={`benefit-item-${index}`}
+              >
+                <div className="mb-5">
+                  <div className="h-14 w-14 rounded-full bg-teal-50 dark:bg-teal-900/30 flex items-center justify-center flex-shrink-0">
+                    <Icon className="h-7 w-7 text-teal-600 dark:text-teal-400" />
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-1">
-                      {t(benefit.titleKey, benefit.titleFallback)}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {t(benefit.descKey, benefit.descFallback)}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-
-            <div className="mt-8 text-center md:text-center">
-              <Link href="/destinations">
-                <Button
-                  className="bg-primary-gradient text-white rounded-full px-8"
-                  data-testid="button-view-destinations"
-                >
-                  {t('website.home.benefits.cta', 'View All Destinations')}
-                </Button>
-              </Link>
-            </div>
-          </div>
-
-          <div className="relative hidden lg:block">
-            <div className="relative">
-              <div className="absolute -top-8 -right-8 w-64 h-64 bg-primary opacity-60 rounded-full blur-3xl" />
-              <div className="absolute -bottom-8 -left-8 w-48 h-48 bg-emerald-200/30 rounded-full blur-3xl" />
-
-              <div className="relative bg-gradient-to-br from-primary-dark to-primary-light/60 dark:from-primary-dark dark:to-white/10 rounded-3xl p-8 border border-orange-200/50 dark:border-orange-800/30">
-                <div className="space-y-4">
-                  {benefits.slice(0, 4).map((benefit, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center gap-3 bg-white dark:bg-gray-900 rounded-xl p-4 shadow-sm"
-                    >
-                      <div className="h-10 w-10 rounded-lg bg-primary-light dark:bg-primary-light flex items-center justify-center">
-                        <benefit.icon className="h-5 w-5 text-white" />
-                      </div>
-                      <span className="font-medium text-sm text-foreground">
-                        {t(benefit.titleKey, benefit.titleFallback)}
-                      </span>
-                      <Check className="h-5 w-5 text-emerald-500 ml-auto" />
-                    </div>
-                  ))}
                 </div>
+                <h3 className="text-lg font-bold text-foreground mb-2">
+                  {t(benefit.titleKey, benefit.titleFallback)}
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {t(benefit.descKey, benefit.descFallback)}
+                </p>
               </div>
-            </div>
-          </div>
+            );
+          })}
+        </div>
+
+        {/* Desktop Grid View - 3 columns */}
+        <div className="hidden md:grid md:grid-cols-3 gap-8 lg:gap-10 mb-16">
+          {benefits.map((benefit, index) => {
+            const Icon = benefit.icon;
+            return (
+              <div
+                key={index}
+                className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-700 hover:shadow-lg hover:-translate-y-2 transition-all duration-300 ease-out"
+                data-testid={`benefit-item-${index}`}
+              >
+                <div className="mb-6">
+                  <div className="h-16 w-16 rounded-full bg-teal-50 dark:bg-teal-900/30 flex items-center justify-center flex-shrink-0">
+                    <Icon className="h-8 w-8 text-teal-600 dark:text-teal-400" />
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-foreground mb-3">
+                  {t(benefit.titleKey, benefit.titleFallback)}
+                </h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {t(benefit.descKey, benefit.descFallback)}
+                </p>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* CTA Button */}
+        <div className="text-center">
+          <Link href="/destinations">
+            <Button
+              className="bg-primary-gradient text-white rounded-full px-8 py-2 text-base font-semibold hover:opacity-95 transition-opacity"
+              data-testid="button-view-destinations"
+            >
+              {t('website.home.benefits.cta', 'View All Destinations')}
+            </Button>
+          </Link>
         </div>
       </div>
+
+      <style>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </section>
   );
 }
