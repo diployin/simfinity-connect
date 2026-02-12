@@ -356,42 +356,20 @@ const MobileDestinationSearch: React.FC<MobileDestinationSearchProps> = ({ isOpe
               </div>
             )}
 
-            {/* Global/Ultra Plan Tab */}
+            {/* Simfinity Passport Plan Tab */}
             {activeTab === 'global' && (
               <div className="space-y-4">
-                <div className="text-sm font-semibold text-gray-700 dark:text-gray-300 px-2 py-2">
-                  Simfinity Passport Plans ({globalPackages.length})
+                <div className="flex flex-col items-center justify-center py-12 text-center min-h-[300px]">
+                  <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+                    <svg className="w-8 h-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-1">Simfinity Passport</h3>
+                  <p className="text-gray-500 font-thin text-base">
+                    Coming soon
+                  </p>
                 </div>
-                {loadingGlobal ? (
-                  <div className="grid grid-cols-2 gap-3">
-                    <CountryRegionSkeleton count={8} />
-                  </div>
-                ) : globalPackages.length ? (
-                  <div className="grid grid-cols-2 gap-3">
-                    {globalPackages.map((item, index) => (
-                      <DestinationCardSmall
-                        key={item.id}
-                        id={item.id}
-                        name={item.name}
-                        slug={item.slug}
-                        startPrice={convertPrice(item.startPrice, 'USD', currency, currencies)}
-                        additionalInfo={`${item.validity} days`}
-                        onClick={handleGlobalClick}
-                        index={index}
-                        type="global"
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <div className="col-span-full text-center py-12">
-                    <Zap className="mx-auto h-12 w-12 text-muted-foreground mb-3" />
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">
-                      {searchQuery
-                        ? 'No packages match your search'
-                        : 'No global packages available'}
-                    </p>
-                  </div>
-                )}
               </div>
             )}
           </div>
@@ -400,7 +378,7 @@ const MobileDestinationSearch: React.FC<MobileDestinationSearchProps> = ({ isOpe
         {/* 🔥 MOBILE FOOTER - CTA Buttons */}
         <div className="sticky bottom-0 bg-white dark:bg-background border-t border-gray-200 dark:border-gray-700 p-4 space-y-3">
           <Link
-            href="/esim-supported-devices"
+            href="/supported-devices"
             className="flex items-center justify-center gap-2 text-xs font-medium text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors py-2"
             onClick={onClose}
           >

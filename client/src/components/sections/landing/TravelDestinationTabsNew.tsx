@@ -228,8 +228,22 @@ const TravelDestinationTabsNew = () => {
             </div>
           </TabsContent>
 
-          {/* Ultra / Global */}
-          <TabsContent value="ultra">
+          {/* Passport */}
+          <TabsContent value="passport">
+            <div className="flex flex-col items-center justify-center py-20 text-center min-h-[400px]">
+              <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-6">
+                <svg className="w-10 h-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-medium text-gray-900 mb-2">Simfinity Passport</h3>
+              <p className="text-gray-500 font-thin text-lg">
+                {t('travelTabs.ultraComing')}
+              </p>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="passport">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {loadingGlobal ? (
                 <CountryRegionSkeleton count={6} />
@@ -251,6 +265,7 @@ const TravelDestinationTabsNew = () => {
               )}
             </div>
           </TabsContent>
+
         </Tabs>
 
         <div className=" py-10 w-full flex justify-center  block lg:hidden  ">

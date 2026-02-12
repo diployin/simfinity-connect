@@ -84,10 +84,10 @@ const VoicesSection = () => {
         <div className="containers relative z-10">
           {/* Header */}
           <div className="mb-16">
-            <h2 className="text-4.5xl mb-4 font-medium text-white">
+            <h2 className="mb-4 text-3xl font-medium text-white sm:text-4xl md:text-start">
               {t('website.NewSimfinDes.about_us.VoicesSection.heading')}
             </h2>
-            <p className="max-w-3xl text-base text-gray-300 sm:text-lg">
+            <p className="max-w-3xl text-base font-thin text-gray-300 sm:text-base md:text-start">
               {t('website.NewSimfinDes.about_us.VoicesSection.subheading')}
             </p>
           </div>
@@ -166,9 +166,8 @@ const VoicesSection = () => {
               <button
                 key={index}
                 onClick={() => api?.scrollTo(index)}
-                className={`rounded-full transition-all duration-300 ${
-                  current === index ? 'h-2 w-8 bg-white' : 'h-2 w-2 bg-gray-600 hover:bg-gray-500'
-                }`}
+                className={`rounded-full transition-all duration-300 ${current === index ? 'h-2 w-8 bg-white' : 'h-2 w-2 bg-gray-600 hover:bg-gray-500'
+                  }`}
                 aria-label={`Go to slide ${index + 1}`}
               />
             ))}

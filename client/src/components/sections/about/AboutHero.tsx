@@ -85,12 +85,12 @@ const AboutHero = () => {
                   <div className="relative flex h-full flex-col items-start gap-4 rounded-4xl border border-gray-200/50 bg-white/60 p-6 text-left shadow-sm backdrop-blur-[25px] lg:p-8">
                     <div className="flex h-full w-full flex-col gap-y-3">
                       <div>
-                        <h1 className="lg:text4.5xl text-3xl leading-tight font-medium text-black sm:text-4xl">
+                        <h1 className="text-3xl font-medium text-black sm:text-4xl md:text-start">
                           {t('website.NewSimfinDes.about_us.HeroSec.card.title')}
                         </h1>
                       </div>
                       <div>
-                        <p className="text-base font-medium text-gray-600 sm:text-base">
+                        <p className="text-base font-thin text-gray-600 sm:text-base md:text-start">
                           {t('website.NewSimfinDes.about_us.HeroSec.card.description')}
                         </p>
                       </div>
@@ -174,16 +174,16 @@ const AboutHero = () => {
           <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
             {/* Left Side - Text Content */}
             <div className="space-y-6 text-center md:text-start">
-              <h2 className="text-4.5xl leading-tight font-medium text-black">
+              <h2 className="text-3xl leading-tight font-medium text-black sm:text-4xl md:text-start">
                 {t('website.NewSimfinDes.about_us.WhyBuiltSec.title')}
               </h2>
 
               <div className="space-y-4">
-                <p className="text-base leading-relaxed text-gray-700 sm:text-base">
+                <p className="text-base font-thin leading-relaxed text-gray-600 sm:text-base md:text-start">
                   {t('website.NewSimfinDes.about_us.WhyBuiltSec.para1')}
                 </p>
 
-                <p className="text-base leading-relaxed text-gray-700 sm:text-base">
+                <p className="text-base font-thin leading-relaxed text-gray-600 sm:text-base md:text-start">
                   {t('website.NewSimfinDes.about_us.WhyBuiltSec.para2')}
                 </p>
               </div>

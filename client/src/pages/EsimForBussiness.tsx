@@ -6,6 +6,13 @@ import { useLocation } from 'wouter';
 import { useTranslation } from '@/contexts/TranslationContext';
 import ThemeButton from '@/components/ThemeButton';
 import FAQSection from '@/components/sections/landing/FAQSection';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/ui/carousel';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store/store';
 
@@ -118,7 +125,7 @@ const EsimForBusiness = () => {
             </div>
           </div>
           <div className="relative order-1 lg:order-2 h-[400px] lg:h-[600px] w-full">
-            <div className="absolute inset-0 bg-gradient-to-tr from-gray-100 to-gray-50 rounded-[2rem] overflow-hidden">
+            <div className="absolute inset-0 from-gray-100 to-gray-50 rounded-[2rem] overflow-hidden">
               <img
                 src="/images/esim-business/bussiness_hero.png"
                 alt="Business Dashboard"
@@ -129,10 +136,31 @@ const EsimForBusiness = () => {
         </div>
       </section>
 
+
+      {/* Testimonial */}
+      <section className="py-8 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        <div className="bg-white rounded-2xl p-10 shadow-sm border border-gray-100">
+          <div className="flex flex-col gap-6">
+            <svg className="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z" />
+            </svg>
+            <p className="text-sm font-thin text-gray-600 leading-relaxed">
+              At Lonely Planet, we're always looking to support travelers as they plan their next trip and recognize that staying connected is one of the necessities of being on the road. That's why we recommend Simfinity as our eSIM partner. Simfinity is an affordable, easy-to-use, and sustainable eSIM service that gives reliable mobile and internet connections from anywhere in the world.
+            </p>
+            <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
+              <span className="font-medium text-blue-600 text-md flex items-center gap-2">
+                lonely planet
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
       {/* Why Businesses Choose Simfinity */}
       <section className="pt-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <h2 className="text-3xl sm:text-4xl font-medium text-gray-900 mb-16">Why businesses choose Simfinity</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-[minmax(0,1fr)]">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:auto-rows-[minmax(0,1fr)]">
 
           {/* Column 1 */}
           <div className="flex flex-col gap-6">
@@ -156,14 +184,14 @@ const EsimForBusiness = () => {
               <p className="text-base text-gray-600 font-thin leading-relaxed">eSIMs activate as soon as users reach their destination, or 30 days after purchase.</p>
             </div>
 
-            <div className="rounded-2xl overflow-hidden h-[200px] border border-gray-100">
+            <div className="hidden md:block rounded-2xl overflow-hidden h-[200px] border border-gray-100">
               <img src="/images/esim-business/business-form.png" alt="Laptop" className="w-full h-full object-cover" />
             </div>
           </div>
 
           {/* Column 2 */}
           <div className="flex flex-col gap-6">
-            <div className="rounded-2xl overflow-hidden h-[450px] lg:h-auto lg:flex-1 border border-gray-100 bg-black relative">
+            <div className="hidden md:block rounded-2xl overflow-hidden h-[450px] lg:h-auto lg:flex-1 border border-gray-100 bg-black relative">
               <img src="/images/esim-business/business-worldwide-coverage.png" alt="Map" className="w-full h-full object-cover opacity-80" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-8 flex flex-col justify-end">
                 <div className="bg-white/10 backdrop-blur-md rounded-xl p-3 inline-flex items-center gap-2 w-fit mb-4">
@@ -210,14 +238,14 @@ const EsimForBusiness = () => {
               <p className="text-base text-gray-600 font-thin leading-relaxed">Team members get online using just a QR code — no app required!</p>
             </div>
 
-            <div className="rounded-2xl overflow-hidden h-[200px] border border-gray-100 bg-black">
+            <div className="hidden md:block rounded-2xl overflow-hidden h-[200px] border border-gray-100 bg-black">
               <img src="/images/esim-business/business-seamless-connectivity-data-limit.png" alt="Dark UI" className="w-full h-full object-cover" />
             </div>
           </div>
 
           {/* Column 4 */}
           <div className="flex flex-col gap-6">
-            <div className="rounded-2xl overflow-hidden h-[450px] lg:h-auto lg:flex-1 border border-gray-100 bg-gray-100">
+            <div className="hidden md:block rounded-2xl overflow-hidden h-[450px] lg:h-auto lg:flex-1 border border-gray-100 bg-gray-100">
               <img src="/images/esim-business/business-tailored-solutions.png" alt="Traveler" className="w-full h-full object-cover" />
             </div>
 
@@ -236,7 +264,7 @@ const EsimForBusiness = () => {
       </section>
 
       {/* Get Started Steps */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-gray-50 rounded-[3rem] my-10">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto rounded-[3rem] my-10">
         <div className="mb-16">
           <h2 className="text-3xl sm:text-4xl font-medium text-gray-900 max-w-xl leading-tight">
             Get started with your Simfinity business dashboard
@@ -248,8 +276,8 @@ const EsimForBusiness = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {steps.map((step, idx) => (
-            <div key={idx} className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 h-full">
-              <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-sm font-bold text-gray-900 mb-6">
+            <div key={idx} className=" bg-gray-100 rounded-2xl p-8 shadow-sm border border-gray-100 h-full">
+              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-sm font-bold text-gray-900 mb-6">
                 {step.number}
               </div>
               <h3 className="text-xl font-medium text-gray-900 mb-4">{step.title}</h3>
@@ -259,22 +287,48 @@ const EsimForBusiness = () => {
         </div>
       </section>
 
-      {/* Testimonial */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-        <div className="bg-white rounded-2xl p-10 shadow-sm border border-gray-100">
-          <div className="flex flex-col gap-6">
-            <svg className="w-10 h-10 text-black" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z" />
-            </svg>
-            <p className="text-lg font-medium text-gray-900 leading-relaxed">
-              At Lonely Planet, we're always looking to support travelers as they plan their next trip and recognize that staying connected is one of the necessities of being on the road. That's why we recommend Simfinity as our eSIM partner. Simfinity is an affordable, easy-to-use, and sustainable eSIM service that gives reliable mobile and internet connections from anywhere in the world.
-            </p>
-            <div className="pt-4 border-t border-gray-100 flex items-center justify-between">
-              <span className="font-bold text-blue-600 text-xl flex items-center gap-2">
-                lonely planet
-              </span>
+
+      {/* Product Family Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <h2 className="text-3xl sm:text-4xl font-medium text-gray-900 mb-12">Our product family</h2>
+
+        <div className="relative">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-ml-6">
+              {[
+                { name: "NordVPN", logo: "/images/Product-NordProtect.svg", color: "text-blue-600" },
+                { name: "NordLayer", logo: "/images/Product-NordVPN.svg", color: "text-green-600" },
+                { name: "NordPass", logo: "/images/Product-NordPass.svg", color: "text-teal-600" },
+                { name: "NordLocker", logo: "/images/Product-NordLocker.svg", color: "text-indigo-600" },
+                { name: "NordLocker", logo: "/images/Product-NordStellar.svg", color: "text-indigo-600" },
+                { name: "NordLocker", logo: "/images/Product-NordLayer.svg", color: "text-indigo-600" },
+              ].map((product, idx) => (
+                <CarouselItem key={idx} className="pl-6 md:basis-1/2 lg:basis-1/4">
+                  <div className="bg-gray-50 rounded-3xl p-6 hover:bg-gray-100 transition-colors flex flex-col items-start gap-6 h-full">
+                    <div className="h-10 md:h-8 w-auto">
+                      <img src={product.logo} alt={product.name} className="h-full w-auto object-contain" />
+                    </div>
+
+                    <button className="px-6 py-2.5 rounded-full border border-gray-300 text-sm font-medium text-gray-900 hover:border-gray-900 transition-colors bg-white w-full sm:w-auto">
+                      Visit Product Page
+                    </button>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+
+            {/* Navigation Arrows */}
+            <div className="flex justify-end gap-2 mt-4 px-2">
+              <CarouselPrevious className="!static !translate-y-0 h-11 w-11 rounded-full border border-gray-200 bg-white hover:bg-gray-50 hover:border-gray-300 transition-all text-gray-900 shadow-sm" />
+              <CarouselNext className="!static !translate-y-0 h-11 w-11 rounded-full border border-gray-200 bg-white hover:bg-gray-50 hover:border-gray-300 transition-all text-gray-900 shadow-sm" />
             </div>
-          </div>
+          </Carousel>
         </div>
       </section>
 

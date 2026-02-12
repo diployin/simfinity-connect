@@ -22,11 +22,11 @@ const CareerCTASection = () => {
       <div className="containers relative z-10 flex min-h-[500px] items-center justify-center py-20">
         {/* Glass Card */}
         <div className="w-full rounded-3xl border border-white/20 bg-white/10 p-8 text-center shadow-2xl backdrop-blur-xl md:p-12 lg:p-16">
-          <h2 className="lg:text-4.5xl mb-6 text-3xl leading-tight font-medium text-white sm:text-4xl">
+          <h2 className="mb-6 text-3xl leading-tight font-medium text-white sm:text-4xl md:text-5xl">
             {t('website.NewSimfinDes.about_us.CareerCTASection.heading')}
           </h2>
 
-          <p className="mx-auto mb-8 max-w-2xl text-base text-white/90 sm:text-base">
+          <p className="mx-auto mb-8 max-w-2xl text-base font-thin text-white/90 sm:text-base">
             {t('website.NewSimfinDes.about_us.CareerCTASection.description')}
           </p>
 

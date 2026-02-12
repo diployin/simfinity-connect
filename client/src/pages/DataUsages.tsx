@@ -13,10 +13,14 @@ import {
   Video,
   Download,
   RotateCcw,
-  Check
+  Check,
+  Laptop,
+  UserCog
 } from 'lucide-react';
 import ThemeButton from '@/components/ThemeButton';
 import FAQSection from '@/components/sections/landing/FAQSection';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store/store';
 
 // Activity Data Consumption (MB per hour)
 const ACTIVITY_RATES = {
@@ -63,7 +67,8 @@ const PRESETS = {
 const DataUsages = () => {
   const { t } = useTranslation();
   const [profile, setProfile] = useState<'casual' | 'remote' | 'custom'>('custom');
-
+  const { isExpanded } = useSelector((state: RootState) => state.topNavbar);
+  const isTopBarVisible = !isExpanded;
   const [usage, setUsage] = useState({
     social: 0, // hours
     video2k: 0,
@@ -151,7 +156,9 @@ const DataUsages = () => {
   );
 
   return (
-    <main className="pt-24 md:pt-28">
+    <main className={isTopBarVisible
+      ? 'mt-28 md:mt-0'
+      : 'mt-24 md:mt-0'}>
       <Helmet>
         <title>Data Usage Calculator | Simfinity</title>
       </Helmet>
@@ -174,36 +181,53 @@ const DataUsages = () => {
 
               <div className="mb-10">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">Pick a profile that matches your habits</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                   <button
                     onClick={() => setProfile('casual')}
-                    className={`p-6 rounded-2xl border text-left transition-all ${profile === 'casual' ? 'border-2 border-black bg-gray-50' : 'border-gray-200 hover:border-gray-300'}`}
+                    className={`flex flex-col rounded-2xl border text-left transition-all overflow-hidden h-full ${profile === 'casual' ? 'border-2 border-black ring-0' : 'border-gray-200 hover:border-gray-300'}`}
                   >
-                    <div className="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center mb-4 text-orange-600">
-                      <Smartphone size={20} />
+                    <div className="h-40 w-full bg-gray-100">
+                      <img src="/images/boy_usePhone.png" alt="Casual browser" className="w-full h-full object-cover" />
                     </div>
-                    <h4 className="font-bold text-gray-900">Casual browser</h4>
-                    <p className="text-sm text-gray-500 mt-1 font-thin">Browsing, chatting, checking email</p>
+                    <div className="p-6 bg-white flex flex-col gap-3 flex-1 w-full">
+                      <Globe className="w-6 h-6 text-black" />
+                      <div>
+                        <h4 className="text-lg font-medium text-gray-900 mb-1">Casual browser</h4>
+                        <p className="text-sm text-gray-500 font-thin leading-relaxed">Browsing, chatting, checking email</p>
+                      </div>
+                    </div>
                   </button>
+
                   <button
                     onClick={() => setProfile('remote')}
-                    className={`p-6 rounded-2xl border text-left transition-all ${profile === 'remote' ? 'border-2 border-black bg-gray-50' : 'border-gray-200 hover:border-gray-300'}`}
+                    className={`flex flex-col rounded-2xl border text-left transition-all overflow-hidden h-full ${profile === 'remote' ? 'border-2 border-black ring-0' : 'border-gray-200 hover:border-gray-300'}`}
                   >
-                    <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mb-4 text-blue-600">
-                      <Globe size={20} />
+                    <div className="h-40 w-full bg-gray-100">
+                      <img src="/images/business-worldwide-coverage.png" alt="Remote worker" className="w-full h-full object-cover" />
                     </div>
-                    <h4 className="font-bold text-gray-900">Remote worker</h4>
-                    <p className="text-sm text-gray-500 mt-1 font-thin">Making calls, checking email, browsing</p>
+                    <div className="p-6 bg-white flex flex-col gap-3 flex-1 w-full">
+                      <Laptop className="w-6 h-6 text-black" />
+                      <div>
+                        <h4 className="text-lg font-medium text-gray-900 mb-1">Remote worker</h4>
+                        <p className="text-sm text-gray-500 font-thin leading-relaxed">Making calls, checking email, browsing</p>
+                      </div>
+                    </div>
                   </button>
+
                   <button
                     onClick={() => setProfile('custom')}
-                    className={`p-6 rounded-2xl border text-left transition-all ${profile === 'custom' ? 'border-2 border-black bg-gray-50' : 'border-gray-200 hover:border-gray-300'}`}
+                    className={`flex flex-col rounded-2xl border text-left transition-all overflow-hidden h-full ${profile === 'custom' ? 'border-2 border-black ring-0' : 'border-gray-200 hover:border-gray-300'}`}
                   >
-                    <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mb-4 text-purple-600">
-                      <Smartphone size={20} />
+                    <div className="h-40 w-full bg-gray-100">
+                      <img src="/images/Coverage that reaches further.png" alt="Personalized" className="w-full h-full object-cover" />
                     </div>
-                    <h4 className="font-bold text-gray-900">Personalized</h4>
-                    <p className="text-sm text-gray-500 mt-1 font-thin">Custom setup</p>
+                    <div className="p-6 bg-white flex flex-col gap-3 flex-1 w-full">
+                      <UserCog className="w-6 h-6 text-black" />
+                      <div>
+                        <h4 className="text-lg font-medium text-gray-900 mb-1">Personalized</h4>
+                        <p className="text-sm text-gray-500 font-thin leading-relaxed">Custom setup</p>
+                      </div>
+                    </div>
                   </button>
                 </div>
               </div>
@@ -265,7 +289,7 @@ const DataUsages = () => {
                   <div className="w-48 h-48 rounded-full border-[12px] border-blue-500 border-t-yellow-400 border-r-purple-400 flex items-center justify-center">
                     <div className="text-center">
                       <p className="text-xs text-gray-500 uppercase tracking-widest font-medium mb-1">MONTHLY</p>
-                      <p className="text-4xl font-bold text-gray-900">{totalDataGB} GB</p>
+                      <p className="text-4xl font-medium text-gray-900">{totalDataGB} GB</p>
                     </div>
                   </div>
                 </div>
@@ -291,7 +315,7 @@ const DataUsages = () => {
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center">🇮🇳</div>
                         <div>
-                          <p className="text-sm font-bold text-gray-900">India</p>
+                          <p className="text-sm font-medium text-gray-900">India</p>
                           <p className="text-xs text-gray-500">US$38.99</p>
                         </div>
                       </div>
@@ -301,7 +325,7 @@ const DataUsages = () => {
                       <div className="flex items-center gap-3">
                         <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">🌏</div>
                         <div>
-                          <p className="text-sm font-bold text-gray-900">Global</p>
+                          <p className="text-sm font-medium text-gray-900">Global</p>
                           <p className="text-xs text-gray-500">US$66.99</p>
                         </div>
                       </div>
@@ -351,10 +375,10 @@ const DataUsages = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="order-1">
             <div className="relative rounded-[2.5rem] overflow-hidden bg-gray-100 h-[400px]">
-              <img src="/images/phone_mock.png" alt="Calculate Data Usage" className="w-full h-full object-cover" />
+              <img src="/images/Coverage that reaches further.png" alt="Calculate Data Usage" className="w-full h-full object-cover" />
               <div className="absolute bottom-8 left-8 bg-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg max-w-[200px]">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-bold text-lg">5 GB</span>
+                  <span className="font-medium text-lg">5 GB</span>
                   <div className="w-4 h-4 rounded-full border-2 border-yellow-400"></div>
                 </div>
                 <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
@@ -403,7 +427,7 @@ const DataUsages = () => {
                 </div>
                 <span className="text-gray-900 font-medium">{item.label}</span>
               </div>
-              <span className="text-gray-900 font-bold">{item.consumption}</span>
+              <span className="text-gray-900 font-medium">{item.consumption}</span>
             </div>
           ))}
         </div>

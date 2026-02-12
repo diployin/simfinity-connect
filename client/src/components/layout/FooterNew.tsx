@@ -127,7 +127,7 @@ const FooterNew = () => {
             <li><Link href="/supported-devices" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('website.footer.supportedDevices')}</Link></li>
             <li><Link href="/download-esim-app" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('website.footer.downloadApp')}</Link></li>
             <li><Link href="/security" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('website.footer.securityFeatures')}</Link></li>
-            <li><Link href="/#" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('website.footer.dataCalculator')}</Link></li>
+            <li><Link href="/data-usages" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('website.footer.dataCalculator')}</Link></li>
             <li><Link href="/blog" className="text-sm text-gray-600 hover:text-gray-900 transition-colors">{t('website.footer.blog')}</Link></li>
           </ul>
         );

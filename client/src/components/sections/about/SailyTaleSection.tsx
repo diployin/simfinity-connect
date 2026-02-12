@@ -80,10 +80,10 @@ const SailyTaleSection = () => {
       <div className="containers">
         {/* Header */}
         <div className="mb-16 text-center md:text-start">
-          <h2 className="text-2.5 mb-4 font-medium text-black">
+          <h2 className="text-3xl mb-4 font-medium text-black sm:text-4xl md:text-start">
             {t('website.NewSimfinDes.about_us.SailyTaleSection.heading')}
           </h2>
-          <p className="max-w-3xl text-base text-gray-600 sm:text-lg">
+          <p className="max-w-3xl text-base font-thin text-gray-600 sm:text-base md:text-start">
             {t('website.NewSimfinDes.about_us.SailyTaleSection.subheading')}
           </p>
         </div>
@@ -136,17 +136,15 @@ const SailyTaleSection = () => {
                 >
                   {/* Dot */}
                   <div
-                    className={`flex h-4 w-4 items-center justify-center rounded-full transition-all duration-300 ${
-                      current === index ? 'scale-125 bg-black' : 'bg-gray-300 hover:bg-gray-400'
-                    }`}
+                    className={`flex h-4 w-4 items-center justify-center rounded-full transition-all duration-300 ${current === index ? 'scale-125 bg-black' : 'bg-gray-300 hover:bg-gray-400'
+                      }`}
                   >
                     <div className="h-2 w-2 rounded-full bg-white" />
                   </div>
                   {/* Date Label */}
                   <span
-                    className={`mt-4 hidden text-sm font-medium whitespace-nowrap transition-colors sm:block ${
-                      current === index ? 'text-black' : 'text-gray-500 group-hover:text-gray-700'
-                    }`}
+                    className={`mt-4 hidden text-sm font-medium whitespace-nowrap transition-colors sm:block ${current === index ? 'text-black' : 'text-gray-500 group-hover:text-gray-700'
+                      }`}
                   >
                     {event.date}
                   </span>
