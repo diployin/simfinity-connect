@@ -18,9 +18,9 @@ import { airaloNotificationService } from "../services/airalo/airalo-notificatio
 import { insertPageSchema, insertEmailTemplateSchema } from "@shared/schema";
 import * as ApiResponse from "../utils/response";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: "2025-10-29.clover",
-});
+const stripe = process.env.STRIPE_SECRET_KEY
+  ? new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: "2025-10-29.clover" })
+  : null;
 
 const router = Router();
 
