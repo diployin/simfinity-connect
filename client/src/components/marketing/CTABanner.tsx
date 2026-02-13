@@ -13,7 +13,7 @@ interface CTABannerProps {
 
 export function CTABanner({
   title = "Ready to stay connected worldwide?",
-  subtitle = "Join 500,000+ happy travelers using eSIM Connect",
+  subtitle = "Join 500,000+ happy travelers using Simfinity",
   buttonText = "Get Started Now",
   variant = "primary",
 }: CTABannerProps) {

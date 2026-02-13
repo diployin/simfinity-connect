@@ -93,8 +93,8 @@ export function AuthDialog() {
   const isSignUp = dialogType === "signup";
   const title = isSignUp ? "Create your account" : "Welcome back";
   const subtitle = isSignUp
-    ? "Sign up to start using eSIM Connect"
-    : "Sign in to your eSIM Connect account";
+    ? "Sign up to start using Simfinity"
+    : "Sign in to your Simfinity account";
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>

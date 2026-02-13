@@ -32,8 +32,8 @@ export function WhatIsEsim() {
                 loading="lazy"
               />
               <div className="absolute bottom-6 right-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg px-4 py-3 flex items-center gap-3">
-                <div className="w-8 h-8 bg-teal-50 dark:bg-teal-900/30 rounded-lg flex items-center justify-center">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <div className="w-8 h-8 bg-[#f0f9f1] dark:bg-[#194520]/30 rounded-lg flex items-center justify-center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2c7338" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="2" y="6" width="20" height="12" rx="2" />
                     <path d="M12 12h.01" />
                   </svg>

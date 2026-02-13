@@ -59,7 +59,7 @@ export function DestinationIllustration() {
       </motion.div>
 
       <motion.div
-        className="absolute z-10 w-14 h-14 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center shadow-lg"
+        className="absolute z-10 w-14 h-14 rounded-full bg-gradient-to-br from-[#2c7338] to-[#1e5427] flex items-center justify-center shadow-lg"
         animate={shouldReduceMotion ? {} : { scale: [1, 1.05, 1] }}
         transition={{
           duration: 2,

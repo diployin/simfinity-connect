@@ -43,7 +43,7 @@ export default function Analytics() {
     return (
       <div className="flex items-center justify-center h-screen">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-teal-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#1e5427] mx-auto mb-4"></div>
           <p className="text-slate-600 dark:text-slate-400">{t('admin.analytics.loadingAnalytics', 'Loading analytics...')}</p>
         </div>
       </div>
@@ -70,24 +70,24 @@ export default function Analytics() {
 
       {/* Key Metrics */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="border-0 bg-gradient-to-br from-teal-50 to-indigo-50 dark:from-teal-950/30 dark:to-indigo-950/30 shadow-lg p-6" data-testid="card-analytics-revenue">
+        <Card className="border-0 bg-gradient-to-br from-[#f0f9f1] to-indigo-50 dark:from-[#0a2e14]/30 dark:to-indigo-950/30 shadow-lg p-6" data-testid="card-analytics-revenue">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm font-medium text-teal-600 dark:text-teal-400">{t('admin.analytics.totalRevenue', 'Total Revenue')}</p>
+              <p className="text-sm font-medium text-[#1e5427] dark:text-[#3d9a4d]">{t('admin.analytics.totalRevenue', 'Total Revenue')}</p>
               <h3 className="text-3xl font-bold text-slate-900 dark:text-white mt-2" data-testid="text-analytics-total-revenue">
                 ${stats?.totalRevenue.toFixed(2) || "0.00"}
               </h3>
-              <p className="text-xs text-teal-600 dark:text-teal-400 mt-2 font-medium" data-testid="text-analytics-revenue-trend">
+              <p className="text-xs text-[#1e5427] dark:text-[#3d9a4d] mt-2 font-medium" data-testid="text-analytics-revenue-trend">
                 {stats?.trends.revenue >= 0 ? "+" : ""}{stats?.trends.revenue.toFixed(1)}% {t('admin.analytics.vsLastMonth', 'vs last month')}
               </p>
             </div>
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-teal-600 to-indigo-600">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#1e5427] to-indigo-600">
               <DollarSign className="h-6 w-6 text-white" />
             </div>
           </div>
         </Card>
 
-        <Card className="border-0 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 shadow-lg p-6">
+        <Card className="border-0 bg-gradient-to-br from-emerald-50 to-[#f0f9f1] dark:from-emerald-950/30 dark:to-[#0a2e14]/30 shadow-lg p-6">
           <div className="flex items-start justify-between">
             <div>
               <p className="text-sm font-medium text-emerald-600 dark:text-emerald-400">{t('admin.analytics.totalOrders', 'Total Orders')}</p>
@@ -98,24 +98,24 @@ export default function Analytics() {
                 {stats?.totalEsims.toLocaleString() || 0} {t('admin.analytics.totalEsims', 'eSIMs sold')}
               </p>
             </div>
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-600 to-teal-600">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-600 to-[#1e5427]">
               <ShoppingCart className="h-6 w-6 text-white" />
             </div>
           </div>
         </Card>
 
-        <Card className="border-0 bg-gradient-to-br from-teal-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 shadow-lg p-6">
+        <Card className="border-0 bg-gradient-to-br from-[#f0f9f1] to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 shadow-lg p-6">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm font-medium text-teal-600 dark:text-teal-400">{t('admin.analytics.totalCustomers', 'Total Customers')}</p>
+              <p className="text-sm font-medium text-[#1e5427] dark:text-[#3d9a4d]">{t('admin.analytics.totalCustomers', 'Total Customers')}</p>
               <h3 className="text-3xl font-bold text-slate-900 dark:text-white mt-2">
                 {stats?.totalCustomers.toLocaleString() || 0}
               </h3>
-              <p className="text-xs text-teal-600 dark:text-teal-400 mt-2 font-medium">
+              <p className="text-xs text-[#1e5427] dark:text-[#3d9a4d] mt-2 font-medium">
                 +{stats?.trends.customers || 0} {t('admin.analytics.newThisMonth', 'new this month')}
               </p>
             </div>
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-teal-600 to-pink-600">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#1e5427] to-pink-600">
               <Users className="h-6 w-6 text-white" />
             </div>
           </div>
@@ -152,7 +152,7 @@ export default function Analytics() {
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-semibold text-slate-900 dark:text-white capitalize">{provider.name}</h3>
-                    <div className="px-3 py-1 rounded-full bg-teal-100 dark:bg-teal-900/30 text-teal-700 dark:text-teal-300 text-xs font-medium">
+                    <div className="px-3 py-1 rounded-full bg-[#dcf0de] dark:bg-[#194520]/30 text-[#1e5427] dark:text-[#3d9a4d] text-xs font-medium">
                       {provider.orderCount} {t('admin.analytics.orders', 'orders')}
                     </div>
                   </div>
@@ -196,8 +196,8 @@ export default function Analytics() {
               <AreaChart data={stats?.revenueByMonth || []}>
                 <defs>
                   <linearGradient id="colorRevenue2" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#14b8a6" stopOpacity={0.8}/>
-                    <stop offset="95%" stopColor="#14b8a6" stopOpacity={0.1}/>
+                    <stop offset="5%" stopColor="#2c7338" stopOpacity={0.8}/>
+                    <stop offset="95%" stopColor="#2c7338" stopOpacity={0.1}/>
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" className="dark:stroke-slate-800" />
@@ -214,7 +214,7 @@ export default function Analytics() {
                 <Area
                   type="monotone"
                   dataKey="revenue"
-                  stroke="#14b8a6"
+                  stroke="#2c7338"
                   fillOpacity={1}
                   fill="url(#colorRevenue2)"
                 />

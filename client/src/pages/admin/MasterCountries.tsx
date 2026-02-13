@@ -363,7 +363,7 @@ export default function MasterCountries() {
                             Territory
                           </Badge>
                         ) : (
-                          <Badge variant="secondary" className="bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200">
+                          <Badge variant="secondary" className="bg-[#dcf0de] text-[#194520] dark:bg-[#194520] dark:text-[#c8e6c9]">
                             Country
                           </Badge>
                         )}

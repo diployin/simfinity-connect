@@ -7,11 +7,11 @@
    ============================================ */
 
 :root {
-  /* 🔥 PRIMARY PALETTE - Teal/Cyan */
-  --primary-hex: #14b8a6;
-  --primary-second-hex: #0d9488;
-  --primary-light-hex: #2dd4bf;
-  --primary-dark-hex: #0f766e;
+  /* 🔥 PRIMARY PALETTE - Rich Green */
+  --primary-hex: #2c7338;
+  --primary-second-hex: #1e5427;
+  --primary-light-hex: #3d9a4d;
+  --primary-dark-hex: #194520;
 
   /* 🖤 SECONDARY PALETTE - Black/Gray */
   --secondary-hex: #18181b;
@@ -20,10 +20,10 @@
   --secondary-fourth-hex: #52525b;
   --secondary-light-hex: #71717a;
 
-  /* 🍊 ACCENT PALETTE - Orange (for hover states) */
-  --accent-hex: #14b8a6;
-  --accent-second-hex: #2dd4bf;
-  --accent-third-hex: #0f766e;
+  /* 🍊 ACCENT PALETTE - Green (for hover states) */
+  --accent-hex: #2c7338;
+  --accent-second-hex: #3d9a4d;
+  --accent-third-hex: #194520;
 
   /* 🚨 DESTRUCTIVE PALETTE */
   --destructive-hex: #ef4444;
@@ -43,8 +43,8 @@
       var(--primary-dark-hex) 0%,
       var(--secondary-hex) 50%,
       var(--primary-hex) 100%
-    )
-    --text-gradient: linear-gradient(135deg, var(--primary-hex) 0%, var(--accent-hex) 100%);
+    );
+  --text-gradient: linear-gradient(135deg, var(--primary-hex) 0%, var(--accent-hex) 100%);
   --secondary-gradient: linear-gradient(
     135deg,
     var(--secondary-hex) 0%,
@@ -54,11 +54,11 @@
 }
 
 .dark {
-  /* 🔥 DARK MODE PRIMARY PALETTE - Teal/Cyan */
-  --primary-hex: #2dd4bf;
-  --primary-second-hex: #14b8a6;
-  --primary-light-hex: #5eead4;
-  --primary-dark-hex: #0d9488;
+  /* 🔥 DARK MODE PRIMARY PALETTE - Rich Green */
+  --primary-hex: #3d9a4d;
+  --primary-second-hex: #2c7338;
+  --primary-light-hex: #5cb86c;
+  --primary-dark-hex: #1e5427;
 
   /* 🖤 SECONDARY PALETTE */
   --secondary-hex: #09090b;

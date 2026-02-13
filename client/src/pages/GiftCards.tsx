@@ -452,10 +452,10 @@ export default function GiftCards() {
       {/* <SiteHeader /> */}
 
       <main className="flex-1   ">
-        <div className="relative bg-gradient-to-br from-teal-500/10 via-teal-400/5 to-background py-16 md:py-24 overflow-hidden">
+        <div className="relative bg-gradient-to-br from-[#2c7338]/10 via-[#3d9a4d]/5 to-background py-16 md:py-24 overflow-hidden">
           <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl" />
+            <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-[#2c7338]/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#2c7338]/10 rounded-full blur-3xl" />
           </div>
 
           <div className="container mx-auto px-4 relative z-10 mt-[40px]">

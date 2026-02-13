@@ -55,10 +55,10 @@ export default function FaqPage() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>Frequently Asked Questions - eSIM Connect</title>
+        <title>Frequently Asked Questions - Simfinity</title>
         <meta
           name="description"
-          content="Find answers to commonly asked questions about eSIM Connect services, pricing, and support."
+          content="Find answers to commonly asked questions about Simfinity services, pricing, and support."
         />
       </Helmet>
 

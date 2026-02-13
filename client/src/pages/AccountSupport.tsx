@@ -262,7 +262,7 @@ export default function AccountSupport() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'open':
-        return 'bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-400';
+        return 'bg-[#dcf0de] text-[#194520] dark:bg-[#194520]/30 dark:text-[#3d9a4d]';
       case 'in_progress':
         return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400';
       case 'resolved':
@@ -325,7 +325,7 @@ export default function AccountSupport() {
         </div>
         <Button
           onClick={() => setShowCreateDialog(true)}
-          className="gap-2 bg-teal-500 hover:bg-teal-600 text-white"
+          className="gap-2 bg-[#2c7338] hover:bg-[#1e5427] text-white"
           data-testid="button-new-ticket"
         >
           <Plus className="w-4 h-4" />
@@ -344,8 +344,8 @@ export default function AccountSupport() {
                   {tickets?.filter((t) => t.status === 'open').length || 0}
                 </h3>
               </div>
-              <div className="w-12 h-12 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center flex-shrink-0">
-                <AlertTriangle className="w-6 h-6 text-teal-600 dark:text-teal-400" />
+              <div className="w-12 h-12 rounded-full bg-[#dcf0de] dark:bg-[#194520]/30 flex items-center justify-center flex-shrink-0">
+                <AlertTriangle className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
               </div>
             </div>
           </CardContent>
@@ -392,8 +392,8 @@ export default function AccountSupport() {
                   {tickets?.length || 0}
                 </h3>
               </div>
-              <div className="w-12 h-12 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center flex-shrink-0">
-                <Headphones className="w-6 h-6 text-teal-600 dark:text-teal-400" />
+              <div className="w-12 h-12 rounded-full bg-[#dcf0de] dark:bg-[#194520]/30 flex items-center justify-center flex-shrink-0">
+                <Headphones className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
               </div>
             </div>
           </CardContent>
@@ -497,7 +497,7 @@ export default function AccountSupport() {
                     </p>
                     <Button
                       onClick={() => setShowCreateDialog(true)}
-                      className="gap-2 bg-teal-500 hover:bg-teal-600 text-white"
+                      className="gap-2 bg-[#2c7338] hover:bg-[#1e5427] text-white"
                       data-testid="button-create-first-ticket"
                     >
                       <Plus className="w-4 h-4" />
@@ -661,7 +661,7 @@ export default function AccountSupport() {
                     <Button
                       onClick={handleSendMessage}
                       disabled={!newMessage.trim() || addMessageMutation.isPending}
-                      className="h-10 px-4 rounded-xl bg-teal-500 hover:bg-teal-600 text-white"
+                      className="h-10 px-4 rounded-xl bg-[#2c7338] hover:bg-[#1e5427] text-white"
                     >
                       <ArrowRight className="w-4 h-4" />
                     </Button>
@@ -687,8 +687,8 @@ export default function AccountSupport() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card data-testid="card-email-support">
           <CardContent className="pt-6 text-center">
-            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
-              <Mail className="w-6 h-6 text-teal-600 dark:text-teal-400" />
+            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-[#dcf0de] dark:bg-[#194520]/30 flex items-center justify-center">
+              <Mail className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
             </div>
             <div className="font-medium mb-1">Email Support</div>
             <div className="text-sm text-muted-foreground">support@esim-global.com</div>
@@ -696,8 +696,8 @@ export default function AccountSupport() {
         </Card>
         <Card data-testid="card-live-chat">
           <CardContent className="pt-6 text-center">
-            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
-              <MessageCircle className="w-6 h-6 text-teal-600 dark:text-teal-400" />
+            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-[#dcf0de] dark:bg-[#194520]/30 flex items-center justify-center">
+              <MessageCircle className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
             </div>
             <div className="font-medium mb-1">Live Chat</div>
             <div className="text-sm text-muted-foreground">Available 24/7</div>
@@ -705,8 +705,8 @@ export default function AccountSupport() {
         </Card>
         <Card data-testid="card-help-center">
           <CardContent className="pt-6 text-center">
-            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
-              <BookOpen className="w-6 h-6 text-teal-600 dark:text-teal-400" />
+            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-[#dcf0de] dark:bg-[#194520]/30 flex items-center justify-center">
+              <BookOpen className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
             </div>
             <div className="font-medium mb-1">Help Center</div>
             <div className="text-sm text-muted-foreground">Browse FAQs & Guides</div>
@@ -781,7 +781,7 @@ export default function AccountSupport() {
             <Button
               onClick={handleCreateTicket}
               disabled={createTicketMutation.isPending}
-              className="bg-teal-500 hover:bg-teal-600 text-white"
+              className="bg-[#2c7338] hover:bg-[#1e5427] text-white"
               data-testid="button-submit-ticket"
             >
               {createTicketMutation.isPending ? 'Creating...' : 'Create Ticket'}

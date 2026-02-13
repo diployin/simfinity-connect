@@ -51,7 +51,6 @@ export function BenefitsSection() {
   return (
     <section className="py-20 md:py-28 bg-zinc-50 dark:bg-slate-900/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="text-center mb-16 md:mb-20">
           <h2 className="text-4xl md:text-5xl lg:text-5xl font-bold text-foreground mb-4">
             {t('website.home.benefits.title', 'Why choose us?')}
@@ -61,7 +60,6 @@ export function BenefitsSection() {
           </p>
         </div>
 
-        {/* Cards Grid - Horizontal scroll on mobile, 3-column grid on desktop */}
         <div className="flex md:hidden overflow-x-auto gap-4 pb-4 snap-x snap-mandatory scrollbar-hide -mx-4 px-4" style={{ scrollBehavior: 'smooth' }}>
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;
@@ -72,8 +70,8 @@ export function BenefitsSection() {
                 data-testid={`benefit-item-${index}`}
               >
                 <div className="mb-5">
-                  <div className="h-14 w-14 rounded-full bg-teal-50 dark:bg-teal-900/30 flex items-center justify-center flex-shrink-0">
-                    <Icon className="h-7 w-7 text-teal-600 dark:text-teal-400" />
+                  <div className="h-14 w-14 rounded-full bg-[#f0f9f1] dark:bg-[#194520]/30 flex items-center justify-center flex-shrink-0">
+                    <Icon className="h-7 w-7 text-[#2c7338] dark:text-[#3d9a4d]" />
                   </div>
                 </div>
                 <h3 className="text-lg font-bold text-foreground mb-2">
@@ -87,7 +85,6 @@ export function BenefitsSection() {
           })}
         </div>
 
-        {/* Desktop Grid View - 3 columns */}
         <div className="hidden md:grid md:grid-cols-3 gap-8 lg:gap-10 mb-16">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;
@@ -98,8 +95,8 @@ export function BenefitsSection() {
                 data-testid={`benefit-item-${index}`}
               >
                 <div className="mb-6">
-                  <div className="h-16 w-16 rounded-full bg-teal-50 dark:bg-teal-900/30 flex items-center justify-center flex-shrink-0">
-                    <Icon className="h-8 w-8 text-teal-600 dark:text-teal-400" />
+                  <div className="h-16 w-16 rounded-full bg-[#f0f9f1] dark:bg-[#194520]/30 flex items-center justify-center flex-shrink-0">
+                    <Icon className="h-8 w-8 text-[#2c7338] dark:text-[#3d9a4d]" />
                   </div>
                 </div>
                 <h3 className="text-xl font-bold text-foreground mb-3">
@@ -113,7 +110,6 @@ export function BenefitsSection() {
           })}
         </div>
 
-        {/* CTA Button */}
         <div className="text-center">
           <Link href="/destinations">
             <Button

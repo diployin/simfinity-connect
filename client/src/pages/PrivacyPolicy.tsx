@@ -6,10 +6,10 @@ export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>Privacy Policy - eSIM Connect</title>
+        <title>Privacy Policy - Simfinity</title>
         <meta
           name="description"
-          content="Read eSIM Connect's privacy policy to understand how we collect, use, and protect your personal information."
+          content="Read Simfinity's privacy policy to understand how we collect, use, and protect your personal information."
         />
       </Helmet>
 

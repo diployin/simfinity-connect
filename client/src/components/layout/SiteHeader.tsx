@@ -123,7 +123,7 @@ export function SiteHeader() {
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
         isScrolled
           ? 'bg-white/95 dark:bg-gray-950/95 backdrop-blur-md shadow-sm border-b border-gray-100 dark:border-gray-800'
-          : 'bg-[#e8f4f8]/80 dark:bg-gray-900/80 backdrop-blur-sm'
+          : 'bg-[#e8f5e9]/80 dark:bg-gray-900/80 backdrop-blur-sm'
       )}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -135,11 +135,11 @@ export function SiteHeader() {
           ) : (
             <Link href="/" data-testid="link-home" className="flex-shrink-0">
               <div className="flex items-center gap-2 cursor-pointer transition-all duration-200 hover:opacity-80">
-                <div className="h-8 w-8 rounded-lg bg-teal-500 flex items-center justify-center">
+                <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-[#2c7338] to-[#1e5427] flex items-center justify-center">
                   <Globe className="h-4 w-4 text-white" />
                 </div>
                 <span className="font-bold text-lg text-gray-900 dark:text-white">
-                  eSIM<span className="text-teal-500">Connect</span>
+                  Sim<span className="bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] bg-clip-text text-transparent">finity</span>
                 </span>
               </div>
             </Link>
@@ -164,8 +164,8 @@ export function SiteHeader() {
                   <div className="grid grid-cols-2 gap-3">
                     <Link href="/destinations" onClick={() => setActiveMenu(null)}>
                       <div className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group cursor-pointer">
-                        <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-900/30 flex items-center justify-center group-hover:bg-teal-100 dark:group-hover:bg-teal-900/50 transition-colors">
-                          <Globe className="h-5 w-5 text-teal-600 dark:text-teal-400" />
+                        <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-[#f0f9f1] dark:bg-[#194520]/30 flex items-center justify-center group-hover:bg-[#dcf0de] dark:group-hover:bg-[#194520]/50 transition-colors">
+                          <Globe className="h-5 w-5 text-[#2c7338] dark:text-[#3d9a4d]" />
                         </div>
                         <div>
                           <p className="text-sm font-semibold text-gray-900 dark:text-white mb-0.5">{t('website.nav.localEsim', 'Local eSIMs')}</p>
@@ -228,7 +228,7 @@ export function SiteHeader() {
                 <div className="w-[280px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
                   <Link href="/what-is-esim" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
-                      <Smartphone className="h-4 w-4 text-teal-500" />
+                      <Smartphone className="h-4 w-4 text-[#2c7338]" />
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.whatIsEsim', 'What is an eSIM')}</span>
                     </div>
                   </Link>
@@ -306,7 +306,7 @@ export function SiteHeader() {
                 <div className="w-[280px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
                   <Link href="/faq" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
-                      <HelpCircle className="h-4 w-4 text-teal-500" />
+                      <HelpCircle className="h-4 w-4 text-[#2c7338]" />
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.faqs', 'FAQs')}</span>
                     </div>
                   </Link>
@@ -364,7 +364,7 @@ export function SiteHeader() {
                       onClick={() => setLanguage(lang.code)}
                       className={cn(
                         'flex items-center justify-between cursor-pointer rounded-lg',
-                        active ? 'bg-teal-50 dark:bg-teal-900/20' : 'hover:bg-gray-50 dark:hover:bg-gray-800',
+                        active ? 'bg-[#f0f9f1] dark:bg-[#194520]/20' : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                       )}
                     >
                       <div className="flex items-center gap-3">
@@ -374,13 +374,13 @@ export function SiteHeader() {
                           style={{ width: '20px', height: '15px' }}
                         />
                         <div>
-                          <div className={cn('font-medium text-sm', active ? 'text-teal-700 dark:text-teal-400' : 'text-gray-700 dark:text-gray-300')}>
+                          <div className={cn('font-medium text-sm', active ? 'text-[#1e5427] dark:text-[#3d9a4d]' : 'text-gray-700 dark:text-gray-300')}>
                             {lang.nativeName}
                           </div>
                           <div className="text-xs text-gray-500">{lang.name}</div>
                         </div>
                       </div>
-                      {active && <div className="h-2 w-2 rounded-full bg-teal-500" />}
+                      {active && <div className="h-2 w-2 rounded-full bg-[#2c7338]" />}
                     </DropdownMenuItem>
                   );
                 })}
@@ -398,7 +398,7 @@ export function SiteHeader() {
             </div>
 
             <Link href="/destinations">
-              <span className="hidden md:flex items-center gap-2 text-sm font-semibold bg-teal-500 hover:bg-teal-600 text-white rounded-full px-5 py-2.5 transition-colors shadow-sm hover:shadow-md whitespace-nowrap">
+              <span className="hidden md:flex items-center gap-2 text-sm font-semibold bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] hover:from-[#1e5427] hover:to-[#2c7338] text-white rounded-full px-5 py-2.5 transition-colors shadow-sm hover:shadow-md whitespace-nowrap">
                 <Search className="h-3.5 w-3.5" />
                 {t('website.nav.seePacks', 'Destinations')}
               </span>
@@ -417,8 +417,8 @@ export function SiteHeader() {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <span className="hidden md:block rounded-full p-1 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all cursor-pointer">
-                    <div className="h-8 w-8 rounded-full bg-teal-100 dark:bg-teal-900/40 flex items-center justify-center">
-                      <User className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+                    <div className="h-8 w-8 rounded-full bg-[#dcf0de] dark:bg-[#194520]/40 flex items-center justify-center">
+                      <User className="h-4 w-4 text-[#2c7338] dark:text-[#3d9a4d]" />
                     </div>
                   </span>
                 </DropdownMenuTrigger>
@@ -482,8 +482,8 @@ export function SiteHeader() {
                   {isAuthenticated && (
                     <div className="mb-4 pb-4 border-b border-gray-100 dark:border-gray-800">
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="h-10 w-10 rounded-full bg-teal-100 dark:bg-teal-900/40 flex items-center justify-center">
-                          <User className="h-5 w-5 text-teal-600 dark:text-teal-400" />
+                        <div className="h-10 w-10 rounded-full bg-[#dcf0de] dark:bg-[#194520]/40 flex items-center justify-center">
+                          <User className="h-5 w-5 text-[#2c7338] dark:text-[#3d9a4d]" />
                         </div>
                         <div>
                           <p className="text-sm font-medium text-gray-900 dark:text-white">{user?.name || 'User'}</p>
@@ -510,10 +510,10 @@ export function SiteHeader() {
                       <ChevronRight className={cn('h-4 w-4 text-gray-400 transition-transform duration-200', productsOpen && 'rotate-90')} />
                     </button>
                     {productsOpen && (
-                      <div className="ml-3 space-y-1 border-l-2 border-teal-500/30 pl-3">
+                      <div className="ml-3 space-y-1 border-l-2 border-[#2c7338]/30 pl-3">
                         <Link href="/destinations" onClick={closeMobileMenu}>
                           <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
-                            <Globe className="h-4 w-4 text-teal-500" />
+                            <Globe className="h-4 w-4 text-[#2c7338]" />
                             {t('website.nav.localEsim', 'Local eSIMs')}
                           </span>
                         </Link>
@@ -542,7 +542,7 @@ export function SiteHeader() {
                       <ChevronRight className={cn('h-4 w-4 text-gray-400 transition-transform duration-200', resourcesOpen && 'rotate-90')} />
                     </button>
                     {resourcesOpen && (
-                      <div className="ml-3 space-y-1 border-l-2 border-teal-500/30 pl-3">
+                      <div className="ml-3 space-y-1 border-l-2 border-[#2c7338]/30 pl-3">
                         <Link href="/what-is-esim" onClick={closeMobileMenu}>
                           <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                             <Smartphone className="h-4 w-4" />
@@ -587,7 +587,7 @@ export function SiteHeader() {
                         <ChevronRight className={cn('h-4 w-4 text-gray-400 transition-transform duration-200', pagesOpen && 'rotate-90')} />
                       </button>
                       {pagesOpen && (
-                        <div className="ml-3 space-y-1 border-l-2 border-teal-500/30 pl-3">
+                        <div className="ml-3 space-y-1 border-l-2 border-[#2c7338]/30 pl-3">
                           {navlinks.data.map((page: any) => (
                             <Link key={page.id} href={`/pages/${page.slug}`} onClick={closeMobileMenu}>
                               <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
@@ -610,7 +610,7 @@ export function SiteHeader() {
                       <ChevronRight className={cn('h-4 w-4 text-gray-400 transition-transform duration-200', helpOpen && 'rotate-90')} />
                     </button>
                     {helpOpen && (
-                      <div className="ml-3 space-y-1 border-l-2 border-teal-500/30 pl-3">
+                      <div className="ml-3 space-y-1 border-l-2 border-[#2c7338]/30 pl-3">
                         <Link href="/faq" onClick={closeMobileMenu}>
                           <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                             <HelpCircle className="h-4 w-4" />
@@ -635,7 +635,7 @@ export function SiteHeader() {
 
                   <div className="pt-4">
                     <Link href="/destinations" onClick={closeMobileMenu}>
-                      <span className="flex items-center justify-center gap-2 w-full bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold py-3 px-4 rounded-full shadow-sm transition-all text-center">
+                      <span className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] hover:from-[#1e5427] hover:to-[#2c7338] text-white text-sm font-semibold py-3 px-4 rounded-full shadow-sm transition-all text-center">
                         <Search className="h-4 w-4" />
                         {t('website.nav.seePacks', 'Destinations')}
                       </span>
@@ -661,14 +661,14 @@ export function SiteHeader() {
                         </div>
                       </button>
                       {languageOpen && (
-                        <div className="ml-3 mt-2 space-y-1 border-l-2 border-teal-500/30 pl-3 max-h-60 overflow-y-auto">
+                        <div className="ml-3 mt-2 space-y-1 border-l-2 border-[#2c7338]/30 pl-3 max-h-60 overflow-y-auto">
                           {languages.map((lang) => (
                             <button
                               key={lang.code}
                               onClick={() => { setLanguage(lang.code); setLanguageOpen(false); }}
                               className={cn(
                                 'w-full flex items-center justify-between py-2 px-3 text-sm rounded-lg transition-all',
-                                languageCode === lang.code ? 'bg-teal-500 text-white' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                                languageCode === lang.code ? 'bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] text-white' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
                               )}
                             >
                               <div className="flex items-center gap-2">

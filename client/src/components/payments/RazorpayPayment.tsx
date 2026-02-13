@@ -21,7 +21,7 @@ export default function RazorpayPayment({
       amount,
       currency,
       order_id: orderId,
-      name: "eSIM Connect",
+      name: "Simfinity",
       description: "Order Payment",
       prefill: { email },
 

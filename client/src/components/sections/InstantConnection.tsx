@@ -22,12 +22,12 @@ export function InstantConnection() {
           <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-gray-900 dark:text-white leading-tight mb-4">
             {t('website.home.instant.title', 'Instant connection and safer browsing')}
             <br className="hidden sm:block" />
-            {' '}{t('website.home.instant.titleSuffix', 'with eSIMConnect')}
+            {' '}{t('website.home.instant.titleSuffix', 'with Simfinity')}
           </h2>
           <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto mb-6">
             {t(
               'website.home.instant.subtitle',
-              'Do you travel often, live abroad, or simply need reliable mobile data on the go? eSIMConnect makes it simple to stay connected, wherever life takes you.'
+              'Do you travel often, live abroad, or simply need reliable mobile data on the go? Simfinity makes it simple to stay connected, wherever life takes you.'
             )}
           </p>
           <Link href="/destinations">
@@ -52,18 +52,18 @@ export function InstantConnection() {
               <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-sm mb-6">
                 {t(
                   'website.home.instant.connect.description',
-                  'eSIMConnect is a hassle-free solution — just choose your data plan and get ready to travel! When you arrive at your destination, you can go online right away.'
+                  'Simfinity is a hassle-free solution — just choose your data plan and get ready to travel! When you arrive at your destination, you can go online right away.'
                 )}
               </p>
               <div className="inline-flex items-center gap-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm px-4 py-3">
-                <div className="w-8 h-8 bg-teal-50 dark:bg-teal-900/30 rounded-lg flex items-center justify-center">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <div className="w-8 h-8 bg-[#f0f9f1] dark:bg-[#194520]/30 rounded-lg flex items-center justify-center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2c7338" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="2" y="6" width="20" height="12" rx="2" />
                     <path d="M12 12h.01" />
                   </svg>
                 </div>
                 <span className="text-sm font-semibold text-gray-900 dark:text-white">eSIM #1</span>
-                <span className="text-xs text-teal-600 dark:text-teal-400 font-medium bg-teal-50 dark:bg-teal-900/30 px-2 py-0.5 rounded-full">
+                <span className="text-xs text-[#2c7338] dark:text-[#3d9a4d] font-medium bg-[#f0f9f1] dark:bg-[#194520]/30 px-2 py-0.5 rounded-full">
                   {t('website.home.instant.connect.installed', 'Installed')}
                 </span>
               </div>
@@ -110,7 +110,7 @@ export function InstantConnection() {
                       <span className="text-xs text-gray-400 ml-2">30 days</span>
                     </div>
                     {i === 0 && (
-                      <div className="w-6 h-6 bg-teal-500 rounded-full flex items-center justify-center">
+                      <div className="w-6 h-6 bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] rounded-full flex items-center justify-center">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                           <polyline points="20 6 9 17 4 12" />
                         </svg>
@@ -184,7 +184,7 @@ export function InstantConnection() {
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                 </div>
                 <div className="absolute bottom-4 right-0 translate-x-1 bg-white dark:bg-gray-800 rounded-xl shadow-lg px-4 py-2 flex items-center gap-2">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2c7338" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                   </svg>
                   <span className="text-xs font-medium text-gray-700 dark:text-gray-300">

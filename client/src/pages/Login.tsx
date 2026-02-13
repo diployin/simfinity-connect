@@ -485,7 +485,7 @@ export default function Login() {
           {/* Referral Banner */}
           {showReferralBanner && referralCode && (
             <Alert
-              className="mb-6 border-primary-light bg-teal-500/5 relative"
+              className="mb-6 border-primary-light bg-[#2c7338]/5 relative"
               data-testid="alert-referral-banner"
             >
               <Gift className="h-4 w-4 text-primary" />

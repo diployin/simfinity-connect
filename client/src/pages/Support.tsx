@@ -162,7 +162,7 @@ export default function UserSupportTickets() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'open':
-        return 'bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-400';
+        return 'bg-[#dcf0de] text-[#194520] dark:bg-[#194520]/30 dark:text-[#3d9a4d]';
       case 'in_progress':
         return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400';
       case 'resolved':
@@ -254,8 +254,8 @@ export default function UserSupportTickets() {
                     {tickets?.filter((t) => t.status === 'open').length || 0}
                   </h3>
                 </div>
-                <div className="w-12 h-12 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
-                  <AlertTriangle className="w-6 h-6 text-teal-600 dark:text-teal-400" />
+                <div className="w-12 h-12 rounded-full bg-[#dcf0de] dark:bg-[#194520]/30 flex items-center justify-center">
+                  <AlertTriangle className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
                 </div>
               </div>
             </CardContent>
@@ -300,8 +300,8 @@ export default function UserSupportTickets() {
                   <p className="text-sm font-medium text-muted-foreground">Total</p>
                   <h3 className="text-2xl font-bold mt-1">{tickets?.length || 0}</h3>
                 </div>
-                <div className="w-12 h-12 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
-                  <Headphones className="w-6 h-6 text-teal-600 dark:text-teal-400" />
+                <div className="w-12 h-12 rounded-full bg-[#dcf0de] dark:bg-[#194520]/30 flex items-center justify-center">
+                  <Headphones className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
                 </div>
               </div>
             </CardContent>

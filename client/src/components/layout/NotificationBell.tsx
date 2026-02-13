@@ -74,9 +74,9 @@ export function NotificationBell() {
       case "order":
         return "bg-green-100 dark:bg-green-900/30 text-green-600";
       case "esim":
-        return "bg-teal-100 dark:bg-teal-900/30 text-teal-600";
+        return "bg-[#dcf0de] dark:bg-[#194520]/30 text-[#1e5427]";
       case "promo":
-        return "bg-teal-100 dark:bg-teal-900/30 text-teal-600";
+        return "bg-[#dcf0de] dark:bg-[#194520]/30 text-[#1e5427]";
       case "welcome":
         return "bg-primary/10 text-primary";
       default:

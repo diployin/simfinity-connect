@@ -43,10 +43,10 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const defaultColors: ColorTheme = {
-  primary: '#14b8a6',
-  primarySecond: '#0d9488',
-  primaryLight: '#2dd4bf',
-  primaryDark: '#0f766e',
+  primary: '#2c7338',
+  primarySecond: '#1e5427',
+  primaryLight: '#3d9a4d',
+  primaryDark: '#194520',
 };
 
 const defaultFonts: FontTheme = {

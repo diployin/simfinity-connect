@@ -98,7 +98,7 @@ export function FAQWithSupport() {
           <Link href="/account/support">
             <Button
               variant="outline"
-              className="rounded-full border-teal-300 dark:border-teal-700 text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800"
+              className="rounded-full border-[#3d9a4d] dark:border-[#1e5427] text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800"
               data-testid="button-help-center"
             >
               {t('website.home.faq.support.button', 'Visit Help Center')}

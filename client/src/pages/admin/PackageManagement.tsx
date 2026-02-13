@@ -381,10 +381,10 @@ export default function PackageManagement() {
 
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-7">
-        <Card className="border-0 bg-gradient-to-br from-teal-50 to-indigo-50 dark:from-teal-950/30 dark:to-indigo-950/30 shadow-lg p-6">
+        <Card className="border-0 bg-gradient-to-br from-[#f0f9f1] to-indigo-50 dark:from-[#0a2e14]/30 dark:to-indigo-950/30 shadow-lg p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-teal-600 dark:text-teal-400">
+              <p className="text-sm font-medium text-[#1e5427] dark:text-[#3d9a4d]">
                 {t('admin.packages.stats.totalPackages', 'Total Packages')}
               </p>
               <h3
@@ -396,7 +396,7 @@ export default function PackageManagement() {
             </div>
           </div>
         </Card>
-        <Card className="border-0 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/30 dark:to-teal-950/30 shadow-lg p-6">
+        <Card className="border-0 bg-gradient-to-br from-emerald-50 to-[#f0f9f1] dark:from-emerald-950/30 dark:to-[#0a2e14]/30 shadow-lg p-6">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-emerald-600 dark:text-emerald-400">
@@ -411,10 +411,10 @@ export default function PackageManagement() {
             </div>
           </div>
         </Card>
-        <Card className="border-0 bg-gradient-to-br from-teal-50 to-teal-50 dark:from-violet-950/30 dark:to-purple-950/30 shadow-lg p-6">
+        <Card className="border-0 bg-gradient-to-br from-[#f0f9f1] to-[#f0f9f1] dark:from-violet-950/30 dark:to-purple-950/30 shadow-lg p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-teal-600 dark:text-teal-400">
+              <p className="text-sm font-medium text-[#1e5427] dark:text-[#3d9a4d]">
                 {t('admin.packages.stats.regions', 'Regions')}
               </p>
               <h3
@@ -691,7 +691,7 @@ export default function PackageManagement() {
                                 : pkg.dataAmount
                             }
                           >
-                            <Database className="h-4 w-4 text-teal-500" />
+                            <Database className="h-4 w-4 text-[#2c7338]" />
                             <span className="text-xs">
                               {pkg.isUnlimited ? '∞' : pkg.dataAmount}
                             </span>
@@ -714,7 +714,7 @@ export default function PackageManagement() {
                                 count: pkg.smsCredits,
                               })}
                             >
-                              <MessageSquare className="h-4 w-4 text-teal-500" />
+                              <MessageSquare className="h-4 w-4 text-[#2c7338]" />
                               <span className="text-xs">{pkg.smsCredits} SMS</span>
                             </div>
                           )}

@@ -2236,7 +2236,7 @@ const apiCategories: ApiCategory[] = [
 
 const methodColors: Record<HttpMethod, string> = {
   GET: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400',
-  POST: 'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400',
+  POST: 'bg-[#dcf0de] text-[#1e5427] dark:bg-[#194520]/30 dark:text-[#3d9a4d]',
   PUT: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
   PATCH: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400',
   DELETE: 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400',
@@ -2249,7 +2249,7 @@ const authBadges = {
   },
   user: {
     label: 'Auth Required',
-    className: 'bg-teal-100 text-teal-700 dark:bg-teal-900/30 dark:text-teal-400',
+    className: 'bg-[#dcf0de] text-[#1e5427] dark:bg-[#194520]/30 dark:text-[#3d9a4d]',
   },
   admin: {
     label: 'Admin Only',
@@ -2751,20 +2751,20 @@ data = response.json()`}
           </div>
 
           {/* Smart Failover Note */}
-          <div className="bg-gradient-to-r from-teal-50 to-indigo-50 dark:from-teal-950/30 dark:to-indigo-950/30 border border-teal-200 dark:border-teal-800 rounded-lg p-4">
+          <div className="bg-gradient-to-r from-[#f0f9f1] to-indigo-50 dark:from-[#0a2e14]/30 dark:to-indigo-950/30 border border-[#dcf0de] dark:border-[#194520] rounded-lg p-4">
             <div className="flex items-start gap-3">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-100 dark:bg-teal-900/50 shrink-0">
-                <Zap className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#dcf0de] dark:bg-[#194520]/50 shrink-0">
+                <Zap className="h-4 w-4 text-[#1e5427] dark:text-[#3d9a4d]" />
               </div>
               <div>
-                <h4 className="font-semibold text-teal-700 dark:text-teal-400">
+                <h4 className="font-semibold text-[#1e5427] dark:text-[#3d9a4d]">
                   Smart Failover Enabled
                 </h4>
-                <p className="text-sm text-teal-600/80 dark:text-teal-400/80 mt-1">
+                <p className="text-sm text-[#1e5427]/80 dark:text-[#3d9a4d]/80 mt-1">
                   All orders placed through the Partner API automatically use smart failover. If the
                   primary provider fails, the system will try backup providers to ensure your order
                   is completed. Check the{' '}
-                  <code className="bg-teal-100 dark:bg-teal-900/50 px-1 rounded">failoverUsed</code>{' '}
+                  <code className="bg-[#dcf0de] dark:bg-[#194520]/50 px-1 rounded">failoverUsed</code>{' '}
                   field in the response to see if a backup provider was used.
                 </p>
               </div>
@@ -2919,7 +2919,7 @@ data = response.json()`}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Book className="h-5 w-5 text-teal-600" />
+            <Book className="h-5 w-5 text-[#1e5427]" />
             Response Format & Status Codes
           </CardTitle>
         </CardHeader>
@@ -2942,8 +2942,8 @@ data = response.json()`}
                 <Badge className="bg-emerald-500">200</Badge>
                 <span className="text-sm">OK - Request succeeded</span>
               </div>
-              <div className="flex items-center gap-3 p-3 bg-teal-50 dark:bg-teal-900/20 rounded-lg">
-                <Badge className="bg-teal-500">201</Badge>
+              <div className="flex items-center gap-3 p-3 bg-[#f0f9f1] dark:bg-[#194520]/20 rounded-lg">
+                <Badge className="bg-[#2c7338]">201</Badge>
                 <span className="text-sm">Created - Resource created successfully</span>
               </div>
               <div className="flex items-center gap-3 p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
@@ -2958,8 +2958,8 @@ data = response.json()`}
                 <Badge className="bg-red-500">403</Badge>
                 <span className="text-sm">Forbidden - Access denied</span>
               </div>
-              <div className="flex items-center gap-3 p-3 bg-teal-50 dark:bg-teal-900/20 rounded-lg">
-                <Badge className="bg-teal-500">404</Badge>
+              <div className="flex items-center gap-3 p-3 bg-[#f0f9f1] dark:bg-[#194520]/20 rounded-lg">
+                <Badge className="bg-[#2c7338]">404</Badge>
                 <span className="text-sm">Not Found - Resource does not exist</span>
               </div>
               <div className="flex items-center gap-3 p-3 bg-slate-100 dark:bg-slate-800 rounded-lg">

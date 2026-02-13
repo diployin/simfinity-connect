@@ -10,7 +10,7 @@ const features = [
 
 export function FeatureStrip() {
   return (
-    <div className="w-full overflow-hidden bg-gradient-to-r from-primary/5 via-teal-500/5 to-primary/5 py-4 border-y border-border/50">
+    <div className="w-full overflow-hidden bg-gradient-to-r from-primary/5 via-[#2c7338]/5 to-primary/5 py-4 border-y border-border/50">
       <div className="flex animate-marquee whitespace-nowrap">
         {[...features, ...features, ...features].map((feature, index) => (
           <div

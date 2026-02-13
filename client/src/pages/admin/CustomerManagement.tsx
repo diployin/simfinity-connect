@@ -307,12 +307,12 @@ export default function CustomerManagement() {
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-3">
         <Card
-          className="border-0 bg-gradient-to-br from-teal-50 to-indigo-50 dark:from-teal-950/30 dark:to-indigo-950/30 shadow-lg p-6"
+          className="border-0 bg-gradient-to-br from-[#f0f9f1] to-indigo-50 dark:from-[#0a2e14]/30 dark:to-indigo-950/30 shadow-lg p-6"
           data-testid="card-total-customers-stat"
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-teal-600 dark:text-teal-400">
+              <p className="text-sm font-medium text-[#1e5427] dark:text-[#3d9a4d]">
                 {t('admin.customers.totalCustomers', 'Total Customers')}
               </p>
               <h3
@@ -465,7 +465,7 @@ export default function CustomerManagement() {
                 <TableRow>
                   <TableCell colSpan={7} className="h-64 text-center">
                     <div className="flex flex-col items-center justify-center gap-2">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600"></div>
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1e5427]"></div>
                       <p className="text-sm text-slate-600 dark:text-slate-400">
                         {t('admin.customers.loadingCustomers', 'Loading customers...')}
                       </p>
@@ -830,7 +830,7 @@ export default function CustomerManagement() {
                   <div className="grid grid-cols-3 gap-3 pt-4">
                     <Card className="p-4">
                       <div className="flex items-center gap-2 mb-2">
-                        <Package className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+                        <Package className="h-4 w-4 text-[#1e5427] dark:text-[#3d9a4d]" />
                         <p className="text-xs font-medium text-slate-600 dark:text-slate-400">
                           Total eSIMs
                         </p>
@@ -943,7 +943,7 @@ export default function CustomerManagement() {
                                     order.status === 'completed'
                                       ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
                                       : order.status === 'processing'
-                                        ? 'bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-400'
+                                        ? 'bg-[#dcf0de] text-[#194520] dark:bg-[#194520]/30 dark:text-[#3d9a4d]'
                                         : order.status === 'failed'
                                           ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400'
                                           : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
@@ -973,8 +973,8 @@ export default function CustomerManagement() {
                   <ScrollArea className="h-[400px] pr-4">
                     <div className="space-y-3">
                       <div className="flex gap-3" data-testid="activity-account-created">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-teal-100 dark:bg-teal-900/30">
-                          <UserCircle className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#dcf0de] dark:bg-[#194520]/30">
+                          <UserCircle className="h-4 w-4 text-[#1e5427] dark:text-[#3d9a4d]" />
                         </div>
                         <div className="flex-1">
                           <p className="text-sm font-medium">Account Created</p>
@@ -1022,8 +1022,8 @@ export default function CustomerManagement() {
                             className="flex gap-3"
                             data-testid={`activity-order-${order.id}`}
                           >
-                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-teal-100 dark:bg-teal-900/30">
-                              <Package className="h-4 w-4 text-teal-600 dark:text-teal-400" />
+                            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#dcf0de] dark:bg-[#194520]/30">
+                              <Package className="h-4 w-4 text-[#1e5427] dark:text-[#3d9a4d]" />
                             </div>
 
                             <div className="flex-1">

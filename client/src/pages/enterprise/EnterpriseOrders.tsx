@@ -157,7 +157,7 @@ export default function EnterpriseOrders() {
                     <CardTitle className="text-sm">Processing</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-teal-600">{orderDetails.processingCount}</div>
+                    <div className="text-2xl font-bold text-[#1e5427]">{orderDetails.processingCount}</div>
                   </CardContent>
                 </Card>
               </div>

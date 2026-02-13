@@ -241,7 +241,7 @@ function PaymentForm({
       <Button
         type="submit"
         disabled={!stripe || isProcessing}
-        className="w-full bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white py-6 text-lg"
+        className="w-full bg-gradient-to-r from-[#2c7338] to-[#1e5427] hover:from-[#1e5427] hover:to-[#194520] text-white py-6 text-lg"
         data-testid="button-pay"
       >
         {isProcessing ? (
@@ -479,7 +479,7 @@ export default function GuestCheckout() {
         {/* <SiteHeader /> */}
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
-            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-teal-500 border-r-transparent"></div>
+            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#2c7338] border-r-transparent"></div>
             <p className="mt-4 text-muted-foreground">Loading...</p>
           </div>
         </div>
@@ -607,11 +607,11 @@ export default function GuestCheckout() {
                                 <div className="space-y-1 leading-none">
                                   <FormLabel className="text-sm font-normal cursor-pointer">
                                     I agree to the{' '}
-                                    <Link href="/terms-and-condition" className="text-teal-600 hover:underline">
+                                    <Link href="/terms-and-condition" className="text-[#1e5427] hover:underline">
                                       Terms of Service
                                     </Link>{' '}
                                     and{' '}
-                                    <Link href="/privacy-policy" className="text-teal-600 hover:underline">
+                                    <Link href="/privacy-policy" className="text-[#1e5427] hover:underline">
                                       Privacy Policy
                                     </Link>
                                   </FormLabel>
@@ -624,7 +624,7 @@ export default function GuestCheckout() {
                           <Button
                             type="submit"
                             disabled={createPaymentIntent.isPending}
-                            className="w-full bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white"
+                            className="w-full bg-gradient-to-r from-[#2c7338] to-[#1e5427] hover:from-[#1e5427] hover:to-[#194520] text-white"
                             data-testid="button-continue"
                           >
                             {createPaymentIntent.isPending ? (

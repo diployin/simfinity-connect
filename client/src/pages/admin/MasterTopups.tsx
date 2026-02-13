@@ -177,11 +177,11 @@ export default function MasterTopups() {
   const getProviderBadgeColor = (provider: string) => {
     switch (provider) {
       case 'airalo':
-        return 'bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200';
+        return 'bg-[#dcf0de] text-[#194520] dark:bg-[#194520] dark:text-[#c8e6c9]';
       case 'esim-access':
         return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
       case 'esim-go':
-        return 'bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200';
+        return 'bg-[#dcf0de] text-[#194520] dark:bg-[#194520] dark:text-[#c8e6c9]';
       case 'maya':
         return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
       default:
@@ -217,7 +217,7 @@ export default function MasterTopups() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-slate-500 flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-teal-500" />
+              <div className="w-3 h-3 rounded-full bg-[#2c7338]" />
               Airalo Topups
             </CardTitle>
           </CardHeader>
@@ -241,7 +241,7 @@ export default function MasterTopups() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-slate-500 flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-teal-500" />
+              <div className="w-3 h-3 rounded-full bg-[#2c7338]" />
               eSIM Go Topups
             </CardTitle>
           </CardHeader>
@@ -282,7 +282,7 @@ export default function MasterTopups() {
                 data-testid="card-sync-airalo"
               >
                 <div className="flex items-center gap-3">
-                  <Server className="h-5 w-5 text-teal-500" />
+                  <Server className="h-5 w-5 text-[#2c7338]" />
                   <div>
                     <p className="font-medium">Airalo Topups</p>
                     <p className="text-xs text-slate-500">
@@ -345,7 +345,7 @@ export default function MasterTopups() {
                 data-testid="card-sync-esim-go"
               >
                 <div className="flex items-center gap-3">
-                  <Server className="h-5 w-5 text-teal-500" />
+                  <Server className="h-5 w-5 text-[#2c7338]" />
                   <div>
                     <span className="font-medium flex items-center gap-2">
                       eSIM Go Topups

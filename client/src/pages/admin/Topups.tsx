@@ -25,7 +25,7 @@ import { useTranslation } from '@/contexts/TranslationContext';
 
 const statusStyles: Record<string, string> = {
   pending: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400',
-  processing: 'bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-400',
+  processing: 'bg-[#dcf0de] text-[#194520] dark:bg-[#194520]/30 dark:text-[#3d9a4d]',
   completed: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
   failed: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
 };
@@ -180,7 +180,7 @@ export default function AdminTopupsPage() {
                 {filteredTopups?.length || 0}
               </p>
             </div>
-            <Plus className="h-8 w-8 text-teal-600 opacity-75" />
+            <Plus className="h-8 w-8 text-[#1e5427] opacity-75" />
           </div>
         </Card>
 
@@ -305,7 +305,7 @@ export default function AdminTopupsPage() {
                 <TableRow>
                   <TableCell colSpan={10} className="h-64 text-center">
                     <div className="flex flex-col items-center justify-center gap-2">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600"></div>
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1e5427]"></div>
                       <p className="text-sm text-slate-600 dark:text-slate-400">
                         {t('admin.topups.loadingTopups', 'Loading top-ups...')}
                       </p>

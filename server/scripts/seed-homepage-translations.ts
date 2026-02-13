@@ -37,7 +37,7 @@ const homepageKeys: Record<string, string> = {
   'home.faq.q3.question': 'Can I use my physical SIM and eSIM together?',
   'home.faq.q3.answer':
     'Yes. You can keep your regular SIM for calls and SMS while using your eSIM for data during international travel.',
-  'home.faq.q4.question': 'Where does eSIMConnect work?',
+  'home.faq.q4.question': 'Where does Simfinity work?',
   'home.faq.q4.answer':
     'Our data plans cover over 200 destinations across Europe, Asia, the Americas, and more — giving you high-speed internet without roaming fees.',
   'home.faq.q5.question': 'Can I top up or reuse my plan?',
@@ -45,23 +45,23 @@ const homepageKeys: Record<string, string> = {
     'Yes. Some plans let you add more data or extend your validity directly from your account dashboard, so you can stay connected without buying a new QR code.',
 
   // TravelerTestimonials
-  'home.testimonials.title': 'What travelers say about eSIMConnect',
+  'home.testimonials.title': 'What travelers say about Simfinity',
   'home.testimonials.viewAll': 'View all destinations',
   'home.testimonials.t1':
-    'I used eSIMConnect during my trip to Japan and it worked perfectly from the moment I landed. Setup took less than two minutes and the data speed was amazing!',
+    'I used Simfinity during my trip to Japan and it worked perfectly from the moment I landed. Setup took less than two minutes and the data speed was amazing!',
   'home.testimonials.t2':
     'Super easy to install and no roaming fees. I stayed connected through my entire Europe trip without switching SIM cards. Totally worth it!',
   'home.testimonials.t3':
     'I bought my plan online before traveling to Thailand. The QR code arrived instantly, and the connection was fast everywhere I went — beaches, cities, even remote areas.',
   'home.testimonials.t4':
-    'I was surprised how smooth everything was. eSIMConnect saved me from buying local SIMs and hunting for Wi-Fi. Great coverage and fair pricing.',
+    'I was surprised how smooth everything was. Simfinity saved me from buying local SIMs and hunting for Wi-Fi. Great coverage and fair pricing.',
   'home.testimonials.t5':
-    "I've tried other eSIMs before, but eSIMConnect was by far the easiest to activate. Customer support helped me within minutes when I had a question.",
+    "I've tried other eSIMs before, but Simfinity was by far the easiest to activate. Customer support helped me within minutes when I had a question.",
   'home.testimonials.t6':
     "I used it across France, Belgium, and Italy with one single plan. The signal was strong, and I didn't have to worry about extra charges.",
 
   // HowItWorksSteps
-  'home.howItWorks.title': 'How does eSIMConnect work',
+  'home.howItWorks.title': 'How does Simfinity work',
   'home.howItWorks.cta': 'Get started now',
   'home.howItWorks.step1.label': 'Step 1',
   'home.howItWorks.step1.title': 'Choose a data plan for your trip',
@@ -158,14 +158,14 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.faq.q3.question': 'هل يمكنني استخدام شريحتي الفعلية وeSIM معاً؟',
     'home.faq.q3.answer':
       'نعم. يمكنك الاحتفاظ بشريحتك العادية للمكالمات والرسائل القصيرة واستخدام eSIM للبيانات أثناء السفر.',
-    'home.faq.q4.question': 'أين تعمل eSIMConnect؟',
+    'home.faq.q4.question': 'أين تعمل Simfinity؟',
     'home.faq.q4.answer': 'تغطي خططنا أكثر من 200 وجهة في أوروبا وآسيا والأمريكتين والمزيد.',
     'home.faq.q5.question': 'هل يمكنني إعادة شحن أو إعادة استخدام خطتي؟',
     'home.faq.q5.answer':
       'نعم. تسمح بعض الخطط بإضافة المزيد من البيانات أو تمديد الصلاحية من لوحة حسابك.',
-    'home.testimonials.title': 'ماذا يقول المسافرون عن eSIMConnect',
+    'home.testimonials.title': 'ماذا يقول المسافرون عن Simfinity',
     'home.testimonials.viewAll': 'عرض جميع الوجهات',
-    'home.howItWorks.title': 'كيف تعمل eSIMConnect',
+    'home.howItWorks.title': 'كيف تعمل Simfinity',
     'home.howItWorks.cta': 'ابدأ الآن',
     'home.howItWorks.step1.label': 'الخطوة 1',
     'home.howItWorks.step1.title': 'اختر خطة بيانات لرحلتك',
@@ -243,7 +243,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.faq.support.description':
       'Finden Sie nicht, was Sie suchen? Unser Support-Team ist rund um die Uhr per E-Mail oder Chat erreichbar.',
     'home.faq.support.button': 'Hilfe-Center besuchen',
-    'home.howItWorks.title': 'So funktioniert eSIMConnect',
+    'home.howItWorks.title': 'So funktioniert Simfinity',
     'home.howItWorks.cta': 'Jetzt starten',
     'home.howItWorks.step1.label': 'Schritt 1',
     'home.howItWorks.step1.title': 'Wählen Sie einen Datentarif für Ihre Reise',
@@ -298,7 +298,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.popular.noPackages': 'Derzeit keine beliebten Pakete verfügbar.',
     'home.popular.browseAll': 'Alle Reiseziele durchsuchen',
     'home.popular.unlimited': 'UNBEGRENZT',
-    'home.testimonials.title': 'Was Reisende über eSIMConnect sagen',
+    'home.testimonials.title': 'Was Reisende über Simfinity sagen',
     'home.testimonials.viewAll': 'Alle Reiseziele ansehen',
   },
   es: {
@@ -316,7 +316,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.faq.support.description':
       '¿No encuentras lo que buscas? Nuestro equipo de soporte está disponible 24/7 por correo o chat.',
     'home.faq.support.button': 'Visitar Centro de Ayuda',
-    'home.howItWorks.title': 'Cómo funciona eSIMConnect',
+    'home.howItWorks.title': 'Cómo funciona Simfinity',
     'home.howItWorks.cta': 'Comenzar ahora',
     'home.howItWorks.step1.label': 'Paso 1',
     'home.howItWorks.step1.title': 'Elige un plan de datos para tu viaje',
@@ -350,7 +350,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.popular.viewDetails': 'Ver detalles del plan',
     'home.popular.getPlan': 'Obtener plan',
     'home.popular.unlimited': 'ILIMITADO',
-    'home.testimonials.title': 'Lo que dicen los viajeros sobre eSIMConnect',
+    'home.testimonials.title': 'Lo que dicen los viajeros sobre Simfinity',
     'home.testimonials.viewAll': 'Ver todos los destinos',
   },
   fr: {
@@ -370,7 +370,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.faq.support.description':
       'Vous ne trouvez pas ce que vous cherchez ? Notre équipe support est disponible 24/7 par email ou chat.',
     'home.faq.support.button': "Visiter le Centre d'aide",
-    'home.howItWorks.title': 'Comment fonctionne eSIMConnect',
+    'home.howItWorks.title': 'Comment fonctionne Simfinity',
     'home.howItWorks.cta': 'Commencer maintenant',
     'home.howItWorks.step1.label': 'Étape 1',
     'home.howItWorks.step1.title': 'Choisissez un forfait data pour votre voyage',
@@ -404,7 +404,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.popular.viewDetails': 'Voir les détails du forfait',
     'home.popular.getPlan': 'Obtenir le forfait',
     'home.popular.unlimited': 'ILLIMITÉ',
-    'home.testimonials.title': 'Ce que disent les voyageurs sur eSIMConnect',
+    'home.testimonials.title': 'Ce que disent les voyageurs sur Simfinity',
     'home.testimonials.viewAll': 'Voir toutes les destinations',
   },
   hi: {
@@ -416,7 +416,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.features.keepSim.description': 'कॉल और टेक्स्ट के लिए अपना लोकल सिम रखें।',
     'home.features.quickSetup.title': 'त्वरित eSIM सेटअप',
     'home.features.quickSetup.description': 'ऑनलाइन एक्टिवेट करें और मिनटों में कनेक्ट करें।',
-    'home.howItWorks.title': 'eSIMConnect कैसे काम करता है',
+    'home.howItWorks.title': 'Simfinity कैसे काम करता है',
     'home.howItWorks.cta': 'अभी शुरू करें',
     'home.benefits.title': 'eSIM के क्या फायदे हैं',
     'home.benefits.cta': 'सभी गंतव्य देखें',
@@ -430,7 +430,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.popular.days': 'दिन',
     'home.popular.perDay': 'प्रति दिन',
     'home.popular.unlimited': 'असीमित',
-    'home.testimonials.title': 'eSIMConnect के बारे में यात्री क्या कहते हैं',
+    'home.testimonials.title': 'Simfinity के बारे में यात्री क्या कहते हैं',
     'home.testimonials.viewAll': 'सभी गंतव्य देखें',
   },
   it: {
@@ -442,7 +442,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.features.keepSim.description': 'Mantieni la tua SIM locale per chiamate e SMS.',
     'home.features.quickSetup.title': 'Configurazione eSIM veloce',
     'home.features.quickSetup.description': 'Attiva online e connettiti in pochi minuti.',
-    'home.howItWorks.title': 'Come funziona eSIMConnect',
+    'home.howItWorks.title': 'Come funziona Simfinity',
     'home.howItWorks.cta': 'Inizia ora',
     'home.benefits.title': "Quali sono i vantaggi dell'eSIM",
     'home.benefits.cta': 'Vedi tutte le destinazioni',
@@ -456,7 +456,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.popular.days': 'Giorni',
     'home.popular.perDay': 'al giorno',
     'home.popular.unlimited': 'ILLIMITATO',
-    'home.testimonials.title': 'Cosa dicono i viaggiatori di eSIMConnect',
+    'home.testimonials.title': 'Cosa dicono i viaggiatori di Simfinity',
     'home.testimonials.viewAll': 'Vedi tutte le destinazioni',
   },
   ja: {
@@ -468,7 +468,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.features.keepSim.description': '通話やテキスト用のローカルSIMを保持。',
     'home.features.quickSetup.title': 'クイックeSIMセットアップ',
     'home.features.quickSetup.description': 'オンラインでアクティベートし、数分で接続。',
-    'home.howItWorks.title': 'eSIMConnectの仕組み',
+    'home.howItWorks.title': 'Simfinityの仕組み',
     'home.howItWorks.cta': '今すぐ始める',
     'home.benefits.title': 'eSIMのメリット',
     'home.benefits.cta': 'すべての目的地を見る',
@@ -482,7 +482,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.popular.days': '日',
     'home.popular.perDay': '1日あたり',
     'home.popular.unlimited': '無制限',
-    'home.testimonials.title': '旅行者がeSIMConnectについて言うこと',
+    'home.testimonials.title': '旅行者がSimfinityについて言うこと',
     'home.testimonials.viewAll': 'すべての目的地を見る',
   },
   pl: {
@@ -495,7 +495,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.features.keepSim.description': 'Zachowaj lokalną kartę SIM do połączeń i SMS-ów.',
     'home.features.quickSetup.title': 'Szybka konfiguracja eSIM',
     'home.features.quickSetup.description': 'Aktywuj online i połącz się w kilka minut.',
-    'home.howItWorks.title': 'Jak działa eSIMConnect',
+    'home.howItWorks.title': 'Jak działa Simfinity',
     'home.howItWorks.cta': 'Zacznij teraz',
     'home.benefits.title': 'Jakie są korzyści z eSIM',
     'home.benefits.cta': 'Zobacz wszystkie destynacje',
@@ -509,7 +509,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.popular.days': 'Dni',
     'home.popular.perDay': 'dziennie',
     'home.popular.unlimited': 'BEZ LIMITU',
-    'home.testimonials.title': 'Co mówią podróżnicy o eSIMConnect',
+    'home.testimonials.title': 'Co mówią podróżnicy o Simfinity',
     'home.testimonials.viewAll': 'Zobacz wszystkie destynacje',
   },
   pt: {
@@ -521,7 +521,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.features.keepSim.description': 'Mantenha seu SIM local para chamadas e mensagens.',
     'home.features.quickSetup.title': 'Configuração rápida do eSIM',
     'home.features.quickSetup.description': 'Ative online e conecte-se em minutos.',
-    'home.howItWorks.title': 'Como funciona o eSIMConnect',
+    'home.howItWorks.title': 'Como funciona o Simfinity',
     'home.howItWorks.cta': 'Começar agora',
     'home.benefits.title': 'Quais são os benefícios do eSIM',
     'home.benefits.cta': 'Ver todos os destinos',
@@ -535,7 +535,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.popular.days': 'Dias',
     'home.popular.perDay': 'por dia',
     'home.popular.unlimited': 'ILIMITADO',
-    'home.testimonials.title': 'O que os viajantes dizem sobre o eSIMConnect',
+    'home.testimonials.title': 'O que os viajantes dizem sobre o Simfinity',
     'home.testimonials.viewAll': 'Ver todos os destinos',
   },
   sv: {
@@ -547,7 +547,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.features.keepSim.description': 'Behåll ditt lokala SIM för samtal och SMS.',
     'home.features.quickSetup.title': 'Snabb eSIM-installation',
     'home.features.quickSetup.description': 'Aktivera online och anslut på några minuter.',
-    'home.howItWorks.title': 'Så fungerar eSIMConnect',
+    'home.howItWorks.title': 'Så fungerar Simfinity',
     'home.howItWorks.cta': 'Kom igång nu',
     'home.benefits.title': 'Vilka är fördelarna med eSIM',
     'home.benefits.cta': 'Se alla destinationer',
@@ -561,7 +561,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.popular.days': 'Dagar',
     'home.popular.perDay': 'per dag',
     'home.popular.unlimited': 'OBEGRÄNSAD',
-    'home.testimonials.title': 'Vad resenärer säger om eSIMConnect',
+    'home.testimonials.title': 'Vad resenärer säger om Simfinity',
     'home.testimonials.viewAll': 'Se alla destinationer',
   },
   zh: {
@@ -573,7 +573,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.features.keepSim.description': '保留本地SIM卡用于通话和短信。',
     'home.features.quickSetup.title': '快速eSIM设置',
     'home.features.quickSetup.description': '在线激活，几分钟内连接。',
-    'home.howItWorks.title': 'eSIMConnect如何工作',
+    'home.howItWorks.title': 'Simfinity如何工作',
     'home.howItWorks.cta': '立即开始',
     'home.benefits.title': 'eSIM有什么好处',
     'home.benefits.cta': '查看所有目的地',
@@ -587,7 +587,7 @@ const languageTranslations: Record<string, Record<string, string>> = {
     'home.popular.days': '天',
     'home.popular.perDay': '每天',
     'home.popular.unlimited': '无限',
-    'home.testimonials.title': '旅行者对eSIMConnect的评价',
+    'home.testimonials.title': '旅行者对Simfinity的评价',
     'home.testimonials.viewAll': '查看所有目的地',
   },
 };

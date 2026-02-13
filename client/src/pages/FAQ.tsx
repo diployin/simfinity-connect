@@ -12,10 +12,10 @@ export default function FAQ() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>FAQ - Frequently Asked Questions | eSIM Connect</title>
+        <title>FAQ - Frequently Asked Questions | Simfinity</title>
         <meta
           name="description"
-          content="Find answers to common questions about eSIM Connect. Learn about eSIM technology, installation, compatibility, and troubleshooting."
+          content="Find answers to common questions about Simfinity. Learn about eSIM technology, installation, compatibility, and troubleshooting."
         />
       </Helmet>
 
@@ -28,7 +28,7 @@ export default function FAQ() {
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Frequently Asked Questions</h1>
             <p className="text-lg text-muted-foreground mb-8">
-              Find answers to common questions about eSIM Connect
+              Find answers to common questions about Simfinity
             </p>
 
             {/* Search Bar */}

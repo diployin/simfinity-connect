@@ -265,7 +265,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
         {/* Sidebar Header */}
         <div className="flex h-16 items-center justify-between px-6 border-b border-slate-200 dark:border-slate-800 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-dark shadow-lg shadow-teal-500/50">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-dark shadow-lg shadow-[#2c7338]/50">
               <LayoutDashboard className="h-5 w-5 text-white" />
             </div>
             <div>
@@ -297,7 +297,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
                     className={cn(
                       'w-full flex items-center justify-between gap-3 px-4 py-2 text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors',
                       isGroupActive
-                        ? 'text-teal-600 dark:text-teal-400'
+                        ? 'text-[#1e5427] dark:text-[#3d9a4d]'
                         : 'text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-400',
                     )}
                     data-testid={`group-${entry.groupName.toLowerCase().replace(/\s+/g, '-')}`}
@@ -323,7 +323,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
                               className={cn(
                                 'group flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-all duration-200 cursor-pointer',
                                 isActive
-                                  ? 'bg-gradient-to-r from-primary to-primary-dark text-white shadow-lg shadow-teal-500/30'
+                                  ? 'bg-gradient-to-r from-primary to-primary-dark text-white shadow-lg shadow-[#2c7338]/30'
                                   : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800',
                               )}
                               data-testid={`link-${item.name.toLowerCase().replace(/\s+/g, '-')}`}
@@ -354,7 +354,7 @@ export function AdminLayout({ children }: { children: React.ReactNode }) {
                   className={cn(
                     'group flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 cursor-pointer',
                     isActive
-                      ? 'bg-gradient-to-r from-primary to-primary-dark text-white shadow-lg shadow-teal-500/30'
+                      ? 'bg-gradient-to-r from-primary to-primary-dark text-white shadow-lg shadow-[#2c7338]/30'
                       : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800',
                   )}
                   data-testid={`link-${entry.name.toLowerCase().replace(/\s+/g, '-')}`}

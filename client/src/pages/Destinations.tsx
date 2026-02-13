@@ -90,7 +90,7 @@ export default function Destinations() {
       <Helmet>
         <title>
           {String(
-            t('destinations.title', 'Browse eSIM Destinations - 190+ Countries | eSIM Connect'),
+            t('destinations.title', 'Browse eSIM Destinations - 190+ Countries | Simfinity'),
           )}
         </title>
         <meta
@@ -110,7 +110,7 @@ export default function Destinations() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Header Section */}
           <div className="text-center mb-10">
-            <Badge className="mb-4 bg-teal-600 hover:bg-teal-700 text-white px-4 py-1.5 rounded-full">
+            <Badge className="mb-4 bg-[#1e5427] hover:bg-[#1e5427] text-white px-4 py-1.5 rounded-full">
               <Globe className="h-3.5 w-3.5 mr-1.5" />
               {t('destinations.globalCoverage', 'Global Coverage')}
             </Badge>
@@ -135,7 +135,7 @@ export default function Destinations() {
                 onClick={() => setActiveTab('all')}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   activeTab === 'all'
-                    ? 'bg-teal-600 text-white'
+                    ? 'bg-[#1e5427] text-white'
                     : 'bg-muted text-muted-foreground hover:bg-muted/80'
                 }`}
                 data-testid="tab-all"
@@ -147,7 +147,7 @@ export default function Destinations() {
                 onClick={() => setActiveTab('countries')}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   activeTab === 'countries'
-                    ? 'bg-teal-600 text-white'
+                    ? 'bg-[#1e5427] text-white'
                     : 'bg-muted text-muted-foreground hover:bg-muted/80'
                 }`}
                 data-testid="tab-countries"
@@ -159,7 +159,7 @@ export default function Destinations() {
                 onClick={() => setActiveTab('regions')}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   activeTab === 'regions'
-                    ? 'bg-teal-600 text-white'
+                    ? 'bg-[#1e5427] text-white'
                     : 'bg-muted text-muted-foreground hover:bg-muted/80'
                 }`}
                 data-testid="tab-regions"
@@ -171,7 +171,7 @@ export default function Destinations() {
                 onClick={() => setActiveTab('global')}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                   activeTab === 'global'
-                    ? 'bg-teal-600 text-white'
+                    ? 'bg-[#1e5427] text-white'
                     : 'bg-muted text-muted-foreground hover:bg-muted/80'
                 }`}
                 data-testid="tab-global"
@@ -188,7 +188,7 @@ export default function Destinations() {
                     onClick={() => setActiveTab('all')}
                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
                       activeTab === 'all'
-                        ? 'bg-teal-600 text-white'
+                        ? 'bg-[#1e5427] text-white'
                         : 'bg-muted text-muted-foreground hover:bg-muted/80'
                     }`}
                     data-testid="tab-all"
@@ -200,7 +200,7 @@ export default function Destinations() {
                     onClick={() => setActiveTab('countries')}
                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
                       activeTab === 'countries'
-                        ? 'bg-teal-600 text-white'
+                        ? 'bg-[#1e5427] text-white'
                         : 'bg-muted text-muted-foreground hover:bg-muted/80'
                     }`}
                     data-testid="tab-countries"
@@ -212,7 +212,7 @@ export default function Destinations() {
                     onClick={() => setActiveTab('regions')}
                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
                       activeTab === 'regions'
-                        ? 'bg-teal-600 text-white'
+                        ? 'bg-[#1e5427] text-white'
                         : 'bg-muted text-muted-foreground hover:bg-muted/80'
                     }`}
                     data-testid="tab-regions"
@@ -224,7 +224,7 @@ export default function Destinations() {
                     onClick={() => setActiveTab('global')}
                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
                       activeTab === 'global'
-                        ? 'bg-teal-600 text-white'
+                        ? 'bg-[#1e5427] text-white'
                         : 'bg-muted text-muted-foreground hover:bg-muted/80'
                     }`}
                     data-testid="tab-global"
@@ -290,7 +290,7 @@ export default function Destinations() {
                   {filteredDestinations?.map((dest) => (
                     <Link key={dest.id} href={`/destination/${dest.slug}`}>
                       <div
-                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-teal-300 dark:hover:border-teal-500/50 hover:shadow-md transition-all cursor-pointer group"
+                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-[#3d9a4d] dark:hover:border-[#2c7338]/50 hover:shadow-md transition-all cursor-pointer group"
                         data-testid={`card-destination-${dest.slug}`}
                       >
                         <div className="w-12 h-12 rounded-full overflow-hidden bg-muted flex items-center justify-center flex-shrink-0 border-2 border-gray-100 dark:border-gray-700">
@@ -301,7 +301,7 @@ export default function Destinations() {
                           />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground truncate group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                          <h3 className="font-semibold text-foreground truncate group-hover:text-[#1e5427] dark:group-hover:text-[#3d9a4d] transition-colors">
                             {dest.name}
                           </h3>
                           <p className="text-sm text-muted-foreground">
@@ -312,7 +312,7 @@ export default function Destinations() {
                             </span>
                           </p>
                         </div>
-                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-teal-500 transition-colors flex-shrink-0" />
+                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-[#2c7338] transition-colors flex-shrink-0" />
                       </div>
                     </Link>
                   ))}
@@ -320,14 +320,14 @@ export default function Destinations() {
                   {filteredRegions?.map((region) => (
                     <Link key={region.id} href={`/region/${region.slug}`}>
                       <div
-                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-teal-300 dark:hover:border-teal-500/50 hover:shadow-md transition-all cursor-pointer group"
+                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-[#3d9a4d] dark:hover:border-[#2c7338]/50 hover:shadow-md transition-all cursor-pointer group"
                         data-testid={`card-region-${region.slug}`}
                       >
-                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-teal-100 to-teal-100 dark:from-teal-900/30 dark:to-teal-900/30 flex items-center justify-center flex-shrink-0 border-2 border-teal-200 dark:border-teal-700">
-                          <Globe className="w-6 h-6 text-teal-600 dark:text-teal-400" />
+                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-[#dcf0de] to-[#dcf0de] dark:from-[#194520]/30 dark:to-[#194520]/30 flex items-center justify-center flex-shrink-0 border-2 border-[#dcf0de] dark:border-[#1e5427]">
+                          <Globe className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground truncate group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                          <h3 className="font-semibold text-foreground truncate group-hover:text-[#1e5427] dark:group-hover:text-[#3d9a4d] transition-colors">
                             {region.name}
                           </h3>
                           <p className="text-sm text-muted-foreground">
@@ -338,7 +338,7 @@ export default function Destinations() {
                             </span>
                           </p>
                         </div>
-                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-teal-500 transition-colors flex-shrink-0" />
+                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-[#2c7338] transition-colors flex-shrink-0" />
                       </div>
                     </Link>
                   ))}
@@ -388,7 +388,7 @@ export default function Destinations() {
                   {filteredDestinations?.map((dest) => (
                     <Link key={dest.id} href={`/destination/${dest.slug}`}>
                       <div
-                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-teal-300 dark:hover:border-teal-500/50 hover:shadow-md transition-all cursor-pointer group"
+                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-[#3d9a4d] dark:hover:border-[#2c7338]/50 hover:shadow-md transition-all cursor-pointer group"
                         data-testid={`card-destination-${dest.slug}`}
                       >
                         {/* Flag Circle */}
@@ -406,7 +406,7 @@ export default function Destinations() {
 
                         {/* Content */}
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground truncate group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                          <h3 className="font-semibold text-foreground truncate group-hover:text-[#1e5427] dark:group-hover:text-[#3d9a4d] transition-colors">
                             {dest.name}
                           </h3>
                           <p className="text-sm text-muted-foreground">
@@ -419,7 +419,7 @@ export default function Destinations() {
                         </div>
 
                         {/* Chevron */}
-                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-teal-500 transition-colors flex-shrink-0" />
+                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-[#2c7338] transition-colors flex-shrink-0" />
                       </div>
                     </Link>
                   ))}
@@ -467,17 +467,17 @@ export default function Destinations() {
                   {filteredRegions?.map((region) => (
                     <Link key={region.id} href={`/region/${region.slug}`}>
                       <div
-                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-teal-300 dark:hover:border-teal-500/50 hover:shadow-md transition-all cursor-pointer group"
+                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-[#3d9a4d] dark:hover:border-[#2c7338]/50 hover:shadow-md transition-all cursor-pointer group"
                         data-testid={`card-region-${region.slug}`}
                       >
                         {/* Globe Icon Circle */}
-                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-teal-100 to-teal-100 dark:from-teal-900/30 dark:to-teal-900/30 flex items-center justify-center flex-shrink-0 border-2 border-teal-200 dark:border-teal-700">
-                          <Globe className="w-6 h-6 text-teal-600 dark:text-teal-400" />
+                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-[#dcf0de] to-[#dcf0de] dark:from-[#194520]/30 dark:to-[#194520]/30 flex items-center justify-center flex-shrink-0 border-2 border-[#dcf0de] dark:border-[#1e5427]">
+                          <Globe className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
                         </div>
 
                         {/* Content */}
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground truncate group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                          <h3 className="font-semibold text-foreground truncate group-hover:text-[#1e5427] dark:group-hover:text-[#3d9a4d] transition-colors">
                             {region.name}
                           </h3>
                           <p className="text-sm text-muted-foreground">
@@ -490,7 +490,7 @@ export default function Destinations() {
                         </div>
 
                         {/* Chevron */}
-                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-teal-500 transition-colors flex-shrink-0" />
+                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-[#2c7338] transition-colors flex-shrink-0" />
                       </div>
                     </Link>
                   ))}
@@ -538,7 +538,7 @@ export default function Destinations() {
                   {filteredGlobalPackages?.map((pkg) => (
                     <Link key={pkg.id} href="/global">
                       <div
-                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-teal-300 dark:hover:border-teal-500/50 hover:shadow-md transition-all cursor-pointer group"
+                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-[#3d9a4d] dark:hover:border-[#2c7338]/50 hover:shadow-md transition-all cursor-pointer group"
                         data-testid={`card-global-${pkg.id}`}
                       >
                         {/* Globe Icon Circle */}
@@ -548,7 +548,7 @@ export default function Destinations() {
 
                         {/* Content */}
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground truncate group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+                          <h3 className="font-semibold text-foreground truncate group-hover:text-[#1e5427] dark:group-hover:text-[#3d9a4d] transition-colors">
                             Global ({pkg.dataAmount})
                           </h3>
                           <p className="text-sm text-muted-foreground">

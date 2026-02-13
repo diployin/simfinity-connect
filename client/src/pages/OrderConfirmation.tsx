@@ -62,7 +62,7 @@ type OrderDetails = {
 
 const statusConfig: Record<string, { label: string; color: string; icon: any }> = {
   pending: { label: 'Processing', color: 'bg-yellow-500', icon: Clock },
-  processing: { label: 'Processing', color: 'bg-teal-500', icon: Loader2 },
+  processing: { label: 'Processing', color: 'bg-[#2c7338]', icon: Loader2 },
   completed: { label: 'Ready to Install', color: 'bg-green-500', icon: Check },
   failed: { label: 'Failed', color: 'bg-red-500', icon: AlertCircle },
 };
@@ -106,7 +106,7 @@ export default function OrderConfirmation() {
         {/* <SiteHeader /> */}
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
-            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-teal-500 border-r-transparent"></div>
+            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#2c7338] border-r-transparent"></div>
             <p className="mt-4 text-muted-foreground">Loading your order...</p>
           </div>
         </div>
@@ -145,7 +145,7 @@ export default function OrderConfirmation() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>{`Order #${order?.displayOrderId ?? '—'} | eSIMConnect`}</title>
+        <title>{`Order #${order?.displayOrderId ?? '—'} | Simfinity`}</title>
       </Helmet>
 
       {/* <SiteHeader /> */}
@@ -224,11 +224,11 @@ export default function OrderConfirmation() {
               )}
 
               {(order.status === 'pending' || order.status === 'processing') && (
-                <Card className="border-0 shadow-lg border-l-4 border-l-teal-500">
+                <Card className="border-0 shadow-lg border-l-4 border-l-[#2c7338]">
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0">
-                        <Loader2 className="w-8 h-8 text-teal-500 animate-spin" />
+                        <Loader2 className="w-8 h-8 text-[#2c7338] animate-spin" />
                       </div>
                       <div>
                         <h3 className="font-semibold text-foreground mb-2">
@@ -290,7 +290,7 @@ export default function OrderConfirmation() {
                   <CardContent>
                     <div className="space-y-4">
                       <div className="flex gap-4">
-                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-teal-100 dark:bg-teal-500/20 flex items-center justify-center text-teal-600 font-semibold">
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#dcf0de] dark:bg-[#2c7338]/20 flex items-center justify-center text-[#1e5427] font-semibold">
                           1
                         </div>
                         <div>
@@ -301,7 +301,7 @@ export default function OrderConfirmation() {
                         </div>
                       </div>
                       <div className="flex gap-4">
-                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-teal-100 dark:bg-teal-500/20 flex items-center justify-center text-teal-600 font-semibold">
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#dcf0de] dark:bg-[#2c7338]/20 flex items-center justify-center text-[#1e5427] font-semibold">
                           2
                         </div>
                         <div>
@@ -312,7 +312,7 @@ export default function OrderConfirmation() {
                         </div>
                       </div>
                       <div className="flex gap-4">
-                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-teal-100 dark:bg-teal-500/20 flex items-center justify-center text-teal-600 font-semibold">
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#dcf0de] dark:bg-[#2c7338]/20 flex items-center justify-center text-[#1e5427] font-semibold">
                           3
                         </div>
                         <div>

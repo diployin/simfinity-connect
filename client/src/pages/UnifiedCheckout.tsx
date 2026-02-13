@@ -590,7 +590,7 @@ export default function UnifiedCheckout() {
         {/* <SiteHeader /> */}
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
-            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-teal-500 border-r-transparent"></div>
+            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#2c7338] border-r-transparent"></div>
             <p className="mt-4 text-muted-foreground">Loading...</p>
           </div>
         </div>
@@ -980,11 +980,11 @@ export default function UnifiedCheckout() {
                               <div className="space-y-1 leading-none">
                                 <FormLabel className="text-sm font-normal cursor-pointer">
                                   I agree to the{' '}
-                                  <Link href="/terms-and-condition" className="text-teal-600 hover:underline">
+                                  <Link href="/terms-and-condition" className="text-[#1e5427] hover:underline">
                                     Terms of Service
                                   </Link>{' '}
                                   and{' '}
-                                  <Link href="/privacy-policy" className="text-teal-600 hover:underline">
+                                  <Link href="/privacy-policy" className="text-[#1e5427] hover:underline">
                                     Privacy Policy
                                   </Link>
                                 </FormLabel>
@@ -1035,7 +1035,7 @@ export default function UnifiedCheckout() {
                         )}
 
 
-                        <Button type="submit" className="w-full bg-teal-500 text-white">
+                        <Button type="submit" className="w-full bg-[#2c7338] text-white">
                           Continue to Payment
                         </Button>
                       </form>
@@ -1096,7 +1096,7 @@ export default function UnifiedCheckout() {
                               acceptTerms: true,
                             })
                           }
-                          className="w-full bg-teal-500 text-white"
+                          className="w-full bg-[#2c7338] text-white"
                         >
                           Complete Payment
                         </Button> */}
@@ -1109,7 +1109,7 @@ export default function UnifiedCheckout() {
                               acceptTerms: true,
                             })
                           }
-                          className="w-full bg-teal-500 text-white"
+                          className="w-full bg-[#2c7338] text-white"
                         >
                           {isFreeOrder ? 'Confirm Order' : 'Complete Payment'}
                         </Button>

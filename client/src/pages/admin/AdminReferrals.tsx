@@ -681,7 +681,7 @@ function AnalyticsTab() {
 
   console.log(analytics);
 
-  const COLORS = ['#14b8a6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+  const COLORS = ['#2c7338', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
 
   if (isLoading) {
     return (
@@ -761,7 +761,7 @@ function AnalyticsTab() {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="count" stroke="#14b8a6" name="Total Referrals" />
+              <Line type="monotone" dataKey="count" stroke="#2c7338" name="Total Referrals" />
             </LineChart>
           </ResponsiveContainer>
         </CardContent>
@@ -781,7 +781,7 @@ function AnalyticsTab() {
                 <XAxis dataKey="userEmail" angle={-45} textAnchor="end" height={100} />
                 <YAxis />
                 <Tooltip />
-                <Bar dataKey="totalReferrals" fill="#14b8a6" name="Referrals" />
+                <Bar dataKey="totalReferrals" fill="#2c7338" name="Referrals" />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>

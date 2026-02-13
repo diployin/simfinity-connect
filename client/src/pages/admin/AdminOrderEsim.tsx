@@ -305,7 +305,7 @@ export default function AdminOrderEsim() {
                   <TableRow>
                     <TableCell colSpan={7} className="h-64 text-center">
                       <div className="flex flex-col items-center justify-center gap-2">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600"></div>
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1e5427]"></div>
                         <p className="text-sm text-slate-600 dark:text-slate-400">{t('admin.orderEsim.loading', 'Loading packages...')}</p>
                       </div>
                     </TableCell>

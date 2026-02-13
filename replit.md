@@ -1,7 +1,7 @@
-# eSIMConnect
+# Simfinity
 
 ## Overview
-eSIMConnect is a full-stack eSIM marketplace application that allows users to browse, purchase, and manage eSIM data plans for global connectivity. It supports multiple eSIM providers (Airalo, eSIM Access, eSIM Go, Maya Mobile).
+Simfinity is a full-stack eSIM marketplace application that allows users to browse, purchase, and manage eSIM data plans for global connectivity. It supports multiple eSIM providers (Airalo, eSIM Access, eSIM Go, Maya Mobile).
 
 ## Tech Stack
 - **Frontend**: React 18 + TypeScript, Vite, TailwindCSS, Radix UI, Redux Toolkit
@@ -45,6 +45,15 @@ migrations/       - Drizzle database migrations
 - Stripe initialization is conditional (requires STRIPE_SECRET_KEY env var)
 
 ## Recent Changes
+- 2026-02-13: Rebrand from eSIMConnect to Simfinity with green (#2c7338) color scheme
+  - Brand name: All "eSIMConnect" / "eSIM Connect" references replaced with "Simfinity"
+  - Logo: "Sim" + gradient green "finity" text, green gradient icon
+  - Color palette: Primary #2c7338, secondary #1e5427, light #3d9a4d, dark #194520
+  - CSS variables updated in index.css (both light and dark mode palettes)
+  - ThemeContext default colors updated
+  - All Tailwind teal-* classes replaced with green hex equivalents
+  - Gradients applied to buttons, badges, logo, hero elements for premium look
+  - Hero background changed from light blue (#e8f4f8) to light green (#e8f5e9)
 - 2026-02-13: Hero & top nav redesign to match saily.com screenshot
   - HeroSection: Light blue gradient bg (#e8f4f8) covering both header and hero seamlessly, two-column boxed layout (text left, phone+luggage image right, max-w-2xl), static headline with split t() keys preserved, rounded search bar, popular destinations, stats strip (12M downloads, 200+ destinations, data plans, ratings)
   - SiteHeader: Mega menu navigation with hover dropdowns — Products (Local/Regional/Global eSIMs with icon cards), Resources (What is eSIM, About Us, Reviews, Blog, Supported Devices), Help (FAQs, Getting Started, Troubleshooting, Contact Support). "Destinations" search button, boxed max-width layout. Mobile menu mirrors all desktop mega menu links.

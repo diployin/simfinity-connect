@@ -4,10 +4,10 @@ export default function TermsOfService() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>Terms of Service - eSIM Connect</title>
+        <title>Terms of Service - Simfinity</title>
         <meta
           name="description"
-          content="Read eSIM Connect's terms of service to understand the rules and conditions for using our eSIM marketplace platform."
+          content="Read Simfinity's terms of service to understand the rules and conditions for using our eSIM marketplace platform."
         />
       </Helmet>
 
@@ -23,7 +23,7 @@ export default function TermsOfService() {
               <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">1. Acceptance of Terms</h2>
                 <p className="text-muted-foreground">
-                  By accessing and using eSIM Connect, you agree to be bound by these Terms of
+                  By accessing and using Simfinity, you agree to be bound by these Terms of
                   Service. If you do not agree to these terms, please do not use our services.
                 </p>
               </section>
@@ -31,7 +31,7 @@ export default function TermsOfService() {
               <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">2. Services Description</h2>
                 <p className="text-muted-foreground">
-                  eSIM Connect provides digital eSIM data plans for international travel. Our
+                  Simfinity provides digital eSIM data plans for international travel. Our
                   service allows you to purchase, activate, and manage eSIM profiles directly from
                   your compatible device.
                 </p>
@@ -83,7 +83,7 @@ export default function TermsOfService() {
               <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">7. Limitation of Liability</h2>
                 <p className="text-muted-foreground">
-                  eSIM Connect shall not be liable for any indirect, incidental, special,
+                  Simfinity shall not be liable for any indirect, incidental, special,
                   consequential, or punitive damages arising from your use of our services. Network
                   coverage and speeds are subject to carrier availability and local conditions.
                 </p>

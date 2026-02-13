@@ -8,7 +8,7 @@ const FeatureSectionCompo = () => {
     <main>
       {/* First Section - Content Left, Image Right */}
       <FeatureSection
-        title="Global eSIM Connectivity Made Simple"
+        title="Global Simfinityivity Made Simple"
         subtitle="Set up your eSIM in minutes. Choose your destination, activate instantly, and stay connected worldwide without physical SIM cards:"
         layout="right"
         imageSrc="/images/timeline/setup5.png"

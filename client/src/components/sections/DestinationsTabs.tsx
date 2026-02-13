@@ -130,7 +130,7 @@ export function DestinationsTabs() {
             {t('website.home.destinations.subtitle', 'Pick a mobile data plan for your trip.')}
           </p>
           <Link href="/destinations">
-            <span className="inline-flex items-center gap-1 text-teal-600 dark:text-teal-400 font-medium text-sm hover:underline cursor-pointer">
+            <span className="inline-flex items-center gap-1 text-[#2c7338] dark:text-[#3d9a4d] font-medium text-sm hover:underline cursor-pointer">
               {t('website.home.destinations.seeAll', 'View All Destinations')}
               <ArrowRight className="h-4 w-4" />
             </span>
@@ -142,21 +142,21 @@ export function DestinationsTabs() {
             <TabsList className="inline-flex bg-zinc-100 dark:bg-zinc-800/60 rounded-full p-1 gap-0.5">
               <TabsTrigger
                 value="countries"
-                className="rounded-full px-5 py-2 text-sm font-medium transition-all data-[state=active]:bg-teal-600 data-[state=active]:text-white data-[state=active]:shadow-sm text-zinc-600 dark:text-zinc-400 data-[state=inactive]:hover:text-zinc-900 dark:data-[state=inactive]:hover:text-zinc-200"
+                className="rounded-full px-5 py-2 text-sm font-medium transition-all data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#2c7338] data-[state=active]:to-[#3d9a4d] data-[state=active]:text-white data-[state=active]:shadow-sm text-zinc-600 dark:text-zinc-400 data-[state=inactive]:hover:text-zinc-900 dark:data-[state=inactive]:hover:text-zinc-200"
                 data-testid="tab-countries"
               >
                 {t('website.home.destinations.tabs.countries', 'Country')}
               </TabsTrigger>
               <TabsTrigger
                 value="regional"
-                className="rounded-full px-5 py-2 text-sm font-medium transition-all data-[state=active]:bg-teal-600 data-[state=active]:text-white data-[state=active]:shadow-sm text-zinc-600 dark:text-zinc-400 data-[state=inactive]:hover:text-zinc-900 dark:data-[state=inactive]:hover:text-zinc-200"
+                className="rounded-full px-5 py-2 text-sm font-medium transition-all data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#2c7338] data-[state=active]:to-[#3d9a4d] data-[state=active]:text-white data-[state=active]:shadow-sm text-zinc-600 dark:text-zinc-400 data-[state=inactive]:hover:text-zinc-900 dark:data-[state=inactive]:hover:text-zinc-200"
                 data-testid="tab-regional"
               >
                 {t('website.home.destinations.tabs.regional', 'Region')}
               </TabsTrigger>
               <TabsTrigger
                 value="global"
-                className="rounded-full px-5 py-2 text-sm font-medium transition-all data-[state=active]:bg-teal-600 data-[state=active]:text-white data-[state=active]:shadow-sm text-zinc-600 dark:text-zinc-400 data-[state=inactive]:hover:text-zinc-900 dark:data-[state=inactive]:hover:text-zinc-200"
+                className="rounded-full px-5 py-2 text-sm font-medium transition-all data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#2c7338] data-[state=active]:to-[#3d9a4d] data-[state=active]:text-white data-[state=active]:shadow-sm text-zinc-600 dark:text-zinc-400 data-[state=inactive]:hover:text-zinc-900 dark:data-[state=inactive]:hover:text-zinc-200"
                 data-testid="tab-global"
               >
                 {t('website.home.destinations.tabs.global', 'Global')}
@@ -171,7 +171,7 @@ export function DestinationsTabs() {
               ) : destinations.length > 0 ? (
                 destinations.map((destination) => (
                   <Link key={destination.id} href={`/destination/${destination.slug}`}>
-                    <div className="flex items-center gap-4 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4 cursor-pointer hover:border-teal-200 dark:hover:border-teal-800 hover:shadow-sm transition-all group">
+                    <div className="flex items-center gap-4 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4 cursor-pointer hover:border-[#dcf0de] dark:hover:border-[#1e5427] hover:shadow-sm transition-all group">
                       <div className="h-10 w-10 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0 border border-zinc-100 dark:border-zinc-700">
                         <ReactCountryFlag
                           countryCode={destination.countryCode}
@@ -191,7 +191,7 @@ export function DestinationsTabs() {
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
                         {destination.minPrice && (
-                          <span className="text-sm text-teal-600 dark:text-teal-400 font-semibold">
+                          <span className="text-sm text-[#2c7338] dark:text-[#3d9a4d] font-semibold">
                             {t('website.home.destinations.from', 'From')} {currencySymbol}
                             {convertPrice(
                               parseFloat(destination.minPrice),
@@ -201,7 +201,7 @@ export function DestinationsTabs() {
                             ).toFixed(2)}
                           </span>
                         )}
-                        <ChevronRight className="h-4 w-4 text-zinc-400 dark:text-zinc-500 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors" />
+                        <ChevronRight className="h-4 w-4 text-zinc-400 dark:text-zinc-500 group-hover:text-[#2c7338] dark:group-hover:text-[#3d9a4d] transition-colors" />
                       </div>
                     </div>
                   </Link>
@@ -223,7 +223,7 @@ export function DestinationsTabs() {
 
                   return (
                     <Link key={region.id} href={`/region/${region.slug}`}>
-                      <div className="flex items-center gap-4 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4 cursor-pointer hover:border-teal-200 dark:hover:border-teal-800 hover:shadow-sm transition-all group">
+                      <div className="flex items-center gap-4 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4 cursor-pointer hover:border-[#dcf0de] dark:hover:border-[#1e5427] hover:shadow-sm transition-all group">
                         <div className="h-10 w-10 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0 border border-zinc-100 dark:border-zinc-700">
                           <ReactCountryFlag
                             countryCode={iconCode}
@@ -248,7 +248,7 @@ export function DestinationsTabs() {
                         </div>
                         <div className="flex items-center gap-2 flex-shrink-0">
                           {region.minPrice && (
-                            <span className="text-sm text-teal-600 dark:text-teal-400 font-semibold">
+                            <span className="text-sm text-[#2c7338] dark:text-[#3d9a4d] font-semibold">
                               {t('website.home.destinations.from', 'From')} {currencySymbol}
                               {convertPrice(
                                 parseFloat(region.minPrice),
@@ -258,7 +258,7 @@ export function DestinationsTabs() {
                               ).toFixed(2)}
                             </span>
                           )}
-                          <ChevronRight className="h-4 w-4 text-zinc-400 dark:text-zinc-500 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors" />
+                          <ChevronRight className="h-4 w-4 text-zinc-400 dark:text-zinc-500 group-hover:text-[#2c7338] dark:group-hover:text-[#3d9a4d] transition-colors" />
                         </div>
                       </div>
                     </Link>
@@ -277,9 +277,9 @@ export function DestinationsTabs() {
               ) : globalPackages.length > 0 ? (
                 globalPackages.map((pkg) => (
                   <Link key={pkg.id} href="/global">
-                    <div className="flex items-center gap-4 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4 cursor-pointer hover:border-teal-200 dark:hover:border-teal-800 hover:shadow-sm transition-all group">
-                      <div className="h-10 w-10 rounded-full flex items-center justify-center flex-shrink-0 bg-teal-50 dark:bg-teal-950 border border-teal-100 dark:border-teal-900">
-                        <Globe className="h-5 w-5 text-teal-600 dark:text-teal-400" />
+                    <div className="flex items-center gap-4 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4 cursor-pointer hover:border-[#dcf0de] dark:hover:border-[#1e5427] hover:shadow-sm transition-all group">
+                      <div className="h-10 w-10 rounded-full flex items-center justify-center flex-shrink-0 bg-[#f0f9f1] dark:bg-[#194520] border border-[#dcf0de] dark:border-[#194520]">
+                        <Globe className="h-5 w-5 text-[#2c7338] dark:text-[#3d9a4d]" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="font-medium text-sm text-foreground truncate">
@@ -291,7 +291,7 @@ export function DestinationsTabs() {
                         </p>
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
-                        <span className="text-sm text-teal-600 dark:text-teal-400 font-semibold">
+                        <span className="text-sm text-[#2c7338] dark:text-[#3d9a4d] font-semibold">
                           {currencySymbol}
                           {convertPrice(
                             parseFloat(pkg.retailPrice),
@@ -300,7 +300,7 @@ export function DestinationsTabs() {
                             currencies,
                           ).toFixed(2)}
                         </span>
-                        <ChevronRight className="h-4 w-4 text-zinc-400 dark:text-zinc-500 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors" />
+                        <ChevronRight className="h-4 w-4 text-zinc-400 dark:text-zinc-500 group-hover:text-[#2c7338] dark:group-hover:text-[#3d9a4d] transition-colors" />
                       </div>
                     </div>
                   </Link>
@@ -315,7 +315,7 @@ export function DestinationsTabs() {
                     )}
                   </p>
                   <Link href="/destinations">
-                    <Button variant="ghost" className="text-teal-600 dark:text-teal-400 mt-2">
+                    <Button variant="ghost" className="text-[#2c7338] dark:text-[#3d9a4d] mt-2">
                       {t('website.home.destinations.browseAll', 'Browse all destinations')}
                     </Button>
                   </Link>
@@ -329,7 +329,7 @@ export function DestinationsTabs() {
           <Link href="/destinations">
             <Button
               variant="outline"
-              className="rounded-full px-8 py-3 h-auto border-zinc-200 dark:border-zinc-700 text-foreground hover:bg-teal-50 dark:hover:bg-teal-950 hover:border-teal-300 dark:hover:border-teal-800 transition-all font-medium"
+              className="rounded-full px-8 py-3 h-auto border-zinc-200 dark:border-zinc-700 text-foreground hover:bg-[#f0f9f1] dark:hover:bg-[#194520] hover:border-[#3d9a4d] dark:hover:border-[#1e5427] transition-all font-medium"
             >
               {t('website.home.destinations.seeAll', 'View All Destinations')}
               <ArrowRight className="h-4 w-4 ml-2" />

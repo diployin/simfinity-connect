@@ -27,7 +27,7 @@ type OrderWithDetails = Order & {
 
 const statusStyles: Record<string, string> = {
   pending: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400",
-  processing: "bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-400",
+  processing: "bg-[#dcf0de] text-[#194520] dark:bg-[#194520]/30 dark:text-[#3d9a4d]",
   completed: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
   failed: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400",
 };
@@ -323,7 +323,7 @@ export default function CustomEsimOrders() {
                   <TableRow>
                     <TableCell colSpan={7} className="h-64 text-center">
                       <div className="flex flex-col items-center justify-center gap-2">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-600"></div>
+                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1e5427]"></div>
                         <p className="text-sm text-slate-600 dark:text-slate-400">{t('admin.customOrders.loading', 'Loading orders...')}</p>
                       </div>
                     </TableCell>
@@ -496,7 +496,7 @@ export default function CustomEsimOrders() {
                       key={customer.id}
                       onClick={() => setSelectedCustomer(customer)}
                       className={`p-3 rounded-lg cursor-pointer transition-colors ${selectedCustomer?.id === customer.id
-                        ? "bg-teal-100 dark:bg-teal-900/30 border border-teal-500"
+                        ? "bg-[#dcf0de] dark:bg-[#194520]/30 border border-[#2c7338]"
                         : "bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800"
                         }`}
                       data-testid={`customer-${customer.id}`}
@@ -514,7 +514,7 @@ export default function CustomEsimOrders() {
                           </p>
                         </div>
                         {selectedCustomer?.id === customer.id && (
-                          <Check className="h-5 w-5 text-teal-600" />
+                          <Check className="h-5 w-5 text-[#1e5427]" />
                         )}
                       </div>
                     </div>

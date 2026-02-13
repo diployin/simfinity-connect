@@ -125,10 +125,10 @@ export function ThemeSettings() {
 
   /* ---------------- Reset ---------------- */
   const handleReset = () => {
-    updateColor('primary', '#14b8a6');
-    updateColor('primarySecond', '#0d9488');
-    updateColor('primaryLight', '#2dd4bf');
-    updateColor('primaryDark', '#0f766e');
+    updateColor('primary', '#2c7338');
+    updateColor('primarySecond', '#1e5427');
+    updateColor('primaryLight', '#3d9a4d');
+    updateColor('primaryDark', '#194520');
 
     updateFont('heading', 'Inter');
     updateFont('body', 'Inter');

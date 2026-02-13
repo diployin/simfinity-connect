@@ -55,7 +55,7 @@ export function CurrencySelector() {
               </div>
             </div>
             {currency === curr.code && (
-              <Check className="h-4 w-4 text-teal-500" />
+              <Check className="h-4 w-4 text-[#2c7338]" />
             )}
           </DropdownMenuItem>
         ))}

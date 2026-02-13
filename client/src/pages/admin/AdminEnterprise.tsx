@@ -1322,7 +1322,7 @@ export default function AdminEnterprise() {
                     <CardTitle className="text-sm">Processing</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="text-2xl font-bold text-teal-600">
+                    <div className="text-2xl font-bold text-[#1e5427]">
                       {orderDetails.processingCount || 0}
                     </div>
                   </CardContent>
@@ -1460,7 +1460,7 @@ export default function AdminEnterprise() {
                     <CardTitle className="text-xs sm:text-sm">Processing</CardTitle>
                   </CardHeader>
                   <CardContent className="px-3 sm:px-6 pb-3 sm:pb-6">
-                    <div className="text-xl sm:text-2xl font-bold text-teal-600">
+                    <div className="text-xl sm:text-2xl font-bold text-[#1e5427]">
                       {orderDetails.processingCount || 0}
                     </div>
                   </CardContent>

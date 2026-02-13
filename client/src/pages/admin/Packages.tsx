@@ -725,7 +725,7 @@ export default function Packages() {
                           {pkg.isRecommended && (
                             <Badge
                               variant="default"
-                              className="text-xs bg-teal-500"
+                              className="text-xs bg-[#2c7338]"
                               data-testid={`badge-recommended-${pkg.id}`}
                             >
                               Recommend
@@ -782,9 +782,9 @@ export default function Packages() {
                           }
                           className={`capitalize ${
                             pkg.type === 'local'
-                              ? 'bg-teal-500 hover:bg-teal-600'
+                              ? 'bg-[#2c7338] hover:bg-[#1e5427]'
                               : pkg.type === 'regional'
-                                ? 'bg-teal-500 hover:bg-teal-600'
+                                ? 'bg-[#2c7338] hover:bg-[#1e5427]'
                                 : 'bg-orange-500 hover:bg-orange-600 text-white'
                           }`}
                           data-testid={`badge-type-${pkg.id}`}
@@ -795,7 +795,7 @@ export default function Packages() {
                       <TableCell>
                         <div className="flex flex-col gap-1.5">
                           <div className="flex items-center gap-1.5 text-sm">
-                            <Database className="h-3.5 w-3.5 text-teal-500" />
+                            <Database className="h-3.5 w-3.5 text-[#2c7338]" />
                             <span className="font-medium">{pkg.dataAmount}</span>
                           </div>
                           <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
@@ -836,7 +836,7 @@ export default function Packages() {
                           <div className="flex items-center justify-between gap-2">
                             <span className="text-xs text-muted-foreground">Selling:</span>
                             <span
-                              className="text-sm font-semibold text-teal-600 dark:text-teal-400"
+                              className="text-sm font-semibold text-[#1e5427] dark:text-[#3d9a4d]"
                               data-testid={`text-selling-price-${pkg.id}`}
                             >
                               ${parseFloat(pkg.price).toFixed(2)}
@@ -904,7 +904,7 @@ export default function Packages() {
                           checked={pkg.isRecommended}
                           onCheckedChange={() => handleToggleRecommended(pkg)}
                           disabled={updatePackageMutation.isPending}
-                          className="data-[state=checked]:bg-teal-500"
+                          className="data-[state=checked]:bg-[#2c7338]"
                           data-testid={`switch-recommended-${pkg.id}`}
                         />
                       </TableCell>
@@ -922,7 +922,7 @@ export default function Packages() {
                           checked={pkg.isEnabled}
                           onCheckedChange={() => handleToggleEnabled(pkg)}
                           disabled={updatePackageMutation.isPending}
-                          className="data-[state=checked]:bg-teal-500"
+                          className="data-[state=checked]:bg-[#2c7338]"
                           data-testid={`switch-enabled-${pkg.id}`}
                         />
                       </TableCell>

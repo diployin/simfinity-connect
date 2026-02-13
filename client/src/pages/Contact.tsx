@@ -59,10 +59,10 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>Contact Us - eSIM Connect</title>
+        <title>Contact Us - Simfinity</title>
         <meta
           name="description"
-          content="Get in touch with eSIM Connect support. We're here to help with your eSIM questions, technical issues, and more."
+          content="Get in touch with Simfinity support. We're here to help with your eSIM questions, technical issues, and more."
         />
       </Helmet>
 

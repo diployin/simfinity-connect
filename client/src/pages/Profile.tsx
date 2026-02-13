@@ -271,7 +271,7 @@ export default function Profile() {
                     </div>
 
                     {/* Camera Icon Overlay */}
-                    <div className="absolute bottom-0 right-0 bg-teal-500 hover:bg-teal-600 text-white rounded-full p-1.5 shadow cursor-pointer">
+                    <div className="absolute bottom-0 right-0 bg-[#2c7338] hover:bg-[#1e5427] text-white rounded-full p-1.5 shadow cursor-pointer">
                       <Camera className="h-4 w-4" />
                     </div>
                   </label>
@@ -538,7 +538,7 @@ export default function Profile() {
                     <Button
                       type="submit"
                       disabled={updateProfileMutation.isPending}
-                      className="bg-teal-500 hover:bg-teal-600 text-white"
+                      className="bg-[#2c7338] hover:bg-[#1e5427] text-white"
                       data-testid="button-save-profile"
                     >
                       {updateProfileMutation.isPending
@@ -614,8 +614,8 @@ export default function Profile() {
               </div>
 
               {/* Info */}
-              <div className="flex gap-3 p-4 rounded-lg bg-teal-50 dark:bg-teal-950/30">
-                <AlertCircle className="h-5 w-5 text-teal-600 dark:text-teal-400 flex-shrink-0 mt-0.5" />
+              <div className="flex gap-3 p-4 rounded-lg bg-[#f0f9f1] dark:bg-[#0a2e14]/30">
+                <AlertCircle className="h-5 w-5 text-[#1e5427] dark:text-[#3d9a4d] flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
                   <p className="text-sm text-muted-foreground">
                     {t(

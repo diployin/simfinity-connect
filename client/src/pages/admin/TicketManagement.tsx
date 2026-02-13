@@ -361,7 +361,7 @@ useEffect(() => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "open": return "bg-teal-100 text-teal-800";
+      case "open": return "bg-[#dcf0de] text-[#194520]";
       case "in_progress": return "bg-yellow-100 text-yellow-800";
       case "resolved": return "bg-green-100 text-green-800";
       case "closed": return "bg-gray-100 text-gray-800";
@@ -371,7 +371,7 @@ useEffect(() => {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case "open": return <AlertTriangle className="w-4 h-4 text-teal-500" />;
+      case "open": return <AlertTriangle className="w-4 h-4 text-[#2c7338]" />;
       case "in_progress": return <Clock className="w-4 h-4 text-yellow-500" />;
       case "resolved": return <CheckCircle2 className="w-4 h-4 text-green-500" />;
       case "closed": return <XCircle className="w-4 h-4 text-gray-500" />;
@@ -415,8 +415,8 @@ useEffect(() => {
 
         {/* Stats Cards */}
         <div className="grid gap-4 md:grid-cols-4 mb-8">
-          <Card className="border-0 bg-gradient-to-br from-teal-50 to-indigo-50 shadow-lg p-6">
-            <p className="text-sm font-medium text-teal-600">Open</p>
+          <Card className="border-0 bg-gradient-to-br from-[#f0f9f1] to-indigo-50 shadow-lg p-6">
+            <p className="text-sm font-medium text-[#1e5427]">Open</p>
             <h3 className="text-2xl font-bold text-slate-900 mt-1">
               {tickets?.filter(t => t.status === 'open').length || 0}
             </h3>

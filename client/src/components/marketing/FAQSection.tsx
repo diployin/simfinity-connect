@@ -49,7 +49,7 @@ export function FAQSection({ limit, showTitle = true }: FAQSectionProps) {
               Frequently Asked Questions
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Everything you need to know about eSIM Connect
+              Everything you need to know about Simfinity
             </p>
           </div>
         )}
