@@ -10,6 +10,8 @@ import { useTranslation } from '@/contexts/TranslationContext';
 import { HeroSection } from '../components/sections/HeroSection';
 import { WhatIsEsim } from '@/components/sections/WhatIsEsim';
 import { InstantConnection } from '@/components/sections/InstantConnection';
+import { DownloadApp } from '@/components/sections/DownloadApp';
+import { ReferAndEarn } from '@/components/sections/ReferAndEarn';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { useUser } from '@/hooks/use-user';
 
@@ -54,6 +56,8 @@ export default function Home() {
           <HowItWorksSteps />
           <TravelerTestimonials />
           <FAQWithSupport />
+          <DownloadApp />
+          <ReferAndEarn />
         </main>
 
         <FloatingButtons />

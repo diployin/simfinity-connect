@@ -45,6 +45,15 @@ migrations/       - Drizzle database migrations
 - Stripe initialization is conditional (requires STRIPE_SECRET_KEY env var)
 
 ## Recent Changes
+- 2026-02-13: Homepage sections redesign to match saily.com screenshots
+  - BenefitsSection ("Why choose us"): Clean 3x2 grid, SVG line icons, bold titles, descriptions. No card backgrounds. Green label above heading.
+  - HowItWorksSteps ("How does it work"): 3 rounded cards on slate-50 bg, numbered badges (1,2,3), plan selection/install/usage mockups inside each card
+  - DownloadApp: New section with Trustpilot rating, app store badges (inline SVG), star ratings, phone+QR image
+  - ReferAndEarn: New section with blue gradient banner, gift icon, referral headline, "Learn More" bordered button, friends photo
+  - SiteFooter: Complete redesign — Simfinity logo + app store badges, 5-column link grid (Popular Destinations, Simfinity, eSIM, Help, Follow Us), dynamic social/page links, payment method badges, copyright bar
+  - Home.tsx section order: Hero → WhatIsEsim → DestinationsTabs → InstantConnection → Benefits → HowItWorks → Testimonials → FAQ → DownloadApp → ReferAndEarn
+  - Generated images: download-app-phone.png, refer-friends.png
+  - All sections mobile responsive with grid breakpoints
 - 2026-02-13: Rebrand from eSIMConnect to Simfinity with green (#2c7338) color scheme
   - Brand name: All "eSIMConnect" / "eSIM Connect" references replaced with "Simfinity"
   - Logo: "Sim" + gradient green "finity" text, green gradient icon
