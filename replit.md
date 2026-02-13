@@ -45,6 +45,14 @@ migrations/       - Drizzle database migrations
 - Stripe initialization is conditional (requires STRIPE_SECRET_KEY env var)
 
 ## Recent Changes
+- 2026-02-13: New pages and navigation updates
+  - AboutUs: Complete rewrite — 8 sections: hero ("Meet the people behind Simfinity"), mission, press logos, 6 values grid, timeline (2023-2025), team quotes (dark bg), life at company cards, green gradient CTA. Removed framer-motion.
+  - Reviews: New page at /reviews — hero with star rating, 4 "reasons to buy" cards, 6 customer testimonials, competitor comparison table, CTA
+  - HelpCenter: New page at /help-center — search bar hero, 4 category cards (Getting Started, Plans & Payments, Troubleshooting, FAQ), 20 expandable articles, contact support CTA
+  - Login: Fixed "eSIM Global" branding → dynamic siteName from useSettingByKey('platform_name')
+  - SiteHeader: Help menu links updated to /help-center (Getting Started, Troubleshooting, Contact Support)
+  - SiteFooter: Help column links updated to /help-center, added Reviews link
+  - App.tsx: Added lazy imports and routes for /reviews and /help-center
 - 2026-02-13: Homepage sections redesign to match saily.com screenshots
   - BenefitsSection ("Why choose us"): Clean 3x2 grid, SVG line icons, bold titles, descriptions. No card backgrounds. Green label above heading.
   - HowItWorksSteps ("How does it work"): 3 rounded cards on slate-50 bg, numbered badges (1,2,3), plan selection/install/usage mockups inside each card
