@@ -55,6 +55,7 @@ export default function Login() {
   const [showReferralBanner, setShowReferralBanner] = useState(false);
 
   const logo = useSettingByKey('logo');
+  const siteName = useSettingByKey('platform_name');
 
   const { data: settings } = useQuery<ReferralSettings>({
     queryKey: ['/api/admin/referrals/settings'],
@@ -409,13 +410,11 @@ export default function Login() {
         <div className="relative z-10">
           <Link href="/">
             {logo ? (
-              <img className=" h-16 rounded-lg " src={logo} />
+              <img className="h-16 rounded-lg" src={logo} />
             ) : (
-              <div>
-                className="flex items-center gap-2 text-white cursor-pointer"
-                data-testid="link-logo"
+              <div className="flex items-center gap-2 text-white cursor-pointer" data-testid="link-logo">
                 <Globe className="h-8 w-8" />
-                <span className="font-bold text-2xl">eSIM Global</span>
+                <span className="font-bold text-2xl">{siteName || 'Simfinity'}</span>
               </div>
             )}
           </Link>
@@ -460,7 +459,7 @@ export default function Login() {
                 data-testid="link-logo-mobile"
               >
                 <Globe className="h-8 w-8 text-primary" />
-                <span className="font-bold text-2xl">eSIM Global</span>
+                <span className="font-bold text-2xl">{siteName || 'Simfinity'}</span>
               </div>
             </Link>
           </div>

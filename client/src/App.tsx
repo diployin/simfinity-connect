@@ -78,6 +78,8 @@ const AdminAdvancedAnalytics = lazy(() => import('@/pages/admin/AdminAnalytics')
 const AdminEmailMarketing = lazy(() => import('@/pages/admin/AdminEmailMarketing'));
 const Unsubscribe = lazy(() => import('@/pages/Unsubscribe'));
 const AboutUs = lazy(() => import('@/pages/AboutUs'));
+const Reviews = lazy(() => import('@/pages/Reviews'));
+const HelpCenter = lazy(() => import('@/pages/HelpCenter'));
 const PrivacyPolicy = lazy(() => import('@/pages/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('@/pages/TermsOfService'));
 const RefundPolicy = lazy(() => import('@/pages/RefundPolicy'));
@@ -137,6 +139,8 @@ const PUBLIC_ROUTES = [
   { path: '/unsubscribe', component: Unsubscribe },
   { path: '/gift-cards', component: GiftCards },
   { path: '/about-us', component: AboutUs },
+  { path: '/reviews', component: Reviews },
+  { path: '/help-center', component: HelpCenter },
   { path: '/privacy-policy', component: PrivacyPolicy },
   { path: '/terms-of-service', component: TermsOfService },
   { path: '/refund-policy', component: RefundPolicy },

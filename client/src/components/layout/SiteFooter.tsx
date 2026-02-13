@@ -151,11 +151,12 @@ export function NewFooter() {
             <h3 className="text-sm font-bold text-foreground mb-4">Help</h3>
             <ul className="space-y-2.5">
               {[
-                { label: 'Help Center', href: '/faq' },
-                { label: 'Getting Started', href: '/getting-started' },
-                { label: 'Plans and Payments', href: '/plans' },
-                { label: 'Troubleshooting', href: '/troubleshooting' },
+                { label: 'Help Center', href: '/help-center' },
+                { label: 'Getting Started', href: '/help-center' },
+                { label: 'Plans and Payments', href: '/help-center' },
+                { label: 'Troubleshooting', href: '/help-center' },
                 { label: 'FAQ', href: '/faq' },
+                { label: 'Reviews', href: '/reviews' },
               ].map((link) => (
                 <li key={link.label}>
                   <Link href={link.href}>
