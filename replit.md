@@ -46,8 +46,8 @@ migrations/       - Drizzle database migrations
 
 ## Recent Changes
 - 2026-02-13: Hero & top nav redesign to match saily.com screenshot
-  - HeroSection: Light blue bg (#e8f4f8), two-column boxed layout (text left, phone+luggage image right), static headline, rounded search bar, popular destinations preserved
-  - SiteHeader: Clean minimal nav with rounded dropdowns, "Destinations" search button with icon, boxed max-width layout, improved mobile menu with close icon
+  - HeroSection: Light blue gradient bg (#e8f4f8) covering both header and hero seamlessly, two-column boxed layout (text left, phone+luggage image right, max-w-2xl), static headline with split t() keys preserved, rounded search bar, popular destinations, stats strip (12M downloads, 200+ destinations, data plans, ratings)
+  - SiteHeader: Mega menu navigation with hover dropdowns — Products (Local/Regional/Global eSIMs with icon cards), Resources (What is eSIM, About Us, Reviews, Blog, Supported Devices), Help (FAQs, Getting Started, Troubleshooting, Contact Support). "Destinations" search button, boxed max-width layout. Mobile menu mirrors all desktop mega menu links.
   - Home.tsx: Adjusted header padding for new nav height (72px)
   - Generated phone+luggage hero image at /images/hero-phone-luggage.png
 - 2026-02-12: Complete homepage redesign to match saily.com premium aesthetic
