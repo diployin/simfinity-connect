@@ -21,3 +21,15 @@ attached_assets/
 # Uploads (user generated files)
 uploads/
 uploads/kyc/
+
+node_modules
+dist
+build
+.next
+.env
+.env.*
+logs
+uploads
+tmp
+.cache
+.DS_Store

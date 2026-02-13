@@ -1,1 +1,0 @@
-ALTER TABLE "supported_currency" ALTER COLUMN "currency_id" SET DATA TYPE varchar;
