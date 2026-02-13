@@ -8,6 +8,8 @@ import { FloatingButtons } from '@/components/sections/FloatingButtons';
 import { GlobalFloatingNav } from '@/components/GlobalFloatingNav';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { HeroSection } from '../components/sections/HeroSection';
+import { WhatIsEsim } from '@/components/sections/WhatIsEsim';
+import { InstantConnection } from '@/components/sections/InstantConnection';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { useUser } from '@/hooks/use-user';
 
@@ -45,7 +47,9 @@ export default function Home() {
           <div className="pt-16 md:pt-[72px]">
             <HeroSection />
           </div>
+          <WhatIsEsim />
           <DestinationsTabs />
+          <InstantConnection />
           <BenefitsSection />
           <HowItWorksSteps />
           <TravelerTestimonials />

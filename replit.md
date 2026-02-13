@@ -48,6 +48,10 @@ migrations/       - Drizzle database migrations
 - 2026-02-13: Hero & top nav redesign to match saily.com screenshot
   - HeroSection: Light blue gradient bg (#e8f4f8) covering both header and hero seamlessly, two-column boxed layout (text left, phone+luggage image right, max-w-2xl), static headline with split t() keys preserved, rounded search bar, popular destinations, stats strip (12M downloads, 200+ destinations, data plans, ratings)
   - SiteHeader: Mega menu navigation with hover dropdowns — Products (Local/Regional/Global eSIMs with icon cards), Resources (What is eSIM, About Us, Reviews, Blog, Supported Devices), Help (FAQs, Getting Started, Troubleshooting, Contact Support). "Destinations" search button, boxed max-width layout. Mobile menu mirrors all desktop mega menu links.
+  - WhatIsEsim: New section above DestinationsTabs — two-column layout with eSIM chip illustration (left) and "What is an eSIM?" explainer text (right), floating "eSIM #1 Active" badge
+  - InstantConnection: New section below DestinationsTabs — "Instant connection and safer browsing" heading, 2-column card grid ("Connect instantly" gray bg + "Avoid waiting in line" blue bg) + full-width "Stay protected online" card with floating security badges
+  - Home.tsx: Section order: Hero → WhatIsEsim → DestinationsTabs → InstantConnection → Benefits → HowItWorks → Testimonials → FAQ
+  - Generated images: esim-chip-illustration.png, connect-instantly-travel.png, avoid-waiting-traveler.png, stay-protected-phone.png
   - Home.tsx: Adjusted header padding for new nav height (72px)
   - Generated phone+luggage hero image at /images/hero-phone-luggage.png
 - 2026-02-12: Complete homepage redesign to match saily.com premium aesthetic
