@@ -42,7 +42,7 @@ export default function Home() {
 
       <div className="min-h-screen bg-background">
         <main>
-          <div className="md:pt-[140px] pt-[50px]">
+          <div className="pt-16 md:pt-[72px]">
             <HeroSection />
           </div>
           <DestinationsTabs />

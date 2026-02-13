@@ -15,6 +15,7 @@ import {
   Headphones,
   MessageCircle,
   X,
+  Search,
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -50,8 +51,6 @@ export function SiteHeader() {
 
   const logo = useSettingByKey('logo');
 
-  // console.log('logo', logo);
-
   const { data: navlinks } = useQuery({
     queryKey: ['/api/pages'],
     queryFn: async () => {
@@ -62,8 +61,6 @@ export function SiteHeader() {
   const { data: settings } = useQuery({
     queryKey: ['/api/public/settings'],
   });
-
-  // console.log('settings_users', settings);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -94,168 +91,141 @@ export function SiteHeader() {
 
   return (
     <header
-      className={`
-        fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-sm
-        ${isScrolled
-          ? 'dark:bg-background/95 bg-white/95 dark:bg-black/95 shadow-sm border-b dark:border-border/50 border-border/50'
-          : 'bg-transparent backdrop-blur-sm'
-        }
-      `}
+      className={cn(
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+        isScrolled
+          ? 'bg-white/95 dark:bg-gray-950/95 backdrop-blur-md shadow-sm border-b border-gray-100 dark:border-gray-800'
+          : 'bg-transparent'
+      )}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-0">
-        <div className="flex h-14 sm:h-16 md:h-18 items-center justify-between gap-2 sm:gap-4 px-3">
-          {/* Logo */}
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="flex h-16 md:h-[72px] items-center justify-between">
           {logo ? (
             <Link href="/" data-testid="link-home" className="flex-shrink-0">
               <img src={logo} alt="" className="h-7" />
             </Link>
           ) : (
             <Link href="/" data-testid="link-home" className="flex-shrink-0">
-              <div className="flex items-center gap-1.5 sm:gap-2 cursor-pointer transition-all duration-200 hover:scale-105 group">
-                <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center transition-transform duration-200 hover:rotate-12">
-                  <Globe className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white" />
+              <div className="flex items-center gap-2 cursor-pointer transition-all duration-200 hover:opacity-80">
+                <div className="h-8 w-8 rounded-lg bg-teal-500 flex items-center justify-center">
+                  <Globe className="h-4 w-4 text-white" />
                 </div>
-                <span className="font-bold text-base sm:text-lg dark:text-white text-foreground group-hover:text-teal-500 transition-colors duration-200">
+                <span className="font-bold text-lg text-gray-900 dark:text-white">
                   eSIM<span className="text-teal-500">Connect</span>
                 </span>
               </div>
             </Link>
           )}
 
-          {/* Desktop Navigation */}
           <nav className="hidden xl:flex items-center gap-1" data-testid="nav-main">
             <Link href="/what-is-esim">
-              <span className="px-3 py-2 text-sm font-medium dark:text-white/90 text-foreground/90  hover:text-primary   transition-all duration-200 cursor-pointer">
+              <span className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                 {t('website.nav.whatIsEsim', 'What is an eSIM')}
               </span>
             </Link>
 
             <Link href="/about-us">
-              <span className="px-3 py-2 text-sm font-medium 0 dark:text-white/90 text-foreground/90  hover:text-primary   transition-all duration-200 cursor-pointer">
+              <span className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                 {t('website.nav.about', 'About Us')}
               </span>
             </Link>
 
-            {/* Resources Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <span className="px-3 py-2 text-sm font-medium dark:text-white/90 text-foreground/90 hover:dark:text-white hover:text-foreground   transition-all duration-200 cursor-pointer flex items-center gap-1 group">
+                <span className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer flex items-center gap-1 group">
                   {t('website.nav.resources', 'Resources')}
-                  <ChevronDown className="h-4 w-4 dark:text-white/80 transition-transform duration-200 group-hover:rotate-180" />
+                  <ChevronDown className="h-3.5 w-3.5 text-gray-500 transition-transform duration-200 group-data-[state=open]:rotate-180" />
                 </span>
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="start"
-                className="w-56 dark:bg-background/95 bg-white/95 backdrop-blur-lg dark:border-border/50 border-border/50"
+                className="w-52 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-lg rounded-xl p-1"
               >
                 <DropdownMenuItem asChild>
                   <Link
                     href="/account/support"
-                    className="flex items-center gap-2 cursor-pointer   hover:bg-accent dark:text-black "
+                    className="flex items-center gap-2.5 cursor-pointer rounded-lg px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
                   >
-                    <Headphones className="h-4 w-4" />
+                    <Headphones className="h-4 w-4 text-gray-500" />
                     {t('website.nav.helpCenter', 'Help Center')}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link
                     href="/blog"
-                    className="flex items-center gap-2 cursor-pointer hover:bg-accent dark:text-black"
+                    className="flex items-center gap-2.5 cursor-pointer rounded-lg px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
                   >
-                    <BookOpen className="h-4 w-4" />
+                    <BookOpen className="h-4 w-4 text-gray-500" />
                     {t('website.nav.blog', 'Blog')}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link
                     href="/faq"
-                    className="flex items-center gap-2 cursor-pointer hover:bg-accent dark:text-black"
+                    className="flex items-center gap-2.5 cursor-pointer rounded-lg px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
                   >
-                    <MessageCircle className="h-4 w-4" />
+                    <MessageCircle className="h-4 w-4 text-gray-500" />
                     {t('website.nav.faqs', 'FAQs')}
                   </Link>
                 </DropdownMenuItem>
-                {/* <DropdownMenuItem asChild>
-                  <a
-                    href="https://help.esimmasters.net"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 cursor-pointer hover:bg-accent dark:text-black"
-                  >
-                    <MessageCircle className="h-4 w-4" />
-                    Help Center
-                  </a>
-                </DropdownMenuItem> */}
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Pages Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <span className="px-3 py-2 text-sm font-medium dark:text-white/90 text-foreground/90 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5  transition-all duration-200 cursor-pointer flex items-center gap-1 group">
+                <span className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer flex items-center gap-1 group">
                   {t('website.nav.pages', 'Pages')}
-                  <ChevronDown className="h-4 w-4 dark:text-white/80 transition-transform duration-200 group-hover:rotate-180" />
+                  <ChevronDown className="h-3.5 w-3.5 text-gray-500 transition-transform duration-200 group-data-[state=open]:rotate-180" />
                 </span>
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="start"
-                className="w-56 dark:bg-background/95 bg-white/95 backdrop-blur-lg dark:border-border/50 border-border/50"
+                className="w-52 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-lg rounded-xl p-1"
               >
                 {navlinks?.data?.map((page: any) => (
                   <DropdownMenuItem key={page.id} asChild>
                     <Link
                       href={`/pages/${page.slug}`}
-                      className="flex items-center gap-2 cursor-pointer hover:bg-accent dark:text-black"
+                      className="flex items-center gap-2.5 cursor-pointer rounded-lg px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
                     >
-                      <FileText className="h-4 w-4" />
+                      <FileText className="h-4 w-4 text-gray-500" />
                       {page.title}
                     </Link>
                   </DropdownMenuItem>
                 ))}
                 {navlinks?.data?.length === 0 && (
-                  <DropdownMenuItem disabled>No pages available</DropdownMenuItem>
+                  <DropdownMenuItem disabled className="text-sm text-gray-400">No pages available</DropdownMenuItem>
                 )}
               </DropdownMenuContent>
             </DropdownMenu>
 
             <Link href="/supported-devices">
-              <span className="px-3 py-2 text-sm font-medium dark:text-white/90 text-foreground/90  hover:text-primary   transition-all duration-200 cursor-pointer">
+              <span className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer">
                 {t('website.nav.supportedDevices', 'Supported Devices')}
               </span>
             </Link>
           </nav>
 
-          {/* Right side controls */}
-          <div className="flex items-center gap-1.5 sm:gap-2 md:gap-3 flex-shrink-0">
-            {/* <Link href="/gift-cards" className="flex-shrink-0 animate-bounce pr-2 ">
-              {' '}
-              <TfiGift className=" h-5 w-5" />
-            </Link> */}
-            {/* Language Selector - Desktop */}
+          <div className="flex items-center gap-2 md:gap-3 flex-shrink-0">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <span className="hidden md:flex items-center gap-2 rounded-full px-2.5 sm:px-3 py-1.5 sm:py-2 border dark:border-white/20 border-border/30 hover:dark:border-white/40 hover:border-foreground/30 hover:dark:bg-white/10 hover:bg-black/5 backdrop-blur-sm transition-all duration-200 cursor-pointer">
+                <span className="hidden md:flex items-center gap-2 rounded-full px-3 py-2 border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm transition-all cursor-pointer">
                   <ReactCountryFlag
                     countryCode={language?.flagCode || 'US'}
                     svg
                     style={{ width: '16px', height: '12px' }}
                   />
-                  <span className="text-xs sm:text-sm font-medium dark:text-white/90 text-foreground/90">
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                     {languageCode.toUpperCase()}
                   </span>
-                  <ChevronDown className="h-3 w-3 dark:text-white/80" />
+                  <ChevronDown className="h-3 w-3 text-gray-500" />
                 </span>
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="end"
-                className="
-    w-56
-    bg-card/95
-    backdrop-blur-lg
-    border border-border/50
-  "
+                className="w-56 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-lg rounded-xl p-1"
               >
-                <div className="px-3 py-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                <div className="px-3 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
                   {t('common.button.selectLanguage', 'Select Language')}
                 </div>
 
@@ -267,8 +237,8 @@ export function SiteHeader() {
                       key={lang.code}
                       onClick={() => setLanguage(lang.code)}
                       className={cn(
-                        'flex items-center justify-between cursor-pointer',
-                        'hover:bg-accent ',
+                        'flex items-center justify-between cursor-pointer rounded-lg',
+                        active ? 'bg-teal-50 dark:bg-teal-900/20' : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                       )}
                     >
                       <div className="flex items-center gap-3">
@@ -278,26 +248,21 @@ export function SiteHeader() {
                           style={{ width: '20px', height: '15px' }}
                         />
                         <div>
-                          <div
-                            className={cn(
-                              'font-medium',
-                              active ? 'text-foreground  ' : 'text-foreground',
-                            )}
-                          >
+                          <div className={cn('font-medium text-sm', active ? 'text-teal-700 dark:text-teal-400' : 'text-gray-700 dark:text-gray-300')}>
                             {lang.nativeName}
                           </div>
-                          <div className="text-xs text-muted-foreground">{lang.name}</div>
+                          <div className="text-xs text-gray-500">{lang.name}</div>
                         </div>
                       </div>
 
-                      {active && <div className="h-2 w-2 rounded-full bg-primary" />}
+                      {active && <div className="h-2 w-2 rounded-full bg-teal-500" />}
                     </DropdownMenuItem>
                   );
                 })}
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <div className="">
+            <div>
               <NotificationBell />
             </div>
             <div className="hidden sm:block">
@@ -307,18 +272,17 @@ export function SiteHeader() {
               <ThemeToggle />
             </div>
 
-            {/* Primary CTA - Desktop */}
             <Link href="/destinations">
-              <span className="hidden md:flex text-xs sm:text-sm font-semibold bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white rounded-full px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl whitespace-nowrap">
-                {t('website.nav.seePacks', 'See packs')}
+              <span className="hidden md:flex items-center gap-2 text-sm font-semibold bg-teal-500 hover:bg-teal-600 text-white rounded-full px-5 py-2.5 transition-colors shadow-sm hover:shadow-md whitespace-nowrap">
+                <Search className="h-3.5 w-3.5" />
+                {t('website.nav.seePacks', 'Destinations')}
               </span>
             </Link>
 
-            {/* Auth buttons - Desktop */}
             {!isLoading && !isAuthenticated && (
               <Link href="/login">
-                <span className="hidden md:flex text-xs sm:text-sm font-medium dark:text-white/90 text-foreground/90 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 border dark:border-white/20 border-border/30 hover:dark:border-white/40 hover:border-foreground/30 hover:dark:bg-white/10 hover:bg-black/5 backdrop-blur-sm transition-all duration-200 gap-2 items-center whitespace-nowrap">
-                  <User className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                <span className="hidden md:flex text-sm font-medium text-gray-700 dark:text-gray-300 rounded-full px-4 py-2.5 border border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all gap-2 items-center whitespace-nowrap">
+                  <User className="h-4 w-4" />
                   {t('website.nav.signIn', 'Sign In')}
                 </span>
               </Link>
@@ -327,26 +291,26 @@ export function SiteHeader() {
             {!isLoading && isAuthenticated && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <span className="hidden md:block rounded-full p-1 hover:dark:bg-white/10 hover:bg-black/5 backdrop-blur-sm transition-all duration-200 cursor-pointer">
-                    <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-full dark:bg-white/20 bg-black/10 backdrop-blur-sm flex items-center justify-center hover:dark:bg-white/30 hover:bg-black/20 transition-all duration-200">
-                      <User className="h-3.5 w-3.5 sm:h-4 sm:w-4 dark:text-white text-foreground" />
+                  <span className="hidden md:block rounded-full p-1 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all cursor-pointer">
+                    <div className="h-8 w-8 rounded-full bg-teal-100 dark:bg-teal-900/40 flex items-center justify-center">
+                      <User className="h-4 w-4 text-teal-600 dark:text-teal-400" />
                     </div>
                   </span>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
                   align="end"
-                  className="w-56 bg-white dark:bg-gray-900 backdrop-blur-lg border border-gray-200 dark:border-gray-800"
+                  className="w-56 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-lg rounded-xl p-1"
                 >
-                  <div className="px-3 py-2 border-b border-gray-200 dark:border-gray-800">
+                  <div className="px-3 py-2.5 border-b border-gray-100 dark:border-gray-800">
                     <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
                       {user?.name || 'User'}
                     </p>
-                    <p className="text-xs text-gray-600 dark:text-gray-400">{user?.email}</p>
+                    <p className="text-xs text-gray-500">{user?.email}</p>
                   </div>
                   <DropdownMenuItem asChild>
                     <Link
                       href="/account/profile"
-                      className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-2 text-gray-900 dark:text-gray-100"
+                      className="cursor-pointer flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
                     >
                       <User className="h-4 w-4" />
                       Profile
@@ -355,15 +319,16 @@ export function SiteHeader() {
                   <DropdownMenuItem asChild>
                     <Link
                       href="/account/orders"
-                      className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-2 text-gray-900 dark:text-gray-100"
+                      className="cursor-pointer flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
                     >
                       <ShoppingBag className="h-4 w-4" />
                       My Orders
                     </Link>
                   </DropdownMenuItem>
+                  <DropdownMenuSeparator className="bg-gray-100 dark:bg-gray-800" />
                   <DropdownMenuItem
                     onClick={handleLogout}
-                    className="text-red-600 dark:text-red-400 focus:text-red-600 dark:focus:text-red-400 cursor-pointer hover:bg-red-50 dark:hover:bg-red-900/20"
+                    className="text-red-600 dark:text-red-400 focus:text-red-600 dark:focus:text-red-400 cursor-pointer rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
                   >
                     Sign Out
                   </DropdownMenuItem>
@@ -371,52 +336,50 @@ export function SiteHeader() {
               </DropdownMenu>
             )}
 
-            {/* Mobile Menu */}
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
-                <button className="xl:hidden p-1.5 sm:p-2 hover:dark:bg-white/10 hover:bg-black/5  transition-all duration-200">
-                  <Menu className="h-5 w-5 sm:h-6 sm:w-6 dark:text-white text-foreground" />
+                <button className="xl:hidden p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                  <Menu className="h-5 w-5 text-gray-700 dark:text-gray-300" />
                 </button>
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="w-[85vw] sm:w-80 p-0  bg-white dark:bg-background backdrop-blur-lg overflow-y-auto"
+                className="w-[85vw] sm:w-80 p-0 bg-white dark:bg-gray-950 overflow-y-auto"
               >
-                <SheetHeader className="border-b p-4 sm:p-6 flex flex-row items-center justify-between">
-                  <SheetTitle className="dark:text-white text-foreground text-lg">
+                <SheetHeader className="border-b border-gray-100 dark:border-gray-800 p-5 flex flex-row items-center justify-between">
+                  <SheetTitle className="text-gray-900 dark:text-white text-lg">
                     Menu
                   </SheetTitle>
                   <button
                     onClick={closeMobileMenu}
-                    className="p-1 hover:dark:bg-white/10 hover:bg-black/5 rounded-md transition-colors"
+                    className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors"
                   >
-                    {/* <X className="h-5 w-5 dark:text-white text-foreground" /> */}
+                    <X className="h-5 w-5 text-gray-500" />
                   </button>
                 </SheetHeader>
 
-                <nav className="flex flex-col p-4 sm:p-6 space-y-1 bg-white dark:bg-background">
-                  {/* User Profile - Mobile */}
+                <nav className="flex flex-col p-5 space-y-1">
                   {isAuthenticated && (
-                    <div className="mb-4 pb-4 border-b dark:border-white/20 border-black/20">
+                    <div className="mb-4 pb-4 border-b border-gray-100 dark:border-gray-800">
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="h-10 w-10 rounded-full dark:bg-white/20 bg-black/10 flex items-center justify-center">
-                          <User className="h-5 w-5 dark:text-white text-foreground" />
+                        <div className="h-10 w-10 rounded-full bg-teal-100 dark:bg-teal-900/40 flex items-center justify-center">
+                          <User className="h-5 w-5 text-teal-600 dark:text-teal-400" />
                         </div>
                         <div>
-                          <p className="text-sm font-medium dark:text-white text-foreground">
+                          <p className="text-sm font-medium text-gray-900 dark:text-white">
                             {user?.name || 'User'}
                           </p>
-                          <p className="text-xs text-muted-foreground">{user?.email}</p>
+                          <p className="text-xs text-gray-500">{user?.email}</p>
                         </div>
                       </div>
                       <div className="flex flex-col gap-1">
                         <Link href="/account/profile" onClick={closeMobileMenu}>
-                          <span className="block py-2 px-3 text-sm font-medium dark:text-white/90 text-foreground/90 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5 rounded-md transition-all">
+                          <span className="block py-2 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                             Profile
                           </span>
                         </Link>
                         <Link href="/account/orders" onClick={closeMobileMenu}>
-                          <span className="block py-2 px-3 text-sm font-medium dark:text-white/90 text-foreground/90 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5 rounded-md transition-all">
+                          <span className="block py-2 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                             My Orders
                           </span>
                         </Link>
@@ -424,77 +387,67 @@ export function SiteHeader() {
                     </div>
                   )}
 
-                  {/* Main Navigation */}
                   <Link href="/what-is-esim" onClick={closeMobileMenu}>
-                    <span className="block py-2.5 sm:py-3 px-3 text-sm sm:text-base font-medium dark:text-white/90 text-foreground/90 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5 rounded-md transition-all">
+                    <span className="block py-2.5 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                       {t('website.nav.whatIsEsim', 'What is an eSIM')}
                     </span>
                   </Link>
 
                   <Link href="/about-us" onClick={closeMobileMenu}>
-                    <span className="block py-2.5 sm:py-3 px-3 text-sm sm:text-base font-medium dark:text-white/90 text-foreground/90 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5 rounded-md transition-all">
+                    <span className="block py-2.5 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                       {t('website.nav.about', 'About Us')}
                     </span>
                   </Link>
 
-                  {/* Resources Dropdown - Mobile */}
                   <div className="space-y-1">
                     <button
                       onClick={() => setResourcesOpen(!resourcesOpen)}
-                      className="w-full flex items-center justify-between py-2.5 sm:py-3 px-3 text-sm sm:text-base font-medium dark:text-white/90 text-foreground/90 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5 rounded-md transition-all"
+                      className="w-full flex items-center justify-between py-2.5 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all"
                     >
                       {t('website.nav.resources', 'Resources')}
                       <ChevronRight
-                        className={`h-4 w-4  text-foreground/80 transition-transform duration-200 ${resourcesOpen ? 'rotate-90' : ''
-                          }`}
+                        className={cn(
+                          'h-4 w-4 text-gray-400 transition-transform duration-200',
+                          resourcesOpen && 'rotate-90'
+                        )}
                       />
                     </button>
                     {resourcesOpen && (
                       <div className="ml-4 space-y-1 border-l-2 border-teal-500/30 pl-3">
                         <Link href="/account/support" onClick={closeMobileMenu}>
-                          <span className="flex items-center gap-2 py-2 px-3 text-sm dark:text-BLACK text-foreground/80 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5 rounded-md transition-all">
+                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                             <Headphones className="h-4 w-4" />
                             {t('website.nav.helpCenter', 'Help Center')}
                           </span>
                         </Link>
                         <Link href="/blog" onClick={closeMobileMenu}>
-                          <span className="flex items-center gap-2 py-2 px-3 text-sm dark:text-white/80 text-foreground/80 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5 rounded-md transition-all">
+                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                             <BookOpen className="h-4 w-4" />
                             {t('website.nav.blog', 'Blog')}
                           </span>
                         </Link>
                         <Link href="/faq" onClick={closeMobileMenu}>
-                          <span className="flex items-center gap-2 py-2 px-3 text-sm dark:text-white/80 text-foreground/80 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5 rounded-md transition-all">
+                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                             <MessageCircle className="h-4 w-4" />
                             {t('website.nav.faqs', 'FAQs')}
                           </span>
                         </Link>
-                        {/* <a
-                          href="https://help.esimmasters.net"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={closeMobileMenu}
-                        >
-                          <span className="flex items-center gap-2 py-2 px-3 text-sm dark:text-white/80 text-foreground/80 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5 rounded-md transition-all">
-                            <MessageCircle className="h-4 w-4" />
-                            Help Center
-                          </span>
-                        </a> */}
                       </div>
                     )}
                   </div>
 
-                  {/* Pages Dropdown - Mobile */}
                   {navlinks?.data && navlinks.data.length > 0 && (
                     <div className="space-y-1">
                       <button
                         onClick={() => setPagesOpen(!pagesOpen)}
-                        className="w-full flex items-center justify-between py-2.5 sm:py-3 px-3 text-sm sm:text-base font-medium dark:text-white/90 text-foreground/90 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5 rounded-md transition-all"
+                        className="w-full flex items-center justify-between py-2.5 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all"
                       >
                         Pages
                         <ChevronRight
-                          className={`h-4 w-4 dark:text-white/80 text-foreground/80 transition-transform duration-200 ${pagesOpen ? 'rotate-90' : ''
-                            }`}
+                          className={cn(
+                            'h-4 w-4 text-gray-400 transition-transform duration-200',
+                            pagesOpen && 'rotate-90'
+                          )}
                         />
                       </button>
                       {pagesOpen && (
@@ -505,7 +458,7 @@ export function SiteHeader() {
                               href={`/pages/${page.slug}`}
                               onClick={closeMobileMenu}
                             >
-                              <span className="flex items-center gap-2 py-2 px-3 text-sm dark:text-white/80 text-foreground/80 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5 rounded-md transition-all">
+                              <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                                 <FileText className="h-4 w-4" />
                                 {page.title}
                               </span>
@@ -517,30 +470,29 @@ export function SiteHeader() {
                   )}
 
                   <Link href="/supported-devices" onClick={closeMobileMenu}>
-                    <span className="block py-2.5 sm:py-3 px-3 text-sm sm:text-base font-medium dark:text-white/90 text-foreground/90 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5 rounded-md transition-all">
+                    <span className="block py-2.5 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                       {t('website.nav.supportedDevices', 'Supported Devices')}
                     </span>
                   </Link>
 
                   <div className="pt-4">
                     <Link href="/destinations" onClick={closeMobileMenu}>
-                      <span className="block w-full bg-gradient-to-r from-teal-500 to-teal-600 hover:from-teal-600 hover:to-teal-700 text-white text-sm font-semibold py-2.5 sm:py-3 px-4 rounded-xl shadow-lg hover:shadow-xl transition-all text-center">
-                        {t('website.nav.seePacks', 'See packs')}
+                      <span className="flex items-center justify-center gap-2 w-full bg-teal-500 hover:bg-teal-600 text-white text-sm font-semibold py-3 px-4 rounded-full shadow-sm transition-all text-center">
+                        <Search className="h-4 w-4" />
+                        {t('website.nav.seePacks', 'Destinations')}
                       </span>
                     </Link>
                   </div>
 
-                  {/* Mobile Settings Section */}
-                  <div className="pt-4 mt-4 border-t dark:border-white/20 border-black/20 space-y-3">
-                    <p className="text-xs font-medium dark:text-white/70 text-foreground/70 uppercase tracking-wider px-3">
+                  <div className="pt-4 mt-4 border-t border-gray-100 dark:border-gray-800 space-y-3">
+                    <p className="text-xs font-medium text-gray-500 uppercase tracking-wider px-3">
                       Settings
                     </p>
 
-                    {/* Language Selector - Mobile */}
                     <div>
                       <button
                         onClick={() => setLanguageOpen(!languageOpen)}
-                        className="w-full flex items-center justify-between py-2.5 px-3 text-sm font-medium dark:text-white/90 text-foreground/90 hover:dark:bg-white/10 hover:bg-black/5 rounded-md transition-all"
+                        className="w-full flex items-center justify-between py-2.5 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all"
                       >
                         <div className="flex items-center gap-2">
                           <Globe className="h-4 w-4" />
@@ -552,12 +504,14 @@ export function SiteHeader() {
                             svg
                             style={{ width: '16px', height: '12px' }}
                           />
-                          <span className="text-xs dark:text-white/90 text-foreground/90">
+                          <span className="text-xs text-gray-600 dark:text-gray-400">
                             {languageCode.toUpperCase()}
                           </span>
                           <ChevronRight
-                            className={`h-4 w-4 dark:text-white/80 text-foreground/80 transition-transform duration-200 ${languageOpen ? 'rotate-90' : ''
-                              }`}
+                            className={cn(
+                              'h-4 w-4 text-gray-400 transition-transform duration-200',
+                              languageOpen && 'rotate-90'
+                            )}
                           />
                         </div>
                       </button>
@@ -570,10 +524,12 @@ export function SiteHeader() {
                                 setLanguage(lang.code);
                                 setLanguageOpen(false);
                               }}
-                              className={`w-full flex items-center justify-between py-2 px-3 text-sm rounded-md transition-all ${languageCode === lang.code
-                                ? 'bg-gradient-to-r from-teal-500 to-teal-600 text-white'
-                                : 'dark:text-white/80 text-foreground/80 hover:dark:text-white hover:text-foreground hover:dark:bg-white/10 hover:bg-black/5'
-                                }`}
+                              className={cn(
+                                'w-full flex items-center justify-between py-2 px-3 text-sm rounded-lg transition-all',
+                                languageCode === lang.code
+                                  ? 'bg-teal-500 text-white'
+                                  : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
+                              )}
                             >
                               <div className="flex items-center gap-2">
                                 <ReactCountryFlag
@@ -592,32 +548,30 @@ export function SiteHeader() {
                       )}
                     </div>
 
-                    {/* Theme, Currency, Notifications */}
                     <div className="flex items-center justify-between px-3 py-2">
-                      <span className="text-sm font-medium dark:text-white/90 text-foreground/90">
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                         Theme
                       </span>
                       <ThemeToggle />
                     </div>
                     <div className="flex items-center justify-between px-3 py-2">
-                      <span className="text-sm font-medium dark:text-white/90 text-foreground/90">
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                         Currency
                       </span>
                       <CurrencySelector />
                     </div>
                     <div className="flex items-center justify-between px-3 py-2">
-                      <span className="text-sm font-medium dark:text-white/90 text-foreground/90">
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                         Notifications
                       </span>
                       <NotificationBell />
                     </div>
                   </div>
 
-                  {/* Auth Section - Mobile */}
                   {!isAuthenticated && (
-                    <div className="pt-4 mt-4 border-t dark:border-white/20 border-black/20">
+                    <div className="pt-4 mt-4 border-t border-gray-100 dark:border-gray-800">
                       <Link href="/login" onClick={closeMobileMenu}>
-                        <span className="flex items-center justify-center gap-2 w-full border dark:border-white/20 border-border/30 text-sm font-medium dark:text-white/90 text-foreground/90 py-2.5 px-4 rounded-xl hover:dark:bg-white/10 hover:bg-black/5 transition-all">
+                        <span className="flex items-center justify-center gap-2 w-full border border-gray-200 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 py-2.5 px-4 rounded-full hover:bg-gray-50 dark:hover:bg-gray-800 transition-all">
                           <User className="h-4 w-4" />
                           {t('website.nav.signIn', 'Sign In')}
                         </span>
@@ -626,13 +580,13 @@ export function SiteHeader() {
                   )}
 
                   {isAuthenticated && (
-                    <div className="pt-4 mt-4 border-t dark:border-white/20 border-black/20">
+                    <div className="pt-4 mt-4 border-t border-gray-100 dark:border-gray-800">
                       <button
                         onClick={() => {
                           handleLogout();
                           closeMobileMenu();
                         }}
-                        className="w-full text-destructive hover:bg-destructive/10 text-sm font-medium py-2.5 px-4 rounded-xl transition-all"
+                        className="w-full text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 text-sm font-medium py-2.5 px-4 rounded-full transition-all"
                       >
                         Sign Out
                       </button>

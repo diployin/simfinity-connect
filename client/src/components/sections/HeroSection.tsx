@@ -1,20 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import {
   Search,
   Globe,
-  Star,
   ChevronRight,
-  CheckCircle,
-  Signal,
-  Database,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import { SearchModalHero } from '../modals/SearchModalHero';
 import { useTranslation } from '@/contexts/TranslationContext';
@@ -41,21 +35,11 @@ interface RegionWithPricing {
 export function HeroSection() {
   const [phoneSearchQuery, setPhoneSearchQuery] = useState('');
   const [searchType, setSearchType] = useState<'country' | 'region'>('country');
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [, setLocation] = useLocation();
   const { currency } = useCurrency();
   const { t } = useTranslation();
 
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
-
-  const rotatingWords = ['Anywhere', 'Traveling', 'Abroad', 'Roaming'];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentWordIndex((prev) => (prev + 1) % rotatingWords.length);
-    }, 2500);
-    return () => clearInterval(interval);
-  }, []);
 
   const { data: destinationsWithPricing, isLoading: destinationsLoading } = useQuery<
     DestinationWithPricing[]
@@ -150,152 +134,106 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-teal-50/60 dark:from-teal-950/20 to-white dark:to-background">
+    <section className="relative overflow-hidden bg-[#e8f4f8] dark:bg-gray-900">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-teal-100/30 dark:bg-teal-900/10 blur-3xl" />
-        <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] rounded-full bg-teal-50/40 dark:bg-teal-950/10 blur-3xl" />
+        <svg className="absolute top-0 right-0 w-[60%] h-full" viewBox="0 0 600 500" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M200 -50 Q350 50 450 150 Q550 250 500 400 Q480 500 600 500 L600 -50 Z" fill="#14b8a6" opacity="0.15" />
+          <path d="M300 -30 Q400 80 480 200 Q560 320 520 450 Q510 500 600 480 L600 -30 Z" fill="#14b8a6" opacity="0.08" />
+        </svg>
+        <div className="absolute top-[10%] right-[15%] w-[200px] h-[200px] rounded-full bg-teal-200/20 dark:bg-teal-800/10 blur-3xl" />
       </div>
 
-      <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 md:pt-20 pb-8 sm:pb-10">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="flex flex-col items-start text-left max-w-3xl lg:max-w-[60%]"
-        >
-          <motion.p
-            variants={itemVariants}
-            className="text-sm sm:text-base text-muted-foreground dark:text-muted-foreground/80 mb-4"
+      <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[520px] lg:min-h-[560px]">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            className="flex flex-col items-start text-left py-10 lg:py-16"
           >
-            {t('website.home.hero.subtitle', 'Where do you need mobile data?')}
-          </motion.p>
-
-          <motion.h1
-            variants={itemVariants}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground dark:text-foreground tracking-tight leading-[1.15] mb-2"
-            data-testid="text-hero-headline"
-          >
-            {t('website.home.hero.global', 'Affordable eSIM data')}{' '}
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={currentWordIndex}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4, ease: 'easeInOut' }}
-                className="text-primary inline-block"
-                data-testid="text-rotating-word"
-              >
-                {t(`website.home.hero.${rotatingWords[currentWordIndex]}`, rotatingWords[currentWordIndex])}
-              </motion.span>
-            </AnimatePresence>
-          </motion.h1>
-
-          <motion.h2
-            variants={itemVariants}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground dark:text-foreground tracking-tight leading-[1.15] mb-6"
-            data-testid="text-hero-headline-2"
-          >
-            {t('website.home.hero.forLifetime', 'for international travel')}
-          </motion.h2>
-
-          <motion.div variants={itemVariants} className="w-full max-w-xl mb-6">
-            <button
-              onClick={() => setIsSearchModalOpen(true)}
-              className="w-full flex items-center gap-3 px-4 py-3.5 sm:px-5 sm:py-4 rounded-xl border border-border/60 dark:border-border/40 bg-white dark:bg-card hover:border-primary/40 transition-all shadow-sm hover:shadow-md group cursor-pointer text-left"
+            <motion.h1
+              variants={itemVariants}
+              className="text-3xl sm:text-4xl md:text-[2.75rem] lg:text-[3.25rem] font-bold text-gray-900 dark:text-white tracking-tight leading-[1.15] mb-5"
+              data-testid="text-hero-headline"
             >
-              <span className="text-sm sm:text-base text-muted-foreground group-hover:text-foreground transition-colors flex-1">
-                {t('website.home.hero.search', 'Search for destination')}
-              </span>
-              <div className="p-2.5 rounded-lg bg-primary text-primary-foreground flex-shrink-0">
-                <Search className="h-4 w-4" />
-              </div>
-            </button>
-          </motion.div>
+              {t('website.home.hero.global', 'Affordable eSIM data')}{' '}
+              {t('website.home.hero.forLifetime', 'for international travel')}
+            </motion.h1>
 
-          <motion.div variants={itemVariants} className="w-full max-w-xl">
-            <p className="text-xs font-medium text-muted-foreground dark:text-muted-foreground/70 uppercase tracking-wider mb-3">
-              {t('website.home.hero.popularDestinations', 'Popular destinations')}
-            </p>
-            <div className="flex flex-wrap items-start gap-2">
-              {displayPopular.map((dest) => (
-                <Link key={dest.slug} href={`/destination/${dest.slug}`}>
+            <motion.p
+              variants={itemVariants}
+              className="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-6"
+            >
+              {t('website.home.hero.subtitle', 'Where do you need mobile data?')}
+            </motion.p>
+
+            <motion.div variants={itemVariants} className="w-full max-w-md mb-8">
+              <button
+                onClick={() => setIsSearchModalOpen(true)}
+                className="w-full flex items-center gap-3 px-4 py-3 sm:px-5 sm:py-3.5 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-teal-300 dark:hover:border-teal-600 transition-all shadow-sm hover:shadow-md group cursor-pointer text-left"
+              >
+                <span className="text-sm sm:text-base text-gray-400 dark:text-gray-500 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors flex-1">
+                  {t('website.home.hero.search', 'Search for destination')}
+                </span>
+                <div className="p-2 rounded-full bg-teal-500 text-white flex-shrink-0">
+                  <Search className="h-4 w-4" />
+                </div>
+              </button>
+            </motion.div>
+
+            <motion.div variants={itemVariants} className="w-full max-w-md">
+              <p className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
+                {t('website.home.hero.popularDestinations', 'Popular destinations')}
+              </p>
+              <div className="flex flex-wrap items-start gap-2">
+                {displayPopular.map((dest) => (
+                  <Link key={dest.slug} href={`/destination/${dest.slug}`}>
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-teal-300 dark:hover:border-teal-600 transition-all cursor-pointer shadow-sm hover:shadow-md"
+                    >
+                      <img
+                        src={`https://flagcdn.com/16x12/${dest.countryCode.toLowerCase()}.png`}
+                        srcSet={`https://flagcdn.com/32x24/${dest.countryCode.toLowerCase()}.png 2x`}
+                        alt={dest.name}
+                        className="w-4 h-3 rounded-[2px] object-cover"
+                      />
+                      <span className="text-xs font-medium text-gray-700 dark:text-gray-300">{dest.name}</span>
+                      <ChevronRight className="h-3 w-3 text-gray-400" />
+                    </motion.div>
+                  </Link>
+                ))}
+                <Link href="/destinations">
                   <motion.div
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-card border border-border/50 dark:border-border/30 hover:border-primary/30 transition-all cursor-pointer shadow-sm hover:shadow-md"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-teal-50 dark:bg-teal-900/30 border border-teal-200 dark:border-teal-700 hover:bg-teal-100 dark:hover:bg-teal-900/50 transition-all cursor-pointer"
                   >
-                    <img
-                      src={`https://flagcdn.com/16x12/${dest.countryCode.toLowerCase()}.png`}
-                      srcSet={`https://flagcdn.com/32x24/${dest.countryCode.toLowerCase()}.png 2x`}
-                      alt={dest.name}
-                      className="w-4 h-3 rounded-[2px] object-cover"
-                    />
-                    <span className="text-xs font-medium text-foreground dark:text-foreground/90">{dest.name}</span>
-                    <ChevronRight className="h-3 w-3 text-muted-foreground" />
+                    <Globe className="h-3 w-3 text-teal-600 dark:text-teal-400" />
+                    <span className="text-xs font-medium text-teal-600 dark:text-teal-400">
+                      {t('website.home.hero.viewAll', 'View all')}
+                    </span>
                   </motion.div>
                 </Link>
-              ))}
-              <Link href="/destinations">
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.97 }}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/[0.08] dark:bg-primary/[0.15] border border-primary/20 hover:bg-primary/[0.12] transition-all cursor-pointer"
-                >
-                  <Globe className="h-3 w-3 text-primary" />
-                  <span className="text-xs font-medium text-primary">
-                    {t('website.home.hero.viewAll', 'View all')}
-                  </span>
-                </motion.div>
-              </Link>
-            </div>
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
-      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.5 }}
-        className="relative border-t border-border/30 dark:border-border/20 bg-white/60 dark:bg-background/60 backdrop-blur-sm"
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-            <div className="flex items-center gap-3">
-              <div className="flex-shrink-0 w-9 h-9 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
-                <CheckCircle className="h-4.5 w-4.5 text-teal-600 dark:text-teal-400" />
-              </div>
-              <span className="text-xs sm:text-sm font-medium text-foreground dark:text-foreground/90">
-                {t('website.home.hero.statDownloads', 'Over 12M downloads')}
-              </span>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="flex-shrink-0 w-9 h-9 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
-                <Signal className="h-4.5 w-4.5 text-teal-600 dark:text-teal-400" />
-              </div>
-              <span className="text-xs sm:text-sm font-medium text-foreground dark:text-foreground/90">
-                {t('website.home.hero.statCoverage', 'Coverage for 200+ destinations')}
-              </span>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="flex-shrink-0 w-9 h-9 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
-                <Database className="h-4.5 w-4.5 text-teal-600 dark:text-teal-400" />
-              </div>
-              <span className="text-xs sm:text-sm font-medium text-foreground dark:text-foreground/90">
-                {t('website.home.hero.statPlans', 'Plans from 1 GB to unlimited data')}
-              </span>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="flex-shrink-0 w-9 h-9 rounded-full bg-teal-100 dark:bg-teal-900/30 flex items-center justify-center">
-                <Star className="h-4.5 w-4.5 text-teal-600 dark:text-teal-400" />
-              </div>
-              <span className="text-xs sm:text-sm font-medium text-foreground dark:text-foreground/90">
-                {t('website.home.hero.statRatings', '100K+ 5-star ratings')}
-              </span>
-            </div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="hidden lg:flex items-center justify-center relative"
+          >
+            <img
+              src="/images/hero-phone-luggage.png"
+              alt="eSIM Travel"
+              className="w-full max-w-md xl:max-w-lg object-contain drop-shadow-2xl relative z-10"
+            />
+          </motion.div>
         </div>
-      </motion.div>
+      </div>
 
       <SearchModalHero open={isSearchModalOpen} onOpenChange={setIsSearchModalOpen} />
     </section>
