@@ -45,6 +45,11 @@ migrations/       - Drizzle database migrations
 - Stripe initialization is conditional (requires STRIPE_SECRET_KEY env var)
 
 ## Recent Changes
+- 2026-02-13: Hero & top nav redesign to match saily.com screenshot
+  - HeroSection: Light blue bg (#e8f4f8), two-column boxed layout (text left, phone+luggage image right), static headline, rounded search bar, popular destinations preserved
+  - SiteHeader: Clean minimal nav with rounded dropdowns, "Destinations" search button with icon, boxed max-width layout, improved mobile menu with close icon
+  - Home.tsx: Adjusted header padding for new nav height (72px)
+  - Generated phone+luggage hero image at /images/hero-phone-luggage.png
 - 2026-02-12: Complete homepage redesign to match saily.com premium aesthetic
   - HeroSection: Left-aligned bold headline, rotating keywords, search bar, popular destinations strip
   - DestinationsTabs: Pill-style tabs, 3x3 grid list cards with flags, country names, pricing, chevrons
