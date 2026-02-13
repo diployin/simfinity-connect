@@ -172,15 +172,19 @@ export function AboutUs() {
                 </p>
               </div>
             </div>
-            <div className="bg-slate-100 rounded-2xl aspect-[4/3] flex items-center justify-center">
-              <Globe2 className="w-20 h-20 text-slate-300" />
+            <div className="bg-slate-100 rounded-2xl aspect-[4/3] flex items-center justify-center overflow-hidden">
+              <img
+                src="/images/about/Voices_crew1.png"
+                alt="Simfinity Connect Crew"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>
       </section>
 
       {/* They talk about us */}
-      <section className="py-12 md:py-16 bg-white border-y border-gray-100">
+      {/* <section className="py-12 md:py-16 bg-white border-y border-gray-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h3 className="text-center text-sm font-semibold text-gray-400 uppercase tracking-wider mb-8">
             They talk about us
@@ -196,7 +200,7 @@ export function AboutUs() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* The values that guide us */}
       <section className="py-16 md:py-24 bg-white">
@@ -313,9 +317,8 @@ export function AboutUs() {
             {lifeCards.map((card, index) => (
               <div
                 key={index}
-                className={`bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:shadow-md transition-all duration-300 ${
-                  card.large && index < 2 ? 'lg:col-span-1 md:col-span-1' : ''
-                } ${index < 2 ? 'md:row-span-1' : ''}`}
+                className={`bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:shadow-md transition-all duration-300 ${card.large && index < 2 ? 'lg:col-span-1 md:col-span-1' : ''
+                  } ${index < 2 ? 'md:row-span-1' : ''}`}
                 style={index < 2 ? { minHeight: '220px' } : {}}
               >
                 <h3 className="text-xl font-bold text-gray-900 mb-3">{card.title}</h3>

@@ -130,7 +130,7 @@ export function SiteHeader() {
         <div className="flex h-16 md:h-[72px] items-center justify-between">
           {logo ? (
             <Link href="/" data-testid="link-home" className="flex-shrink-0">
-              <img src={logo} alt="" className="h-7" />
+              <img src={logo} alt="" className="h-12" />
             </Link>
           ) : (
             <Link href="/" data-testid="link-home" className="flex-shrink-0">
@@ -387,9 +387,9 @@ export function SiteHeader() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <div>
+            {/* <div>
               <NotificationBell />
-            </div>
+            </div> */}
             <div className="hidden sm:block">
               <CurrencySelector />
             </div>
@@ -690,10 +690,10 @@ export function SiteHeader() {
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Currency</span>
                       <CurrencySelector />
                     </div>
-                    <div className="flex items-center justify-between px-3 py-2">
+                    {/* <div className="flex items-center justify-between px-3 py-2">
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Notifications</span>
                       <NotificationBell />
-                    </div>
+                    </div> */}
                   </div>
 
                   {!isAuthenticated && (
