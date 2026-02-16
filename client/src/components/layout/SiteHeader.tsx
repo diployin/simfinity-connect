@@ -469,7 +469,7 @@ export function SiteHeader() {
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="w-[85vw] sm:w-80 p-0 bg-white dark:bg-gray-950 overflow-y-auto"
+                className="w-[85vw] sm:w-80 p-0 bg-white dark:bg-gray-950 overflow-y-auto [&>button]:hidden"
               >
                 <SheetHeader className="border-b border-gray-100 dark:border-gray-800 p-5 flex flex-row items-center justify-between">
                   <SheetTitle className="text-gray-900 dark:text-white text-lg">Menu</SheetTitle>

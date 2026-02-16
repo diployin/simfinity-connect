@@ -248,7 +248,7 @@ export function HeroSection() {
                 <CheckCircle className="h-4 w-4 text-[#2c7338] dark:text-[#3d9a4d]" />
               </div>
               <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
-                {t('website.home.hero.statDownloads', 'Over 12M downloads')}
+                {t('website.home.hero.statDownloads', 'Over 50K+ Users')}
               </span>
             </div>
             <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3 text-center sm:text-left">
@@ -272,7 +272,7 @@ export function HeroSection() {
                 <Star className="h-4 w-4 text-[#2c7338] dark:text-[#3d9a4d]" />
               </div>
               <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
-                {t('website.home.hero.statRatings', '100K+ 5-star ratings')}
+                {t('website.home.hero.statRatings', '10K 5 Star Rating')}
               </span>
             </div>
           </div>

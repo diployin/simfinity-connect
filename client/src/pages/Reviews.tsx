@@ -177,7 +177,7 @@ export function Reviews() {
       </section>
 
       {/* What do customers say */}
-      <section className="py-16 md:py-24 bg-white">
+      {/* <section className="py-16 md:py-24 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-10">
             What do customers say
@@ -223,7 +223,7 @@ export function Reviews() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Comparison Table */}
       <section className="py-16 md:py-24 bg-slate-50">
@@ -241,11 +241,10 @@ export function Reviews() {
                   {providers.map((provider, index) => (
                     <th
                       key={provider}
-                      className={`text-center text-sm font-semibold px-6 py-4 ${
-                        index === 0
+                      className={`text-center text-sm font-semibold px-6 py-4 ${index === 0
                           ? 'text-[#2c7338] bg-green-50'
                           : 'text-gray-500'
-                      }`}
+                        }`}
                     >
                       {provider}
                     </th>
@@ -264,9 +263,8 @@ export function Reviews() {
                     {row.values.map((value, colIndex) => (
                       <td
                         key={colIndex}
-                        className={`text-center px-6 py-4 ${
-                          colIndex === 0 ? 'bg-green-50' : ''
-                        }`}
+                        className={`text-center px-6 py-4 ${colIndex === 0 ? 'bg-green-50' : ''
+                          }`}
                       >
                         {value ? (
                           <Check className="w-5 h-5 text-[#2c7338] mx-auto" />

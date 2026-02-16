@@ -102,7 +102,7 @@ export async function sendEmail({ to, subject, html, text }: EmailOptions) {
 
   try {
     await transporter!.sendMail({
-      from: `"eSIM Global" <${smtp.fromEmail}>`,
+      from: `"Simfinity" <${smtp.fromEmail}>`,
       to,
       subject,
       html,
@@ -164,7 +164,7 @@ export async function generateOTPEmail(
     const templateRendered = await renderTemplate("otp", {
       customer_name: name || "Customer",
       code,
-      platform_name: "eSIM Global",
+      platform_name: "Simfinity",
       customer_email: email,
     });
 
@@ -197,7 +197,7 @@ export async function generateOTPEmail(
   }
 
   // 3️⃣ Safe defaults (never undefined)
-  const platformName = settingsMap.platform_name || "eSIM Global";
+  const platformName = settingsMap.platform_name || "Simfinity";
   const greeting = name ? `Hi ${name}` : "Hello";
   const year = new Date().getFullYear();
 
@@ -213,13 +213,13 @@ export async function generateOTPEmail(
 </head>
 <body style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
   
-  <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+  <div style="background: linear-gradient(135deg, #2c7338 0%, #3d9a4d 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
     <h1 style="color: white; margin: 0; font-size: 28px;">
       ${platformName}
     </h1>
   </div>
 
-  <div style="background: #f9fafb; padding: 40px; border-radius: 0 0 10px 10px;">
+  <div style="background: #f0fdf4; padding: 40px; border-radius: 0 0 10px 10px;">
     <p style="font-size: 16px; margin-bottom: 20px;">
       ${greeting},
     </p>
@@ -228,8 +228,8 @@ export async function generateOTPEmail(
       Your verification code is:
     </p>
 
-    <div style="background: white; border: 2px solid #3b82f6; border-radius: 8px; padding: 20px; text-align: center; margin: 30px 0;">
-      <h2 style="color: #3b82f6; font-size: 36px; letter-spacing: 8px; margin: 0;">
+    <div style="background: white; border: 2px solid #2c7338; border-radius: 8px; padding: 20px; text-align: center; margin: 30px 0;">
+      <h2 style="color: #2c7338; font-size: 36px; letter-spacing: 8px; margin: 0;">
         ${code}
       </h2>
     </div>
@@ -260,7 +260,7 @@ export async function generateWelcomeEmail(
     const templateRendered = await renderTemplate("welcome", {
       customer_name: name || "Customer",
       customer_email: email || "",
-      platform_name: "eSIM Global",
+      platform_name: "Simfinity",
     });
 
     if (templateRendered) {
@@ -291,7 +291,7 @@ export async function generateWelcomeEmail(
   }
 
   // 3️⃣ Safe defaults
-  const platformName = settingsMap.platform_name || "eSIM Global";
+  const platformName = settingsMap.platform_name || "Simfinity";
   const customerName = name || "Customer";
   const baseUrl = process.env.BASE_URL || "http://localhost:5000";
 
@@ -306,13 +306,13 @@ export async function generateWelcomeEmail(
 </head>
 <body style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
 
-  <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+  <div style="background: linear-gradient(135deg, #2c7338 0%, #3d9a4d 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
     <h1 style="color: white; margin: 0; font-size: 28px;">
       Welcome to ${platformName}!
     </h1>
   </div>
 
-  <div style="background: #f9fafb; padding: 40px; border-radius: 0 0 10px 10px;">
+  <div style="background: #f0fdf4; padding: 40px; border-radius: 0 0 10px 10px;">
     <p style="font-size: 16px;">
       Hi ${customerName},
     </p>
@@ -336,7 +336,7 @@ export async function generateWelcomeEmail(
     <div style="text-align: center; margin: 30px 0;">
       <a
         href="${baseUrl}/destinations"
-        style="background: #3b82f6; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; display: inline-block; font-weight: 600;"
+        style="background: #2c7338; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; display: inline-block; font-weight: 600;"
       >
         Browse Destinations
       </a>
@@ -378,13 +378,13 @@ export async function generateOrderConfirmationEmail(order: any) {
       <!DOCTYPE html>
       <html>
       <body style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+        <div style="background: linear-gradient(135deg, #2c7338 0%, #3d9a4d 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
           <h1 style="color: white; margin: 0; font-size: 28px;">Order Confirmed!</h1>
         </div>
-        <div style="background: #f9fafb; padding: 40px; border-radius: 0 0 10px 10px;">
+        <div style="background: #f0fdf4; padding: 40px; border-radius: 0 0 10px 10px;">
           <p style="font-size: 16px;">Your eSIM order has been confirmed and is ready to use!</p>
           <div style="background: white; border-radius: 8px; padding: 20px; margin: 20px 0;">
-            <h3 style="margin-top: 0; color: #3b82f6;">Order Details</h3>
+            <h3 style="margin-top: 0; color: #2c7338;">Order Details</h3>
             <table style="width: 100%; font-size: 14px;">
               <tr>
                 <td style="padding: 8px 0; color: #6b7280;">Order ID:</td>
@@ -424,11 +424,11 @@ export function generateInstallationEmail(order: any) {
       <!DOCTYPE html>
       <html>
       <body style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+        <div style="background: linear-gradient(135deg, #2c7338 0%, #3d9a4d 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
           <h1 style="color: white; margin: 0; font-size: 28px;">Install Your eSIM</h1>
         </div>
-        <div style="background: #f9fafb; padding: 40px; border-radius: 0 0 10px 10px;">
-          <h3 style="color: #3b82f6;">Installation Steps:</h3>
+        <div style="background: #f0fdf4; padding: 40px; border-radius: 0 0 10px 10px;">
+          <h3 style="color: #2c7338;">Installation Steps:</h3>
           <ol style="font-size: 14px; line-height: 1.8;">
             <li>Go to Settings > Cellular/Mobile Data > Add eSIM</li>
             <li>Scan the QR code below or enter the details manually</li>
@@ -547,8 +547,8 @@ export async function generateLowDataEmail(data: {
       </head>
       <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f3f4f6;">
         <div style="max-width: 600px; margin: 0 auto; background-color: white;">
-          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 30px; text-align: center;">
-            <h1 style="color: white; margin: 0; font-size: 28px;">eSIM Global</h1>
+          <div style="background: linear-gradient(135deg, #2c7338 0%, #3d9a4d 100%); padding: 40px 30px; text-align: center;">
+            <h1 style="color: white; margin: 0; font-size: 28px;">Simfinity</h1>
           </div>
           <div style="padding: 40px 30px;">
             <div style="background: ${urgencyColor}15; border-left: 4px solid ${urgencyColor}; padding: 20px; margin-bottom: 30px; border-radius: 4px;">
@@ -559,7 +559,7 @@ export async function generateLowDataEmail(data: {
             <p style="font-size: 16px; line-height: 1.6; color: #374151;">${message}</p>
             <p style="font-size: 16px; line-height: 1.6; color: #374151;">${actionText}</p>
             
-            <div style="background: #f9fafb; border-radius: 8px; padding: 20px; margin: 25px 0;">
+            <div style="background: #f0fdf4; border-radius: 8px; padding: 20px; margin: 25px 0;">
               <h3 style="margin-top: 0; font-size: 16px; color: #1f2937;">eSIM Details</h3>
               <table style="width: 100%; font-size: 14px; color: #6b7280;">
                 <tr>
@@ -584,17 +584,17 @@ export async function generateLowDataEmail(data: {
             </div>
             
             <div style="text-align: center; margin: 35px 0;">
-              <a href="${topupUrl}" style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; padding: 16px 40px; border-radius: 8px; font-weight: bold; font-size: 16px;">Top Up Now</a>
+              <a href="${topupUrl}" style="display: inline-block; background: linear-gradient(135deg, #2c7338 0%, #3d9a4d 100%); color: white; text-decoration: none; padding: 16px 40px; border-radius: 8px; font-weight: bold; font-size: 16px;">Top Up Now</a>
             </div>
             
             <div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 15px; margin: 20px 0;">
               <p style="margin: 0; font-size: 14px; color: #1e40af;"><strong>Tip:</strong> Top up before you run out to avoid any interruption in service. Your eSIM will continue working seamlessly!</p>
             </div>
             
-            <p style="font-size: 14px; color: #6b7280; margin-top: 30px;">Need help? Contact our support team at support@esimglobal.com</p>
+            <p style="font-size: 14px; color: #6b7280; margin-top: 30px;">Need help? Contact our support team at info@simfinity.tel</p>
           </div>
           <div style="background: #f9fafb; padding: 20px 30px; text-align: center; border-top: 1px solid #e5e7eb;">
-            <p style="margin: 0; font-size: 12px; color: #9ca3af;">© ${new Date().getFullYear()} eSIM Global. All rights reserved.</p>
+            <p style="margin: 0; font-size: 12px; color: #9ca3af;">© ${new Date().getFullYear()} Simfinity. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -610,7 +610,7 @@ export async function generateCustomNotificationEmail(subject: string, message: 
   const templateRendered = await renderTemplate('custom', {
     customer_name: userName,
     customer_email: userEmail || '',
-    platform_name: 'eSIM Global',
+    platform_name: 'Simfinity',
   });
 
   // If template exists, we'll use the admin's custom subject and message instead of template
@@ -619,7 +619,7 @@ export async function generateCustomNotificationEmail(subject: string, message: 
   // Convert line breaks to <br> tags and convert URLs to links
   const formattedMessage = message
     .replace(/\n/g, '<br>')
-    .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" style="color: #3b82f6; text-decoration: underline;">$1</a>');
+    .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" style="color: #3d9a4d; text-decoration: underline;">$1</a>');
 
   // Fallback to hardcoded template
   return {
@@ -632,10 +632,10 @@ export async function generateCustomNotificationEmail(subject: string, message: 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
       </head>
       <body style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
-          <h1 style="color: white; margin: 0; font-size: 28px;">eSIM Global</h1>
+        <div style="background: linear-gradient(135deg, #2c7338 0%, #3d9a4d 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+          <h1 style="color: white; margin: 0; font-size: 28px;">Simfinity</h1>
         </div>
-        <div style="background: #f9fafb; padding: 40px; border-radius: 0 0 10px 10px;">
+        <div style="background: #f0fdf4; padding: 40px; border-radius: 0 0 10px 10px;">
           <p style="font-size: 16px; margin-bottom: 20px;">Hi ${userName},</p>
           <div style="font-size: 16px; line-height: 1.8; color: #374151;">
             ${formattedMessage}
@@ -645,7 +645,7 @@ export async function generateCustomNotificationEmail(subject: string, message: 
           </p>
         </div>
         <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
-          <p>© ${new Date().getFullYear()} eSIM Global. All rights reserved.</p>
+          <p>© ${new Date().getFullYear()} Simfinity. All rights reserved.</p>
         </div>
       </body>
       </html>
@@ -687,11 +687,11 @@ export async function sendEnterpriseQuoteEmail(data: EnterpriseQuoteEmailData) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
       </head>
       <body style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
-          <h1 style="color: white; margin: 0; font-size: 28px;">eSIM Global</h1>
+        <div style="background: linear-gradient(135deg, #2c7338 0%, #3d9a4d 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+          <h1 style="color: white; margin: 0; font-size: 28px;">Simfinity</h1>
           <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0;">Enterprise Quote</p>
         </div>
-        <div style="background: #f9fafb; padding: 40px; border-radius: 0 0 10px 10px;">
+        <div style="background: #f0fdf4; padding: 40px; border-radius: 0 0 10px 10px;">
           <p style="font-size: 16px; margin-bottom: 20px;">Dear ${data.companyName},</p>
           <p style="font-size: 16px; margin-bottom: 30px;">We're pleased to provide you with a bulk eSIM quote:</p>
           
@@ -731,7 +731,7 @@ export async function sendEnterpriseQuoteEmail(data: EnterpriseQuoteEmailData) {
               ` : ''}
               <tr style="border-top: 2px solid #e5e7eb;">
                 <td style="padding: 15px 0; color: #1f2937; font-size: 16px; font-weight: 600;">Total Price:</td>
-                <td style="padding: 15px 0; text-align: right; color: #3b82f6; font-size: 20px; font-weight: 700;">$${parseFloat(data.totalPrice).toFixed(2)}</td>
+                <td style="padding: 15px 0; text-align: right; color: #2c7338; font-size: 20px; font-weight: 700;">$${parseFloat(data.totalPrice).toFixed(2)}</td>
               </tr>
               <tr>
                 <td style="padding: 12px 0; color: #6b7280; font-size: 14px;">Valid Until:</td>
@@ -758,7 +758,7 @@ export async function sendEnterpriseQuoteEmail(data: EnterpriseQuoteEmailData) {
           </p>
         </div>
         <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
-          <p>© ${new Date().getFullYear()} eSIM Global. All rights reserved.</p>
+          <p>© ${new Date().getFullYear()} Simfinity. All rights reserved.</p>
         </div>
       </body>
       </html>

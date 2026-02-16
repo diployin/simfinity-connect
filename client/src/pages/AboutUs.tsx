@@ -85,19 +85,19 @@ export function AboutUs() {
 
   const quotes = [
     {
-      text: "We believe that staying connected while traveling should be effortless, affordable, and completely digital. That's the future we're building.",
-      name: 'Alex Rivera',
+      text: "At Simfinity, our goal is to make global connectivity simple, reliable, and fully digital so travelers stay connected anywhere without hassle.",
+      name: 'Avinash',
       title: 'CEO',
     },
     {
-      text: "Every feature we ship, every plan we design — travelers are at the heart of everything. We don't just build products, we enable adventures.",
-      name: 'Sarah Chen',
-      title: 'Head of Product',
+      text: "We focus on understanding travelers’ needs and delivering clear, valuable eSIM solutions that make staying online across countries effortless.",
+      name: 'Deepak Kumar',
+      title: 'Marketing Head',
     },
     {
-      text: "What drives me is knowing that the work we do impacts people daily. We're not just marketing a product — we're solving real problems for real travelers.",
-      name: 'James Okafor',
-      title: 'Marketing Lead',
+      text: "We build secure, fast, and scalable technology that powers seamless eSIM activation and ensures a smooth experience for every Simfinity user.",
+      name: 'Ashutosh Jha',
+      title: 'Developer',
     },
   ];
 
@@ -275,7 +275,7 @@ export function AboutUs() {
       </section>
 
       {/* Team quotes section */}
-      <section className="py-16 md:py-24 bg-gray-900">
+      <section className="py-16 md:py-24" style={{ background: 'linear-gradient(135deg, #2c7338, #3a9c4d, #2c7338)' }}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -286,15 +286,15 @@ export function AboutUs() {
             {quotes.map((quote, index) => (
               <div
                 key={index}
-                className="bg-gray-800 rounded-2xl p-8 border border-gray-700 hover:border-gray-600 transition-colors duration-300"
+                className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300"
               >
-                <Quote className="w-8 h-8 text-green-500 mb-4 opacity-60" />
-                <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                <Quote className="w-8 h-8 text-white/80 mb-4" />
+                <p className="text-white text-lg leading-relaxed mb-6 font-medium">
                   "{quote.text}"
                 </p>
                 <div>
-                  <p className="text-white font-semibold">{quote.name}</p>
-                  <p className="text-gray-500 text-sm">{quote.title}</p>
+                  <p className="text-white font-bold tracking-wide">{quote.name}</p>
+                  <p className="text-green-100 text-sm font-medium opacity-90">{quote.title}</p>
                 </div>
               </div>
             ))}

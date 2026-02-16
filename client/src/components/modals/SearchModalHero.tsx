@@ -72,15 +72,15 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
   const displayPopular =
     popularDestinations.length > 0
       ? popularDestinations.map((d) => ({
-          name: d.name,
-          countryCode: d.countryCode,
-          slug: d.slug,
-          minPrice: d.minPrice,
-        }))
+        name: d.name,
+        countryCode: d.countryCode,
+        slug: d.slug,
+        minPrice: d.minPrice,
+      }))
       : defaultPopularDestinations.map((d) => ({
-          ...d,
-          minPrice: "0",
-        }));
+        ...d,
+        minPrice: "0",
+      }));
 
   const defaultPopularRegions = [
     { id: 1, name: "Europe", slug: "europe", minPrice: "0" },
@@ -151,18 +151,16 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                     setSearchType("country");
                     setSearchQuery("");
                   }}
-                  className={`flex items-center gap-2 text-xs font-medium transition-all px-4 py-2 rounded-full ${
-                    searchType === "country"
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
+                  className={`flex items-center gap-2 text-xs font-medium transition-all px-4 py-2 rounded-full ${searchType === "country"
+                    ? "bg-primary text-black shadow-md"
+                    : "text-muted-foreground hover:text-foreground"
+                    }`}
                 >
                   <div
-                    className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${
-                      searchType === "country"
-                        ? "border-primary-foreground bg-primary-foreground"
-                        : "border-muted-foreground"
-                    }`}
+                    className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${searchType === "country"
+                      ? "border-white bg-white"
+                      : "border-muted-foreground"
+                      }`}
                   >
                     {searchType === "country" && (
                       <Check className="h-2 w-2 text-primary" />
@@ -175,18 +173,16 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                     setSearchType("region");
                     setSearchQuery("");
                   }}
-                  className={`flex items-center gap-2 text-xs font-medium transition-all px-4 py-2 rounded-full ${
-                    searchType === "region"
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
+                  className={`flex items-center gap-2 text-xs font-medium transition-all px-4 py-2 rounded-full ${searchType === "region"
+                    ? "bg-primary text-black shadow-md"
+                    : "text-muted-foreground hover:text-foreground"
+                    }`}
                 >
                   <div
-                    className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${
-                      searchType === "region"
-                        ? "border-primary-foreground bg-primary-foreground"
-                        : "border-muted-foreground"
-                    }`}
+                    className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${searchType === "region"
+                      ? "border-white bg-white"
+                      : "border-muted-foreground"
+                      }`}
                   >
                     {searchType === "region" && (
                       <Check className="h-2 w-2 text-primary" />
@@ -248,9 +244,8 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                           key={idx}
                           href={
                             searchType === "country"
-                              ? `/destination/${
-                                  (item as DestinationWithPricing).slug
-                                }`
+                              ? `/destination/${(item as DestinationWithPricing).slug
+                              }`
                               : `/region/${(item as RegionWithPricing).slug}`
                           }
                           onClick={() => onOpenChange(false)}

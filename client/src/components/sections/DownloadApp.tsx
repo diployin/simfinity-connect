@@ -13,12 +13,12 @@ export function DownloadApp() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
           <div>
-            <div className="flex items-center gap-2 mb-4">
+            {/* <div className="flex items-center gap-2 mb-4">
               <span className="text-sm font-semibold text-[#2c7338] dark:text-[#3d9a4d]">Excellent</span>
               <span className="text-sm text-muted-foreground">4.7 out of 5</span>
               <Star className="h-4 w-4 fill-[#00b67a] text-[#00b67a]" />
               <span className="text-sm font-semibold text-foreground">Trustpilot</span>
-            </div>
+            </div> */}
 
             <h2 className="text-3xl md:text-4xl lg:text-[42px] font-bold text-foreground leading-tight mb-4">
               {t('website.home.downloadApp.title', `Download the ${siteName} eSIM app`)}

@@ -14,8 +14,8 @@ export function ReferAndEarn() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
             <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-center">
               <div className="mb-4">
-                <div className="inline-flex items-center justify-center h-12 w-12 rounded-xl bg-amber-100 dark:bg-amber-900/30">
-                  <Gift className="h-6 w-6 text-amber-600 dark:text-amber-400" />
+                <div className="inline-flex items-center justify-center h-12 w-12 rounded-xl bg-green-100 dark:bg-amber-900/30">
+                  <Gift className="h-6 w-6 text-green-600 dark:text-green-400" />
                 </div>
               </div>
 
