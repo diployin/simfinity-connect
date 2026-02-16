@@ -707,11 +707,89 @@ router.get("/slug/:slug", async (req: Request, res: Response) => {
   try {
     const requestedCurrency = (req.query.currency as string) || "USD";
 
+    const filterUnlimited = req.query.isUnlimited === "true";
+    const filterBestPrice = req.query.isBestPrice === "true";
+    const filterPopular = req.query.isPopular === "true";
+    const filterDataPack = req.query.dataPack === "true";
+    const filterVoicePack = req.query.voicePack === "true";
+    const filterSmsPack = req.query.smsPack === "true";
+    const filterVoiceAndDataPack = req.query.voiceAndDataPack === "true";
+    const filterVoiceAndSmsPack = req.query.voiceAndSmsPack === "true";
+    const filterDataAndSmsPack = req.query.dataAndSmsPack === "true";
+    const filterVoiceAndDataAndSmsPack = req.query.voiceAndDataAndSmsPack === "true";
+
+    const whereClauses: any[] = [
+      eq(unifiedPackages.slug, req.params.slug),
+      eq(unifiedPackages.isEnabled, true)
+    ];
+
+    if (filterUnlimited) whereClauses.push(eq(unifiedPackages.isUnlimited, true));
+    if (filterBestPrice) whereClauses.push(eq(unifiedPackages.isBestPrice, true));
+    if (filterPopular) whereClauses.push(eq(unifiedPackages.isPopular, true));
+
+    if (filterDataPack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.voiceMinutes, 0),
+          eq(unifiedPackages.smsCount, 0)
+        )
+      );
+    }
+
+    if (filterVoicePack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.dataMb, 0),
+          eq(unifiedPackages.smsCount, 0)
+        )
+      );
+    }
+
+    if (filterSmsPack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.voiceMinutes, 0),
+          eq(unifiedPackages.dataMb, 0)
+        )
+      );
+    }
+
+    if (filterVoiceAndDataPack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.smsCount, 0)
+        )
+      );
+    }
+
+    if (filterVoiceAndSmsPack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.dataMb, 0)
+        )
+      );
+    }
+
+    if (filterDataAndSmsPack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.voiceMinutes, 0)
+        )
+      );
+    }
+
+    if (filterVoiceAndDataAndSmsPack) {
+      whereClauses.push(
+        and(
+          ne(unifiedPackages.voiceMinutes, 0),
+          ne(unifiedPackages.dataMb, 0),
+          ne(unifiedPackages.smsCount, 0)
+        )
+      );
+    }
+
     const [pkg] = await db.query.unifiedPackages.findMany({
-      where: (unifiedPackages, { eq, and }) => and(
-        eq(unifiedPackages.slug, req.params.slug),
-        eq(unifiedPackages.isEnabled, true)
-      ),
+      where: and(...whereClauses),
       with: {
         provider: true,
         destination: true,
@@ -936,6 +1014,12 @@ router.get("/by-destination/:slug", async (req: Request, res: Response) => {
     const filterBestPrice = req.query.isBestPrice === "true";
     const filterPopular = req.query.isPopular === "true";
     const filterDataPack = req.query.dataPack === "true";
+    const filterVoicePack = req.query.voicePack === "true";
+    const filterSmsPack = req.query.smsPack === "true";
+    const filterVoiceAndDataPack = req.query.voiceAndDataPack === "true";
+    const filterVoiceAndSmsPack = req.query.voiceAndSmsPack === "true";
+    const filterDataAndSmsPack = req.query.dataAndSmsPack === "true";
+    const filterVoiceAndDataAndSmsPack = req.query.voiceAndDataAndSmsPack === "true";
 
     // Get destination
     const destination = await storage.getDestinationBySlug(slug);
@@ -969,6 +1053,58 @@ router.get("/by-destination/:slug", async (req: Request, res: Response) => {
         and(
           eq(unifiedPackages.voiceMinutes, 0),
           eq(unifiedPackages.smsCount, 0)
+        )
+      );
+    }
+
+    if (filterVoicePack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.dataMb, 0),
+          eq(unifiedPackages.smsCount, 0)
+        )
+      );
+    }
+
+    if (filterSmsPack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.voiceMinutes, 0),
+          eq(unifiedPackages.dataMb, 0)
+        )
+      );
+    }
+
+    if (filterVoiceAndDataPack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.smsCount, 0)
+        )
+      );
+    }
+
+    if (filterVoiceAndSmsPack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.dataMb, 0)
+        )
+      );
+    }
+
+    if (filterDataAndSmsPack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.voiceMinutes, 0)
+        )
+      );
+    }
+
+    if (filterVoiceAndDataAndSmsPack) {
+      whereClauses.push(
+        and(
+          ne(unifiedPackages.voiceMinutes, 0),
+          ne(unifiedPackages.dataMb, 0),
+          ne(unifiedPackages.smsCount, 0)
         )
       );
     }
@@ -1123,6 +1259,12 @@ router.get("/by-region/:slug", async (req: Request, res: Response) => {
     const filterBestPrice = req.query.isBestPrice === "true";
     const filterPopular = req.query.isPopular === "true";
     const filterDataPack = req.query.dataPack === "true";
+    const filterVoicePack = req.query.voicePack === "true";
+    const filterSmsPack = req.query.smsPack === "true";
+    const filterVoiceAndDataPack = req.query.voiceAndDataPack === "true";
+    const filterVoiceAndSmsPack = req.query.voiceAndSmsPack === "true";
+    const filterDataAndSmsPack = req.query.dataAndSmsPack === "true";
+    const filterVoiceAndDataAndSmsPack = req.query.voiceAndDataAndSmsPack === "true";
 
     // Get region
     const region = await storage.getRegionBySlug(slug);
@@ -1145,6 +1287,58 @@ router.get("/by-region/:slug", async (req: Request, res: Response) => {
         and(
           eq(unifiedPackages.voiceMinutes, 0),
           eq(unifiedPackages.smsCount, 0)
+        )
+      );
+    }
+
+    if (filterVoicePack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.dataMb, 0),
+          eq(unifiedPackages.smsCount, 0)
+        )
+      );
+    }
+
+    if (filterSmsPack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.voiceMinutes, 0),
+          eq(unifiedPackages.dataMb, 0)
+        )
+      );
+    }
+
+    if (filterVoiceAndDataPack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.smsCount, 0)
+        )
+      );
+    }
+
+    if (filterVoiceAndSmsPack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.dataMb, 0)
+        )
+      );
+    }
+
+    if (filterDataAndSmsPack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.voiceMinutes, 0)
+        )
+      );
+    }
+
+    if (filterVoiceAndDataAndSmsPack) {
+      whereClauses.push(
+        and(
+          ne(unifiedPackages.voiceMinutes, 0),
+          ne(unifiedPackages.dataMb, 0),
+          ne(unifiedPackages.smsCount, 0)
         )
       );
     }

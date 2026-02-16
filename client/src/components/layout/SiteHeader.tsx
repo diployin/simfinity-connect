@@ -600,7 +600,6 @@ export function SiteHeader() {
                       )}
                     </div>
                   )}
-
                   <div className="space-y-1">
                     <button
                       onClick={() => setHelpOpen(!helpOpen)}
@@ -627,6 +626,12 @@ export function SiteHeader() {
                           <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                             <Wrench className="h-4 w-4" />
                             {t('website.nav.troubleshooting', 'Troubleshooting')}
+                          </span>
+                        </Link>
+                        <Link href="/help-center?category=plans-payments" onClick={closeMobileMenu}>
+                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
+                            <Headphones className="h-4 w-4 text-purple-500" />
+                            {t('website.nav.helpCenter', 'Contact Support')}
                           </span>
                         </Link>
                       </div>
@@ -722,8 +727,8 @@ export function SiteHeader() {
             </Sheet>
           </div>
         </div>
-      </div>
-    </header>
+      </div >
+    </header >
   );
 }
 

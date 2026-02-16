@@ -61,7 +61,7 @@ const accountNavItems: NavItem[] = [
     label: 'Customer Support',
     description: 'Get help and support',
     href: '/account/support',
-  },
+  }
 ];
 
 export function AccountLayout({ children }: AccountLayoutProps) {
@@ -84,7 +84,7 @@ export function AccountLayout({ children }: AccountLayoutProps) {
     <>
       <main className="flex-1 pt-20 bg-background ">
         <div className="container mx-auto px-4 py-8">
-          <div className="flex flex-col lg:flex-row gap-8">
+          <div className="flex flex-col-reverse lg:flex-row gap-8">
             {/* Sidebar */}
             <aside className="lg:w-80 flex-shrink-0">
               <div className="bg-card rounded-lg border p-4 lg:sticky lg:top-24">

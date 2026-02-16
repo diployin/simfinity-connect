@@ -359,6 +359,12 @@ export default function GlobalDetails() {
   );
 
   const packageOptions = Object.values(groupedPackages).sort((a, b) => {
+    if (sortBy === 'priceLowToHigh') {
+      return parseFloat(a.price) - parseFloat(b.price);
+    }
+    if (sortBy === 'priceHighToLow') {
+      return parseFloat(b.price) - parseFloat(a.price);
+    }
     const aBadges = (a.isPopular ? 1 : 0) + (a.isRecommended ? 1 : 0) + (a.isBestValue ? 1 : 0);
     const bBadges = (b.isPopular ? 1 : 0) + (b.isRecommended ? 1 : 0) + (b.isBestValue ? 1 : 0);
     if (aBadges !== bBadges) {
@@ -663,7 +669,7 @@ export default function GlobalDetails() {
                         </div>
                         Filter By
                       </label>
-                      <div className="grid grid-cols-3 gap-2">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                         <Button
                           variant={filterUnlimited ? 'default' : 'outline'}
                           size="sm"
@@ -671,9 +677,9 @@ export default function GlobalDetails() {
                             setFilterUnlimited(!filterUnlimited);
                             setPage(1);
                           }}
-                          className="w-full justify-start text-xs h-9 font-medium"
+                          className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
                         >
-                          <Sparkles className="w-3.5 h-3.5 mr-2" />
+                          <Sparkles className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
                           Unlimited
                         </Button>
                         <Button
@@ -683,9 +689,9 @@ export default function GlobalDetails() {
                             setFilterBestPrice(!filterBestPrice);
                             setPage(1);
                           }}
-                          className="w-full justify-start text-xs h-9 font-medium"
+                          className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
                         >
-                          <Award className="w-3.5 h-3.5 mr-2" />
+                          <Award className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
                           Best Price
                         </Button>
                         <Button
@@ -695,9 +701,9 @@ export default function GlobalDetails() {
                             setFilterPopular(!filterPopular);
                             setPage(1);
                           }}
-                          className="w-full justify-start text-xs h-9 font-medium"
+                          className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
                         >
-                          <Star className="w-3.5 h-3.5 mr-2" />
+                          <Star className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
                           Popular
                         </Button>
                         <Button
@@ -707,9 +713,9 @@ export default function GlobalDetails() {
                             setFilterDataPack(!filterDataPack);
                             setPage(1);
                           }}
-                          className="w-full justify-start text-xs h-9 font-medium"
+                          className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
                         >
-                          <Wifi className="w-3.5 h-3.5 mr-2" />
+                          <Wifi className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
                           Data Only
                         </Button>
                         <Button
@@ -719,9 +725,9 @@ export default function GlobalDetails() {
                             setFilterDataAndVoice(!filterDataAndVoice);
                             setPage(1);
                           }}
-                          className="w-full justify-start text-xs h-9 font-medium"
+                          className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
                         >
-                          <Wifi className="w-3.5 h-3.5 mr-2" />
+                          <Wifi className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
                           Data + Voice
                         </Button>
                         <Button
@@ -731,9 +737,9 @@ export default function GlobalDetails() {
                             setFilterVoiceAndDataAndSmsPack(!filterVoiceAndDataAndSmsPack);
                             setPage(1);
                           }}
-                          className="w-full justify-start text-xs h-9 font-medium"
+                          className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium whitespace-normal text-left leading-tight"
                         >
-                          <Wifi className="w-3.5 h-3.5 mr-2" />
+                          <Wifi className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
                           Data + Voice + SMS
                         </Button>
                       </div>

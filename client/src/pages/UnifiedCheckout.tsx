@@ -449,32 +449,6 @@ export default function UnifiedCheckout() {
           spiToken: resData.powertranz.spiToken,
         });
 
-        if (selectedGateway.provider === 'powertranz') {
-          setInitResponse({
-            provider: 'powertranz',
-            orderId: resData.powertranz.orderId,
-            redirectData: resData.powertranz.redirectData,
-            spiToken: resData.powertranz.spiToken,
-            packageData: packageData,
-            gatewayId: selectedGateway.id,
-
-            // 🔑 Pricing inputs (NOT amount)
-            packageId: packageData.id,
-            quantity,
-            currency: packageData.currency,
-            orderId: `ORDER_${Date.now()}`,
-
-            // Promo
-            promoCode: appliedPromo?.code || null,
-            promoType: appliedPromo?.type || null,
-            voucherId: appliedPromo?.voucherId || null,
-            giftCardId: appliedPromo?.giftCardId || null,
-
-            // Referral
-            referralCredits: appliedReferralCredits || 0,
-          });
-          return;
-        }
 
         setInitResponse(resData.payment);
       }).catch((err) => {
@@ -1179,12 +1153,12 @@ export default function UnifiedCheckout() {
                         {packageData.validity} Days
                       </span>
                     </div>
-                    <div className="flex justify-between text-sm">
+                    {/* <div className="flex justify-between text-sm">
                       <span className="text-muted-foreground">Coverage</span>
                       {packageData.coverage.map((res) => (
                         <span className="font-medium text-foreground">{res}</span>
                       ))}
-                    </div>
+                    </div> */}
                     <div className="flex justify-between items-center text-sm">
                       <span className="text-muted-foreground">Quantity</span>
                       <div className="flex items-center gap-2">
