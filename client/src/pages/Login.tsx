@@ -54,7 +54,7 @@ export default function Login() {
   const [referralCode, setReferralCode] = useState<string | null>(null);
   const [showReferralBanner, setShowReferralBanner] = useState(false);
 
-  const logo = useSettingByKey('logo');
+  const logo = useSettingByKey('white_logo');
   const siteName = useSettingByKey('platform_name');
 
   const { data: settings } = useQuery<ReferralSettings>({
@@ -458,8 +458,26 @@ export default function Login() {
                 className="inline-flex items-center gap-2 cursor-pointer"
                 data-testid="link-logo-mobile"
               >
-                <Globe className="h-8 w-8 text-primary" />
-                <span className="font-bold text-2xl">{siteName || 'Simfinity'}</span>
+                {logo ? (
+                  <img src={useSettingByKey('logo')} alt={siteName || 'Simfinity'} className="h-10" />
+                ) : (siteName && siteName.toLowerCase() === 'simfinity') || !siteName ? (
+                  <>
+                    <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-[#2c7338] to-[#1e5427] flex items-center justify-center">
+                      <Globe className="h-4 w-4 text-white" />
+                    </div>
+                    <span className="font-bold text-lg text-gray-900 dark:text-white">
+                      Sim
+                      <span className="bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] bg-clip-text text-transparent">
+                        finity
+                      </span>
+                    </span>
+                  </>
+                ) : (
+                  <div className="flex items-center gap-2">
+                    <Globe className="h-8 w-8 text-primary" />
+                    <span className="font-bold text-2xl">{siteName}</span>
+                  </div>
+                )}
               </div>
             </Link>
           </div>

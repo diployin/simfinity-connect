@@ -31,7 +31,7 @@ export function InstantConnection() {
             )}
           </p>
           <Link href="/destinations">
-            <button className="inline-flex items-center gap-2 px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold rounded-full transition-colors text-sm">
+            <button className="inline-flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-dark text-white font-semibold rounded-full transition-colors text-sm">
               {t('website.home.instant.viewAll', 'View All Destinations')}
             </button>
           </Link>
@@ -99,11 +99,10 @@ export function InstantConnection() {
                 {['5 GB', '3 GB', '1 GB'].map((plan, i) => (
                   <div
                     key={plan}
-                    className={`inline-flex items-center justify-between px-4 py-2.5 rounded-xl max-w-[200px] ${
-                      i === 0
+                    className={`inline-flex items-center justify-between px-4 py-2.5 rounded-xl max-w-[200px] ${i === 0
                         ? 'bg-white dark:bg-gray-800 shadow-sm'
                         : 'bg-white/60 dark:bg-gray-800/40'
-                    }`}
+                      }`}
                   >
                     <div>
                       <span className="text-sm font-semibold text-gray-900 dark:text-white">{plan}</span>

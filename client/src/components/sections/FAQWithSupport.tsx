@@ -1,7 +1,5 @@
 import { Link } from 'wouter';
-import { MessageCircle, HelpCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import {
   Accordion,
   AccordionContent,
@@ -9,49 +7,59 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { useSettingByKey } from '@/hooks/useSettings';
+import { useQuery } from '@tanstack/react-query';
+
+interface Faq {
+  id: string;
+  question: string;
+  answer: string;
+  categoryId: string;
+  position: number;
+}
+
+interface FaqCategory {
+  id: string;
+  name: string;
+  slug: string;
+  faqs: Faq[];
+}
 
 export function FAQWithSupport() {
   const { t } = useTranslation();
-  const siteName = useSettingByKey('platform_name');
 
-  const faqs = [
-    {
-      questionKey: 'website.home.faq.q1.question',
-      answerKey: 'website.home.faq.q1.answer',
-      questionFallback: 'What is an eSIM and how does it work?',
-      answerFallback:
-        'An eSIM is a built-in digital SIM that lets you activate a mobile data plan without a physical card. Just choose a plan, scan a QR code, and connect instantly when you travel.',
+  const { data: categories, isLoading } = useQuery({
+    queryKey: ['/api/faqs/public'],
+    queryFn: async () => {
+      const response = await fetch('/api/faqs/public');
+      if (!response.ok) throw new Error('Failed to fetch FAQs');
+      const result = await response.json();
+      return result.data as FaqCategory[];
     },
-    {
-      questionKey: 'website.home.faq.q2.question',
-      answerKey: 'website.home.faq.q2.answer',
-      questionFallback: 'How do I set up my eSIM on my phone?',
-      answerFallback:
-        "After purchase, you'll receive an email with a QR code. Open your phone's settings, scan the code, and follow the quick setup guide to start using data.",
-    },
-    {
-      questionKey: 'website.home.faq.q3.question',
-      answerKey: 'website.home.faq.q3.answer',
-      questionFallback: 'Can I use my physical SIM and eSIM together?',
-      answerFallback:
-        'Yes. You can keep your regular SIM for calls and SMS while using your eSIM for data during international travel.',
-    },
-    {
-      questionKey: 'website.home.faq.q4.question',
-      answerKey: 'website.home.faq.q4.answer',
-      questionFallback: `Where does ${siteName} work? `,
-      answerFallback:
-        'Our data plans cover over 200 destinations across Europe, Asia, the Americas, and more — giving you high-speed internet without roaming fees.',
-    },
-    {
-      questionKey: 'website.home.faq.q5.question',
-      answerKey: 'website.home.faq.q5.answer',
-      questionFallback: 'Can I top up or reuse my plan?',
-      answerFallback:
-        'Yes. Some plans let you add more data or extend your validity directly from your account dashboard, so you can stay connected without buying a new QR code.',
-    },
-  ];
+  });
+
+  if (isLoading) {
+    return (
+      <section className="py-16 md:py-24 bg-white dark:bg-zinc-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              {t('website.home.faq.title', 'Frequently Asked Questions')}
+            </h2>
+            <div className="animate-pulse space-y-4 max-w-3xl mx-auto">
+              <div className="h-12 bg-zinc-100 dark:bg-zinc-800 rounded-xl" />
+              <div className="h-12 bg-zinc-100 dark:bg-zinc-800 rounded-xl" />
+              <div className="h-12 bg-zinc-100 dark:bg-zinc-800 rounded-xl" />
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Flatten FAQs for display if just a list, or show grouped. 
+  // Given the previous design was a simple list, displaying grouped might be better if there are many.
+  // Converting to a flat list for now to match the "FAQ section" look, or we can render categories.
+  // Let's render categories if there are multiple, otherwise just the FAQs.
 
   return (
     <section className="py-16 md:py-24 bg-white dark:bg-zinc-950">
@@ -65,24 +73,35 @@ export function FAQWithSupport() {
           </p>
         </div>
 
-        <div className="max-w-3xl mx-auto mb-16">
-          <Accordion type="single" collapsible className="space-y-3">
-            {faqs.map((faq, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="border border-zinc-100 dark:border-zinc-800 rounded-xl px-6 bg-white dark:bg-zinc-900"
-                data-testid={`faq-item-${index}`}
-              >
-                <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-5">
-                  {t(faq.questionKey, faq.questionFallback)}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-5">
-                  {t(faq.answerKey, faq.answerFallback)}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+        <div className="max-w-3xl mx-auto mb-16 space-y-8">
+          {categories?.map((category) => (
+            <div key={category.id} className="space-y-4">
+              {categories.length > 1 && (
+                <h3 className="text-xl font-semibold text-foreground">{category.name}</h3>
+              )}
+              <Accordion type="single" collapsible className="space-y-3">
+                {category.faqs.map((faq, index) => (
+                  <AccordionItem
+                    key={faq.id}
+                    value={`item-${category.id}-${index}`}
+                    className="border border-zinc-100 dark:border-zinc-800 rounded-xl px-6 bg-white dark:bg-zinc-900"
+                    data-testid={`faq-item-${index}`}
+                  >
+                    <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-5">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground pb-5">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          ))}
+
+          {(!categories || categories.length === 0) && (
+            <p className="text-center text-muted-foreground">No FAQs available at the moment.</p>
+          )}
         </div>
 
         <div className="max-w-3xl mx-auto text-center">

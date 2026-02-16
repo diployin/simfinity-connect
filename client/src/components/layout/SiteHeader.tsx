@@ -130,7 +130,7 @@ export function SiteHeader() {
         <div className="flex h-16 md:h-[72px] items-center justify-between">
           {logo ? (
             <Link href="/" data-testid="link-home" className="flex-shrink-0">
-              <img src={logo} alt="" className="h-7" />
+              <img src={logo} alt="" className="h-12" />
             </Link>
           ) : (
             <Link href="/" data-testid="link-home" className="flex-shrink-0">
@@ -387,9 +387,9 @@ export function SiteHeader() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <div>
+            {/* <div>
               <NotificationBell />
-            </div>
+            </div> */}
             <div className="hidden sm:block">
               <CurrencySelector />
             </div>
@@ -469,7 +469,7 @@ export function SiteHeader() {
               </SheetTrigger>
               <SheetContent
                 side="right"
-                className="w-[85vw] sm:w-80 p-0 bg-white dark:bg-gray-950 overflow-y-auto"
+                className="w-[85vw] sm:w-80 p-0 bg-white dark:bg-gray-950 overflow-y-auto [&>button]:hidden"
               >
                 <SheetHeader className="border-b border-gray-100 dark:border-gray-800 p-5 flex flex-row items-center justify-between">
                   <SheetTitle className="text-gray-900 dark:text-white text-lg">Menu</SheetTitle>
@@ -600,7 +600,6 @@ export function SiteHeader() {
                       )}
                     </div>
                   )}
-
                   <div className="space-y-1">
                     <button
                       onClick={() => setHelpOpen(!helpOpen)}
@@ -627,6 +626,12 @@ export function SiteHeader() {
                           <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                             <Wrench className="h-4 w-4" />
                             {t('website.nav.troubleshooting', 'Troubleshooting')}
+                          </span>
+                        </Link>
+                        <Link href="/help-center?category=plans-payments" onClick={closeMobileMenu}>
+                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
+                            <Headphones className="h-4 w-4 text-purple-500" />
+                            {t('website.nav.helpCenter', 'Contact Support')}
                           </span>
                         </Link>
                       </div>
@@ -690,10 +695,10 @@ export function SiteHeader() {
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Currency</span>
                       <CurrencySelector />
                     </div>
-                    <div className="flex items-center justify-between px-3 py-2">
+                    {/* <div className="flex items-center justify-between px-3 py-2">
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Notifications</span>
                       <NotificationBell />
-                    </div>
+                    </div> */}
                   </div>
 
                   {!isAuthenticated && (
@@ -722,8 +727,8 @@ export function SiteHeader() {
             </Sheet>
           </div>
         </div>
-      </div>
-    </header>
+      </div >
+    </header >
   );
 }
 

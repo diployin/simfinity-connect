@@ -258,8 +258,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // console.log("optionalAdminAuth")
   app.use(optionalAdminAuth);      // sets req.user
-  app.use('/api', demoCrudBlock);
-  app.use('/api', demoMaskResponse);
 
 
   // Authentication middleware

@@ -41,7 +41,7 @@ export default function Home() {
         <meta property="og:title" content={seoTitle} />
         <meta property="og:description" content={seoDescription} />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://esim.com" />
+        <link rel="canonical" href="https://simfinity.tel" />
       </Helmet>
 
       <div className="min-h-screen bg-background">

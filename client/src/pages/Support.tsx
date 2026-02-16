@@ -339,9 +339,8 @@ export default function UserSupportTickets() {
                   <Card
                     key={ticket.id}
                     onClick={() => setSelectedTicketId(ticket.id)}
-                    className={`cursor-pointer transition-all hover:shadow-md ${
-                      selectedTicketId === ticket.id ? 'ring-2 ring-primary' : ''
-                    }`}
+                    className={`cursor-pointer transition-all hover:shadow-md ${selectedTicketId === ticket.id ? 'ring-2 ring-primary' : ''
+                      }`}
                   >
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between mb-3">
@@ -463,11 +462,10 @@ export default function UserSupportTickets() {
                             className={`flex ${msg.senderType === 'user' ? 'justify-end' : 'justify-start'}`}
                           >
                             <div
-                              className={`max-w-md ${
-                                msg.senderType === 'user'
+                              className={`max-w-md ${msg.senderType === 'user'
                                   ? 'bg-primary text-primary-foreground'
                                   : 'bg-muted'
-                              } px-4 py-3 rounded-lg`}
+                                } px-4 py-3 rounded-lg`}
                             >
                               <div className="flex items-center gap-2 mb-1">
                                 <span className="text-xs font-semibold">{msg.senderName}</span>
@@ -528,7 +526,7 @@ export default function UserSupportTickets() {
             <CardContent className="pt-6 text-center">
               <div className="text-3xl mb-2">📧</div>
               <div className="font-medium mb-1">Email Support</div>
-              <div className="text-sm text-muted-foreground">support@esim-global.com</div>
+              <div className="text-sm text-muted-foreground">info@simfinity.tel</div>
             </CardContent>
           </Card>
           <Card>
