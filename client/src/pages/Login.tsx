@@ -201,18 +201,32 @@ export default function Login() {
 
     setIsLoading(true);
     try {
-      await apiRequest('POST', '/api/auth/send-otp', { email, purpose: 'login' });
+      await apiRequest('POST', '/api/auth/send-otp', { email, purpose: 'signup' });
       setSignupStep('otp');
       toast({
         title: t('checkout.otpSent', 'OTP Sent'),
         description: t('checkout.checkEmail', 'Check your email for the verification code.'),
       });
     } catch (error: any) {
+      let errorMessage = 'Failed to send OTP';
+      try {
+        const match = error.message?.match(/\d+:\s*(.+)/);
+        if (match) {
+          const parsed = JSON.parse(match[1]);
+          errorMessage = parsed.message || errorMessage;
+        }
+      } catch { }
+
       toast({
         title: 'Error',
-        description: error.message || 'Failed to send OTP',
+        description: errorMessage,
         variant: 'destructive',
       });
+
+      if (error.message?.includes('409') || errorMessage.toLowerCase().includes('already exists')) {
+        setAuthTab('signin');
+        resetForms();
+      }
     } finally {
       setIsLoading(false);
     }

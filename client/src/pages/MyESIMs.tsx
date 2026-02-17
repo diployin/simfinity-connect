@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { queryClient, apiRequest } from '@/lib/queryClient';
-import type { Order } from '@shared/schema';
+import type { Order, UnifiedPackage, Destination } from '@shared/schema';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useTranslation } from '@/contexts/TranslationContext';
@@ -80,9 +80,9 @@ function TopupPaymentForm({
             throw new Error('Top-up creation failed on backend');
           }
 
-          queryClient.invalidateQueries({ queryKey: ['/api/customer/orders'] });
+          queryClient.invalidateQueries({ queryKey: ['/api/my-orders'] });
           queryClient.invalidateQueries({ queryKey: ['/api/user/topups'] });
-          queryClient.invalidateQueries({ queryKey: ['/api/esims', iccid, 'usage'] });
+          queryClient.invalidateQueries({ queryKey: ['/api/esims/' + iccid + '/usage'] });
 
           toast({
             title: t('myEsims.topupSuccessful', 'Top-Up Successful!'),
@@ -140,18 +140,23 @@ function TopupPaymentForm({
   );
 }
 
+
+type OrderWithDetails = Order & {
+  package: UnifiedPackage & { destination?: Destination };
+};
+
 export default function MyESIMsPage() {
   const { toast } = useToast();
   const { t } = useTranslation();
-  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [selectedOrder, setSelectedOrder] = useState<OrderWithDetails | null>(null);
   const [showInstructions, setShowInstructions] = useState(false);
   const [showTopups, setShowTopups] = useState(false);
   const [selectedTopupPackage, setSelectedTopupPackage] = useState<any>(null);
   const [topupClientSecret, setTopupClientSecret] = useState('');
   const topupRequestIdRef = useRef(0);
 
-  const { data: orders, isLoading } = useQuery<Order[]>({
-    queryKey: ['/api/customer/orders'],
+  const { data: orders, isLoading } = useQuery<OrderWithDetails[]>({
+    queryKey: ['/api/my-orders'],
   });
 
   // Filter to only completed orders with ICCIDs
@@ -296,7 +301,7 @@ export default function MyESIMsPage() {
           {instructions ? (
             <div className="space-y-6">
               {instructions.qr_code && (
-                <div className="flex flex-col items-center gap-4 p-6 bg-slate-50 dark:bg-slate-900 rounded-lg">
+                <div className="flex flex-col items-center gap-4 p-6 bg-muted rounded-lg">
                   <h3 className="font-semibold">{t('myEsims.scanQRCode', 'Scan QR Code')}</h3>
                   <div className="p-4 bg-white rounded-lg">
                     <img
@@ -332,7 +337,7 @@ export default function MyESIMsPage() {
                   <h3 className="font-semibold mb-2">
                     {t('myEsims.manualActivationCode', 'Manual Activation Code')}
                   </h3>
-                  <code className="block p-3 bg-slate-100 dark:bg-slate-900 rounded-md text-sm font-mono break-all">
+                  <code className="block p-3 bg-muted rounded-md text-sm font-mono break-all">
                     {instructions.manual_code}
                   </code>
                 </div>
@@ -357,116 +362,116 @@ export default function MyESIMsPage() {
           }
         }}
       >
-        <DialogContent className="max-w-2xl" data-testid="dialog-topup-packages">
-          <DialogHeader>
-            <DialogTitle>
-              {selectedTopupPackage
-                ? t('myEsims.completePayment', 'Complete Payment')
-                : t('myEsims.purchaseTopup', 'Purchase Top-Up')}
-            </DialogTitle>
-            <DialogDescription>
-              {selectedTopupPackage
-                ? t('myEsims.securelyPay', 'Securely pay for your top-up')
-                : t('myEsims.addMoreData', 'Add more data to your eSIM')}
-            </DialogDescription>
-          </DialogHeader>
+        <DialogContent className="sm:max-w-xl w-full max-h-[90vh] flex flex-col p-0 gap-0 border-none bg-background" data-testid="dialog-topup-packages">
+          <div className="p-6 pb-4">
+            <DialogHeader>
+              <DialogTitle>
+                {selectedTopupPackage
+                  ? t('myEsims.completePayment', 'Complete Payment')
+                  : t('myEsims.purchaseTopup', 'Purchase Top-Up')}
+              </DialogTitle>
+              <DialogDescription>
+                {selectedTopupPackage
+                  ? t('myEsims.securelyPay', 'Securely pay for your top-up')
+                  : t('myEsims.addMoreData', 'Add more data to your eSIM')}
+              </DialogDescription>
+            </DialogHeader>
+          </div>
 
-          {selectedTopupPackage ? (
-            <div className="space-y-4">
-              <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg">
-                <h3 className="font-medium mb-2">
-                  {selectedTopupPackage.title ||
-                    `${selectedTopupPackage.data} - ${selectedTopupPackage.validity} Days`}
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                  {selectedTopupPackage.data} • {selectedTopupPackage.validity} days validity
-                </p>
-                <p className="text-2xl font-bold mt-2">
-                  ${selectedTopupPackage.customer_price || selectedTopupPackage.price}
-                </p>
-              </div>
-
-              {!topupClientSecret ? (
-                <div className="flex items-center justify-center py-12">
-                  <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
+          <div className="flex-1 overflow-y-auto p-6 pt-0">
+            {selectedTopupPackage ? (
+              <div className="space-y-4">
+                <div className="p-4 bg-muted rounded-lg">
+                  <h3 className="font-medium mb-2">
+                    {selectedTopupPackage.title ||
+                      `${selectedTopupPackage.data} - ${selectedTopupPackage.validity} Days`}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {selectedTopupPackage.data} • {selectedTopupPackage.validity} days validity
+                  </p>
+                  <p className="text-2xl font-bold mt-2">
+                    ${selectedTopupPackage.customer_price || selectedTopupPackage.price}
+                  </p>
                 </div>
-              ) : (
-                <Elements
-                  key={topupClientSecret}
-                  stripe={stripePromise}
-                  options={{
-                    clientSecret: topupClientSecret,
-                    appearance: {
-                      theme: 'stripe',
-                    },
+
+                {!topupClientSecret ? (
+                  <div className="flex items-center justify-center py-12">
+                    <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
+                  </div>
+                ) : (
+                  <Elements
+                    key={topupClientSecret}
+                    stripe={stripePromise}
+                    options={{
+                      clientSecret: topupClientSecret,
+                      appearance: {
+                        theme: 'stripe',
+                      },
+                    }}
+                  >
+                    <TopupPaymentForm
+                      packageId={selectedTopupPackage.id}
+                      iccid={selectedOrder!.iccid!}
+                      orderId={selectedOrder!.id}
+                      amount={parseFloat(
+                        selectedTopupPackage.customer_price || selectedTopupPackage.price,
+                      )}
+                      onSuccess={handleTopupSuccess}
+                    />
+                  </Elements>
+                )}
+
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => {
+                    setSelectedTopupPackage(null);
+                    setTopupClientSecret('');
                   }}
                 >
-                  <TopupPaymentForm
-                    packageId={selectedTopupPackage.id}
-                    iccid={selectedOrder!.iccid!}
-                    orderId={selectedOrder!.id}
-                    amount={parseFloat(
-                      selectedTopupPackage.customer_price || selectedTopupPackage.price,
-                    )}
-                    onSuccess={handleTopupSuccess}
-                  />
-                </Elements>
-              )}
-
-              <Button
-                variant="outline"
-                className="w-full"
-                onClick={() => {
-                  setSelectedTopupPackage(null);
-                  setTopupClientSecret('');
-                }}
-              >
-                {t('myEsims.backToPackages', 'Back to Packages')}
-              </Button>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {topupPackages.length > 0 ? (
-                topupPackages.map((pkg: any, index: number) => (
-                  <Card
-                    key={index}
-                    className="hover-elevate cursor-pointer"
-                    onClick={() => handleSelectTopupPackage(pkg)}
-                    data-testid={`card-topup-${index}`}
-                  >
-                    <CardContent className="pt-6">
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <h3 className="font-medium">
-                            {pkg.title ||
-                              `${pkg.data} - ${pkg.validity} ${t('common.days', 'Days')}`}
-                          </h3>
-                          <p className="text-sm text-muted-foreground mt-1">
-                            {pkg.data} • {pkg.validity} {t('myEsims.daysValidity', 'days validity')}
-                          </p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-2xl font-bold">${pkg.customer_price || pkg.price}</p>
-                          <Button
-                            size="sm"
-                            className="mt-2 bg-[#2c7338] hover:bg-[#1e5427] text-white"
-                            data-testid={`button-select-topup-${index}`}
-                          >
-                            {t('myEsims.select', 'Select')}
-                          </Button>
-                        </div>
+                  {t('myEsims.backToPackages', 'Back to Packages')}
+                </Button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 gap-4">
+                {topupPackages.length > 0 ? (
+                  topupPackages.map((pkg: any, index: number) => (
+                    <div
+                      key={index}
+                      className="flex flex-col sm:flex-row justify-between sm:items-center p-4 rounded-xl border border-border bg-card hover:border-primary/50 transition-all cursor-pointer shadow-sm hover:shadow-md"
+                      onClick={() => handleSelectTopupPackage(pkg)}
+                      data-testid={`card-topup-${index}`}
+                    >
+                      <div className="mb-3 sm:mb-0">
+                        <h3 className="font-medium text-foreground">
+                          {pkg.title ||
+                            `${pkg.data} - ${pkg.validity} ${t('common.days', 'Days')}`}
+                        </h3>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          {pkg.data} • {pkg.validity} {t('myEsims.daysValidity', 'days validity')}
+                        </p>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))
-              ) : (
-                <div className="text-center py-8 text-muted-foreground">
-                  <Plus className="mx-auto h-12 w-12 mb-4 opacity-50" />
-                  <p>{t('myEsims.noTopupPackages', 'No top-up packages available')}</p>
-                </div>
-              )}
-            </div>
-          )}
+                      <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
+                        <p className="text-lg font-bold text-foreground">${pkg.customer_price || pkg.price}</p>
+                        <Button
+                          size="sm"
+                          className="bg-[#2c7338] hover:bg-[#1e5427] text-white"
+                          data-testid={`button-select-topup-${index}`}
+                        >
+                          {t('myEsims.select', 'Select')}
+                        </Button>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center py-12 text-muted-foreground col-span-1">
+                    <Plus className="mx-auto h-12 w-12 mb-4 opacity-50" />
+                    <p>{t('myEsims.noTopupPackages', 'No top-up packages available')}</p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </DialogContent>
       </Dialog>
     </div>
@@ -478,7 +483,7 @@ function ESimCard({
   onViewInstructions,
   onViewTopups,
 }: {
-  order: Order;
+  order: OrderWithDetails;
   onViewInstructions: () => void;
   onViewTopups: () => void;
 }) {
@@ -510,10 +515,16 @@ function ESimCard({
       <CardHeader>
         <div className="flex items-start justify-between">
           <div className="flex-1">
-            <CardTitle className="text-lg font-semibold">{order.dataAmount}</CardTitle>
+            <CardTitle className="text-lg font-bold flex flex-col gap-1">
+              <span>{order.package?.destination?.name || 'eSIM'}</span>
+              <span className="text-sm font-normal text-muted-foreground">
+                {order.package?.title || `${order.dataAmount || ''} - ${order.validity || ''} Days`}
+              </span>
+            </CardTitle>
+            {/* <div className="font-semibold text-primary mt-2">{order.dataAmount}</div>
             <CardDescription className="mt-1">
               {order.validity} {t('myEsims.daysValidity', 'days validity')}
-            </CardDescription>
+            </CardDescription> */}
           </div>
 
           <Badge

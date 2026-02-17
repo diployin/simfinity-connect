@@ -445,8 +445,8 @@ export default function UnifiedCheckout() {
         }
 
         console.log(selectedGateway.provider, {
-          redirectData: resData.powertranz.redirectData,
-          spiToken: resData.powertranz.spiToken,
+          redirectData: resData?.powertranz?.redirectData,
+          spiToken: resData?.powertranz?.spiToken,
         });
 
 

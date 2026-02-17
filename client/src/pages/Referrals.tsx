@@ -476,12 +476,12 @@ export default function Referrals() {
               <CardFooter>
                 <Button
                   variant="outline"
-                  className="w-full"
+                  className="w-full truncate"
                   onClick={() => setIsRedeemDialogOpen(true)}
                 // disabled={parseFloat(program?.totalEarnings || "0") <= 0}
                 >
-                  <CreditCard className="h-4 w-4 mr-2" />
-                  {t('userPanel.referrals.convertToGiftCard')}
+                  <CreditCard className="h-4 w-4 mr-2 shrink-0" />
+                  <span className="truncate">{t('userPanel.referrals.convertToGiftCard')}</span>
                 </Button>
               </CardFooter>
             </Card>

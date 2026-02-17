@@ -64,26 +64,26 @@ export function EsimNumHero() {
 
   const apiCountries = countriesResponse?.data?.countries || [];
   const countries = apiCountries.length > 0 ? apiCountries : fallbackCountries;
-  
+
   const apiRegions = regionsResponse?.data || [];
   const regions = apiRegions.length > 0 ? apiRegions : fallbackRegions;
 
-  const popularCountries = countries.filter(c => 
+  const popularCountries = countries.filter(c =>
     popularCountryCodes.includes(c.country_code)
   ).slice(0, 6);
 
   const displayPopular = popularCountries.length > 0 ? popularCountries : fallbackCountries;
 
   const filteredCountries = searchQuery
-    ? countries.filter(c => 
-        c.country_name?.toLowerCase().includes(searchQuery.toLowerCase())
-      ).slice(0, 6)
+    ? countries.filter(c =>
+      c.country_name?.toLowerCase().includes(searchQuery.toLowerCase())
+    ).slice(0, 6)
     : displayPopular;
 
   const filteredRegions = searchQuery
-    ? regions.filter(r => 
-        r.name?.toLowerCase().includes(searchQuery.toLowerCase())
-      ).slice(0, 6)
+    ? regions.filter(r =>
+      r.name?.toLowerCase().includes(searchQuery.toLowerCase())
+    ).slice(0, 6)
     : regions.slice(0, 6);
 
   const handleCountryClick = (countryCode: string) => {
@@ -119,7 +119,7 @@ export function EsimNumHero() {
               <br className="hidden sm:block" />
               {t("website.home.hero.titlePart2", "for the World")}
             </h1>
-            
+
             <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-4 sm:mb-6 max-w-lg mx-auto lg:mx-0">
               {t("website.home.hero.subtitle", "Data + Voice | Instant Activation | No Roaming Fees")}
             </p>
@@ -127,10 +127,10 @@ export function EsimNumHero() {
             {/* Decorative line - hidden on mobile */}
             <div className="hidden sm:flex items-center gap-2 mb-6 justify-center lg:justify-start">
               <svg className="h-8 w-24 text-muted-foreground/50" viewBox="0 0 100 30">
-                <path 
-                  d="M0 15 Q25 5, 50 15 T100 15" 
-                  fill="none" 
-                  stroke="currentColor" 
+                <path
+                  d="M0 15 Q25 5, 50 15 T100 15"
+                  fill="none"
+                  stroke="currentColor"
                   strokeWidth="2"
                   strokeDasharray="4 2"
                 />
@@ -168,16 +168,16 @@ export function EsimNumHero() {
             {/* Decorative blurs - hidden on mobile */}
             <div className="hidden sm:block absolute -top-16 -left-16 w-40 h-40 bg-[#c8e6c9] dark:bg-[#194520]/40 rounded-full blur-3xl opacity-50 z-0" />
             <div className="hidden sm:block absolute top-40 -right-8 w-48 h-48 bg-[#c8e6c9] dark:bg-[#194520]/40 rounded-full blur-3xl opacity-50 z-0" />
-            
+
             {/* Phone Container - positioned to extend below and hide behind feature strip */}
             <div className="relative z-10 mb-[-120px] sm:mb-[-180px] lg:mb-[-220px]">
               {/* Phone Frame - responsive sizing */}
-              <div 
-                className="relative bg-slate-800 dark:bg-slate-900 rounded-[32px] sm:rounded-[40px] lg:rounded-[48px] p-1.5 sm:p-2 lg:p-2.5 shadow-2xl w-[280px] sm:w-[320px] lg:w-[380px] mx-auto"
+              <div
+                className="relative bg-gray-900 dark:bg-black rounded-[32px] sm:rounded-[40px] lg:rounded-[48px] p-1.5 sm:p-2 lg:p-2.5 shadow-2xl w-[280px] sm:w-[320px] lg:w-[380px] mx-auto"
               >
                 {/* Notch */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 sm:w-28 lg:w-32 h-5 sm:h-6 lg:h-7 bg-slate-800 dark:bg-slate-900 rounded-b-xl sm:rounded-b-2xl z-20" />
-                
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 sm:w-28 lg:w-32 h-5 sm:h-6 lg:h-7 bg-gray-900 dark:bg-black rounded-b-xl sm:rounded-b-2xl z-20" />
+
                 {/* Screen */}
                 <div className="bg-white dark:bg-gray-50 rounded-[24px] sm:rounded-[32px] lg:rounded-[40px] overflow-hidden">
                   <div className="px-3 sm:px-4 lg:px-5 pt-8 sm:pt-10 lg:pt-12 pb-4 sm:pb-5 lg:pb-6 space-y-3 sm:space-y-4 lg:space-y-5" style={{ minHeight: '420px' }}>
@@ -185,16 +185,14 @@ export function EsimNumHero() {
                     <div className="flex items-center justify-center gap-3 sm:gap-4 lg:gap-6">
                       <button
                         onClick={() => setActiveTab("country")}
-                        className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 lg:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-colors ${
-                          activeTab === "country"
+                        className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 lg:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-colors ${activeTab === "country"
                             ? "bg-[#dcf0de] text-[#1e5427]"
                             : "text-gray-500 hover:text-gray-700"
-                        }`}
+                          }`}
                         data-testid="tab-phone-country"
                       >
-                        <div className={`h-4 w-4 sm:h-5 sm:w-5 rounded-full border-2 flex items-center justify-center ${
-                          activeTab === "country" ? "border-[#2c7338]" : "border-gray-400"
-                        }`}>
+                        <div className={`h-4 w-4 sm:h-5 sm:w-5 rounded-full border-2 flex items-center justify-center ${activeTab === "country" ? "border-[#2c7338]" : "border-gray-400"
+                          }`}>
                           {activeTab === "country" && (
                             <div className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-[#2c7338]" />
                           )}
@@ -203,16 +201,14 @@ export function EsimNumHero() {
                       </button>
                       <button
                         onClick={() => setActiveTab("region")}
-                        className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 lg:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-colors ${
-                          activeTab === "region"
+                        className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 lg:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-colors ${activeTab === "region"
                             ? "bg-[#dcf0de] text-[#1e5427]"
                             : "text-gray-500 hover:text-gray-700"
-                        }`}
+                          }`}
                         data-testid="tab-phone-region"
                       >
-                        <div className={`h-4 w-4 sm:h-5 sm:w-5 rounded-full border-2 flex items-center justify-center ${
-                          activeTab === "region" ? "border-[#2c7338]" : "border-gray-400"
-                        }`}>
+                        <div className={`h-4 w-4 sm:h-5 sm:w-5 rounded-full border-2 flex items-center justify-center ${activeTab === "region" ? "border-[#2c7338]" : "border-gray-400"
+                          }`}>
                           {activeTab === "region" && (
                             <div className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-full bg-[#2c7338]" />
                           )}
@@ -244,7 +240,7 @@ export function EsimNumHero() {
                       <p className="text-[10px] sm:text-xs font-medium text-gray-500 mb-2 sm:mb-3 lg:mb-4 uppercase tracking-wide">
                         {searchQuery ? t("website.home.hero.results", "Results") : t("website.home.hero.popular", "Popular")}
                       </p>
-                      
+
                       {activeTab === "country" ? (
                         <div className="grid grid-cols-3 gap-1.5 sm:gap-2 lg:gap-3">
                           {filteredCountries.length > 0 ? (
@@ -303,7 +299,7 @@ export function EsimNumHero() {
                     {/* CTA Button */}
                     <div className="pt-2 sm:pt-3 lg:pt-4">
                       <Link href="/destinations">
-                        <button 
+                        <button
                           className="w-full h-10 sm:h-12 lg:h-14 rounded-full bg-gradient-to-r from-[#1e5427] to-[#2c7338] hover:from-[#194520] hover:to-[#1e5427] text-white font-semibold text-xs sm:text-sm lg:text-base transition-all"
                           data-testid="button-view-all-destinations"
                         >

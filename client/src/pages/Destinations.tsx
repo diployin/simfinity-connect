@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Link } from 'wouter';
+import { Link, useLocation, useSearch } from 'wouter';
 import { Helmet } from 'react-helmet-async';
-import { Search, Globe, MapPin, ChevronRight, X } from 'lucide-react';
+import { Search, Globe, MapPin, ChevronRight, X, Ticket } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { SiteHeader } from '@/components/layout/SiteHeader';
@@ -39,7 +39,24 @@ export default function Destinations() {
   const { t } = useTranslation();
   const { currency, currencies } = useCurrency();
   const [searchQuery, setSearchQuery] = useState('');
-  const [activeTab, setActiveTab] = useState<'all' | 'countries' | 'regions' | 'global'>('all');
+  const [activeTab, setActiveTab] = useState<'all' | 'countries' | 'regions' | 'global' | 'passport'>('all');
+  const [location, setLocation] = useLocation();
+  const search = useSearch();
+
+  useEffect(() => {
+    const params = new URLSearchParams(search);
+    const tab = params.get('tab');
+    if (tab && ['all', 'countries', 'regions', 'global', 'passport'].includes(tab)) {
+      setActiveTab(tab as any);
+    } else if (!tab && location === '/destinations') {
+      setActiveTab('all');
+    }
+  }, [search, location]);
+
+  const handleTabChange = (tab: 'all' | 'countries' | 'regions' | 'global' | 'passport') => {
+    setActiveTab(tab);
+    setLocation(`/destinations?tab=${tab}`);
+  };
 
   const getCurrencySymbol = (currencyCode: string) => {
     return currencies.find((c) => c.code === currencyCode)?.symbol || '$';
@@ -83,7 +100,9 @@ export default function Destinations() {
         ? filteredDestinations?.length || 0
         : activeTab === 'regions'
           ? filteredRegions?.length || 0
-          : filteredGlobalPackages?.length || 0;
+          : activeTab === 'passport'
+            ? 0
+            : filteredGlobalPackages?.length || 0;
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -129,108 +148,63 @@ export default function Destinations() {
 
           {/* Tabs and Search Row */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-            {/* Tabs */}
-            {/* <div className="flex items-center gap-2">
-              <button
-                onClick={() => setActiveTab('all')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  activeTab === 'all'
-                    ? 'bg-[#1e5427] text-white'
-                    : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                }`}
-                data-testid="tab-all"
-              >
-                {t('destinations.all', 'All')} (
-                {(filteredDestinations?.length || 0) + (filteredRegions?.length || 0)})
-              </button>
-              <button
-                onClick={() => setActiveTab('countries')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  activeTab === 'countries'
-                    ? 'bg-[#1e5427] text-white'
-                    : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                }`}
-                data-testid="tab-countries"
-              >
-                <MapPin className="h-3.5 w-3.5" />
-                {t('destinations.countries', 'Countries')}
-              </button>
-              <button
-                onClick={() => setActiveTab('regions')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  activeTab === 'regions'
-                    ? 'bg-[#1e5427] text-white'
-                    : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                }`}
-                data-testid="tab-regions"
-              >
-                <Globe className="h-3.5 w-3.5" />
-                {t('destinations.regionalEsims', 'Regional eSIMs')}
-              </button>
-              <button
-                onClick={() => setActiveTab('global')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  activeTab === 'global'
-                    ? 'bg-[#1e5427] text-white'
-                    : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                }`}
-                data-testid="tab-global"
-              >
-                <Globe className="h-3.5 w-3.5" />
-                {t('destinations.globalEsims', 'Global eSIMs')}
-              </button>
-            </div> */}
-
             <div className="relative">
               <div className="flex overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4">
                 <div className="flex items-center gap-2 min-w-max">
                   <button
-                    onClick={() => setActiveTab('all')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
-                      activeTab === 'all'
-                        ? 'bg-[#1e5427] text-white'
-                        : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                    }`}
+                    onClick={() => handleTabChange('all')}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${activeTab === 'all'
+                      ? 'bg-[#1e5427] text-white'
+                      : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                      }`}
                     data-testid="tab-all"
                   >
                     {t('destinations.all', 'All')} (
                     {(filteredDestinations?.length || 0) + (filteredRegions?.length || 0)})
                   </button>
                   <button
-                    onClick={() => setActiveTab('countries')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
-                      activeTab === 'countries'
-                        ? 'bg-[#1e5427] text-white'
-                        : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                    }`}
+                    onClick={() => handleTabChange('countries')}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${activeTab === 'countries'
+                      ? 'bg-[#1e5427] text-white'
+                      : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                      }`}
                     data-testid="tab-countries"
                   >
                     <MapPin className="h-3.5 w-3.5 shrink-0" />
                     {t('destinations.countries', 'Countries')}
                   </button>
                   <button
-                    onClick={() => setActiveTab('regions')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
-                      activeTab === 'regions'
-                        ? 'bg-[#1e5427] text-white'
-                        : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                    }`}
+                    onClick={() => handleTabChange('regions')}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${activeTab === 'regions'
+                      ? 'bg-[#1e5427] text-white'
+                      : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                      }`}
                     data-testid="tab-regions"
                   >
                     <Globe className="h-3.5 w-3.5 shrink-0" />
                     {t('destinations.regionalEsims', 'Regional eSIMs')}
                   </button>
                   <button
-                    onClick={() => setActiveTab('global')}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
-                      activeTab === 'global'
-                        ? 'bg-[#1e5427] text-white'
-                        : 'bg-muted text-muted-foreground hover:bg-muted/80'
-                    }`}
+                    onClick={() => handleTabChange('global')}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${activeTab === 'global'
+                      ? 'bg-[#1e5427] text-white'
+                      : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                      }`}
                     data-testid="tab-global"
                   >
                     <Globe className="h-3.5 w-3.5 shrink-0" />
                     {t('destinations.globalEsims', 'Global eSIMs')}
+                  </button>
+                  <button
+                    onClick={() => handleTabChange('passport')}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${activeTab === 'passport'
+                      ? 'bg-[#1e5427] text-white'
+                      : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                      }`}
+                    data-testid="tab-passport"
+                  >
+                    <Ticket className="h-3.5 w-3.5 shrink-0" />
+                    Simfinity Passport
                   </button>
                 </div>
               </div>
@@ -262,7 +236,7 @@ export default function Destinations() {
           {/* Results Count */}
           <p className="text-muted-foreground text-sm mb-6" data-testid="text-destination-count">
             {t('destinations.showing', 'Showing')} {totalCount}{' '}
-            {/* {t('destinations.destinations', 'destinations')} */} {activeTab}
+            {/* {t('destinations.destinations', 'destinations')} */} {activeTab === 'passport' ? 'Simfinity passport' : activeTab}
           </p>
 
           {/* Destinations Grid - All (Countries + Regions) */}
@@ -306,7 +280,7 @@ export default function Destinations() {
                           </h3>
                           <p className="text-sm text-muted-foreground">
                             {t('destinations.startingFrom', 'Starting from')}{' '}
-                            <span className="text-orange-500 font-semibold">
+                            <span className="text-green-500 font-semibold">
                               {getCurrencySymbol(dest.currency || 'USD')}
                               {dest.minPrice}
                             </span>
@@ -332,7 +306,7 @@ export default function Destinations() {
                           </h3>
                           <p className="text-sm text-muted-foreground">
                             {t('destinations.startingFrom', 'Starting from')}{' '}
-                            <span className="text-orange-500 font-semibold">
+                            <span className="text-green-500 font-semibold">
                               {getCurrencySymbol(region.currency || 'USD')}
                               {region.minPrice}
                             </span>
@@ -411,7 +385,7 @@ export default function Destinations() {
                           </h3>
                           <p className="text-sm text-muted-foreground">
                             {t('destinations.startingFrom', 'Starting from')}{' '}
-                            <span className="text-orange-500 font-semibold">
+                            <span className="text-green-500 font-semibold">
                               {getCurrencySymbol(dest.currency || 'USD')}
                               {dest.minPrice}
                             </span>
@@ -482,7 +456,7 @@ export default function Destinations() {
                           </h3>
                           <p className="text-sm text-muted-foreground">
                             {t('destinations.startingFrom', 'Starting from')}{' '}
-                            <span className="text-orange-500 font-semibold">
+                            <span className="text-green-500 font-semibold">
                               {getCurrencySymbol(region.currency || 'USD')}
                               {region.minPrice}
                             </span>
@@ -558,7 +532,7 @@ export default function Destinations() {
 
                         {/* Price */}
                         <div className="text-right flex-shrink-0">
-                          <span className="text-orange-500 font-semibold">
+                          <span className="text-green-500 font-semibold">
                             {getCurrencySymbol(currency)}
                             {parseFloat(pkg.retailPrice).toFixed(2)}
                           </span>
@@ -585,6 +559,22 @@ export default function Destinations() {
                 </div>
               )}
             </>
+          )}
+
+          {/* Destinations Grid - Passport */}
+          {activeTab === 'passport' && (
+            <div className="flex flex-col items-center justify-center py-16 text-center">
+              <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mb-6">
+                <Ticket className="w-10 h-10 text-muted-foreground" />
+              </div>
+              <h2 className="text-2xl font-bold text-foreground mb-3">Simfinity Passport</h2>
+              <p className="text-muted-foreground max-w-md mx-auto mb-8">
+                Our exclusive passport plan is coming soon. Stay tuned for seamless global connectivity without boundaries.
+              </p>
+              <Badge variant="outline" className="text-base py-1 px-4 border-dashed border-[#1e5427] text-[#1e5427] bg-[#1e5427]/5">
+                Coming Soon
+              </Badge>
+            </div>
           )}
         </div>
       </main>

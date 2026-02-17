@@ -2445,6 +2445,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } else {
         reward = Number(settings.rewardValue);
       }
+      // "as"
 
       reward = Number(reward.toFixed(2));
 
@@ -2590,7 +2591,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // 🔐 CALL UNIFIED VERIFY API
       const verifyResponse = await axios.post(
-        `${process.env.API_BASE_URL}/api/payments/confirm-payments`,
+        `http://localhost:${process.env.PORT || 5000}/api/payments/confirm-payments`,
         body,
       );
 

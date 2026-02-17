@@ -162,7 +162,7 @@ export function SiteHeader() {
               )}>
                 <div className="w-[520px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-5">
                   <div className="grid grid-cols-2 gap-3">
-                    <Link href="/destinations" onClick={() => setActiveMenu(null)}>
+                    <Link href="/destinations?tab=countries" onClick={() => setActiveMenu(null)}>
                       <div className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group cursor-pointer">
                         <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-[#f0f9f1] dark:bg-[#194520]/30 flex items-center justify-center group-hover:bg-[#dcf0de] dark:group-hover:bg-[#194520]/50 transition-colors">
                           <Globe className="h-5 w-5 text-[#2c7338] dark:text-[#3d9a4d]" />
@@ -195,7 +195,19 @@ export function SiteHeader() {
                         </div>
                       </div>
                     </Link>
-                    <Link href="/destinations" onClick={() => setActiveMenu(null)}>
+                    <Link href="/destinations?tab=passport" onClick={() => setActiveMenu(null)}>
+                      <div className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group cursor-pointer">
+                        <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-pink-50 dark:bg-pink-900/30 flex items-center justify-center group-hover:bg-pink-100 dark:group-hover:bg-pink-900/50 transition-colors">
+                          {/* Import Ticket or use another icon */}
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-pink-600 dark:text-pink-400"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" /><path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" /></svg>
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900 dark:text-white mb-0.5">Simfinity Passport</p>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Exclusive global access</p>
+                        </div>
+                      </div>
+                    </Link>
+                    <Link href="/destinations?tab=all" onClick={() => setActiveMenu(null)}>
                       <div className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group cursor-pointer">
                         <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center group-hover:bg-amber-100 dark:group-hover:bg-amber-900/50 transition-colors">
                           <Package className="h-5 w-5 text-amber-600 dark:text-amber-400" />
@@ -511,7 +523,7 @@ export function SiteHeader() {
                     </button>
                     {productsOpen && (
                       <div className="ml-3 space-y-1 border-l-2 border-[#2c7338]/30 pl-3">
-                        <Link href="/destinations" onClick={closeMobileMenu}>
+                        <Link href="/destinations?tab=countries" onClick={closeMobileMenu}>
                           <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                             <Globe className="h-4 w-4 text-[#2c7338]" />
                             {t('website.nav.localEsim', 'Local eSIMs')}
@@ -527,6 +539,12 @@ export function SiteHeader() {
                           <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                             <Wifi className="h-4 w-4 text-purple-500" />
                             {t('website.nav.globalEsim', 'Global eSIMs')}
+                          </span>
+                        </Link>
+                        <Link href="/destinations?tab=passport" onClick={closeMobileMenu}>
+                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 text-pink-600 dark:text-pink-400"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" /><path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" /></svg>
+                            Simfinity Passport
                           </span>
                         </Link>
                       </div>

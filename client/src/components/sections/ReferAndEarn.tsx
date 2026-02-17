@@ -8,9 +8,9 @@ export function ReferAndEarn() {
   const siteName = useSettingByKey('platform_name') || 'Simfinity';
 
   return (
-    <section className="py-12 md:py-20 bg-white dark:bg-slate-900">
+    <section className="py-12 md:py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-blue-50 via-blue-100/50 to-blue-50 dark:from-slate-800 dark:via-slate-800/80 dark:to-slate-800">
+        <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-blue-50 via-blue-100/50 to-blue-50 dark:from-card dark:via-card/80 dark:to-card">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
             <div className="p-8 md:p-12 lg:p-16 flex flex-col justify-center">
               <div className="mb-4">
@@ -43,7 +43,7 @@ export function ReferAndEarn() {
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-50/80 dark:from-slate-800/80 to-transparent w-1/4" />
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-50/80 dark:from-card/80 to-transparent w-1/4" />
             </div>
           </div>
         </div>

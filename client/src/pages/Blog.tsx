@@ -50,7 +50,7 @@ export default function Blog() {
 
       <main className="flex-1">
         {/* Hero Section - With Max Width Container */}
-        <section className="relative py-20 md:py-28 lg:py-36 bg-white dark:bg-background overflow-hidden">
+        <section className="relative pb-10 pt-20 md:pt-28 lg:pt-36 bg-white dark:bg-background overflow-hidden">
           {/* Background gradient */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 dark:from-primary/10 dark:via-transparent dark:to-primary/5"></div>
 
@@ -110,7 +110,7 @@ export default function Blog() {
         </section>
 
         {/* Stats Section */}
-        {data && !isLoading && (
+        {/* {data && !isLoading && (
           <section className="py-8 sm:py-10 bg-gradient-to-b from-white to-gray-50 dark:from-background dark:to-background border-y dark:border-border/50 border-gray-200">
             <div className="containers">
               <div className="flex flex-wrap justify-center items-center gap-6 sm:gap-8 md:gap-12">
@@ -143,7 +143,7 @@ export default function Blog() {
               </div>
             </div>
           </section>
-        )}
+        )} */}
 
         {/* Content Section - With Max Width Container */}
         <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50 dark:bg-background">
@@ -222,10 +222,10 @@ export default function Blog() {
                                 <span className="whitespace-nowrap">
                                   {post.publishedAt
                                     ? new Date(post.publishedAt).toLocaleDateString('en-US', {
-                                        month: 'short',
-                                        day: 'numeric',
-                                        year: 'numeric',
-                                      })
+                                      month: 'short',
+                                      day: 'numeric',
+                                      year: 'numeric',
+                                    })
                                     : 'Draft'}
                                 </span>
                               </div>
