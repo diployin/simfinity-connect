@@ -13,6 +13,7 @@ import {
   SiAmericanexpress,
   SiDiscover
 } from 'react-icons/si';
+import { Globe } from 'lucide-react';
 
 export function NewFooter() {
   const { t } = useTranslation();

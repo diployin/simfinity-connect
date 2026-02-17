@@ -402,6 +402,40 @@ export const mayaTopups = pgTable("maya_topups", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
+// DataPlans.io Packages
+export const dataPlansPackages = pgTable("data_plans_packages", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  providerId: varchar("provider_id").notNull().references(() => providers.id),
+  slug: text("slug").unique().notNull(), // DataPlans.io slug (acts as ID)
+  destinationId: varchar("destination_id").references(() => destinations.id),
+  regionId: varchar("region_id").references(() => regions.id),
+
+  // Package Details
+  title: text("title").notNull(),
+  dataAmount: text("data_amount").notNull(), // "1GB", "Unlimited"
+  dataMb: integer("data_mb").notNull(),
+  validity: integer("validity").notNull(), // days
+  wholesalePrice: decimal("wholesale_price", { precision: 10, scale: 2 }).notNull(),
+  currency: text("currency").notNull().default("USD"),
+  type: text("type").notNull(), // local, regional, global
+
+  // Operator Info
+  operator: text("operator"),
+  operatorImage: text("operator_image"),
+  coverage: text("coverage").array(), // List of countries
+
+  // Capabilities
+  isUnlimited: boolean("is_unlimited").notNull().default(false),
+  voiceCredits: integer("voice_credits").default(0),
+  smsCredits: integer("sms_credits").default(0), // DataPlans often has SMS/Voice on some plans
+
+  active: boolean("active").notNull().default(true),
+  dataHash: text("data_hash"), // For incremental sync
+
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
 // Unified Packages View - Customer-facing catalog aggregating all provider packages
 export const unifiedPackages = pgTable("unified_packages", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),

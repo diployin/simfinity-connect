@@ -412,6 +412,7 @@ export function GeneralSettings() {
   const [platformName, setPlatformName] = useState('');
   const [platformTagline, setPlatformTagline] = useState('');
   const [logo, setLogo] = useState<string | null>(null);
+  const [whiteLogo, setWhiteLogo] = useState<string | null>(null);
   const [favicon, setFavicon] = useState<string | null>(null);
   const [copyrightText, setCopyrightText] = useState('');
   const [currency, setCurrency] = useState('USD');
@@ -448,6 +449,7 @@ export function GeneralSettings() {
       setPlatformName(settings.platform_name || '');
       setPlatformTagline(settings.platform_tagline || '');
       setLogo(settings.logo || null);
+      setWhiteLogo(settings.white_logo || null);
       setFavicon(settings.favicon || null);
       setCopyrightText(settings.copyright_text || '');
       setCurrency(settings.currency || 'USD');
@@ -514,6 +516,9 @@ export function GeneralSettings() {
     if (logo) {
       await saveSetting('logo', logo, 'general');
     }
+    if (whiteLogo) {
+      await saveSetting('white_logo', whiteLogo, 'general');
+    }
     if (favicon) {
       await saveSetting('favicon', favicon, 'general');
     }
@@ -553,6 +558,28 @@ export function GeneralSettings() {
       toast({
         title: 'Error',
         description: 'Failed to upload logo',
+        variant: 'destructive',
+      });
+    }
+  };
+
+  // Handle white logo upload
+  const handleWhiteLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const path = await uploadImage(file);
+      setWhiteLogo(path);
+      toast({
+        title: 'Success',
+        description: 'White logo uploaded successfully',
+      });
+    } catch (err) {
+      console.error(err);
+      toast({
+        title: 'Error',
+        description: 'Failed to upload white logo',
         variant: 'destructive',
       });
     }
@@ -716,6 +743,47 @@ export function GeneralSettings() {
                   {t(
                     'admin.settings.general.logoHelp',
                     'Recommended: PNG or SVG, transparent background',
+                  )}
+                </p>
+              </div>
+
+              {/* White Logo Upload */}
+              <div className="space-y-4 p-6 bg-gradient-to-br from-[var(--primary-light-hex)]/10 to-transparent border border-[var(--primary-hex)]/20 rounded-2xl">
+                <Label className="text-lg font-bold text-[var(--primary-hex)] flex items-center gap-2">
+                  <ImageIcon className="h-5 w-5" />
+                  {t('admin.settings.general.whiteLogo', 'White Logo (Dark Mode)')}
+                </Label>
+
+                <div className="flex items-center gap-4">
+                  {whiteLogo ? (
+                    <div className="h-24 w-24 rounded-xl overflow-hidden bg-black/80 shadow-xl border-2 border-[var(--primary-hex)]/30 flex items-center justify-center hover:scale-105 transition-all duration-300">
+                      <img
+                        src={whiteLogo}
+                        alt="White Logo Preview"
+                        className="max-h-20 max-w-20 object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <div className="h-24 w-24 rounded-xl border-2 border-dashed border-[var(--primary-hex)]/50 flex flex-col items-center justify-center text-[var(--primary-hex)] bg-black/40 hover:scale-105 transition-all duration-300">
+                      <Building2 className="h-8 w-8 mb-1 opacity-70" />
+                      <span className="text-xs font-semibold">No White Logo</span>
+                    </div>
+                  )}
+
+                  <div className="flex-1">
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleWhiteLogoUpload}
+                      className="h-12 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-[var(--primary-hex)] file:to-[var(--primary-second-hex)] file:text-black hover:file:brightness-110 cursor-pointer"
+                    />
+                  </div>
+                </div>
+
+                <p className="text-xs text-[var(--primary-hex)]/70 px-3 py-1.5 bg-[var(--primary-light-hex)]/30 rounded-lg">
+                  {t(
+                    'admin.settings.general.whiteLogoHelp',
+                    'Recommended: White version for dark backgrounds',
                   )}
                 </p>
               </div>

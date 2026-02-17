@@ -31,8 +31,8 @@ class ProviderFactory {
     config: ProviderConfig,
     factory: (provider: Provider) => IProviderService
   ): void {
-    this.registry.set(slug, { 
-      config, 
+    this.registry.set(slug, {
+      config,
       factory,
       instances: new Map(),
     });
@@ -145,6 +145,7 @@ class ProviderFactory {
 
 // Export singleton instance
 export const providerFactory = new ProviderFactory();
+
 
 // Export types
 export type { IProviderService, ProviderConfig };
