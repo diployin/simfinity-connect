@@ -43,7 +43,7 @@ export function NewFooter() {
   const logo = useSettingByKey('logo');
 
   return (
-    <footer className="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700">
+    <footer className="bg-background border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-10 gap-4">
           {logo ? (
@@ -212,7 +212,7 @@ export function NewFooter() {
           </div>
         </div>
 
-        <div className="border-t border-slate-200 dark:border-slate-700 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
             <span>2026 {siteName}. All rights reserved.</span>
             <Link href="/privacy-policy">
@@ -230,7 +230,7 @@ export function NewFooter() {
             {['Apple Pay', 'Google Pay', 'Visa', 'Mastercard', 'Amex', 'Discover'].map((method) => (
               <div
                 key={method}
-                className="h-8 w-12 bg-white dark:bg-slate-800 rounded border border-gray-100 dark:border-gray-700 flex items-center justify-center p-1"
+                className="h-8 w-12 bg-card rounded border border-border flex items-center justify-center p-1"
                 title={method}
               >
                 <PaymentIcon name={method} />

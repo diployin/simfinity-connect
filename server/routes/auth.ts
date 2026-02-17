@@ -44,6 +44,13 @@ router.post('/send-otp', async (req: Request, res: Response) => {
       return ApiResponse.badRequest(res, 'Email is required');
     }
 
+    if (purpose === 'signup') {
+      const existingUser = await storage.getUserByEmail(email);
+      if (existingUser) {
+        return ApiResponse.conflict(res, 'Account already exists. Please sign in.');
+      }
+    }
+
     const code = generateOTP();
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
 
@@ -305,7 +312,7 @@ router.post('/login-password', async (req: Request, res: Response) => {
       return ApiResponse.badRequest(res, 'Invalid email or password');
     }
 
-    
+
 
     await storage.updateUser(user.id, {
       lastPasswordLoginAt: new Date(),

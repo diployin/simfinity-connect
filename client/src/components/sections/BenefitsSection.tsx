@@ -84,7 +84,7 @@ export function BenefitsSection() {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-white dark:bg-slate-900">
+    <section className="py-16 md:py-24 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12 md:mb-16">
           <p className="text-sm text-[#2c7338] dark:text-[#3d9a4d] font-medium mb-3">
@@ -98,7 +98,7 @@ export function BenefitsSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-10 md:gap-y-14">
           {benefits.map((benefit, index) => (
             <div key={index} data-testid={`benefit-item-${index}`}>
-              <div className="text-slate-700 dark:text-slate-300 mb-4">
+              <div className="text-muted-foreground mb-4">
                 {benefit.icon}
               </div>
               <h3 className="text-lg font-bold text-foreground mb-2">

@@ -506,6 +506,19 @@ export default function PaymentGatewayRenderer({
   }
 
   // Other providers (Stripe, Razorpay, etc.)
+  if (initData.provider === 'stripe' && initData.clientSecret) {
+    const stripePromise = loadStripe(initData.publicKey!);
+
+    return (
+      <Elements stripe={stripePromise} options={{ clientSecret: initData.clientSecret }}>
+        <StripeCheckoutForm
+          clientSecret={initData.clientSecret}
+          onSuccess={(txId) => onPaymentSuccess?.(txId)}
+          onError={(err) => onPaymentError?.(err)}
+        />
+      </Elements>
+    );
+  }
   return (
     <Card className="border-red-200">
       <CardContent className="p-4">

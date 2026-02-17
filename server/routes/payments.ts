@@ -452,6 +452,7 @@ router.post('/init', optionalAuth, async (req, res) => {
         payment.clientSecret = result.clientSecret;
         payment.paymentIntentId = result.paymentIntentId;
         payment.guestAccessToken = result.guestAccessToken ?? null;
+        payment.publicKey = gateway.publicKey;
         payment.amount = pricing.total;
         payment.currency = currency;
         break;

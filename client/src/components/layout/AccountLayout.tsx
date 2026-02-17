@@ -157,10 +157,10 @@ export function AccountLayout({ children }: AccountLayoutProps) {
 
                 {isSubPage ? (
                   <>
-                    <Link href="/account">
+                    <Link href="/account/profile">
                       <Button variant="ghost" size="sm" className="gap-1 text-muted-foreground">
                         {/* <ArrowLeft className="h-4 w-4" /> */}
-                        Account
+                        Profile
                       </Button>
                     </Link>
                     <ChevronRight className="h-4 w-4 text-muted-foreground" />

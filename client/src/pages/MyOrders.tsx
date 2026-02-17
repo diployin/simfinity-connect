@@ -191,12 +191,12 @@ export default function MyOrders() {
 
 
   const formatPrice = (amount: string | number, currency = "USD") => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency,
-    minimumFractionDigits: 2,
-  }).format(Number(amount));
-};
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency,
+      minimumFractionDigits: 2,
+    }).format(Number(amount));
+  };
 
   return (
     <div>
@@ -220,7 +220,12 @@ export default function MyOrders() {
                   <div className="flex items-center gap-3">
                     <span className="text-3xl">{order.package.destination?.flagEmoji || "🌍"}</span>
                     <div>
-                      <CardTitle className="text-lg">{order.package.destination?.name}</CardTitle>
+                      <CardTitle className="text-lg">
+                        {order.package.destination?.name}
+                        <span className="block text-sm font-normal text-muted-foreground mt-1">
+                          {order.package?.title || `${order.dataAmount} - ${order.validity} Days`}
+                        </span>
+                      </CardTitle>
                       <p className="text-sm text-muted-foreground">
                         {order.dataAmount} • {order.validity} {t('common.days', 'days')}
                       </p>
@@ -241,8 +246,8 @@ export default function MyOrders() {
                     <div className="text-sm text-muted-foreground mb-1">{t('myOrders.amountPaid', 'Amount Paid')}</div>
                     {/* <div className="font-medium">${order.price}</div> */}
                     <div className="font-medium">
-  {formatPrice(order.price, order.currency || order.orderCurrency)}
-</div>
+                      {formatPrice(order.price, order.currency || order.orderCurrency)}
+                    </div>
                   </div>
                   <div>
                     <div className="text-sm text-muted-foreground mb-1">{t('myOrders.purchaseDate', 'Purchase Date')}</div>
@@ -642,7 +647,7 @@ export default function MyOrders() {
                         )}
                         {esim.airalo_code && (
                           <div>
-                            <p className="text-sm text-muted-foreground">Airalo Code</p>
+                            <p className="text-sm text-muted-foreground">Code</p>
                             <p className="font-mono text-sm">{esim.airalo_code}</p>
                           </div>
                         )}
@@ -660,12 +665,12 @@ export default function MyOrders() {
                       </CardHeader>
                       <CardContent className="grid gap-3">
                         <div className="grid grid-cols-2 gap-4">
-                          {esim.package.title && (
-                            <div className="col-span-2">
-                              <p className="text-sm text-muted-foreground">Package Name</p>
-                              <p className="font-medium" data-testid="text-package">{esim.package.title}</p>
-                            </div>
-                          )}
+                          <div className="col-span-2">
+                            <p className="text-sm text-muted-foreground">Package Name</p>
+                            <p className="font-medium" data-testid="text-package">
+                              {esim.package.title || `${esim.package.data || ''} - ${esim.package.validity || ''} Days`}
+                            </p>
+                          </div>
                           {esim.package.id && (
                             <div className="col-span-2">
                               <p className="text-sm text-muted-foreground">Package ID</p>
@@ -767,10 +772,10 @@ export default function MyOrders() {
                           <p className="text-sm text-muted-foreground">Customer Price</p>
                           <p className="font-medium">${selectedOrder.price}</p>
                         </div>
-                        <div>
+                        {/* <div>
                           <p className="text-sm text-muted-foreground">Airalo Cost</p>
                           <p className="font-medium">${selectedOrder.airaloPrice}</p>
-                        </div>
+                        </div> */}
                       </div>
                     </CardContent>
                   </Card>
