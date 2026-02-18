@@ -113,6 +113,7 @@ export interface ProviderTopupRequest {
   iccid: string;
   packageId: string; // Provider's top-up package ID
   quantity?: number;
+  transactionId?: string;
 }
 
 /**

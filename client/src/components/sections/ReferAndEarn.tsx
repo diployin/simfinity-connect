@@ -20,11 +20,11 @@ export function ReferAndEarn() {
               </div>
 
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-4">
-                {t('website.home.referral.title', "Refer a friend, and you'll both get US$5!")}
+                {t('website.home.referral.title', "Refer a friend, and you'll both get $5!")}
               </h2>
 
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6">
-                {t('website.home.referral.description', `Invite your friends to use ${siteName} and get US$5 in ${siteName} credits while they get a US$5 discount!`)}
+                {t('website.home.referral.description', `Invite your friends to use ${siteName} and get $5 in ${siteName} credits while they get a $5 discount!`)}
               </p>
 
               <div>

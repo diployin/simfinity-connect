@@ -138,11 +138,13 @@ export function usePackageDetails(slug: string) {
 
 interface OTPRequest {
   email: string;
+  purpose?: string;
 }
 
 interface OTPVerify {
   email: string;
   otp: string;
+  purpose?: string;
 }
 
 interface AuthResponse {
@@ -157,7 +159,7 @@ interface AuthResponse {
 
 export function useRequestOTP() {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (data: OTPRequest): Promise<AuthResponse> => {
       const res = await apiRequest("POST", "/api/auth/send-otp", data);
@@ -168,7 +170,7 @@ export function useRequestOTP() {
 
 export function useVerifyOTP() {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (data: OTPVerify): Promise<AuthResponse> => {
       const res = await apiRequest("POST", "/api/auth/verify-otp", data);
@@ -182,7 +184,7 @@ export function useVerifyOTP() {
 
 export function useLogout() {
   const queryClient = useQueryClient();
-  
+
   return useMutation({
     mutationFn: async (): Promise<void> => {
       await apiRequest("POST", "/api/auth/logout", {});

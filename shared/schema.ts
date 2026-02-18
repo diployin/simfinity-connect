@@ -678,7 +678,7 @@ export const topups = pgTable("topups", {
   displayTopupId: serial("display_topup_id").unique(), // Sequential ID for display (TID001, TID002, etc.)
   orderId: varchar("order_id").notNull().references(() => orders.id), // Original eSIM order
   userId: varchar("user_id").notNull().references(() => users.id),
-  packageId: varchar("package_id").notNull().references(() => airaloPackages.id), // Top-up package
+  packageId: varchar("package_id").notNull().references(() => unifiedPackages.id), // Top-up package
   iccid: text("iccid").notNull(), // eSIM ICCID to top-up
 
   // Airalo Top-up Details

@@ -3,130 +3,59 @@ import {
   Globe2,
   Shield,
   Zap,
-  Users,
-  Heart,
-  Compass,
-  Lightbulb,
-  Sparkles,
-  TrendingUp,
-  Quote,
+  CheckCircle2,
+  Smartphone,
+  Wifi,
+  CreditCard,
+  Layers,
+  Lock,
+  Headphones,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Helmet } from 'react-helmet-async';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { useLocation } from 'wouter';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function AboutUs() {
   const siteName = useSettingByKey('platform_name');
   const [, navigate] = useLocation();
 
-  const mediaBrands = ['Lonely Planet', 'National Geographic', 'Forbes', 'CNN', 'PCMag', 'TechRadar'];
-
-  const values = [
-    {
-      icon: Compass,
-      title: 'Wander freely',
-      description: "We're replacing plastic SIM cards with an easy and eco-friendly solution that works in 200+ destinations.",
-    },
-    {
-      icon: Sparkles,
-      title: 'Keep it simple',
-      description: "No tech jargon. No clutter. We built an eSIM app that's clean, intuitive, and easy to navigate.",
-    },
-    {
-      icon: Heart,
-      title: 'Prioritize humans',
-      description: 'We care about people, not just rigid processes. Every team member and user is treated with empathy and respect.',
-    },
-    {
-      icon: TrendingUp,
-      title: 'Always improve',
-      description: "We don't chase perfection — we chase progress. We believe that small wins make big shifts.",
-    },
+  const whatWeOffer = [
     {
       icon: Globe2,
-      title: 'Think like a traveler',
-      description: `We stay curious, flexible, and open to the unknown, just like the explorers we built ${siteName} for.`,
+      title: 'Global Coverage',
+      description: "Global eSIM data plans across multiple countries and regions.",
     },
     {
-      icon: Lightbulb,
-      title: 'Make it matter',
-      description: "We're here to make a difference, so we focus on what truly matters — our users, team, and the world around us.",
+      icon: Zap,
+      title: 'Instant Delivery',
+      description: "Instant eSIM delivery directly after purchase.",
+    },
+    {
+      icon: Wifi,
+      title: 'Easy Activation',
+      description: "Fast and easy QR-based activation.",
+    },
+    {
+      icon: Lock,
+      title: 'Secure Payments',
+      description: "Secure and encrypted payment systems.",
+    },
+    {
+      icon: Headphones,
+      title: '24/7 Support',
+      description: "Reliable customer support whenever you need it.",
     },
   ];
 
-  const timeline = [
-    {
-      year: '2023',
-      title: 'Where it all began',
-      description: 'Started with a shared idea — ditch plastic SIM cards and simplify mobile connectivity.',
-    },
-    {
-      year: 'March 2024',
-      title: 'The first launch',
-      description: 'First eSIM plans covering 160+ countries with instant mobile access.',
-    },
-    {
-      year: 'December 2024',
-      title: 'Prioritizing security',
-      description: 'Added built-in security features for safer browsing while traveling.',
-    },
-    {
-      year: 'February 2025',
-      title: 'Connecting the world',
-      description: 'Expanded coverage to 200+ destinations, reached more users.',
-    },
-    {
-      year: '2025',
-      title: 'The journey continues',
-      description: 'Focused on expanding coverage, improving the experience.',
-    },
-  ];
-
-  const quotes = [
-    {
-      text: "At Simfinity, our goal is to make global connectivity simple, reliable, and fully digital so travelers stay connected anywhere without hassle.",
-      name: 'Avinash',
-      title: 'CEO',
-    },
-    {
-      text: "We focus on understanding travelers’ needs and delivering clear, valuable eSIM solutions that make staying online across countries effortless.",
-      name: 'Deepak Kumar',
-      title: 'Marketing Head',
-    },
-    {
-      text: "We build secure, fast, and scalable technology that powers seamless eSIM activation and ensures a smooth experience for every Simfinity user.",
-      name: 'Ashutosh Jha',
-      title: 'Developer',
-    },
-  ];
-
-  const lifeCards = [
-    {
-      title: 'Growth opportunities',
-      description: 'We support your growth with learning opportunities, real responsibilities, and chances to lead.',
-      large: true,
-    },
-    {
-      title: 'Work-life balance',
-      description: "Work from anywhere! We're a borderless team connected by trust, not time zones.",
-      large: true,
-    },
-    {
-      title: 'Culture and community',
-      description: 'We prioritize people and celebrate wins, milestones, and contributions.',
-      large: false,
-    },
-    {
-      title: 'Autonomy and ownership',
-      description: 'We trust you to lead, experiment, and bring your ideas to life.',
-      large: false,
-    },
-    {
-      title: 'Curiosity-driven work',
-      description: "We encourage curiosity. Questions aren't simply welcome — they're how we build.",
-      large: false,
-    },
+  const whySimfinity = [
+    { text: "100% digital experience", icon: Smartphone },
+    { text: "Transparent pricing", icon: CreditCard },
+    { text: "Quick activation process", icon: Zap },
+    { text: "Flexible data options", icon: Layers },
+    { text: "Strong network partnerships", icon: Globe2 },
+    { text: "Secure and trusted platform", icon: Shield },
   ];
 
   return (
@@ -135,7 +64,7 @@ export function AboutUs() {
         <title>{`About Us - ${siteName} | Your Travel Connectivity Partner`}</title>
         <meta
           name="description"
-          content={`Learn about ${siteName} — the team building the future of travel connectivity with eSIM technology. No plastic, no borders, just seamless connection in 200+ destinations.`}
+          content={`Learn about ${siteName} — redefining global connectivity with seamless, digital-first eSIM solutions.`}
         />
       </Helmet>
 
@@ -143,39 +72,38 @@ export function AboutUs() {
       <section className="py-20 md:py-28 lg:py-36 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-            Meet the people behind{' '}
-            <span style={{ color: '#2c7338' }}>{siteName}</span>
+            About <span style={{ color: '#2c7338' }}>Us</span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            We're a passionate team of travelers, engineers, and dreamers building the eSIM app that keeps you connected — anywhere in the world.
+          <p className="text-lg md:text-xl text-gray-900 font-medium max-w-3xl mx-auto leading-relaxed mb-6">
+            At Simfinity, we are redefining global connectivity with seamless, digital-first eSIM solutions designed for the modern world.
+          </p>
+          <p className="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            In today’s fast-moving, borderless environment, staying connected should be simple, reliable, and affordable. Whether you’re traveling internationally, managing a remote business, or working across multiple countries, uninterrupted internet access is essential. Simfinity was created to remove the traditional barriers of mobile connectivity and replace them with a smarter, faster, and fully digital experience.
           </p>
         </div>
       </section>
 
-      {/* Why we built section */}
+      {/* Who We Are Section (replaces Why we built) */}
       <section className="py-16 md:py-24 bg-slate-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Why we built {siteName}
+                Who We Are
               </h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  We believe that exploring the world should come without barriers. Yet for too long, staying connected abroad has meant dealing with plastic SIM cards, confusing plans, and overpriced roaming fees.
+                  Simfinity is a forward-thinking telecommunications brand focused on delivering advanced eSIM technology to customers worldwide. We combine telecom expertise with strong digital infrastructure to ensure secure transactions, instant activation, and dependable global coverage.
                 </p>
                 <p>
-                  So we set out to change that. {siteName} was born from a simple idea: digital connectivity should be as borderless as the travelers who need it. No plastic. No hassle. No borders.
-                </p>
-                <p>
-                  Today, we serve travelers in 200+ destinations with instant eSIM plans that activate in seconds — helping people focus on what matters most: the journey itself.
+                  Our approach is built around innovation, simplicity, and customer trust. Every service we offer is designed to eliminate complexity and provide a smooth user experience from purchase to activation.
                 </p>
               </div>
             </div>
-            <div className="bg-slate-100 rounded-2xl aspect-[4/3] flex items-center justify-center overflow-hidden">
+            <div className="bg-slate-100 rounded-2xl aspect-[4/3] flex items-center justify-center overflow-hidden shadow-lg border border-gray-100">
               <img
                 src="/images/about/Voices_crew1.png"
-                alt="Simfinity Connect Crew"
+                alt="Simfinity Team"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -183,146 +111,169 @@ export function AboutUs() {
         </div>
       </section>
 
-      {/* They talk about us */}
-      {/* <section className="py-12 md:py-16 bg-white border-y border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h3 className="text-center text-sm font-semibold text-gray-400 uppercase tracking-wider mb-8">
-            They talk about us
-          </h3>
-          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10">
-            {mediaBrands.map((brand) => (
-              <span
-                key={brand}
-                className="text-gray-400 font-semibold text-lg md:text-xl tracking-wide hover:text-gray-600 transition-colors duration-200"
-              >
-                {brand}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section> */}
-
-      {/* The values that guide us */}
+      {/* How to Set Up an eSIM (New Section) */}
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              The values that guide us
+              How to Set Up an eSIM
             </h2>
             <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-              These principles shape how we build, how we work, and how we connect with the world.
+              Get connected in minutes with our simple setup process.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {values.map((value, index) => (
+
+          <Tabs defaultValue="iphone" className="w-full">
+            <div className="flex justify-center mb-12">
+              <TabsList className="grid w-full max-w-md grid-cols-1 h-auto p-1 bg-slate-100 rounded-full">
+                <TabsTrigger
+                  value="iphone"
+                  className="rounded-full py-3 text-base font-medium data-[state=active]:bg-[#2c7338] data-[state=active]:text-white transition-all"
+                >
+                  On iPhone
+                </TabsTrigger>
+              </TabsList>
+            </div>
+
+            <TabsContent value="iphone" className="mt-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+                {/* Step 1 */}
+                <div className="group bg-white rounded-[2.5rem] border border-slate-200 overflow-hidden hover:shadow-xl hover:border-green-200 transition-all duration-300 flex flex-col h-full">
+                  <div className="w-full bg-slate-50 flex items-center justify-center">
+                    <img
+                      src="/images/about/1.png"
+                      alt="Scan QR Code"
+                      className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-8 text-center flex flex-col items-center flex-grow">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#2c7338] transition-colors">Scan QR Code</h3>
+                    <p className="text-gray-500 leading-relaxed max-w-xs mx-auto text-lg">
+                      Go to Settings &gt; Cellular &gt; Add eSIM and scan the QR code provided in your email.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Step 2 */}
+                <div className="group bg-white rounded-[2.5rem] border border-slate-200 overflow-hidden hover:shadow-xl hover:border-green-200 transition-all duration-300 flex flex-col h-full">
+                  <div className="w-full bg-slate-50 flex items-center justify-center">
+                    <img
+                      src="/images/about/2.png"
+                      alt="Activate eSIM"
+                      className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-8 text-center flex flex-col items-center flex-grow">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#2c7338] transition-colors">Activate eSIM</h3>
+                    <p className="text-gray-500 leading-relaxed max-w-xs mx-auto text-lg">
+                      Follow the on-screen prompts to label your new plan (e.g., "Travel") and continue.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Step 3 */}
+                <div className="group bg-white rounded-[2.5rem] border border-slate-200 overflow-hidden hover:shadow-xl hover:border-green-200 transition-all duration-300 flex flex-col h-full">
+                  <div className="w-full bg-slate-50 flex items-center justify-center">
+                    <img
+                      src="/images/about/3.png"
+                      alt="Connect"
+                      className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-8 text-center flex flex-col items-center flex-grow">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#2c7338] transition-colors">Connect</h3>
+                    <p className="text-gray-500 leading-relaxed max-w-xs mx-auto text-lg">
+                      Turn on "Data Roaming" for your new eSIM line to start browsing instantly.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
+      </section>
+
+      {/* What We Offer (replaces Values) */}
+      <section className="py-16 md:py-24 bg-slate-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              What We Offer
+            </h2>
+            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+              We focus on making connectivity effortless — no physical SIM cards, no shipping delays, no roaming complications.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {whatWeOffer.map((item, index) => (
               <div
                 key={index}
-                className="group bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:border-green-200 hover:shadow-md transition-all duration-300"
+                className="group bg-white rounded-2xl p-8 border border-gray-100 hover:border-green-200 hover:shadow-md transition-all duration-300"
               >
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
                   style={{ backgroundColor: 'rgba(44, 115, 56, 0.1)' }}
                 >
-                  <value.icon className="w-6 h-6" style={{ color: '#2c7338' }} />
+                  <item.icon className="w-6 h-6" style={{ color: '#2c7338' }} />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{value.title}</h3>
-                <p className="text-gray-500 leading-relaxed">{value.description}</p>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
+                <p className="text-gray-500 leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* The tale timeline */}
-      <section className="py-16 md:py-24 bg-slate-50">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              The {siteName} tale
-            </h2>
-            <p className="text-gray-500 text-lg max-w-xl mx-auto">
-              From a shared idea to a global eSIM platform — here's how we got here.
-            </p>
-          </div>
-          <div className="relative">
-            <div className="absolute left-6 md:left-8 top-0 bottom-0 w-0.5 bg-gray-200" />
-            <div className="space-y-10">
-              {timeline.map((item, index) => (
-                <div key={index} className="relative flex gap-6 md:gap-8">
-                  <div className="relative z-10 flex-shrink-0">
-                    <div
-                      className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md"
-                      style={{ background: 'linear-gradient(135deg, #2c7338, #3a9c4d)' }}
-                    >
-                      {index + 1}
-                    </div>
-                  </div>
-                  <div className="pb-2 flex-1">
-                    <span
-                      className="inline-block text-xs font-bold px-3 py-1 rounded-full mb-2"
-                      style={{ backgroundColor: 'rgba(44, 115, 56, 0.1)', color: '#2c7338' }}
-                    >
-                      {item.year}
-                    </span>
-                    <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">{item.title}</h3>
-                    <p className="text-gray-500 leading-relaxed">{item.description}</p>
-                  </div>
-                </div>
-              ))}
+      {/* Mission & Vision (New Grid Section) */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Mission */}
+            <div className="bg-slate-50 rounded-2xl p-10 border border-gray-100 hover:shadow-md transition-all duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-6">
+                <CheckCircle2 className="w-8 h-8 text-[#2c7338]" />
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Our Mission</h2>
+              <p className="text-gray-600 text-lg leading-relaxed">
+                Our mission is to simplify global mobile connectivity by offering secure, affordable, and instantly accessible eSIM solutions that empower individuals and businesses to stay connected anywhere in the world.
+              </p>
+            </div>
+
+            {/* Vision */}
+            <div className="bg-slate-50 rounded-2xl p-10 border border-gray-100 hover:shadow-md transition-all duration-300">
+              <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-6">
+                <Globe2 className="w-8 h-8 text-[#2c7338]" />
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Our Vision</h2>
+              <p className="text-gray-600 text-lg leading-relaxed">
+                We envision a future where global communication has no limits. A world where travelers never worry about roaming fees, professionals work without disruption, and digital connectivity is accessible to everyone instantly and effortlessly.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Team quotes section */}
-      <section className="py-16 md:py-24" style={{ background: 'linear-gradient(135deg, #2c7338, #3a9c4d, #2c7338)' }}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Voices of the {siteName} crew
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {quotes.map((quote, index) => (
-              <div
-                key={index}
-                className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300"
-              >
-                <Quote className="w-8 h-8 text-white/80 mb-4" />
-                <p className="text-white text-lg leading-relaxed mb-6 font-medium">
-                  "{quote.text}"
-                </p>
-                <div>
-                  <p className="text-white font-bold tracking-wide">{quote.name}</p>
-                  <p className="text-green-100 text-sm font-medium opacity-90">{quote.title}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Life at section */}
-      <section className="py-16 md:py-24 bg-white">
+      {/* Why Simfinity (Grid of small cards) */}
+      <section className="py-16 md:py-24 bg-slate-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Life at {siteName}
+              Why Simfinity
             </h2>
-            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-              A workplace where curiosity thrives and every voice matters.
-            </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {lifeCards.map((card, index) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {whySimfinity.map((item, index) => (
               <div
                 key={index}
-                className={`bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:shadow-md transition-all duration-300 ${card.large && index < 2 ? 'lg:col-span-1 md:col-span-1' : ''
-                  } ${index < 2 ? 'md:row-span-1' : ''}`}
-                style={index < 2 ? { minHeight: '220px' } : {}}
+                className="group bg-white rounded-xl p-6 border border-gray-200 hover:border-green-200 hover:shadow-sm transition-all duration-300 flex items-center gap-4"
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{card.title}</h3>
-                <p className="text-gray-500 leading-relaxed">{card.description}</p>
+                <div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: 'rgba(44, 115, 56, 0.1)' }}
+                >
+                  <item.icon className="w-5 h-5" style={{ color: '#2c7338' }} />
+                </div>
+                <span className="text-lg font-bold text-gray-900">{item.text}</span>
               </div>
             ))}
           </div>
@@ -333,21 +284,21 @@ export function AboutUs() {
       <section className="py-16 md:py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
-            className="rounded-3xl px-8 py-16 md:px-16 md:py-20 text-center"
+            className="rounded-3xl px-8 py-16 md:px-16 md:py-20 text-center shadow-xl"
             style={{ background: 'linear-gradient(135deg, #2c7338, #3a9c4d, #2c7338)' }}
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-              Always connected. Always on course.
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+              Stay connected. Stay global. Stay Simfinity.
             </h2>
-            <p className="text-green-100 text-lg md:text-xl max-w-2xl mx-auto mb-8">
-              Join a team of passionate travelers shaping the future of mobile connectivity.
+            <p className="text-green-100 text-lg md:text-xl max-w-2xl mx-auto mb-8 font-medium">
+              At Simfinity, we don’t just provide eSIMs. we provide freedom to connect without boundaries.
             </p>
             <Button
-              onClick={() => navigate('/contact')}
+              onClick={() => navigate('/destinations')}
               size="lg"
               className="bg-white hover:bg-gray-100 text-gray-900 font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              Explore Careers
+              Get Connected
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>

@@ -65,7 +65,7 @@ export async function createEsimAccessOrder(
       success: true,
       providerOrderId: orderNo,
       requestId: orderNo,
-      status: allocatedOrder.status,
+      status: allocatedOrder.status === 'cancelled' ? 'failed' : allocatedOrder.status,
       processingTime: 5,
 
       iccid: allocatedOrder.iccid,
@@ -151,7 +151,7 @@ export async function getEsimAccessOrderStatus(
       obj.smdpStatus === "ALLOCATED"
         ? "completed"
         : obj.esimStatus === "CANCEL"
-          ? "canceled"
+          ? "cancelled"
           : obj.smdpStatus === "RELEASED"
             ? "completed"
             : obj.smdpStatus === "PENDING"
@@ -163,7 +163,7 @@ export async function getEsimAccessOrderStatus(
                   : obj.smdpStatus === "ENABLED"
                     ? "completed"
                     : obj.smdpStatus === "DISABLED"
-                      ? "disabled"
+                      ? "completed"
                       : 'pending';
 
     const esimStatusMap = {
@@ -183,7 +183,7 @@ export async function getEsimAccessOrderStatus(
 
       SUSPENDED: "suspended",
 
-      CANCEL: "canceled",
+      CANCEL: "cancelled",
       REVOKE: "revoked"
     } as const;
 
@@ -311,6 +311,7 @@ export async function purchaseEsimAccessTopup(
         iccid: request.iccid,
         packageCode: request.packageId,
         quantity: request.quantity || 1,
+        transactionId: request.transactionId,
       },
       accessCode,
       secretKey

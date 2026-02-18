@@ -11,7 +11,7 @@ import { HeroSection } from '../components/sections/HeroSection';
 import { WhatIsEsim } from '@/components/sections/WhatIsEsim';
 import { InstantConnection } from '@/components/sections/InstantConnection';
 import { DownloadApp } from '@/components/sections/DownloadApp';
-import { ReferAndEarn } from '@/components/sections/ReferAndEarn';
+import { ImpactSection } from '@/components/sections/ImpactSection';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { useUser } from '@/hooks/use-user';
 
@@ -57,7 +57,7 @@ export default function Home() {
           <TravelerTestimonials />
           <FAQWithSupport />
           <DownloadApp />
-          <ReferAndEarn />
+          <ImpactSection />
         </main>
 
         <FloatingButtons />

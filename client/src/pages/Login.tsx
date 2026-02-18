@@ -238,7 +238,7 @@ export default function Login() {
 
     setIsLoading(true);
     try {
-      const res = await apiRequest('POST', '/api/auth/verify-otp', { email, otp });
+      const res = await apiRequest('POST', '/api/auth/verify-otp', { email, otp, purpose: 'signup' });
 
       if (!res.ok) {
         const errorData = await res.json();

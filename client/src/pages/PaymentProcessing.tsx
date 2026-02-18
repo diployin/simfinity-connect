@@ -130,146 +130,146 @@ export default function PaymentProcessing() {
   const [status, setStatus] = useState<Status>("processing");
   const [message, setMessage] = useState("Processing your payment...");
 
-//   useEffect(() => {
-//   const processPayment = async () => {
-//     try {
-//       const urlParams = new URLSearchParams(window.location.search);
+  //   useEffect(() => {
+  //   const processPayment = async () => {
+  //     try {
+  //       const urlParams = new URLSearchParams(window.location.search);
 
-//       const providerType = urlParams.get("providerType"); // stripe | razorpay | paypal | paystack
-//       if (!providerType) throw new Error("Payment provider not found");
+  //       const providerType = urlParams.get("providerType"); // stripe | razorpay | paypal | paystack
+  //       if (!providerType) throw new Error("Payment provider not found");
 
-//       let providerBody: any = { providerType };
+  //       let providerBody: any = { providerType };
 
-//       switch (providerType) {
-//         case "stripe":
-//           providerBody.paymentIntentId = urlParams.get("payment_intent");
-//           break;
+  //       switch (providerType) {
+  //         case "stripe":
+  //           providerBody.paymentIntentId = urlParams.get("payment_intent");
+  //           break;
 
-//         case "razorpay":
-//           providerBody.orderId = urlParams.get("orderId");
-//           providerBody.paymentId = urlParams.get("paymentId");
-//           providerBody.signature = urlParams.get("signature");
-//           break;
+  //         case "razorpay":
+  //           providerBody.orderId = urlParams.get("orderId");
+  //           providerBody.paymentId = urlParams.get("paymentId");
+  //           providerBody.signature = urlParams.get("signature");
+  //           break;
 
-//         case "paypal":
-//           providerBody.orderId = urlParams.get("orderId");
-//           break;
+  //         case "paypal":
+  //           providerBody.orderId = urlParams.get("orderId");
+  //           break;
 
-//         case "paystack":
-//           providerBody.orderId = urlParams.get("reference");
-//           break;
+  //         case "paystack":
+  //           providerBody.orderId = urlParams.get("reference");
+  //           break;
 
-//         default:
-//           throw new Error("Unsupported payment provider");
-//       }
-
-
-    
-
-//       // 🔐 Call backend adapter API
-//       const res = await apiRequest(
-//         "POST",
-//         "/api/confirm-payment",
-//         providerBody
-//       );
-
-//       const data = await res.json();
-
-//       if (!data.success) {
-//         throw new Error(data.message || "Payment verification failed");
-//       }
-
-//       setStatus("success");
-//       setMessage("Payment successful! Redirecting...");
-
-//       setTimeout(() => {
-//         setLocation("/account/orders");
-//       }, 2500);
-
-//     } catch (err: any) {
-//       console.error("Payment processing error:", err);
-//       setStatus("error");
-//       setMessage(err.message || "Payment processing failed");
-//     }
-//   };
-
-//   processPayment();
-// }, [setLocation]);
+  //         default:
+  //           throw new Error("Unsupported payment provider");
+  //       }
 
 
 
-useEffect(() => {
-  const processPayment = async () => {
-    try {
-      const urlParams = new URLSearchParams(window.location.search);
 
-      const providerType = urlParams.get("providerType");
-      if (!providerType) throw new Error("Payment provider not found");
+  //       // 🔐 Call backend adapter API
+  //       const res = await apiRequest(
+  //         "POST",
+  //         "/api/confirm-payment",
+  //         providerBody
+  //       );
 
-      const guestAccessToken = urlParams.get("guestAccessToken");
+  //       const data = await res.json();
 
-      let providerBody: any = { providerType };
+  //       if (!data.success) {
+  //         throw new Error(data.message || "Payment verification failed");
+  //       }
 
-      switch (providerType) {
-        case "stripe":
-          providerBody.paymentIntentId =
-            urlParams.get("payment_intent");
-          break;
+  //       setStatus("success");
+  //       setMessage("Payment successful! Redirecting...");
 
-        case "razorpay":
-          providerBody.orderId = urlParams.get("orderId");
-          providerBody.paymentId = urlParams.get("paymentId");
-          providerBody.signature = urlParams.get("signature");
-          break;
+  //       setTimeout(() => {
+  //         setLocation("/account/orders");
+  //       }, 2500);
 
-        case "paypal":
-          providerBody.orderId = urlParams.get("orderId");
-          break;
+  //     } catch (err: any) {
+  //       console.error("Payment processing error:", err);
+  //       setStatus("error");
+  //       setMessage(err.message || "Payment processing failed");
+  //     }
+  //   };
 
-        case "paystack":
-          providerBody.orderId = urlParams.get("reference");
-          break;
+  //   processPayment();
+  // }, [setLocation]);
 
-        default:
-          throw new Error("Unsupported payment provider");
-      }
 
-      // 🔥 DECISION POINT
-      const apiUrl = guestAccessToken
-        ? "/api/guest/confirm-payment"
-        : "/api/confirm-payment";
 
-      if (guestAccessToken) {
-        providerBody.guestAccessToken = guestAccessToken;
-      }
+  useEffect(() => {
+    const processPayment = async () => {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
 
-      const res = await apiRequest("POST", apiUrl, providerBody);
-      const data = await res.json();
+        const providerType = urlParams.get("providerType");
+        if (!providerType) throw new Error("Payment provider not found");
 
-      if (!data.success) {
-        throw new Error(data.message || "Payment verification failed");
-      }
+        const guestAccessToken = urlParams.get("guestAccessToken");
 
-      setStatus("success");
-      setMessage("Payment successful! Redirecting...");
+        let providerBody: any = { providerType };
 
-      setTimeout(() => {
-        if (guestAccessToken) {
-          setLocation(`/order/${guestAccessToken}`);
-        } else {
-          setLocation("/account/orders");
+        switch (providerType) {
+          case "stripe":
+            providerBody.paymentIntentId =
+              urlParams.get("payment_intent");
+            break;
+
+          case "razorpay":
+            providerBody.orderId = urlParams.get("orderId");
+            providerBody.paymentId = urlParams.get("paymentId");
+            providerBody.signature = urlParams.get("signature");
+            break;
+
+          case "paypal":
+            providerBody.orderId = urlParams.get("orderId");
+            break;
+
+          case "paystack":
+            providerBody.orderId = urlParams.get("reference");
+            break;
+
+          default:
+            throw new Error("Unsupported payment provider");
         }
-      }, 2000);
 
-    } catch (err: any) {
-      console.error("Payment processing error:", err);
-      setStatus("error");
-      setMessage(err.message || "Payment processing failed");
-    }
-  };
+        // 🔥 DECISION POINT
+        const apiUrl = guestAccessToken
+          ? "/api/guest/confirm-payment"
+          : "/api/confirm-payment";
 
-  processPayment();
-}, [setLocation]);
+        if (guestAccessToken) {
+          providerBody.guestAccessToken = guestAccessToken;
+        }
+
+        const res = await apiRequest("POST", apiUrl, providerBody);
+        const data = await res.json();
+
+        if (!data.success) {
+          throw new Error(data.message || "Payment verification failed");
+        }
+
+        setStatus("success");
+        setMessage("Payment successful! Redirecting...");
+
+        setTimeout(() => {
+          if (guestAccessToken) {
+            setLocation(`/order/${guestAccessToken}`);
+          } else {
+            setLocation("/account/orders");
+          }
+        }, 2000);
+
+      } catch (err: any) {
+        console.error("Payment processing error:", err);
+        setStatus("error");
+        setMessage(err.message || "Payment processing failed");
+      }
+    };
+
+    processPayment();
+  }, [setLocation]);
 
 
 
