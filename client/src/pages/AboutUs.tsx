@@ -280,6 +280,63 @@ export function AboutUs() {
         </div>
       </section>
 
+      {/* Visual Gallery */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Simfinity in Action
+            </h2>
+            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
+              Connecting people, places, and experiences around the globe.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="group overflow-hidden rounded-2xl shadow-lg border border-gray-100 aspect-[16/9] md:aspect-auto md:h-80">
+                <img
+                  src="/images/about/promotion-1.jpeg"
+                  alt="Global Connectivity"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="group overflow-hidden rounded-2xl shadow-lg border border-gray-100 aspect-[16/9] md:aspect-auto md:h-80">
+                <img
+                  src="/images/about/promotion-2.jpeg"
+                  alt="Seamless Experience"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="group overflow-hidden rounded-2xl shadow-lg border border-gray-100 aspect-[4/3] md:aspect-auto md:h-64">
+                <img
+                  src="/images/about/promotion-3.jpeg"
+                  alt="Travel Smart"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="group overflow-hidden rounded-2xl shadow-lg border border-gray-100 aspect-[4/3] md:aspect-auto md:h-64">
+                <img
+                  src="/images/about/promotion-4.jpeg"
+                  alt="Digital Freedom"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="group overflow-hidden rounded-2xl shadow-lg border border-gray-100 aspect-[4/3] md:aspect-auto md:h-64">
+                <img
+                  src="/images/about/promotion-5.jpeg"
+                  alt="Stay Connected"
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-16 md:py-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">

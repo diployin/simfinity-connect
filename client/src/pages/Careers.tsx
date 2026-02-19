@@ -18,7 +18,7 @@ export default function Careers() {
   const siteName = useSettingByKey('platform_name') || 'Simfinity';
 
   const perks = [
-    { icon: Globe2, title: 'Remote First', desc: 'Work from anywhere in the world — we believe great work happens everywhere.', color: 'from-blue-500 to-blue-600' },
+    { icon: Globe2, title: 'Remote First', desc: 'Work from anywhere in the world — we believe great work happens everywhere.', color: 'from-primary to-primary-dark' },
     { icon: Heart, title: 'Health & Wellness', desc: 'Comprehensive health insurance, mental health support, and wellness stipend.', color: 'from-rose-500 to-rose-600' },
     { icon: GraduationCap, title: 'Learning Budget', desc: '$2,000/year for courses, conferences, and professional development.', color: 'from-purple-500 to-purple-600' },
     { icon: Coffee, title: 'Flexible Hours', desc: 'We focus on outcomes, not hours. Work when you\'re most productive.', color: 'from-amber-500 to-amber-600' },
@@ -45,24 +45,24 @@ export default function Careers() {
       </Helmet>
 
       <div className="min-h-screen bg-background">
-        <section className="relative overflow-hidden bg-gradient-to-br from-purple-900 via-indigo-900 to-slate-900 text-white">
+        <section className="relative overflow-hidden bg-hero-gradient text-white">
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-20 right-20 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-10 left-10 w-96 h-96 bg-indigo-500/8 rounded-full blur-3xl" />
+            <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary-light/10 rounded-full blur-3xl" />
           </div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
-              <Sparkles className="w-4 h-4 text-purple-300" />
-              <span className="text-sm font-medium text-purple-200">We're hiring</span>
+              <Sparkles className="w-4 h-4 text-primary-light" />
+              <span className="text-sm font-medium text-primary-light">We're hiring</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
               Build the future of{' '}
-              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">global connectivity</span>
+              <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">global connectivity</span>
             </h1>
-            <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto">
               Join a passionate team making travel connectivity effortless for millions of people worldwide.
             </p>
-            <a href="#openings" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-slate-900 font-semibold text-lg hover:bg-slate-100 transition-colors">
+            <a href="#openings" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors">
               View Open Positions
               <ArrowRight className="w-5 h-5" />
             </a>
@@ -97,7 +97,7 @@ export default function Careers() {
             </div>
             <div className="space-y-4">
               {openings.map((job) => (
-                <div key={job.title} className="bg-card rounded-xl border border-border p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-purple-300 dark:hover:border-purple-700 transition-colors">
+                <div key={job.title} className="bg-card rounded-xl border border-border p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-primary dark:hover:border-primary transition-colors">
                   <div>
                     <h3 className="text-lg font-semibold text-foreground">{job.title}</h3>
                     <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-muted-foreground">
@@ -106,7 +106,7 @@ export default function Careers() {
                       <span className="flex items-center gap-1"><Clock className="w-4 h-4" />{job.type}</span>
                     </div>
                   </div>
-                  <button className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-medium text-sm hover:opacity-90 transition-opacity whitespace-nowrap">
+                  <button className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-gradient-to-r from-primary to-primary-dark text-white font-medium text-sm hover:opacity-90 transition-opacity whitespace-nowrap">
                     Apply Now <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -117,14 +117,14 @@ export default function Careers() {
 
         <section className="py-16 md:py-24 bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="rounded-3xl bg-gradient-to-br from-purple-900 via-indigo-900 to-slate-900 p-8 md:p-16 text-center relative overflow-hidden">
+            <div className="rounded-3xl bg-hero-gradient p-8 md:p-16 text-center relative overflow-hidden">
               <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-10 right-10 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl" />
+                <div className="absolute top-10 right-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl" />
               </div>
               <div className="relative z-10">
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Don't see the right role?</h2>
-                <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto">We're always looking for talented people. Send us your resume and we'll keep you in mind for future openings.</p>
-                <button className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-slate-900 font-bold text-lg hover:bg-slate-100 transition-colors">
+                <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">We're always looking for talented people. Send us your resume and we'll keep you in mind for future openings.</p>
+                <button className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-bold text-lg hover:bg-slate-100 transition-colors">
                   Send Your Resume <ArrowRight className="w-5 h-5" />
                 </button>
               </div>

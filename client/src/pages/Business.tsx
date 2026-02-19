@@ -26,9 +26,9 @@ export default function Business() {
       icon: Globe2,
       title: 'Global Coverage',
       desc: 'Get fast, reliable data in more than 200+ destinations worldwide.',
-      color: 'from-blue-500 to-blue-600',
-      bgLight: 'from-blue-50 to-blue-100',
-      bgDark: 'dark:from-blue-950/30 dark:to-blue-900/20',
+      color: 'from-primary to-primary-dark',
+      bgLight: 'from-primary/5 to-primary/10',
+      bgDark: 'dark:from-primary/20 dark:to-primary/10',
     },
     {
       icon: Zap,
@@ -78,7 +78,7 @@ export default function Business() {
       title: 'Add Team Members',
       desc: 'Start by adding team members to your organization and assigning plans.',
       icon: Users,
-      color: 'from-blue-500 to-blue-600',
+      color: 'from-primary to-primary-dark',
     },
     {
       num: '2',
@@ -132,32 +132,32 @@ export default function Business() {
 
       <div className="min-h-screen bg-background">
         {/* Hero */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+        <section className="relative overflow-hidden bg-hero-gradient text-white">
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-20 right-20 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-10 left-10 w-96 h-96 bg-purple-500/8 rounded-full blur-3xl" />
+            <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary-light/10 rounded-full blur-3xl" />
           </div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10">
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
-                <Building2 className="w-4 h-4 text-blue-400" />
-                <span className="text-sm font-medium text-blue-200">{siteName} for Business</span>
+                <Building2 className="w-4 h-4 text-white" />
+                <span className="text-sm font-medium text-white">{siteName} for Business</span>
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
                 Manage all your team's eSIM plans from{' '}
-                <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">one dashboard</span>
+                <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">one dashboard</span>
               </h1>
 
-              <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl">
+              <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl">
                 Buy and monitor eSIM plans from an easy-to-use dashboard. Assign plans, track usage, and add data as needed, so your team stays connected wherever they go.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
                   onClick={() => navigate('/destinations')}
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white text-slate-900 font-semibold text-lg hover:bg-slate-100 transition-colors"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors"
                 >
                   Get Started
                   <ArrowRight className="w-5 h-5" />
@@ -242,7 +242,7 @@ export default function Business() {
                     'Bulk discounts for large teams',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-[#2c7338] flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                       <span className="text-foreground">{item}</span>
                     </li>
                   ))}
@@ -251,7 +251,7 @@ export default function Business() {
 
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { icon: Briefcase, label: 'Corporate Travel', value: '500+ Teams', color: 'from-blue-500 to-blue-600' },
+                  { icon: Briefcase, label: 'Corporate Travel', value: '500+ Teams', color: 'from-primary to-primary-dark' },
                   { icon: Globe2, label: 'Destinations', value: '200+', color: 'from-purple-500 to-purple-600' },
                   { icon: Plane, label: 'Trips Powered', value: '50K+', color: 'from-amber-500 to-amber-600' },
                   { icon: Users, label: 'Business Users', value: '10K+', color: 'from-rose-500 to-rose-600' },
@@ -295,23 +295,23 @@ export default function Business() {
         {/* CTA */}
         <section className="py-16 md:py-24 bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8 md:p-16 text-center relative overflow-hidden">
+            <div className="rounded-3xl bg-hero-gradient p-8 md:p-16 text-center relative overflow-hidden">
               <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-10 right-10 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
-                <div className="absolute bottom-0 left-10 w-48 h-48 bg-purple-500/8 rounded-full blur-3xl" />
+                <div className="absolute top-10 right-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl" />
+                <div className="absolute bottom-0 left-10 w-48 h-48 bg-primary-light/10 rounded-full blur-3xl" />
               </div>
 
               <div className="relative z-10">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
                   Ready to get your team connected?
                 </h2>
-                <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto">
+                <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
                   Explore the {siteName} business dashboard, or chat with our sales team to get the right quote for your business.
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <button
                     onClick={() => navigate('/destinations')}
-                    className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-slate-900 font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]"
+                    className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]"
                   >
                     Get Started
                     <ArrowRight className="w-5 h-5" />

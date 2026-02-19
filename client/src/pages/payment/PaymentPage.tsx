@@ -57,7 +57,7 @@ export default function PaymentPage() {
     currency: params.get('currency') || undefined,
 
     // 🔑 Public key (Stripe uses 'publicKey', Razorpay uses 'keyId')
-    publicKey: params.get('publicKey') || params.get('keyId') || 'pk_test_51Ry5KK74FnUP6weT399cLIDdcCBWhpjWmXLocmgLUiKLZfr65EUffqu6uUdgriGHExfFroFvLTzLkAlV6gCL1TXk0096kTqcJr',
+    publicKey: params.get('publicKey') || params.get('keyId') || 'pk_live_51Qk1HYD0jLE6pUP5iWbWTm0fFsQdVe1Rs7HLhMMbkum5ua7UgkghcSGiQ0OGOa4XAE90wZSSOfAFPX9obxF5gc6n00abbZX2r2',
 
     guestAccessToken,
   };
