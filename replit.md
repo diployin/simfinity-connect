@@ -45,6 +45,11 @@ migrations/       - Drizzle database migrations
 - Stripe initialization is conditional (requires STRIPE_SECRET_KEY env var)
 
 ## Recent Changes
+- 2026-02-19: Business page, passport UI improvements, button animations
+  - Business: New page at /business inspired by saily.com/esim-for-business — dark hero, 6 feature cards (varied colors), 3-step how-it-works, benefits with stats grid, FAQ accordion, CTA. Route + lazy import added, footer "Business" link updated from # to /business
+  - Destinations passport tab: Hidden "Showing 0 Simfinity passport" count text when passport tab active; Why Pre-Book icons now use varied colors (blue/purple/amber/rose/cyan) instead of all-green; fixed SiteFooter import (named → default)
+  - Reserve Your Device buttons: Added shimmer sweep (light streak) + gentle float (margin-based bob) CSS animations via .btn-passport-cta class on homepage showcase + destinations hero + bottom CTA
+  - Passport images: Replaced AI-generated images with user-provided real product photos (passport-device-1..4.png)
 - 2026-02-19: Simfinity Passport product showcase
   - PassportShowcase: New homepage section (dark bg, product image, 4 feature cards, floating badges, CTA → /destinations?tab=passport)
   - Destinations passport tab: Full product landing page replacing "Coming Soon" placeholder — hero with device image, Why Pre-Book (5 cards), Core Features (Security/AI Concierge/Sustainability), What's in the Box (5 items with unboxing image), Who It's For (5 persona cards), lifestyle banner, green gradient pre-book CTA
