@@ -75,21 +75,21 @@ export default function DataUsageCalculator() {
       </Helmet>
 
       <div className="min-h-screen bg-background">
-        <section className="relative overflow-hidden bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 text-white">
+        <section className="relative overflow-hidden bg-hero-gradient text-white">
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-20 right-20 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-10 left-10 w-96 h-96 bg-purple-500/8 rounded-full blur-3xl" />
+            <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary-light/10 rounded-full blur-3xl" />
           </div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
-              <Calculator className="w-4 h-4 text-indigo-300" />
-              <span className="text-sm font-medium text-indigo-200">Plan Calculator</span>
+              <Calculator className="w-4 h-4 text-primary-light" />
+              <span className="text-sm font-medium text-primary-light">Plan Calculator</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
               How much data do you{' '}
-              <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">need?</span>
+              <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">need?</span>
             </h1>
-            <p className="text-lg md:text-xl text-slate-300 mb-4 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-white/80 mb-4 max-w-2xl mx-auto">
               Use our calculator to estimate your data needs and find the perfect plan for your trip.
             </p>
           </div>
@@ -109,7 +109,7 @@ export default function DataUsageCalculator() {
                     max="30"
                     value={days}
                     onChange={(e) => setDays(Number(e.target.value))}
-                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-[#2c7338]"
+                    className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
                   />
                   <div className="flex justify-between text-xs text-muted-foreground mt-1">
                     <span>1 day</span>
@@ -134,7 +134,7 @@ export default function DataUsageCalculator() {
                         step="0.5"
                         value={(activities as any)[activity.key]}
                         onChange={(e) => setActivities({ ...activities, [activity.key]: Number(e.target.value) })}
-                        className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-[#2c7338]"
+                        className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
                       />
                     </div>
                   ))}
@@ -142,14 +142,14 @@ export default function DataUsageCalculator() {
               </div>
 
               <div className="space-y-6">
-                <div className="bg-gradient-to-br from-[#2c7338] to-[#1e5427] rounded-2xl p-8 text-white text-center">
+                <div className="bg-gradient-to-br from-primary to-primary-dark rounded-2xl p-8 text-white text-center">
                   <h3 className="text-lg font-semibold mb-2">Estimated usage</h3>
                   <p className="text-4xl font-bold mb-1">{totalTrip.toFixed(1)} GB</p>
-                  <p className="text-green-200 text-sm mb-4">for {days} days</p>
+                  <p className="text-primary-foreground/80 text-sm mb-4">for {days} days</p>
                   <div className="border-t border-white/20 pt-4 mt-4">
-                    <p className="text-sm text-green-200 mb-1">Recommended plan</p>
+                    <p className="text-sm text-primary-foreground/80 mb-1">Recommended plan</p>
                     <p className="text-2xl font-bold">{recommendation.plan}</p>
-                    <p className="text-green-200 text-sm">{recommendation.tier} Traveler</p>
+                    <p className="text-primary-foreground/80 text-sm">{recommendation.tier} Traveler</p>
                   </div>
                 </div>
 
@@ -160,7 +160,7 @@ export default function DataUsageCalculator() {
 
                 <button
                   onClick={() => navigate('/destinations')}
-                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] text-white font-semibold text-lg hover:opacity-90 transition-opacity"
+                  className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-primary to-primary-light text-white font-semibold text-lg hover:opacity-90 transition-opacity"
                 >
                   Find Plans <ArrowRight className="w-5 h-5" />
                 </button>

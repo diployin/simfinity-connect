@@ -23,7 +23,7 @@ export function NewFooter() {
   });
 
   const { data: allDestinations = [] } = useQuery<any[]>({
-    queryKey: ['/api/destinations/with-pricing'],
+    queryKey: ['/api/destinations'],
   });
 
   const { data: pages } = useQuery<PageApiResponse>({
@@ -39,7 +39,31 @@ export function NewFooter() {
     return Array.isArray(socialValue) ? socialValue[0] || '#' : socialValue;
   };
 
-  const topDestinations = allDestinations.slice(0, 10);
+  const targetDestinations = [
+    { code: 'CHN', label: 'China' },
+    { code: 'JPN', label: 'Japan' },
+    { code: 'TH', label: 'Thailand' },
+    { code: 'AU', label: 'Australia' },
+    { code: 'USA', label: 'United States' },
+    { code: 'AE', label: 'UAE' },
+  ];
+
+  const topDestinations = targetDestinations
+    .map((target) => {
+      const found = allDestinations.find(
+        (d: any) =>
+          d.countryCode === target.code ||
+          d.slug === target.code.toLowerCase() ||
+          d.name === target.code ||
+          d.name === target.label ||
+          d.slug === target.label.toLowerCase().replace(/ /g, '-')
+      );
+      return found ? { ...found, name: target.label } : null;
+    })
+    .filter((item) => item !== null);
+
+  console.log(topDestinations)
+
   const siteName = useSettingByKey('platform_name') || 'Simfinity';
   const logo = useSettingByKey('logo');
 

@@ -46,24 +46,24 @@ export default function SecurityFeatures() {
       </Helmet>
 
       <div className="min-h-screen bg-background">
-        <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white">
+        <section className="relative overflow-hidden bg-hero-gradient text-white">
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-20 right-20 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-10 left-10 w-96 h-96 bg-purple-500/8 rounded-full blur-3xl" />
+            <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary-light/10 rounded-full blur-3xl" />
           </div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
-              <Shield className="w-4 h-4 text-blue-300" />
-              <span className="text-sm font-medium text-blue-200">Security First</span>
+              <Shield className="w-4 h-4 text-primary-light" />
+              <span className="text-sm font-medium text-primary-light">Security First</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
               Travel safely with{' '}
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">enterprise-grade security</span>
+              <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">enterprise-grade security</span>
             </h1>
-            <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto">
               Your privacy matters. {siteName} uses cutting-edge security measures to protect your data, identity, and browsing activity wherever you travel.
             </p>
-            <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-slate-900 font-semibold text-lg hover:bg-slate-100 transition-colors">
+            <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors">
               Get Protected <ArrowRight className="w-5 h-5" />
             </button>
           </div>
@@ -102,7 +102,7 @@ export default function SecurityFeatures() {
                 <ul className="space-y-4">
                   {protections.map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                       <span className="text-foreground">{item}</span>
                     </li>
                   ))}
@@ -114,14 +114,14 @@ export default function SecurityFeatures() {
 
         <section className="py-16 md:py-24 bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="rounded-3xl bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 p-8 md:p-16 text-center relative overflow-hidden">
+            <div className="rounded-3xl bg-hero-gradient p-8 md:p-16 text-center relative overflow-hidden">
               <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-10 right-10 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
+                <div className="absolute top-10 right-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl" />
               </div>
               <div className="relative z-10">
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Browse with confidence</h2>
-                <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto">Stay protected on any network, in any country. Your security is our priority.</p>
-                <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-slate-900 font-bold text-lg hover:bg-slate-100 transition-colors">
+                <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">Stay protected on any network, in any country. Your security is our priority.</p>
+                <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-bold text-lg hover:bg-slate-100 transition-colors">
                   Browse Plans <ArrowRight className="w-5 h-5" />
                 </button>
               </div>

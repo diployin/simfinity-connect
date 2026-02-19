@@ -897,6 +897,7 @@ function ESimCard({
             size="sm"
             className="flex-1"
             onClick={onViewTopups}
+            disabled={usage?.status !== 'active'}
             data-testid="button-purchase-topup"
           >
             <Plus className="mr-2 h-4 w-4" />

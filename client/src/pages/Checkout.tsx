@@ -29,7 +29,7 @@ import { trackCheckoutStart, trackPurchase } from "@/lib/analytics";
 //   throw new Error('Missing required Stripe key: VITE_STRIPE_PUBLIC_KEY');
 // }
 
-const stripePromise = loadStripe('pk_test_51Ry5KK74FnUP6weT399cLIDdcCBWhpjWmXLocmgLUiKLZfr65EUffqu6uUdgriGHExfFroFvLTzLkAlV6gCL1TXk0096kTqcJr');
+const stripePromise = loadStripe('pk_live_51Qk1HYD0jLE6pUP5iWbWTm0fFsQdVe1Rs7HLhMMbkum5ua7UgkghcSGiQ0OGOa4XAE90wZSSOfAFPX9obxF5gc6n00abbZX2r2');
 
 // Feature Detection for Payment Methods
 const isApplePayAvailable = (): boolean => {
@@ -632,13 +632,10 @@ export default function Checkout() {
     return finalPrice;
   })();
 
-
-
-
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Checkout - {pkg.title} | eSIM Global</title>
+        <title>Checkout - {pkg.title}</title>
         <meta name="description" content="Complete your eSIM purchase securely. Instant delivery via email." />
         <meta property="og:title" content={`Checkout - ${pkg.title} | eSIM Global`} />
         <meta property="og:description" content="Complete your eSIM purchase securely. Instant delivery via email." />

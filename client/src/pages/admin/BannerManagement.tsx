@@ -31,6 +31,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
+  DialogTrigger,
 } from '@/components/ui/dialog';
 import {
   Table,
@@ -70,7 +71,7 @@ function PackageSearch({ value, onSelect }: { value: string; onSelect: (value: s
     queryFn: async ({ pageParam = 1 }) => {
       const params = new URLSearchParams({
         page: pageParam.toString(),
-        limit: '10',
+        limit: '20',
         search: debouncedSearch,
       });
       const response = await fetch(`/api/admin/unified-packages?${params.toString()}`);
@@ -87,8 +88,19 @@ function PackageSearch({ value, onSelect }: { value: string; onSelect: (value: s
     enabled: open,
   });
 
+  const { data: initialPackageResponse } = useQuery({
+    queryKey: ['/api/admin/unified-packages', value],
+    queryFn: async () => {
+      if (!value) return null;
+      const response = await fetch(`/api/admin/unified-packages/${value}`);
+      if (!response.ok) return null;
+      return response.json();
+    },
+    enabled: !!value && !open,
+  });
+
   const packages = data?.pages.flatMap((page) => page.data) || [];
-  const selectedPkg = packages.find((p: any) => p.id === value);
+  const selectedPkg = packages.find((p: any) => p.id === value) || initialPackageResponse?.data;
   const observer = useRef<IntersectionObserver>();
 
   const lastElementRef = useCallback(
@@ -106,8 +118,8 @@ function PackageSearch({ value, onSelect }: { value: string; onSelect: (value: s
   );
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
         <Button
           variant="outline"
           role="combobox"
@@ -117,31 +129,34 @@ function PackageSearch({ value, onSelect }: { value: string; onSelect: (value: s
           {selectedPkg ? selectedPkg.title : (value || "Select package...")}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[400px] p-0" align="start">
-        <Command shouldFilter={false}>
+      </DialogTrigger>
+      <DialogContent className="p-0 gap-0 max-w-[500px]">
+        <DialogHeader className="px-4 py-2 border-b">
+          <DialogTitle>Select Package</DialogTitle>
+        </DialogHeader>
+        <Command shouldFilter={false} className="border-none shadow-none">
           <CommandInput
             placeholder="Search package..."
             value={search}
             onValueChange={setSearch}
+            className="border-none focus:ring-0"
           />
-          <CommandList className="max-h-[300px] overflow-y-auto custom-scrollbar">
+          <CommandList className="max-h-[300px] overflow-y-auto custom-scrollbar p-2">
             {isLoading ? (
               <div className="py-6 text-center text-sm text-muted-foreground">Loading...</div>
             ) : packages.length === 0 ? (
               <CommandEmpty>No package found.</CommandEmpty>
             ) : (
               <CommandGroup>
-                {packages.map((pkg: any, index: number) => (
+                {packages.map((pkg: any) => (
                   <CommandItem
-                    key={`${pkg.id}-${index}`}
+                    key={pkg.id}
                     value={pkg.id}
                     onSelect={(currentValue) => {
                       onSelect(currentValue);
                       setOpen(false);
                     }}
-                    ref={index === packages.length - 1 ? lastElementRef : undefined}
-                    className="flex flex-col items-start gap-1 cursor-pointer aria-selected:bg-blue-50 dark:aria-selected:bg-blue-900/20 aria-selected:text-foreground hover:bg-blue-50 dark:hover:bg-blue-900/20 data-[selected='true']:bg-blue-50 dark:data-[selected='true']:bg-blue-900/20 transition-colors"
+                    className="flex flex-col items-start gap-1 cursor-pointer aria-selected:bg-blue-50 dark:aria-selected:bg-blue-900/20 aria-selected:text-foreground hover:bg-blue-50 dark:hover:bg-blue-900/20 data-[selected='true']:bg-blue-50 dark:data-[selected='true']:bg-blue-900/20 transition-colors rounded-md p-2"
                   >
                     <div className="flex items-center w-full justify-between">
                       <span className="font-medium">{pkg.title}</span>
@@ -154,6 +169,10 @@ function PackageSearch({ value, onSelect }: { value: string; onSelect: (value: s
                     <div className="text-xs text-muted-foreground">ID: {pkg.id}</div>
                   </CommandItem>
                 ))}
+
+                {/* Sentinel for infinite scroll */}
+                <div ref={lastElementRef} className="h-4 w-full" />
+
                 {isFetchingNextPage && (
                   <div className="py-2 text-center text-xs text-muted-foreground">
                     <Loader2 className="h-3 w-3 animate-spin inline mr-1" />
@@ -164,8 +183,8 @@ function PackageSearch({ value, onSelect }: { value: string; onSelect: (value: s
             )}
           </CommandList>
         </Command>
-      </PopoverContent>
-    </Popover>
+      </DialogContent>
+    </Dialog>
   );
 }
 

@@ -38,24 +38,24 @@ export default function BecomeAffiliate() {
       </Helmet>
 
       <div className="min-h-screen bg-background">
-        <section className="relative overflow-hidden bg-gradient-to-br from-blue-900 via-indigo-900 to-slate-900 text-white">
+        <section className="relative overflow-hidden bg-hero-gradient text-white">
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-20 right-20 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-10 left-10 w-96 h-96 bg-indigo-500/8 rounded-full blur-3xl" />
+            <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary-light/10 rounded-full blur-3xl" />
           </div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
-              <TrendingUp className="w-4 h-4 text-blue-300" />
-              <span className="text-sm font-medium text-blue-200">Affiliate Program</span>
+              <TrendingUp className="w-4 h-4 text-primary-light" />
+              <span className="text-sm font-medium text-primary-light">Affiliate Program</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
               Earn money promoting{' '}
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">travel connectivity</span>
+              <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">travel connectivity</span>
             </h1>
-            <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto">
               Join our affiliate program and earn up to 30% commission on every eSIM sale. Turn your audience into revenue.
             </p>
-            <button className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-slate-900 font-semibold text-lg hover:bg-slate-100 transition-colors">
+            <button className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors">
               Apply Now <ArrowRight className="w-5 h-5" />
             </button>
           </div>
@@ -89,7 +89,7 @@ export default function BecomeAffiliate() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {steps.map((step) => (
                 <div key={step.num} className="bg-card rounded-2xl p-8 border border-border text-center">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mx-auto mb-6">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center mx-auto mb-6">
                     <span className="text-2xl font-bold text-white">{step.num}</span>
                   </div>
                   <h3 className="text-xl font-bold text-foreground mb-3">{step.title}</h3>
@@ -112,7 +112,7 @@ export default function BecomeAffiliate() {
                 { icon: Link2, label: 'Agencies' },
               ].map((item) => (
                 <div key={item.label} className="bg-card rounded-xl p-6 border border-border">
-                  <item.icon className="w-8 h-8 text-blue-500 mx-auto mb-3" />
+                  <item.icon className="w-8 h-8 text-primary mx-auto mb-3" />
                   <p className="font-medium text-foreground">{item.label}</p>
                 </div>
               ))}
@@ -122,14 +122,14 @@ export default function BecomeAffiliate() {
 
         <section className="py-16 md:py-24 bg-muted/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="rounded-3xl bg-gradient-to-br from-blue-900 via-indigo-900 to-slate-900 p-8 md:p-16 text-center relative overflow-hidden">
+            <div className="rounded-3xl bg-hero-gradient p-8 md:p-16 text-center relative overflow-hidden">
               <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-10 right-10 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
+                <div className="absolute top-10 right-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl" />
               </div>
               <div className="relative z-10">
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to start earning?</h2>
-                <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto">Apply today and start earning commissions within days.</p>
-                <button className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-slate-900 font-bold text-lg hover:bg-slate-100 transition-colors">
+                <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">Apply today and start earning commissions within days.</p>
+                <button className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-bold text-lg hover:bg-slate-100 transition-colors">
                   Apply Now <ArrowRight className="w-5 h-5" />
                 </button>
               </div>

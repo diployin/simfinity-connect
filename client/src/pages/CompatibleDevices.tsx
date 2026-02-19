@@ -31,7 +31,7 @@ async function fetchDevices(): Promise<ApiDevice[]> {
   }
 
   const json = await res.json();
-  return json.data;
+  return json.data?.data;
 }
 
 /* =========================

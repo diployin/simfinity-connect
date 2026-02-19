@@ -353,7 +353,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.json({
         success: true,
         source: "airalo",
-        data: devices?.data,
+        data: {
+          data: devices?.data
+        },
       });
     } catch (error: any) {
       console.error("Airalo failed, using local JSON:", error.message);
@@ -361,11 +363,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.json({
         success: true,
         source: "local",
-        data: supportedDevices,
+        data: {
+          data: supportedDevices
+        },
       });
     }
   });
-
 
   app.get('/api/countries', async (req, res) => {
     try {

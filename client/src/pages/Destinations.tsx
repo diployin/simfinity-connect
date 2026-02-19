@@ -164,7 +164,7 @@ export default function Destinations() {
             <p className="text-muted-foreground max-w-2xl mx-auto">
               {t(
                 'destinations.heroDescription',
-                'Find the best data plans in over 224+ destinations — and enjoy easy and safe internet access wherever you go. Connect instantly with our premium eSIM solutions.',
+                'Find the best data plans across 200+ destinations and enjoy secure, seamless internet wherever you travel. Connect instantly with Simfinity eSIM',
               )}
             </p>
           </div>

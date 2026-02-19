@@ -16,7 +16,7 @@ export default function ReferAFriend() {
   const [, navigate] = useLocation();
 
   const steps = [
-    { num: '1', icon: Users, title: 'Find your referral code', desc: `Open your ${siteName} account and find your unique referral code in the Credits section.`, color: 'from-blue-500 to-blue-600' },
+    { num: '1', icon: Users, title: 'Find your referral code', desc: `Open your ${siteName} account and find your unique referral code in the Credits section.`, color: 'from-primary to-primary-dark' },
     { num: '2', icon: Share2, title: 'Share it with friends', desc: 'Send your code to friends via text, email, or social media. The more you share, the more you earn.', color: 'from-purple-500 to-purple-600' },
     { num: '3', icon: DollarSign, title: 'Give $5, get $5', desc: `Anyone using your referral code gets a $5 discount, while you earn $5 in ${siteName} credit.`, color: 'from-emerald-500 to-emerald-600' },
   ];
@@ -36,41 +36,41 @@ export default function ReferAFriend() {
       </Helmet>
 
       <div className="min-h-screen bg-background">
-        <section className="relative overflow-hidden bg-gradient-to-br from-emerald-900 via-teal-900 to-slate-900 text-white">
+        <section className="relative overflow-hidden bg-hero-gradient text-white">
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-20 right-20 w-72 h-72 bg-emerald-500/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-10 left-10 w-96 h-96 bg-teal-500/8 rounded-full blur-3xl" />
+            <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary-light/10 rounded-full blur-3xl" />
           </div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
-                  <Gift className="w-4 h-4 text-emerald-300" />
-                  <span className="text-sm font-medium text-emerald-200">Referral Program</span>
+                  <Gift className="w-4 h-4 text-primary-light" />
+                  <span className="text-sm font-medium text-primary-light">Referral Program</span>
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
                   Refer a friend, and you'll both get{' '}
-                  <span className="bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">$5!</span>
+                  <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">$5!</span>
                 </h1>
-                <p className="text-lg md:text-xl text-slate-300 mb-8">
+                <p className="text-lg md:text-xl text-white/80 mb-8">
                   Each referral earns you $5 in {siteName} credits while your friends get a $5 discount on their first plan. Sharing pays off — literally.
                 </p>
-                <button onClick={() => navigate('/account/referrals')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-slate-900 font-semibold text-lg hover:bg-slate-100 transition-colors">
+                <button onClick={() => navigate('/account/referrals')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors">
                   Start Referring <ArrowRight className="w-5 h-5" />
                 </button>
               </div>
               <div className="flex justify-center">
                 <div className="relative">
-                  <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center">
-                    <div className="w-48 h-48 md:w-60 md:h-60 rounded-full bg-gradient-to-br from-emerald-500/30 to-teal-500/30 flex items-center justify-center">
-                      <Gift className="w-20 h-20 md:w-28 md:h-28 text-emerald-300" />
+                  <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-primary/20 to-primary-light/20 flex items-center justify-center">
+                    <div className="w-48 h-48 md:w-60 md:h-60 rounded-full bg-gradient-to-br from-primary/30 to-primary-light/30 flex items-center justify-center">
+                      <Gift className="w-20 h-20 md:w-28 md:h-28 text-primary-light" />
                     </div>
                   </div>
                   <div className="absolute -top-4 -right-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2">
-                    <span className="text-2xl font-bold text-emerald-300">+$5</span>
+                    <span className="text-2xl font-bold text-primary-light">+$5</span>
                   </div>
                   <div className="absolute -bottom-4 -left-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2">
-                    <span className="text-2xl font-bold text-teal-300">+$5</span>
+                    <span className="text-2xl font-bold text-primary-light">+$5</span>
                   </div>
                 </div>
               </div>
@@ -115,17 +115,17 @@ export default function ReferAFriend() {
                     'No contracts or hidden fees',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
+                      <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                       <span className="text-foreground">{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
               <div className="bg-card rounded-2xl border border-border p-8 text-center">
-                <Sparkles className="w-12 h-12 text-emerald-500 mx-auto mb-4" />
+                <Sparkles className="w-12 h-12 text-primary mx-auto mb-4" />
                 <h3 className="text-2xl font-bold text-foreground mb-2">Start earning today</h3>
                 <p className="text-muted-foreground mb-6">Sign up and share your code to start getting rewards.</p>
-                <button onClick={() => navigate('/account/referrals')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold text-lg hover:opacity-90 transition-opacity w-full justify-center">
+                <button onClick={() => navigate('/account/referrals')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-primary-dark text-white font-semibold text-lg hover:opacity-90 transition-opacity w-full justify-center">
                   Get Your Referral Code <ArrowRight className="w-5 h-5" />
                 </button>
               </div>

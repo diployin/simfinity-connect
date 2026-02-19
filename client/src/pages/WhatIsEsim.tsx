@@ -44,23 +44,23 @@ export default function WhatIsEsim() {
       </Helmet>
 
       <div className="min-h-screen bg-background">
-        <section className="relative overflow-hidden bg-gradient-to-br from-teal-900 via-emerald-900 to-slate-900 text-white">
+        <section className="relative overflow-hidden bg-hero-gradient text-white">
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-20 right-20 w-72 h-72 bg-teal-500/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-10 left-10 w-96 h-96 bg-emerald-500/8 rounded-full blur-3xl" />
+            <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary-light/10 rounded-full blur-3xl" />
           </div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
                   What is an{' '}
-                  <span className="bg-gradient-to-r from-teal-400 to-emerald-400 bg-clip-text text-transparent">eSIM?</span>
+                  <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">eSIM?</span>
                 </h1>
-                <p className="text-lg md:text-xl text-slate-300 mb-8">
+                <p className="text-lg md:text-xl text-white/80 mb-8">
                   An eSIM is a digital SIM embedded in your device. It lets you connect to mobile networks without a physical SIM card — just download a plan and go.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <button onClick={() => navigate('/destinations')} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white text-slate-900 font-semibold text-lg hover:bg-slate-100 transition-colors">
+                  <button onClick={() => navigate('/destinations')} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors">
                     Browse eSIM Plans <ArrowRight className="w-5 h-5" />
                   </button>
                   <button onClick={() => navigate('/supported-devices')} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-white/20 text-white font-semibold text-lg hover:bg-white/10 transition-colors">
@@ -71,15 +71,15 @@ export default function WhatIsEsim() {
               <div className="flex justify-center">
                 <div className="relative">
                   <div className="w-64 h-64 md:w-72 md:h-72 bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl flex items-center justify-center">
-                    <Smartphone className="w-24 h-24 text-teal-300" />
+                    <Smartphone className="w-24 h-24 text-primary-light" />
                   </div>
-                  <div className="absolute -top-4 -right-4 bg-emerald-500/20 backdrop-blur-sm border border-emerald-400/30 rounded-xl px-4 py-2 flex items-center gap-2">
-                    <Wifi className="w-4 h-4 text-emerald-300" />
-                    <span className="text-sm font-medium text-emerald-200">Connected</span>
+                  <div className="absolute -top-4 -right-4 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-xl px-4 py-2 flex items-center gap-2">
+                    <Wifi className="w-4 h-4 text-primary-light" />
+                    <span className="text-sm font-medium text-primary-light">Connected</span>
                   </div>
-                  <div className="absolute -bottom-4 -left-4 bg-teal-500/20 backdrop-blur-sm border border-teal-400/30 rounded-xl px-4 py-2 flex items-center gap-2">
-                    <Globe2 className="w-4 h-4 text-teal-300" />
-                    <span className="text-sm font-medium text-teal-200">200+ countries</span>
+                  <div className="absolute -bottom-4 -left-4 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-xl px-4 py-2 flex items-center gap-2">
+                    <Globe2 className="w-4 h-4 text-primary-light" />
+                    <span className="text-sm font-medium text-primary-light">200+ countries</span>
                   </div>
                 </div>
               </div>
@@ -100,7 +100,7 @@ export default function WhatIsEsim() {
                     { step: '4', text: 'You can store multiple profiles and switch between them anytime.' },
                   ].map((item) => (
                     <div key={item.step} className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-500 to-emerald-600 flex items-center justify-center flex-shrink-0">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary-light flex items-center justify-center flex-shrink-0">
                         <span className="text-sm font-bold text-white">{item.step}</span>
                       </div>
                       <p className="text-foreground text-lg pt-1.5">{item.text}</p>
@@ -121,7 +121,7 @@ export default function WhatIsEsim() {
                   ].map((row) => (
                     <div key={row.feature} className="grid grid-cols-3 gap-4 text-sm py-3 border-b border-border last:border-b-0">
                       <span className="font-medium text-foreground">{row.feature}</span>
-                      <span className="text-emerald-600 dark:text-emerald-400 font-medium">{row.esim}</span>
+                      <span className="text-primary font-medium">{row.esim}</span>
                       <span className="text-muted-foreground">{row.sim}</span>
                     </div>
                   ))}
@@ -171,14 +171,14 @@ export default function WhatIsEsim() {
 
         <section className="py-16 md:py-24 bg-muted/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="rounded-3xl bg-gradient-to-br from-teal-900 via-emerald-900 to-slate-900 p-8 md:p-16 text-center relative overflow-hidden">
+            <div className="rounded-3xl bg-hero-gradient p-8 md:p-16 text-center relative overflow-hidden">
               <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-10 right-10 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl" />
+                <div className="absolute top-10 right-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl" />
               </div>
               <div className="relative z-10">
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to try an eSIM?</h2>
-                <p className="text-slate-300 text-lg mb-8 max-w-2xl mx-auto">Browse our affordable plans and get connected in minutes — no physical SIM card needed.</p>
-                <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-slate-900 font-bold text-lg hover:bg-slate-100 transition-colors">
+                <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">Browse our affordable plans and get connected in minutes — no physical SIM card needed.</p>
+                <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-bold text-lg hover:bg-slate-100 transition-colors">
                   Browse Plans <ArrowRight className="w-5 h-5" />
                 </button>
               </div>
