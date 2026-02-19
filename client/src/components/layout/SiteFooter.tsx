@@ -122,7 +122,7 @@ export function NewFooter() {
             <h3 className="text-sm font-bold text-foreground mb-4">{siteName}</h3>
             <ul className="space-y-2.5">
               {[
-                { label: 'Business', href: '#' },
+                { label: 'Business', href: '/business' },
                 { label: 'About Us', href: '/about-us' },
                 { label: 'Careers', href: '#' },
                 { label: 'Refer a Friend', href: '/account/referrals' },

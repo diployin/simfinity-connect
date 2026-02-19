@@ -29,7 +29,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { SiteHeader } from '@/components/layout/SiteHeader';
-import { SiteFooter } from '@/components/layout/SiteFooter';
+import SiteFooter from '@/components/layout/SiteFooter';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import ReactCountryFlag from 'react-country-flag';
@@ -257,10 +257,11 @@ export default function Destinations() {
           </div>
 
           {/* Results Count */}
-          <p className="text-muted-foreground text-sm mb-6" data-testid="text-destination-count">
-            {t('destinations.showing', 'Showing')} {totalCount}{' '}
-            {/* {t('destinations.destinations', 'destinations')} */} {activeTab === 'passport' ? 'Simfinity passport' : activeTab}
-          </p>
+          {activeTab !== 'passport' && (
+            <p className="text-muted-foreground text-sm mb-6" data-testid="text-destination-count">
+              {t('destinations.showing', 'Showing')} {totalCount} {activeTab}
+            </p>
+          )}
 
           {/* Destinations Grid - All (Countries + Regions) */}
           {activeTab === 'all' && (
@@ -648,14 +649,14 @@ export default function Destinations() {
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                   {[
-                    { icon: Zap, label: 'Priority Shipping', desc: 'Be first in line' },
-                    { icon: Bot, label: 'Early AI Access', desc: 'AI Concierge priority' },
-                    { icon: Star, label: 'Launch Pricing', desc: 'Exclusive pricing' },
-                    { icon: Sparkles, label: "Founders' Badge", desc: 'Digital collector badge' },
-                    { icon: Shield, label: 'Premium Features', desc: 'First firmware updates' },
+                    { icon: Zap, label: 'Priority Shipping', desc: 'Be first in line', from: 'from-blue-500', to: 'to-blue-600' },
+                    { icon: Bot, label: 'Early AI Access', desc: 'AI Concierge priority', from: 'from-purple-500', to: 'to-purple-600' },
+                    { icon: Star, label: 'Launch Pricing', desc: 'Exclusive pricing', from: 'from-amber-500', to: 'to-amber-600' },
+                    { icon: Sparkles, label: "Founders' Badge", desc: 'Digital collector badge', from: 'from-rose-500', to: 'to-rose-600' },
+                    { icon: Shield, label: 'Premium Features', desc: 'First firmware updates', from: 'from-cyan-500', to: 'to-cyan-600' },
                   ].map((item) => (
                     <div key={item.label} className="flex flex-col items-center text-center p-5 rounded-xl bg-card border border-border hover:border-[#3d9a4d]/50 transition-colors">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#2c7338] to-[#3d9a4d] flex items-center justify-center mb-3">
+                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.from} ${item.to} flex items-center justify-center mb-3`}>
                         <item.icon className="w-6 h-6 text-white" />
                       </div>
                       <h4 className="font-semibold text-foreground text-sm mb-1">{item.label}</h4>

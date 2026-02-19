@@ -83,6 +83,7 @@ const HelpCenter = lazy(() => import('@/pages/HelpCenter'));
 const PrivacyPolicy = lazy(() => import('@/pages/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('@/pages/TermsOfService'));
 const RefundPolicy = lazy(() => import('@/pages/RefundPolicy'));
+const Business = lazy(() => import('@/pages/Business'));
 const Contact = lazy(() => import('@/pages/Contact'));
 const FAQPage = lazy(() => import('@/pages/FAQ'));
 const Blog = lazy(() => import('@/pages/Blog'));
@@ -139,6 +140,7 @@ const PUBLIC_ROUTES = [
   { path: '/unsubscribe', component: Unsubscribe },
   { path: '/gift-cards', component: GiftCards },
   { path: '/about-us', component: AboutUs },
+  { path: '/business', component: Business },
   { path: '/reviews', component: Reviews },
   { path: '/help-center', component: HelpCenter },
   { path: '/privacy-policy', component: PrivacyPolicy },
