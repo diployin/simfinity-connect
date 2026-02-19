@@ -153,22 +153,6 @@ export default function AdminLogin() {
                 : t('admin.login.loginButton', 'Login')}
             </Button>
           </form>
-
-          <div className="mt-6 p-4 bg-muted rounded-md">
-            <p className="text-sm text-muted-foreground text-center">
-              {t('admin.login.testCredentialsTitle', 'Default credentials for testing:')}
-            </p>
-            <div className="mt-2 space-y-1 text-sm font-mono text-center">
-              <p>
-                {t('admin.login.testEmail', 'Email:')}{' '}
-                <span className="font-semibold">demo@diploy.in</span>
-              </p>
-              <p>
-                {t('admin.login.testPassword', 'Password:')}{' '}
-                <span className="font-semibold">Demo@123</span>
-              </p>
-            </div>
-          </div>
         </CardContent>
       </Card>
     </div>

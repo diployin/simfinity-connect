@@ -1027,6 +1027,7 @@ export class DatabaseStorage implements IStorage {
           'platform_name',
           'platform_tagline',
           'logo',
+          'white_logo',
           'email',
           'favicon',
           'currency',

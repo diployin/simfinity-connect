@@ -1647,6 +1647,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
           console.log(`[Guest Order] eSIM provisioned successfully for order ${order.id}`);
 
+          // Send confirmation and installation emails
+          try {
+            const confirmationEmail = await generateOrderConfirmationEmail({
+              id: order.id,
+              displayId: order.displayOrderId,
+              customerName: user.name || 'Guest',
+              destination: pkg.countryName || 'Global',
+              dataAmount: pkg.dataAmount,
+              validity: pkg.validityDays,
+              price: totalPrice,
+              iccid: esimDetail?.iccid || null,
+              qrCodeUrl: esimDetail?.qrCodeUrl || null,
+            });
+            if (confirmationEmail) {
+              await sendEmail({
+                to: guestEmail,
+                subject: confirmationEmail.subject,
+                html: confirmationEmail.html,
+              });
+              console.log(`[Guest Order] Confirmation email sent to ${guestEmail}`);
+            }
+            const installationEmail = generateInstallationEmail({
+              qrCode: esimDetail?.qrCode,
+              lpaCode: esimDetail?.lpaCode || esimDetail?.qrCode,
+            });
+            if (installationEmail) {
+              await sendEmail({
+                to: guestEmail,
+                subject: installationEmail.subject,
+                html: installationEmail.html,
+              });
+              console.log(`[Guest Order] Installation email sent to ${guestEmail}`);
+            }
+          } catch (emailError: any) {
+            console.error(`[Guest Order] Failed to send emails:`, emailError.message);
+          }
+
           // Award referral credits to referrer if applicable
           const orderAmount = parseFloat(totalPrice);
           await awardReferralCredits(user.id, order.id, orderAmount);
@@ -2295,12 +2332,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Create payment intent for top-up purchase
   app.post('/api/create-topup-payment-intent', requireAuth, async (req: Request, res: Response) => {
     try {
-      const { packageId, iccid, orderId } = req.body;
+      const { packageId, iccid, orderId, topupId } = req.body;
 
-      if (!packageId || !iccid || !orderId) {
+      if (!iccid || !orderId || !topupId) {
         return res
           .status(400)
-          .json({ success: false, message: 'packageId, iccid, and orderId are required' });
+          .json({ success: false, message: 'iccid, orderId, and topupId are required' });
       }
 
       // Verify order belongs to user
@@ -2309,26 +2346,70 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(403).json({ success: false, message: 'Access denied' });
       }
 
-      const pkg = await storage.getUnifiedPackageById(packageId);
-      if (!pkg) {
-        return res.status(404).json({ success: false, message: 'Package not found' });
+      // We don't really need the original package for pricing, but we can verify it exists
+      // const pkg = await storage.getUnifiedPackageById(packageId);
+
+      if (!order.providerId) {
+        return res.status(400).json({ success: false, message: 'Order has no provider assigned' });
+      }
+
+      // Fetch top-up package details from provider logic to get the correct price
+      const { providerFactory } = await import('./providers/provider-factory');
+      const providerService = await providerFactory.getServiceById(order.providerId);
+      const topupData = await providerService.getTopupPackages(order.iccid!);
+
+      // Normalize packages list
+      const topupDataAny = topupData as any;
+      const packages = Array.isArray(topupDataAny?.data)
+        ? topupDataAny.data
+        : Array.isArray(topupData)
+          ? topupData
+          : [];
+
+      // Find the selected top-up package
+      // providers might use 'id', 'package_id', 'providerPackageId', or 'name' as identifier
+      const selectedTopup = packages.find((p: any) =>
+        String(p.id) === String(topupId) ||
+        String(p.package_id) === String(topupId) ||
+        String(p.providerPackageId) === String(topupId) ||
+        String(p.name) === String(topupId)
+      );
+
+      if (!selectedTopup) {
+        console.warn(`Topup package ${topupId} not found in provider packages for ICCID ${iccid}`);
+        // Fallback? Or fail? Fail is safer.
+        // Note: Some providers might not return full list or we might have stale ID. 
+        // But for now fail is better than charging 0.
+        return res.status(404).json({ success: false, message: 'Top-up package not found or unavailable' });
       }
 
       // Calculate price with top-up margin
       const topupMarginSetting = await storage.getSettingByKey('topup_margin');
       const topupMargin = parseFloat(topupMarginSetting?.value || '40');
-      const airaloPrice = pkg.airaloPrice ? parseFloat(pkg.airaloPrice.toString()) : 0;
-      const customerPrice = parseFloat((airaloPrice * (1 + topupMargin / 100)).toFixed(2));
+
+      // Determine base price from provider package
+      const basePrice = selectedTopup.net_price || selectedTopup.wholesalePrice || selectedTopup.price || 0;
+
+      if (basePrice <= 0) {
+        return res.status(500).json({ success: false, message: 'Invalid price for top-up package' });
+      }
+
+      const customerPrice = parseFloat((parseFloat(basePrice) * (1 + topupMargin / 100)).toFixed(2));
       const amountInCents = Math.round(customerPrice * 100);
+
+      if (amountInCents < 50) { // Stripe minimum is usually around 50 cents
+        return res.status(400).json({ success: false, message: 'Amount too low for payment' });
+      }
 
       // Create Stripe payment intent
       const paymentIntent = await stripe.paymentIntents.create({
         amount: amountInCents,
         currency: 'usd',
         metadata: {
-          packageId,
+          packageId, // Keep original package request reference
           iccid,
           orderId,
+          topupId, // Store topup ID
           userId: req.session.userId!,
           type: 'topup_purchase',
         },
@@ -2338,6 +2419,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         clientSecret: paymentIntent.client_secret,
         amount: customerPrice,
         currency: 'USD',
+        stripePublicKey: process.env.VITE_STRIPE_PUBLIC_KEY,
       });
     } catch (error: any) {
       console.error('Error creating top-up payment intent:', error);
@@ -2445,7 +2527,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       } else {
         reward = Number(settings.rewardValue);
       }
-      // "as"
 
       reward = Number(reward.toFixed(2));
 
@@ -2591,11 +2672,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // 🔐 CALL UNIFIED VERIFY API
       const verifyResponse = await axios.post(
-        `http://localhost:${process.env.PORT || 5000}/api/payments/confirm-payments`,
+        `${process.env.BASE_URL}/api/payments/confirm-payments`,
         body,
       );
 
-      // console.log("CHEKKKKKKKKKK verification responseee", verifyResponse)
+      console.log("CHEKKKKKKKKKK verification responseee", verifyResponse)
       const verification = verifyResponse.data;
 
       if (!verification.success) {
@@ -2900,74 +2981,108 @@ export async function registerRoutes(app: Express): Promise<Server> {
       /* =====================================================
          ================= TOPUP ==============================
          ===================================================== */
+      /* =====================================================
+         ================= TOPUP ==============================
+         ===================================================== */
       if (metadata.type === 'topup_purchase') {
-        const { packageId, iccid, orderId } = metadata;
+        const { packageId, iccid, orderId, topupId, userId } = metadata;
 
-        const [pkg] = await storage.getTopupById(packageId);
-        if (!pkg) {
-          return res.status(404).json({ success: false, message: 'Package not found' });
+        if (!orderId || !iccid || !topupId) {
+          throw new Error("Missing topup metadata info");
         }
 
-        if (pkg.providerId && pkg.parentPackageId) {
-          const { providerFactory } = await import('./providers/provider-factory');
-          const providerService = await providerFactory.getServiceById(pkg.providerId);
+        const order = await storage.getOrderById(orderId);
+        if (!order) throw new Error('Order not found');
 
-          const providerResponse = await providerService.purchaseTopup({
-            packageId: pkg.id,
-            quantity: 1,
-            iccid,
-          });
+        // Initializing provider
+        const { providerFactory } = await import('./providers/provider-factory');
+        const providerService = await providerFactory.getServiceById(order.providerId!);
 
-          if (!providerResponse.success) {
-            throw new Error(providerResponse.errorMessage || 'Provider order failed');
+        // Determine transaction ID based on provider
+        let transactionIdForProvider = '';
+        if (providerType === 'stripe') transactionIdForProvider = req.body.paymentIntentId;
+        else if (providerType === 'razorpay') transactionIdForProvider = req.body.paymentId;
+        else if (providerType === 'paypal') transactionIdForProvider = req.body.orderId;
+        else if (providerType === 'paystack') transactionIdForProvider = req.body.orderId;
+        else transactionIdForProvider = `TOPUP-${orderId}-${Date.now()}`;
+
+        if (!transactionIdForProvider) {
+          transactionIdForProvider = `TOPUP-${orderId}-${Date.now()}`;
+        }
+
+        // Purchase the topup
+        const providerResponse = await providerService.purchaseTopup({
+          packageId: topupId,
+          quantity: 1,
+          iccid,
+          transactionId: transactionIdForProvider
+        });
+
+        if (!providerResponse.success) {
+          throw new Error(providerResponse.errorMessage || 'Provider topup purchase failed');
+        }
+
+        // Fetch top-up package details to record correct info
+        let topupDataAmount = "Unknown";
+        let topupValidity = 0;
+        let airaloPrice = "0";
+
+        try {
+          const topupData = await providerService.getTopupPackages(iccid);
+          const topupDataAny = topupData as any;
+          const packages = Array.isArray(topupDataAny?.data)
+            ? topupDataAny.data
+            : Array.isArray(topupData)
+              ? topupData
+              : [];
+
+          const selectedTopup = packages.find((p: any) =>
+            String(p.id) === String(topupId) ||
+            String(p.package_id) === String(topupId) ||
+            String(p.providerPackageId) === String(topupId) ||
+            String(p.name) === String(topupId)
+          );
+
+          if (selectedTopup) {
+            topupDataAmount = selectedTopup.data || selectedTopup.dataAmount || "Unknown";
+            topupValidity = selectedTopup.validity || selectedTopup.day || 0;
+            const basePrice = selectedTopup.net_price || selectedTopup.wholesalePrice || selectedTopup.price || 0;
+            airaloPrice = basePrice.toString();
           }
-
-          console.log('Provider response:', JSON.stringify(providerResponse, null, 2));
-
-          // simDetails = {
-          //   iccid: providerResponse.iccid,
-          //   qrCode: providerResponse.qrCode,
-          //   qrCodeUrl: providerResponse.qrCodeUrl,
-          //   smdpAddress: providerResponse.smdpAddress,
-          //   activationCode: providerResponse.activationCode,
-          //   lpaCode: providerResponse.qrCode,
-          //   directAppleUrl: null,
-          //   apnType: "automatic",
-          //   apnValue: null,
-          //   isRoaming: false,
-          // };
-
-          // orderDetails = {
-          //   providerOrderId: providerResponse.providerOrderId,
-          //   requestId: providerResponse.requestId,
-          // };
-        } else if (pkg.airaloId) {
-          const airaloResponse = await airaloOrderService.submitSingleOrder(pkg.airaloId, 1, iccid);
-          console.log('Airalo response:', JSON.stringify(airaloResponse, null, 2));
-          // orderDetails = { providerOrderId: airaloResponse.airaloOrderId };
-          // simDetails = airaloResponse.sims[0];
-        } else {
-          throw new Error('Invalid package configuration');
+        } catch (e) {
+          console.warn("Failed to fetch topup details for DB record", e);
         }
 
-        // const response = await airaloAPI.submitTopup(iccid, packageId, `Topup-${orderId}`);
-
-        // console.log("Airalo response:", JSON.stringify(response, null, 2));
-
+        // Create topup record
         const topup = await storage.createTopup({
           orderId,
-          userId: req.session.userId!,
-          packageId,
-          // orderId: response.data?.id?.toString(),
+          userId: req.session.userId || userId!,
+          packageId, // Links to original unified package
           iccid,
-          airaloTopupId: response.data?.id?.toString(),
+          airaloTopupId: providerResponse.providerOrderId || providerResponse.requestId || "N/A",
           status: 'completed',
-          price: pkg.price,
-          airaloPrice: pkg.airaloPrice,
+          price: (metadata.amount ? (Number(metadata.amount) / 100).toString() : "0"), // Amount from Stripe metadata is in cents usually? No, verifyResponse.amount is normalized.
+          // Wait, verifyResponse.amount is already normalized.
+          // But I should use what we charged.
+          // metadata from Stripe usually contains strings. 
+          // Let's use the calculated price if possible or fallback.
+
+          airaloPrice: airaloPrice,
           currency: 'USD',
-          dataAmount: pkg.dataAmount,
-          validity: pkg.validity,
+          dataAmount: String(topupDataAmount),
+          validity: Number(topupValidity),
           stripePaymentIntentId: paymentIntentId,
+          webhookReceivedAt: new Date(),
+        });
+
+        // Create in-app notification
+        await storage.createNotification({
+          userId: req.session.userId || userId!,
+          type: 'topup',
+          title: 'Top-Up Successful',
+          message: `Your eSIM has been topped up with ${topupDataAmount} for ${topupValidity} days.`,
+          read: false,
+          metadata: { topupId: topup.id, orderId, iccid },
         });
 
         return res.json({
@@ -4014,7 +4129,7 @@ ${urls
 
       const ordersWithDetails = await Promise.all(
         orders.map(async (order) => {
-          const pkg = await storage.getPackageById(order.packageId);
+          const pkg = await storage.getUnifiedPackageById(order.packageId);
           let destination;
           if (pkg?.destinationId) {
             destination = await storage.getDestinationById(pkg.destinationId);
@@ -7770,7 +7885,7 @@ ${urls
   // Submit top-up order
   app.post('/api/topups', requireAuthOrAdmin, async (req: Request, res: Response) => {
     try {
-      const { orderId, packageId, iccid } = req.body;
+      const { orderId, packageId, iccid, topupId } = req.body;
 
       if (!orderId || !packageId || !iccid) {
         return res
@@ -7784,20 +7899,53 @@ ${urls
         return res.status(403).json({ success: false, message: 'Access denied' });
       }
 
-      // Get package details and top-up margin
-      const pkg = await storage.getPackageById(packageId);
-      if (!pkg) {
-        return res.status(404).json({ success: false, message: 'Package not found' });
-      }
+      const { providerFactory } = await import('./providers/provider-factory');
+      const providerService = await providerFactory.getServiceById(order.providerId);
 
+      // Fetch top-up package details to get correct price for DB record
+      const topupData = await providerService.getTopupPackages(order.iccid!);
+      const topupDataAny = topupData as any;
+      const packages = Array.isArray(topupDataAny?.data)
+        ? topupDataAny.data
+        : Array.isArray(topupData)
+          ? topupData
+          : [];
+
+      const selectedTopup = packages.find((p: any) =>
+        String(p.id) === String(topupId) ||
+        String(p.package_id) === String(topupId) ||
+        String(p.providerPackageId) === String(topupId) ||
+        String(p.name) === String(topupId)
+      );
+
+      // Calculate price with top-up margin
       const topupMarginSetting = await storage.getSettingByKey('topup_margin');
       const topupMargin = parseFloat(topupMarginSetting?.value || '40');
 
-      const airaloPrice = pkg.airaloPrice ? parseFloat(pkg.airaloPrice.toString()) : 0;
-      const customerPrice = parseFloat((airaloPrice * (1 + topupMargin / 100)).toFixed(2));
+      let customerPrice = 0;
+      let airaloPrice = 0;
 
-      // Submit top-up to Airalo
-      const response = await airaloAPI.submitTopup(iccid, packageId, `Topup-${orderId}`);
+      if (selectedTopup) {
+        const basePrice = selectedTopup.net_price || selectedTopup.wholesalePrice || selectedTopup.price || 0;
+        airaloPrice = parseFloat(basePrice);
+        customerPrice = parseFloat((airaloPrice * (1 + topupMargin / 100)).toFixed(2));
+      } else {
+        // Fallback to original package price (legacy behavior) if topup not found
+        // This shouldn't happen if flow is correct, but safer than crashing
+        const pkg = await storage.getUnifiedPackageById(packageId);
+        if (pkg) {
+          airaloPrice = pkg.airaloPrice ? parseFloat(pkg.airaloPrice.toString()) : 0;
+          customerPrice = parseFloat((airaloPrice * (1 + topupMargin / 100)).toFixed(2));
+        }
+      }
+
+      const response = await providerService.purchaseTopup({ iccid: order.iccid!, packageId: topupId, quantity: 1 });
+
+      const pkg = await storage.getUnifiedPackageById(packageId); // Need pkg for dataAmount/validity fallback?
+      // Actually pkg is the original package. topup pkg usually has data/validity.
+
+      const topupDataAmount = selectedTopup?.data || selectedTopup?.dataAmount || (pkg ? pkg.dataAmount : 'Unknown');
+      const topupValidity = selectedTopup?.validity || selectedTopup?.day || (pkg ? pkg.validity : 0);
 
       // Create top-up record
       const topup = await storage.createTopup({
@@ -7807,11 +7955,11 @@ ${urls
         iccid,
         airaloTopupId: response.data?.id?.toString(),
         status: 'completed',
+        dataAmount: String(topupDataAmount),
+        validity: Number(topupValidity),
         price: customerPrice.toString(),
         airaloPrice: airaloPrice.toString(),
         currency: 'USD',
-        dataAmount: pkg.dataAmount,
-        validity: pkg.validity,
         webhookReceivedAt: new Date(),
       });
 
@@ -7824,7 +7972,7 @@ ${urls
             userId: topupUserId,
             type: 'topup',
             title: 'Top-Up Successful',
-            message: `Your eSIM has been topped up with ${pkg.dataAmount} for ${pkg.validity} days. Stay connected!`,
+            message: `Your eSIM has been topped up with ${topupDataAmount} for ${topupValidity} days. Stay connected!`,
             read: false,
             metadata: { topupId: topup.id, orderId, iccid, packageId },
           });

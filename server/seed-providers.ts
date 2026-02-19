@@ -52,6 +52,17 @@ async function seedProviders() {
         apiRateLimitPerHour: 3600,
         webhookSecret: null,
       },
+      {
+        name: "DataPlans.io",
+        slug: "data-plans",
+        apiBaseUrl: "https://app.dataplans.io/api/v1",
+        enabled: false,
+        isPreferred: false,
+        pricingMargin: "20.00",
+        syncIntervalMinutes: 1440,
+        apiRateLimitPerHour: 1000,
+        webhookSecret: null,
+      },
     ];
 
     // ---------------- Existing Providers ----------------

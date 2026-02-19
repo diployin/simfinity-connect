@@ -512,7 +512,7 @@ export default function PaymentGatewayRenderer({
     return (
       <Elements stripe={stripePromise} options={{ clientSecret: initData.clientSecret }}>
         <StripeCheckoutForm
-          clientSecret={initData.clientSecret}
+          guestAccessToken={initData.guestAccessToken}
           onSuccess={(txId) => onPaymentSuccess?.(txId)}
           onError={(err) => onPaymentError?.(err)}
         />

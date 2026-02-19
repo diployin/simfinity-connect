@@ -152,7 +152,6 @@ const PUBLIC_ROUTES = [
   { path: '/order/:token', component: OrderConfirmation },
   { path: '/pages/:slug', component: DynamicPage },
   { path: '/faq', component: FaqPage },
-  { path: '/checkout', component: PaymentPage },
   { path: '/what-is-esim', component: WhatIsESIM },
   { path: '/notifications', component: NotificationsPage },
   { path: '/populer-packages', component: PopularPackagesPage },
@@ -161,6 +160,7 @@ const PUBLIC_ROUTES = [
 const AUTH_ROUTES = [
   { path: '/login', component: Login },
   { path: '/demo', component: DemoPage },
+  { path: '/checkout', component: PaymentPage }
 ];
 
 const ADMIN_ROUTES = [

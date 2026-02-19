@@ -1,7 +1,22 @@
-import { useState } from 'react';
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { Plus, Trash2, Edit2, ImageIcon, Loader2 } from 'lucide-react';
+import { useState, useRef, useCallback } from 'react';
+import { useQuery, useMutation, useInfiniteQuery } from '@tanstack/react-query';
+import { Plus, Trash2, Edit2, ImageIcon, Loader2, Check, ChevronsUpDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { cn } from '@/lib/utils';
+import { useDebounce } from '@/hooks/use-debounce';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -37,6 +52,121 @@ interface Banner {
   packageId?: string | null;
   createdAt?: string;
   updatedAt?: string;
+}
+
+function PackageSearch({ value, onSelect }: { value: string; onSelect: (value: string) => void }) {
+  const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState('');
+  const debouncedSearch = useDebounce(search, 300);
+
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+  } = useInfiniteQuery({
+    queryKey: ['/api/admin/unified-packages', debouncedSearch],
+    queryFn: async ({ pageParam = 1 }) => {
+      const params = new URLSearchParams({
+        page: pageParam.toString(),
+        limit: '10',
+        search: debouncedSearch,
+      });
+      const response = await fetch(`/api/admin/unified-packages?${params.toString()}`);
+      if (!response.ok) return { data: [], pagination: { page: 1, totalPages: 1 } };
+      return response.json();
+    },
+    getNextPageParam: (lastPage) => {
+      if (lastPage.pagination.page < lastPage.pagination.totalPages) {
+        return lastPage.pagination.page + 1;
+      }
+      return undefined;
+    },
+    initialPageParam: 1,
+    enabled: open,
+  });
+
+  const packages = data?.pages.flatMap((page) => page.data) || [];
+  const selectedPkg = packages.find((p: any) => p.id === value);
+  const observer = useRef<IntersectionObserver>();
+
+  const lastElementRef = useCallback(
+    (node: HTMLDivElement) => {
+      if (isLoading || isFetchingNextPage) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage) {
+          fetchNextPage();
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, isFetchingNextPage, hasNextPage, fetchNextPage]
+  );
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className="w-full justify-between"
+        >
+          {selectedPkg ? selectedPkg.title : (value || "Select package...")}
+          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[400px] p-0" align="start">
+        <Command shouldFilter={false}>
+          <CommandInput
+            placeholder="Search package..."
+            value={search}
+            onValueChange={setSearch}
+          />
+          <CommandList className="max-h-[300px] overflow-y-auto custom-scrollbar">
+            {isLoading ? (
+              <div className="py-6 text-center text-sm text-muted-foreground">Loading...</div>
+            ) : packages.length === 0 ? (
+              <CommandEmpty>No package found.</CommandEmpty>
+            ) : (
+              <CommandGroup>
+                {packages.map((pkg: any, index: number) => (
+                  <CommandItem
+                    key={`${pkg.id}-${index}`}
+                    value={pkg.id}
+                    onSelect={(currentValue) => {
+                      onSelect(currentValue);
+                      setOpen(false);
+                    }}
+                    ref={index === packages.length - 1 ? lastElementRef : undefined}
+                    className="flex flex-col items-start gap-1 cursor-pointer aria-selected:bg-blue-50 dark:aria-selected:bg-blue-900/20 aria-selected:text-foreground hover:bg-blue-50 dark:hover:bg-blue-900/20 data-[selected='true']:bg-blue-50 dark:data-[selected='true']:bg-blue-900/20 transition-colors"
+                  >
+                    <div className="flex items-center w-full justify-between">
+                      <span className="font-medium">{pkg.title}</span>
+                      {value === pkg.id && <Check className="h-4 w-4 text-blue-600 dark:text-blue-400" />}
+                    </div>
+                    <div className="text-xs text-muted-foreground w-full flex justify-between">
+                      <span>{pkg.providerName} - {pkg.destinationName || pkg.regionName}</span>
+                      <span>${pkg.price}</span>
+                    </div>
+                    <div className="text-xs text-muted-foreground">ID: {pkg.id}</div>
+                  </CommandItem>
+                ))}
+                {isFetchingNextPage && (
+                  <div className="py-2 text-center text-xs text-muted-foreground">
+                    <Loader2 className="h-3 w-3 animate-spin inline mr-1" />
+                    Loading more...
+                  </div>
+                )}
+              </CommandGroup>
+            )}
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  );
 }
 
 export default function BannerManagement() {
@@ -453,12 +583,9 @@ export default function BannerManagement() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="packageId">Package ID (Optional)</Label>
-                <Input
-                  id="packageId"
+                <PackageSearch
                   value={formData.packageId}
-                  onChange={(e) => setFormData({ ...formData, packageId: e.target.value })}
-                  placeholder="Link to package"
-                  data-testid="input-banner-package"
+                  onSelect={(value) => setFormData({ ...formData, packageId: value })}
                 />
               </div>
             </div>
@@ -560,12 +687,9 @@ export default function BannerManagement() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="edit-packageId">Package ID (Optional)</Label>
-                <Input
-                  id="edit-packageId"
+                <PackageSearch
                   value={formData.packageId}
-                  onChange={(e) => setFormData({ ...formData, packageId: e.target.value })}
-                  placeholder="Link to package"
-                  data-testid="input-edit-banner-package"
+                  onSelect={(value) => setFormData({ ...formData, packageId: value })}
                 />
               </div>
             </div>

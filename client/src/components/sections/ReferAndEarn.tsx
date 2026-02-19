@@ -8,7 +8,7 @@ export function ReferAndEarn() {
   const siteName = useSettingByKey('platform_name') || 'Simfinity';
 
   return (
-    <section className="py-12 md:py-20 bg-background">
+    <section className="py-10 md:py-12 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-blue-50 via-blue-100/50 to-blue-50 dark:from-card dark:via-card/80 dark:to-card">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
@@ -20,11 +20,11 @@ export function ReferAndEarn() {
               </div>
 
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-4">
-                {t('website.home.referral.title', "Refer a friend, and you'll both get US$5!")}
+                {t('website.home.referral.title', "Refer a friend, and you'll both get $5!")}
               </h2>
 
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6">
-                {t('website.home.referral.description', `Invite your friends to use ${siteName} and get US$5 in ${siteName} credits while they get a US$5 discount!`)}
+                {t('website.home.referral.description', `Invite your friends to use ${siteName} and get $5 in ${siteName} credits while they get a $5 discount!`)}
               </p>
 
               <div>

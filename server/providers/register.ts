@@ -7,6 +7,7 @@ import { AiraloService } from '../services/airalo/index';
 import { EsimAccessService } from '../services/esim-access/index';
 import { EsimGoService } from '../services/esim-go/index';
 import { MayaService } from '../services/maya/index';
+import { DataPlansService } from '../services/data-plans/index';
 
 /**
  * Register all provider implementations with the factory
@@ -90,6 +91,26 @@ providerFactory.register(
   },
   (provider: Provider) => {
     return new MayaService(provider);
+  }
+);
+
+/**
+ * Register DataPlans.io provider
+ */
+providerFactory.register(
+  'data-plans',
+  {
+    slug: 'data-plans',
+    name: 'DataPlans.io',
+    isEnabled: true,
+    syncIntervalMinutes: 60,
+    supportsRefunds: false,
+    supportsCancellation: false,
+    supportsTopups: false,
+    supportsUsageTracking: true,
+  },
+  (provider: Provider) => {
+    return new DataPlansService(provider);
   }
 );
 

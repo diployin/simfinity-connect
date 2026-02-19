@@ -31,6 +31,7 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest } from '@/lib/queryClient';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { connectSocket } from '@/socket/socket';
+import { useSettingByKey } from '@/hooks/useSettings';
 
 interface Message {
   id: string;
@@ -83,6 +84,8 @@ export default function AccountSupport() {
     description: '',
     priority: 'medium' as 'low' | 'medium' | 'high' | 'urgent',
   });
+
+  const email = useSettingByKey<string>('email');
 
   // Fetch user's tickets - uses default queryFn which handles standardized API responses
   // API returns tickets array directly (unwrapped from {success, data})
@@ -443,9 +446,8 @@ export default function AccountSupport() {
                 <Card
                   key={ticket.id}
                   onClick={() => setSelectedTicketId(ticket.id)}
-                  className={`cursor-pointer transition-all border hover:border-orange-400 ${
-                    selectedTicketId === ticket.id ? 'ring-2 ring-orange-500 bg-orange-50/30' : ''
-                  }`}
+                  className={`cursor-pointer transition-all border hover:border-orange-400 ${selectedTicketId === ticket.id ? 'ring-2 ring-orange-500 bg-orange-50/30' : ''
+                    }`}
                   data-testid={`card-ticket-${ticket.id}`}
                 >
                   <CardContent className="p-4 space-y-2">
@@ -610,11 +612,10 @@ export default function AccountSupport() {
                             className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}
                           >
                             <div
-                              className={`max-w-[75%] rounded-2xl px-4 py-3 shadow-sm ${
-                                isUser
-                                  ? 'bg-orange-500 text-white rounded-br-sm'
-                                  : 'bg-muted text-foreground rounded-bl-sm'
-                              }`}
+                              className={`max-w-[75%] rounded-2xl px-4 py-3 shadow-sm ${isUser
+                                ? 'bg-orange-500 text-white rounded-br-sm'
+                                : 'bg-muted text-foreground rounded-bl-sm'
+                                }`}
                             >
                               {/* Header */}
                               <div className="flex items-center gap-2 mb-1">
@@ -691,7 +692,7 @@ export default function AccountSupport() {
               <Mail className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
             </div>
             <div className="font-medium mb-1">Email Support</div>
-            <div className="text-sm text-muted-foreground">support@esim-global.com</div>
+            <div className="text-sm text-muted-foreground">{email || 'support@esim-global.com'}</div>
           </CardContent>
         </Card>
         <Card data-testid="card-live-chat">

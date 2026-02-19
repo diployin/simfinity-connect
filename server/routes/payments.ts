@@ -1047,7 +1047,7 @@ router.post('/powertranz/confirm', optionalAuth, async (req, res) => {
 
 router.post('/topup/init', optionalAuth, async (req, res) => {
   try {
-    const { gatewayId, packageId, iccid, orderId, currency = 'USD', email, name, phone } = req.body;
+    const { gatewayId, packageId, iccid, orderId, currency = 'USD', email, name, phone, topupId } = req.body;
 
     /* ---------------- Validation ---------------- */
     if (!gatewayId || !packageId || !iccid || !orderId) {
@@ -1074,7 +1074,34 @@ router.post('/topup/init', optionalAuth, async (req, res) => {
     // }
 
     /* ---------------- Package ---------------- */
-    const pkg = await storage.getUnifiedPackageById(packageId);
+    let pkg = await storage.getUnifiedPackageById(packageId);
+
+    if (!pkg && order && order.providerId) {
+      try {
+        const { providerFactory } = await import('../providers/provider-factory');
+        const providerService = await providerFactory.getServiceById(order.providerId);
+        const topupResults = await providerService.getTopupPackages(iccid);
+        const topupAny = topupResults as any;
+        const packages = Array.isArray(topupAny?.data) ? topupAny.data : Array.isArray(topupResults) ? topupResults : [];
+        const selected = packages.find((p: any) =>
+          String(p.id) === String(packageId) ||
+          String(p.package_id) === String(packageId) ||
+          String(p.providerPackageId) === String(packageId)
+        );
+
+        if (selected) {
+          // Mock a package object with the price
+          pkg = {
+            id: packageId,
+            retailPrice: selected.wholesalePrice || selected.net_price || selected.price || 0,
+            // Add other fields if necessary to avoid type errors, but cast as any
+          } as any;
+        }
+      } catch (err) {
+        console.warn("Failed to lookup dynamic topup package", err);
+      }
+    }
+
     if (!pkg) {
       return res.status(404).json({
         success: false,
@@ -1086,7 +1113,29 @@ router.post('/topup/init', optionalAuth, async (req, res) => {
     const topupMarginSetting = await storage.getSettingByKey('topup_margin');
     const topupMargin = parseFloat(topupMarginSetting?.value || '40');
 
-    const basePrice = pkg.retailPrice ? parseFloat(pkg.retailPrice.toString()) : 0;
+    let basePrice = pkg.retailPrice ? parseFloat(pkg.retailPrice.toString()) : 0;
+
+    // Overwrite base price if a specific topupId is provided (dynamic top-up)
+    if (topupId && order && order.providerId) {
+      try {
+        const { providerFactory } = await import('../providers/provider-factory');
+        const providerService = await providerFactory.getServiceById(order.providerId);
+        const topupResults = await providerService.getTopupPackages(iccid);
+        const topupAny = topupResults as any;
+        const packages = Array.isArray(topupAny?.data) ? topupAny.data : Array.isArray(topupResults) ? topupResults : [];
+        const selected = packages.find((p: any) =>
+          String(p.id) === String(topupId) ||
+          String(p.package_id) === String(topupId) ||
+          String(p.providerPackageId) === String(topupId)
+        );
+
+        if (selected) {
+          basePrice = parseFloat((selected.wholesalePrice || selected.net_price || selected.price || 0).toString());
+        }
+      } catch (err) {
+        console.warn("Failed to fetch dynamic topup price:", err);
+      }
+    }
 
     const totalAmount = parseFloat((basePrice * (1 + topupMargin / 100)).toFixed(2));
 
@@ -1134,12 +1183,16 @@ router.post('/topup/init', optionalAuth, async (req, res) => {
             type: 'topup',
             packageId,
             iccid,
+            orderId, // ensure metadata has orderId
+            topupId: topupId || packageId, // standardize
+            userId: req.userId?.toString(), // ensure userId
           },
         });
 
         payment.clientSecret = result.clientSecret;
         payment.paymentIntentId = result.paymentIntentId;
         payment.guestAccessToken = result.guestAccessToken ?? null;
+        payment.publicKey = gateway.publicKey; // Return PK for frontend
         break;
 
       /* -------- Razorpay -------- */

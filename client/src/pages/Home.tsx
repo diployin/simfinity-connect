@@ -11,9 +11,10 @@ import { HeroSection } from '../components/sections/HeroSection';
 import { WhatIsEsim } from '@/components/sections/WhatIsEsim';
 import { InstantConnection } from '@/components/sections/InstantConnection';
 import { DownloadApp } from '@/components/sections/DownloadApp';
-import { ReferAndEarn } from '@/components/sections/ReferAndEarn';
+import { ImpactSection } from '@/components/sections/ImpactSection';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { useUser } from '@/hooks/use-user';
+import { ReferAndEarn } from '@/components/sections/ReferAndEarn';
 
 export default function Home() {
   const { t } = useTranslation();
@@ -58,6 +59,7 @@ export default function Home() {
           <FAQWithSupport />
           <DownloadApp />
           <ReferAndEarn />
+          <ImpactSection />
         </main>
 
         <FloatingButtons />

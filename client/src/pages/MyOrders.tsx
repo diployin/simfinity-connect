@@ -158,7 +158,7 @@ export default function MyOrders() {
     mutationFn: async (packageId: string) => {
       return apiRequest("POST", "/api/topups", {
         orderId: selectedOrder?.id,
-        packageId,
+        packageId: selectedOrder?.packageId,
         iccid: selectedOrder?.iccid,
       });
     },
@@ -523,7 +523,7 @@ export default function MyOrders() {
               <TabsTrigger value="details" data-testid="tab-details">Details</TabsTrigger>
               <TabsTrigger value="installation" data-testid="tab-installation">Installation</TabsTrigger>
               <TabsTrigger value="usage" data-testid="tab-usage">Usage</TabsTrigger>
-              <TabsTrigger value="topups" data-testid="tab-topups">Top-Ups</TabsTrigger>
+              {/* <TabsTrigger value="topups" data-testid="tab-topups">Top-Ups</TabsTrigger> */}
             </TabsList>
 
             {/* Details Tab */}
@@ -1023,9 +1023,9 @@ export default function MyOrders() {
                     <Plus className="h-5 w-5" />
                     Available Top-Up Packages
                   </CardTitle>
-                  <CardDescription>
+                  {/* <CardDescription>
                     eSIM-specific top-up packages with {topupMargin}% margin pricing
-                  </CardDescription>
+                  </CardDescription> */}
                 </CardHeader>
                 <CardContent>
                   {topupPackages.length > 0 ? (
@@ -1051,7 +1051,7 @@ export default function MyOrders() {
                             </div>
 
                             <div className="flex items-center gap-3 text-xs text-muted-foreground pt-1">
-                              <span>Cost: ${pkg.wholesalePrice}</span>
+                              {/* <span>Cost: ${pkg.wholesalePrice}</span> */}
                               <span>•</span>
                               <span>Customer: ${pkg.price}</span>
                             </div>
@@ -1062,15 +1062,15 @@ export default function MyOrders() {
                               <p className="text-2xl font-bold">
                                 ${pkg.price}
                               </p>
-                              <p className="text-xs text-muted-foreground">
+                              {/* <p className="text-xs text-muted-foreground">
                                 +{topupMargin}% margin
-                              </p>
+                              </p> */}
                             </div>
 
                             <Button
                               size="sm"
                               onClick={() => applyTopupMutation.mutate(pkg.id)}
-                              disabled={applyTopupMutation.isPending}
+                              disabled={usage?.status !== "active" || applyTopupMutation.isPending}
                             >
                               {applyTopupMutation.isPending ? (
                                 <RefreshCw className="h-4 w-4 mr-2 animate-spin" />

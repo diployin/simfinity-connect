@@ -162,6 +162,13 @@
       "when": 1769765648039,
       "tag": "0022_last_moon_knight",
       "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1771395433220,
+      "tag": "0023_simple_moondragon",
+      "breakpoints": true
     }
   ]
 }

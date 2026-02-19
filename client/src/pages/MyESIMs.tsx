@@ -18,10 +18,186 @@ import type { Order, UnifiedPackage, Destination } from '@shared/schema';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { useUser } from '@/hooks/use-user';
 
-// Initialize Stripe only if key is available
-const stripePublicKey = import.meta.env.VITE_STRIPE_PUBLIC_KEY;
-const stripePromise = stripePublicKey ? loadStripe(stripePublicKey) : null;
+
+
+// Razorpay Top-up Component
+function RazorpayTopup({
+  orderId,
+  amount,
+  currency,
+  publicKey,
+  email,
+  onSuccess,
+  onError,
+}: {
+  orderId: string;
+  amount: number;
+  currency: string;
+  publicKey: string;
+  email?: string;
+  onSuccess: () => void;
+  onError: (msg: string) => void;
+}) {
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handlePayment = () => {
+    setIsProcessing(true);
+    const options = {
+      key: publicKey,
+      amount: amount, // Amount is already in smallest unit from backend init
+      currency: currency,
+      name: 'Simfinity',
+      description: 'Top-up Payment',
+      order_id: orderId,
+      prefill: { email },
+      handler: async (response: any) => {
+        try {
+          const res = await apiRequest('POST', '/api/confirm-payment', {
+            providerType: 'razorpay',
+            orderId: response.razorpay_order_id,
+            paymentId: response.razorpay_payment_id,
+            signature: response.razorpay_signature,
+          });
+
+          const data = await res.json();
+          if (data.success) {
+            onSuccess();
+          } else {
+            throw new Error(data.message || 'Payment verification failed');
+          }
+        } catch (err: any) {
+          onError(err.message);
+          setIsProcessing(false);
+        }
+      },
+      modal: {
+        ondismiss: () => {
+          setIsProcessing(false);
+        },
+      },
+    };
+
+    const rzp = new (window as any).Razorpay(options);
+    rzp.open();
+  };
+
+  return (
+    <Button
+      onClick={handlePayment}
+      className="w-full bg-[#3399cc] hover:bg-[#287aa3] text-white"
+      disabled={isProcessing}
+    >
+      {isProcessing ? (
+        <>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          Processing...
+        </>
+      ) : (
+        'Pay with Razorpay'
+      )}
+    </Button>
+  );
+}
+
+// PayPal Top-up Component
+function PaypalTopup({
+  orderId,
+  amount,
+  currency,
+  onSuccess,
+  onError,
+}: {
+  orderId: string;
+  amount: number; // For display/context
+  currency: string;
+  onSuccess: () => void;
+  onError: (msg: string) => void;
+}) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    // Check if PayPal SDK is loaded
+    if ((window as any).paypal) {
+      setIsLoaded(true);
+      renderPaypalButtons();
+    } else {
+      // In a real app we might want to ensure SDK is loaded here
+      // But it's usually loaded in index.html
+      const interval = setInterval(() => {
+        if ((window as any).paypal) {
+          setIsLoaded(true);
+          renderPaypalButtons();
+          clearInterval(interval);
+        }
+      }, 500);
+      return () => clearInterval(interval);
+    }
+  }, [orderId]);
+
+  const renderPaypalButtons = () => {
+    const container = document.getElementById('paypal-button-container-topup');
+    if (container) container.innerHTML = '';
+
+    (window as any).paypal
+      .Buttons({
+        createOrder: () => orderId,
+        onApprove: async (data: any) => {
+          try {
+            const res = await apiRequest('POST', '/api/confirm-payment', {
+              providerType: 'paypal',
+              orderId: data.orderID,
+            });
+
+            const result = await res.json();
+            if (result.success) {
+              onSuccess();
+            } else {
+              throw new Error(result.message || 'Payment verification failed');
+            }
+          } catch (err: any) {
+            onError(err.message);
+          }
+        },
+        onError: (err: any) => {
+          onError(err.message || 'PayPal error');
+        },
+      })
+      .render('#paypal-button-container-topup');
+  };
+
+  return (
+    <div className="w-full min-h-[150px] flex items-center justify-center">
+      <div id="paypal-button-container-topup" className="w-full"></div>
+      {!isLoaded && <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />}
+    </div>
+  );
+}
+
+// Paystack Top-up Component
+function PaystackTopup({
+  redirectUrl,
+}: {
+  redirectUrl: string;
+}) {
+  // For Paystack, we typically redirect the user
+  // In a modal context, this interrupts the flow, but it's the standard Paystack flow
+  return (
+    <div className="text-center space-y-4">
+      <Button
+        onClick={() => window.location.href = redirectUrl}
+        className="w-full bg-[#0aa5db] hover:bg-[#088ab8] text-white"
+      >
+        Proceed to Paystack
+      </Button>
+      <p className="text-xs text-muted-foreground">
+        You will be redirected to complete payment.
+      </p>
+    </div>
+  );
+}
+
 
 // Top-up payment form component
 function TopupPaymentForm({
@@ -71,9 +247,12 @@ function TopupPaymentForm({
       if (paymentIntent && paymentIntent.status === 'succeeded') {
         try {
           // Confirm payment on backend
-          const response = await apiRequest('POST', '/api/confirm-payment', {
+          const res = await apiRequest('POST', '/api/confirm-payment', {
+            providerType: 'stripe',
             paymentIntentId: paymentIntent.id,
           });
+
+          const response = await res.json();
 
           // Verify backend actually created the top-up
           if (!response || !(response as any).topup) {
@@ -148,12 +327,15 @@ type OrderWithDetails = Order & {
 export default function MyESIMsPage() {
   const { toast } = useToast();
   const { t } = useTranslation();
+  const { user } = useUser();
   const [selectedOrder, setSelectedOrder] = useState<OrderWithDetails | null>(null);
   const [showInstructions, setShowInstructions] = useState(false);
   const [showTopups, setShowTopups] = useState(false);
   const [selectedTopupPackage, setSelectedTopupPackage] = useState<any>(null);
-  const [topupClientSecret, setTopupClientSecret] = useState('');
+  const [paymentConfig, setPaymentConfig] = useState<any>(null);
+  const [selectedGateway, setSelectedGateway] = useState<any>(null); // New state for manual gateway selection
   const topupRequestIdRef = useRef(0);
+  const [stripePromise, setStripePromise] = useState<Promise<any> | null>(null);
 
   const { data: orders, isLoading } = useQuery<OrderWithDetails[]>({
     queryKey: ['/api/my-orders'],
@@ -174,30 +356,75 @@ export default function MyESIMsPage() {
     enabled: !!selectedOrder?.iccid && showTopups,
   });
 
+  const { data: gatewaysData } = useQuery<{ success: boolean; data: any[] }>({
+    queryKey: ['/api/payments/gateways'],
+    enabled: showTopups,
+  });
+
   const instructions = instructionsData?.instructions;
   const topupPackages = topupPackagesData?.packages || [];
+  // Robust gateway finding
+  const gatewaysList = gatewaysData?.data || (Array.isArray(gatewaysData) ? gatewaysData : []);
+  const stripeGateway = gatewaysList.find((g: any) => g.provider?.toLowerCase() === 'stripe');
 
-  // Create top-up payment intent when package is selected
+  console.log('[Topup] Gateways Debug:', {
+    raw: gatewaysData,
+    list: gatewaysList,
+    foundStripe: stripeGateway
+  });
+
+  // Create top-up payment intent when package AND gateway are selected
   useEffect(() => {
-    if (selectedTopupPackage && selectedOrder) {
+    // Wait for manual gateway selection
+    if (selectedTopupPackage && selectedOrder && selectedGateway) {
+      const topupId = selectedTopupPackage.id || selectedTopupPackage.package_id || selectedTopupPackage.providerPackageId;
+
+      console.log('[Topup] Initiating for:', {
+        iccid: selectedOrder.iccid,
+        topupId,
+        gatewayId: selectedGateway.id
+      });
+
       // Increment request ID to track this specific request
       const currentRequestId = ++topupRequestIdRef.current;
 
-      setTopupClientSecret(''); // Clear old secret immediately
-
-      apiRequest('POST', '/api/create-topup-payment-intent', {
-        packageId: selectedTopupPackage.id,
+      apiRequest('POST', '/api/payments/topup/init', {
+        gatewayId: selectedGateway.id,
+        packageId: selectedOrder.packageId,
+        topupId,
         iccid: selectedOrder.iccid,
         orderId: selectedOrder.id,
       })
+        .then((res) => res.json())
         .then((data: any) => {
+          console.log('[Topup] Response:', data);
+
           // Only apply response if this is still the latest request
           if (currentRequestId === topupRequestIdRef.current) {
-            setTopupClientSecret(data.clientSecret);
+
+            // Handle success response (check for payment object)
+            if (data?.payment) {
+
+              // Stripe specific setup
+              if (data.payment.provider === 'stripe' && data.payment.publicKey) {
+                setStripePromise(loadStripe(data.payment.publicKey));
+              }
+
+              // Store config
+              setPaymentConfig(data.payment);
+
+            } else {
+              console.error('[Topup] No payment config in response', data);
+              toast({
+                title: t('common.error', 'Error'),
+                description: data?.message || t('myEsims.initializePaymentFailed', 'Failed to initialize payment'),
+                variant: 'destructive',
+              });
+            }
           }
         })
         .catch((error: any) => {
-          // Only show error if this is still the latest request
+          console.error('[Topup] Error:', error);
           if (currentRequestId === topupRequestIdRef.current) {
             toast({
               title: t('common.error', 'Error'),
@@ -206,21 +433,20 @@ export default function MyESIMsPage() {
                 t('myEsims.initializePaymentFailed', 'Failed to initialize payment'),
               variant: 'destructive',
             });
-            setTopupClientSecret(''); // Ensure secret is cleared on error
-            setSelectedTopupPackage(null);
+            setPaymentConfig(null);
           }
         });
     }
-  }, [selectedTopupPackage, selectedOrder, toast, t]);
+  }, [selectedTopupPackage, selectedOrder, selectedGateway, toast, t]);
 
   const handleSelectTopupPackage = (pkg: any) => {
     setSelectedTopupPackage(pkg);
-    setTopupClientSecret('');
+    setPaymentConfig(null);
   };
 
   const handleTopupSuccess = () => {
     setSelectedTopupPackage(null);
-    setTopupClientSecret('');
+    setPaymentConfig(null);
     setShowTopups(false);
   };
 
@@ -358,7 +584,8 @@ export default function MyESIMsPage() {
           setShowTopups(open);
           if (!open) {
             setSelectedTopupPackage(null);
-            setTopupClientSecret('');
+            setSelectedGateway(null);
+            setPaymentConfig(null);
           }
         }}
       >
@@ -394,43 +621,104 @@ export default function MyESIMsPage() {
                   </p>
                 </div>
 
-                {!topupClientSecret ? (
-                  <div className="flex items-center justify-center py-12">
-                    <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
+                {!selectedGateway ? (
+                  /* Step 2: Gateway Selection */
+                  <div className="space-y-3">
+                    <h4 className="font-medium">Select Payment Method</h4>
+                    {gatewaysList && gatewaysList.length > 0 ? (
+                      gatewaysList.map((gateway: any) => (
+                        <div
+                          key={gateway.id}
+                          onClick={() => setSelectedGateway(gateway)}
+                          className="flex items-center justify-between p-4 border rounded-lg cursor-pointer hover:bg-muted transition-colors"
+                        >
+                          <span className="font-medium">{gateway.displayName || gateway.provider}</span>
+                          <Button variant="ghost" size="sm">Select</Button>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-sm text-muted-foreground">No payment methods available.</p>
+                    )}
+                    <Button
+                      variant="outline"
+                      className="w-full mt-4"
+                      onClick={() => {
+                        setSelectedTopupPackage(null); // Go back to Step 1
+                      }}
+                    >
+                      {t('myEsims.backToPackages', 'Back to Packages')}
+                    </Button>
                   </div>
                 ) : (
-                  <Elements
-                    key={topupClientSecret}
-                    stripe={stripePromise}
-                    options={{
-                      clientSecret: topupClientSecret,
-                      appearance: {
-                        theme: 'stripe',
-                      },
-                    }}
-                  >
-                    <TopupPaymentForm
-                      packageId={selectedTopupPackage.id}
-                      iccid={selectedOrder!.iccid!}
-                      orderId={selectedOrder!.id}
-                      amount={parseFloat(
-                        selectedTopupPackage.customer_price || selectedTopupPackage.price,
-                      )}
-                      onSuccess={handleTopupSuccess}
-                    />
-                  </Elements>
-                )}
+                  /* Step 3: Payment Form */
+                  <>
+                    {!paymentConfig ? (
+                      <div className="flex items-center justify-center py-12">
+                        <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
+                        <p className="ml-2 text-sm text-muted-foreground">Initializing payment...</p>
+                      </div>
+                    ) : selectedGateway.provider === 'stripe' ? (
+                      <Elements
+                        key={paymentConfig.clientSecret}
+                        stripe={stripePromise}
+                        options={{
+                          clientSecret: paymentConfig.clientSecret,
+                          appearance: {
+                            theme: 'stripe',
+                          },
+                        }}
+                      >
+                        <TopupPaymentForm
+                          packageId={selectedTopupPackage.id || selectedTopupPackage.package_id}
+                          iccid={selectedOrder!.iccid!}
+                          orderId={selectedOrder!.id}
+                          amount={parseFloat(
+                            selectedTopupPackage.customer_price || selectedTopupPackage.price,
+                          )}
+                          onSuccess={handleTopupSuccess}
+                        />
+                      </Elements>
+                    ) : selectedGateway.provider === 'razorpay' ? (
+                      <RazorpayTopup
+                        orderId={paymentConfig.orderId}
+                        amount={paymentConfig.amount}
+                        currency={paymentConfig.currency}
+                        publicKey={paymentConfig.publicKey}
+                        email={user?.email}
+                        onSuccess={handleTopupSuccess}
+                        onError={(msg) => toast({ title: "Payment Error", description: msg, variant: "destructive" })}
+                      />
+                    ) : selectedGateway.provider === 'paypal' ? (
+                      <PaypalTopup
+                        orderId={paymentConfig.orderId}
+                        amount={paymentConfig.amount}
+                        currency={paymentConfig.currency}
+                        onSuccess={handleTopupSuccess}
+                        onError={(msg) => toast({ title: "Payment Error", description: msg, variant: "destructive" })}
+                      />
+                    ) : selectedGateway.provider === 'paystack' ? (
+                      <PaystackTopup
+                        redirectUrl={paymentConfig.redirectUrl}
+                      />
+                    ) : (
+                      <div className="text-center py-8">
+                        <p>Selected Gateway: {selectedGateway.displayName}</p>
+                        <p className="text-sm text-muted-foreground">Provider not supported yet.</p>
+                      </div>
+                    )}
 
-                <Button
-                  variant="outline"
-                  className="w-full"
-                  onClick={() => {
-                    setSelectedTopupPackage(null);
-                    setTopupClientSecret('');
-                  }}
-                >
-                  {t('myEsims.backToPackages', 'Back to Packages')}
-                </Button>
+                    <Button
+                      variant="outline"
+                      className="w-full mt-4"
+                      onClick={() => {
+                        setSelectedGateway(null); // Go back to Step 2
+                        setPaymentConfig(null);
+                      }}
+                    >
+                      Back to Payment Methods
+                    </Button>
+                  </>
+                )}
               </div>
             ) : (
               <div className="grid grid-cols-1 gap-4">

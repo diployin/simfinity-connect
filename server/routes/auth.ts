@@ -179,6 +179,7 @@ router.post('/verify-otp', async (req: Request, res: Response) => {
     const {
       email,
       otp,
+      purpose,
       isFromGoogle = false,
       fcmToken,
       imagePath,
@@ -200,7 +201,7 @@ router.post('/verify-otp', async (req: Request, res: Response) => {
         return ApiResponse.badRequest(res, 'OTP is required');
       }
 
-      const isValid = await storage.verifyOTP(email, otp);
+      const isValid = await storage.verifyOTP(email, otp, purpose);
       if (!isValid) {
         return ApiResponse.badRequest(res, 'Invalid or expired OTP');
       }
@@ -227,7 +228,7 @@ router.post('/verify-otp', async (req: Request, res: Response) => {
       await storage.createNotification({
         userId: user.id,
         type: 'welcome',
-        title: 'Welcome message coming up as esim global!',
+        title: 'Welcome message coming up as simfinity!',
         message: 'Thank you for joining us. Start browsing destinations to get your first eSIM.',
         read: false,
       });
@@ -559,7 +560,7 @@ router.post('/forgot-password', async (req: Request, res: Response) => {
     const emailContent = await generateOTPEmail(code);
     await sendEmail({
       to: email,
-      subject: 'Password Reset Code - eSIM Global',
+      subject: 'Password Reset Code - Simfinity',
       html: emailContent.html.replace('verification code', 'password reset code'),
     });
 
