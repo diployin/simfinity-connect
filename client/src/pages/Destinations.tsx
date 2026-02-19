@@ -622,7 +622,7 @@ export default function Destinations() {
                         <span>DPN Protected</span>
                       </div>
                     </div>
-                    <a href="#passport-prebook" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] text-white font-semibold text-lg shadow-lg shadow-[#2c7338]/25 hover:shadow-xl transition-all hover:scale-[1.02] w-fit">
+                    <a href="#passport-prebook" className="btn-passport-cta inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] text-white font-semibold text-lg shadow-lg shadow-[#2c7338]/25 hover:shadow-xl transition-all hover:scale-[1.02] w-fit">
                       Reserve Your Device
                       <ChevronRight className="w-5 h-5" />
                     </a>
@@ -824,7 +824,7 @@ export default function Destinations() {
                       The first production run is limited. Pre-booking secures your place in the first wave with priority activation and exclusive early benefits.
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                      <button className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-[#1e5427] font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]">
+                      <button className="btn-passport-cta inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-[#1e5427] font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]">
                         Reserve Your Device Now
                         <ChevronRight className="w-5 h-5" />
                       </button>

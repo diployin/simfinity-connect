@@ -616,6 +616,49 @@
     animation: spin-slow 20s linear infinite;
   }
 
+  @keyframes shimmer-sweep {
+    0% {
+      transform: translateX(-100%) skewX(-15deg);
+    }
+    100% {
+      transform: translateX(200%) skewX(-15deg);
+    }
+  }
+
+  @keyframes gentle-float {
+    0%, 100% {
+      margin-top: 0;
+    }
+    50% {
+      margin-top: -4px;
+    }
+  }
+
+  .btn-passport-cta {
+    position: relative;
+    overflow: hidden;
+    animation: gentle-float 3s ease-in-out infinite;
+  }
+
+  .btn-passport-cta::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.35),
+      transparent
+    );
+    transform: translateX(-100%) skewX(-15deg);
+    animation: shimmer-sweep 3s ease-in-out infinite;
+    animation-delay: 1s;
+    pointer-events: none;
+  }
+
   /* ============================================
      🎨 ELEVATION SYSTEM
      =========================================== */
