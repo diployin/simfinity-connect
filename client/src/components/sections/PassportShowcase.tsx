@@ -160,7 +160,7 @@ export function PassportShowcase() {
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-[#2c7338]/20 via-[#3d9a4d]/10 to-[#2c7338]/20 rounded-3xl blur-xl" />
               <img
-                src="/images/passport-device.png"
+                src="/images/passport-device-1.png"
                 alt="Simfinity Passport Device"
                 className="relative w-full max-w-sm md:max-w-md rounded-2xl"
               />

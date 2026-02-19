@@ -631,7 +631,7 @@ export default function Destinations() {
                     <div className="relative">
                       <div className="absolute -inset-6 bg-gradient-to-r from-[#2c7338]/20 via-transparent to-[#2c7338]/20 rounded-3xl blur-xl" />
                       <img
-                        src="/images/passport-device.png"
+                        src="/images/passport-device-1.png"
                         alt="Simfinity Passport Device"
                         className="relative w-full max-w-sm rounded-2xl"
                       />
@@ -736,7 +736,7 @@ export default function Destinations() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                   <div>
                     <img
-                      src="/images/passport-unboxing.png"
+                      src="/images/passport-device-2.png"
                       alt="What's inside the Simfinity Passport box"
                       className="w-full rounded-2xl"
                     />
@@ -795,7 +795,7 @@ export default function Destinations() {
               <div className="px-4 sm:px-6 lg:px-8 mb-12">
                 <div className="relative rounded-2xl overflow-hidden">
                   <img
-                    src="/images/passport-lifestyle.png"
+                    src="/images/passport-device-3.png"
                     alt="Travel with Simfinity Passport"
                     className="w-full h-64 md:h-80 object-cover"
                   />
