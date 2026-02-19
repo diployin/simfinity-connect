@@ -2,7 +2,30 @@ import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link, useLocation, useSearch } from 'wouter';
 import { Helmet } from 'react-helmet-async';
-import { Search, Globe, MapPin, ChevronRight, X, Ticket } from 'lucide-react';
+import {
+  Search,
+  Globe,
+  MapPin,
+  ChevronRight,
+  X,
+  Ticket,
+  Shield,
+  Bot,
+  BatteryFull,
+  TreePine,
+  Zap,
+  Plane,
+  Hotel,
+  Car,
+  Lock,
+  Wifi,
+  Package,
+  Briefcase,
+  Backpack,
+  Star,
+  CheckCircle2,
+  Sparkles,
+} from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { SiteHeader } from '@/components/layout/SiteHeader';
@@ -563,17 +586,266 @@ export default function Destinations() {
 
           {/* Destinations Grid - Passport */}
           {activeTab === 'passport' && (
-            <div className="flex flex-col items-center justify-center py-16 text-center">
-              <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mb-6">
-                <Ticket className="w-10 h-10 text-muted-foreground" />
+            <div className="-mx-4 sm:-mx-6 lg:-mx-8">
+              {/* Hero Section */}
+              <div className="relative bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 rounded-2xl overflow-hidden mx-4 sm:mx-6 lg:mx-8 mb-8">
+                <div className="absolute inset-0 pointer-events-none">
+                  <div className="absolute top-0 right-0 w-96 h-96 bg-[#2c7338]/15 rounded-full blur-3xl" />
+                  <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#2c7338]/10 rounded-full blur-3xl" />
+                </div>
+                <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 md:p-12 lg:p-16">
+                  <div className="flex flex-col justify-center">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#2c7338]/20 border border-[#2c7338]/30 mb-6 w-fit">
+                      <Sparkles className="w-4 h-4 text-[#3d9a4d]" />
+                      <span className="text-sm font-medium text-[#3d9a4d]">Limited First Batch — Pre-Book Now</span>
+                    </div>
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
+                      Simfinity{' '}
+                      <span className="bg-gradient-to-r from-[#3d9a4d] to-[#2c7338] bg-clip-text text-transparent">
+                        Passport
+                      </span>
+                    </h2>
+                    <p className="text-lg text-slate-300 leading-relaxed mb-6">
+                      The world's first AI-powered global travel connectivity device. Secure browsing, built-in power bank, and a personal AI concierge — everything you need to travel smarter.
+                    </p>
+                    <div className="flex flex-wrap items-center gap-4 mb-8">
+                      <div className="flex items-center gap-2 text-slate-300 text-sm">
+                        <Globe className="w-4 h-4 text-[#3d9a4d]" />
+                        <span>190+ Countries</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-slate-300 text-sm">
+                        <Zap className="w-4 h-4 text-amber-400" />
+                        <span>5000mAh Battery</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-slate-300 text-sm">
+                        <Shield className="w-4 h-4 text-blue-400" />
+                        <span>DPN Protected</span>
+                      </div>
+                    </div>
+                    <a href="#passport-prebook" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] text-white font-semibold text-lg shadow-lg shadow-[#2c7338]/25 hover:shadow-xl transition-all hover:scale-[1.02] w-fit">
+                      Reserve Your Device
+                      <ChevronRight className="w-5 h-5" />
+                    </a>
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <div className="relative">
+                      <div className="absolute -inset-6 bg-gradient-to-r from-[#2c7338]/20 via-transparent to-[#2c7338]/20 rounded-3xl blur-xl" />
+                      <img
+                        src="/images/passport-device.png"
+                        alt="Simfinity Passport Device"
+                        className="relative w-full max-w-sm rounded-2xl"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
-              <h2 className="text-2xl font-bold text-foreground mb-3">Simfinity Passport</h2>
-              <p className="text-muted-foreground max-w-md mx-auto mb-8">
-                Our exclusive passport plan is coming soon. Stay tuned for seamless global connectivity without boundaries.
-              </p>
-              <Badge variant="outline" className="text-base py-1 px-4 border-dashed border-[#1e5427] text-[#1e5427] bg-[#1e5427]/5">
-                Coming Soon
-              </Badge>
+
+              {/* Why Pre-Book */}
+              <div className="px-4 sm:px-6 lg:px-8 mb-12">
+                <div className="text-center mb-8">
+                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Why Pre-Book?</h3>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">Early users don't follow trends — they lead them. Secure your priority access today.</p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                  {[
+                    { icon: Zap, label: 'Priority Shipping', desc: 'Be first in line' },
+                    { icon: Bot, label: 'Early AI Access', desc: 'AI Concierge priority' },
+                    { icon: Star, label: 'Launch Pricing', desc: 'Exclusive pricing' },
+                    { icon: Sparkles, label: "Founders' Badge", desc: 'Digital collector badge' },
+                    { icon: Shield, label: 'Premium Features', desc: 'First firmware updates' },
+                  ].map((item) => (
+                    <div key={item.label} className="flex flex-col items-center text-center p-5 rounded-xl bg-card border border-border hover:border-[#3d9a4d]/50 transition-colors">
+                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#2c7338] to-[#3d9a4d] flex items-center justify-center mb-3">
+                        <item.icon className="w-6 h-6 text-white" />
+                      </div>
+                      <h4 className="font-semibold text-foreground text-sm mb-1">{item.label}</h4>
+                      <p className="text-xs text-muted-foreground">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Core Features */}
+              <div className="px-4 sm:px-6 lg:px-8 mb-12">
+                <div className="text-center mb-8">
+                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Built for the Modern Traveler</h3>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">One device. Every feature you need across borders.</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Security Card */}
+                  <div className="rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 p-8 border border-blue-100 dark:border-blue-900/30">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mb-5">
+                      <Shield className="w-7 h-7 text-white" />
+                    </div>
+                    <h4 className="text-xl font-bold text-foreground mb-3">Travel Without Fear</h4>
+                    <ul className="space-y-2.5">
+                      {[
+                        'Built-in DPN (Decentralized Private Network)',
+                        'Encrypted browsing on all connections',
+                        'Protection on public WiFi',
+                        'Remote device lock',
+                        'Secure eSIM architecture',
+                      ].map((item) => (
+                        <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
+                          <CheckCircle2 className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* AI Concierge Card */}
+                  <div className="rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 p-8 border border-purple-100 dark:border-purple-900/30">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mb-5">
+                      <Bot className="w-7 h-7 text-white" />
+                    </div>
+                    <h4 className="text-xl font-bold text-foreground mb-3">AI Travel Concierge</h4>
+                    <p className="text-sm text-muted-foreground mb-4">Your personal AI assistant can arrange everything from one ecosystem:</p>
+                    <div className="grid grid-cols-2 gap-2">
+                      {[
+                        { icon: Plane, label: 'Flights' },
+                        { icon: Hotel, label: 'Hotels' },
+                        { icon: Car, label: 'Luxury Cars' },
+                        { icon: Star, label: 'Events' },
+                      ].map((s) => (
+                        <div key={s.label} className="flex items-center gap-2 text-sm text-muted-foreground bg-white/50 dark:bg-white/5 rounded-lg px-3 py-2">
+                          <s.icon className="w-4 h-4 text-purple-500" />
+                          <span>{s.label}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Sustainability Card */}
+                  <div className="rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 p-8 border border-green-100 dark:border-green-900/30">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center mb-5">
+                      <TreePine className="w-7 h-7 text-white" />
+                    </div>
+                    <h4 className="text-xl font-bold text-foreground mb-3">Travel That Gives Back</h4>
+                    <p className="text-sm text-muted-foreground mb-4">Every eSIM activated plants one tree. Your connectivity creates real environmental impact.</p>
+                    <div className="bg-white/60 dark:bg-white/5 rounded-xl p-4 text-center">
+                      <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent mb-1">1 eSIM = 1 Tree</div>
+                      <p className="text-xs text-muted-foreground">Join the movement from day one</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* What's in the Box */}
+              <div className="px-4 sm:px-6 lg:px-8 mb-12">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                  <div>
+                    <img
+                      src="/images/passport-unboxing.png"
+                      alt="What's inside the Simfinity Passport box"
+                      className="w-full rounded-2xl"
+                    />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6">What's Inside the Box</h3>
+                    <div className="space-y-4">
+                      {[
+                        { icon: Package, label: 'Simfinity Passport Device', desc: 'Premium connectivity device with built-in global eSIM support' },
+                        { icon: BatteryFull, label: '5000mAh Power Bank', desc: 'Built-in battery to keep your devices charged on the go' },
+                        { icon: Zap, label: 'Premium Charging Cable', desc: 'High-quality USB-C cable for fast charging' },
+                        { icon: Globe, label: 'Quick-Start Guide', desc: 'Easy setup instructions to get connected in minutes' },
+                        { icon: Lock, label: 'Early Access Activation Code', desc: 'Exclusive code for priority activation and AI concierge access' },
+                      ].map((item) => (
+                        <div key={item.label} className="flex items-start gap-4 p-4 rounded-xl bg-card border border-border">
+                          <div className="w-10 h-10 rounded-lg bg-[#2c7338]/10 flex items-center justify-center flex-shrink-0">
+                            <item.icon className="w-5 h-5 text-[#2c7338]" />
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-foreground">{item.label}</h4>
+                            <p className="text-sm text-muted-foreground">{item.desc}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Who It's For */}
+              <div className="px-4 sm:px-6 lg:px-8 mb-12">
+                <div className="text-center mb-8">
+                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Designed for Global Explorers</h3>
+                  <p className="text-muted-foreground">If you move across borders — this is for you.</p>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                  {[
+                    { icon: Wifi, label: 'Digital Nomads', desc: 'Work from anywhere' },
+                    { icon: Briefcase, label: 'Business Travelers', desc: 'Stay productive' },
+                    { icon: Plane, label: 'Frequent Flyers', desc: 'Always connected' },
+                    { icon: Backpack, label: 'Backpackers', desc: 'Explore freely' },
+                    { icon: Star, label: 'Luxury Travelers', desc: 'Premium experience' },
+                  ].map((persona) => (
+                    <div key={persona.label} className="flex flex-col items-center text-center p-6 rounded-2xl bg-gradient-to-b from-card to-muted/30 border border-border hover:border-[#3d9a4d]/50 transition-all hover:shadow-md">
+                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#2c7338]/10 to-[#3d9a4d]/10 flex items-center justify-center mb-3">
+                        <persona.icon className="w-7 h-7 text-[#2c7338]" />
+                      </div>
+                      <h4 className="font-semibold text-foreground text-sm mb-1">{persona.label}</h4>
+                      <p className="text-xs text-muted-foreground">{persona.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Lifestyle Image Banner */}
+              <div className="px-4 sm:px-6 lg:px-8 mb-12">
+                <div className="relative rounded-2xl overflow-hidden">
+                  <img
+                    src="/images/passport-lifestyle.png"
+                    alt="Travel with Simfinity Passport"
+                    className="w-full h-64 md:h-80 object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/40 to-transparent flex items-center">
+                    <div className="p-8 md:p-12 max-w-lg">
+                      <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">The Future of Travel Is Here</h3>
+                      <p className="text-slate-200 text-sm md:text-base">Before it goes global. Before it sells out. Before everyone has it. You get first access.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Pre-Book CTA */}
+              <div id="passport-prebook" className="px-4 sm:px-6 lg:px-8 mb-8">
+                <div className="rounded-2xl bg-gradient-to-br from-[#2c7338] via-[#1e5427] to-[#194520] p-8 md:p-12 text-center relative overflow-hidden">
+                  <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
+                    <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full blur-3xl" />
+                  </div>
+                  <div className="relative z-10">
+                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">Pre-Book Your Simfinity Passport</h3>
+                    <p className="text-green-100 text-lg mb-2 max-w-2xl mx-auto">
+                      Be first. Travel smarter. Stay protected.
+                    </p>
+                    <p className="text-green-200/70 text-sm mb-8 max-w-xl mx-auto">
+                      The first production run is limited. Pre-booking secures your place in the first wave with priority activation and exclusive early benefits.
+                    </p>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                      <button className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-[#1e5427] font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]">
+                        Reserve Your Device Now
+                        <ChevronRight className="w-5 h-5" />
+                      </button>
+                    </div>
+                    <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-green-100 text-sm">
+                      <div className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4" />
+                        <span>Priority Shipping</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4" />
+                        <span>Exclusive Launch Pricing</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4" />
+                        <span>Founders' Edition Badge</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           )}
         </div>

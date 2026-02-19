@@ -45,6 +45,11 @@ migrations/       - Drizzle database migrations
 - Stripe initialization is conditional (requires STRIPE_SECRET_KEY env var)
 
 ## Recent Changes
+- 2026-02-19: Simfinity Passport product showcase
+  - PassportShowcase: New homepage section (dark bg, product image, 4 feature cards, floating badges, CTA → /destinations?tab=passport)
+  - Destinations passport tab: Full product landing page replacing "Coming Soon" placeholder — hero with device image, Why Pre-Book (5 cards), Core Features (Security/AI Concierge/Sustainability), What's in the Box (5 items with unboxing image), Who It's For (5 persona cards), lifestyle banner, green gradient pre-book CTA
+  - Home.tsx section order: Hero → WhatIsEsim → DestinationsTabs → InstantConnection → **PassportShowcase** → Benefits → HowItWorks → Testimonials → FAQ → DownloadApp → ReferAndEarn → Impact
+  - Generated images: passport-device.png, passport-unboxing.png, passport-lifestyle.png
 - 2026-02-13: New pages and navigation updates
   - AboutUs: Complete rewrite — 8 sections: hero ("Meet the people behind Simfinity"), mission, press logos, 6 values grid, timeline (2023-2025), team quotes (dark bg), life at company cards, green gradient CTA. Removed framer-motion.
   - Reviews: New page at /reviews — hero with star rating, 4 "reasons to buy" cards, 6 customer testimonials, competitor comparison table, CTA

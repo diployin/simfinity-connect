@@ -15,6 +15,7 @@ import { ImpactSection } from '@/components/sections/ImpactSection';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { useUser } from '@/hooks/use-user';
 import { ReferAndEarn } from '@/components/sections/ReferAndEarn';
+import { PassportShowcase } from '@/components/sections/PassportShowcase';
 
 export default function Home() {
   const { t } = useTranslation();
@@ -53,6 +54,7 @@ export default function Home() {
           <WhatIsEsim />
           <DestinationsTabs />
           <InstantConnection />
+          <PassportShowcase />
           <BenefitsSection />
           <HowItWorksSteps />
           <TravelerTestimonials />
