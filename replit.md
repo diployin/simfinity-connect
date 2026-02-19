@@ -45,6 +45,17 @@ migrations/       - Drizzle database migrations
 - Stripe initialization is conditional (requires STRIPE_SECRET_KEY env var)
 
 ## Recent Changes
+- 2026-02-19: New marketing pages and footer link updates
+  - Careers (/careers): Purple gradient hero, 6 perks cards, 8 open positions, CTA
+  - Refer a Friend (/refer-a-friend): Green gradient hero, 3-step how-it-works, FAQ accordion, inspired by saily.com/refer-a-friend
+  - Become an Affiliate (/become-an-affiliate): Blue gradient hero, 6 benefits, 3-step process, "who can join" grid, CTA
+  - Student Discount (/student-discount): Amber gradient hero, 15% discount, 4 use-case cards, 3-step verification, CTA
+  - What is an eSIM (/what-is-esim): Teal gradient hero, how-it-works steps, eSIM vs SIM comparison table, 6 benefits, FAQ
+  - Download App (/download-app): Dark gradient hero, App Store + Google Play links, 4 feature cards, bottom CTA
+  - Security Features (/security-features): Dark gradient hero, 6 security feature cards, protection checklist, CTA
+  - Data Usage Calculator (/data-usage-calculator): Interactive calculator with sliders for 6 activity types, trip duration, recommended plan output, data reference table
+  - All 8 pages added as lazy imports + routes in App.tsx PUBLIC_ROUTES
+  - SiteFooter: All '#' links updated to actual paths (Careers, Refer a Friend, Become an Affiliate, Student Discount, Download App, Security Features, Data Usage Calculator)
 - 2026-02-19: Business page, passport UI improvements, button animations
   - Business: New page at /business inspired by saily.com/esim-for-business — dark hero, 6 feature cards (varied colors), 3-step how-it-works, benefits with stats grid, FAQ accordion, CTA. Route + lazy import added, footer "Business" link updated from # to /business
   - Destinations passport tab: Hidden "Showing 0 Simfinity passport" count text when passport tab active; Why Pre-Book icons now use varied colors (blue/purple/amber/rose/cyan) instead of all-green; fixed SiteFooter import (named → default)
