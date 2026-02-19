@@ -124,10 +124,10 @@ export function NewFooter() {
               {[
                 { label: 'Business', href: '/business' },
                 { label: 'About Us', href: '/about-us' },
-                { label: 'Careers', href: '#' },
-                { label: 'Refer a Friend', href: '/account/referrals' },
-                { label: 'Become an Affiliate', href: '#' },
-                { label: 'Student Discount', href: '#' },
+                { label: 'Careers', href: '/careers' },
+                { label: 'Refer a Friend', href: '/refer-a-friend' },
+                { label: 'Become an Affiliate', href: '/become-an-affiliate' },
+                { label: 'Student Discount', href: '/student-discount' },
               ].map((link) => (
                 <li key={link.label}>
                   <Link href={link.href}>
@@ -144,9 +144,9 @@ export function NewFooter() {
               {[
                 { label: 'What is an eSIM', href: '/what-is-esim' },
                 { label: 'Supported Devices', href: '/supported-devices' },
-                { label: 'Download App', href: '#' },
-                { label: 'Security Features', href: '#' },
-                { label: 'Data Usage Calculator', href: '#' },
+                { label: 'Download App', href: '/download-app' },
+                { label: 'Security Features', href: '/security-features' },
+                { label: 'Data Usage Calculator', href: '/data-usage-calculator' },
                 { label: 'Blog', href: '/blog' },
               ].map((link) => (
                 <li key={link.label}>

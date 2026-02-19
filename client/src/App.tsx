@@ -84,6 +84,14 @@ const PrivacyPolicy = lazy(() => import('@/pages/PrivacyPolicy'));
 const TermsOfService = lazy(() => import('@/pages/TermsOfService'));
 const RefundPolicy = lazy(() => import('@/pages/RefundPolicy'));
 const Business = lazy(() => import('@/pages/Business'));
+const Careers = lazy(() => import('@/pages/Careers'));
+const ReferAFriend = lazy(() => import('@/pages/ReferAFriend'));
+const BecomeAffiliate = lazy(() => import('@/pages/BecomeAffiliate'));
+const StudentDiscount = lazy(() => import('@/pages/StudentDiscount'));
+const WhatIsEsim = lazy(() => import('@/pages/WhatIsEsim'));
+const DownloadApp = lazy(() => import('@/pages/DownloadApp'));
+const SecurityFeatures = lazy(() => import('@/pages/SecurityFeatures'));
+const DataUsageCalculator = lazy(() => import('@/pages/DataUsageCalculator'));
 const Contact = lazy(() => import('@/pages/Contact'));
 const FAQPage = lazy(() => import('@/pages/FAQ'));
 const Blog = lazy(() => import('@/pages/Blog'));
@@ -141,6 +149,14 @@ const PUBLIC_ROUTES = [
   { path: '/gift-cards', component: GiftCards },
   { path: '/about-us', component: AboutUs },
   { path: '/business', component: Business },
+  { path: '/careers', component: Careers },
+  { path: '/refer-a-friend', component: ReferAFriend },
+  { path: '/become-an-affiliate', component: BecomeAffiliate },
+  { path: '/student-discount', component: StudentDiscount },
+  { path: '/what-is-esim', component: WhatIsEsim },
+  { path: '/download-app', component: DownloadApp },
+  { path: '/security-features', component: SecurityFeatures },
+  { path: '/data-usage-calculator', component: DataUsageCalculator },
   { path: '/reviews', component: Reviews },
   { path: '/help-center', component: HelpCenter },
   { path: '/privacy-policy', component: PrivacyPolicy },
