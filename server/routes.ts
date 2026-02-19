@@ -1647,6 +1647,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
           console.log(`[Guest Order] eSIM provisioned successfully for order ${order.id}`);
 
+          // Send confirmation and installation emails
+          try {
+            const confirmationEmail = await generateOrderConfirmationEmail({
+              id: order.id,
+              displayId: order.displayOrderId,
+              customerName: user.name || 'Guest',
+              destination: pkg.countryName || 'Global',
+              dataAmount: pkg.dataAmount,
+              validity: pkg.validityDays,
+              price: totalPrice,
+              iccid: esimDetail?.iccid || null,
+              qrCodeUrl: esimDetail?.qrCodeUrl || null,
+            });
+            if (confirmationEmail) {
+              await sendEmail({
+                to: guestEmail,
+                subject: confirmationEmail.subject,
+                html: confirmationEmail.html,
+              });
+              console.log(`[Guest Order] Confirmation email sent to ${guestEmail}`);
+            }
+            const installationEmail = generateInstallationEmail({
+              qrCode: esimDetail?.qrCode,
+              lpaCode: esimDetail?.lpaCode || esimDetail?.qrCode,
+            });
+            if (installationEmail) {
+              await sendEmail({
+                to: guestEmail,
+                subject: installationEmail.subject,
+                html: installationEmail.html,
+              });
+              console.log(`[Guest Order] Installation email sent to ${guestEmail}`);
+            }
+          } catch (emailError: any) {
+            console.error(`[Guest Order] Failed to send emails:`, emailError.message);
+          }
+
           // Award referral credits to referrer if applicable
           const orderAmount = parseFloat(totalPrice);
           await awardReferralCredits(user.id, order.id, orderAmount);

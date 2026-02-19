@@ -14,6 +14,7 @@ import { DownloadApp } from '@/components/sections/DownloadApp';
 import { ImpactSection } from '@/components/sections/ImpactSection';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { useUser } from '@/hooks/use-user';
+import { ReferAndEarn } from '@/components/sections/ReferAndEarn';
 
 export default function Home() {
   const { t } = useTranslation();
@@ -57,6 +58,7 @@ export default function Home() {
           <TravelerTestimonials />
           <FAQWithSupport />
           <DownloadApp />
+          <ReferAndEarn />
           <ImpactSection />
         </main>
 

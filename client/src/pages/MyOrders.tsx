@@ -523,7 +523,7 @@ export default function MyOrders() {
               <TabsTrigger value="details" data-testid="tab-details">Details</TabsTrigger>
               <TabsTrigger value="installation" data-testid="tab-installation">Installation</TabsTrigger>
               <TabsTrigger value="usage" data-testid="tab-usage">Usage</TabsTrigger>
-              <TabsTrigger value="topups" data-testid="tab-topups">Top-Ups</TabsTrigger>
+              {/* <TabsTrigger value="topups" data-testid="tab-topups">Top-Ups</TabsTrigger> */}
             </TabsList>
 
             {/* Details Tab */}
