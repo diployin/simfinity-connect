@@ -233,8 +233,8 @@ export async function getEsimAccessUsageData(
   secretKey: string
 ): Promise<ProviderUsageData> {
   try {
-
     const esimTranNoList = [iccid];
+
     const response = await makeEsimAccessRequest<EsimAccessQueryResponse>(
       '/api/v1/open/esim/usage/query',
       'POST',
@@ -243,21 +243,36 @@ export async function getEsimAccessUsageData(
       secretKey
     );
 
-    const obj = response.obj;
-    console.log('Provider response for usage data:', JSON.stringify(obj, null, 2));
-    const percentageUsed = obj.dataTotal > 0 ? (obj.dataUsed / obj.dataTotal) * 100 : 0;
+    const usage = response.obj?.esimUsageList?.[0];
+
+    if (!usage) {
+      throw new Error('No usage data returned from provider');
+    }
+
+    // Provider gives BYTES
+    const BYTES_IN_MB = 1024 * 1024;
+
+    const dataUsedMB = Math.round((usage.dataUsage ?? 0) / BYTES_IN_MB);
+    const dataTotalMB = Math.round((usage.totalData ?? 0) / BYTES_IN_MB);
+    const dataRemainingMB = Math.max(dataTotalMB - dataUsedMB, 0);
+
+    const percentageUsed =
+      dataTotalMB > 0 ? (dataUsedMB / dataTotalMB) * 100 : 0;
 
     return {
-      iccid: obj.iccid,
-      dataUsed: obj.dataUsed,
-      dataTotal: obj.dataTotal,
-      dataRemaining: obj.remainingData,
+      iccid: usage.esimTranNo,
+      dataUsed: dataUsedMB,       // MB
+      dataTotal: dataTotalMB,     // MB
+      dataRemaining: dataRemainingMB, // MB
       percentageUsed: Math.round(percentageUsed * 100) / 100,
-      expiresAt: obj.expiryDate ? new Date(obj.expiryDate) : undefined,
-      status: obj.status === 'INSTALLED' && obj.status === 'IN_USE' ? 'active' : 'inactive',
+      expiresAt: undefined, // not provided by API
+      status: dataUsedMB < dataTotalMB ? 'active' : 'inactive',
     };
   } catch (error) {
-    throw new Error(`Failed to get usage data: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw new Error(
+      `Failed to get usage data: ${error instanceof Error ? error.message : 'Unknown error'
+      }`
+    );
   }
 }
 

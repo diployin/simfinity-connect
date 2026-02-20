@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useDebounce } from '@/hooks/use-debounce';
 import { Search, Download, Filter, ChevronLeft, ChevronRight, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -33,115 +34,126 @@ const statusStyles: Record<string, string> = {
 export default function AdminTopupsPage() {
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
+  const debouncedSearch = useDebounce(searchQuery, 500);
   const [statusFilter, setStatusFilter] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
   const { toast } = useToast();
 
-  const { data: topups, isLoading } = useQuery<any[]>({
-    queryKey: ['/api/topups'],
+  const { data, isLoading } = useQuery({
+    queryKey: ['/api/admin/topups', currentPage, itemsPerPage, debouncedSearch, statusFilter],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      params.append('page', currentPage.toString());
+      params.append('limit', itemsPerPage.toString());
+      if (debouncedSearch) params.append('search', debouncedSearch);
+      if (statusFilter && statusFilter !== 'all') params.append('status', statusFilter);
+
+      const res = await fetch(`/api/admin/topups?${params.toString()}`);
+      if (!res.ok) throw new Error('Failed to fetch topups');
+      return res.json();
+    },
+    keepPreviousData: true,
   });
+
+  const topups = data?.topups || [];
+  const pagination = data?.pagination || { page: 1, limit: 10, total: 0, totalPages: 1 };
+  const stats = data?.stats || { totalRevenue: 0, totalCost: 0, totalProfit: 0 };
 
   // CSV Export Function
-  const exportToCSV = () => {
-    if (!topups || topups.length === 0) {
+  const exportToCSV = async () => {
+    try {
+      const params = new URLSearchParams();
+      params.append('limit', '10000'); // Fetch large batch for export
+      if (debouncedSearch) params.append('search', debouncedSearch);
+      if (statusFilter && statusFilter !== 'all') params.append('status', statusFilter);
+
+      const res = await fetch(`/api/admin/topups?${params.toString()}`);
+      if (!res.ok) throw new Error('Failed to fetch export data');
+
+      const exportData = await res.json();
+      const exportTopups = exportData.topups || [];
+
+      if (exportTopups.length === 0) {
+        toast({
+          title: t('admin.topups.noData', 'No Data'),
+          description: t('admin.topups.noTopupsToExport', 'There are no top-ups to export.'),
+          variant: 'destructive',
+        });
+        return;
+      }
+
+      const headers = [
+        t('admin.topups.topupId', 'Topup ID'),
+        t('admin.topups.customerEmail', 'Customer Email'),
+        t('admin.topups.iccid', 'ICCID'),
+        t('admin.topups.package', 'Package'),
+        t('admin.topups.dataAmount', 'Data Amount'),
+        t('admin.topups.validityDays', 'Validity (Days)'),
+        t('admin.topups.customerPrice', 'Customer Price'),
+        t('admin.topups.airalosCost', 'Airalo Cost'),
+        t('admin.topups.marginPercent', 'Margin (%)'),
+        t('admin.topups.profit', 'Profit'),
+        t('admin.topups.status', 'Status'),
+        t('admin.topups.date', 'Date'),
+      ];
+
+      const rows = exportTopups.map((topup: any) => {
+        const customerPrice = parseFloat(topup.customerPrice || '0');
+        const airaloPrice = parseFloat(topup.airaloPrice || '0');
+        const profit = (customerPrice - airaloPrice).toFixed(2);
+        const margin = topup.margin || '40';
+
+        return [
+          topup.displayTopupId || topup.id,
+          topup.user?.email || 'N/A',
+          topup.iccid || 'N/A',
+          topup.package?.title || `${topup.dataAmount} - ${topup.validity} Days`,
+          topup.dataAmount || 'N/A',
+          topup.validity || 'N/A',
+          `$${topup.customerPrice}`,
+          `$${topup.airaloPrice}`,
+          `${margin}%`,
+          `$${profit}`,
+          topup.status,
+          new Date(topup.createdAt).toLocaleString(),
+        ];
+      });
+
+      const csvContent = [
+        headers.join(','),
+        ...rows.map((row: any[]) => row.map((cell) => `"${cell}"`).join(',')),
+      ].join('\n');
+
+      const blob = new Blob([csvContent], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `topups-export-${new Date().toISOString().split('T')[0]}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+
       toast({
-        title: t('admin.topups.noData', 'No Data'),
-        description: t('admin.topups.noTopupsToExport', 'There are no top-ups to export.'),
+        title: t('admin.topups.exportSuccessful', 'Export Successful'),
+        description: t(
+          'admin.topups.topupsExportedToCSV',
+          `${exportTopups.length} top-ups exported to CSV`,
+        ),
+      });
+    } catch (error) {
+      toast({
+        title: t('admin.topups.exportFailed', 'Export Failed'),
+        description: t('admin.topups.failedToExport', 'Failed to export top-ups.'),
         variant: 'destructive',
       });
-      return;
     }
-
-    const headers = [
-      t('admin.topups.topupId', 'Topup ID'),
-      t('admin.topups.customerEmail', 'Customer Email'),
-      t('admin.topups.iccid', 'ICCID'),
-      t('admin.topups.package', 'Package'),
-      t('admin.topups.dataAmount', 'Data Amount'),
-      t('admin.topups.validityDays', 'Validity (Days)'),
-      t('admin.topups.customerPrice', 'Customer Price'),
-      t('admin.topups.airalosCost', 'Airalo Cost'),
-      t('admin.topups.marginPercent', 'Margin (%)'),
-      t('admin.topups.profit', 'Profit'),
-      t('admin.topups.status', 'Status'),
-      t('admin.topups.date', 'Date'),
-    ];
-
-    const rows = filteredTopups?.map((topup) => {
-      const customerPrice = parseFloat(topup.customerPrice || '0');
-      const airaloPrice = parseFloat(topup.airaloPrice || '0');
-      const profit = (customerPrice - airaloPrice).toFixed(2);
-      const margin = topup.margin || '40';
-
-      return [
-        topup.displayTopupId || topup.id,
-        topup.user?.email || 'N/A',
-        topup.iccid || 'N/A',
-        topup.package?.title || `${topup.dataAmount} - ${topup.validity} Days`,
-        topup.dataAmount || 'N/A',
-        topup.validity || 'N/A',
-        `$${topup.customerPrice}`,
-        `$${topup.airaloPrice}`,
-        `${margin}%`,
-        `$${profit}`,
-        topup.status,
-        new Date(topup.createdAt).toLocaleString(),
-      ];
-    });
-
-    const csvContent = [
-      headers.join(','),
-      ...(rows || []).map((row) => row.map((cell) => `"${cell}"`).join(',')),
-    ].join('\n');
-
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `topups-export-${new Date().toISOString().split('T')[0]}.csv`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-
-    toast({
-      title: t('admin.topups.exportSuccessful', 'Export Successful'),
-      description: t(
-        'admin.topups.topupsExportedToCSV',
-        `${filteredTopups?.length} top-ups exported to CSV`,
-      ),
-    });
   };
 
-  // Filter topups
-  const filteredTopups = topups?.filter((topup) => {
-    const matchesSearch =
-      topup.user?.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      false ||
-      topup.iccid?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      false ||
-      topup.displayTopupId?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      false;
-
-    const matchesStatus = statusFilter === 'all' || topup.status === statusFilter;
-
-    return matchesSearch && matchesStatus;
-  });
-
-  // Pagination
-  const totalPages = Math.ceil((filteredTopups?.length || 0) / itemsPerPage);
-  const paginatedTopups = filteredTopups?.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage,
-  );
-
-  // Calculate totals
-  const totalRevenue =
-    filteredTopups?.reduce((sum, topup) => sum + parseFloat(topup.customerPrice || '0'), 0) || 0;
-  const totalCost =
-    filteredTopups?.reduce((sum, topup) => sum + parseFloat(topup.airaloPrice || '0'), 0) || 0;
-  const totalProfit = totalRevenue - totalCost;
+  const totalRevenue = stats.totalRevenue || 0;
+  const totalCost = stats.totalCost || 0;
+  const totalProfit = stats.totalProfit || 0;
 
   return (
     <div className="space-y-6 p-6" data-testid="page-admin-topups">
@@ -177,7 +189,7 @@ export default function AdminTopupsPage() {
                 className="text-2xl font-bold text-slate-900 dark:text-white mt-1"
                 data-testid="text-total-topups"
               >
-                {filteredTopups?.length || 0}
+                {pagination.total}
               </p>
             </div>
             <Plus className="h-8 w-8 text-[#1e5427] opacity-75" />
@@ -312,7 +324,7 @@ export default function AdminTopupsPage() {
                     </div>
                   </TableCell>
                 </TableRow>
-              ) : !paginatedTopups || paginatedTopups.length === 0 ? (
+              ) : !topups || topups.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={10} className="h-64 text-center">
                     <div className="flex flex-col items-center justify-center gap-2">
@@ -331,7 +343,7 @@ export default function AdminTopupsPage() {
                   </TableCell>
                 </TableRow>
               ) : (
-                paginatedTopups.map((topup) => {
+                topups.map((topup: any) => {
                   const customerPrice = parseFloat(topup.customerPrice || '0');
                   const airaloPrice = parseFloat(topup.airaloPrice || '0');
                   const profit = (customerPrice - airaloPrice).toFixed(2);
@@ -400,13 +412,13 @@ export default function AdminTopupsPage() {
         </div>
 
         {/* Pagination */}
-        {filteredTopups && filteredTopups.length > itemsPerPage && (
+        {pagination.total > itemsPerPage && (
           <div className="flex items-center justify-between border-t border-slate-200 dark:border-slate-800 px-6 py-4">
             <div className="text-sm text-slate-600 dark:text-slate-400">
               {t('admin.topups.showing', 'Showing')} {(currentPage - 1) * itemsPerPage + 1}{' '}
               {t('admin.topups.to', 'to')}{' '}
-              {Math.min(currentPage * itemsPerPage, filteredTopups.length)}{' '}
-              {t('admin.topups.of', 'of')} {filteredTopups.length}{' '}
+              {Math.min(currentPage * itemsPerPage, pagination.total)}{' '}
+              {t('admin.topups.of', 'of')} {pagination.total}{' '}
               {t('admin.topups.topups', 'top-ups')}
             </div>
             <div className="flex items-center gap-2">
@@ -420,8 +432,18 @@ export default function AdminTopupsPage() {
                 <ChevronLeft className="h-4 w-4" />
               </Button>
               <div className="flex items-center gap-1">
-                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                  const pageNum = i + 1;
+                {Array.from({ length: Math.min(5, pagination.totalPages) }, (_, i) => {
+                  let pageNum;
+                  if (pagination.totalPages <= 5) {
+                    pageNum = i + 1;
+                  } else if (currentPage <= 3) {
+                    pageNum = i + 1;
+                  } else if (currentPage >= pagination.totalPages - 2) {
+                    pageNum = pagination.totalPages - 4 + i;
+                  } else {
+                    pageNum = currentPage - 2 + i;
+                  }
+
                   return (
                     <Button
                       key={pageNum}
@@ -439,8 +461,8 @@ export default function AdminTopupsPage() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                disabled={currentPage >= totalPages}
+                onClick={() => setCurrentPage((p) => Math.min(pagination.totalPages, p + 1))}
+                disabled={currentPage >= pagination.totalPages}
                 data-testid="button-next-page"
               >
                 <ChevronRight className="h-4 w-4" />
