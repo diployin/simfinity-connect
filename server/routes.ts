@@ -2679,7 +2679,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         body,
       );
 
-      console.log("CHEKKKKKKKKKK verification responseee", verifyResponse)
+      console.log("CHEKKKKKKKKKK verification responseee", verifyResponse.data)
       const verification = verifyResponse.data;
 
       if (!verification.success) {
@@ -2707,6 +2707,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const metadata = verification.metadata;
       console.log('CHEKCKK metadata', metadata);
 
+      const ZERO_DECIMAL_CURRENCIES = ['JPY', 'KRW', 'VND'];
+
+      function normalizePaymentAmount(
+        amount: number,
+        currency: string,
+        provider: 'stripe' | 'razorpay' | 'paypal' | 'paystack',
+      ): number {
+        const cur = currency.toUpperCase();
+
+        // Stripe & PayPal already return decimal amounts
+        if (provider === 'stripe' || provider === 'paypal') {
+          return amount;
+        }
+
+        // Razorpay & Paystack return smallest units
+        if (provider === 'razorpay' || provider === 'paystack') {
+          if (ZERO_DECIMAL_CURRENCIES.includes(cur)) {
+            return amount;
+          }
+          return amount / 100;
+        }
+
+        return amount;
+      }
+
       if (metadata.type === 'package_purchase') {
         const packageId = metadata.packageId;
         const quantity = parseInt(metadata.quantity);
@@ -2731,30 +2756,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           });
         }
 
-        const ZERO_DECIMAL_CURRENCIES = ['JPY', 'KRW', 'VND'];
 
-        function normalizePaymentAmount(
-          amount: number,
-          currency: string,
-          provider: 'stripe' | 'razorpay' | 'paypal' | 'paystack',
-        ): number {
-          const cur = currency.toUpperCase();
-
-          // Stripe & PayPal already return decimal amounts
-          if (provider === 'stripe' || provider === 'paypal') {
-            return amount;
-          }
-
-          // Razorpay & Paystack return smallest units
-          if (provider === 'razorpay' || provider === 'paystack') {
-            if (ZERO_DECIMAL_CURRENCIES.includes(cur)) {
-              return amount;
-            }
-            return amount / 100;
-          }
-
-          return amount;
-        }
 
         const paidCurrency = verification.currency.toUpperCase();
 
@@ -3064,11 +3066,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
           iccid,
           airaloTopupId: providerResponse.providerOrderId || providerResponse.requestId || "N/A",
           status: 'completed',
-          price: (metadata.amount ? (Number(metadata.amount) / 100).toString() : "0"), // Amount from Stripe metadata is in cents usually? No, verifyResponse.amount is normalized.
-          // Wait, verifyResponse.amount is already normalized.
-          // But I should use what we charged.
-          // metadata from Stripe usually contains strings. 
-          // Let's use the calculated price if possible or fallback.
+          price: normalizePaymentAmount(
+            verification.amount,
+            verification.currency.toUpperCase(),
+            verification.provider
+          ).toString(),
 
           airaloPrice: airaloPrice,
           currency: 'USD',
@@ -8111,8 +8113,19 @@ ${urls
   // Get top-ups list (Admin only)
   app.get('/api/admin/topups', requireAdmin, async (req: Request, res: Response) => {
     try {
-      const topups = await storage.getTopups();
-      res.json({ topups });
+      const { page, limit, search, status } = req.query;
+      const result = await storage.getTopups({
+        page: page ? parseInt(page as string) : 1,
+        limit: limit ? parseInt(limit as string) : 10,
+        search: search as string,
+        status: status as string,
+      });
+
+      res.json({
+        topups: result.data,
+        pagination: result.pagination,
+        stats: result.stats
+      });
     } catch (error: any) {
       console.error('Error fetching top-ups:', error);
       res.status(500).json({ success: false, message: error.message });

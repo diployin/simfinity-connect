@@ -92,7 +92,7 @@ export interface IStorage {
 
   // Topups
   createTopup(topup: InsertTopup): Promise<Topup>;
-  getTopups(): Promise<Topup[]>;
+  getTopups(filters?: { page?: number; limit?: number; search?: string; status?: string }): Promise<{ data: Topup[]; pagination: { page: number; limit: number; total: number; totalPages: number } }>;
   getTopupsByUser(userId: string): Promise<Topup[]>;
 
   // Tickets
@@ -1220,15 +1220,77 @@ export class DatabaseStorage implements IStorage {
     };
   }
 
-  async getTopups() {
-    return await db.query.topups.findMany({
+  async getTopups(filters: {
+    page?: number;
+    limit?: number;
+    search?: string;
+    status?: string;
+  } = {}) {
+    const page = filters.page || 1;
+    const limit = filters.limit || 50;
+    const offset = (page - 1) * limit;
+
+    const conditions = [];
+
+    if (filters.status && filters.status !== 'all') {
+      conditions.push(eq(topups.status, filters.status));
+    }
+
+    if (filters.search) {
+      // Find users matching email
+      const matchingUsers = await db.select({ id: users.id }).from(users).where(ilike(users.email, `%${filters.search}%`));
+      const userIds = matchingUsers.map(u => u.id);
+
+      const searchConditions = [
+        ilike(topups.iccid, `%${filters.search}%`),
+        ...(!isNaN(Number(filters.search)) ? [eq(topups.displayTopupId, Number(filters.search))] : []),
+        ...(userIds.length > 0 ? [inArray(topups.userId, userIds)] : [])
+      ];
+
+      conditions.push(or(...searchConditions));
+    }
+
+    const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+
+    const data = await db.query.topups.findMany({
+      where: whereClause,
       with: {
         order: true,
         user: true,
         package: true,
       },
       orderBy: (topups, { desc }) => [desc(topups.createdAt)],
+      limit: limit,
+      offset: offset,
     });
+
+    const statsResult = await db.select({
+      count: sql<number>`count(*)`,
+      totalRevenue: sql<string>`sum(price)`,
+      totalCost: sql<string>`sum(airalo_price)`
+    })
+      .from(topups)
+      .where(whereClause);
+
+    const statsRow = statsResult[0] || { count: 0, totalRevenue: '0', totalCost: '0' };
+    const total = Number(statsRow.count);
+    const totalRevenue = parseFloat(statsRow.totalRevenue || '0');
+    const totalCost = parseFloat(statsRow.totalCost || '0');
+
+    return {
+      data,
+      pagination: {
+        page,
+        limit,
+        total,
+        totalPages: Math.ceil(total / limit)
+      },
+      stats: {
+        totalRevenue,
+        totalCost,
+        totalProfit: totalRevenue - totalCost
+      }
+    };
   }
 
   async getTopupsByUser(userId: string) {
