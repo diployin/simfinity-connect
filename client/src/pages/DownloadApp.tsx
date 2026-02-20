@@ -38,8 +38,8 @@ export default function DownloadApp() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
-                  <Download className="w-4 h-4 text-primary-light" />
-                  <span className="text-sm font-medium text-primary-light">Download App</span>
+                  <Download className="w-4 h-4 text-white" />
+                  <span className="text-sm font-medium text-white">Download App</span>
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
                   Get the {siteName}{' '}
@@ -78,7 +78,7 @@ export default function DownloadApp() {
               <div className="flex justify-center">
                 <div className="relative">
                   <div className="w-64 h-96 bg-white/5 backdrop-blur-sm border border-white/10 rounded-[2.5rem] flex items-center justify-center">
-                    <Smartphone className="w-20 h-20 text-primary-light" />
+                    <Smartphone className="w-20 h-20 text-white" />
                   </div>
                 </div>
               </div>

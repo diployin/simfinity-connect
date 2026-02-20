@@ -71,15 +71,15 @@ export default function WhatIsEsim() {
               <div className="flex justify-center">
                 <div className="relative">
                   <div className="w-64 h-64 md:w-72 md:h-72 bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl flex items-center justify-center">
-                    <Smartphone className="w-24 h-24 text-primary-light" />
+                    <Smartphone className="w-24 h-24 text-white" />
                   </div>
                   <div className="absolute -top-4 -right-4 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-xl px-4 py-2 flex items-center gap-2">
-                    <Wifi className="w-4 h-4 text-primary-light" />
-                    <span className="text-sm font-medium text-primary-light">Connected</span>
+                    <Wifi className="w-4 h-4 text-white" />
+                    <span className="text-sm font-medium text-white">Connected</span>
                   </div>
                   <div className="absolute -bottom-4 -left-4 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-xl px-4 py-2 flex items-center gap-2">
-                    <Globe2 className="w-4 h-4 text-primary-light" />
-                    <span className="text-sm font-medium text-primary-light">200+ countries</span>
+                    <Globe2 className="w-4 h-4 text-white" />
+                    <span className="text-sm font-medium text-white">200+ countries</span>
                   </div>
                 </div>
               </div>

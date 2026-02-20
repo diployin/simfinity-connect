@@ -200,7 +200,7 @@ export default function CompatibleDevices() {
         )}
 
         {/* Footer */}
-        <Card className="mt-12 bg-primary/5 border-primary/20">
+        <Card className="my-12 bg-primary/5 border-primary/20">
           <CardContent className="pt-6 text-center text-sm">
             {t(
               'website.compatibleDevices.notListed',
