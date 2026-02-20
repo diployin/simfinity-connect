@@ -53,8 +53,8 @@ export default function SecurityFeatures() {
           </div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
-              <Shield className="w-4 h-4 text-primary-light" />
-              <span className="text-sm font-medium text-primary-light">Security First</span>
+              <Shield className="w-4 h-4 text-white" />
+              <span className="text-sm font-medium text-white">Security First</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
               Travel safely with{' '}

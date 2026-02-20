@@ -33,8 +33,8 @@ export default function StudentDiscount() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
-                  <GraduationCap className="w-4 h-4 text-primary-light" />
-                  <span className="text-sm font-medium text-primary-light">Student Program</span>
+                  <GraduationCap className="w-4 h-4 text-white" />
+                  <span className="text-sm font-medium text-white">Student Program</span>
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
                   <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">15% off</span>{' '}
