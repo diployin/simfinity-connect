@@ -1045,9 +1045,113 @@ router.post('/powertranz/confirm', optionalAuth, async (req, res) => {
   }
 });
 
+/*
+  ──────────────────────────────────────────────────────────────────────────────
+  GET /api/payments/topup/paystack-callback
+  ──────────────────────────────────────────────────────────────────────────────
+  Paystack redirects the user here after payment (callback_url we set in init).
+  We verify the payment, call the confirm-payment logic, then return a small HTML
+  page that:
+    1. Calls window.SimfinityAndroid.onPaymentSuccess() (Android JS interface)
+    2. window.ReactNativeWebView.postMessage()           (React Native)
+    3. postMessage to parent                             (Flutter WebView)
+    4. Redirects to deep-link scheme                    (e.g. simfinity://payment-success)
+  ──────────────────────────────────────────────────────────────────────────────
+*/
+router.get('/topup/paystack-callback', async (req, res) => {
+  const { reference, iccid, orderId, topupId, packageId, callbackScheme = 'simfinity' } = req.query as Record<string, string>;
+
+  const sendHtml = (success: boolean, message: string, extra: Record<string, string> = {}) => {
+    const payload = JSON.stringify({ eventType: success ? 'success' : 'failure', iccid, orderId, topupId, message, ...extra });
+    const deepLink = success
+      ? `${callbackScheme}://payment-success?iccid=${encodeURIComponent(iccid)}&orderId=${encodeURIComponent(orderId)}&topupId=${encodeURIComponent(topupId)}&message=${encodeURIComponent(message)}`
+      : `${callbackScheme}://payment-failed?message=${encodeURIComponent(message)}`;
+
+    res.setHeader('Content-Type', 'text/html');
+    res.send(`<!DOCTYPE html><html><head><meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>${success ? 'Payment Successful' : 'Payment Failed'}</title>
+      <style>
+        body{margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+          min-height:100vh;font-family:system-ui,sans-serif;
+          background:${success ? 'linear-gradient(135deg,#0f4c3a,#1e293b)' : 'linear-gradient(135deg,#4c0f0f,#1e293b)'};
+          color:white;text-align:center;padding:24px;box-sizing:border-box;}
+        .icon{font-size:64px;margin-bottom:16px;}
+        h2{font-size:22px;font-weight:700;margin:0 0 8px;}
+        p{font-size:14px;opacity:.75;margin:0 0 24px;}
+        button{padding:12px 28px;border-radius:12px;border:none;cursor:pointer;
+          background:${success ? '#10b981' : '#ef4444'};color:white;font-size:15px;font-weight:600;}
+      </style>
+    </head><body>
+      <div class="icon">${success ? '✅' : '❌'}</div>
+      <h2>${success ? 'Top-Up Successful!' : 'Payment Failed'}</h2>
+      <p>${message}</p>
+      <button onclick="closeWindow()">Close</button>
+      <script>
+        var PAYLOAD = ${payload};
+        function closeWindow() {
+          try { window.SimfinityAndroid && window.SimfinityAndroid.onPaymentSuccess(JSON.stringify(PAYLOAD)); } catch(e){}
+          try { window.ReactNativeWebView && window.ReactNativeWebView.postMessage(JSON.stringify(PAYLOAD)); } catch(e){}
+          try { window.parent && window.parent.postMessage(JSON.stringify(PAYLOAD), '*'); } catch(e){}
+          try { window.top && window.top.postMessage(JSON.stringify(PAYLOAD), '*'); } catch(e){}
+          try { window.location.href = '${deepLink}'; } catch(e){}
+        }
+        // Auto-trigger after 2s
+        setTimeout(closeWindow, 2000);
+        // Immediate try
+        try {
+          if(window.SimfinityAndroid) { ${success
+        ? 'window.SimfinityAndroid.onPaymentSuccess(JSON.stringify(PAYLOAD));'
+        : 'window.SimfinityAndroid.onPaymentFailure(JSON.stringify(PAYLOAD));'
+      } }
+          if(window.ReactNativeWebView) { window.ReactNativeWebView.postMessage(JSON.stringify(PAYLOAD)); }
+          if(window.parent) { window.parent.postMessage(JSON.stringify(PAYLOAD), '*'); }
+        } catch(e){}
+      <\/script>
+    </body></html>`);
+  };
+
+  try {
+    if (!reference) return sendHtml(false, 'Missing Paystack reference');
+
+    // ── Fetch the active Paystack gateway ───────────────────────────────────
+    const { paymentGateways } = await import('@shared/schema');
+    const { eq } = await import('drizzle-orm');
+    const { db } = await import('server/db');
+    const [gateway] = await db.select().from(paymentGateways).where(eq(paymentGateways.provider, 'paystack'));
+    if (!gateway || !gateway.isEnabled) return sendHtml(false, 'Paystack gateway not configured');
+
+    // ── Verify the transaction with Paystack ────────────────────────────────
+    const verifyPaystack = (await import('server/helpers/payments/verify/paystack')).default;
+    const verification = await verifyPaystack({ paystack: { reference } }, gateway);
+    if (!verification.success) return sendHtml(false, verification.message || 'Paystack payment not verified');
+
+    // ── Call /api/confirm-payment internally ────────────────────────────────
+    const axios = (await import('axios')).default;
+    const BASE = process.env.BASE_URL || `http://localhost:${process.env.PORT || 5000}`;
+    const confirmRes = await axios.post(`${BASE}/api/confirm-payment`, {
+      providerType: 'paystack',
+      orderId: reference,  // confirm-payment uses orderId as the reference for paystack
+    });
+
+    const confirmData = confirmRes.data;
+    if (!confirmData?.success) {
+      return sendHtml(false, confirmData?.message || 'Confirmation failed after payment');
+    }
+
+    return sendHtml(true, 'Your eSIM has been topped up successfully!', {
+      topupRecordId: String(confirmData?.topup?.id || ''),
+    });
+
+  } catch (err: any) {
+    console.error('[Paystack Callback Error]', err.message);
+    return sendHtml(false, err.message || 'An unexpected error occurred');
+  }
+});
+
 router.post('/topup/init', optionalAuth, async (req, res) => {
   try {
-    const { gatewayId, packageId, iccid, orderId, currency = 'USD', email, name, phone, topupId } = req.body;
+    const { gatewayId, packageId, iccid, orderId, currency = 'USD', email, name, phone, topupId, callbackUrl } = req.body;
 
     /* ---------------- Validation ---------------- */
     if (!gatewayId || !packageId || !iccid || !orderId) {
@@ -1252,10 +1356,15 @@ router.post('/topup/init', optionalAuth, async (req, res) => {
           email,
           amount: totalAmount,
           currency,
+          // Pass the mobile callback URL when the request comes from Android WebView
+          callbackUrl: callbackUrl || undefined,
           metadata: {
             type: 'topup',
             packageId,
             iccid,
+            orderId,
+            topupId: topupId || packageId,
+            userId: req.userId?.toString(),
           },
         });
 
