@@ -429,7 +429,7 @@ export default function Settings() {
       <Tabs defaultValue="general" className="w-full">
         <div className="relative">
           <div className="flex overflow-x-auto pb-2 scrollbar-hide">
-            <TabsList className="flex w-full min-w-max gap-1 p-1 lg:w-auto lg:grid lg:grid-cols-6">
+            <TabsList className="flex w-full min-w-max gap-1 p-1 lg:w-auto lg:grid lg:grid-cols-7">
               <TabsTrigger
                 value="general"
                 className="gap-2 whitespace-nowrap"
@@ -440,7 +440,7 @@ export default function Settings() {
               </TabsTrigger>
               <TabsTrigger
                 value="currency"
-                className="gap-2 whitespace-nowrap"
+                className="gap-1 whitespace-nowrap"
                 data-testid="tab-currency"
               >
                 <DollarSign className="h-4 w-4 shrink-0" />
@@ -455,7 +455,7 @@ export default function Settings() {
                 <span className="hidden sm:inline">Payment</span>
                 <span className="sm:hidden">Pay</span>
               </TabsTrigger> */}
-              <TabsTrigger value="smtp" className="gap-2 whitespace-nowrap" data-testid="tab-smtp">
+              <TabsTrigger value="smtp" className="gap-1 whitespace-nowrap" data-testid="tab-smtp">
                 <Mail className="h-4 w-4 shrink-0" />
                 {t('admin.settings.smtpTab', 'SMTP')}
               </TabsTrigger>
@@ -470,7 +470,7 @@ export default function Settings() {
               </TabsTrigger>
               <TabsTrigger
                 value="social-media"
-                className="gap-2 whitespace-nowrap"
+                className="gap-1 whitespace-nowrap"
                 data-testid="social-media"
               >
                 <Palette className="h-4 w-4 shrink-0" />
@@ -479,7 +479,7 @@ export default function Settings() {
               </TabsTrigger>
               <TabsTrigger
                 value="account"
-                className="gap-2 whitespace-nowrap"
+                className="gap-1 whitespace-nowrap"
                 data-testid="tab-account"
               >
                 <User className="h-4 w-4 shrink-0" />
@@ -488,7 +488,7 @@ export default function Settings() {
               </TabsTrigger>
               <TabsTrigger
                 value="popup"
-                className="gap-2 whitespace-nowrap"
+                className="gap-1 whitespace-nowrap"
                 data-testid="tab-popup"
               >
                 <ImageIcon className="h-4 w-4 shrink-0" />

@@ -23,6 +23,8 @@ import {
   Gift,
   Users,
   Coins,
+  Wallet,
+  CircleDollarSign,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -1000,17 +1002,43 @@ export default function UnifiedCheckout() {
                         {!isFreeOrder && gateways.length > 0 && (
                           <div className="space-y-4">
                             <h3 className="font-semibold text-foreground">Select Payment Method</h3>
-                            {gateways.map((gateway) => (
-                              <Button
-                                key={gateway.id}
-                                type="button"
-                                variant={selectedGateway?.id === gateway.id ? 'default' : 'outline'}
-                                className="w-full justify-start"
-                                onClick={() => setSelectedGateway(gateway)}
-                              >
-                                {gateway.provider.toUpperCase()}
-                              </Button>
-                            ))}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                              {gateways.map((gateway) => {
+                                const isSelected = selectedGateway?.id === gateway.id;
+                                const providerName = gateway.provider.toLowerCase();
+                                return (
+                                  <div
+                                    key={gateway.id}
+                                    onClick={() => setSelectedGateway(gateway)}
+                                    className={`
+                                      relative p-4 rounded-xl border-2 cursor-pointer transition-all duration-200
+                                      flex flex-col items-center justify-center gap-3 text-center
+                                      ${isSelected 
+                                        ? 'border-[#2c7338] bg-green-50/50 dark:bg-[#2c7338]/10 shadow-sm' 
+                                        : 'border-border hover:border-muted-foreground/30 hover:bg-muted/30'}
+                                    `}
+                                  >
+                                    {isSelected && (
+                                      <div className="absolute top-2 right-2">
+                                        <Check className="w-4 h-4 text-[#2c7338] dark:text-green-400" />
+                                      </div>
+                                    )}
+                                    <div className={`p-3 rounded-full ${isSelected ? 'bg-[#2c7338]/10 text-[#2c7338] dark:text-green-400' : 'bg-muted text-muted-foreground'}`}>
+                                      {providerName.includes('stripe') || providerName.includes('powertranz') || providerName.includes('card') ? (
+                                        <CreditCard className="w-6 h-6" />
+                                      ) : providerName.includes('paypal') || providerName.includes('maya') || providerName.includes('xendit') ? (
+                                        <Wallet className="w-6 h-6" />
+                                      ) : (
+                                        <CircleDollarSign className="w-6 h-6" />
+                                      )}
+                                    </div>
+                                    <span className={`font-medium text-sm ${isSelected ? 'text-[#2c7338] dark:text-green-400' : 'text-foreground'}`}>
+                                      {gateway.provider.toUpperCase()}
+                                    </span>
+                                  </div>
+                                );
+                              })}
+                            </div>
                           </div>
                         )}
 
@@ -1053,17 +1081,43 @@ export default function UnifiedCheckout() {
                         {!isFreeOrder && gateways.length > 0 && (
                           <>
                             <h3 className="font-semibold text-foreground">Select Payment Method</h3>
-                            {gateways.map((gateway) => (
-                              <Button
-                                key={gateway.id}
-                                type="button"
-                                variant={selectedGateway?.id === gateway.id ? 'default' : 'outline'}
-                                className="w-full justify-start"
-                                onClick={() => setSelectedGateway(gateway)}
-                              >
-                                {gateway.provider.toUpperCase()}
-                              </Button>
-                            ))}
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                              {gateways.map((gateway) => {
+                                const isSelected = selectedGateway?.id === gateway.id;
+                                const providerName = gateway.provider.toLowerCase();
+                                return (
+                                  <div
+                                    key={gateway.id}
+                                    onClick={() => setSelectedGateway(gateway)}
+                                    className={`
+                                      relative p-4 rounded-xl border-2 cursor-pointer transition-all duration-200
+                                      flex flex-col items-center justify-center gap-3 text-center
+                                      ${isSelected 
+                                        ? 'border-[#2c7338] bg-green-50/50 dark:bg-[#2c7338]/10 shadow-sm' 
+                                        : 'border-border hover:border-muted-foreground/30 hover:bg-muted/30'}
+                                    `}
+                                  >
+                                    {isSelected && (
+                                      <div className="absolute top-2 right-2">
+                                        <Check className="w-4 h-4 text-[#2c7338] dark:text-green-400" />
+                                      </div>
+                                    )}
+                                    <div className={`p-3 rounded-full ${isSelected ? 'bg-[#2c7338]/10 text-[#2c7338] dark:text-green-400' : 'bg-muted text-muted-foreground'}`}>
+                                      {providerName.includes('stripe') || providerName.includes('powertranz') || providerName.includes('card') ? (
+                                        <CreditCard className="w-6 h-6" />
+                                      ) : providerName.includes('paypal') || providerName.includes('maya') || providerName.includes('xendit') ? (
+                                        <Wallet className="w-6 h-6" />
+                                      ) : (
+                                        <CircleDollarSign className="w-6 h-6" />
+                                      )}
+                                    </div>
+                                    <span className={`font-medium text-sm ${isSelected ? 'text-[#2c7338] dark:text-green-400' : 'text-foreground'}`}>
+                                      {gateway.provider.toUpperCase()}
+                                    </span>
+                                  </div>
+                                );
+                              })}
+                            </div>
                           </>
                         )}
 
