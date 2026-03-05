@@ -27,6 +27,11 @@ export interface SettingsState {
   social_twitter?: string | string[];
   social_linkedin?: string | string[];
   social_youtube?: string | string[];
+
+  homepage_popup_enabled?: string;
+  homepage_popup_image?: string;
+  homepage_popup_code?: string;
+  homepage_popup_text?: string;
 }
 
 const initialState: SettingsState = {
@@ -41,6 +46,10 @@ const initialState: SettingsState = {
   isLoading: false,
   error: null,
   lastFetched: null,
+  homepage_popup_enabled: 'false',
+  homepage_popup_image: '',
+  homepage_popup_code: '',
+  homepage_popup_text: '',
 };
 
 const settingsSlice = createSlice({

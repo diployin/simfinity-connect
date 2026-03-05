@@ -37,6 +37,7 @@ import {
   Users,
   TrendingUp,
   Send,
+  Trash2,
 } from 'lucide-react';
 import type { GiftCard, GiftCardTransaction } from '@shared/schema';
 
@@ -171,6 +172,19 @@ export default function AdminGiftCards() {
     },
     onError: (error: Error) => {
       toast({ title: 'Error sending email', description: error.message, variant: 'destructive' });
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: async (id: string) => {
+      return apiRequest('DELETE', `/api/admin/gift-cards/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/gift-cards'] });
+      toast({ title: 'Gift card deleted successfully' });
+    },
+    onError: (error: Error) => {
+      toast({ title: 'Error deleting gift card', description: error.message, variant: 'destructive' });
     },
   });
 
@@ -473,6 +487,23 @@ export default function AdminGiftCards() {
                               data-testid={`button-send-${index}`}
                             >
                               <Send className="h-4 w-4" />
+                            </Button>
+                          )}
+                          {Number(card.amount) === Number(card.balance) && (
+                            <Button
+                              size="icon"
+                              variant="ghost"
+                              className="text-destructive hover:bg-destructive/10"
+                              onClick={() => {
+                                if (window.confirm('Are you sure you want to delete this gift card?')) {
+                                  deleteMutation.mutate(card.id);
+                                }
+                              }}
+                              disabled={deleteMutation.isPending}
+                              title="Delete gift card"
+                              data-testid={`button-delete-${index}`}
+                            >
+                              <Trash2 className="h-4 w-4" />
                             </Button>
                           )}
                         </div>

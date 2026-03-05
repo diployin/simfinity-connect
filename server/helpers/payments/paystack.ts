@@ -5,19 +5,30 @@ export async function initPaystackPayment({
   email,
   amount,
   currency,
+  callbackUrl,
+  metadata,
 }: {
   secretKey: string;
   email: string;
   amount: number;
   currency: string;
+  /** Optional server-side callback URL – used by Android WebView flow */
+  callbackUrl?: string;
+  /** Optional extra metadata stored on the Paystack transaction */
+  metadata?: Record<string, unknown>;
 }) {
+  const body: Record<string, unknown> = {
+    email,
+    amount: Math.round(amount * 100), // Paystack expects kobo / smallest unit
+    currency,
+  };
+
+  if (callbackUrl) body.callback_url = callbackUrl;
+  if (metadata) body.metadata = metadata;
+
   const res = await axios.post(
     "https://api.paystack.co/transaction/initialize",
-    {
-      email,
-      amount: amount * 100,
-      currency,
-    },
+    body,
     {
       headers: {
         Authorization: `Bearer ${secretKey}`,
@@ -32,3 +43,4 @@ export async function initPaystackPayment({
     reference: res.data.data.reference,
   };
 }
+

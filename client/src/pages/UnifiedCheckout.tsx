@@ -356,8 +356,14 @@ export default function UnifiedCheckout() {
           promoType: appliedPromo?.type || null,
           promoCode: appliedPromo?.code || null,
           giftCardId: appliedPromo?.giftCardId || null,
-          promoDiscount:
-            (appliedPromo?.discount || 0) + (appliedReferralCredits || 0),
+          voucherId: appliedPromo?.voucherId || null,
+          referralCredits: appliedReferralCredits || 0,
+          promoDiscount: (appliedPromo?.discount || 0) + (appliedReferralCredits || 0),
+
+          // Customer info (for guests)
+          email: data?.email,
+          name: data?.name || 'Guest',
+          phone: data?.phone,
         });
 
         const result = await res.json();

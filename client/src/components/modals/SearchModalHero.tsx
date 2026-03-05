@@ -96,7 +96,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      setLocation(`/search?q=${encodeURIComponent(searchQuery)}`);
+      // setLocation(`/search?q=${encodeURIComponent(searchQuery)}`);
       onOpenChange(false);
     }
   };
@@ -152,12 +152,12 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                     setSearchQuery("");
                   }}
                   className={`flex items-center gap-2 text-xs font-medium transition-all px-4 py-2 rounded-full ${searchType === "country"
-                    ? "bg-primary text-black shadow-md"
+                    ? "bg-primary text-white shadow-md"
                     : "text-muted-foreground hover:text-foreground"
                     }`}
                 >
                   <div
-                    className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${searchType === "country"
+                    className={`w-3.5 h-3.5 rounded-full text-white border-2 flex items-center justify-center ${searchType === "country"
                       ? "border-white bg-white"
                       : "border-muted-foreground"
                       }`}
@@ -174,7 +174,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                     setSearchQuery("");
                   }}
                   className={`flex items-center gap-2 text-xs font-medium transition-all px-4 py-2 rounded-full ${searchType === "region"
-                    ? "bg-primary text-black shadow-md"
+                    ? "bg-primary text-white shadow-md"
                     : "text-muted-foreground hover:text-foreground"
                     }`}
                 >
@@ -208,12 +208,12 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                       onChange={(e) => setSearchQuery(e.target.value)}
                       className="pl-5 pr-12 py-5 rounded-xl border-2 border-border hover:border-primary/50 focus:border-primary text-sm font-medium bg-background placeholder:text-muted-foreground/60 transition-all"
                     />
-                    <button
+                    {/* <button
                       type="submit"
-                      className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg bg-primary text-primary-foreground flex items-center justify-center hover:shadow-md transition-all"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg bg-primary text-white flex items-center justify-center hover:shadow-md transition-all"
                     >
                       <Search className="h-4 w-4" />
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </form>

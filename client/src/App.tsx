@@ -97,6 +97,7 @@ const FAQPage = lazy(() => import('@/pages/FAQ'));
 const Blog = lazy(() => import('@/pages/Blog'));
 const BlogPost = lazy(() => import('@/pages/BlogPost'));
 const NotFound = lazy(() => import('@/pages/not-found'));
+const MobileTopupPayment = lazy(() => import('@/pages/MobileTopupPayment'));
 const AdminVouchers = lazy(() => import('@/pages/admin/AdminVouchers'));
 const GuestCheckout = lazy(() => import('@/pages/GuestCheckout'));
 const OrderConfirmation = lazy(() => import('@/pages/OrderConfirmation'));
@@ -516,6 +517,11 @@ function Router() {
           <AdminGuard>
             <AdminShell />
           </AdminGuard>
+        </Route>
+
+        {/* ✅ Android WebView Mobile Top-Up – fully standalone, no header/footer */}
+        <Route path="/mobile-topup">
+          <MobileTopupPayment />
         </Route>
 
         <Route component={NotFound} />

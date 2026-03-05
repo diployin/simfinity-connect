@@ -16,6 +16,7 @@ import { useSettingByKey } from '@/hooks/useSettings';
 import { useUser } from '@/hooks/use-user';
 import { ReferAndEarn } from '@/components/sections/ReferAndEarn';
 import { PassportShowcase } from '@/components/sections/PassportShowcase';
+import { HomepagePopup } from '@/components/sections/HomepagePopup';
 
 export default function Home() {
   const { t } = useTranslation();
@@ -66,6 +67,7 @@ export default function Home() {
 
         <FloatingButtons />
         <GlobalFloatingNav />
+        <HomepagePopup />
       </div>
     </>
   );

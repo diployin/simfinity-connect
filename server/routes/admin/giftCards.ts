@@ -279,4 +279,30 @@ router.patch("/gift-cards/:id/cancel", requireAdmin, async (req: Request, res: R
   }
 });
 
+router.delete("/gift-cards/:id", requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const [card] = await db.select().from(giftCards).where(eq(giftCards.id, id));
+    if (!card) {
+      return res.status(404).json({ success: false, message: "Gift card not found" });
+    }
+
+    if (parseFloat(card.amount) !== parseFloat(card.balance)) {
+      return res.status(400).json({ success: false, message: "Cannot delete a gift card that has already been used" });
+    }
+
+    // Delete associated transactions first to maintain referential integrity
+    await db.delete(giftCardTransactions).where(eq(giftCardTransactions.giftCardId, id));
+
+    // Delete the gift card
+    await db.delete(giftCards).where(eq(giftCards.id, id));
+
+    res.json({ success: true, message: "Gift card deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting gift card:", error);
+    res.status(500).json({ success: false, message: "Failed to delete gift card" });
+  }
+});
+
 export default router;

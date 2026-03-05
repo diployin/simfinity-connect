@@ -205,10 +205,10 @@ export default function RegionDetails() {
 
     if (!selectedPkg) return;
 
-    const hasVoiceOrSms =
-      (selectedPkg.voiceMinutes ?? 0) > 0 || (selectedPkg.smsCount ?? 0) > 0;
+    const hasVoice =
+      (selectedPkg.voiceMinutes ?? 0) > 0;
 
-    if (!hasVoiceOrSms) {
+    if (!hasVoice) {
       navigate(`/unified-checkout/${selectedPkg.slug}`);
       return;
     }
@@ -477,7 +477,7 @@ export default function RegionDetails() {
                         </p>
                         <p className="text-sm text-muted-foreground">
                           {selectedPackage
-                            ? `${destination.name} ${formatDataAmount(selectedPackage)} ${selectedPackage.validity} Days`
+                            ? `${region.name} ${formatDataAmount(selectedPackage)} ${selectedPackage.validity} Days`
                             : `Select a plan from the right`}
                         </p>
                       </div>
