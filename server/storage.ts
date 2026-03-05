@@ -1048,7 +1048,11 @@ export class DatabaseStorage implements IStorage {
           'social_youtube',
           'social_ios',
           'social_android',
-          'in_app_purchase'
+          'in_app_purchase',
+          'homepage_popup_enabled',
+          'homepage_popup_image',
+          'homepage_popup_code',
+          'homepage_popup_text'
         ]),
       );
   }

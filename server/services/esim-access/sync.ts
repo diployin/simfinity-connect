@@ -55,8 +55,8 @@ export async function syncEsimAccessPackages(
       const type = isGlobal
         ? "global"
         : isRegional
-        ? "regional"
-        : "local";
+          ? "regional"
+          : "local";
 
       // -----------------------------
       // Operator
@@ -73,8 +73,8 @@ export async function syncEsimAccessPackages(
         operatorImage = rawOperatorImage.startsWith("http")
           ? rawOperatorImage
           : rawOperatorImage.startsWith("/img/")
-          ? `https://static.redteago.com${rawOperatorImage}`
-          : rawOperatorImage;
+            ? `https://static.redteago.com${rawOperatorImage}`
+            : rawOperatorImage;
       }
 
       // -----------------------------
@@ -100,18 +100,18 @@ export async function syncEsimAccessPackages(
         const region =
           countryCodes.length === 1
             ? await db.query.regions.findFirst({
-                where: sql`${countryCodes[0]} = ANY(${regions.countries})`,
-              })
+              where: sql`${countryCodes[0]} = ANY(${regions.countries})`,
+            })
             : await db.query.regions.findFirst({
-                where: sql`
+              where: sql`
                   ${regions.countries} && ARRAY[
                     ${sql.join(
-                      countryCodes.map(code => sql`${code}`),
-                      sql`, `
-                    )}
+                countryCodes.map(code => sql`${code}`),
+                sql`, `
+              )}
                   ]::text[]
                 `,
-              });
+            });
 
         regionId = region?.id || null;
       }
@@ -139,7 +139,7 @@ export async function syncEsimAccessPackages(
         operatorImage,
         coverage: countryCodes,
         voiceCredits: 0,
-        smsCredits: apiPkg.smsStatus > 0 ? 100 : 0,
+        smsCredits: 0,
         isUnlimited: apiPkg.dataType === 4,
         updatedAt: new Date(),
       };

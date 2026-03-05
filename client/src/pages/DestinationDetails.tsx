@@ -205,27 +205,30 @@ export default function DestinationDetails() {
 
     if (!selectedPackage) return;
 
-    const hasVoiceOrSms =
-      (selectedPackage.voiceMinutes ?? 0) > 0 || (selectedPackage.smsCount ?? 0) > 0;
+    const hasVoice =
+      (selectedPackage.voiceMinutes ?? 0) > 0;
 
-    if (!hasVoiceOrSms) {
+    // If NO voice minutes → allow direct checkout
+    if (!hasVoice) {
       navigate(`/unified-checkout/${selectedPackage.slug}`);
       return;
     }
 
+    // Voice plans require login
     if (!isAuthenticated) {
       toast({
         title: 'Please login first!',
-        description: 'Login is required for Voice & SMS plans.',
+        description: 'Login is required for Voice plans.',
       });
       setTimeout(() => navigate('/login'), 2000);
       return;
     }
 
+    // Voice plans require KYC
     if (!isKycComplete()) {
       toast({
         title: 'KYC verification required!',
-        description: 'Complete your KYC to use Voice & SMS services.',
+        description: 'Complete your KYC to use Voice services.',
       });
       setTimeout(() => navigate('/account/kyc'), 2000);
       return;

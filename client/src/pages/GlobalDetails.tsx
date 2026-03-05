@@ -207,7 +207,10 @@ const testimonials = [
 export default function GlobalDetails() {
   const { t } = useTranslation();
   const { currency, currencies } = useCurrency();
-  const currencySymbol = getCurrencySymbol(currency, currencies);
+  // const currencySymbol = getCurrencySymbol(currency, currencies);
+  const getCurrencySymbol = (currencyCode: string) => {
+    return currencies.find((c) => c.code === currencyCode)?.symbol || '$';
+  };
   const [selectedPackage, setSelectedPackage] = useState<GlobalPackage | null>(null);
   const [activeTab, setActiveTab] = useState<'details' | 'coverage'>('details');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
@@ -255,7 +258,7 @@ export default function GlobalDetails() {
   const { data: packagesResponse = { packages: [], pagination: undefined }, isLoading } =
     useQuery<{ packages: GlobalPackage[]; pagination?: any }>({
       queryKey: [
-        `/api/packages/global`,
+        `/api/unified-packages/global`,
         {
           currency,
           page,
@@ -270,7 +273,7 @@ export default function GlobalDetails() {
         },
       ],
       queryFn: () =>
-        fetch(`/api/packages/global?${buildQueryParams()}`).then((res) => res.json()),
+        fetch(`/api/unified-packages/global?${buildQueryParams()}`).then((res) => res.json()),
     });
 
   const handleGetPlanClick = (e: any, selectedPkg: GlobalPackage) => {
@@ -278,10 +281,10 @@ export default function GlobalDetails() {
 
     if (!selectedPkg) return;
 
-    const hasVoiceOrSms =
-      (selectedPkg.voiceMinutes ?? 0) > 0 || (selectedPkg.smsCount ?? 0) > 0;
+    const hasVoice =
+      (selectedPkg.voiceMinutes ?? 0) > 0;
 
-    if (!hasVoiceOrSms) {
+    if (!hasVoice) {
       navigate(`/unified-checkout/${selectedPkg.slug}`);
       return;
     }
@@ -329,8 +332,8 @@ export default function GlobalDetails() {
     filterVoiceAndDataAndSmsPack
   ].filter(Boolean).length;
 
-  const globalPackages = packagesResponse?.data || [];
-  const pagination = packagesResponse?.pagination;
+  const globalPackages = packagesResponse?.data?.packages || [];
+  const pagination = packagesResponse?.data?.pagination;
 
   const groupedPackages = globalPackages.reduce(
     (acc, pkg) => {
@@ -878,16 +881,11 @@ export default function GlobalDetails() {
                             <div>
                               <div className="flex items-baseline gap-1">
                                 <span className="text-xl font-bold text-foreground">
-                                  {currencySymbol}
-                                  {convertPrice(
-                                    parseFloat(pkg.retailPrice || pkg.price),
-                                    'USD',
-                                    currency,
-                                    currencies,
-                                  ).toFixed(2)}
+                                  {getCurrencySymbol(pkg.currency)}
+                                  {pkg.price}
                                 </span>
                                 <span className="text-xs text-muted-foreground font-medium">
-                                  {currency}
+                                  {pkg.currency}
                                 </span>
                               </div>
                               {/* <p className="text-xs text-muted-foreground mt-0.5">
@@ -963,14 +961,9 @@ export default function GlobalDetails() {
                             </p>
                           </div>
                           <div className="text-right">
-                            <p className="text-2xl font-bold text-foreground">
-                              {currencySymbol}
-                              {convertPrice(
-                                parseFloat(selectedPackage.retailPrice || selectedPackage.price),
-                                'USD',
-                                currency,
-                                currencies,
-                              ).toFixed(2)}
+                            <p className="text-xl font-bold text-foreground">
+                              {getCurrencySymbol(selectedPackage.currency)}
+                              {selectedPackage.price}
                             </p>
                             <p className="text-xs text-muted-foreground">{currency}</p>
                           </div>

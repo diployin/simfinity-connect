@@ -58,12 +58,19 @@ export function HeroSection() {
   const popularDestinations = destinationsWithPricing?.filter((d) => d.isPopular).slice(0, 6) || [];
 
   const defaultPopularDestinations = [
-    { name: 'United States', countryCode: 'us', slug: 'united-states' },
-    { name: 'United Kingdom', countryCode: 'gb', slug: 'united-kingdom' },
-    { name: 'UAE', countryCode: 'ae', slug: 'united-arab-emirates' },
-    { name: 'Japan', countryCode: 'jp', slug: 'japan' },
-    { name: 'Thailand', countryCode: 'th', slug: 'thailand' },
-    { name: 'France', countryCode: 'fr', slug: 'france' },
+    // { name: 'United States', countryCode: 'us', slug: 'united-states' },
+    // { name: 'United Kingdom', countryCode: 'gb', slug: 'united-kingdom' },
+    // { name: 'UAE', countryCode: 'ae', slug: 'united-arab-emirates' },
+    // { name: 'Japan', countryCode: 'jp', slug: 'japan' },
+    // { name: 'Thailand', countryCode: 'th', slug: 'thailand' },
+    // { name: 'France', countryCode: 'fr', slug: 'france' },
+    { countryCode: 'CN', name: 'China', slug: 'china' },
+    { countryCode: 'JP', name: 'Japan', slug: 'japan' },
+    { countryCode: 'TH', name: 'Thailand', slug: 'thailand' },
+    { countryCode: 'AU', name: 'Australia', slug: 'australia' },
+    { countryCode: 'US', name: 'United States', slug: 'united-states' },
+    { countryCode: 'AE', name: 'UAE', slug: 'united-arab-emirates' },
+
   ];
 
   const displayPopular =

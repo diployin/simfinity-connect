@@ -12,6 +12,258 @@ import * as ApiResponse from "../utils/response";
 const router = Router();
 
 
+
+
+/**
+ * GET /api/unified-packages/global
+ * Get enabled packages for the global region (auto-selected best prices)
+ */
+router.get("/global", async (req: Request, res: Response) => {
+  try {
+    const requestedCurrency = req.query.currency as string || "USD";
+
+    const page = Math.max(parseInt(req.query.page as string) || 1, 1);
+    const limit = Math.min(parseInt(req.query.limit as string) || 10, 100);
+    const offset = (page - 1) * limit;
+
+    // Filters
+    const sort = (req.query.sort as string) || null;
+    const filterUnlimited = req.query.isUnlimited === "true";
+    const filterBestPrice = req.query.isBestPrice === "true";
+    const filterPopular = req.query.isPopular === "true";
+    const filterDataPack = req.query.dataPack === "true";
+    const filterVoicePack = req.query.voicePack === "true";
+    const filterSmsPack = req.query.smsPack === "true";
+    const filterVoiceAndDataPack = req.query.voiceAndDataPack === "true";
+    const filterVoiceAndSmsPack = req.query.voiceAndSmsPack === "true";
+    const filterDataAndSmsPack = req.query.dataAndSmsPack === "true";
+    const filterVoiceAndDataAndSmsPack = req.query.voiceAndDataAndSmsPack === "true";
+
+    // Get region
+    const globalRegion = await db.query.regions.findFirst({
+      where: sql`LOWER(name) = 'global'`,
+    });
+
+    if (!globalRegion) {
+      return ApiResponse.success(res, "Global packages fetched successfully", {
+        region: null,
+        packages: [],
+        pagination: {
+          page,
+          limit,
+          totalItems: 0,
+          totalPages: 0,
+          hasNextPage: false,
+          hasPrevPage: false,
+        },
+        counts: {
+          total: 0,
+          regional: 0,
+        }
+      });
+    }
+
+    // ======================================
+    // WHERE CONDITIONS
+    // ======================================
+    const whereClauses: any[] = [
+      eq(unifiedPackages.isEnabled, true),
+      eq(unifiedPackages.regionId, globalRegion.id),
+    ];
+
+    if (filterUnlimited) whereClauses.push(eq(unifiedPackages.isUnlimited, true));
+    if (filterBestPrice) whereClauses.push(eq(unifiedPackages.isBestPrice, true));
+    if (filterPopular) whereClauses.push(eq(unifiedPackages.isPopular, true));
+
+    if (filterDataPack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.voiceMinutes, 0),
+          eq(unifiedPackages.smsCount, 0)
+        )
+      );
+    }
+
+    if (filterVoicePack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.dataMb, 0),
+          eq(unifiedPackages.smsCount, 0)
+        )
+      );
+    }
+
+    if (filterSmsPack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.voiceMinutes, 0),
+          eq(unifiedPackages.dataMb, 0)
+        )
+      );
+    }
+
+    if (filterVoiceAndDataPack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.smsCount, 0)
+        )
+      );
+    }
+
+    if (filterVoiceAndSmsPack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.dataMb, 0)
+        )
+      );
+    }
+
+    if (filterDataAndSmsPack) {
+      whereClauses.push(
+        and(
+          eq(unifiedPackages.voiceMinutes, 0)
+        )
+      );
+    }
+
+    if (filterVoiceAndDataAndSmsPack) {
+      whereClauses.push(
+        and(
+          ne(unifiedPackages.voiceMinutes, 0),
+          ne(unifiedPackages.dataMb, 0),
+          ne(unifiedPackages.smsCount, 0)
+        )
+      );
+    }
+
+    // ======================================
+    // ORDERING
+    // ======================================
+    let orderBy: any = sql`NULL`;
+
+    if (sort === "priceLowToHigh") {
+      orderBy = asc(unifiedPackages.retailPrice);
+    } else if (sort === "priceHighToLow") {
+      orderBy = desc(unifiedPackages.retailPrice);
+    } else {
+      orderBy = [
+        desc(unifiedPackages.isPopular),
+        desc(unifiedPackages.isRecommended),
+        desc(unifiedPackages.isBestValue),
+        asc(unifiedPackages.retailPrice),
+      ];
+    }
+
+    // ======================================
+    // COUNT (for pagination)
+    // ======================================
+    const [{ count }] = await db
+      .select({ count: sql<number>`COUNT(*)` })
+      .from(unifiedPackages)
+      .where(and(...whereClauses));
+
+    // ======================================
+    // FETCH WITH PROVIDER + REGION
+    // ======================================
+    const packages = await db.query.unifiedPackages.findMany({
+      where: () => and(...whereClauses),
+      with: {
+        provider: true,
+        region: true,
+      },
+      orderBy,
+      limit,
+      offset,
+    });
+
+    // ======================================
+    // FORMAT RESPONSE
+    // ======================================
+    const currencies = await storage.getCurrencies();
+    const formattedPackages = packages.map((pkg: any) => {
+      const provider = pkg.provider || null;
+      const fromCurrency = currencies.find(c => c.code === "USD");
+      const toCurrency = currencies.find(c => c.code === requestedCurrency);
+
+      const wholesalePrice = parseFloat(pkg.wholesalePrice);
+      const providerMargin = parseFloat(pkg.provider.pricingMargin);
+      let retailPrice = wholesalePrice * (1 + providerMargin / 100);
+
+      if (requestedCurrency !== "USD" && fromCurrency && toCurrency) {
+        const fromRate = parseFloat(fromCurrency.conversionRate);
+        const toRate = parseFloat(toCurrency.conversionRate);
+        retailPrice = (retailPrice / fromRate) * toRate;
+      }
+
+      return {
+        id: pkg.id,
+        slug: pkg.slug,
+        title: pkg.title,
+
+        dataAmount: pkg.dataAmount,
+        dataMb: pkg.dataMb,
+
+        validity: pkg.validity,
+        validityDays: pkg.validityDays,
+
+        price: retailPrice.toFixed(2),
+        currency: requestedCurrency,
+        wholesalePrice: wholesalePrice,
+
+        type: pkg.type,
+
+        isUnlimited: pkg.isUnlimited,
+        isBestPrice: pkg.isBestPrice,
+        isPopular: pkg.isPopular,
+        isRecommended: pkg.isRecommended,
+        isBestValue: pkg.isBestValue,
+        isEnabled: pkg.isEnabled,
+
+        providerId: pkg.providerId,
+        providerName: provider?.name || "Unknown",
+        providerSlug: provider?.slug || "unknown",
+
+        operator: pkg.operator,
+        operatorImage: pkg.operatorImage,
+        coverage: pkg.coverage,
+
+        packageGroupKey: pkg.packageGroupKey,
+
+        countryCode: pkg.countryCode,
+        countryName: pkg.countryName,
+
+        regionId: pkg.regionId,
+        region: pkg.region,
+
+        voiceMinutes: pkg.voiceMinutes,
+        smsCount: pkg.smsCount,
+      };
+    });
+
+    return ApiResponse.success(res, "Global packages fetched successfully", {
+      region: globalRegion,
+      packages: formattedPackages,
+      pagination: {
+        page,
+        limit,
+        totalItems: count,
+        totalPages: Math.ceil(count / limit),
+        hasNextPage: offset + limit < count,
+        hasPrevPage: page > 1,
+      },
+      counts: {
+        total: count,
+        regional: formattedPackages.length,
+      }
+    });
+
+  } catch (error: any) {
+    console.error("Error fetching global packages:", error);
+    return ApiResponse.serverError(res, error.message);
+  }
+});
+
+
 router.get("/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -798,7 +1050,7 @@ router.get("/slug/:slug", async (req: Request, res: Response) => {
       limit: 1,
     });
 
-    console.log("uni-in", pkg)
+    // console.log("uni-in", pkg)
 
     if (!pkg || !pkg.provider || !pkg.provider.enabled) {
       return ApiResponse.notFound(res, "Package not found");
@@ -1468,6 +1720,7 @@ router.get("/by-region/:slug", async (req: Request, res: Response) => {
     return ApiResponse.serverError(res, error.message);
   }
 });
+
 
 
 

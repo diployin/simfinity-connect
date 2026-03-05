@@ -2608,6 +2608,216 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   }
 
+  app.post('/api/complete-order', async (req: Request, res: Response) => {
+    try {
+      const { type, userId, packageId, quantity, currency, promoType, promoCode, giftCardId, voucherId, referralCredits, email, name, phone } = req.body;
+
+      if (type !== 'package_purchase') {
+        return res.status(400).json({ success: false, message: 'Invalid purchase type' });
+      }
+
+      // 1. Calculate the final price and VERIFY IT IS EXACTLY 0
+      const { calculateFinalPrice } = await import('./helpers/calculatePricing');
+      const pricing = await calculateFinalPrice({
+        packageId,
+        quantity,
+        requestedCurrency: currency,
+        promoCode,
+        promoType,
+        voucherId,
+        giftCardId,
+        referralCredits: referralCredits || 0,
+        userId: userId || req.session?.userId,
+      });
+
+      if (pricing.total > 0) {
+        return res.status(400).json({
+          success: false,
+          message: 'Order total is greater than 0. Please use a payment gateway. Please reload the page and try again.'
+        });
+      }
+
+      const { resolvePackage, getProviderSpecificPackageId } = await import('./services/packages/package-resolver');
+      const pkg = await resolvePackage(packageId);
+
+      if (!pkg) {
+        return res.status(404).json({ success: false, message: 'Package not found' });
+      }
+
+      const finalUserId = userId || req.session?.userId;
+      const orderType = quantity === 1 ? 'single' : 'batch';
+
+      if (orderType === 'single') {
+        const order = await storage.createOrder({
+          userId: finalUserId || null,
+          packageId: pkg.id,
+          orderType: 'single',
+          quantity: 1,
+          status: 'processing',
+          price: 0,
+          airaloPrice: pkg.wholesalePrice,
+          currency: currency.toUpperCase(),
+          orderCurrency: currency.toUpperCase(),
+          dataAmount: pkg.dataAmount,
+          validity: pkg.validity,
+          installationSent: false,
+          stripePaymentIntentId: null,
+          providerId: pkg.providerId,
+          paymentMethod: 'free',
+        });
+
+        try {
+          let orderDetails: any;
+          let simDetails: any;
+
+          if (pkg.providerId && pkg.providerPackageTable && pkg.providerPackageId) {
+            const { providerFactory } = await import('./providers/provider-factory');
+            const providerService = await providerFactory.getServiceById(pkg.providerId);
+            const providerApiPackageId = await getProviderSpecificPackageId(
+              pkg.providerPackageTable,
+              pkg.providerPackageId,
+            );
+            if (!providerApiPackageId) throw new Error('Provider package ID not found');
+
+            const providerResponse = await providerService.createOrder({
+              packageId: providerApiPackageId,
+              quantity: 1,
+              customerRef: `Order ${order.id}`,
+            });
+
+            if (!providerResponse.success) {
+              throw new Error(providerResponse.errorMessage || 'Provider order failed');
+            }
+
+            simDetails = {
+              iccid: providerResponse.iccid,
+              qrCode: providerResponse.qrCode,
+              qrCodeUrl: providerResponse.qrCodeUrl,
+              smdpAddress: providerResponse.smdpAddress,
+              activationCode: providerResponse.activationCode,
+              lpaCode: providerResponse.qrCode,
+              directAppleUrl: null,
+              apnType: 'automatic',
+              apnValue: null,
+              isRoaming: false,
+            };
+
+            orderDetails = {
+              providerOrderId: providerResponse.providerOrderId,
+              requestId: providerResponse.requestId,
+            };
+          } else if (pkg.airaloId) {
+            const airaloResponse = await airaloOrderService.submitSingleOrder(
+              pkg.airaloId,
+              1,
+              `Order ${order.id}`,
+            );
+            orderDetails = { providerOrderId: airaloResponse.airaloOrderId };
+            simDetails = airaloResponse.sims[0];
+          } else {
+            throw new Error('Invalid package configuration');
+          }
+
+          await storage.updateOrder(order.id, {
+            providerOrderId: orderDetails.providerOrderId,
+            airaloOrderId: orderDetails.providerOrderId,
+            iccid: simDetails.iccid,
+            qrCode: simDetails.qrCode,
+            qrCodeUrl: simDetails.qrCodeUrl,
+            lpaCode: simDetails.lpaCode,
+            smdpAddress: simDetails.smdpAddress,
+            activationCode: simDetails.activationCode,
+            directAppleUrl: simDetails.directAppleUrl,
+            apnType: simDetails.apnType,
+            apnValue: simDetails.apnValue,
+            isRoaming: simDetails.isRoaming,
+            status: 'completed',
+          });
+
+          if (promoType === 'referral' && promoCode && finalUserId) {
+            await handleReferralAfterOrder({
+              referredUserId: finalUserId,
+              promoCode,
+              orderId: order.id,
+              orderAmount: 0,
+            });
+          }
+
+          const customerEmail = email || (finalUserId ? (await storage.getUser(finalUserId))?.email : null);
+
+          if (customerEmail) {
+            const confirmEmail = await generateOrderConfirmationEmail({
+              id: order.id,
+              destination: 'Unknown',
+              dataAmount: pkg.dataAmount,
+              validity: pkg.validity,
+              price: pkg.price,
+            });
+
+            await sendEmail({
+              to: customerEmail,
+              subject: confirmEmail.subject,
+              html: confirmEmail.html,
+            });
+          }
+
+          if (finalUserId) {
+            const user = await storage.getUser(finalUserId);
+            if (user) {
+              await storage.createNotification({
+                userId: finalUserId,
+                type: 'purchase',
+                title: 'Order Confirmed',
+                message: `Your order is complete! Check your email for installation instructions.`,
+                read: false,
+                metadata: { orderId: order.id },
+              });
+
+              if (user.fcmToken) {
+                const payload = {
+                  notification: {
+                    title: `Order Confirmed`,
+                    body: `Your ${pkg.dataAmount} eSIM is ready! Check your email for installation instructions.`,
+                  },
+                  data: {
+                    type: 'purchase',
+                    orderId: order.id,
+                    click_action: 'FLUTTER_NOTIFICATION_CLICK',
+                  },
+                  token: user.fcmToken,
+                };
+                try {
+                  await adminMessaging.send(payload);
+                  console.log('📱 Notification sent to user:', finalUserId);
+                } catch (err) {
+                  console.error('❌ FCM send error:', err);
+                }
+              }
+            }
+          }
+
+          return res.json({
+            success: true,
+            order,
+            message: 'Order completed successfully',
+          });
+        } catch (err: any) {
+          await storage.updateOrder(order.id, { status: 'failed' });
+          throw new Error('Failed to provision eSIM: ' + err.message);
+        }
+      } else {
+        return res.status(400).json({ success: false, message: 'Batch orders not implemented for free endpoint' });
+      }
+
+    } catch (error: any) {
+      console.error('Complete order error:', error);
+      return res.status(500).json({
+        success: false,
+        message: error.message,
+      });
+    }
+  });
+
   app.post('/api/confirm-payment', async (req: Request, res: Response) => {
     try {
       const { paymentIntentId, providerType, orderId, paymentId, signature } = req.body;

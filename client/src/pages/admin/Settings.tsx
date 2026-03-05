@@ -14,6 +14,7 @@ import {
   Loader2,
   Palette,
   User,
+  Image as ImageIcon,
 } from 'lucide-react';
 import { SiPaypal, SiApplepay, SiGooglepay } from 'react-icons/si';
 import { Button } from '@/components/ui/button';
@@ -35,6 +36,7 @@ import { ThemeSettings } from './tabs/ThemeSettings';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { SocialMediaSettings } from '@/components/admin/tabs/SocialMediaSettings';
 import { AdminAccountSettings } from '@/components/admin/tabs/AdminAccountSettings';
+import { HomepagePopupSettings } from '@/components/admin/tabs/HomepagePopupSettings';
 // import { ThemeSettings } from '@/components/admin/tabs/ThemeSettings';
 
 function PaymentMethodsManagement() {
@@ -484,6 +486,15 @@ export default function Settings() {
                 <span className="hidden sm:inline">Account & Security</span>
                 <span className="sm:hidden">Account</span>
               </TabsTrigger>
+              <TabsTrigger
+                value="popup"
+                className="gap-2 whitespace-nowrap"
+                data-testid="tab-popup"
+              >
+                <ImageIcon className="h-4 w-4 shrink-0" />
+                <span className="hidden sm:inline">Homepage Popup</span>
+                <span className="sm:hidden">Popup</span>
+              </TabsTrigger>
             </TabsList>
           </div>
         </div>
@@ -515,6 +526,9 @@ export default function Settings() {
         </TabsContent>
         <TabsContent value="account" className="space-y-4">
           <AdminAccountSettings />
+        </TabsContent>
+        <TabsContent value="popup" className="space-y-4">
+          <HomepagePopupSettings />
         </TabsContent>
       </Tabs>
     </div>
