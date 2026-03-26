@@ -62,7 +62,7 @@ export async function syncAiraloTopups(provider: Provider): Promise<{
 
     const existingTopups = await db.select().from(airaloTopups);
     const existingByAiraloId = new Map(existingTopups.map((t) => [t.airaloId, t]));
-    
+
     // Load all base packages for parent matching by operator + destination
     const allBasePackages = await db.select().from(airaloPackages);
     // Create composite key: operator|destinationId|regionId
@@ -202,7 +202,7 @@ async function prepareTopupData(
 
   const airaloPrice = parseFloat((pkg.net_price || pkg.price || 0).toString());
   const sellingPrice = airaloPrice * (1 + pricingMargin / 100);
-  
+
   // Find parent package by matching operator + destination/region
   let parentPackageId: string | null = null;
   const parentOperator = operator.title || null;
