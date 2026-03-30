@@ -1,4 +1,5 @@
 import { useSettingByKey } from '@/hooks/useSettings';
+import { useTheme } from '@/contexts/ThemeContext';
 import { SettingsState } from '@/redux/slice/settingsSlice';
 import { PageApiResponse } from '@/types/types';
 import { apiRequest } from '@/lib/queryClient';
@@ -64,8 +65,11 @@ export function NewFooter() {
 
   console.log(topDestinations)
 
+  const { theme } = useTheme();
   const siteName = useSettingByKey('platform_name') || 'Simfinity';
   const logo = useSettingByKey('logo');
+  const whiteLogo = useSettingByKey('white_logo');
+  const currentLogo = theme === 'dark' ? (whiteLogo || logo) : logo;
   const androidLink = useSettingByKey('social_android') || '#';
   const iosLink = useSettingByKey('social_ios') || '#';
 
@@ -73,9 +77,9 @@ export function NewFooter() {
     <footer className="bg-background border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-10 gap-4">
-          {logo ? (
+          {currentLogo ? (
             <Link href="/" data-testid="link-home" className="flex-shrink-0">
-              <img src={logo} alt="" className="h-12" />
+              <img src={currentLogo} alt="" className="h-12" />
             </Link>
           ) : (
             <Link href="/" data-testid="link-home" className="flex-shrink-0">
@@ -241,7 +245,7 @@ export function NewFooter() {
 
         <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
-            <span>2026 {siteName}. All rights reserved.</span>
+            <span>© {new Date().getFullYear()} {siteName}. All rights reserved. Powered by <a href="https://simfinity.dev" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground cursor-pointer">Simfinity.dev</a></span>
             <Link href="/privacy-policy">
               <span className="underline hover:text-foreground cursor-pointer">Privacy Policy</span>
             </Link>

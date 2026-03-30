@@ -9,6 +9,7 @@ export interface SettingsState {
   platform_tagline: string;
   currency: string;
   logo: string;
+  white_logo?: string;
   favicon: string;
   theme_primary?: string;
   theme_primary_second?: string;
@@ -42,6 +43,7 @@ const initialState: SettingsState = {
   platform_tagline: '',
   currency: '',
   logo: '',
+  white_logo: '',
   favicon: '',
   isLoading: false,
   error: null,

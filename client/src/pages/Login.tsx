@@ -24,6 +24,7 @@ import { Link, useLocation } from 'wouter';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { useQuery } from '@tanstack/react-query';
 import { useSettingByKey } from '@/hooks/useSettings';
+import { useTheme } from '@/contexts/ThemeContext';
 
 interface ReferralSettings {
   enabled: boolean;
@@ -54,8 +55,11 @@ export default function Login() {
   const [referralCode, setReferralCode] = useState<string | null>(null);
   const [showReferralBanner, setShowReferralBanner] = useState(false);
 
-  const logo = useSettingByKey('white_logo');
+  const { theme } = useTheme();
+  const whiteLogo = useSettingByKey('white_logo');
+  const normalLogo = useSettingByKey('logo');
   const siteName = useSettingByKey('platform_name');
+  const currentLogo = theme === 'dark' ? (whiteLogo || normalLogo) : normalLogo;
 
   const { data: settings } = useQuery<ReferralSettings>({
     queryKey: ['/api/admin/referrals/settings'],
@@ -423,8 +427,8 @@ export default function Login() {
 
         <div className="relative z-10">
           <Link href="/">
-            {logo ? (
-              <img className="h-16 rounded-lg" src={logo} />
+            {whiteLogo || normalLogo ? (
+              <img className="h-16 rounded-lg" src={whiteLogo || normalLogo} />
             ) : (
               <div className="flex items-center gap-2 text-white cursor-pointer" data-testid="link-logo">
                 <Globe className="h-8 w-8" />
@@ -472,8 +476,8 @@ export default function Login() {
                 className="inline-flex items-center gap-2 cursor-pointer"
                 data-testid="link-logo-mobile"
               >
-                {logo ? (
-                  <img src={useSettingByKey('logo')} alt={siteName || 'Simfinity'} className="h-10" />
+                {currentLogo ? (
+                  <img src={currentLogo} alt={siteName || 'Simfinity'} className="h-10" />
                 ) : (siteName && siteName.toLowerCase() === 'simfinity') || !siteName ? (
                   <>
                     <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-[#2c7338] to-[#1e5427] flex items-center justify-center">

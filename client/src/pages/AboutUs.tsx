@@ -10,6 +10,11 @@ import {
   Layers,
   Lock,
   Headphones,
+  Network,
+  ShieldCheck,
+  Leaf,
+  Flag,
+  Cpu,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Helmet } from 'react-helmet-async';
@@ -24,38 +29,41 @@ export function AboutUs() {
   const whatWeOffer = [
     {
       icon: Globe2,
-      title: 'Global Coverage',
+      title: 'Global Coverage Across 200+ Destinations',
       description: "Global eSIM data plans across multiple countries and regions.",
     },
     {
       icon: Zap,
-      title: 'Instant Delivery',
+      title: 'Instant eSIM Delivery',
       description: "Instant eSIM delivery directly after purchase.",
     },
     {
       icon: Wifi,
-      title: 'Easy Activation',
+      title: 'Fast & Simple Activation',
       description: "Fast and easy QR-based activation.",
     },
     {
       icon: Lock,
-      title: 'Secure Payments',
+      title: 'Secure Payment Processing',
       description: "Secure and encrypted payment systems.",
     },
     {
       icon: Headphones,
-      title: '24/7 Support',
+      title: '24/7 Customer Support',
       description: "Reliable customer support whenever you need it.",
     },
   ];
 
   const whySimfinity = [
-    { text: "100% digital experience", icon: Smartphone },
-    { text: "Transparent pricing", icon: CreditCard },
-    { text: "Quick activation process", icon: Zap },
-    { text: "Flexible data options", icon: Layers },
-    { text: "Strong network partnerships", icon: Globe2 },
-    { text: "Secure and trusted platform", icon: Shield },
+    { text: "100% Digital Experience", icon: Smartphone },
+    { text: "Transparent Pricing", icon: CreditCard },
+    { text: "Fast Activation", icon: Zap },
+    { text: "Flexible Data Options", icon: Layers },
+    { text: "Strong Network Partnerships", icon: Network },
+    { text: "Secure Platform", icon: ShieldCheck },
+    { text: "Eco-Friendly Initiative", icon: Leaf },
+    { text: "French-Based Brand", icon: Flag },
+    { text: "Powered by Simfinity Technology", icon: Cpu },
   ];
 
   return (
@@ -72,13 +80,13 @@ export function AboutUs() {
       <section className="py-20 md:py-28 lg:py-36 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-            About <span style={{ color: '#2c7338' }}>Us</span>
+            About <span style={{ color: '#2c7338' }}>Us {siteName}</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-900 font-medium max-w-3xl mx-auto leading-relaxed mb-6">
-            At Simfinity, we are redefining global connectivity with seamless, digital-first eSIM solutions designed for the modern world.
+            Connecting France to the world — simply, instantly, and globally.
           </p>
           <p className="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            In today’s fast-moving, borderless environment, staying connected should be simple, reliable, and affordable. Whether you’re traveling internationally, managing a remote business, or working across multiple countries, uninterrupted internet access is essential. Simfinity was created to remove the traditional barriers of mobile connectivity and replace them with a smarter, faster, and fully digital experience.
+            At {siteName}, we believe staying connected should be effortless — no matter where life takes you. Whether you're traveling for adventure, business, or new opportunities, we make sure your connection is always ready. Founded in 2026 and led by Vanessa, Founder & CEO, {siteName} brings powerful global eSIM technology to the French market — combining innovation with a local, user-first approach designed for modern travelers.
           </p>
         </div>
       </section>
@@ -93,10 +101,10 @@ export function AboutUs() {
               </h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  Simfinity is a forward-thinking telecommunications brand focused on delivering advanced eSIM technology to customers worldwide. We combine telecom expertise with strong digital infrastructure to ensure secure transactions, instant activation, and dependable global coverage.
+                  {siteName} is a next-generation connectivity brand built for global mobility. We provide fast, secure, and flexible eSIM solutions that remove the traditional barriers of mobile connectivity.
                 </p>
                 <p>
-                  Our approach is built around innovation, simplicity, and customer trust. Every service we offer is designed to eliminate complexity and provide a smooth user experience from purchase to activation.
+                  Make connectivity easy, accessible, and reliable for everyone — everywhere.
                 </p>
               </div>
             </div>
@@ -116,10 +124,10 @@ export function AboutUs() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              How to Set Up an eSIM
+              How to Set Up Your eSIM
             </h2>
             <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-              Get connected in minutes with our simple setup process.
+              Get connected in just a few simple steps.
             </p>
           </div>
 
@@ -149,7 +157,7 @@ export function AboutUs() {
                   <div className="p-8 text-center flex flex-col items-center flex-grow">
                     <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#2c7338] transition-colors">Scan QR Code</h3>
                     <p className="text-gray-500 leading-relaxed max-w-xs mx-auto text-lg">
-                      Go to Settings &gt; Cellular &gt; Add eSIM and scan the QR code provided in your email.
+                      Open your phone settings and scan the QR code sent to your email.
                     </p>
                   </div>
                 </div>
@@ -166,8 +174,7 @@ export function AboutUs() {
                   <div className="p-8 text-center flex flex-col items-center flex-grow">
                     <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#2c7338] transition-colors">Activate eSIM</h3>
                     <p className="text-gray-500 leading-relaxed max-w-xs mx-auto text-lg">
-                      Follow the on-screen prompts to label your new plan (e.g., "Travel") and continue.
-                    </p>
+                      Follow the simple on-screen instructions to install your eSIM.                    </p>
                   </div>
                 </div>
 
@@ -183,7 +190,7 @@ export function AboutUs() {
                   <div className="p-8 text-center flex flex-col items-center flex-grow">
                     <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#2c7338] transition-colors">Connect</h3>
                     <p className="text-gray-500 leading-relaxed max-w-xs mx-auto text-lg">
-                      Turn on "Data Roaming" for your new eSIM line to start browsing instantly.
+                      Enable data roaming and start using your mobile data right away.
                     </p>
                   </div>
                 </div>
@@ -201,7 +208,7 @@ export function AboutUs() {
               What We Offer
             </h2>
             <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-              We focus on making connectivity effortless — no physical SIM cards, no shipping delays, no roaming complications.
+              Modern connectivity designed for today’s global lifestyle.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -235,8 +242,7 @@ export function AboutUs() {
               </div>
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Our Mission</h2>
               <p className="text-gray-600 text-lg leading-relaxed">
-                Our mission is to simplify global mobile connectivity by offering secure, affordable, and instantly accessible eSIM solutions that empower individuals and businesses to stay connected anywhere in the world.
-              </p>
+                To make global connectivity simple, reliable, and accessible for everyone — wherever they go.              </p>
             </div>
 
             {/* Vision */}
@@ -246,7 +252,7 @@ export function AboutUs() {
               </div>
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Our Vision</h2>
               <p className="text-gray-600 text-lg leading-relaxed">
-                We envision a future where global communication has no limits. A world where travelers never worry about roaming fees, professionals work without disruption, and digital connectivity is accessible to everyone instantly and effortlessly.
+                To create a world where staying connected across borders is effortless, instant, and available to all.
               </p>
             </div>
           </div>
@@ -285,10 +291,10 @@ export function AboutUs() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Simfinity in Action
+              {siteName} in Action
             </h2>
             <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-              Connecting people, places, and experiences around the globe.
+              From local moments to global adventures — we connect people everywhere.
             </p>
           </div>
 
@@ -345,10 +351,10 @@ export function AboutUs() {
             style={{ background: 'linear-gradient(135deg, #2c7338, #3a9c4d, #2c7338)' }}
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-              Stay connected. Stay global. Stay Simfinity.
+              Stay Connected. Explore Freely. Choose {siteName}
             </h2>
             <p className="text-green-100 text-lg md:text-xl max-w-2xl mx-auto mb-8 font-medium">
-              At Simfinity, we don’t just provide eSIMs. we provide freedom to connect without boundaries.
+              Your journey deserves seamless connectivity — start today.
             </p>
             <Button
               onClick={() => navigate('/destinations')}

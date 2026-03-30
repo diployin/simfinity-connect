@@ -115,24 +115,24 @@ export function HowItWorksSteps() {
       number: '1',
       titleKey: 'website.home.howItWorks.step1.title',
       descKey: 'website.home.howItWorks.step1.description',
-      titleFallback: `Choose a ${siteName} data plan for your trip`,
-      descFallback: 'Select your destination and pick your travel eSIM data plan.',
+      titleFallback: `Choose Your Plan`,
+      descFallback: 'Select your destination and pick a plan that fits your travel style.',
       mockup: PlanSelectionMockup,
     },
     {
       number: '2',
       titleKey: 'website.home.howItWorks.step2.title',
       descKey: 'website.home.howItWorks.step2.description',
-      titleFallback: `Download ${siteName} and set up your eSIM`,
-      descFallback: 'Set up the eSIM on your device by following the instructions in the app.',
+      titleFallback: ` Install Your eSIM`,
+      descFallback: 'Scan your QR code or use the app to activate your plan.',
       mockup: InstallEsimMockup,
     },
     {
       number: '3',
       titleKey: 'website.home.howItWorks.step3.title',
       descKey: 'website.home.howItWorks.step3.description',
-      titleFallback: 'Enjoy staying connected!',
-      descFallback: 'Your plan will activate when you reach your destination or 30 days after purchase.',
+      titleFallback: 'Start Exploring',
+      descFallback: 'Land at your destination and enjoy instant connectivity.',
       mockup: UsageDashboardMockup,
     },
   ];
@@ -142,13 +142,13 @@ export function HowItWorksSteps() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12 md:mb-16">
           <p className="text-sm text-[#2c7338] dark:text-[#3d9a4d] font-medium mb-3">
-            {t('website.home.howItWorks.label', `How to use the ${siteName} eSIM service`)}
+            {t('website.home.howItWorks.label', `Getting Started with ${siteName}`)}
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-[42px] font-bold text-foreground leading-tight mb-4">
-            {t('website.home.howItWorks.title', `How does ${siteName} work?`)}
+            {t('website.home.howItWorks.title', `How It Works`)}
           </h2>
           <p className="text-base text-muted-foreground">
-            {t('website.home.howItWorks.subtitle', `Don't have the ${siteName} eSIM app yet? Download it from the App Store or Google Play.`)}
+            {t('website.home.howItWorks.subtitle', `From purchase to connection — it’s all done in just a few taps.`)}
           </p>
         </div>
 

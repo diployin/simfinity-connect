@@ -124,14 +124,14 @@ export function DestinationsTabs() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-            {t('website.home.destinations.title', 'Choose your travel destination')}
+            {t('website.home.destinations.title', 'Explore Popular Destinations')}
           </h2>
           <p className="text-muted-foreground text-base md:text-lg mb-4">
-            {t('website.home.destinations.subtitle', 'Pick a mobile data plan for your trip.')}
+            {t('website.home.destinations.subtitle', 'From weekend getaways to global adventures — find the perfect data plan for your next destination.')}
           </p>
           <Link href="/destinations">
             <span className="inline-flex items-center gap-1 text-[#2c7338] dark:text-[#3d9a4d] font-medium text-sm hover:underline cursor-pointer">
-              {t('website.home.destinations.seeAll', 'View All Destinations')}
+              {t('website.home.destinations.seeAll', 'Discover All Destinations ')}
               <ArrowRight className="h-4 w-4" />
             </span>
           </Link>
@@ -331,7 +331,7 @@ export function DestinationsTabs() {
               variant="outline"
               className="rounded-full px-8 py-3 h-auto border-zinc-200 dark:border-zinc-700 text-foreground hover:bg-[#f0f9f1] dark:hover:bg-[#194520] hover:border-[#3d9a4d] dark:hover:border-[#1e5427] transition-all font-medium"
             >
-              {t('website.home.destinations.seeAll', 'View All Destinations')}
+              {t('website.home.destinations.seeAll', 'Discover All Destinations')}
               <ArrowRight className="h-4 w-4 ml-2" />
             </Button>
           </Link>

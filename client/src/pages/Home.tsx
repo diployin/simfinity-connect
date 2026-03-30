@@ -55,14 +55,14 @@ export default function Home() {
           <WhatIsEsim />
           <DestinationsTabs />
           <InstantConnection />
-          <PassportShowcase />
+          { /*  <PassportShowcase /> */}
           <BenefitsSection />
           <HowItWorksSteps />
           <TravelerTestimonials />
           <FAQWithSupport />
           <DownloadApp />
           <ReferAndEarn />
-          <ImpactSection />
+          {/* <ImpactSection /> */}
         </main>
 
         <FloatingButtons />

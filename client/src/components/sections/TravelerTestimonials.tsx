@@ -14,9 +14,8 @@ function StarRating({ rating }: { rating: number }) {
       {[...Array(5)].map((_, i) => (
         <Star
           key={i}
-          className={`h-4 w-4 ${
-            i < rating ? 'fill-amber-400 text-amber-400' : 'fill-gray-200 text-gray-200'
-          }`}
+          className={`h-4 w-4 ${i < rating ? 'fill-amber-400 text-amber-400' : 'fill-gray-200 text-gray-200'
+            }`}
         />
       ))}
     </div>
@@ -205,12 +204,12 @@ export function TravelerTestimonials() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 md:mb-14">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-zinc-900 dark:text-zinc-100 mb-3">
-            {t('website.home.testimonials.title', `${siteName} reviews from travelers`)}
+            {t('website.home.testimonials.title', `Loved by Travelers Worldwide`)}
           </h2>
           <p className="text-base md:text-lg text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto">
             {t(
               'website.home.testimonials.subtitle',
-              `Check out what fellow travelers are saying about ${siteName}!`,
+              `Join thousands of happy users who trust ${siteName} for seamless connectivity.`,
             )}
           </p>
         </div>

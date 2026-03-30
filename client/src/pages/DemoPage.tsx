@@ -1,15 +1,19 @@
 import DemoPreviewModal from '@/components/DemoPreviewModal';
 import { useSettingByKey } from '@/hooks/useSettings';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export default function DemoPage() {
+  const { theme } = useTheme();
   const logo = useSettingByKey('logo');
+  const whiteLogo = useSettingByKey('white_logo');
+  const currentLogo = theme === 'dark' ? (whiteLogo || logo) : logo;
 
   return (
     <DemoPreviewModal
       screenshot="/images/bg-img.png" // update screenshot name if needed
       blurIntensity="sm"
       overlayOpacity={90}
-      logo={logo || ''}
+      logo={currentLogo || ''}
       /* ✅ NEW PROJECT CONTENT */
       title="eSimConnect – Global eSIM & Travel Data Platform"
       tagline="Stay connected worldwide with instant eSIM activation in 200+ destinations"

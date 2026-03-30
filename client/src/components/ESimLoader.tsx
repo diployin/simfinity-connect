@@ -1,16 +1,20 @@
 import { useSettingByKey } from "@/hooks/useSettings";
+import { useTheme } from "@/contexts/ThemeContext";
 
 export default function ESimLoader() {
+  const { theme } = useTheme();
   const logo = useSettingByKey('logo');
+  const whiteLogo = useSettingByKey('white_logo');
+  const currentLogo = theme === 'dark' ? (whiteLogo || logo) : logo;
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-[#f0f9f1] to-white dark:from-gray-950 dark:to-gray-900 px-6">
 
-      {logo ? (
+      {currentLogo ? (
         <div className="flex flex-col items-center justify-center gap-8 w-full max-w-md animate-in fade-in zoom-in duration-500">
           <div className="relative w-full flex items-center justify-center">
             <img
-              src={logo}
+              src={currentLogo}
               alt="Loading..."
               className="max-w-[240px] md:max-w-[280px] w-full h-auto max-h-[120px] object-contain drop-shadow-sm transition-all duration-300"
             />

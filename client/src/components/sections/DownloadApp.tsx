@@ -21,11 +21,11 @@ export function DownloadApp() {
             </div> */}
 
             <h2 className="text-3xl md:text-4xl lg:text-[42px] font-bold text-foreground leading-tight mb-4">
-              {t('website.home.downloadApp.title', `Download the ${siteName} eSIM app`)}
+              {t('website.home.downloadApp.title', `Get the ${siteName} app`)}
             </h2>
 
             <p className="text-base text-muted-foreground leading-relaxed mb-8">
-              {t('website.home.downloadApp.description', `You can get ${siteName} on Google Play and the App Store or by scanning the QR code.`)}
+              {t('website.home.downloadApp.description', `Download the app, manage your plans, and stay connected wherever your journey takes you.`)}
             </p>
 
             <div className="flex flex-wrap gap-3 mb-6">

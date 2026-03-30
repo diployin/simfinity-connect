@@ -542,9 +542,8 @@ function App() {
       <QueryClientProvider client={queryClient}>
         {/* ✅ Redux Provider - Add here */}
         <Provider store={store}>
-          <PersistGate loading={<LoadingFallback />} persistor={persistor}>
-            {/* ✅ SINGLE ThemeProvider - Fixed duplicate */}
-            <ThemeProvider>
+          <ThemeProvider>
+            <PersistGate loading={<LoadingFallback />} persistor={persistor}>
               <TranslationProvider>
                 <CurrencyProvider>
                   <ComparisonProvider>
@@ -565,8 +564,8 @@ function App() {
                   </ComparisonProvider>
                 </CurrencyProvider>
               </TranslationProvider>
-            </ThemeProvider>
-          </PersistGate>
+            </PersistGate>
+          </ThemeProvider>
         </Provider>
       </QueryClientProvider>
     </HelmetProvider>

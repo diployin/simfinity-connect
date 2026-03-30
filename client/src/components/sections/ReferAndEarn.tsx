@@ -20,17 +20,17 @@ export function ReferAndEarn() {
               </div>
 
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground leading-tight mb-4">
-                {t('website.home.referral.title', "Refer a friend, and you'll both get $5!")}
+                {t('website.home.referral.title', "Share the Journey — Earn Rewards")}
               </h2>
 
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6">
-                {t('website.home.referral.description', `Invite your friends to use ${siteName} and get $5 in ${siteName} credits while they get a $5 discount!`)}
+                {t('website.home.referral.description', `Invite your friends and both of you get $5 in credits. Travel smarter, together.`)}
               </p>
 
               <div>
                 <Link href="/account/referral">
                   <button className="inline-flex items-center px-6 py-3 rounded-full border-2 border-foreground text-foreground text-sm font-semibold hover:bg-foreground hover:text-background transition-all duration-200">
-                    {t('website.home.referral.cta', 'Learn More')}
+                    {t('website.home.referral.cta', 'Start Referring')}
                   </button>
                 </Link>
               </div>

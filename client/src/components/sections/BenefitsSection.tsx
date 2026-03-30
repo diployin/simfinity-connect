@@ -16,8 +16,8 @@ export function BenefitsSection() {
       ),
       titleKey: 'website.home.benefits.internationalPlans.title',
       descKey: 'website.home.benefits.internationalPlans.description',
-      titleFallback: 'International data plans',
-      descFallback: `Get cellular data that works for your budget and itinerary. From 1 GB to unlimited plans, ${siteName}'s got you covered!`,
+      titleFallback: 'Global Data Plans',
+      descFallback: `Flexible options designed for every type of traveler and every journey.`,
     },
     {
       icon: (
@@ -28,8 +28,8 @@ export function BenefitsSection() {
       ),
       titleKey: 'website.home.benefits.easyToUse.title',
       descKey: 'website.home.benefits.easyToUse.description',
-      titleFallback: 'Easy to use',
-      descFallback: `Just download the ${siteName} app, install the eSIM, and buy an eSIM data plan — it will activate automatically the moment you reach your destination.`,
+      titleFallback: 'Quick & Easy Setup',
+      descFallback: `Activate your eSIM in minutes — no technical steps, no waiting.`,
     },
     {
       icon: (
@@ -41,8 +41,8 @@ export function BenefitsSection() {
       ),
       titleKey: 'website.home.benefits.noRoaming.title',
       descKey: 'website.home.benefits.noRoaming.description',
-      titleFallback: 'Avoid roaming charges',
-      descFallback: 'If you want to avoid costly roaming, eSIM technology offers a good alternative. Know how much your internet connection will cost before you take off!',
+      titleFallback: 'No Roaming Shock',
+      descFallback: 'Clear pricing with zero hidden charges.',
     },
     {
       icon: (
@@ -53,8 +53,8 @@ export function BenefitsSection() {
       ),
       titleKey: 'website.home.benefits.oneEsim.title',
       descKey: 'website.home.benefits.oneEsim.description',
-      titleFallback: 'One eSIM for all your travels',
-      descFallback: `Add new destinations to your existing ${siteName} eSIM — no need to install new eSIMs every time. Just top up and connect!`,
+      titleFallback: 'One eSIM, Endless Travel',
+      descFallback: `Use one eSIM for multiple destinations — just switch plans anytime.`,
     },
     {
       icon: (
@@ -65,8 +65,8 @@ export function BenefitsSection() {
       ),
       titleKey: 'website.home.benefits.usageAlerts.title',
       descKey: 'website.home.benefits.usageAlerts.description',
-      titleFallback: 'Get mobile data usage alerts',
-      descFallback: "Don't risk running out of eSIM data at the worst possible moment — we'll notify you when you've used up 80% of your plan.",
+      titleFallback: 'Smart Usage Alerts',
+      descFallback: "Stay in control with real-time data notifications.",
     },
     {
       icon: (
@@ -78,8 +78,8 @@ export function BenefitsSection() {
       ),
       titleKey: 'website.home.benefits.globalRegional.title',
       descKey: 'website.home.benefits.globalRegional.description',
-      titleFallback: 'Global and regional plans',
-      descFallback: 'Stay online wherever you go — get a Global eSIM data plan or a regional eSIM data plan to explore entire regions and beyond.',
+      titleFallback: 'Regional & Worldwide Coverage',
+      descFallback: 'Perfect for multi-country trips without switching networks.',
     },
   ];
 
@@ -88,10 +88,10 @@ export function BenefitsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12 md:mb-16">
           <p className="text-sm text-[#2c7338] dark:text-[#3d9a4d] font-medium mb-3">
-            {t('website.home.benefits.label', `Why choose ${siteName}?`)}
+            {t('website.home.benefits.label', `Why ${siteName}?`)}
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-[42px] font-bold text-foreground leading-tight">
-            {t('website.home.benefits.title', 'Stay connected while traveling')}
+            {t('website.home.benefits.title', 'Travel Smart. Stay Online. Go Anywhere.')}
           </h2>
         </div>
 

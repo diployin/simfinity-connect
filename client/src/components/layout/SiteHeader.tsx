@@ -44,6 +44,7 @@ import ReactCountryFlag from 'react-country-flag';
 import { NotificationBell } from '../NotificationBell';
 import { useQuery } from '@tanstack/react-query';
 import { useSettingByKey } from '@/hooks/useSettings';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export function SiteHeader() {
   const { isAuthenticated, isLoading, user, refetchUser } = useUser();
@@ -61,7 +62,10 @@ export function SiteHeader() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const menuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  const { theme } = useTheme();
   const logo = useSettingByKey('logo');
+  const whiteLogo = useSettingByKey('white_logo');
+  const currentLogo = theme === 'dark' ? (whiteLogo || logo) : logo;
 
   const { data: navlinks } = useQuery({
     queryKey: ['/api/pages'],
@@ -128,9 +132,9 @@ export function SiteHeader() {
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         <div className="flex h-16 md:h-[72px] items-center justify-between">
-          {logo ? (
+          {currentLogo ? (
             <Link href="/" data-testid="link-home" className="flex-shrink-0">
-              <img src={logo} alt="" className="h-12" />
+              <img src={currentLogo} alt="" className="h-12" />
             </Link>
           ) : (
             <Link href="/" data-testid="link-home" className="flex-shrink-0">
@@ -195,10 +199,10 @@ export function SiteHeader() {
                         </div>
                       </div>
                     </Link>
-                    <Link href="/destinations?tab=passport" onClick={() => setActiveMenu(null)}>
+                    {/*  <Link href="/destinations?tab=passport" onClick={() => setActiveMenu(null)}>
                       <div className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group cursor-pointer">
                         <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-pink-50 dark:bg-pink-900/30 flex items-center justify-center group-hover:bg-pink-100 dark:group-hover:bg-pink-900/50 transition-colors">
-                          {/* Import Ticket or use another icon */}
+                       
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-pink-600 dark:text-pink-400"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" /><path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" /></svg>
                         </div>
                         <div>
@@ -206,7 +210,7 @@ export function SiteHeader() {
                           <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Exclusive global access</p>
                         </div>
                       </div>
-                    </Link>
+                    </Link> */}
                     <Link href="/destinations?tab=all" onClick={() => setActiveMenu(null)}>
                       <div className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group cursor-pointer">
                         <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center group-hover:bg-amber-100 dark:group-hover:bg-amber-900/50 transition-colors">
@@ -541,12 +545,12 @@ export function SiteHeader() {
                             {t('website.nav.globalEsim', 'Global eSIMs')}
                           </span>
                         </Link>
-                        <Link href="/destinations?tab=passport" onClick={closeMobileMenu}>
+                        {/* <Link href="/destinations?tab=passport" onClick={closeMobileMenu}>
                           <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 text-pink-600 dark:text-pink-400"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" /><path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" /></svg>
                             Simfinity Passport
                           </span>
-                        </Link>
+                        </Link> */}
                       </div>
                     )}
                   </div>

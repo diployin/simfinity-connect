@@ -60,7 +60,7 @@ export function WhatIsEsim() {
             <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 leading-relaxed max-w-lg">
               {t(
                 'website.home.whatIsEsim.description',
-                'An eSIM is a digital SIM that lets you switch carriers and use multiple mobile plans without swapping cards. Most new phones support eSIMs, and setting them up takes just a few taps.'
+                'An eSIM is a digital SIM built into your phone that lets you activate mobile data instantly — without inserting a physical card. Simply purchase a plan, scan a QR code, and you’re connected in minutes, wherever you are in the world.'
               )}
             </p>
           </motion.div>

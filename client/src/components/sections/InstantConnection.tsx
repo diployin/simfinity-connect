@@ -20,14 +20,14 @@ export function InstantConnection() {
           className="text-center mb-10"
         >
           <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-gray-900 dark:text-white leading-tight mb-4">
-            {t('website.home.instant.title', 'Instant connection and safer browsing')}
+            {t('website.home.instant.title', 'Instant Connection. No Waiting. No Hassle.')}
             <br className="hidden sm:block" />
-            {' '}{t('website.home.instant.titleSuffix', 'with Simfinity')}
+            {/* {' '}{t('website.home.instant.titleSuffix', 'with Simfinity')} */}
           </h2>
           <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto mb-6">
             {t(
               'website.home.instant.subtitle',
-              'Do you travel often, live abroad, or simply need reliable mobile data on the go? Simfinity makes it simple to stay connected, wherever life takes you.'
+              'Whether you\'re traveling, working remotely, or exploring new places — stay online instantly without delays, queues, or complications.'
             )}
           </p>
           <Link href="/destinations">
@@ -47,12 +47,12 @@ export function InstantConnection() {
           >
             <div className="relative z-10">
               <h3 className="text-2xl md:text-[1.7rem] font-bold text-gray-900 dark:text-white mb-3">
-                {t('website.home.instant.connect.title', 'Connect instantly')}
+                {t('website.home.instant.connect.title', 'Connect Instantly')}
               </h3>
               <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-sm mb-6">
                 {t(
                   'website.home.instant.connect.description',
-                  'Simfinity is a hassle-free solution — just choose your data plan and get ready to travel! When you arrive at your destination, you can go online right away.'
+                  'Skip the setup stress. With Simfinity FR, simply choose your plan, install your eSIM, and you’re ready to go. The moment you arrive, your connection is already active — no extra steps needed.'
                 )}
               </p>
               <div className="inline-flex items-center gap-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm px-4 py-3">
@@ -87,12 +87,12 @@ export function InstantConnection() {
           >
             <div className="relative z-10">
               <h3 className="text-2xl md:text-[1.7rem] font-bold text-gray-900 dark:text-white mb-3">
-                {t('website.home.instant.avoid.title', 'Avoid waiting in line')}
+                {t('website.home.instant.avoid.title', 'No More Waiting in Line')}
               </h3>
               <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-sm mb-6">
                 {t(
                   'website.home.instant.avoid.description',
-                  'Getting a local SIM at the airport or train station can be a hassle. With an eSIM, you won\'t have to wait in line or deal with sketchy sellers offering SIM cards that might not even work.'
+                  'Forget airport kiosks and unreliable local SIM vendors. With eSIM, everything is digital — no queues, no paperwork, no uncertainty. Just seamless connectivity from the moment you land.'
                 )}
               </p>
               <div className="flex flex-col gap-2.5">
@@ -100,8 +100,8 @@ export function InstantConnection() {
                   <div
                     key={plan}
                     className={`inline-flex items-center justify-between px-4 py-2.5 rounded-xl max-w-[200px] ${i === 0
-                        ? 'bg-white dark:bg-gray-800 shadow-sm'
-                        : 'bg-white/60 dark:bg-gray-800/40'
+                      ? 'bg-white dark:bg-gray-800 shadow-sm'
+                      : 'bg-white/60 dark:bg-gray-800/40'
                       }`}
                   >
                     <div>
