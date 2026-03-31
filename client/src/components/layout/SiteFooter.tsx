@@ -77,22 +77,27 @@ export function NewFooter() {
     <footer className="bg-background border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-10 gap-4">
-          {currentLogo ? (
-            <Link href="/" data-testid="link-home" className="flex-shrink-0">
-              <img src={currentLogo} alt="" className="h-12" />
-            </Link>
-          ) : (
-            <Link href="/" data-testid="link-home" className="flex-shrink-0">
-              <div className="flex items-center gap-2 cursor-pointer transition-all duration-200 hover:opacity-80">
-                <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-[#2c7338] to-[#1e5427] flex items-center justify-center">
-                  <Globe className="h-4 w-4 text-white" />
+          <div className="flex flex-col gap-4 max-w-md">
+            {currentLogo ? (
+              <Link href="/" data-testid="link-home" className="flex-shrink-0">
+                <img src={currentLogo} alt="" className="h-12" />
+              </Link>
+            ) : (
+              <Link href="/" data-testid="link-home" className="flex-shrink-0">
+                <div className="flex items-center gap-2 cursor-pointer transition-all duration-200 hover:opacity-80">
+                  <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-[#2c7338] to-[#1e5427] flex items-center justify-center">
+                    <Globe className="h-4 w-4 text-white" />
+                  </div>
+                  <span className="font-bold text-lg text-gray-900 dark:text-white">
+                    Sim<span className="bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] bg-clip-text text-transparent">finity</span>
+                  </span>
                 </div>
-                <span className="font-bold text-lg text-gray-900 dark:text-white">
-                  Sim<span className="bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] bg-clip-text text-transparent">finity</span>
-                </span>
-              </div>
-            </Link>
-          )}
+              </Link>
+            )}
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Simfinity FR provides fast, secure, and affordable eSIM solutions for travelers, businesses, and global users — helping you stay connected anywhere in the world without roaming stress.
+            </p>
+          </div>
 
           <div className="flex gap-3">
             <a href={iosLink} className="inline-block" aria-label="Download on App Store">
@@ -218,34 +223,56 @@ export function NewFooter() {
           </div>
 
           <div>
+            <h3 className="text-sm font-bold text-foreground mb-4">Contact Us</h3>
+            <ul className="space-y-2.5 mb-6">
+              <li className="text-sm text-muted-foreground">
+                <span className="block font-medium text-foreground">Email:</span>
+                <a href="mailto:info@simfinity.fr" className="hover:text-foreground transition-colors">info@simfinity.fr</a>
+              </li>
+              <li className="text-sm text-muted-foreground">
+                <span className="block font-medium text-foreground">Phone:</span>
+                <a href="tel:+330745574376" className="hover:text-foreground transition-colors">+33 0745574376</a>
+              </li>
+              <li className="text-sm text-muted-foreground">
+                <span className="block font-medium text-foreground">Support:</span>
+                24/7 Customer Support Available
+              </li>
+              <li className="text-sm text-muted-foreground">
+                <span className="block font-medium text-foreground">Location:</span>
+                France
+              </li>
+            </ul>
+
             <h3 className="text-sm font-bold text-foreground mb-4">Follow Us</h3>
-            <ul className="space-y-2.5">
+            <div className="flex flex-wrap gap-3">
               {[
                 { label: 'Facebook', icon: 'facebook', href: getSocialUrl(settings?.social_facebook) },
-                { label: 'Twitter (now X)', icon: 'twitter', href: getSocialUrl(settings?.social_twitter) },
+                { label: 'Twitter', icon: 'twitter', href: getSocialUrl(settings?.social_twitter) },
                 { label: 'LinkedIn', icon: 'linkedin', href: getSocialUrl(settings?.social_linkedin) },
                 { label: 'YouTube', icon: 'youtube', href: getSocialUrl(settings?.social_youtube) },
                 { label: 'Instagram', icon: 'instagram', href: getSocialUrl(settings?.social_instagram) }
               ].map((social) => (
-                <li key={social.label}>
-                  <a
-                    href={social.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <SocialIcon name={social.icon} />
-                    {social.label}
-                  </a>
-                </li>
+                <a
+                  key={social.label}
+                  href={social.href}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                >
+                  <SocialIcon name={social.icon} />
+                </a>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
 
         <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
-            <span>© {new Date().getFullYear()} {siteName}. All rights reserved. Powered by <a href="https://simfinity.dev" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground cursor-pointer">Simfinity.dev</a></span>
+            <div className="flex flex-col gap-1">
+              <span>© 2026 Simfinity FR. All rights reserved.</span>
+              <span>Powered by <a href="https://simfinity.dev" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground cursor-pointer">Simfinity.dev</a></span>
+            </div>
             <Link href="/privacy-policy">
               <span className="underline hover:text-foreground cursor-pointer">Privacy Policy</span>
             </Link>
