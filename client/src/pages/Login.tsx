@@ -24,6 +24,9 @@ import { Link, useLocation } from 'wouter';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { useQuery } from '@tanstack/react-query';
 import { useSettingByKey } from '@/hooks/useSettings';
+import { signInWithGoogle } from "@/lib/firebase";
+import ReCAPTCHA from 'react-google-recaptcha';
+import { useRef } from 'react';
 
 interface ReferralSettings {
   enabled: boolean;
@@ -56,6 +59,14 @@ export default function Login() {
 
   const logo = useSettingByKey('white_logo');
   const siteName = useSettingByKey('platform_name');
+
+  const recaptchaRef = useRef<ReCAPTCHA | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+
+  const VITE_RECAPTCHA_SITE_KEY = useSettingByKey('recaptcha_site_key');
+  const RecaptchaEnabled = useSettingByKey('recaptcha_enabled');
+
+  const isCaptchaEnabled = String(RecaptchaEnabled) === 'true';
 
   const { data: settings } = useQuery<ReferralSettings>({
     queryKey: ['/api/referrals/settings'],
@@ -141,9 +152,20 @@ export default function Login() {
     setIsLoading(true);
 
     try {
+      if (isCaptchaEnabled && !captchaToken) {
+        toast({
+          title: t('website.login.captchaRequired', 'Captcha Required'),
+          description: t('website.login.verifyHuman', 'Please verify you are human'),
+          variant: 'destructive',
+        });
+        setIsLoading(false);
+        return;
+      }
+
       await apiRequest('POST', '/api/auth/login-password', {
         email,
         password,
+        captchaToken,
       });
 
       queryClient.invalidateQueries({ queryKey: ['/api/auth/me'] });
@@ -151,6 +173,8 @@ export default function Login() {
       // Clear form
       setEmail('');
       setPassword('');
+      recaptchaRef.current?.reset();
+      setCaptchaToken(null);
 
       toast({
         title: 'Success!',
@@ -411,6 +435,27 @@ export default function Login() {
     },
   ];
 
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithGoogle();
+      const idToken = await result.user.getIdToken();
+
+      await apiRequest("POST", "/api/auth/web/login-with-google", {
+        idToken,
+        referralCode: localStorage.getItem("pendingReferralCode"),
+      });
+
+      window.location.href = "/account/profile";
+    } catch (err) {
+      console.error("Google login error", err);
+      toast({
+        title: "Error",
+        description: "Failed to sign in with Google",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <div className="min-h-screen flex">
       {/* Left Side - Platform Benefits */}
@@ -628,6 +673,19 @@ export default function Login() {
                           </button>
                         </div>
                       </div>
+
+                      {isCaptchaEnabled && VITE_RECAPTCHA_SITE_KEY && (
+                        <div className="w-full flex justify-center my-3 overflow-hidden">
+                          <div className="transform scale-90 sm:scale-100 origin-center">
+                            <ReCAPTCHA
+                              ref={recaptchaRef}
+                              sitekey={VITE_RECAPTCHA_SITE_KEY}
+                              onChange={(token) => setCaptchaToken(token)}
+                            />
+                          </div>
+                        </div>
+                      )}
+
                       <Button
                         type="submit"
                         className="w-full bg-primary-gradient hover:bg-primary-gradient "
@@ -1019,6 +1077,29 @@ export default function Login() {
               </Card>
             </TabsContent>
           </Tabs>
+
+          <div className="flex items-center gap-2 my-4">
+            <div className="flex-1 h-px bg-border" />
+            <span className="text-xs text-muted-foreground uppercase">
+              {t('website.login.orContinue', 'OR CONTINUE WITH')}
+            </span>
+            <div className="flex-1 h-px bg-border" />
+          </div>
+
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full"
+            onClick={handleGoogleLogin}
+            disabled={isLoading}
+          >
+            <img
+              src="https://www.svgrepo.com/show/475656/google-color.svg"
+              className="h-5 w-5 mr-2"
+              alt="Google"
+            />
+            {t('website.login.continueGoogle', 'Continue with Google')}
+          </Button>
 
           <p className="text-center text-sm text-muted-foreground mt-6">
             {t('checkout.termsAgreement', 'By continuing, you agree to our')}{' '}
