@@ -4400,6 +4400,24 @@ ${urls
     return `${baseName}${Date.now().toString().slice(-6)}`;
   }
 
+
+  // Get referral settings (user-facing)
+  app.get('/api/referrals/settings', async (req: Request, res: Response) => {
+    try {
+      const settings = await db.select().from(referralSettings).limit(1);
+
+      if (settings.length === 0) {
+        const defaultSettings = await db.insert(referralSettings).values({}).returning();
+        return res.json(defaultSettings[0]);
+      }
+
+      res.json(settings[0]);
+    } catch (error: any) {
+      console.error('Error getting referral settings:', error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  });
+
   // Get or create user's referral program
   app.get('/api/referrals/my-program', requireAuth, async (req: Request, res: Response) => {
     try {

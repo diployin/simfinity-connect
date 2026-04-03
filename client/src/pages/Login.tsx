@@ -62,7 +62,7 @@ export default function Login() {
   const currentLogo = theme === 'dark' ? (whiteLogo || normalLogo) : normalLogo;
 
   const { data: settings } = useQuery<ReferralSettings>({
-    queryKey: ['/api/admin/referrals/settings'],
+    queryKey: ['/api/referrals/settings'],
   });
 
   useEffect(() => {
