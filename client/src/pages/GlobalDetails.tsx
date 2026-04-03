@@ -334,6 +334,7 @@ export default function GlobalDetails() {
 
   const globalPackages = packagesResponse?.data?.packages || [];
   const pagination = packagesResponse?.data?.pagination;
+  const region = packagesResponse?.data?.region;
 
   const groupedPackages = globalPackages.reduce(
     (acc, pkg) => {
@@ -429,7 +430,7 @@ export default function GlobalDetails() {
             <div className="space-y-0">
               <div className="aspect-[4/3] rounded-t-2xl lg:rounded-2xl overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop"
+                  src={region?.bannerImage || "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=600&fit=crop"}
                   alt="Global eSIM Coverage Worldwide"
                   className="w-full h-full object-cover"
                 />
@@ -558,8 +559,16 @@ export default function GlobalDetails() {
             <div className="space-y-6">
               <div>
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-full bg-[#dcf0de] dark:bg-[#194520]/30 flex items-center justify-center flex-shrink-0">
-                    <Globe className="w-5 h-5 text-[#1e5427] dark:text-[#3d9a4d]" />
+                  <div className="w-10 h-10 rounded overflow-hidden border border-border flex-shrink-0 bg-white dark:bg-slate-800 flex items-center justify-center">
+                    {region?.image ? (
+                      <img
+                        src={region.image}
+                        alt={region.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <Globe className="w-5 h-5 text-[#1e5427] dark:text-[#3d9a4d]" />
+                    )}
                   </div>
                   <h1 className="text-2xl md:text-3xl font-bold text-foreground">Global eSIM</h1>
                 </div>

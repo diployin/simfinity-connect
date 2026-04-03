@@ -179,7 +179,7 @@ export default function Referrals() {
 
   // Fetch settings to show reward info
   const { data: settings } = useQuery<ReferralSettings>({
-    queryKey: ['/api/admin/referrals/settings'],
+    queryKey: ['/api/referrals/settings'],
   });
 
   const shareUrl = program ? `${window.location.origin}/login?ref=${program.referralCode}` : '';

@@ -302,7 +302,8 @@ export default function RegionDetails() {
   });
 
   const bestChoiceIndex = Math.min(2, packageOptions.length - 1);
-  const heroImage = regionImages[slug?.toLowerCase() || ''] || regionImages['asia'];
+  const defaultHeroImage = regionImages[slug?.toLowerCase() || ''] || regionImages['asia'];
+  const heroImage = region?.bannerImage || defaultHeroImage;
 
   const faqs = [
     {
@@ -538,8 +539,16 @@ export default function RegionDetails() {
             <div className="space-y-6">
               <div>
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded bg-gradient-to-br from-[#dcf0de] to-[#f0f9f1] dark:from-[#2c7338]/20 dark:to-[#2c7338]/10 flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-5 h-5 text-[#1e5427] dark:text-[#3d9a4d]" />
+                  <div className="w-10 h-10 rounded overflow-hidden border border-border flex-shrink-0 bg-white dark:bg-slate-800 flex items-center justify-center">
+                    {region.image ? (
+                      <img
+                        src={region.image}
+                        alt={region.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <Globe className="w-5 h-5 text-[#1e5427] dark:text-[#3d9a4d]" />
+                    )}
                   </div>
                   <h1 className="text-2xl md:text-3xl font-bold text-foreground">
                     eSIM for {region.name}

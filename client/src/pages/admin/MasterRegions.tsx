@@ -32,6 +32,7 @@ interface Region {
   airaloId: string | null;
   countries: string[] | null;
   image: string | null;
+  bannerImage: string | null;
   active: boolean;
   createdAt: string;
   updatedAt: string;
@@ -48,9 +49,17 @@ export default function MasterRegions() {
   const [searchInput, setSearchInput] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [editingRegion, setEditingRegion] = useState<Region | null>(null);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Icon Upload State
+  const [selectedIcon, setSelectedIcon] = useState<File | null>(null);
+  const [iconPreview, setIconPreview] = useState<string | null>(null);
+
+  // Banner Upload State
+  const [selectedBanner, setSelectedBanner] = useState<File | null>(null);
+  const [bannerPreview, setBannerPreview] = useState<string | null>(null);
+
+  const iconInputRef = useRef<HTMLInputElement>(null);
+  const bannerInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -116,11 +125,15 @@ export default function MasterRegions() {
   });
 
   const uploadMutation = useMutation({
-    mutationFn: async ({ id, file }: { id: string; file: File }) => {
+    mutationFn: async ({ id, file, type }: { id: string; file: File; type: 'image' | 'bannerImage' }) => {
       const formData = new FormData();
       formData.append('image', file);
 
-      const res = await fetch(`/api/admin/master-regions/${id}/upload-image`, {
+      const endpoint = type === 'image'
+        ? `/api/admin/master-regions/${id}/upload-image`
+        : `/api/admin/master-regions/${id}/upload-banner`;
+
+      const res = await fetch(endpoint, {
         method: 'POST',
         credentials: 'include',
         body: formData,
@@ -133,8 +146,11 @@ export default function MasterRegions() {
 
       return res.json();
     },
-    onSuccess: () => {
-      toast({ title: 'Success', description: 'Image uploaded successfully' });
+    onSuccess: (_, variables) => {
+      toast({
+        title: 'Success',
+        description: `${variables.type === 'image' ? 'Icon' : 'Banner'} uploaded successfully`
+      });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/master-regions'] });
       handleCloseDialog();
     },
@@ -152,31 +168,47 @@ export default function MasterRegions() {
 
   const handleEditClick = (region: Region) => {
     setEditingRegion(region);
-    setSelectedFile(null);
-    setPreviewUrl(region.image || null);
+    setSelectedIcon(null);
+    setIconPreview(region.image || null);
+    setSelectedBanner(null);
+    setBannerPreview(region.bannerImage || null);
   };
 
   const handleCloseDialog = () => {
     setEditingRegion(null);
-    setSelectedFile(null);
-    setPreviewUrl(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
+    setSelectedIcon(null);
+    setIconPreview(null);
+    setSelectedBanner(null);
+    setBannerPreview(null);
+    if (iconInputRef.current) iconInputRef.current.value = '';
+    if (bannerInputRef.current) bannerInputRef.current.value = '';
   };
 
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleIconSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setSelectedFile(file);
-      const url = URL.createObjectURL(file);
-      setPreviewUrl(url);
+      setSelectedIcon(file);
+      setIconPreview(URL.createObjectURL(file));
     }
   };
 
-  const handleUploadImage = () => {
-    if (editingRegion && selectedFile) {
-      uploadMutation.mutate({ id: editingRegion.id, file: selectedFile });
+  const handleBannerSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedBanner(file);
+      setBannerPreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleUploadImages = () => {
+    if (!editingRegion) return;
+
+    if (selectedIcon) {
+      uploadMutation.mutate({ id: editingRegion.id, file: selectedIcon, type: 'image' });
+    }
+
+    if (selectedBanner) {
+      uploadMutation.mutate({ id: editingRegion.id, file: selectedBanner, type: 'bannerImage' });
     }
   };
 
@@ -265,6 +297,7 @@ export default function MasterRegions() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Icon</TableHead>
+                    <TableHead>Banner</TableHead>
                     <TableHead>Name</TableHead>
                     <TableHead>Slug</TableHead>
                     <TableHead>Countries</TableHead>
@@ -286,6 +319,19 @@ export default function MasterRegions() {
                         ) : (
                           <div className="w-10 h-10 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
                             <Globe className="h-5 w-5 text-slate-400" />
+                          </div>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        {region.bannerImage ? (
+                          <img
+                            src={region.bannerImage}
+                            alt={`${region.name} banner`}
+                            className="w-20 h-10 rounded object-cover border"
+                          />
+                        ) : (
+                          <div className="w-20 h-10 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-dashed border-slate-300">
+                            <Image className="h-4 w-4 text-slate-400" />
                           </div>
                         )}
                       </TableCell>
@@ -340,49 +386,76 @@ export default function MasterRegions() {
           <DialogHeader>
             <DialogTitle>Edit Region Image</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div className="flex flex-col items-center gap-4">
-              {previewUrl ? (
-                <img
-                  src={previewUrl}
-                  alt="Preview"
-                  className="w-32 h-32 rounded object-cover border"
-                />
-              ) : (
-                <div className="w-32 h-32 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center border">
-                  <Image className="h-12 w-12 text-slate-400" />
-                </div>
-              )}
-              <div className="w-full">
-                <Label htmlFor="image-file">Upload Image</Label>
-                <div className="flex gap-2 mt-2">
+          <div className="space-y-6 py-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Icon Section */}
+              <div className="space-y-3">
+                <Label>Icon / Image</Label>
+                <div className="flex flex-col items-center gap-3 p-4 border rounded-lg bg-slate-50 dark:bg-slate-900/50">
+                  {iconPreview ? (
+                    <img
+                      src={iconPreview}
+                      alt="Icon Preview"
+                      className="w-24 h-24 rounded object-cover border shadow-sm"
+                    />
+                  ) : (
+                    <div className="w-24 h-24 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-dashed border-slate-300">
+                      <Image className="h-8 w-8 text-slate-400" />
+                    </div>
+                  )}
                   <Input
-                    ref={fileInputRef}
-                    id="image-file"
+                    ref={iconInputRef}
                     type="file"
                     accept="image/*"
-                    onChange={handleFileSelect}
-                    className="flex-1"
-                    data-testid="input-region-image-file"
+                    onChange={handleIconSelect}
+                    className="text-xs"
+                    data-testid="input-region-icon-file"
                   />
                 </div>
-                <p className="text-xs text-slate-500 mt-2">
-                  Accepted formats: JPG, PNG, GIF, WebP, SVG (max 5MB)
-                </p>
+              </div>
+
+              {/* Banner Section */}
+              <div className="space-y-3">
+                <Label>Banner Image</Label>
+                <div className="flex flex-col items-center gap-3 p-4 border rounded-lg bg-slate-50 dark:bg-slate-900/50">
+                  {bannerPreview ? (
+                    <img
+                      src={bannerPreview}
+                      alt="Banner Preview"
+                      className="w-full h-24 rounded object-cover border shadow-sm"
+                    />
+                  ) : (
+                    <div className="w-full h-24 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-dashed border-slate-300">
+                      <Image className="h-8 w-8 text-slate-400" />
+                    </div>
+                  )}
+                  <Input
+                    ref={bannerInputRef}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleBannerSelect}
+                    className="text-xs"
+                    data-testid="input-region-banner-file"
+                  />
+                </div>
               </div>
             </div>
+
+            <p className="text-xs text-slate-500 text-center">
+              Accepted formats: JPG, PNG, GIF, WebP, SVG (max 5MB)
+            </p>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={handleCloseDialog}>
               Cancel
             </Button>
             <Button
-              onClick={handleUploadImage}
-              disabled={uploadMutation.isPending || !selectedFile}
-              data-testid="button-upload-region-image"
+              onClick={handleUploadImages}
+              disabled={uploadMutation.isPending || (!selectedIcon && !selectedBanner)}
+              data-testid="button-upload-region-images"
             >
               <Upload className="h-4 w-4 mr-2" />
-              {uploadMutation.isPending ? 'Uploading...' : 'Upload'}
+              {uploadMutation.isPending ? 'Uploading...' : 'Save Changes'}
             </Button>
           </DialogFooter>
         </DialogContent>

@@ -304,9 +304,10 @@ export default function DestinationDetails() {
     return (a.dataMb || 0) - (b.dataMb || 0);
   });
 
-  const heroImage = destination?.countryCode
+  const defaultHeroImage = destination?.countryCode
     ? countryImages[destination.countryCode.toLowerCase()] || countryImages.default
     : countryImages.default;
+  const heroImage = destination?.bannerImage || defaultHeroImage;
 
   const bestChoiceIndex = Math.min(2, packageOptions.length - 1);
 
@@ -525,12 +526,20 @@ export default function DestinationDetails() {
             <div className="space-y-6">
               <div>
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-8 rounded overflow-hidden border border-border flex-shrink-0">
-                    <ReactCountryFlag
-                      countryCode={destination.countryCode}
-                      svg
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
+                  <div className="w-10 h-10 rounded overflow-hidden border border-border flex-shrink-0 bg-white dark:bg-slate-800 flex items-center justify-center">
+                    {destination.image ? (
+                      <img
+                        src={destination.image}
+                        alt={destination.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <ReactCountryFlag
+                        countryCode={destination.countryCode}
+                        svg
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      />
+                    )}
                   </div>
                   <h1 className="text-2xl md:text-3xl font-bold text-foreground">
                     eSIM for {destination.name}
