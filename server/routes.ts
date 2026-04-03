@@ -4400,6 +4400,24 @@ ${urls
     return `${baseName}${Date.now().toString().slice(-6)}`;
   }
 
+
+  // Get referral settings (user-facing)
+  app.get('/api/referrals/settings', async (req: Request, res: Response) => {
+    try {
+      const settings = await db.select().from(referralSettings).limit(1);
+
+      if (settings.length === 0) {
+        const defaultSettings = await db.insert(referralSettings).values({}).returning();
+        return res.json(defaultSettings[0]);
+      }
+
+      res.json(settings[0]);
+    } catch (error: any) {
+      console.error('Error getting referral settings:', error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  });
+
   // Get or create user's referral program
   app.get('/api/referrals/my-program', requireAuth, async (req: Request, res: Response) => {
     try {
@@ -11684,10 +11702,11 @@ ${urls
   app.patch('/api/admin/master-regions/:id', requireAdmin, async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const { image, active } = req.body;
+      const { image, bannerImage, active } = req.body;
 
       const updateData: any = { updatedAt: new Date() };
       if (image !== undefined) updateData.image = image;
+      if (bannerImage !== undefined) updateData.bannerImage = bannerImage;
       if (active !== undefined) updateData.active = active;
 
       const [updated] = await db
@@ -11820,10 +11839,11 @@ ${urls
     async (req: Request, res: Response) => {
       try {
         const { id } = req.params;
-        const { image, active } = req.body;
+        const { image, bannerImage, active } = req.body;
 
         const updateData: any = { updatedAt: new Date() };
         if (image !== undefined) updateData.image = image;
+        if (bannerImage !== undefined) updateData.bannerImage = bannerImage;
         if (active !== undefined) updateData.active = active;
 
         const [updated] = await db
@@ -11955,6 +11975,53 @@ ${urls
     },
   );
 
+  // Upload region banner
+  app.post(
+    '/api/admin/master-regions/:id/upload-banner',
+    requireAdmin,
+    async (req: Request, res: Response) => {
+      try {
+        const { regionImageUpload } = await import('./middleware/image-upload');
+
+        regionImageUpload.single('image')(req, res, async (err: any) => {
+          try {
+            if (err) {
+              return res.status(400).json({ success: false, message: err.message });
+            }
+
+            if (!req.file) {
+              return res.status(400).json({ success: false, message: 'No image file provided' });
+            }
+
+            const { id } = req.params;
+            const imageUrl = `/uploads/regions/${req.file.filename}`;
+
+            const [updated] = await db
+              .update(regions)
+              .set({ bannerImage: imageUrl, updatedAt: new Date() })
+              .where(eq(regions.id, id))
+              .returning();
+
+            if (!updated) {
+              return res.status(404).json({ success: false, message: 'Region not found' });
+            }
+
+            ApiResponse.success(res, 'Banner uploaded successfully', {
+              bannerImage: imageUrl,
+              region: updated,
+            });
+          } catch (innerError: any) {
+            console.error('Error processing region banner upload:', innerError);
+            res.status(500).json({ success: false, message: innerError.message });
+          }
+        });
+      } catch (error: any) {
+        console.error('Error uploading region banner:', error);
+        res.status(500).json({ success: false, message: error.message });
+      }
+    },
+  );
+
   // Upload country/destination image
   app.post(
     '/api/admin/master-countries/:id/upload-image',
@@ -11997,6 +12064,53 @@ ${urls
         });
       } catch (error: any) {
         console.error('Error uploading country image:', error);
+        res.status(500).json({ success: false, message: error.message });
+      }
+    },
+  );
+
+  // Upload country banner
+  app.post(
+    '/api/admin/master-countries/:id/upload-banner',
+    requireAdmin,
+    async (req: Request, res: Response) => {
+      try {
+        const { countryImageUpload } = await import('./middleware/image-upload');
+
+        countryImageUpload.single('image')(req, res, async (err: any) => {
+          try {
+            if (err) {
+              return res.status(400).json({ success: false, message: err.message });
+            }
+
+            if (!req.file) {
+              return res.status(400).json({ success: false, message: 'No image file provided' });
+            }
+
+            const { id } = req.params;
+            const imageUrl = `/uploads/countries/${req.file.filename}`;
+
+            const [updated] = await db
+              .update(destinations)
+              .set({ bannerImage: imageUrl, updatedAt: new Date() })
+              .where(eq(destinations.id, id))
+              .returning();
+
+            if (!updated) {
+              return res.status(404).json({ success: false, message: 'Country not found' });
+            }
+
+            ApiResponse.success(res, 'Banner uploaded successfully', {
+              bannerImage: imageUrl,
+              destination: updated,
+            });
+          } catch (innerError: any) {
+            console.error('Error processing country banner upload:', innerError);
+            res.status(500).json({ success: false, message: innerError.message });
+          }
+        });
+      } catch (error: any) {
+        console.error('Error uploading country banner:', error);
         res.status(500).json({ success: false, message: error.message });
       }
     },

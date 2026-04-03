@@ -292,11 +292,19 @@ export default function Destinations() {
                         data-testid={`card-destination-${dest.slug}`}
                       >
                         <div className="w-12 h-12 rounded-full overflow-hidden bg-muted flex items-center justify-center flex-shrink-0 border-2 border-gray-100 dark:border-gray-700">
-                          <ReactCountryFlag
-                            countryCode={dest.countryCode}
-                            svg
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                          />
+                          {dest.image ? (
+                            <img
+                              src={dest.image}
+                              alt={dest.name}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <ReactCountryFlag
+                              countryCode={dest.countryCode}
+                              svg
+                              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            />
+                          )}
                         </div>
                         <div className="flex-1 min-w-0">
                           <h3 className="font-semibold text-foreground truncate group-hover:text-[#1e5427] dark:group-hover:text-[#3d9a4d] transition-colors">
@@ -322,7 +330,15 @@ export default function Destinations() {
                         data-testid={`card-region-${region.slug}`}
                       >
                         <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-[#dcf0de] to-[#dcf0de] dark:from-[#194520]/30 dark:to-[#194520]/30 flex items-center justify-center flex-shrink-0 border-2 border-[#dcf0de] dark:border-[#1e5427]">
-                          <Globe className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
+                          {region.image ? (
+                            <img
+                              src={region.image}
+                              alt={region.name}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <Globe className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
+                          )}
                         </div>
                         <div className="flex-1 min-w-0">
                           <h3 className="font-semibold text-foreground truncate group-hover:text-[#1e5427] dark:group-hover:text-[#3d9a4d] transition-colors">
@@ -391,15 +407,23 @@ export default function Destinations() {
                       >
                         {/* Flag Circle */}
                         <div className="w-12 h-12 rounded-full overflow-hidden bg-muted flex items-center justify-center flex-shrink-0 border-2 border-gray-100 dark:border-gray-700">
-                          <ReactCountryFlag
-                            countryCode={dest.countryCode}
-                            svg
-                            style={{
-                              width: '100%',
-                              height: '100%',
-                              objectFit: 'cover',
-                            }}
-                          />
+                          {dest.image ? (
+                            <img
+                              src={dest.image}
+                              alt={dest.name}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <ReactCountryFlag
+                              countryCode={dest.countryCode}
+                              svg
+                              style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                              }}
+                            />
+                          )}
                         </div>
 
                         {/* Content */}
@@ -470,7 +494,15 @@ export default function Destinations() {
                       >
                         {/* Globe Icon Circle */}
                         <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-[#dcf0de] to-[#dcf0de] dark:from-[#194520]/30 dark:to-[#194520]/30 flex items-center justify-center flex-shrink-0 border-2 border-[#dcf0de] dark:border-[#1e5427]">
-                          <Globe className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
+                          {region.image ? (
+                            <img
+                              src={region.image}
+                              alt={region.name}
+                              className="w-full h-full object-cover"
+                            />
+                          ) : (
+                            <Globe className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
+                          )}
                         </div>
 
                         {/* Content */}

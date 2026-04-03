@@ -58,7 +58,7 @@ export default function Login() {
   const siteName = useSettingByKey('platform_name');
 
   const { data: settings } = useQuery<ReferralSettings>({
-    queryKey: ['/api/admin/referrals/settings'],
+    queryKey: ['/api/referrals/settings'],
   });
 
   useEffect(() => {
