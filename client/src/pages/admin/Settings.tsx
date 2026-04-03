@@ -14,7 +14,10 @@ import {
   Loader2,
   Palette,
   User,
-  Image as ImageIcon,
+  Flame,
+  Bot,
+  ImageIcon,
+  Globe
 } from 'lucide-react';
 import { SiPaypal, SiApplepay, SiGooglepay } from 'react-icons/si';
 import { Button } from '@/components/ui/button';
@@ -32,12 +35,15 @@ import { useTranslation } from '@/contexts/TranslationContext';
 import { CurrencyManagement } from '@/components/admin/tabs/CurrencyManagement';
 import { GeneralSettings } from '@/components/admin/tabs/GeneralSettings';
 import { SMTPSettings } from '@/components/admin/tabs/SMTPSettings';
+import { FirebaseSettings } from '@/components/admin/tabs/FirebaseSettings';
+import { ReCaptchaSettings } from '@/components/admin/tabs/ReCaptchaSettings';
 import { ThemeSettings } from './tabs/ThemeSettings';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { SocialMediaSettings } from '@/components/admin/tabs/SocialMediaSettings';
 import { AdminAccountSettings } from '@/components/admin/tabs/AdminAccountSettings';
 import { HomepagePopupSettings } from '@/components/admin/tabs/HomepagePopupSettings';
-// import { ThemeSettings } from '@/components/admin/tabs/ThemeSettings';
+import { AppStoreSettings } from '@/components/admin/tabs/AppStoreSettings';
+import { SEOSettings } from '@/components/admin/tabs/SEOSettings';
 
 function PaymentMethodsManagement() {
   const { toast } = useToast();
@@ -283,7 +289,7 @@ export default function Settings() {
 
   const siteName = useSettingByKey('platform_name');
 
-  console.log('siteName', siteName);
+  // console.log('siteName', siteName);
 
   useEffect(() => {
     if (settings) {
@@ -322,15 +328,15 @@ export default function Settings() {
       queryClient.invalidateQueries({ queryKey: ['/api/packages'] });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/packages'] });
       toast({
-        title: t('admin.settings.success', 'Success'),
-        description: t('admin.settings.settingsUpdatedSuccess', 'Settings updated successfully'),
+        title: t('adminPanel.admin.settings.success', 'Success'),
+        description: t('adminPanel.admin.settings.settingsUpdatedSuccess', 'Settings updated successfully'),
       });
     },
     onError: (error: any) => {
       toast({
-        title: t('admin.settings.error', 'Error'),
+        title: t('adminPanel.admin.settings.error', 'Error'),
         description:
-          error.message || t('admin.settings.failedToUpdateSettings', 'Failed to update settings'),
+          error.message || t('adminPanel.admin.settings.failedToUpdateSettings', 'Failed to update settings'),
         variant: 'destructive',
       });
     },
@@ -343,8 +349,8 @@ export default function Settings() {
   const handleSaveGeneral = async () => {
     if (!platformName.trim()) {
       toast({
-        title: t('admin.settings.validationError', 'Validation Error'),
-        description: t('admin.settings.platformNameRequired', 'Platform name is required'),
+        title: t('adminPanel.admin.settings.validationError', 'Validation Error'),
+        description: t('adminPanel.admin.settings.platformNameRequired', 'Platform name is required'),
         variant: 'destructive',
       });
       return;
@@ -419,53 +425,75 @@ export default function Settings() {
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
-          {t('admin.settings.title', 'Global Settings')}
+          {t('adminPanel.admin.settings.title', 'Global Settings')}
         </h1>
         <p className="text-slate-600 dark:text-slate-400 mt-1">
-          {t('admin.settings.description', 'Configure system-wide settings')}
+          {t('adminPanel.admin.settings.description', 'Configure system-wide settings')}
         </p>
       </div>
 
       <Tabs defaultValue="general" className="w-full">
         <div className="relative">
-          <div className="flex overflow-x-auto pb-2 scrollbar-hide">
-            <TabsList className="flex w-full min-w-max gap-1 p-1 lg:w-auto lg:grid lg:grid-cols-7">
+          <div className="overflow-x-auto scrollbar-hide pb-2">
+            <TabsList className="flex min-w-max gap-2 p-1 bg-muted/50" data-testid="tabs-settings">
               <TabsTrigger
                 value="general"
-                className="gap-2 whitespace-nowrap"
+                className="gap-1 whitespace-nowrap"
                 data-testid="tab-general"
               >
-                <Building2 className="h-4 w-4 shrink-0" />
-                {t('admin.settings.generalTab', 'General')}
+                <Building2 className="h-4 shrink-0" />
+                <span className="hidden sm:inline">{t('adminPanel.admin.settings.generalTab', 'General')}</span>
+                <span className="sm:hidden">{t('adminPanel.admin.settings.generalTab', 'General')}</span>
               </TabsTrigger>
-              <TabsTrigger
+              {/* <TabsTrigger
                 value="currency"
                 className="gap-1 whitespace-nowrap"
                 data-testid="tab-currency"
               >
                 <DollarSign className="h-4 w-4 shrink-0" />
-                {t('admin.settings.currencyTab', 'Currency')}
-              </TabsTrigger>
-              {/* <TabsTrigger
-                value="payment-methods"
-                className="gap-2 whitespace-nowrap"
-                data-testid="tab-payment-methods"
-              >
-                <CreditCard className="h-4 w-4 shrink-0" />
-                <span className="hidden sm:inline">Payment</span>
-                <span className="sm:hidden">Pay</span>
+                <span className="hidden sm:inline">{t('adminPanel.admin.settings.currencyTab', 'Currency')}</span>
+                <span className="sm:hidden">Currency</span>
               </TabsTrigger> */}
               <TabsTrigger value="smtp" className="gap-1 whitespace-nowrap" data-testid="tab-smtp">
                 <Mail className="h-4 w-4 shrink-0" />
-                {t('admin.settings.smtpTab', 'SMTP')}
+                <span className="hidden sm:inline">{t('adminPanel.admin.settings.smtpTab', 'SMTP')}</span>
+                <span className="sm:hidden">SMTP</span>
               </TabsTrigger>
               <TabsTrigger
-                value="theme"
+                value="firebase"
                 className="gap-2 whitespace-nowrap"
+                data-testid="tab-firebase"
+              >
+                <Flame className="h-4 w-4 shrink-0" />
+                {t('adminPanel.admin.settings.firebaseTab', 'Firebase')}
+              </TabsTrigger>
+
+              <TabsTrigger
+                value="recaptcha"
+                className="gap-2 whitespace-nowrap"
+                data-testid="tab-recaptcha"
+              >
+                <Bot className="h-4 w-4 shrink-0" />
+                {t("adminPanel.admin.settings.recaptchaTab", "reCAPTCHA")}
+              </TabsTrigger>
+
+              <TabsTrigger
+                value="app-store"
+                className="gap-2 whitespace-nowrap"
+                data-testid="tab-app-store"
+              >
+                <AlertCircle className="h-4 w-4 shrink-0" />
+                <span className="hidden sm:inline">{t("adminPanel.admin.settings.appStoresTab", "App Stores")}</span>
+                <span className="sm:hidden">Apps</span>
+              </TabsTrigger>
+
+              <TabsTrigger
+                value="theme"
+                className="gap-1 whitespace-nowrap"
                 data-testid="tab-theme"
               >
                 <Palette className="h-4 w-4 shrink-0" />
-                <span className="hidden sm:inline">Appearance</span>
+                <span className="hidden sm:inline">{t("adminPanel.admin.settings.appearanceTab", "Appearance")}</span>
                 <span className="sm:hidden">Theme</span>
               </TabsTrigger>
               <TabsTrigger
@@ -474,8 +502,17 @@ export default function Settings() {
                 data-testid="social-media"
               >
                 <Palette className="h-4 w-4 shrink-0" />
-                <span className="hidden sm:inline">Social Media</span>
-                <span className="sm:hidden">Theme</span>
+                <span className="hidden sm:inline">{t("adminPanel.admin.settings.socialMediaTab", "Social Media")}</span>
+                <span className="sm:hidden">Social</span>
+              </TabsTrigger>
+              <TabsTrigger
+                value="seo"
+                className="gap-1 whitespace-nowrap"
+                data-testid="tab-seo"
+              >
+                <Globe className="h-4 w-4 shrink-0" />
+                <span className="hidden sm:inline">{t("adminPanel.admin.settings.seoTab", "SEO & Meta")}</span>
+                <span className="sm:hidden">SEO</span>
               </TabsTrigger>
               <TabsTrigger
                 value="account"
@@ -483,7 +520,7 @@ export default function Settings() {
                 data-testid="tab-account"
               >
                 <User className="h-4 w-4 shrink-0" />
-                <span className="hidden sm:inline">Account & Security</span>
+                <span className="hidden sm:inline">{t("adminPanel.admin.settings.accountTab", "Account & Security")}</span>
                 <span className="sm:hidden">Account</span>
               </TabsTrigger>
               <TabsTrigger
@@ -492,7 +529,7 @@ export default function Settings() {
                 data-testid="tab-popup"
               >
                 <ImageIcon className="h-4 w-4 shrink-0" />
-                <span className="hidden sm:inline">Homepage Popup</span>
+                <span className="hidden sm:inline">{t("adminPanel.admin.settings.popupTab", "Homepage Popup")}</span>
                 <span className="sm:hidden">Popup</span>
               </TabsTrigger>
             </TabsList>
@@ -517,12 +554,27 @@ export default function Settings() {
           <SMTPSettings />
         </TabsContent>
 
+        <TabsContent value="firebase" className="space-y-4">
+          <FirebaseSettings />
+        </TabsContent>
+
+        <TabsContent value="recaptcha" className="space-y-4">
+          <ReCaptchaSettings />
+        </TabsContent>
+
+        <TabsContent value="app-store" className="space-y-4">
+          <AppStoreSettings />
+        </TabsContent>
+
         <TabsContent value="theme" className="space-y-4">
           <ThemeSettings />
         </TabsContent>
 
         <TabsContent value="social-media" className="space-y-4">
           <SocialMediaSettings />
+        </TabsContent>
+        <TabsContent value="seo" className="space-y-4">
+          <SEOSettings />
         </TabsContent>
         <TabsContent value="account" className="space-y-4">
           <AdminAccountSettings />

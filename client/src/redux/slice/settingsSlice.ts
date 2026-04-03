@@ -32,6 +32,23 @@ export interface SettingsState {
   homepage_popup_image?: string;
   homepage_popup_code?: string;
   homepage_popup_text?: string;
+
+  recaptcha_site_key?: string;
+  recaptcha_enabled?: string | boolean;
+  white_logo?: string;
+
+  firebase_api_key?: string;
+  firebase_auth_domain?: string;
+  firebase_project_id?: string;
+  firebase_storage_bucket?: string;
+  firebase_messaging_sender_id?: string;
+  firebase_app_id?: string;
+  firebase_measurement_id?: string;
+  firebase_client_email?: string;
+  firebase_private_key?: string;
+
+  social_android?: string | string[];
+  social_ios?: string | string[];
 }
 
 const initialState: SettingsState = {

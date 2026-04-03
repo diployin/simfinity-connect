@@ -1054,7 +1054,22 @@ export class DatabaseStorage implements IStorage {
           'homepage_popup_enabled',
           'homepage_popup_image',
           'homepage_popup_code',
-          'homepage_popup_text'
+          'homepage_popup_text',
+          /* ---------------------------------
+             FIREBASE CONFIG (PUBLIC)
+          ---------------------------------- */
+          'firebase_api_key',
+          'firebase_auth_domain',
+          'firebase_project_id',
+          'firebase_storage_bucket',
+          'firebase_messaging_sender_id',
+          'firebase_app_id',
+          'firebase_measurement_id',
+          /* ---------------------------------
+             RECAPTCHA CONFIG (PUBLIC)
+          ---------------------------------- */
+          'recaptcha_enabled',
+          'recaptcha_site_key'
         ]),
       );
   }

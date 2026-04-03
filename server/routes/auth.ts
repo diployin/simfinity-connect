@@ -10,6 +10,8 @@ import { sendEmail, generateOTPEmail, generateWelcomeEmail } from '../email';
 import { generateToken } from 'server/utils/auth';
 import { requireAuth, requireAdmin } from 'server/middleware/auth';
 import * as ApiResponse from '../utils/response';
+import admin, { initFirebaseAdmin } from "../config/firebase-admin";
+import axios from 'axios';
 
 const router = Router();
 const BCRYPT_ROUNDS = 12;
@@ -283,10 +285,32 @@ router.post('/check-email', async (req: Request, res: Response) => {
 
 router.post('/login-password', async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, captchaToken } = req.body;
 
     if (!email || !password) {
       return ApiResponse.badRequest(res, 'Email and password are required');
+    }
+
+    /* ---------------------------------
+       RECAPTCHA VERIFICATION
+    ---------------------------------- */
+    const [recaptchaEnabled, recaptchaSecretKey] = await Promise.all([
+      storage.getSettingByKey('recaptcha_enabled'),
+      storage.getSettingByKey('recaptcha_secret_key'),
+    ]);
+
+    if (recaptchaEnabled?.value === 'true') {
+      if (!captchaToken) {
+        return ApiResponse.badRequest(res, 'Captcha verification required');
+      }
+
+      const response = await axios.post(
+        `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecretKey?.value}&response=${captchaToken}`
+      );
+
+      if (!response.data.success) {
+        return ApiResponse.badRequest(res, 'Invalid captcha');
+      }
     }
 
     const user = await storage.getUserByEmail(email);
@@ -734,5 +758,154 @@ router.post('/app/login-with-google', async (req: Request, res: Response) => {
     return ApiResponse.serverError(res, err.message);
   }
 });
+
+router.post(
+  "/web/login-with-google",
+  async (req: Request, res: Response) => {
+    try {
+      const { idToken, referralCode } =
+        req.body;
+
+
+      // console.log(idToken, referralCode, "Req body")
+
+      /* -----------------------------------
+         VALIDATE TOKEN
+      ----------------------------------- */
+      if (!idToken) {
+        return ApiResponse.badRequest(
+          res,
+          "Firebase token is required"
+        );
+      }
+
+      /* -----------------------------------
+         VERIFY FIREBASE TOKEN
+      ----------------------------------- */
+      await initFirebaseAdmin();
+      const decoded = await admin
+        .auth()
+        .verifyIdToken(idToken);
+
+      const firebaseUid = decoded.uid;
+      const email = decoded.email;
+      const name = decoded.name;
+      const imagePath = decoded.picture;
+
+      if (!email) {
+        return ApiResponse.badRequest(
+          res,
+          "Email not found"
+        );
+      }
+
+      /* -----------------------------------
+         CHECK USER
+      ----------------------------------- */
+      let user =
+        await storage.getUserByEmail(
+          email
+        );
+
+      /* -----------------------------------
+         CREATE USER (Signup via Google)
+      ----------------------------------- */
+      if (!user) {
+        user =
+          await storage.createUser({
+            email,
+            name,
+            firebaseUid,
+            isFromGoogle: true,
+            imagePath,
+            kycStatus: "pending",
+          });
+
+        /* -------- Referral Apply -------- */
+        // if (referralCode) {
+        //   try {
+        //     await applyReferral(
+        //       user.id,
+        //       referralCode
+        //     );
+        //   } catch (err) {
+        //     console.log(
+        //       "Referral error:",
+        //       err
+        //     );
+        //   }
+        // }
+      }
+      /* -----------------------------------
+         CHECK BLOCKED/DELETED
+      ----------------------------------- */
+      if (user && user.isBlocked && !user.isDeleted) {
+        return ApiResponse.badRequest(
+          res,
+          "Your account has been blocked. Please contact support."
+        );
+      }
+
+      if (user && user.isDeleted) {
+        return ApiResponse.badRequest(
+          res,
+          "Your account has been deleted or deactivated. Please contact support."
+        );
+      }
+
+      /* -----------------------------------
+         MERGE ACCOUNT
+      ----------------------------------- */
+      if (user && !user.firebaseUid) {
+        await storage.updateUser(
+          user.id,
+          {
+            firebaseUid,
+            isFromGoogle: true,
+          }
+        );
+      }
+
+      /* -----------------------------------
+         GENERATE SESSION / JWT
+      ----------------------------------- */
+      const token = generateToken({
+        id: user.id,
+        email: user.email,
+      });
+
+      req.session.userId = user.id;
+
+      /* -----------------------------------
+         RESPONSE
+      ----------------------------------- */
+      return ApiResponse.success(
+        res,
+        "Google login successful",
+        {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          imagePath:
+            user.imagePath,
+          token,
+          passwordSet: Boolean(
+            user.hashedPassword
+          ),
+        }
+      );
+    } catch (err: any) {
+      console.error(
+        "Website Google login error:",
+        err.message
+      );
+
+      return ApiResponse.serverError(
+        res,
+        err.message
+      );
+    }
+  }
+);
 
 export default router;
