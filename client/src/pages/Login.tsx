@@ -25,6 +25,10 @@ import { useTranslation } from '@/contexts/TranslationContext';
 import { useQuery } from '@tanstack/react-query';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { useTheme } from '@/contexts/ThemeContext';
+import ReCAPTCHA from 'react-google-recaptcha';
+import React, { useRef } from 'react';
+import { signInWithGoogle } from '@/lib/firebase';
+import { SettingsState } from '@/redux/slice/settingsSlice';
 
 interface ReferralSettings {
   enabled: boolean;
@@ -55,10 +59,20 @@ export default function Login() {
   const [referralCode, setReferralCode] = useState<string | null>(null);
   const [showReferralBanner, setShowReferralBanner] = useState(false);
 
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+
   const { theme } = useTheme();
   const whiteLogo = useSettingByKey('white_logo');
   const normalLogo = useSettingByKey('logo');
   const siteName = useSettingByKey('platform_name');
+
+  const { data: allSettings } = useQuery<SettingsState>({
+    queryKey: ['/api/public/settings'],
+  });
+
+  const recaptchaEnabled = allSettings?.recaptcha_enabled === 'true';
+  const recaptchaSiteKey = allSettings?.recaptcha_site_key;
   const currentLogo = theme === 'dark' ? (whiteLogo || normalLogo) : normalLogo;
 
   const { data: settings } = useQuery<ReferralSettings>({
@@ -148,6 +162,7 @@ export default function Login() {
       await apiRequest('POST', '/api/auth/login-password', {
         email,
         password,
+        captchaToken,
       });
 
       queryClient.invalidateQueries({ queryKey: ['/api/auth/me'] });
@@ -155,6 +170,8 @@ export default function Login() {
       // Clear form
       setEmail('');
       setPassword('');
+      setCaptchaToken(null);
+      recaptchaRef.current?.reset();
 
       toast({
         title: 'Success!',
@@ -188,11 +205,60 @@ export default function Login() {
         }
       } catch { }
 
+      setCaptchaToken(null);
+      recaptchaRef.current?.reset();
+
       toast({
         title: 'Login Failed',
         description: errorMessage,
         variant: 'destructive',
         duration: 5000,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setIsLoading(true);
+    try {
+      const result = await signInWithGoogle();
+      const user = result.user;
+      const idToken = await user.getIdToken();
+
+      // Get referral code from state or local storage
+      const pendingReferralCode = referralCode || localStorage.getItem('pendingReferralCode');
+
+      const response = await apiRequest('POST', '/api/auth/web/login-with-google', {
+        idToken,
+        referralCode: pendingReferralCode
+      });
+
+      const data = await response.json();
+
+      queryClient.setQueryData(['/api/auth/me'], data.data);
+      queryClient.invalidateQueries({ queryKey: ['/api/auth/me'] });
+
+      // Clean up referral code from local storage
+      if (pendingReferralCode) {
+        localStorage.removeItem('pendingReferralCode');
+      }
+
+      toast({
+        title: t('website.login.success', 'Success!'),
+        description: t('website.login.redirecting', 'Login successful! Redirecting...'),
+      });
+
+      setTimeout(() => {
+        window.location.href = '/account/profile';
+      }, 1500);
+
+    } catch (error: any) {
+      console.error('❌ Google Login error:', error);
+      toast({
+        title: t('website.login.error', 'Login Error'),
+        description: error.message || t('website.login.googleFailed', 'Google login failed. Please try again.'),
+        variant: 'destructive',
       });
     } finally {
       setIsLoading(false);
@@ -632,13 +698,57 @@ export default function Login() {
                           </button>
                         </div>
                       </div>
+
+                      {/* ---------------------------------
+                         RECAPTCHA
+                      ---------------------------------- */}
+                      {recaptchaEnabled && recaptchaSiteKey && (
+                        <div className="flex justify-center my-4 overflow-hidden rounded-lg border border-border/50">
+                          <ReCAPTCHA
+                            ref={recaptchaRef}
+                            sitekey={recaptchaSiteKey}
+                            onChange={(token) => setCaptchaToken(token)}
+                            theme={theme === 'dark' ? 'dark' : 'light'}
+                          />
+                        </div>
+                      )}
+
                       <Button
                         type="submit"
                         className="w-full bg-primary-gradient hover:bg-primary-gradient "
-                        disabled={isLoading}
+                        disabled={isLoading || (recaptchaEnabled && !captchaToken)}
                         data-testid="button-signin"
                       >
                         {isLoading ? 'Signing in...' : 'Sign In'}
+                      </Button>
+
+                      {/* ---------------------------------
+                         GOOGLE LOGIN
+                      ---------------------------------- */}
+                      <div className="relative my-6 text-center">
+                        <div className="absolute inset-0 flex items-center">
+                          <div className="w-full border-t border-muted-foreground/20"></div>
+                        </div>
+                        <span className="relative px-4 text-xs uppercase bg-background text-muted-foreground font-medium"> Or continue with </span>
+                      </div>
+
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="w-full border-muted-foreground/20 hover:bg-muted/10 transition-all duration-300"
+                        onClick={handleGoogleLogin}
+                        disabled={isLoading}
+                        data-testid="button-google-login"
+                      >
+                        <div className="flex items-center gap-3">
+                          <svg width="18" height="18" viewBox="0 0 18 18">
+                            <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4" />
+                            <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853" />
+                            <path d="M3.964 10.71a5.41 5.41 0 01-.282-1.71c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05" />
+                            <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.443 2.048.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335" />
+                          </svg>
+                          <span className="font-medium">Continue with Google</span>
+                        </div>
                       </Button>
                       <p className="text-center text-sm text-muted-foreground">
                         Don't have an account?{' '}
@@ -867,6 +977,33 @@ export default function Login() {
                       >
                         {isLoading ? 'Sending...' : 'Continue'}
                       </Button>
+
+                      <div className="relative my-6 text-center">
+                        <div className="absolute inset-0 flex items-center">
+                          <div className="w-full border-t border-muted-foreground/20"></div>
+                        </div>
+                        <span className="relative px-4 text-xs uppercase bg-background text-muted-foreground font-medium"> Or continue with </span>
+                      </div>
+
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="w-full border-muted-foreground/20 hover:bg-muted/10 transition-all duration-300"
+                        onClick={handleGoogleLogin}
+                        disabled={isLoading}
+                        data-testid="button-google-signup"
+                      >
+                        <div className="flex items-center gap-3">
+                          <svg width="18" height="18" viewBox="0 0 18 18">
+                            <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4" />
+                            <path d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z" fill="#34A853" />
+                            <path d="M3.964 10.71a5.41 5.41 0 01-.282-1.71c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05" />
+                            <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.443 2.048.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335" />
+                          </svg>
+                          <span className="font-medium">Continue with Google</span>
+                        </div>
+                      </Button>
+
                       <p className="text-center text-sm text-muted-foreground">
                         Already have an account?{' '}
                         <button
@@ -1035,7 +1172,7 @@ export default function Login() {
             </Link>
           </p>
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }

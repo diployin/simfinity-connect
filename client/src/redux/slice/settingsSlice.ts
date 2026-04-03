@@ -28,11 +28,27 @@ export interface SettingsState {
   social_twitter?: string | string[];
   social_linkedin?: string | string[];
   social_youtube?: string | string[];
+  social_android?: string | string[];
+  social_ios?: string | string[];
 
   homepage_popup_enabled?: string;
   homepage_popup_image?: string;
   homepage_popup_code?: string;
   homepage_popup_text?: string;
+
+  /* ---------------------------------
+     FIREBASE & RECAPTCHA
+  ---------------------------------- */
+  firebase_api_key?: string;
+  firebase_auth_domain?: string;
+  firebase_project_id?: string;
+  firebase_storage_bucket?: string;
+  firebase_messaging_sender_id?: string;
+  firebase_app_id?: string;
+  firebase_measurement_id?: string;
+
+  recaptcha_enabled?: string | boolean;
+  recaptcha_site_key?: string;
 }
 
 const initialState: SettingsState = {

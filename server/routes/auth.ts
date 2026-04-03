@@ -10,6 +10,8 @@ import { sendEmail, generateOTPEmail, generateWelcomeEmail } from '../email';
 import { generateToken } from 'server/utils/auth';
 import { requireAuth, requireAdmin } from 'server/middleware/auth';
 import * as ApiResponse from '../utils/response';
+import admin, { initFirebaseAdmin } from "../config/firebase-admin";
+import axios from 'axios';
 
 const router = Router();
 const BCRYPT_ROUNDS = 12;
@@ -283,10 +285,32 @@ router.post('/check-email', async (req: Request, res: Response) => {
 
 router.post('/login-password', async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, captchaToken } = req.body;
 
     if (!email || !password) {
       return ApiResponse.badRequest(res, 'Email and password are required');
+    }
+
+    /* ---------------------------------
+       RECAPTCHA VERIFICATION
+    ---------------------------------- */
+    const [recaptchaEnabled, recaptchaSecretKey] = await Promise.all([
+      storage.getSettingByKey('recaptcha_enabled'),
+      storage.getSettingByKey('recaptcha_secret_key'),
+    ]);
+
+    if (recaptchaEnabled?.value === 'true') {
+      if (!captchaToken) {
+        return ApiResponse.badRequest(res, 'Captcha verification required');
+      }
+
+      const response = await axios.post(
+        `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecretKey?.value}&response=${captchaToken}`
+      );
+
+      if (!response.data.success) {
+        return ApiResponse.badRequest(res, 'Invalid captcha');
+      }
     }
 
     const user = await storage.getUserByEmail(email);
@@ -732,6 +756,117 @@ router.post('/app/login-with-google', async (req: Request, res: Response) => {
     });
   } catch (err: any) {
     return ApiResponse.serverError(res, err.message);
+  }
+});
+
+router.post('/web/login-with-google', async (req: Request, res: Response) => {
+  try {
+    const { idToken, referralCode } = req.body;
+
+    if (!idToken) {
+      return ApiResponse.badRequest(res, 'ID Token is required');
+    }
+
+    try {
+      /* -----------------------------------
+         VERIFY FIREBASE TOKEN
+      ----------------------------------- */
+      await initFirebaseAdmin();
+      const decoded = await admin
+        .auth()
+        .verifyIdToken(idToken);
+
+      const { email, name, picture, uid } = decoded;
+
+      if (!email) {
+        return ApiResponse.badRequest(res, 'Google account missing email');
+      }
+
+      let user = await storage.getUserByEmail(email);
+
+      /* -----------------------------------
+         MERGE OR CREATE ACCOUNT
+      ----------------------------------- */
+      if (user) {
+        // Update user if already exists
+        await storage.updateUser(user.id, {
+          isFromGoogle: true,
+          googleId: uid,
+          imagePath: picture || user.imagePath,
+          name: name || user.name,
+          lastGoogleLoginAt: new Date(),
+        });
+      } else {
+        // Create new user
+        user = await storage.createUser({
+          email,
+          name: name || '',
+          imagePath: picture || null,
+          isFromGoogle: true,
+          googleId: uid,
+          kycStatus: 'pending',
+          lastGoogleLoginAt: new Date(),
+          referralCode: null, // User's own referral code is generated automatically if storage handles it
+        });
+
+        /* -----------------------------------
+           HANDLE REFERRAL (OPTIONAL)
+        ----------------------------------- */
+        if (referralCode) {
+          try {
+            const referrer = await storage.getUserByReferralCode(referralCode);
+            if (referrer && referrer.id !== user.id) {
+              await storage.updateUser(user.id, { referredBy: referrer.id });
+              console.log(`✅ User ${user.id} referred by ${referrer.id}`);
+            }
+          } catch (refErr) {
+            console.error('❌ Referral error:', refErr);
+          }
+        }
+
+        // Welcome Email & Notification
+        try {
+          const welcomeEmail = await generateWelcomeEmail(user.name || 'Traveler', email);
+          await sendEmail({
+            to: email,
+            subject: welcomeEmail.subject,
+            html: welcomeEmail.html,
+          });
+
+          await storage.createNotification({
+            userId: user.id,
+            type: 'welcome',
+            title: 'Welcome to Simfinity!',
+            message: 'Your Google account has been linked. Enjoy your first eSIM!',
+            read: false,
+          });
+        } catch (mailErr) {
+          console.error('❌ Social welcome email error:', mailErr);
+        }
+      }
+
+      /* -----------------------------------
+         SESSION & TOKEN
+      ----------------------------------- */
+      req.session.userId = user.id;
+      const token = generateToken(user);
+
+      return ApiResponse.success(res, 'Verified with Google', {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        token,
+        passwordSet: Boolean(user.hashedPassword),
+      });
+
+    } catch (firebaseErr: any) {
+      console.error('❌ Firebase auth error:', firebaseErr);
+      return ApiResponse.badRequest(res, 'Invalid Google ID Token');
+    }
+
+  } catch (error: any) {
+    console.error('❌ Google Login error:', error);
+    return ApiResponse.serverError(res, error.message);
   }
 });
 
