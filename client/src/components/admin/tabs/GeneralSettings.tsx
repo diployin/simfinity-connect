@@ -513,6 +513,7 @@ export function GeneralSettings() {
     await saveSetting('copyright_text', copyrightText, 'general');
     await saveSetting('currency', currency, 'general');
     await saveSetting('email', email, 'general');
+    await saveSetting('package_selection_mode', packageSelectionMode, 'general');
     if (logo) {
       await saveSetting('logo', logo, 'general');
     }
