@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/table";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface Provider {
   id: string;
@@ -74,17 +75,17 @@ interface TopupsResponse {
 // Format data amount for display - handles eSIM Go's "-1" for unlimited
 function formatDataAmount(dataAmount: string): string {
   if (!dataAmount) return "-";
-  
+
   // eSIM Go uses "-1" or "-1MB" to mean unlimited
   if (dataAmount === "-1" || dataAmount === "-1MB" || dataAmount === "-1 MB") {
     return "Unlimited";
   }
-  
+
   // Already formatted as "Unlimited"
   if (dataAmount.toLowerCase() === "unlimited") {
     return "Unlimited";
   }
-  
+
   // Return as-is for normal data amounts (e.g., "1GB", "500MB")
   return dataAmount;
 }
@@ -97,6 +98,7 @@ export default function MasterTopups() {
   const [currentPage, setCurrentPage] = useState(1);
   const [syncingProviderId, setSyncingProviderId] = useState<string | null>(null);
   const itemsPerPage = 50;
+  const { t } = useTranslation();
 
   // Debounce search - wait 300ms after user stops typing
   useEffect(() => {
@@ -169,7 +171,6 @@ export default function MasterTopups() {
     },
   });
 
-  const enabledProviders = providers?.data?.filter((p) => p.enabled) || [];
   const topups = topupsData?.data || [];
   const stats = topupsData?.stats || { airalo: 0, esimAccess: 0, esimGo: 0, maya: 0, total: 0 };
   const pagination = topupsData?.pagination || { page: 1, limit: 50, total: 0, totalPages: 0 };
@@ -177,11 +178,11 @@ export default function MasterTopups() {
   const getProviderBadgeColor = (provider: string) => {
     switch (provider) {
       case 'airalo':
-        return 'bg-[#dcf0de] text-[#194520] dark:bg-[#194520] dark:text-[#c8e6c9]';
+        return 'bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200';
       case 'esim-access':
         return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
       case 'esim-go':
-        return 'bg-[#dcf0de] text-[#194520] dark:bg-[#194520] dark:text-[#c8e6c9]';
+        return 'bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200';
       case 'maya':
         return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
       default:
@@ -190,15 +191,18 @@ export default function MasterTopups() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 dark:text-white">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <RefreshCw className="h-6 w-6" />
-            Topup Packages
+            {t('adminPanel.admin.topups.title2', 'Topup Packages')}
           </h1>
           <p className="text-slate-500 dark:text-slate-400 mt-1">
-            Manage topup packages for reloading existing eSIMs
+            {t(
+              'adminPanel.admin.topups.description2',
+              'Manage topup packages for reloading existing eSIMs',
+            )}
           </p>
         </div>
       </div>
@@ -207,7 +211,7 @@ export default function MasterTopups() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-slate-500">
-              Total Topup Packages
+              {t('adminPanel.admin.topups.stats.total', 'Total Topup Packages')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -217,8 +221,8 @@ export default function MasterTopups() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-slate-500 flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#2c7338]" />
-              Airalo Topups
+              <div className="w-3 h-3 rounded-full bg-teal-500" />
+              {t('adminPanel.admin.topups.stats.airalo', 'Airalo Topups')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -229,20 +233,18 @@ export default function MasterTopups() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-slate-500 flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-green-500" />
-              eSIM Access Topups
+              {t('adminPanel.admin.topups.stats.esimAccess', 'eSIM Access Topups')}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <Badge variant="secondary" className="bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200">
-              On-demand
-            </Badge>
+            <div className="text-2xl font-bold">{(stats.esimAccess || 0).toLocaleString()}</div>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-slate-500 flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#2c7338]" />
-              eSIM Go Topups
+              <div className="w-3 h-3 rounded-full bg-teal-500" />
+              {t('adminPanel.admin.topups.stats.esimGo', 'eSIM Go Topups')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -253,7 +255,7 @@ export default function MasterTopups() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-slate-500 flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-orange-500" />
-              Maya Mobile Topups
+              {t('adminPanel.admin.topups.stats.maya', 'Maya Mobile Topups')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -264,14 +266,17 @@ export default function MasterTopups() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Topup Sync Status</CardTitle>
+          <CardTitle>{t('adminPanel.admin.topups.sync.title', 'Topup Sync Status')}</CardTitle>
           <p className="text-sm text-slate-500 mt-1">
-            Sync topup packages from all providers. Topups are also auto-synced after base package sync.
+            {t(
+              'adminPanel.admin.topups.sync.description',
+              'Sync topup packages from all providers. Topups are also auto-synced after base package sync.',
+            )}
           </p>
         </CardHeader>
         <CardContent>
           {loadingProviders ? (
-            <div className="flex items-center justify-center py-8">
+            <div className="flex items-center justify-center py-8 dark:text-white">
               <RefreshCw className="h-6 w-6 animate-spin text-slate-400" />
             </div>
           ) : (
@@ -282,14 +287,18 @@ export default function MasterTopups() {
                 data-testid="card-sync-airalo"
               >
                 <div className="flex items-center gap-3">
-                  <Server className="h-5 w-5 text-[#2c7338]" />
+                  <Server className="h-5 w-5 text-teal-500" />
                   <div>
-                    <p className="font-medium">Airalo Topups</p>
+                    <p className="font-medium">
+                      {t('adminPanel.admin.topups.provider.airalo', 'Airalo Topups')}
+                    </p>
                     <p className="text-xs text-slate-500">
-                      Last sync:{" "}
-                      {providers?.data?.find(p => p.slug === 'airalo')?.lastSyncAt
-                        ? new Date(providers.data.find(p => p.slug === 'airalo')!.lastSyncAt!).toLocaleString()
-                        : "Never"}
+                      {t('adminPanel.admin.topups.lastSync', 'Last sync')}
+                      {providers?.data?.find((p) => p.slug === 'airalo')?.lastSyncAt
+                        ? new Date(
+                          providers.data.find((p) => p.slug === 'airalo')!.lastSyncAt!,
+                        ).toLocaleString()
+                        : t('adminPanel.admin.topups.never', 'Never')}
                     </p>
                   </div>
                 </div>
@@ -297,20 +306,22 @@ export default function MasterTopups() {
                   size="sm"
                   variant="outline"
                   onClick={() => {
-                    const airalo = providers?.data?.find(p => p.slug === 'airalo');
+                    const airalo = providers?.data?.find((p) => p.slug === 'airalo');
                     if (airalo) syncMutation.mutate(airalo.id);
                   }}
-                  disabled={syncMutation.isPending || !providers?.data?.find(p => p.slug === 'airalo')}
+                  disabled={
+                    syncMutation.isPending || !providers?.data?.find((p) => p.slug === 'airalo')
+                  }
                   data-testid="button-sync-topups-airalo"
                 >
                   <RefreshCw
-                    className={`h-4 w-4 ${syncingProviderId === providers?.data?.find(p => p.slug === 'airalo')?.id ? "animate-spin" : ""}`}
+                    className={`h-4 w-4 ${syncingProviderId === providers?.data?.find((p) => p.slug === 'airalo')?.id ? 'animate-spin' : ''}`}
                   />
                   <span className="ml-2">Sync</span>
                 </Button>
               </div>
-              
-              {/* eSIM Access card - On-demand only (no bulk sync API available) */}
+
+              {/* eSIM Access sync card */}
               <div
                 className="flex items-center justify-between p-4 rounded-lg border border-slate-200 dark:border-slate-700"
                 data-testid="card-sync-esim-access"
@@ -319,50 +330,29 @@ export default function MasterTopups() {
                   <Server className="h-5 w-5 text-green-500" />
                   <div>
                     <span className="font-medium flex items-center gap-2">
-                      eSIM Access Topups
+                      {t('adminPanel.admin.topups.provider.esimAccess', 'eSIM Access Topups')}
+
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <Info className="h-4 w-4 text-slate-400 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent>
-                          <span className="max-w-xs">eSIM Access API requires a specific package to query topups. Topup packages are fetched on-demand when a user requests them for their eSIM.</span>
+                          <span className="max-w-xs">
+                            {t(
+                              'adminPanel.admin.topups.tooltip.esimAccess',
+                              'Bulk sync available to fetch all topup packages at once. Also fetched on-demand when users request them.',
+                            )}
+                          </span>
                         </TooltipContent>
                       </Tooltip>
                     </span>
                     <p className="text-xs text-slate-500">
-                      Fetched when users request topups
-                    </p>
-                  </div>
-                </div>
-                <Badge variant="secondary" className="bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200">
-                  On-demand
-                </Badge>
-              </div>
-              
-              {/* eSIM Go sync card */}
-              <div
-                className="flex items-center justify-between p-4 rounded-lg border border-slate-200 dark:border-slate-700"
-                data-testid="card-sync-esim-go"
-              >
-                <div className="flex items-center gap-3">
-                  <Server className="h-5 w-5 text-[#2c7338]" />
-                  <div>
-                    <span className="font-medium flex items-center gap-2">
-                      eSIM Go Topups
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Info className="h-4 w-4 text-slate-400 cursor-help" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <span className="max-w-xs">Topups are fetched from base packages with canTopup=true. Auto-synced after base package sync.</span>
-                        </TooltipContent>
-                      </Tooltip>
-                    </span>
-                    <p className="text-xs text-slate-500">
-                      Last sync:{" "}
-                      {providers?.data?.find(p => p.slug === 'esim-go')?.lastSyncAt
-                        ? new Date(providers.data.find(p => p.slug === 'esim-go')!.lastSyncAt!).toLocaleString()
-                        : "Never"}
+                      {t('adminPanel.admin.topups.lastSync', 'Last sync')}
+                      {providers?.data?.find((p) => p.slug === 'esim-access')?.lastSyncAt
+                        ? new Date(
+                          providers.data.find((p) => p.slug === 'esim-access')!.lastSyncAt!,
+                        ).toLocaleString()
+                        : t('adminPanel.admin.topups.never', 'Never')}
                     </p>
                   </div>
                 </div>
@@ -370,19 +360,75 @@ export default function MasterTopups() {
                   size="sm"
                   variant="outline"
                   onClick={() => {
-                    const esimGo = providers?.data?.find(p => p.slug === 'esim-go');
-                    if (esimGo) syncMutation.mutate(esimGo.id);
+                    const esimAccess = providers?.data?.find((p) => p.slug === 'esim-access');
+                    if (esimAccess) syncMutation.mutate(esimAccess.id);
                   }}
-                  disabled={syncMutation.isPending || !providers?.data?.find(p => p.slug === 'esim-go')}
-                  data-testid="button-sync-topups-esim-go"
+                  disabled={
+                    syncMutation.isPending || !providers?.data?.find((p) => p.slug === 'esim-access')
+                  }
+                  data-testid="button-sync-topups-esim-access"
                 >
                   <RefreshCw
-                    className={`h-4 w-4 ${syncingProviderId === providers?.data?.find(p => p.slug === 'esim-go')?.id ? "animate-spin" : ""}`}
+                    className={`h-4 w-4 ${syncingProviderId === providers?.data?.find((p) => p.slug === 'esim-access')?.id ? 'animate-spin' : ''}`}
                   />
                   <span className="ml-2">Sync</span>
                 </Button>
               </div>
-              
+
+              {/* eSIM Go sync card */}
+              <div
+                className="flex items-center justify-between p-4 rounded-lg border border-slate-200 dark:border-slate-700"
+                data-testid="card-sync-esim-go"
+              >
+                <div className="flex items-center gap-3">
+                  <Server className="h-5 w-5 text-teal-500" />
+                  <div>
+                    <span className="font-medium flex items-center gap-2">
+                      {t('adminPanel.admin.topups.provider.esimGo', 'eSIM Go Topups')}
+
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Info className="h-4 w-4 text-slate-400 cursor-help" />
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <span className="max-w-xs">
+                            {t(
+                              'adminPanel.admin.topups.tooltip.esimGo',
+                              'Topups are fetched from base packages with canTopup=true. Auto-synced after base package sync.',
+                            )}
+                          </span>
+                        </TooltipContent>
+                      </Tooltip>
+                    </span>
+                    <p className="text-xs text-slate-500">
+                      {t('adminPanel.admin.topups.lastSync', 'Last sync')}
+                      {providers?.data?.find((p) => p.slug === 'esim-go')?.lastSyncAt
+                        ? new Date(
+                          providers.data.find((p) => p.slug === 'esim-go')!.lastSyncAt!,
+                        ).toLocaleString()
+                        : t('adminPanel.admin.topups.never', 'Never')}
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    const esimGo = providers?.data?.find((p) => p.slug === 'esim-go');
+                    if (esimGo) syncMutation.mutate(esimGo.id);
+                  }}
+                  disabled={
+                    syncMutation.isPending || !providers?.data?.find((p) => p.slug === 'esim-go')
+                  }
+                  data-testid="button-sync-topups-esim-go"
+                >
+                  <RefreshCw
+                    className={`h-4 w-4 ${syncingProviderId === providers?.data?.find((p) => p.slug === 'esim-go')?.id ? 'animate-spin' : ''}`}
+                  />
+                  <span className="ml-2">Sync</span>
+                </Button>
+              </div>
+
               {/* Maya sync card */}
               <div
                 className="flex items-center justify-between p-4 rounded-lg border border-slate-200 dark:border-slate-700"
@@ -391,12 +437,16 @@ export default function MasterTopups() {
                 <div className="flex items-center gap-3">
                   <Server className="h-5 w-5 text-orange-500" />
                   <div>
-                    <p className="font-medium">Maya Mobile Topups</p>
+                    <p className="font-medium">
+                      {t('adminPanel.admin.topups.provider.maya', 'Maya Mobile Topups')}
+                    </p>
                     <p className="text-xs text-slate-500">
-                      Last sync:{" "}
-                      {providers?.data?.find(p => p.slug === 'maya')?.lastSyncAt
-                        ? new Date(providers.data.find(p => p.slug === 'maya')!.lastSyncAt!).toLocaleString()
-                        : "Never"}
+                      {t('adminPanel.admin.topups.lastSync', 'Last sync')}
+                      {providers?.data?.find((p) => p.slug === 'maya')?.lastSyncAt
+                        ? new Date(
+                          providers.data.find((p) => p.slug === 'maya')!.lastSyncAt!,
+                        ).toLocaleString()
+                        : t('adminPanel.admin.topups.never', 'Never')}
                     </p>
                   </div>
                 </div>
@@ -404,16 +454,18 @@ export default function MasterTopups() {
                   size="sm"
                   variant="outline"
                   onClick={() => {
-                    const maya = providers?.data?.find(p => p.slug === 'maya');
+                    const maya = providers?.data?.find((p) => p.slug === 'maya');
                     if (maya) syncMutation.mutate(maya.id);
                   }}
-                  disabled={syncMutation.isPending || !providers?.data?.find(p => p.slug === 'maya')}
+                  disabled={
+                    syncMutation.isPending || !providers?.data?.find((p) => p.slug === 'maya')
+                  }
                   data-testid="button-sync-topups-maya"
                 >
                   <RefreshCw
-                    className={`h-4 w-4 ${syncingProviderId === providers?.data?.find(p => p.slug === 'maya')?.id ? "animate-spin" : ""}`}
+                    className={`h-4 w-4 ${syncingProviderId === providers?.data?.find((p) => p.slug === 'maya')?.id ? 'animate-spin' : ''}`}
                   />
-                  <span className="ml-2">Sync</span>
+                  <span className="ml-2">{t('adminPanel.admin.topups.sync', 'Sync')}</span>
                 </Button>
               </div>
             </div>
@@ -424,24 +476,32 @@ export default function MasterTopups() {
       <Card>
         <CardHeader>
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <CardTitle>All Topup Packages</CardTitle>
+            <CardTitle>{t('adminPanel.admin.topups.table.title', 'All Topup Packages')}</CardTitle>
             <div className="flex flex-col sm:flex-row gap-2">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
                 <Input
-                  placeholder="Search topups..."
+                  placeholder={t('adminPanel.admin.topups.search', 'Search topups...')}
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
                   className="pl-9 w-full sm:w-[200px]"
                   data-testid="input-search-topups"
                 />
               </div>
-              <Select value={providerFilter} onValueChange={(v) => { setProviderFilter(v); setCurrentPage(1); }}>
+              <Select
+                value={providerFilter}
+                onValueChange={(v) => {
+                  setProviderFilter(v);
+                  setCurrentPage(1);
+                }}
+              >
                 <SelectTrigger className="w-full sm:w-[150px]" data-testid="select-provider">
                   <SelectValue placeholder="All Providers" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Providers</SelectItem>
+                  <SelectItem value="all">
+                    {t('adminPanel.admin.topups.filters.allProviders', 'All Providers')}
+                  </SelectItem>
                   <SelectItem value="airalo">Airalo</SelectItem>
                   <SelectItem value="esim-access">eSIM Access</SelectItem>
                   <SelectItem value="esim-go">eSIM Go</SelectItem>
@@ -453,15 +513,17 @@ export default function MasterTopups() {
         </CardHeader>
         <CardContent>
           {loadingTopups ? (
-            <div className="flex items-center justify-center py-8">
+            <div className="flex items-center justify-center py-8 dark:text-white">
               <RefreshCw className="h-6 w-6 animate-spin text-slate-400" />
             </div>
           ) : topups.length === 0 ? (
-            <div className="text-center py-8 text-slate-500">
+            <div className="text-center py-8 text-slate-500 dark:text-white">
               <Package className="h-12 w-12 mx-auto mb-4 text-slate-300" />
               <p>No topup packages found.</p>
               <p className="text-sm mt-2">
-                {debouncedSearch ? "Try a different search term." : "Trigger a sync to fetch topup packages."}
+                {debouncedSearch
+                  ? 'Try a different search term.'
+                  : 'Trigger a sync to fetch topup packages.'}
               </p>
             </div>
           ) : (
@@ -470,14 +532,20 @@ export default function MasterTopups() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Title</TableHead>
-                      <TableHead>Provider</TableHead>
-                      <TableHead>Destination</TableHead>
-                      <TableHead>Data</TableHead>
-                      <TableHead>Validity</TableHead>
-                      <TableHead>Price</TableHead>
-                      <TableHead>Linked</TableHead>
-                      <TableHead>Status</TableHead>
+                      <TableHead> {t('adminPanel.admin.topups.table.titleCol', 'Title')}</TableHead>
+                      <TableHead>
+                        {t('adminPanel.admin.topups.table.provider', 'Provider')}
+                      </TableHead>
+                      <TableHead>
+                        {t('adminPanel.admin.topups.table.destination', 'Destination')}
+                      </TableHead>
+                      <TableHead>{t('adminPanel.admin.topups.table.data', 'Data')}</TableHead>
+                      <TableHead>
+                        {t('adminPanel.admin.topups.table.validity', 'Validity')}
+                      </TableHead>
+                      <TableHead>{t('adminPanel.admin.topups.table.price', 'Price')}</TableHead>
+                      <TableHead>{t('adminPanel.admin.topups.table.linked', 'Linked')}</TableHead>
+                      <TableHead>{t('adminPanel.admin.topups.table.status', 'Status')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -486,9 +554,9 @@ export default function MasterTopups() {
                         <TableCell>
                           <div className="flex items-center gap-2">
                             {topup.operatorImage && (
-                              <img 
-                                src={topup.operatorImage} 
-                                alt={topup.operator || ""} 
+                              <img
+                                src={topup.operatorImage}
+                                alt={topup.operator || ''}
                                 className="w-8 h-8 rounded object-cover"
                               />
                             )}
@@ -501,7 +569,10 @@ export default function MasterTopups() {
                           </div>
                         </TableCell>
                         <TableCell>
-                          <Badge className={getProviderBadgeColor(topup.provider)} variant="secondary">
+                          <Badge
+                            className={getProviderBadgeColor(topup.provider)}
+                            variant="secondary"
+                          >
                             {topup.providerName}
                           </Badge>
                         </TableCell>
@@ -525,29 +596,31 @@ export default function MasterTopups() {
                         <TableCell>
                           <span className="font-medium">{formatDataAmount(topup.dataAmount)}</span>
                         </TableCell>
+                        <TableCell>{topup.validity} days</TableCell>
                         <TableCell>
-                          {topup.validity} days
-                        </TableCell>
-                        <TableCell>
-                          <span className="font-medium">
-                            ${parseFloat(topup.price).toFixed(2)}
-                          </span>
+                          <span className="font-medium">${parseFloat(topup.price).toFixed(2)}</span>
                           <span className="text-xs text-slate-500 ml-1">{topup.currency}</span>
                         </TableCell>
                         <TableCell>
                           {topup.hasParentPackage ? (
-                            <Badge variant="default" className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                            <Badge
+                              variant="default"
+                              className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                            >
                               Linked
                             </Badge>
                           ) : (
-                            <Badge variant="secondary" className="bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400">
+                            <Badge
+                              variant="secondary"
+                              className="bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-400"
+                            >
                               Unlinked
                             </Badge>
                           )}
                         </TableCell>
                         <TableCell>
-                          <Badge variant={topup.active ? "default" : "secondary"}>
-                            {topup.active ? "Active" : "Inactive"}
+                          <Badge variant={topup.active ? 'default' : 'secondary'}>
+                            {topup.active ? 'Active' : 'Inactive'}
                           </Badge>
                         </TableCell>
                       </TableRow>
@@ -560,7 +633,9 @@ export default function MasterTopups() {
               {pagination.totalPages > 1 && (
                 <div className="flex items-center justify-between mt-4">
                   <p className="text-sm text-slate-500">
-                    Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, pagination.total)} of {pagination.total} packages
+                    Showing {(currentPage - 1) * itemsPerPage + 1} to{' '}
+                    {Math.min(currentPage * itemsPerPage, pagination.total)} of {pagination.total}{' '}
+                    packages
                   </p>
                   <div className="flex items-center gap-2">
                     <Button

@@ -11,7 +11,9 @@ async function loadSmtpSettings() {
     "smtp_port",
     "smtp_user",
     "smtp_pass",
-    "smtp_from_email"
+    "smtp_from_email",
+    "platform_name",
+    "platform_tagline"
   ];
 
   const rows = await db
@@ -29,7 +31,9 @@ async function loadSmtpSettings() {
     port: Number(config.smtp_port || 587),
     user: config.smtp_user || "",
     pass: config.smtp_pass || "",
-    fromEmail: config.smtp_from_email || ""
+    fromEmail: config.smtp_from_email || "",
+    platformName: config.platform_name || "Simfinity",
+    platformTagline: config.platform_tagline || ""
   };
 }
 
@@ -355,20 +359,28 @@ export async function generateWelcomeEmail(
 
 
 export async function generateOrderConfirmationEmail(order: any) {
-  // Try to use database template first
-  const templateRendered = await renderTemplate('esim_purchased', {
-    customer_name: order.customerName || 'Customer',
-    order_number: order.displayId || order.id,
-    esim_iccid: order.iccid || 'Processing',
-    country: order.destination || 'Destination',
-    data_amount: order.dataAmount || 'N/A',
-    validity_days: order.validity || 'N/A',
-    price: order.price ? `$${order.price}` : 'N/A',
-    qr_code_url: order.qrCodeUrl || '',
-  });
+  const settings = await loadSmtpSettings();
+  const platformName = settings.platformName;
 
-  if (templateRendered) {
-    return templateRendered;
+  // Try to use database template first
+  try {
+    const templateRendered = await renderTemplate('esim_purchased', {
+      customer_name: order.customerName || order.name || 'Customer',
+      order_number: order.displayId || order.id || '',
+      esim_iccid: order.iccid || 'Processing',
+      country: order.destination || order.packageName || 'Destination',
+      data_amount: order.dataAmount || '',
+      validity_days: order.validity || '',
+      price: order.price ? `$${order.price}` : '',
+      qr_code_url: order.qrCodeUrl || '',
+      platform_name: platformName,
+    });
+
+    if (templateRendered) {
+      return templateRendered;
+    }
+  } catch (err) {
+    console.error("Order confirmation template render failed:", err);
   }
 
   // Fallback to hardcoded template
@@ -379,7 +391,8 @@ export async function generateOrderConfirmationEmail(order: any) {
       <html>
       <body style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: linear-gradient(135deg, #2c7338 0%, #3d9a4d 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
-          <h1 style="color: white; margin: 0; font-size: 28px;">Order Confirmed!</h1>
+          <h1 style="color: white; margin: 0; font-size: 28px;">${platformName}</h1>
+          <h2 style="color: white; margin: 0; font-size: 20px;">Order Confirmed!</h2>
         </div>
         <div style="background: #f0fdf4; padding: 40px; border-radius: 0 0 10px 10px;">
           <p style="font-size: 16px;">Your eSIM order has been confirmed and is ready to use!</p>
@@ -388,28 +401,37 @@ export async function generateOrderConfirmationEmail(order: any) {
             <table style="width: 100%; font-size: 14px;">
               <tr>
                 <td style="padding: 8px 0; color: #6b7280;">Order ID:</td>
-                <td style="padding: 8px 0; font-weight: 600;">${order.id}</td>
+                <td style="padding: 8px 0; font-weight: 600;">${order.displayId || order.id}</td>
               </tr>
               <tr>
                 <td style="padding: 8px 0; color: #6b7280;">Destination:</td>
-                <td style="padding: 8px 0; font-weight: 600;">${order.destination}</td>
+                <td style="padding: 8px 0; font-weight: 600;">${order.destination || order.packageName}</td>
               </tr>
+              ${order.dataAmount ? `
               <tr>
                 <td style="padding: 8px 0; color: #6b7280;">Data:</td>
                 <td style="padding: 8px 0; font-weight: 600;">${order.dataAmount}</td>
               </tr>
+              ` : ''}
+              ${order.validity ? `
               <tr>
                 <td style="padding: 8px 0; color: #6b7280;">Validity:</td>
                 <td style="padding: 8px 0; font-weight: 600;">${order.validity} days</td>
               </tr>
+              ` : ''}
+              ${order.price ? `
               <tr>
                 <td style="padding: 8px 0; color: #6b7280;">Amount:</td>
                 <td style="padding: 8px 0; font-weight: 600;">$${order.price}</td>
               </tr>
+              ` : ''}
             </table>
           </div>
           <p style="font-size: 16px; font-weight: 600; margin-top: 30px;">Next Steps:</p>
           <p style="font-size: 14px;">Check your email for installation instructions with a QR code to activate your eSIM.</p>
+        </div>
+        <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
+          <p>© ${new Date().getFullYear()} ${platformName}. All rights reserved.</p>
         </div>
       </body>
       </html>
@@ -417,38 +439,133 @@ export async function generateOrderConfirmationEmail(order: any) {
   };
 }
 
-export function generateInstallationEmail(order: any) {
+
+
+export async function generateInstallationEmail(order: any) {
+  const settings = await loadSmtpSettings();
+  const platformName = settings.platformName;
+
+  // ✅ Try DB template first
+  try {
+    const templateRendered = await renderTemplate('esim_installation', {
+      customer_name: order.name || 'Customer',
+      package_name: order.packageName || 'Your Package',
+      qr_code_url: order.qrCodeUrl || '',
+      esim_iccid: order.iccid || '',
+      activation_code: order.activationCode || order.lpaCode || '',
+      smdp_address: order.smdpAddress || '',
+      platform_name: platformName,
+    });
+
+    if (templateRendered) return templateRendered;
+  } catch (err) {
+    console.error("Installation template render failed:", err);
+  }
+
+  const lpaCodeToUse = order.lpaCode || order.activationCode;
+
+  // ✅ qrCodeUrl is always a real http URL at this point
+  // (either from provider, or generated & saved by generateAndSaveQrCode)
+  const qrHtml = order.qrCodeUrl
+    ? `
+      <img
+        src="${order.qrCodeUrl}"
+        alt="QR Code"
+        style="max-width:250px;border:2px solid #e5e7eb;border-radius:8px;padding:10px;background:white;"
+      />
+    `
+    : `
+      <div style="padding:20px;background:#fff3cd;border-radius:8px;">
+        <p style="font-size:13px;color:#856404;margin:0;">
+          QR code unavailable. Please use the manual installation code below.
+        </p>
+      </div>
+    `;
+
   return {
-    subject: "eSIM Installation Instructions",
+    subject: 'eSIM Installation Instructions',
     html: `
       <!DOCTYPE html>
       <html>
-      <body style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="background: linear-gradient(135deg, #2c7338 0%, #3d9a4d 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
-          <h1 style="color: white; margin: 0; font-size: 28px;">Install Your eSIM</h1>
+      <body style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+                   line-height:1.6; color:#333; max-width:600px; margin:0 auto; padding:20px;">
+
+        <div style="background:linear-gradient(135deg,#2c7338 0%,#3d9a4d 100%);
+                    padding:30px; text-align:center; border-radius:10px 10px 0 0;">
+          <h1 style="color:white; margin:0; font-size:28px;">${platformName} - Install Your eSIM</h1>
         </div>
-        <div style="background: #f0fdf4; padding: 40px; border-radius: 0 0 10px 10px;">
-          <h3 style="color: #2c7338;">Installation Steps:</h3>
-          <ol style="font-size: 14px; line-height: 1.8;">
-            <li>Go to Settings > Cellular/Mobile Data > Add eSIM</li>
-            <li>Scan the QR code below or enter the details manually</li>
+
+        <div style="background:#f0fdf4; padding:40px; border-radius:0 0 10px 10px;">
+
+          <p style="font-size:16px;">Hi <strong>${order.name || 'Customer'}</strong>,</p>
+          <p style="font-size:14px; color:#6b7280;">
+            Your eSIM package <strong>${order.packageName || 'Your Package'}</strong> is ready to install.
+          </p>
+
+          <h3 style="color:#2c7338;">Installation Steps:</h3>
+          <ol style="font-size:14px; line-height:1.8;">
+            <li>Go to Settings &gt; Cellular/Mobile Data &gt; Add eSIM</li>
+            <li>Scan the QR code below or enter manually</li>
             <li>Follow the on-screen instructions</li>
             <li>Your eSIM will activate when you arrive at your destination</li>
           </ol>
-          ${order.qrCode ? `
-          <div style="text-align: center; margin: 30px 0;">
-            <img src="${order.qrCode}" alt="QR Code" style="max-width: 250px; border: 2px solid #e5e7eb; border-radius: 8px; padding: 10px; background: white;">
+
+          <div style="text-align:center; margin:30px 0;">
+            <p style="font-size:13px; color:#6b7280; margin-bottom:10px;">
+              Scan this QR code to install your eSIM
+            </p>
+            ${qrHtml}
           </div>
+
+          ${lpaCodeToUse ? `
+            <div style="background:white; border-radius:8px; padding:20px; margin:20px 0;
+                        border:1px solid #e5e7eb;">
+              <h4 style="margin-top:0; color:#374151;">Manual Installation Code:</h4>
+              <p style="font-family:monospace; font-size:12px; word-break:break-all;
+                        background:#f3f4f6; padding:10px; border-radius:4px; margin:0;">
+                ${lpaCodeToUse}
+              </p>
+            </div>
           ` : ''}
-          ${order.lpaCode ? `
-          <div style="background: white; border-radius: 8px; padding: 20px; margin: 20px 0;">
-            <h4 style="margin-top: 0;">Manual Installation Code:</h4>
-            <p style="font-family: monospace; font-size: 12px; word-break: break-all; background: #f3f4f6; padding: 10px; border-radius: 4px;">${order.lpaCode}</p>
-          </div>
+
+          ${order.iccid ? `
+            <div style="background:white; border-radius:8px; padding:20px; margin:20px 0;
+                        border:1px solid #e5e7eb;">
+              <h4 style="margin-top:0; color:#374151;">ICCID:</h4>
+              <p style="font-family:monospace; font-size:12px; word-break:break-all;
+                        background:#f3f4f6; padding:10px; border-radius:4px; margin:0;">
+                ${order.iccid}
+              </p>
+            </div>
           ` : ''}
-          <div style="background: #fef3c7; border-left: 4px solid #f59e0b; padding: 15px; margin: 20px 0;">
-            <p style="margin: 0; font-size: 14px;"><strong>Important:</strong> Install your eSIM before you travel. It will activate automatically when you reach your destination.</p>
+
+          ${order.smdpAddress ? `
+            <div style="background:white; border-radius:8px; padding:20px; margin:20px 0;
+                        border:1px solid #e5e7eb;">
+              <h4 style="margin-top:0; color:#374151;">SM-DP+ Address:</h4>
+              <p style="font-family:monospace; font-size:12px; word-break:break-all;
+                        background:#f3f4f6; padding:10px; border-radius:4px; margin:0;">
+                ${order.smdpAddress}
+              </p>
+            </div>
+          ` : ''}
+
+          <div style="background:#fef3c7; border-left:4px solid #f59e0b; padding:15px;
+                      margin:20px 0; border-radius:0 8px 8px 0;">
+            <p style="margin:0; font-size:14px;">
+              <strong>Important:</strong> Install your eSIM before you travel.
+              It will activate automatically when you reach your destination.
+            </p>
           </div>
+
+          <p style="font-size:13px; color:#9ca3af; text-align:center; margin-top:30px;">
+            Need help? Contact our support team.
+          </p>
+
+          <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
+            <p>© ${new Date().getFullYear()} ${platformName}. All rights reserved.</p>
+          </div>
+
         </div>
       </body>
       </html>
@@ -534,7 +651,7 @@ export async function generateLowDataEmail(data: {
       break;
   }
 
-  const urgencyColor = urgencyLevel === "Urgent" ? "#dc2626" : urgencyLevel === "Warning" ? "#f59e0b" : "#0ea5e9";
+  const urgencyColor = urgencyLevel === "Urgent" ? "#dc2626" : urgencyLevel === "Warning" ? "#f59e0b" : "#2c7338";
 
   return {
     subject: title,
@@ -587,8 +704,8 @@ export async function generateLowDataEmail(data: {
               <a href="${topupUrl}" style="display: inline-block; background: linear-gradient(135deg, #2c7338 0%, #3d9a4d 100%); color: white; text-decoration: none; padding: 16px 40px; border-radius: 8px; font-weight: bold; font-size: 16px;">Top Up Now</a>
             </div>
             
-            <div style="background: #eff6ff; border-left: 4px solid #3b82f6; padding: 15px; margin: 20px 0;">
-              <p style="margin: 0; font-size: 14px; color: #1e40af;"><strong>Tip:</strong> Top up before you run out to avoid any interruption in service. Your eSIM will continue working seamlessly!</p>
+            <div style="background: #f0fdf4; border-left: 4px solid #2c7338; padding: 15px; margin: 20px 0;">
+              <p style="margin: 0; font-size: 14px; color: #2c7338;"><strong>Tip:</strong> Top up before you run out to avoid any interruption in service. Your eSIM will continue working seamlessly!</p>
             </div>
             
             <p style="font-size: 14px; color: #6b7280; margin-top: 30px;">Need help? Contact our support team at info@simfinity.tel</p>

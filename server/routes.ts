@@ -79,6 +79,52 @@ import { optionalAdminAuth } from './middleware/auth';
 import { demoCrudBlock } from './utils/demoCrudBlock';
 import { demoMaskResponse } from './utils/demoMaskResponse';
 import supportedDevices from "./lib/devices.json";
+import QRCode from "qrcode";
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export async function generateAndSaveQrCode(
+  lpaCode: string,
+  orderId: string | number,
+): Promise<string | null> {
+  try {
+    // ── 1. Folder path: <project_root>/uploads/qrcodes/ ─────────────────
+    const qrDir = path.join(__dirname, '..', 'uploads', 'qrcodes');
+
+    if (!fs.existsSync(qrDir)) {
+      fs.mkdirSync(qrDir, { recursive: true });
+      console.log('📁 Created folder:', qrDir);
+    }
+
+    // ── 2. Unique filename ───────────────────────────────────────────────
+    const filename = `qr_order_${orderId}_${Date.now()}.png`;
+    const filePath = path.join(qrDir, filename);
+
+    // ── 3. Save PNG to disk ──────────────────────────────────────────────
+    await QRCode.toFile(filePath, lpaCode, {
+      errorCorrectionLevel: 'M',
+      margin: 2,
+      width: 300,
+      type: 'png',
+    });
+
+    console.log(`✅ QR code saved at: ${filePath}`);
+
+    // ── 4. Return public URL ─────────────────────────────────────────────
+    const baseUrl = (process.env.API_BASE_URL || 'https://esimconnect.diploy.in').replace(/\/$/, '');
+    const publicUrl = `${baseUrl}/uploads/qrcodes/${filename}`;
+
+    console.log(`🔗 QR public URL: ${publicUrl}`);
+    return publicUrl;
+
+  } catch (err) {
+    console.error('❌ QR code save failed:', err);
+    return null;
+  }
+}
+
 
 
 // Initialize Stripe
@@ -1363,122 +1409,101 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Confirm guest payment and create order
   app.post('/api/guest/confirm-payment', async (req: Request, res: Response) => {
     try {
-      const { paymentIntentId, providerType, orderId, paymentId, signature } = req.body;
-
-      // new flow
-
-      // check verify payment status
+      const { paymentIntentId, providerType, paymentId, signature, metadata: reqMetadata } = req.body;
+      const orderId = req.body.orderId || req.body.paypal?.orderId || req.body.paypal?.order_id || req.body.paymentId;
 
       if (!providerType) {
-        return res.status(400).json({
-          success: false,
-          message: 'providerType missing',
-        });
+        return res.status(400).json({ success: false, message: 'providerType missing' });
       }
 
       let body: any;
 
       switch (providerType) {
         case 'stripe':
-          if (!paymentIntentId) {
-            return res.status(400).json({
-              success: false,
-              message: 'paymentIntentId missing',
-            });
-          }
-
-          body = {
-            provider: 'stripe',
-            stripe: { paymentIntentId },
-          };
+          if (!paymentIntentId)
+            return res.status(400).json({ success: false, message: 'paymentIntentId missing' });
+          body = { provider: 'stripe', stripe: { paymentIntentId } };
           break;
 
         case 'razorpay':
-          if (!orderId || !paymentId || !signature) {
-            return res.status(400).json({
-              success: false,
-              message: 'Razorpay data missing',
-            });
-          }
-
-          body = {
-            provider: 'razorpay',
-            razorpay: { orderId, paymentId, signature },
-          };
+          if (!orderId || !paymentId || !signature)
+            return res.status(400).json({ success: false, message: 'Razorpay data missing' });
+          body = { provider: 'razorpay', razorpay: { orderId, paymentId, signature } };
           break;
 
         case 'paypal':
-          body = {
-            provider: 'paypal',
-            paypal: { orderId },
-          };
+          body = { provider: 'paypal', paypal: { orderId } };
           break;
 
         case 'paystack':
-          body = {
-            provider: 'paystack',
-            paystack: { reference: orderId },
-          };
+          body = { provider: 'paystack', paystack: { reference: orderId } };
+          break;
+
+        case 'powertranz':
+          const { spiToken, orderId: ptOrderId } = req.body;
+          if (!spiToken || !ptOrderId)
+            return res.status(400).json({
+              success: false,
+              message: 'PowerTranz data (`spiToken`, `orderId`) missing',
+            });
+          body = { provider: 'powertranz', powertranz: { spiToken, orderId: ptOrderId } };
+          break;
+
+        case 'free':
+          body = { provider: 'free', currency: req.body.metadata?.currency || 'USD', metadata: req.body.metadata };
           break;
 
         default:
-          return res.status(400).json({
-            success: false,
-            message: 'Unsupported provider',
-          });
+          return res.status(400).json({ success: false, message: 'Unsupported provider' });
       }
 
-      // 🔐 CALL UNIFIED VERIFY API
+      // ── Verify payment ──────────────────────────────────────────────────────
       const verifyResponse = await axios.post(
-        `${process.env.API_BASE_URL}/api/payments/confirm-payments`,
+        `${process.env.BASE_URL}/api/payments/confirm-payments`,
         body,
       );
 
-      console.log('CHEKKKKKKKKKK verification responseee', verifyResponse);
+      console.log('Verification response:', verifyResponse.data);
       const verification = verifyResponse.data;
-
-      if (!verification.success) {
-        return res.status(400).json(verification);
-      }
-
-      // new flow
+      if (!verification.success) return res.status(400).json(verification);
 
       const metadata = verification.metadata;
-
       console.log('Payment intent metadata:', metadata);
 
-      if (metadata.type !== 'guest_purchase') {
+      // Allow both types since UnifiedCheckout now uses this route for free orders
+      if (metadata.type !== 'guest_purchase' && metadata.type !== 'package_purchase') {
         return res.status(400).json({ success: false, message: 'Invalid payment intent type' });
       }
 
       const packageId = metadata.packageId;
-      const guestEmail = metadata.guestEmail;
-      const guestPhone = metadata.guestPhone;
+      const guestEmail = metadata.guestEmail || metadata.email;
+      const guestPhone = metadata.guestPhone || metadata.phone;
       const guestAccessToken = metadata.guestAccessToken;
       const quantity = parseInt(metadata.quantity || '1', 10);
 
-      if (!guestEmail || !guestAccessToken || !packageId) {
+      // If we have a userId from metadata (logged-in), we don't strictly require guestAccessToken for provision
+      if (!guestEmail || (!guestAccessToken && !metadata.userId) || !packageId) {
         return res.status(400).json({ success: false, message: 'Invalid payment intent metadata' });
       }
 
-      // Check if order already exists (idempotency)
-      const existingOrder = await storage.getOrderByGuestAccessToken(guestAccessToken);
-      if (existingOrder) {
+      // Idempotency check
+      let order = await storage.getOrderByGuestAccessToken(guestAccessToken);
+      if (order && order.status !== 'pending') {
         return res.json({
           success: true,
           message: 'Order already exists',
-          orderId: existingOrder.id,
-          guestAccessToken: guestAccessToken,
+          orderId: order.id,
+          guestAccessToken,
         });
       }
 
-      // Get package details
-      const pkg = await storage.getUnifiedPackageById(packageId);
-      if (!pkg) {
-        return res.status(404).json({ success: false, message: 'Package not found' });
-      }
+      const { resolvePackage, getProviderSpecificPackageId } =
+        await import('./services/packages/package-resolver');
 
-      // Check if user exists, if not create one
+      const pkg = await resolvePackage(packageId);
+      if (!pkg) return res.status(404).json({ success: false, message: 'Package not found' });
+
+      // Get or create user
       let user = await storage.getUserByEmail(guestEmail);
       if (!user) {
         user = await storage.createUser({
@@ -1488,302 +1513,270 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // Create the order
-      // const unitPrice = parseFloat(pkg.retailPrice.toString());
-      // const unitPrice = parseFloat(verifyResponse.data.amount.toString())
       const ZERO_DECIMAL_CURRENCIES = ['JPY', 'KRW', 'VND'];
 
       function normalizePaymentAmount(
         amount: number,
         currency: string,
-        provider: 'stripe' | 'razorpay' | 'paypal' | 'paystack',
+        provider: 'stripe' | 'razorpay' | 'paypal' | 'paystack' | 'powertranz',
       ): number {
         const cur = currency.toUpperCase();
-
-        // Stripe & PayPal already return decimal amounts
-        if (provider === 'stripe' || provider === 'paypal') {
-          return amount;
-        }
-
-        // Razorpay & Paystack return smallest units
+        if (provider === 'stripe' || provider === 'paypal' || provider === 'powertranz') return amount;
         if (provider === 'razorpay' || provider === 'paystack') {
-          if (ZERO_DECIMAL_CURRENCIES.includes(cur)) {
-            return amount;
-          }
-          return amount / 100;
+          return ZERO_DECIMAL_CURRENCIES.includes(cur) ? amount : amount / 100;
         }
-
         return amount;
       }
 
       const paidCurrency = verification.currency.toUpperCase();
-
       const paidAmount = normalizePaymentAmount(
-        verification.amount,
-        paidCurrency,
-        verification.provider,
+        verification.amount, paidCurrency, verification.provider,
       );
+      const totalPrice = paidAmount.toString();
 
-      const totalPrice = (paidAmount * quantity).toString();
-      const order = await storage.createOrder({
-        userId: user.id,
-        packageId: pkg.id,
-        providerId: pkg.providerId,
-        status: 'processing',
-        orderType: quantity > 1 ? 'batch' : 'single',
-        quantity: quantity,
-        price: totalPrice,
-        wholesalePrice: pkg.wholesalePrice?.toString() || null,
-        currency: paidCurrency || 'USD',
-        orderCurrency: paidCurrency || 'USD',
-        dataAmount: pkg.dataAmount,
-        validity: pkg.validityDays,
-        stripePaymentIntentId: paymentIntentId,
-        paymentMethod: 'card',
-        guestAccessToken: guestAccessToken,
-        guestEmail: guestEmail,
-        guestPhone: guestPhone || null,
-      });
-
-      // Trigger eSIM provisioning via OrderingEngine (with smart failover)
-
-      try {
-        if (pkg.providerId) {
-          const { orderingEngine } = await import('./services/ordering/ordering-engine');
-          const transactionId =
-            paymentId || paymentIntentId || verification.referenceId || `ORDER-${order.id}`;
-
-          const { resolvePackage } = await import('./services/packages/package-resolver');
-
-          const packagee = await resolvePackage(packageId);
-          if (!pkg) {
-            return res.status(404).json({
-              success: false,
-              message: 'Package not found',
-            });
-          }
-
-          const { getProviderSpecificPackageId } =
-            await import('./services/packages/package-resolver');
-
-          const providerPackageId = await getProviderSpecificPackageId(
-            pkg.providerPackageTable,
-            pkg.providerPackageId,
-          );
-          console.log('@@@@@@@@@@@@@@@@@@@', providerPackageId, pkg);
-
-          if (!providerPackageId) {
-            throw new Error('Provider package ID not found');
-          }
-
-          console.log(
-            `[Guest Order] Provisioning ${quantity} eSIM(s) via OrderingEngine for order ${order.id}`,
-          );
-
-          //           const orderResult = await orderingEngine.createOrder({
-          //   orderId: order.id,
-          //   packageId: packagee?.id,
-          //   unifiedPackageId: pkg.id,
-          //   quantity,
-          //   customerEmail: guestEmail,
-          //   customerPhone: guestPhone,
-          //   source: "guest_checkout",
-          //   transactionId: paymentId,
-          //   partnerReference: `Order ${order.id}`,
-          //   providerPackageId: packagee?.id
-          // });
-
-          // const orderResult = await orderingEngine.createOrder({
-          //   orderId: order.id,
-          //   packageId: providerPackageId,
-          //   unifiedPackageId: pkg.id,
-          //   quantity,
-          //   customerEmail: guestEmail,
-          //   customerPhone: guestPhone || undefined,
-          //   source: "guest_checkout",
-          //   transactionId:
-          //     paymentId || paymentIntentId || `ORDER-${order.id}`,
-          //   partnerReference: `Order ${order.id}`,
-          //   providerPackageId: providerPackageId
-          // });
-
-          const orderResult = await orderingEngine.createOrder({
-            orderId: order.id,
-            packageId: pkg.id, // ✅ ONLY unified package id
-            unifiedPackageId: pkg.id,
-            quantity,
-            customerEmail: guestEmail,
-            customerPhone: guestPhone || undefined,
-            source: 'guest_checkout',
-            transactionId: paymentId || paymentIntentId || `ORDER-${order.id}`,
-            partnerReference: `Order ${order.id}`,
-          });
-
-          if (!orderResult.success) {
-            throw new Error(orderResult.error || 'Provider order failed');
-          }
-
-          const esimDetail = orderResult.esimDetails?.[0];
-
-          // Update order with eSIM details and failover metadata
-          await storage.updateOrder(order.id, {
-            providerOrderId: orderResult.providerOrderId || null,
-            providerId: orderResult.finalProviderId,
-            iccid: esimDetail?.iccid || null,
-            qrCode: esimDetail?.qrCode || null,
-            qrCodeUrl: esimDetail?.qrCodeUrl || null,
-            lpaCode: esimDetail?.lpaCode || esimDetail?.qrCode || null,
-            smdpAddress: esimDetail?.smdpAddress || null,
-            activationCode: esimDetail?.activationCode || null,
-            status: 'completed',
-            originalProviderId: orderResult.originalProviderId,
-            finalProviderId: orderResult.finalProviderId,
-            failoverAttempts: orderResult.attempts,
-          });
-
-          // Log if failover was used
-          if (orderResult.failoverUsed) {
-            console.log(
-              `[Guest Order] Failover used for order ${order.id}: ${orderResult.originalProviderId} → ${orderResult.finalProviderId}`,
-            );
-          }
-
-          console.log(`[Guest Order] eSIM provisioned successfully for order ${order.id}`);
-
-          // Send confirmation and installation emails
-          try {
-            const confirmationEmail = await generateOrderConfirmationEmail({
-              id: order.id,
-              displayId: order.displayOrderId,
-              customerName: user.name || 'Guest',
-              destination: pkg.countryName || 'Global',
-              dataAmount: pkg.dataAmount,
-              validity: pkg.validityDays,
-              price: totalPrice,
-              iccid: esimDetail?.iccid || null,
-              qrCodeUrl: esimDetail?.qrCodeUrl || null,
-            });
-            if (confirmationEmail) {
-              await sendEmail({
-                to: guestEmail,
-                subject: confirmationEmail.subject,
-                html: confirmationEmail.html,
-              });
-              console.log(`[Guest Order] Confirmation email sent to ${guestEmail}`);
-            }
-            const installationEmail = generateInstallationEmail({
-              qrCode: esimDetail?.qrCode,
-              lpaCode: esimDetail?.lpaCode || esimDetail?.qrCode,
-            });
-            if (installationEmail) {
-              await sendEmail({
-                to: guestEmail,
-                subject: installationEmail.subject,
-                html: installationEmail.html,
-              });
-              console.log(`[Guest Order] Installation email sent to ${guestEmail}`);
-            }
-          } catch (emailError: any) {
-            console.error(`[Guest Order] Failed to send emails:`, emailError.message);
-          }
-
-          // Award referral credits to referrer if applicable
-          const orderAmount = parseFloat(totalPrice);
-          await awardReferralCredits(user.id, order.id, orderAmount);
-
-          // Deduct referral credits if used
-          const usedCredits = parseFloat(metadata.referralCredits || '0');
-          if (usedCredits > 0 && metadata.userId) {
-            try {
-              const creditUser = await storage.getUserById(metadata.userId);
-              if (creditUser && creditUser.referralBalance) {
-                const currentBalance = parseFloat(creditUser.referralBalance);
-                const newBalance = Math.max(0, currentBalance - usedCredits);
-                await storage.updateUser(metadata.userId, {
-                  referralBalance: newBalance.toFixed(2),
-                });
-
-                // Log the transaction
-                await storage.createReferralTransaction({
-                  userId: metadata.userId,
-                  orderId: order.id,
-                  amount: (-usedCredits).toFixed(2),
-                  type: 'credit_used',
-                  balanceAfter: newBalance.toFixed(2),
-                  balanceBefore: currentBalance.toFixed(2),
-                  referralId: metadata.referralId,
-                  description: `Used $${usedCredits.toFixed(2)} credits on order ${order.displayOrderId || order.id}`,
-                });
-
-                console.log(
-                  `[Guest Order] Deducted $${usedCredits} referral credits from user ${metadata.userId}`,
-                );
-              }
-            } catch (creditError: any) {
-              console.error(`[Guest Order] Error deducting referral credits:`, creditError.message);
-            }
-          }
-
-          // Process promo codes (voucher usage or gift card balance deduction)
-          if (metadata.promoType && metadata.promoCode) {
-            try {
-              if (metadata.promoType === 'voucher' && metadata.voucherId) {
-                // Track voucher usage
-                await storage.incrementVoucherUsage(metadata.voucherId);
-                await storage.createVoucherUsage({
-                  voucherId: metadata.voucherId,
-                  userId: user.id,
-                  orderId: order.id,
-                  discountAmount: metadata.promoDiscount,
-                });
-                console.log(
-                  `[Guest Order] Voucher ${metadata.promoCode} used for order ${order.id}`,
-                );
-              } else if (metadata.promoType === 'giftcard' && metadata.giftCardId) {
-                // Deduct gift card balance
-                const giftCard = await storage.getGiftCardByCode(metadata.promoCode);
-                if (giftCard) {
-                  const promoDiscount = parseFloat(metadata.promoDiscount || '0');
-                  const currentBalance = parseFloat(giftCard.balance);
-                  const newBalance = Math.max(0, currentBalance - promoDiscount);
-
-                  await storage.updateGiftCardBalance(metadata.giftCardId, newBalance.toFixed(2));
-                  await storage.createGiftCardTransaction({
-                    giftCardId: metadata.giftCardId,
-                    usedBy: user.id,
-                    orderId: order.id,
-                    amount: (-promoDiscount).toFixed(2),
-                    type: 'redemption',
-                    description: `Redeemed $${promoDiscount.toFixed(2)} on order ${order.displayOrderId || order.id}`,
-                    balanceAfter: newBalance.toFixed(2),
-                  });
-                  console.log(
-                    `[Guest Order] Gift card ${metadata.promoCode} used: $${promoDiscount} deducted, new balance: $${newBalance.toFixed(2)}`,
-                  );
-                }
-              }
-            } catch (promoError: any) {
-              console.error(`[Guest Order] Error processing promo code:`, promoError.message);
-            }
-          }
-        } else {
-          console.log(
-            `[Guest Order] Package ${pkg.id} missing provider info, order ${order.id} left in processing`,
-          );
-        }
-      } catch (providerError: any) {
-        console.error(`[Guest Order] Provider error for order ${order.id}:`, providerError.message);
-        await storage.updateOrder(order.id, {
-          status: 'failed',
+      if (order) {
+        order = await storage.updateOrder(order.id, {
+          userId: user.id,
+          status: 'processing',
+          paymentMethod: verification.paymentMethod || verification.provider || 'card',
+          transactionId: verification.transactionId,
+          stripePaymentIntentId: paymentIntentId || undefined,
+          orderCurrency: paidCurrency || 'USD',
+          price: totalPrice,
+        });
+      } else {
+        order = await storage.createOrder({
+          userId: user.id,
+          packageId: pkg.id,
+          providerId: pkg.providerId,
+          status: 'processing',
+          orderType: quantity > 1 ? 'batch' : 'single',
+          quantity,
+          price: totalPrice,
+          wholesalePrice: pkg.wholesalePrice?.toString() || null,
+          currency: paidCurrency || 'USD',
+          orderCurrency: paidCurrency || 'USD',
+          dataAmount: pkg.dataAmount,
+          validity: pkg.validity,
+          stripePaymentIntentId: paymentIntentId,
+          paymentMethod: verification.paymentMethod || verification.provider || 'card',
+          transactionId: verification.transactionId,
+          guestAccessToken,
+          guestEmail,
+          guestPhone: guestPhone || null,
         });
       }
 
-      res.json({
-        success: true,
-        message: 'Order created successfully',
-        orderId: order.id,
-        guestAccessToken: guestAccessToken,
-      });
+      let simDetails: any = null;
+      let orderDetails: any = null;
+
+      try {
+        if (quantity === 1) {
+          // ── Provision eSIM ─────────────────────────────────────────────
+          if (pkg.providerId && pkg.providerPackageTable && pkg.providerPackageId) {
+            const { providerFactory } = await import('./providers/provider-factory');
+            const providerService = await providerFactory.getServiceById(pkg.providerId);
+
+            const providerApiPackageId = await getProviderSpecificPackageId(
+              pkg.providerPackageTable, pkg.providerPackageId,
+            );
+            if (!providerApiPackageId) throw new Error('Provider package ID not found');
+
+            const providerResponse = await providerService.createOrder({
+              packageId: providerApiPackageId,
+              quantity: 1,
+              customerRef: `Order ${order.id}`,
+            });
+            if (!providerResponse.success)
+              throw new Error(providerResponse.errorMessage || 'Provider order failed');
+
+            simDetails = {
+              iccid: providerResponse.iccid,
+              qrCode: providerResponse.qrCode,
+              qrCodeUrl: providerResponse.qrCodeUrl || null, // null for some providers
+              smdpAddress: providerResponse.smdpAddress,
+              activationCode: providerResponse.activationCode,
+              lpaCode: providerResponse.qrCode,
+              directAppleUrl: null,
+              apnType: 'automatic',
+              apnValue: null,
+              isRoaming: null,
+            };
+            orderDetails = {
+              providerOrderId: providerResponse.providerOrderId,
+              requestId: providerResponse.requestId,
+            };
+          } else if (pkg.airaloId) {
+            const airaloResponse = await airaloOrderService.submitSingleOrder(
+              pkg.airaloId, 1, `Order ${order.id}`,
+            );
+            orderDetails = { providerOrderId: airaloResponse.airaloOrderId };
+            simDetails = airaloResponse.sims[0];
+          } else {
+            throw new Error('Invalid package configuration');
+          }
+
+          // ── QR Code URL resolution ──────────────────────────────────────
+          // Priority 1: provider gave URL  → use directly
+          // Priority 2: no URL from provider → generate PNG locally,
+          //             save to uploads/qrcodes/, return public URL
+          let finalQrUrl: string | null = simDetails?.qrCodeUrl || null;
+
+          if (!finalQrUrl && simDetails?.lpaCode) {
+            console.log('⚠️  No qrCodeUrl from provider — generating locally...');
+            finalQrUrl = await generateAndSaveQrCode(simDetails.lpaCode, order.id);
+          }
+
+          console.log('📎 Final QR URL for email:', finalQrUrl);
+
+          // ── Persist SIM details ─────────────────────────────────────────
+          order = await storage.updateOrder(order.id, {
+            providerOrderId: orderDetails.providerOrderId,
+            airaloOrderId: orderDetails.providerOrderId,
+            iccid: simDetails.iccid,
+            qrCode: simDetails.qrCode,
+            qrCodeUrl: finalQrUrl,           // ← resolved URL stored in DB
+            lpaCode: simDetails.lpaCode,
+            smdpAddress: simDetails.smdpAddress,
+            activationCode: simDetails.activationCode,
+            directAppleUrl: simDetails.directAppleUrl,
+            apnType: simDetails.apnType,
+            apnValue: simDetails.apnValue,
+            isRoaming: simDetails.isRoaming,
+            status: 'completed',
+          });
+
+        } else {
+          // ── Batch ───────────────────────────────────────────────────────
+          if (pkg.airaloId) {
+            const batchResult = await airaloOrderService.submitBatchOrder(pkg.airaloId, quantity);
+            order = await storage.updateOrder(order.id, {
+              requestId: batchResult.requestId,
+              status: 'processing',
+            });
+          } else {
+            throw new Error('Batch orders not supported for this provider');
+          }
+        }
+
+        // ── Referral ────────────────────────────────────────────────────
+        if (metadata.promoType === 'referral' && metadata.promoCode) {
+          await handleReferralAfterOrder({
+            referredUserId: user.id,
+            promoCode: metadata.promoCode,
+            orderId: order.id,
+            orderAmount: paidAmount,
+          });
+        }
+
+        // ── Deduct referral credits ──────────────────────────────────────
+        const usedCredits = parseFloat(metadata.referralCredits || '0');
+        if (usedCredits > 0 && metadata.userId) {
+          try {
+            const creditUser = await storage.getUserById(metadata.userId);
+            if (creditUser && creditUser.referralBalance) {
+              const currentBalance = parseFloat(creditUser.referralBalance);
+              const newBalance = Math.max(0, currentBalance - usedCredits);
+              await storage.updateUser(metadata.userId, { referralBalance: newBalance.toFixed(2) });
+              await storage.createReferralTransaction({
+                userId: metadata.userId,
+                orderId: order.id,
+                amount: (-usedCredits).toFixed(2),
+                type: 'credit_used',
+                balanceAfter: newBalance.toFixed(2),
+                balanceBefore: currentBalance.toFixed(2),
+                referralId: metadata.referralId,
+                description: `Used $${usedCredits.toFixed(2)} credits on order ${order.displayOrderId || order.id}`,
+              });
+            }
+          } catch (creditError: any) {
+            console.error('[Guest Order] Error deducting referral credits:', creditError.message);
+          }
+        }
+
+        // ── Promo codes ──────────────────────────────────────────────────
+        if (metadata.promoType && metadata.promoCode) {
+          try {
+            if (metadata.promoType === 'voucher' && metadata.voucherId) {
+              await storage.incrementVoucherUsage(metadata.voucherId);
+              await storage.createVoucherUsage({
+                voucherId: metadata.voucherId,
+                userId: user.id,
+                orderId: order.id,
+                discountAmount: metadata.promoDiscount,
+              });
+            } else if (metadata.promoType === 'giftcard' && metadata.giftCardId) {
+              const giftCard = await storage.getGiftCardByCode(metadata.promoCode);
+              if (giftCard) {
+                const promoDiscount = parseFloat(metadata.promoDiscount || '0');
+                const currentBalance = parseFloat(giftCard.balance);
+                const newBalance = Math.max(0, currentBalance - promoDiscount);
+                await storage.updateGiftCardBalance(metadata.giftCardId, newBalance.toFixed(2));
+                await storage.createGiftCardTransaction({
+                  giftCardId: metadata.giftCardId,
+                  usedBy: user.id,
+                  orderId: order.id,
+                  amount: (-promoDiscount).toFixed(2),
+                  type: 'redemption',
+                  description: `Redeemed $${promoDiscount.toFixed(2)} on order ${order.displayOrderId || order.id}`,
+                  balanceAfter: newBalance.toFixed(2),
+                });
+              }
+            }
+          } catch (promoError: any) {
+            console.error('[Guest Order] Error processing promo code:', promoError.message);
+          }
+        }
+
+        // ── 1️⃣ Confirmation email ─────────────────────────────────────────
+        const confirmEmail = await generateOrderConfirmationEmail({
+          id: order.id,
+          destination: pkg.countryName || 'Unknown',
+          dataAmount: pkg.dataAmount,
+          validity: pkg.validity,
+          price: pkg.price,
+        });
+        await sendEmail({ to: guestEmail, subject: confirmEmail.subject, html: confirmEmail.html });
+        console.log('✅ Guest confirmation email sent');
+
+        // ── 2️⃣ Installation email ─────────────────────────────────────────
+        if (order.status === 'completed' && !order.installationSent) {
+          try {
+            const installationEmail = await generateInstallationEmail({
+              name: user?.name || guestEmail.split('@')[0] || 'Customer',
+              packageName: pkg.title || pkg.name || 'Your eSIM Package',
+              qrCodeUrl: order.qrCodeUrl || null,   // ✅ always a real URL or null
+              iccid: simDetails?.iccid,
+              lpaCode: simDetails?.lpaCode,
+              activationCode: simDetails?.activationCode,
+              smdpAddress: simDetails?.smdpAddress,
+            });
+
+            await sendEmail({
+              to: guestEmail,
+              subject: installationEmail.subject,
+              html: installationEmail.html,
+              attachments: [],                           // no CID needed
+            });
+
+            await storage.updateOrder(order.id, { installationSent: true });
+            console.log('✅ Guest installation email sent');
+          } catch (err) {
+            console.error('❌ Guest installation email error:', err);
+          }
+        }
+
+        return res.json({
+          success: true,
+          message: 'Order created successfully',
+          orderId: order.id,
+          guestAccessToken,
+        });
+      } catch (err: any) {
+        console.error('Provider error:', err);
+        await storage.updateOrder(order.id, { status: 'failed' });
+        throw new Error('Failed to provision eSIM: ' + err.message);
+      }
     } catch (error: any) {
       console.error('Error confirming guest payment:', error);
       res.status(500).json({ success: false, message: 'Error processing order: ' + error.message });
@@ -2818,104 +2811,242 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  async function handleReferralAfterOrder({
+    referredUserId,
+    promoCode,
+    orderId,
+    orderAmount,
+  }: {
+    referredUserId: string;
+    promoCode: string;
+    orderId: string;
+    orderAmount: number;
+  }) {
+    try {
+      console.log('[Referral] Start handling referral', {
+        referredUserId,
+        promoCode,
+        orderAmount,
+      });
+
+      /* =====================================================
+       1️⃣ Get referrer from promoCode
+       ===================================================== */
+      const [program] = await db
+        .select()
+        .from(referralProgram)
+        .where(eq(referralProgram.referralCode, promoCode))
+        .limit(1);
+
+      if (!program) {
+        console.log('[Referral] Invalid referral code:', promoCode);
+        return;
+      }
+
+      const referrerId = program.userId;
+
+      // ❌ Prevent self-referral
+      if (referrerId === referredUserId) {
+        console.log('[Referral] Self-referral detected, skipping');
+        return;
+      }
+
+      /* =====================================================
+       2️⃣ Get or create referral record
+       ===================================================== */
+      let [referral] = await db
+        .select()
+        .from(referrals)
+        .where(and(eq(referrals.referrerId, referrerId), eq(referrals.referredId, referredUserId)))
+        .limit(1);
+
+      // Signup-time referral miss hua ho to yahin create kar do
+      if (!referral) {
+        const [created] = await db
+          .insert(referrals)
+          .values({
+            referrerId,
+            referredId: referredUserId,
+            referralCode: promoCode,
+            status: 'pending',
+          })
+          .returning();
+
+        referral = created;
+
+        console.log('[Referral] Referral record created at order time');
+      }
+
+      // ❌ Already rewarded
+      if (referral.status === 'completed') {
+        console.log('[Referral] Referral already completed, skipping');
+        return;
+      }
+
+      /* =====================================================
+       3️⃣ Load referral settings
+       ===================================================== */
+      const [settings] = await db.select().from(referralSettings).limit(1);
+
+      if (!settings || !settings.enabled) {
+        console.log('[Referral] Referral program disabled');
+        return;
+      }
+
+      const minOrderAmount = Number(settings.minOrderAmount || 0);
+      if (orderAmount < minOrderAmount) {
+        console.log(`[Referral] Order amount ${orderAmount} < min ${minOrderAmount}`);
+        return;
+      }
+
+      /* =====================================================
+       4️⃣ Calculate reward for referrer
+       ===================================================== */
+      let reward = 0;
+
+      if (settings.rewardType === 'percentage') {
+        reward = (orderAmount * Number(settings.rewardValue)) / 100;
+      } else {
+        reward = Number(settings.rewardValue);
+      }
+
+      reward = Number(reward.toFixed(2));
+
+      if (reward <= 0) {
+        console.log('[Referral] Reward calculated as 0, skipping');
+        return;
+      }
+
+      /* =====================================================
+       5️⃣ Get referrer + balances
+       ===================================================== */
+      const referrer = await storage.getUser(referrerId);
+      if (!referrer) {
+        console.log('[Referral] Referrer not found:', referrerId);
+        return;
+      }
+
+      const balanceBefore = Number(referrer.referralBalance || 0);
+      const balanceAfter = Number((balanceBefore + reward).toFixed(2));
+
+      /* =====================================================
+       6️⃣ Update referral record → completed
+       ===================================================== */
+      await db
+        .update(referrals)
+        .set({
+          status: 'completed',
+          rewardAmount: reward.toFixed(2),
+          rewardPaid: true,
+          referredOrderId: orderId,
+          completedAt: new Date(),
+          updatedAt: new Date(),
+        })
+        .where(eq(referrals.id, referral.id));
+
+      /* =====================================================
+       7️⃣ Create referral transaction (LEDGER)
+       ===================================================== */
+      await db.insert(referralTransactions).values({
+        userId: referrerId,
+        type: 'credit_earned',
+        amount: reward.toFixed(2),
+        balanceBefore: balanceBefore.toFixed(2),
+        balanceAfter: balanceAfter.toFixed(2),
+        referralId: referral.id,
+        orderId,
+        description: 'Referral reward earned',
+      });
+
+      /* =====================================================
+       8️⃣ Update referrer cached balance
+       ===================================================== */
+      await db
+        .update(users)
+        .set({
+          referralBalance: balanceAfter.toFixed(2),
+          updatedAt: new Date(),
+        })
+        .where(eq(users.id, referrerId));
+
+      /* =====================================================
+       9️⃣ Update referral program stats
+       ===================================================== */
+      await db
+        .update(referralProgram)
+        .set({
+          totalReferrals: sql`${referralProgram.totalReferrals} + 1`,
+          totalEarnings: sql`${referralProgram.totalEarnings} + ${reward}`,
+          updatedAt: new Date(),
+        })
+        .where(eq(referralProgram.userId, referrerId));
+
+      console.log(`[Referral] SUCCESS → ${reward} credited to referrer ${referrerId}`);
+    } catch (err: any) {
+      console.error('[Referral] handleReferralAfterOrder error:', err.message);
+    }
+  }
+
   app.post('/api/confirm-payment', async (req: Request, res: Response) => {
     try {
-      const { paymentIntentId, providerType, orderId, paymentId, signature } = req.body;
-
-      // check verify payment status
+      const { paymentIntentId, providerType, paymentId, signature, metadata: reqMetadata } = req.body;
+      const orderId = req.body.orderId || req.body.paypal?.orderId || req.body.paypal?.order_id || req.body.paymentId;
 
       if (!providerType) {
-        return res.status(400).json({
-          success: false,
-          message: 'providerType missing',
-        });
+        return res.status(400).json({ success: false, message: 'providerType missing' });
       }
 
       let body: any;
 
       switch (providerType) {
         case 'stripe':
-          if (!paymentIntentId) {
-            return res.status(400).json({
-              success: false,
-              message: 'paymentIntentId missing',
-            });
-          }
-
-          body = {
-            provider: 'stripe',
-            stripe: { paymentIntentId },
-          };
+          if (!paymentIntentId)
+            return res.status(400).json({ success: false, message: 'paymentIntentId missing' });
+          body = { provider: 'stripe', stripe: { paymentIntentId } };
           break;
 
         case 'razorpay':
-          if (!orderId || !paymentId || !signature) {
-            return res.status(400).json({
-              success: false,
-              message: 'Razorpay data missing',
-            });
-          }
-
-          body = {
-            provider: 'razorpay',
-            razorpay: { orderId, paymentId, signature },
-          };
+          if (!orderId || !paymentId || !signature)
+            return res.status(400).json({ success: false, message: 'Razorpay data missing' });
+          body = { provider: 'razorpay', razorpay: { orderId, paymentId, signature } };
           break;
 
         case 'paypal':
-          body = {
-            provider: 'paypal',
-            paypal: { orderId },
-          };
+          body = { provider: 'paypal', paypal: { orderId } };
           break;
 
         case 'paystack':
-          body = {
-            provider: 'paystack',
-            paystack: { reference: orderId },
-          };
+          body = { provider: 'paystack', paystack: { reference: orderId } };
+          break;
+
+        case 'powertranz':
+          const { spiToken, orderId: ptOrderId } = req.body;
+          if (!spiToken || !ptOrderId)
+            return res.status(400).json({
+              success: false,
+              message: 'PowerTranz data (`spiToken`, `orderId`) missing',
+            });
+          body = { provider: 'powertranz', powertranz: { spiToken, orderId: ptOrderId } };
+          break;
+
+        case 'free':
+          body = { provider: 'free', currency: req.body.metadata?.currency || 'USD', metadata: req.body.metadata };
           break;
 
         default:
-          return res.status(400).json({
-            success: false,
-            message: 'Unsupported provider',
-          });
+          return res.status(400).json({ success: false, message: 'Unsupported provider' });
       }
 
-      // 🔐 CALL UNIFIED VERIFY API
+      // ── Verify payment ──────────────────────────────────────────────────────
       const verifyResponse = await axios.post(
         `${process.env.BASE_URL}/api/payments/confirm-payments`,
         body,
       );
-
-      console.log("CHEKKKKKKKKKK verification responseee", verifyResponse.data)
       const verification = verifyResponse.data;
+      if (!verification.success) return res.status(400).json(verification);
 
-      if (!verification.success) {
-        return res.status(400).json(verification);
-      }
-      // check verify payment status
-
-      // if (!paymentIntentId) {
-      //   return res.status(400).json({
-      //     success: false,
-      //     message: "Payment intent ID is required",
-      //   });
-      // }
-
-      // // 🔐 Verify payment from Stripe
-      // const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
-
-      // if (!["succeeded", "processing"].includes(paymentIntent.status)) {
-      //   return res.status(400).json({
-      //     success: false,
-      //     message: `Payment not completed. Status: ${paymentIntent.status}`,
-      //   });
-      // }
-
-      const metadata = verification.metadata;
-      console.log('CHEKCKK metadata', metadata);
+      const metadata = { ...reqMetadata, ...verification.metadata };
+      console.log('✅ metadata:', metadata);
 
       const ZERO_DECIMAL_CURRENCIES = ['JPY', 'KRW', 'VND'];
 
@@ -2925,119 +3056,96 @@ export async function registerRoutes(app: Express): Promise<Server> {
         provider: 'stripe' | 'razorpay' | 'paypal' | 'paystack',
       ): number {
         const cur = currency.toUpperCase();
-
-        // Stripe & PayPal already return decimal amounts
-        if (provider === 'stripe' || provider === 'paypal') {
-          return amount;
-        }
-
-        // Razorpay & Paystack return smallest units
+        if (provider === 'stripe' || provider === 'paypal') return amount;
         if (provider === 'razorpay' || provider === 'paystack') {
-          if (ZERO_DECIMAL_CURRENCIES.includes(cur)) {
-            return amount;
-          }
-          return amount / 100;
+          return ZERO_DECIMAL_CURRENCIES.includes(cur) ? amount : amount / 100;
         }
-
         return amount;
       }
 
+      // ════════════════════════════════════════════════════════════════════════
+      //  PACKAGE PURCHASE
+      // ════════════════════════════════════════════════════════════════════════
       if (metadata.type === 'package_purchase') {
         const packageId = metadata.packageId;
         const quantity = parseInt(metadata.quantity);
         const userId = metadata.userId;
 
-        // if (userId !== req.userId) {
-        //   return res.status(403).json({
-        //     success: false,
-        //     message: "Payment user mismatch",
-        //   });
-        // }
-
         const { resolvePackage, getProviderSpecificPackageId } =
           await import('./services/packages/package-resolver');
 
         const pkg = await resolvePackage(packageId);
-
-        if (!pkg) {
-          return res.status(404).json({
-            success: false,
-            message: 'Package not found',
-          });
-        }
-
-
+        if (!pkg) return res.status(404).json({ success: false, message: 'Package not found' });
 
         const paidCurrency = verification.currency.toUpperCase();
-
         const paidAmount = normalizePaymentAmount(
-          verification.amount,
-          paidCurrency,
-          verification.provider,
+          verification.amount, paidCurrency, verification.provider,
         );
-
-        //  const totalPrice = (paidAmount * quantity).toString();
-
         const totalPrice = paidAmount;
-        if (!verification.amount || isNaN(totalPrice)) {
-          throw new Error('Invalid Stripe amount');
-        }
+        if ((verification.amount === undefined || verification.amount === null) || isNaN(totalPrice)) throw new Error('Invalid payment amount');
 
         const orderType = quantity === 1 ? 'single' : 'batch';
 
-        /* =====================================================
-           =============== SINGLE ORDER ========================
-           ===================================================== */
+        // ── SINGLE ORDER ──────────────────────────────────────────────────────
         if (orderType === 'single') {
-          const order = await storage.createOrder({
-            userId,
-            packageId: pkg.id,
-            orderType: 'single',
-            quantity: 1,
-            status: 'processing',
-            price: totalPrice,
-            airaloPrice: pkg.wholesalePrice,
-            currency: verifyResponse.data.currency.toUpperCase(),
-            orderCurrency: verifyResponse.data.currency.toUpperCase(),
-            dataAmount: pkg.dataAmount,
-            validity: pkg.validity,
-            installationSent: false,
-            stripePaymentIntentId: paymentIntentId,
-            providerId: pkg.providerId,
-            paymentMethod: metadata.paymentMethodType || 'card',
-          });
+          let order = await storage.getOrderById(metadata.existingOrderId);
+
+          if (order) {
+            order = await storage.updateOrder(order.id, {
+              userId: userId || order.userId,
+              status: 'processing',
+              paymentMethod: metadata.paymentMethodType || 'card',
+              transactionId: verification.transactionId,
+              orderCurrency: paidCurrency || 'USD',
+              price: totalPrice,
+            });
+          } else {
+            order = await storage.createOrder({
+              userId,
+              packageId: pkg.id,
+              orderType: 'single',
+              quantity: 1,
+              status: 'processing',
+              price: totalPrice,
+              airaloPrice: pkg.wholesalePrice,
+              currency: verifyResponse.data.currency.toUpperCase(),
+              orderCurrency: verifyResponse.data.currency.toUpperCase(),
+              dataAmount: pkg.dataAmount,
+              validity: pkg.validity,
+              installationSent: false,
+              stripePaymentIntentId: paymentIntentId,
+              providerId: pkg.providerId,
+              paymentMethod: metadata.paymentMethodType || 'card',
+              transactionId: verification.transactionId,
+            });
+          }
 
           try {
             let orderDetails: any;
             let simDetails: any;
 
+            // ── Provision eSIM ─────────────────────────────────────────────
             if (pkg.providerId && pkg.providerPackageTable && pkg.providerPackageId) {
               const { providerFactory } = await import('./providers/provider-factory');
               const providerService = await providerFactory.getServiceById(pkg.providerId);
 
               const providerApiPackageId = await getProviderSpecificPackageId(
-                pkg.providerPackageTable,
-                pkg.providerPackageId,
+                pkg.providerPackageTable, pkg.providerPackageId,
               );
-
-              if (!providerApiPackageId) {
-                throw new Error('Provider package ID not found');
-              }
+              if (!providerApiPackageId) throw new Error('Provider package ID not found');
 
               const providerResponse = await providerService.createOrder({
                 packageId: providerApiPackageId,
                 quantity: 1,
                 customerRef: `Order ${order.id}`,
               });
-
-              if (!providerResponse.success) {
+              if (!providerResponse.success)
                 throw new Error(providerResponse.errorMessage || 'Provider order failed');
-              }
 
               simDetails = {
                 iccid: providerResponse.iccid,
                 qrCode: providerResponse.qrCode,
-                qrCodeUrl: providerResponse.qrCodeUrl,
+                qrCodeUrl: providerResponse.qrCodeUrl || null, // null for some providers
                 smdpAddress: providerResponse.smdpAddress,
                 activationCode: providerResponse.activationCode,
                 lpaCode: providerResponse.qrCode,
@@ -3046,16 +3154,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 apnValue: null,
                 isRoaming: false,
               };
-
               orderDetails = {
                 providerOrderId: providerResponse.providerOrderId,
                 requestId: providerResponse.requestId,
               };
             } else if (pkg.airaloId) {
               const airaloResponse = await airaloOrderService.submitSingleOrder(
-                pkg.airaloId,
-                1,
-                `Order ${order.id}`,
+                pkg.airaloId, 1, `Order ${order.id}`,
               );
               orderDetails = { providerOrderId: airaloResponse.airaloOrderId };
               simDetails = airaloResponse.sims[0];
@@ -3063,12 +3168,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
               throw new Error('Invalid package configuration');
             }
 
-            await storage.updateOrder(order.id, {
+            // ── QR Code URL resolution ─────────────────────────────────────
+            // Priority 1: provider already gave us a URL → use it directly
+            // Priority 2: provider gave no URL but gave lpaCode →
+            //             generate PNG, save to /public/qrcodes/, use that URL
+            let finalQrUrl: string | null = simDetails?.qrCodeUrl || null;
+
+            if (!finalQrUrl && simDetails?.lpaCode) {
+              console.log('⚠️  Provider did not return qrCodeUrl — generating locally...');
+              finalQrUrl = await generateAndSaveQrCode(simDetails.lpaCode, order.id);
+              // finalQrUrl is now e.g. "https://yourdomain.com/qrcodes/qr_order_42_1234567890.png"
+            }
+
+            console.log('📎 Final QR URL for email:', finalQrUrl);
+
+            // ── Persist SIM details ────────────────────────────────────────
+            order = await storage.updateOrder(order.id, {
               providerOrderId: orderDetails.providerOrderId,
               airaloOrderId: orderDetails.providerOrderId,
               iccid: simDetails.iccid,
               qrCode: simDetails.qrCode,
-              qrCodeUrl: simDetails.qrCodeUrl,
+              qrCodeUrl: finalQrUrl,           // ← store resolved URL
               lpaCode: simDetails.lpaCode,
               smdpAddress: simDetails.smdpAddress,
               activationCode: simDetails.activationCode,
@@ -3079,81 +3199,97 @@ export async function registerRoutes(app: Express): Promise<Server> {
               status: 'completed',
             });
 
-            const orderPrice = parseFloat(pkg.price.toString());
-            // await awardReferralCredits(userId, order.id, orderPrice);
-
+            // ── Referral ───────────────────────────────────────────────────
             if (metadata.promoType === 'referral' && metadata.promoCode) {
               await handleReferralAfterOrder({
-                referredUserId: userId, // order karne wala
-                promoCode: metadata.promoCode, // ATULL5647
+                referredUserId: userId,
+                promoCode: metadata.promoCode,
                 orderId: order.id,
                 orderAmount: paidAmount,
               });
             }
 
-            const user = await storage.getUser(userId);
+            // ── Notifications & Emails ─────────────────────────────────────
+            const user = await storage.getUser(order.userId || (userId as string));
+
             if (user) {
+              // 1️⃣ Confirmation email
               const confirmEmail = await generateOrderConfirmationEmail({
                 id: order.id,
-                destination: 'Unknown',
+                destination: pkg.countryName || 'Unknown',
                 dataAmount: pkg.dataAmount,
                 validity: pkg.validity,
                 price: pkg.price,
               });
-
-              await storage.createNotification({
-                userId,
-                type: 'purchase',
-                title: 'Order Confirmed',
-                message: `Your order is complete! Check your email for installation instructions.`,
-                read: false,
-                metadata: { orderId: order.id },
-              });
-
-              const fcmToken = user?.fcmToken;
-              if (fcmToken) {
-                const payload = {
-                  notification: {
-                    title: `Order Confirmed`,
-                    body: `Your ${pkg.dataAmount} eSIM is ready! Check your email for installation instructions.`,
-                  },
-                  data: {
-                    type: 'purchase', // Matches your in-app notification type
-                    orderId: order.id,
-                    click_action: 'FLUTTER_NOTIFICATION_CLICK',
-                  },
-                  token: fcmToken,
-                };
-
-                try {
-                  await adminMessaging.send(payload);
-                  console.log('📱 Notification sent to user:', user.id);
-                } catch (err) {
-                  console.error('❌ FCM send error:', err);
-                }
-              }
-
               await sendEmail({
                 to: user.email,
                 subject: confirmEmail.subject,
                 html: confirmEmail.html,
               });
+              console.log('✅ Confirmation email sent');
+
+              // 2️⃣ In-app notification
+              await storage.createNotification({
+                userId,
+                type: 'purchase',
+                title: 'Order Confirmed',
+                message: 'Your order is complete! Check your email for installation instructions.',
+                read: false,
+                metadata: { orderId: order.id },
+              });
+
+              // 3️⃣ FCM push
+              if (user?.fcmToken) {
+                try {
+                  await adminMessaging.send({
+                    notification: {
+                      title: 'Order Confirmed',
+                      body: `Your ${pkg.dataAmount} eSIM is ready! Check your email for installation instructions.`,
+                    },
+                    data: { type: 'purchase', orderId: String(order.id) },
+                    token: user.fcmToken,
+                  });
+                } catch (err) {
+                  console.error('❌ FCM send error:', err);
+                }
+              }
+
+              // 4️⃣ Installation email
+              if (order.status === 'completed' && !order.installationSent) {
+                try {
+                  const installationEmail = await generateInstallationEmail({
+                    name: user.name || 'Customer',
+                    packageName: pkg.name || 'Your eSIM Package',
+                    qrCodeUrl: finalQrUrl,                 // ✅ always a real URL or null
+                    iccid: simDetails?.iccid,
+                    lpaCode: simDetails?.lpaCode,
+                    activationCode: simDetails?.activationCode,
+                    smdpAddress: simDetails?.smdpAddress,
+                  });
+
+                  await sendEmail({
+                    to: user.email,
+                    subject: installationEmail.subject,
+                    html: installationEmail.html,
+                    attachments: [],                            // no CID needed
+                  });
+
+                  console.log('✅ Installation email sent');
+                  await storage.updateOrder(order.id, { installationSent: true });
+                } catch (err) {
+                  console.error('❌ Installation email error:', err);
+                }
+              }
             }
 
-            return res.json({
-              success: true,
-              order,
-              message: 'Order completed successfully',
-            });
+            return res.json({ success: true, order, message: 'Order completed successfully' });
           } catch (err: any) {
             await storage.updateOrder(order.id, { status: 'failed' });
             throw new Error('Failed to provision eSIM: ' + err.message);
           }
         }
 
-        /* =====================================================
-           ================= BATCH ORDER =======================
-           ===================================================== */
+        // ── BATCH ORDER ───────────────────────────────────────────────────────
         const orderRecords = [];
         let requestId: string;
 
@@ -3185,104 +3321,77 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
 
         return res.json({
-          success: true,
-          orders: orderRecords,
-          requestId,
-          quantity,
-          message: 'Batch order submitted',
+          success: true, orders: orderRecords, requestId, quantity, message: 'Batch order submitted',
         });
       }
 
-      /* =====================================================
-         ================= TOPUP ==============================
-         ===================================================== */
-      /* =====================================================
-         ================= TOPUP ==============================
-         ===================================================== */
+      // ════════════════════════════════════════════════════════════════════════
+      //  TOPUP PURCHASE
+      // ════════════════════════════════════════════════════════════════════════
       if (metadata.type === 'topup_purchase') {
         const { packageId, iccid, orderId, topupId, userId } = metadata;
 
-        if (!orderId || !iccid || !topupId) {
-          throw new Error("Missing topup metadata info");
-        }
+        if (!orderId || !iccid || !topupId) throw new Error('Missing topup metadata info');
 
         const order = await storage.getOrderById(orderId);
         if (!order) throw new Error('Order not found');
 
-        // Initializing provider
         const { providerFactory } = await import('./providers/provider-factory');
         const providerService = await providerFactory.getServiceById(order.providerId!);
 
-        // Determine transaction ID based on provider
         let transactionIdForProvider = '';
         if (providerType === 'stripe') transactionIdForProvider = req.body.paymentIntentId;
         else if (providerType === 'razorpay') transactionIdForProvider = req.body.paymentId;
         else if (providerType === 'paypal') transactionIdForProvider = req.body.orderId;
         else if (providerType === 'paystack') transactionIdForProvider = req.body.orderId;
-        else transactionIdForProvider = `TOPUP-${orderId}-${Date.now()}`;
+        if (!transactionIdForProvider) transactionIdForProvider = `TOPUP-${orderId}-${Date.now()}`;
 
-        if (!transactionIdForProvider) {
-          transactionIdForProvider = `TOPUP-${orderId}-${Date.now()}`;
-        }
-
-        // Purchase the topup
         const providerResponse = await providerService.purchaseTopup({
-          packageId: topupId,
-          quantity: 1,
-          iccid,
-          transactionId: transactionIdForProvider
+          packageId: topupId, quantity: 1, iccid, transactionId: transactionIdForProvider,
         });
-
-        if (!providerResponse.success) {
+        if (!providerResponse.success)
           throw new Error(providerResponse.errorMessage || 'Provider topup purchase failed');
-        }
 
-        // Fetch top-up package details to record correct info
-        let topupDataAmount = "Unknown";
+        let topupDataAmount = 'Unknown';
         let topupValidity = 0;
-        let airaloPrice = "0";
+        let airaloPrice = '0';
 
         try {
           const topupData = await providerService.getTopupPackages(iccid);
           const topupDataAny = topupData as any;
           const packages = Array.isArray(topupDataAny?.data)
             ? topupDataAny.data
-            : Array.isArray(topupData)
-              ? topupData
-              : [];
+            : Array.isArray(topupData) ? topupData : [];
 
-          const selectedTopup = packages.find((p: any) =>
-            String(p.id) === String(topupId) ||
-            String(p.package_id) === String(topupId) ||
-            String(p.providerPackageId) === String(topupId) ||
-            String(p.name) === String(topupId)
+          const selectedTopup = packages.find(
+            (p: any) =>
+              String(p.id) === String(topupId) ||
+              String(p.package_id) === String(topupId) ||
+              String(p.providerPackageId) === String(topupId) ||
+              String(p.name) === String(topupId),
           );
 
           if (selectedTopup) {
-            topupDataAmount = selectedTopup.data || selectedTopup.dataAmount || "Unknown";
+            topupDataAmount = selectedTopup.data || selectedTopup.dataAmount || 'Unknown';
             topupValidity = selectedTopup.validity || selectedTopup.day || 0;
             const basePrice = selectedTopup.net_price || selectedTopup.wholesalePrice || selectedTopup.price || 0;
             airaloPrice = basePrice.toString();
           }
         } catch (e) {
-          console.warn("Failed to fetch topup details for DB record", e);
+          console.warn('⚠️ Failed to fetch topup details', e);
         }
 
-        // Create topup record
         const topup = await storage.createTopup({
           orderId,
           userId: req.session.userId || userId!,
-          packageId, // Links to original unified package
+          packageId,
           iccid,
-          airaloTopupId: providerResponse.providerOrderId || providerResponse.requestId || "N/A",
+          airaloTopupId: providerResponse.providerOrderId || providerResponse.requestId || 'N/A',
           status: 'completed',
           price: normalizePaymentAmount(
-            verification.amount,
-            verification.currency.toUpperCase(),
-            verification.provider
+            verification.amount, verification.currency.toUpperCase(), verification.provider,
           ).toString(),
-
-          airaloPrice: airaloPrice,
+          airaloPrice,
           currency: 'USD',
           dataAmount: String(topupDataAmount),
           validity: Number(topupValidity),
@@ -3290,7 +3399,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
           webhookReceivedAt: new Date(),
         });
 
-        // Create in-app notification
         await storage.createNotification({
           userId: req.session.userId || userId!,
           type: 'topup',
@@ -3300,23 +3408,242 @@ export async function registerRoutes(app: Express): Promise<Server> {
           metadata: { topupId: topup.id, orderId, iccid },
         });
 
-        return res.json({
-          success: true,
-          topup,
-          message: 'Top-up successful',
-        });
+        return res.json({ success: true, topup, message: 'Top-up successful' });
       }
 
-      return res.status(400).json({
-        success: false,
-        message: 'Invalid payment type',
-      });
+      /* =====================================================
+         ================== GIFT CARD ========================
+         ===================================================== */
+      if (metadata?.type === 'gift_card') {
+        const { amount, currency, recipientEmail, recipientName, message, userId } = metadata;
+
+        try {
+          const { giftCards } = await import('@shared/schema');
+          const code = generateGiftCardCode();
+
+          const [giftCard] = await db.insert(giftCards).values({
+            code,
+            amount: amount?.toString(),
+            currency: currency || 'USD',
+            balance: amount?.toString(),
+            purchasedBy: userId || req.session?.userId || req.userId,
+            recipientEmail: recipientEmail || null,
+            recipientName: recipientName || null,
+            message: message || null,
+            status: 'active',
+          }).returning();
+
+          // 🔥 SEND GIFT CARD EMAIL
+          try {
+            const senderId = userId || req.session?.userId || req.userId;
+            let senderName = "A Friend";
+
+            if (senderId) {
+              const sender = await storage.getUserById(senderId);
+              if (sender?.name) senderName = sender.name;
+            }
+
+            const emailData = {
+              ...giftCard,
+              senderName,
+              recipientName: giftCard.recipientName || "Valued Customer",
+            };
+
+            const emailContent = await generateGiftCardEmail(emailData);
+
+            await sendEmail({
+              to: giftCard.recipientEmail,
+              subject: emailContent.subject,
+              html: emailContent.html,
+            });
+            console.log(`✅ Gift card email sent to ${giftCard.recipientEmail}`);
+          } catch (emailError) {
+            console.error('❌ Gift card email failed but purchase succeeded:', emailError);
+          }
+
+          return res.json({
+            success: true,
+            giftCard,
+            message: 'Gift card purchased successfully',
+          });
+        } catch (error: any) {
+          console.error('Error creating gift card:', error);
+          return res.status(500).json({ success: false, message: 'Failed to create gift card' });
+        }
+      }
+
+      /* =====================================================
+         ========= IAP PURCHASE (Android / iOS) ==============
+         ===================================================== */
+      if (metadata?.type === 'iap_purchase') {
+        const {
+          packageId: iapPackageId,
+          userId: iapUserId,
+          currency: iapCurrency = 'USD',
+          platform: iapPlatform,
+          transactionId: iapTransactionId,
+        } = metadata;
+
+        if (!iapPackageId || !iapUserId) {
+          return res.status(400).json({ success: false, message: 'IAP metadata missing packageId or userId' });
+        }
+
+        const { resolvePackage, getProviderSpecificPackageId } =
+          await import('./services/packages/package-resolver');
+
+        const pkg = await resolvePackage(iapPackageId);
+        if (!pkg) {
+          return res.status(404).json({ success: false, message: 'Package not found' });
+        }
+
+        // Create order record
+        const order = await storage.createOrder({
+          userId: iapUserId,
+          packageId: pkg.id,
+          orderType: 'single',
+          quantity: 1,
+          status: 'processing',
+          price: verification.amount || pkg.price,
+          airaloPrice: pkg.wholesalePrice,
+          currency: iapCurrency.toUpperCase(),
+          orderCurrency: iapCurrency.toUpperCase(),
+          dataAmount: pkg.dataAmount,
+          validity: pkg.validity,
+          installationSent: false,
+          paymentMethod: iapPlatform === 'android' ? 'iap-android' : 'iap-ios',
+          transactionId: iapTransactionId || verification.referenceId || `iap-${Date.now()}`,
+          providerId: pkg.providerId,
+        });
+
+        try {
+          let simDetails: any;
+          let orderDetails: any;
+
+          if (pkg.providerId && pkg.providerPackageTable && pkg.providerPackageId) {
+            const { providerFactory } = await import('./providers/provider-factory');
+            const providerService = await providerFactory.getServiceById(pkg.providerId);
+
+            const providerApiPackageId = await getProviderSpecificPackageId(
+              pkg.providerPackageTable,
+              pkg.providerPackageId,
+            );
+            if (!providerApiPackageId) throw new Error('Provider package ID not found');
+
+            const providerResponse = await providerService.createOrder({
+              packageId: providerApiPackageId,
+              quantity: 1,
+              customerRef: `IAP-Order-${order.id}`,
+            });
+            if (!providerResponse.success) throw new Error(providerResponse.errorMessage || 'Provider order failed');
+
+            simDetails = {
+              iccid: providerResponse.iccid,
+              qrCode: providerResponse.qrCode,
+              qrCodeUrl: providerResponse.qrCodeUrl,
+              smdpAddress: providerResponse.smdpAddress,
+              activationCode: providerResponse.activationCode,
+              lpaCode: providerResponse.qrCode,
+              directAppleUrl: null,
+              apnType: 'automatic',
+              apnValue: null,
+              isRoaming: false,
+            };
+            orderDetails = { providerOrderId: providerResponse.providerOrderId };
+
+          } else if (pkg.airaloId) {
+            const airaloResponse = await airaloOrderService.submitSingleOrder(pkg.airaloId, 1, `IAP-Order-${order.id}`);
+            orderDetails = { providerOrderId: airaloResponse.airaloOrderId };
+            simDetails = airaloResponse.sims[0];
+          } else {
+            throw new Error('Invalid package configuration');
+          }
+
+          await storage.updateOrder(order.id, {
+            providerOrderId: orderDetails.providerOrderId,
+            airaloOrderId: orderDetails.providerOrderId,
+            iccid: simDetails.iccid,
+            qrCode: simDetails.qrCode,
+            qrCodeUrl: simDetails.qrCodeUrl,
+            lpaCode: simDetails.lpaCode,
+            smdpAddress: simDetails.smdpAddress,
+            activationCode: simDetails.activationCode,
+            directAppleUrl: simDetails.directAppleUrl,
+            apnType: simDetails.apnType,
+            apnValue: simDetails.apnValue,
+            isRoaming: simDetails.isRoaming,
+            status: 'completed',
+          });
+
+          // Notifications & email
+          const iapUser = await storage.getUser(iapUserId);
+          if (iapUser) {
+            await storage.createNotification({
+              userId: iapUserId,
+              type: 'purchase',
+              title: 'Order Confirmed',
+              message: `Your ${pkg.dataAmount} eSIM is ready! You can install it directly from the app.`,
+              read: false,
+              metadata: { orderId: order.id },
+            });
+
+            if (iapUser.fcmToken) {
+              try {
+                const messaging = await getAdminMessaging();
+                await messaging.send({
+                  notification: {
+                    title: 'Order Confirmed 🎉',
+                    body: `Your ${pkg.dataAmount} eSIM is ready! Check your email for installation instructions.`,
+                  },
+                  data: { type: 'purchase', orderId: String(order.id), click_action: 'FLUTTER_NOTIFICATION_CLICK' },
+                  token: iapUser.fcmToken,
+                });
+              } catch (fcmErr) {
+                console.error('[IAP confirm-payment] FCM error:', fcmErr);
+              }
+            }
+
+            try {
+              const confirmEmail = await generateOrderConfirmationEmail({
+                id: order.id,
+                displayId: order.displayOrderId || order.id,
+                customerName: iapUser.name || 'Customer',
+                destination: pkg.title || 'eSIM',
+                dataAmount: pkg.dataAmount,
+                validity: pkg.validity,
+                price: order.price,
+              });
+              await sendEmail({ to: iapUser.email, subject: confirmEmail.subject, html: confirmEmail.html });
+
+              const installEmail = await generateInstallationEmail({
+                name: iapUser.name || 'Traveler',
+                packageName: `${pkg.dataAmount} - ${pkg.validity} Days`,
+                qrCodeUrl: simDetails.qrCodeUrl,
+                iccid: simDetails.iccid,
+                activationCode: simDetails.activationCode,
+                smdpAddress: simDetails.smdpAddress,
+                qrCode: simDetails.qrCode,
+                lpaCode: simDetails.lpaCode,
+              });
+              await sendEmail({ to: iapUser.email, subject: installEmail.subject, html: installEmail.html });
+
+              await storage.updateOrder(order.id, { installationSent: true });
+            } catch (emailErr) {
+              console.error('[IAP confirm-payment] Email error:', emailErr);
+            }
+          }
+
+          return res.json({ success: true, order, message: 'IAP Order completed successfully' });
+
+        } catch (provisionErr: any) {
+          await storage.updateOrder(order.id, { status: 'failed' });
+          throw new Error('IAP eSIM provisioning failed: ' + provisionErr.message);
+        }
+      }
+
+      return res.status(400).json({ success: false, message: 'Invalid payment type' });
     } catch (error: any) {
-      console.error('Error confirming payment:', error);
-      return res.status(500).json({
-        success: false,
-        message: error.message,
-      });
+      console.error('❌ Error confirming payment:', error);
+      return res.status(500).json({ success: false, message: error.message });
     }
   });
 
@@ -11702,10 +12029,11 @@ ${urls
   app.patch('/api/admin/master-regions/:id', requireAdmin, async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const { image, active } = req.body;
+      const { image, bannerImage, active } = req.body;
 
       const updateData: any = { updatedAt: new Date() };
       if (image !== undefined) updateData.image = image;
+      if (bannerImage !== undefined) updateData.bannerImage = bannerImage;
       if (active !== undefined) updateData.active = active;
 
       const [updated] = await db
@@ -11838,10 +12166,11 @@ ${urls
     async (req: Request, res: Response) => {
       try {
         const { id } = req.params;
-        const { image, active } = req.body;
+        const { image, bannerImage, active } = req.body;
 
         const updateData: any = { updatedAt: new Date() };
         if (image !== undefined) updateData.image = image;
+        if (bannerImage !== undefined) updateData.bannerImage = bannerImage;
         if (active !== undefined) updateData.active = active;
 
         const [updated] = await db
@@ -11973,6 +12302,53 @@ ${urls
     },
   );
 
+  // Upload region banner
+  app.post(
+    '/api/admin/master-regions/:id/upload-banner',
+    requireAdmin,
+    async (req: Request, res: Response) => {
+      try {
+        const { regionImageUpload } = await import('./middleware/image-upload');
+
+        regionImageUpload.single('image')(req, res, async (err: any) => {
+          try {
+            if (err) {
+              return res.status(400).json({ success: false, message: err.message });
+            }
+
+            if (!req.file) {
+              return res.status(400).json({ success: false, message: 'No image file provided' });
+            }
+
+            const { id } = req.params;
+            const imageUrl = `/uploads/regions/${req.file.filename}`;
+
+            const [updated] = await db
+              .update(regions)
+              .set({ bannerImage: imageUrl, updatedAt: new Date() })
+              .where(eq(regions.id, id))
+              .returning();
+
+            if (!updated) {
+              return res.status(404).json({ success: false, message: 'Region not found' });
+            }
+
+            ApiResponse.success(res, 'Banner uploaded successfully', {
+              bannerImage: imageUrl,
+              region: updated,
+            });
+          } catch (innerError: any) {
+            console.error('Error processing region banner upload:', innerError);
+            res.status(500).json({ success: false, message: innerError.message });
+          }
+        });
+      } catch (error: any) {
+        console.error('Error uploading region banner:', error);
+        res.status(500).json({ success: false, message: error.message });
+      }
+    },
+  );
+
   // Upload country/destination image
   app.post(
     '/api/admin/master-countries/:id/upload-image',
@@ -12015,6 +12391,53 @@ ${urls
         });
       } catch (error: any) {
         console.error('Error uploading country image:', error);
+        res.status(500).json({ success: false, message: error.message });
+      }
+    },
+  );
+
+  // Upload country banner
+  app.post(
+    '/api/admin/master-countries/:id/upload-banner',
+    requireAdmin,
+    async (req: Request, res: Response) => {
+      try {
+        const { countryImageUpload } = await import('./middleware/image-upload');
+
+        countryImageUpload.single('image')(req, res, async (err: any) => {
+          try {
+            if (err) {
+              return res.status(400).json({ success: false, message: err.message });
+            }
+
+            if (!req.file) {
+              return res.status(400).json({ success: false, message: 'No image file provided' });
+            }
+
+            const { id } = req.params;
+            const imageUrl = `/uploads/countries/${req.file.filename}`;
+
+            const [updated] = await db
+              .update(destinations)
+              .set({ bannerImage: imageUrl, updatedAt: new Date() })
+              .where(eq(destinations.id, id))
+              .returning();
+
+            if (!updated) {
+              return res.status(404).json({ success: false, message: 'Country not found' });
+            }
+
+            ApiResponse.success(res, 'Banner uploaded successfully', {
+              bannerImage: imageUrl,
+              destination: updated,
+            });
+          } catch (innerError: any) {
+            console.error('Error processing country banner upload:', innerError);
+            res.status(500).json({ success: false, message: innerError.message });
+          }
+        });
+      } catch (error: any) {
+        console.error('Error uploading country banner:', error);
         res.status(500).json({ success: false, message: error.message });
       }
     },
