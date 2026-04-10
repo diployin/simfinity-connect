@@ -11,6 +11,10 @@ export interface SettingsState {
   logo: string;
   white_logo?: string;
   favicon: string;
+  email?: string;
+  phone?: string;
+  support_info?: string;
+  location?: string;
   theme_primary?: string;
   theme_primary_second?: string;
   theme_primary_light?: string;
@@ -24,12 +28,19 @@ export interface SettingsState {
 
   website_url?: string | string[];
   social_facebook?: string | string[];
+  social_facebook_active?: string;
   social_instagram?: string | string[];
+  social_instagram_active?: string;
   social_twitter?: string | string[];
+  social_twitter_active?: string;
   social_linkedin?: string | string[];
+  social_linkedin_active?: string;
   social_youtube?: string | string[];
+  social_youtube_active?: string;
   social_android?: string | string[];
+  social_android_active?: string;
   social_ios?: string | string[];
+  social_ios_active?: string;
 
   homepage_popup_enabled?: string;
   homepage_popup_image?: string;

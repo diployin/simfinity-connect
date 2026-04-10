@@ -222,6 +222,7 @@ router.get("/my-esims-usages", requireAuth, async (req: Request, res: Response) 
             orderId: order.id,
             iccid: order.iccid,
             providerId: order.providerId,
+            packageId: order.packageId,
             usage,
           };
         } catch (err: any) {

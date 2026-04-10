@@ -20,6 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 import { useTranslation } from "@/contexts/TranslationContext";
 import { useToast } from "@/hooks/use-toast";
 import { useQuery, useMutation } from "@tanstack/react-query";
@@ -40,12 +41,19 @@ export function SocialMediaSettings() {
   const [android, setAndroid] = useState("");
   const [ios, setIos] = useState("");
 
+  const [facebookActive, setFacebookActive] = useState(true);
+  const [instagramActive, setInstagramActive] = useState(true);
+  const [twitterActive, setTwitterActive] = useState(true);
+  const [linkedinActive, setLinkedinActive] = useState(true);
+  const [youtubeActive, setYoutubeActive] = useState(true);
+  const [androidActive, setAndroidActive] = useState(true);
+  const [iosActive, setIosActive] = useState(true);
+
   // Fetch settings
   const { data: settingsResponse } = useQuery({
     queryKey: ["/api/admin/settings"],
   });
 
-  // console.log("nsd sdfds", settingsResponse)
   // Convert array → object
   const settings = useMemo(() => {
     if (!settingsResponse) return {};
@@ -57,8 +65,6 @@ export function SocialMediaSettings() {
       {}
     );
   }, [settingsResponse]);
-
-  // console.log("sdfafasasdas", settings)
 
   // Load values
   useEffect(() => {
@@ -72,6 +78,14 @@ export function SocialMediaSettings() {
     setYoutube(settings.social_youtube || "");
     setAndroid(settings.social_android || "");
     setIos(settings.social_ios || "");
+
+    setFacebookActive(settings.social_facebook_active !== "false");
+    setInstagramActive(settings.social_instagram_active !== "false");
+    setTwitterActive(settings.social_twitter_active !== "false");
+    setLinkedinActive(settings.social_linkedin_active !== "false");
+    setYoutubeActive(settings.social_youtube_active !== "false");
+    setAndroidActive(settings.social_android_active !== "false");
+    setIosActive(settings.social_ios_active !== "false");
   }, [settings]);
 
   // Mutation
@@ -123,12 +137,19 @@ export function SocialMediaSettings() {
   const handleSave = async () => {
     await save("website_url", website);
     await save("social_facebook", facebook);
+    await save("social_facebook_active", String(facebookActive));
     await save("social_instagram", instagram);
+    await save("social_instagram_active", String(instagramActive));
     await save("social_twitter", twitter);
+    await save("social_twitter_active", String(twitterActive));
     await save("social_linkedin", linkedin);
+    await save("social_linkedin_active", String(linkedinActive));
     await save("social_youtube", youtube);
+    await save("social_youtube_active", String(youtubeActive));
     await save("social_android", android);
+    await save("social_android_active", String(androidActive));
     await save("social_ios", ios);
+    await save("social_ios_active", String(iosActive));
   };
 
   return (
@@ -168,6 +189,8 @@ export function SocialMediaSettings() {
             label="Facebook"
             value={facebook}
             onChange={setFacebook}
+            active={facebookActive}
+            onActiveChange={setFacebookActive}
             placeholder="https://facebook.com/yourpage"
           />
 
@@ -176,6 +199,8 @@ export function SocialMediaSettings() {
             label="Instagram"
             value={instagram}
             onChange={setInstagram}
+            active={instagramActive}
+            onActiveChange={setInstagramActive}
             placeholder="https://instagram.com/yourprofile"
           />
 
@@ -184,6 +209,8 @@ export function SocialMediaSettings() {
             label="Twitter / X"
             value={twitter}
             onChange={setTwitter}
+            active={twitterActive}
+            onActiveChange={setTwitterActive}
             placeholder="https://x.com/yourprofile"
           />
 
@@ -192,6 +219,8 @@ export function SocialMediaSettings() {
             label="LinkedIn"
             value={linkedin}
             onChange={setLinkedin}
+            active={linkedinActive}
+            onActiveChange={setLinkedinActive}
             placeholder="https://linkedin.com/company/yourcompany"
           />
 
@@ -200,6 +229,8 @@ export function SocialMediaSettings() {
             label="YouTube"
             value={youtube}
             onChange={setYoutube}
+            active={youtubeActive}
+            onActiveChange={setYoutubeActive}
             placeholder="https://youtube.com/@yourchannel"
           />
 
@@ -208,6 +239,8 @@ export function SocialMediaSettings() {
             label="Android"
             value={android}
             onChange={setAndroid}
+            active={androidActive}
+            onActiveChange={setAndroidActive}
             placeholder="https://play.google.com/store/apps/details?id=com.yourapp"
           />
 
@@ -216,6 +249,8 @@ export function SocialMediaSettings() {
             label="IOS"
             value={ios}
             onChange={setIos}
+            active={iosActive}
+            onActiveChange={setIosActive}
             placeholder="https://apps.apple.com/app/yourapp"
           />
 
@@ -260,19 +295,37 @@ function Field({
   value,
   onChange,
   placeholder,
+  active,
+  onActiveChange,
 }: {
   icon: React.ReactNode;
   label: string;
   value: string;
   onChange: (v: string) => void;
   placeholder: string;
+  active?: boolean;
+  onActiveChange?: (v: boolean) => void;
 }) {
   return (
     <div className="space-y-3">
-      <Label className="text-lg font-semibold flex items-center gap-2">
-        <span className="text-[var(--primary-hex)]">{icon}</span>
-        {label}
-      </Label>
+      <div className="flex items-center justify-between">
+        <Label className="text-lg font-semibold flex items-center gap-2">
+          <span className="text-[var(--primary-hex)]">{icon}</span>
+          {label}
+        </Label>
+        {onActiveChange !== undefined && (
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-muted-foreground">
+              {active ? "Active" : "Inactive"}
+            </span>
+            <Switch
+              checked={active}
+              onCheckedChange={onActiveChange}
+              className="data-[state=checked]:bg-[var(--primary-hex)]"
+            />
+          </div>
+        )}
+      </div>
       <Input
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -282,3 +335,4 @@ function Field({
     </div>
   );
 }
+
