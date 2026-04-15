@@ -1483,6 +1483,17 @@ router.post('/confirm-payments', async (req, res) => {
         verificationResult = await confirmPowertranzPayment(req.body);
         break;
 
+      case 'free':
+        verificationResult = {
+          success: true,
+          amount: 0,
+          currency: req.body.currency || 'USD',
+          transactionId: `FREE-${Date.now()}`,
+          paymentMethod: 'free',
+          metadata: req.body.metadata,
+        };
+        break;
+
       default:
         return res.status(400).json({
           success: false,

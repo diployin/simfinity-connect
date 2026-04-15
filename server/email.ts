@@ -464,6 +464,15 @@ export async function generateInstallationEmail(order: any) {
 
   const lpaCodeToUse = order.lpaCode || order.activationCode;
 
+  // Extract matching ID if it's an LPA string
+  let activationCode = lpaCodeToUse;
+  if (lpaCodeToUse?.startsWith('LPA:')) {
+    const parts = lpaCodeToUse.split('$');
+    if (parts.length >= 3) {
+      activationCode = parts[2];
+    }
+  }
+
   // ✅ qrCodeUrl is always a real http URL at this point
   // (either from provider, or generated & saved by generateAndSaveQrCode)
   const qrHtml = order.qrCodeUrl
@@ -483,89 +492,114 @@ export async function generateInstallationEmail(order: any) {
     `;
 
   return {
-    subject: 'eSIM Installation Instructions',
+    subject: `Install Your eSIM - ${platformName}`,
     html: `
       <!DOCTYPE html>
       <html>
-      <body style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-                   line-height:1.6; color:#333; max-width:600px; margin:0 auto; padding:20px;">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+          body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f9fafb; }
+          .container { max-width: 600px; margin: 20px auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+          .header { background: linear-gradient(135deg, #2c7338 0%, #3d9a4d 100%); padding: 40px 20px; text-align: center; color: white; }
+          .header h1 { margin: 0; font-size: 24px; font-weight: 700; }
+          .content { padding: 40px 30px; }
+          .greeting { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+          .intro { color: #4b5563; margin-bottom: 30px; }
+          .reminder-box { background: #fffbeb; border-left: 4px solid #f59e0b; padding: 20px; margin-bottom: 30px; border-radius: 4px; }
+          .reminder-box h3 { margin-top: 0; font-size: 14px; color: #92400e; text-transform: uppercase; letter-spacing: 0.05em; }
+          .reminder-box ul { padding-left: 20px; margin: 10px 0 0 0; font-size: 14px; color: #374151; }
+          .step-section { margin-bottom: 40px; }
+          .step-title { font-size: 20px; font-weight: 700; color: #111827; border-bottom: 2px solid #f3f4f6; padding-bottom: 10px; margin-bottom: 20px; }
+          .option-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+          .option-title { font-weight: 700; color: #2c7338; margin-top: 0; font-size: 16px; }
+          .qr-code-container { text-align: center; margin: 25px 0; background: white; padding: 20px; border-radius: 8px; border: 1px solid #e5e7eb; display: inline-block; width: 100%; box-sizing: border-box; }
+          .qr-code-container img { max-width: 250px; height: auto; }
+          .manual-info { background: #f1f5f9; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 13px; word-break: break-all; margin-top: 10px; border: 1px dashed #cbd5e1; }
+          .manual-label { font-family: sans-serif; font-size: 12px; color: #64748b; margin-bottom: 4px; font-weight: 600; }
+          .footer { background: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb; font-size: 12px; color: #9ca3af; }
+          .btn { background: #2c7338; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: 600; margin-top: 10px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>${platformName} - eSIM Installation</h1>
+          </div>
+          <div class="content">
+            <p class="greeting">Hello ${order.name || 'Traveler'},</p>
+            <p class="intro">Thank you for choosing ${platformName}! To get started with your eSIM, please follow these simple steps.</p>
 
-        <div style="background:linear-gradient(135deg,#2c7338 0%,#3d9a4d 100%);
-                    padding:30px; text-align:center; border-radius:10px 10px 0 0;">
-          <h1 style="color:white; margin:0; font-size:28px;">${platformName} - Install Your eSIM</h1>
-        </div>
+            <div class="reminder-box">
+              <h3>REMINDER! Before proceeding, please ensure:</h3>
+              <ul>
+                <li>Your device is not carrier-locked.</li>
+                <li>You have a stable internet connection.</li>
+                <li>Activation typically takes 5 to 10 minutes. If it takes longer, try toggling Wi-Fi on and off.</li>
+                <li><strong>Note:</strong> Most eSIMs can only be installed once; if removed, they cannot be reinstalled.</li>
+              </ul>
+            </div>
 
-        <div style="background:#f0fdf4; padding:40px; border-radius:0 0 10px 10px;">
+            <div class="step-section">
+              <div class="step-title">STEP 01: INSTALLATION</div>
+              <p style="font-weight: 600; margin-bottom: 15px;">A. eSIM</p>
 
-          <p style="font-size:16px;">Hi <strong>${order.name || 'Customer'}</strong>,</p>
-          <p style="font-size:14px; color:#6b7280;">
-            Your eSIM package <strong>${order.packageName || 'Your Package'}</strong> is ready to install.
-          </p>
+              <div class="option-box">
+                <p class="option-title">Option 01: Direct Installation</p>
+                <p style="font-size: 14px; margin-bottom: 0;">Open your <strong>${platformName} App</strong>, go to <strong>My SIMs</strong>, and click the <strong>"Install"</strong> button for your eSIM. Follow the prompts on your device.</p>
+              </div>
 
-          <h3 style="color:#2c7338;">Installation Steps:</h3>
-          <ol style="font-size:14px; line-height:1.8;">
-            <li>Go to Settings &gt; Cellular/Mobile Data &gt; Add eSIM</li>
-            <li>Scan the QR code below or enter manually</li>
-            <li>Follow the on-screen instructions</li>
-            <li>Your eSIM will activate when you arrive at your destination</li>
-          </ol>
+              <div class="option-box">
+                <p class="option-title">Option 02: QR Code</p>
+                <div style="font-size: 14px;">
+                  <p><strong>iOS:</strong> Settings > Cellular > Add eSIM > Use QR Code.</p>
+                  <p><strong>Android:</strong> Settings > Network & Internet > (+) Icon > Download a SIM instead? > Next.</p>
+                </div>
+                <div class="qr-code-container">
+                  <p style="font-size: 12px; color: #6b7280; margin-top: 0; margin-bottom: 10px;">Scan this QR code to install</p>
+                  ${qrHtml}
+                  <div style="margin-top: 15px; font-family: monospace; font-size: 14px; font-weight: 600;">ICCID: ${order.iccid || 'N/A'}</div>
+                </div>
+              </div>
 
-          <div style="text-align:center; margin:30px 0;">
-            <p style="font-size:13px; color:#6b7280; margin-bottom:10px;">
-              Scan this QR code to install your eSIM
+              <div class="option-box">
+                <p class="option-title">Option 03: Manual Installation</p>
+                <p style="font-size: 14px;">If you can't scan the QR code, enter these details manually in your device's eSIM settings:</p>
+                <div class="manual-info">
+                  <div class="manual-label">SM-DP+ ADDRESS</div>
+                  <div>${order.smdpAddress || 'Unavailable'}</div>
+                  <div class="manual-label" style="margin-top: 10px;">ACTIVATION CODE</div>
+                  <div>${activationCode || 'Unavailable'}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-section">
+              <div class="step-title">STEP 02: ACTIVATE YOUR PLAN</div>
+              <ul style="font-size: 14px;">
+                <li>Make sure you have an active plan for your destination.</li>
+                <li>It may take 5-15 minutes for your internet to connect after activation.</li>
+              </ul>
+            </div>
+
+            <div class="step-section">
+              <div class="step-title">STEP 03: NETWORK CONFIGURATION</div>
+              <div style="font-size: 14px;">
+                <p><strong>A. Roaming:</strong> Enable "Data Roaming" for your new eSIM in settings.</p>
+                <p><strong>B. Default Network:</strong> Set the new eSIM as your primary "Cellular Data" line.</p>
+                <p><strong>C. APN:</strong> ${order.apn ? `Use APN: <strong>${order.apn}</strong>` : 'Most devices set this automatically. If not, check your plan details in the app.'}</p>
+              </div>
+            </div>
+
+            <p style="font-size: 14px; color: #6b7280; text-align: center; margin-top: 40px;">
+              Need help? Visit our Help Center or contact support@simfinity.tel
             </p>
-            ${qrHtml}
           </div>
-
-          ${lpaCodeToUse ? `
-            <div style="background:white; border-radius:8px; padding:20px; margin:20px 0;
-                        border:1px solid #e5e7eb;">
-              <h4 style="margin-top:0; color:#374151;">Manual Installation Code:</h4>
-              <p style="font-family:monospace; font-size:12px; word-break:break-all;
-                        background:#f3f4f6; padding:10px; border-radius:4px; margin:0;">
-                ${lpaCodeToUse}
-              </p>
-            </div>
-          ` : ''}
-
-          ${order.iccid ? `
-            <div style="background:white; border-radius:8px; padding:20px; margin:20px 0;
-                        border:1px solid #e5e7eb;">
-              <h4 style="margin-top:0; color:#374151;">ICCID:</h4>
-              <p style="font-family:monospace; font-size:12px; word-break:break-all;
-                        background:#f3f4f6; padding:10px; border-radius:4px; margin:0;">
-                ${order.iccid}
-              </p>
-            </div>
-          ` : ''}
-
-          ${order.smdpAddress ? `
-            <div style="background:white; border-radius:8px; padding:20px; margin:20px 0;
-                        border:1px solid #e5e7eb;">
-              <h4 style="margin-top:0; color:#374151;">SM-DP+ Address:</h4>
-              <p style="font-family:monospace; font-size:12px; word-break:break-all;
-                        background:#f3f4f6; padding:10px; border-radius:4px; margin:0;">
-                ${order.smdpAddress}
-              </p>
-            </div>
-          ` : ''}
-
-          <div style="background:#fef3c7; border-left:4px solid #f59e0b; padding:15px;
-                      margin:20px 0; border-radius:0 8px 8px 0;">
-            <p style="margin:0; font-size:14px;">
-              <strong>Important:</strong> Install your eSIM before you travel.
-              It will activate automatically when you reach your destination.
-            </p>
+          <div class="footer">
+            <p>&copy; ${new Date().getFullYear()} ${platformName}. All rights reserved.</p>
+            <p>Stay connected anywhere in the world.</p>
           </div>
-
-          <p style="font-size:13px; color:#9ca3af; text-align:center; margin-top:30px;">
-            Need help? Contact our support team.
-          </p>
-
-          <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
-            <p>© ${new Date().getFullYear()} ${platformName}. All rights reserved.</p>
-          </div>
-
         </div>
       </body>
       </html>
