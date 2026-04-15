@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
+import ReactCountryFlag from 'react-country-flag';
 import {
   Search,
   Eye,
@@ -553,9 +554,24 @@ export default function OrderManagement() {
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <span className="text-xl">
-                          {order.package?.destination?.flagEmoji ?? '🌍'}
-                        </span>
+                        {order.package?.destination?.image ? (
+                          <img
+                            src={order.package.destination.image}
+                            alt={order.package.destination.name}
+                            className="w-5 h-5 rounded-full object-cover border"
+                          />
+                        ) : order.package?.destination?.countryCode ? (
+                          <ReactCountryFlag
+                            countryCode={order.package.destination.countryCode}
+                            svg
+                            style={{ width: '20px', height: '15px' }}
+                            title={order.package.destination.name}
+                          />
+                        ) : (
+                          <span className="text-xl">
+                            {order.package?.destination?.flagEmoji ?? '🌍'}
+                          </span>
+                        )}
                         <span className="font-medium">
                           {order.package?.destination?.name ?? t('common.global', 'Global')}
                         </span>
