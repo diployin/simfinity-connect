@@ -417,16 +417,15 @@ export function GeneralSettings() {
   const [copyrightText, setCopyrightText] = useState('');
   const [currency, setCurrency] = useState('USD');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [supportInfo, setSupportInfo] = useState('');
+  const [location, setLocation] = useState('');
   const [packageSelectionMode, setPackageSelectionMode] = useState<'auto' | 'manual'>('auto');
 
   // Fetch settings from API
   const { data: settingsResponse } = useQuery<SettingsResponse>({
     queryKey: ['/api/admin/settings'],
   });
-
-
-
-  // console.log('settingsResponse', settingsResponse);
 
   // Fetch available currencies
   const { data: currencies = [] } = useQuery<CurrencyRate[]>({
@@ -453,7 +452,10 @@ export function GeneralSettings() {
       setFavicon(settings.favicon || null);
       setCopyrightText(settings.copyright_text || '');
       setCurrency(settings.currency || 'USD');
-      setEmail(settings.email || '')
+      setEmail(settings.email || '');
+      setPhone(settings.phone || '');
+      setSupportInfo(settings.support_info || '');
+      setLocation(settings.location || '');
       setPackageSelectionMode((settings.package_selection_mode as 'auto' | 'manual') || 'auto');
     }
   }, [settings]);
@@ -513,6 +515,9 @@ export function GeneralSettings() {
     await saveSetting('copyright_text', copyrightText, 'general');
     await saveSetting('currency', currency, 'general');
     await saveSetting('email', email, 'general');
+    await saveSetting('phone', phone, 'general');
+    await saveSetting('support_info', supportInfo, 'general');
+    await saveSetting('location', location, 'general');
     await saveSetting('package_selection_mode', packageSelectionMode, 'general');
     if (logo) {
       await saveSetting('logo', logo, 'general');
@@ -537,7 +542,6 @@ export function GeneralSettings() {
     }
 
     const data = await res.json();
-    // console.log('data', data);
     return data?.data?.fileUrl;
   };
 
@@ -548,7 +552,6 @@ export function GeneralSettings() {
 
     try {
       const path = await uploadImage(file);
-      // console.log('path', path);
       setLogo(path);
       toast({
         title: 'Success',
@@ -593,7 +596,6 @@ export function GeneralSettings() {
 
     try {
       const path = await uploadImage(file);
-      // console.log('path', path);
       setFavicon(path);
       toast({
         title: 'Success',
@@ -642,7 +644,6 @@ export function GeneralSettings() {
                 />
               </div>
 
-
               <div className="space-y-3">
                 <Label className="text-lg font-semibold">
                   {t('admin.settings.general.tagline', 'Tagline')}
@@ -658,20 +659,66 @@ export function GeneralSettings() {
                   data-testid="input-platform-tagline"
                 />
               </div>
-              <div className="space-y-3">
-                <Label className="text-lg font-semibold flex items-center gap-2">
-                  <Building2 className="h-5 w-5 text-[var(--primary-hex)]" />
-                  {t('admin.settings.general.email', 'Email')}
-                </Label>
-                <Input
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder={t('admin.settings.general.emailPlaceholder', 'My Email')}
-                  className="h-14 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
-                  data-testid="input-platform-email"
-                />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-3">
+                  <Label className="text-lg font-semibold flex items-center gap-2">
+                    <Building2 className="h-5 w-5 text-[var(--primary-hex)]" />
+                    {t('admin.settings.general.email', 'Email')}
+                  </Label>
+                  <Input
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder={t('admin.settings.general.emailPlaceholder', 'info@simfinity.fr')}
+                    className="h-12 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
+                    data-testid="input-platform-email"
+                  />
+                </div>
+
+                <div className="space-y-3">
+                  <Label className="text-lg font-semibold flex items-center gap-2">
+                    <Building2 className="h-5 w-5 text-[var(--primary-hex)]" />
+                    {t('admin.settings.general.phone', 'Phone')}
+                  </Label>
+                  <Input
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder={t('admin.settings.general.phonePlaceholder', '+33 0745574376')}
+                    className="h-12 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
+                    data-testid="input-platform-phone"
+                  />
+                </div>
               </div>
 
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-3">
+                  <Label className="text-lg font-semibold flex items-center gap-2">
+                    <Building2 className="h-5 w-5 text-[var(--primary-hex)]" />
+                    {t('admin.settings.general.supportInfo', 'Support Info')}
+                  </Label>
+                  <Input
+                    value={supportInfo}
+                    onChange={(e) => setSupportInfo(e.target.value)}
+                    placeholder={t('admin.settings.general.supportInfoPlaceholder', '24/7 Customer Support')}
+                    className="h-12 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
+                    data-testid="input-platform-support"
+                  />
+                </div>
+
+                <div className="space-y-3">
+                  <Label className="text-lg font-semibold flex items-center gap-2">
+                    <Building2 className="h-5 w-5 text-[var(--primary-hex)]" />
+                    {t('admin.settings.general.location', 'Location')}
+                  </Label>
+                  <Input
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                    placeholder={t('admin.settings.general.locationPlaceholder', 'France')}
+                    className="h-12 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
+                    data-testid="input-platform-location"
+                  />
+                </div>
+              </div>
 
               <div className="space-y-3">
                 <Label className="text-lg font-semibold">
@@ -1043,6 +1090,7 @@ export function GeneralSettings() {
             )}
           </Button>
         </CardContent>
+
       </Card>
 
       {/* AI-Enhanced Package Selection Card */}

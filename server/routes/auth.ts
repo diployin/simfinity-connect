@@ -41,10 +41,11 @@ function validatePassword(password: string): { valid: boolean; message?: string 
 
 router.post('/send-otp', async (req: Request, res: Response) => {
   try {
-    const { email, purpose = 'login' } = req.body;
-    if (!email) {
+    const { email: rawEmail, purpose = 'login' } = req.body;
+    if (!rawEmail) {
       return ApiResponse.badRequest(res, 'Email is required');
     }
+    const email = rawEmail.trim().toLowerCase();
 
     if (purpose === 'signup') {
       const existingUser = await storage.getUserByEmail(email);
@@ -138,11 +139,12 @@ router.post('/app/send-otp', async (req: Request, res: Response) => {
 
 router.post('/app/verify-otp', async (req: Request, res: Response) => {
   try {
-    const { email, otp } = req.body;
+    const { email: rawEmail, otp } = req.body;
 
-    if (!email) {
+    if (!rawEmail) {
       return ApiResponse.badRequest(res, 'Email is required');
     }
+    const email = rawEmail.trim().toLowerCase();
 
     if (!otp) {
       return ApiResponse.badRequest(res, 'OTP is required');
@@ -179,7 +181,7 @@ router.post('/app/verify-otp', async (req: Request, res: Response) => {
 router.post('/verify-otp', async (req: Request, res: Response) => {
   try {
     const {
-      email,
+      email: rawEmail,
       otp,
       purpose,
       isFromGoogle = false,
@@ -194,9 +196,10 @@ router.post('/verify-otp', async (req: Request, res: Response) => {
       name,
     } = req.body;
 
-    if (!email) {
+    if (!rawEmail) {
       return ApiResponse.badRequest(res, 'Email is required');
     }
+    const email = rawEmail.trim().toLowerCase();
 
     if (!isFromGoogle) {
       if (!otp) {
@@ -267,10 +270,11 @@ router.post('/verify-otp', async (req: Request, res: Response) => {
 
 router.post('/check-email', async (req: Request, res: Response) => {
   try {
-    const { email } = req.body;
-    if (!email) {
+    const { email: rawEmail } = req.body;
+    if (!rawEmail) {
       return ApiResponse.badRequest(res, 'Email is required');
     }
+    const email = rawEmail.trim().toLowerCase();
 
     const user = await storage.getUserByEmail(email);
 
@@ -285,11 +289,12 @@ router.post('/check-email', async (req: Request, res: Response) => {
 
 router.post('/login-password', async (req: Request, res: Response) => {
   try {
-    const { email, password, captchaToken } = req.body;
+    const { email: rawEmail, password, captchaToken } = req.body;
 
-    if (!email || !password) {
+    if (!rawEmail || !password) {
       return ApiResponse.badRequest(res, 'Email and password are required');
     }
+    const email = rawEmail.trim().toLowerCase();
 
     /* ---------------------------------
        RECAPTCHA VERIFICATION
@@ -565,10 +570,11 @@ router.post('/change-password', requireAuth, async (req: any, res: Response) => 
 
 router.post('/forgot-password', async (req: Request, res: Response) => {
   try {
-    const { email } = req.body;
-    if (!email) {
+    const { email: rawEmail } = req.body;
+    if (!rawEmail) {
       return ApiResponse.badRequest(res, 'Email is required');
     }
+    const email = rawEmail.trim().toLowerCase();
 
     const user = await storage.getUserByEmail(email);
 
@@ -616,13 +622,17 @@ router.post('/reset-password', async (req: Request, res: Response) => {
       return ApiResponse.badRequest(res, validation.message || 'Invalid password');
     }
 
-    const isValid = await storage.verifyOTP(email, otp, 'password_reset');
+    const normalizedEmail = email.trim().toLowerCase();
+
+    const isValid = await storage.verifyOTP(normalizedEmail, otp, 'password_reset');
     if (!isValid) {
+      logger.warn('Password reset failed: Invalid or expired code', { email: normalizedEmail });
       return ApiResponse.badRequest(res, 'Invalid or expired reset code');
     }
 
-    const user = await storage.getUserByEmail(email);
+    const user = await storage.getUserByEmail(normalizedEmail);
     if (!user) {
+      logger.warn('Password reset failed: User not found', { email: normalizedEmail });
       return ApiResponse.badRequest(res, 'Invalid or expired reset code');
     }
 

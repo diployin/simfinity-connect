@@ -1,4 +1,5 @@
 import { useSettingByKey } from '@/hooks/useSettings';
+import { useTheme } from '@/contexts/ThemeContext';
 import { SettingsState } from '@/redux/slice/settingsSlice';
 import { PageApiResponse } from '@/types/types';
 import { apiRequest } from '@/lib/queryClient';
@@ -64,8 +65,11 @@ export function NewFooter() {
 
   console.log(topDestinations)
 
+  const { theme } = useTheme();
   const siteName = useSettingByKey('platform_name') || 'Simfinity';
   const logo = useSettingByKey('logo');
+  const whiteLogo = useSettingByKey('white_logo');
+  const currentLogo = theme === 'dark' ? (whiteLogo || logo) : logo;
   const androidLink = useSettingByKey('social_android') || '#';
   const iosLink = useSettingByKey('social_ios') || '#';
 
@@ -73,46 +77,55 @@ export function NewFooter() {
     <footer className="bg-background border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-10 gap-4">
-          {logo ? (
-            <Link href="/" data-testid="link-home" className="flex-shrink-0">
-              <img src={logo} alt="" className="h-12" />
-            </Link>
-          ) : (
-            <Link href="/" data-testid="link-home" className="flex-shrink-0">
-              <div className="flex items-center gap-2 cursor-pointer transition-all duration-200 hover:opacity-80">
-                <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-[#2c7338] to-[#1e5427] flex items-center justify-center">
-                  <Globe className="h-4 w-4 text-white" />
+          <div className="flex flex-col gap-4 max-w-md">
+            {currentLogo ? (
+              <Link href="/" data-testid="link-home" className="flex-shrink-0">
+                <img src={currentLogo} alt="" className="h-12" />
+              </Link>
+            ) : (
+              <Link href="/" data-testid="link-home" className="flex-shrink-0">
+                <div className="flex items-center gap-2 cursor-pointer transition-all duration-200 hover:opacity-80">
+                  <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-[#2c7338] to-[#1e5427] flex items-center justify-center">
+                    <Globe className="h-4 w-4 text-white" />
+                  </div>
+                  <span className="font-bold text-lg text-gray-900 dark:text-white">
+                    Sim<span className="bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] bg-clip-text text-transparent">finity</span>
+                  </span>
                 </div>
-                <span className="font-bold text-lg text-gray-900 dark:text-white">
-                  Sim<span className="bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] bg-clip-text text-transparent">finity</span>
-                </span>
-              </div>
-            </Link>
-          )}
+              </Link>
+            )}
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              {siteName} provides fast, secure, and affordable eSIM solutions for travelers, businesses, and global users — helping you stay connected anywhere in the world without roaming stress.
+            </p>
+          </div>
 
           <div className="flex gap-3">
-            <a href={iosLink} className="inline-block" aria-label="Download on App Store">
-              <div className="bg-black text-white rounded-lg px-3 py-1.5 flex items-center gap-1.5 hover:bg-gray-800 transition-colors">
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-                </svg>
-                <div>
-                  <div className="text-[8px] leading-none">Download on the</div>
-                  <div className="text-xs font-semibold leading-tight">App Store</div>
+            {settings?.social_ios_active !== "false" && (
+              <a href={iosLink} className="inline-block" aria-label="Download on App Store">
+                <div className="bg-black text-white rounded-lg px-3 py-1.5 flex items-center gap-1.5 hover:bg-gray-800 transition-colors">
+                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+                  </svg>
+                  <div>
+                    <div className="text-[8px] leading-none">Download on the</div>
+                    <div className="text-xs font-semibold leading-tight">App Store</div>
+                  </div>
                 </div>
-              </div>
-            </a>
-            <a href={androidLink} className="inline-block" aria-label="Get it on Google Play">
-              <div className="bg-black text-white rounded-lg px-3 py-1.5 flex items-center gap-1.5 hover:bg-gray-800 transition-colors">
-                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 0 1 0 1.38l-2.302 2.302L15.196 12l2.502-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302L5.864 2.658z" />
-                </svg>
-                <div>
-                  <div className="text-[8px] leading-none">GET IT ON</div>
-                  <div className="text-xs font-semibold leading-tight">Google Play</div>
+              </a>
+            )}
+            {settings?.social_android_active !== "false" && (
+              <a href={androidLink} className="inline-block" aria-label="Get it on Google Play">
+                <div className="bg-black text-white rounded-lg px-3 py-1.5 flex items-center gap-1.5 hover:bg-gray-800 transition-colors">
+                  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 0 1 0 1.38l-2.302 2.302L15.196 12l2.502-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302L5.864 2.658z" />
+                  </svg>
+                  <div>
+                    <div className="text-[8px] leading-none">GET IT ON</div>
+                    <div className="text-xs font-semibold leading-tight">Google Play</div>
+                  </div>
                 </div>
-              </div>
-            </a>
+              </a>
+            )}
           </div>
         </div>
 
@@ -214,34 +227,60 @@ export function NewFooter() {
           </div>
 
           <div>
-            <h3 className="text-sm font-bold text-foreground mb-4">Follow Us</h3>
-            <ul className="space-y-2.5">
-              {[
-                { label: 'Facebook', icon: 'facebook', href: getSocialUrl(settings?.social_facebook) },
-                { label: 'Twitter (now X)', icon: 'twitter', href: getSocialUrl(settings?.social_twitter) },
-                { label: 'LinkedIn', icon: 'linkedin', href: getSocialUrl(settings?.social_linkedin) },
-                { label: 'YouTube', icon: 'youtube', href: getSocialUrl(settings?.social_youtube) },
-                { label: 'Instagram', icon: 'instagram', href: getSocialUrl(settings?.social_instagram) }
-              ].map((social) => (
-                <li key={social.label}>
-                  <a
-                    href={social.href}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <SocialIcon name={social.icon} />
-                    {social.label}
-                  </a>
-                </li>
-              ))}
+            <h3 className="text-sm font-bold text-foreground mb-4">Contact Us</h3>
+            <ul className="space-y-2.5 mb-6">
+              <li className="text-sm text-muted-foreground">
+                <span className="block font-medium text-foreground">Email:</span>
+                <a href={`mailto:${settings?.email || 'info@simfinity.tel'}`} className="hover:text-foreground transition-colors">
+                  {settings?.email || 'info@simfinity.tel'}
+                </a>
+              </li>
+              <li className="text-sm text-muted-foreground">
+                <span className="block font-medium text-foreground">Phone:</span>
+                <a href={`tel:${settings?.phone?.replace(/\s/g, "") || "+330745574376"}`} className="hover:text-foreground transition-colors">
+                  {settings?.phone || '+33 0745574376'}
+                </a>
+              </li>
+              <li className="text-sm text-muted-foreground">
+                <span className="block font-medium text-foreground">Support:</span>
+                {settings?.support_info || '24/7 Customer Support Available'}
+              </li>
+              <li className="text-sm text-muted-foreground">
+                <span className="block font-medium text-foreground">Location:</span>
+                {settings?.location || 'France'}
+              </li>
             </ul>
+
+            <h3 className="text-sm font-bold text-foreground mb-4">Follow Us</h3>
+            <div className="flex flex-wrap gap-3">
+              {[
+                { label: 'Facebook', icon: 'facebook', href: getSocialUrl(settings?.social_facebook), active: settings?.social_facebook_active !== 'false' },
+                { label: 'Twitter', icon: 'twitter', href: getSocialUrl(settings?.social_twitter), active: settings?.social_twitter_active !== 'false' },
+                { label: 'LinkedIn', icon: 'linkedin', href: getSocialUrl(settings?.social_linkedin), active: settings?.social_linkedin_active !== 'false' },
+                { label: 'YouTube', icon: 'youtube', href: getSocialUrl(settings?.social_youtube), active: settings?.social_youtube_active !== 'false' },
+                { label: 'Instagram', icon: 'instagram', href: getSocialUrl(settings?.social_instagram), active: settings?.social_instagram_active !== 'false' }
+              ].filter(social => social.active).map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                >
+                  <SocialIcon name={social.icon} />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 
         <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
-            <span>2026 {siteName}. All rights reserved.</span>
+            <div className="flex flex-col gap-1">
+              <span>© {new Date().getFullYear()} {siteName}. All rights reserved.</span>
+              <span>Powered by <a href="https://simfinity.dev" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground cursor-pointer">Simfinity.dev</a></span>
+            </div>
             <Link href="/privacy-policy">
               <span className="underline hover:text-foreground cursor-pointer">Privacy Policy</span>
             </Link>

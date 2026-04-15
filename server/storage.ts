@@ -288,12 +288,13 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getUserByEmail(email: string) {
-    const [user] = await db.select().from(users).where(eq(users.email, email));
+    const [user] = await db.select().from(users).where(eq(sql`LOWER(${users.email})`, email.toLowerCase()));
     return user || undefined;
   }
 
   async createUser(insertUser: InsertUser) {
-    const [user] = await db.insert(users).values(insertUser).returning();
+    const data = { ...insertUser, email: insertUser.email.toLowerCase() };
+    const [user] = await db.insert(users).values(data).returning();
     return user;
   }
 
@@ -397,14 +398,15 @@ export class DatabaseStorage implements IStorage {
 
   // OTP
   async createOTP(insertOtp: InsertOtpCode) {
-    const [otp] = await db.insert(otpCodes).values(insertOtp).returning();
+    const data = { ...insertOtp, email: insertOtp.email.toLowerCase() };
+    const [otp] = await db.insert(otpCodes).values(data).returning();
     return otp;
   }
 
   async getOTPByEmail(email: string, purpose: string = "login") {
     const [otp] = await db.select().from(otpCodes)
       .where(and(
-        eq(otpCodes.email, email),
+        eq(sql`LOWER(${otpCodes.email})`, email.toLowerCase()),
         eq(otpCodes.verified, false),
         eq(otpCodes.purpose, purpose)
       ))
@@ -425,7 +427,7 @@ export class DatabaseStorage implements IStorage {
 
   // Admins
   async getAdminByEmail(email: string) {
-    const [admin] = await db.select().from(admins).where(eq(admins.email, email));
+    const [admin] = await db.select().from(admins).where(eq(sql`LOWER(${admins.email})`, email.toLowerCase()));
     return admin || undefined;
   }
 
@@ -481,7 +483,6 @@ export class DatabaseStorage implements IStorage {
         countryCode: destinations.countryCode,
         flagEmoji: destinations.flagEmoji,
         image: destinations.image,
-        bannerImage: destinations.bannerImage,
         active: destinations.active,
         createdAt: destinations.createdAt,
         updatedAt: destinations.updatedAt,
@@ -564,7 +565,6 @@ export class DatabaseStorage implements IStorage {
         slug: regions.slug,
         name: regions.name,
         image: regions.image,
-        bannerImage: regions.bannerImage,
         countries: regions.countries,
         active: regions.active,
         createdAt: regions.createdAt,
@@ -1031,6 +1031,9 @@ export class DatabaseStorage implements IStorage {
           'logo',
           'white_logo',
           'email',
+          'phone',
+          'support_info',
+          'location',
           'favicon',
           'currency',
           'timezone',
@@ -1044,12 +1047,19 @@ export class DatabaseStorage implements IStorage {
           'theme_font_body',
           'website_url',
           'social_facebook',
+          'social_facebook_active',
           'social_instagram',
+          'social_instagram_active',
           'social_twitter',
+          'social_twitter_active',
           'social_linkedin',
+          'social_linkedin_active',
           'social_youtube',
+          'social_youtube_active',
           'social_ios',
+          'social_ios_active',
           'social_android',
+          'social_android_active',
           'in_app_purchase',
           'homepage_popup_enabled',
           'homepage_popup_image',
