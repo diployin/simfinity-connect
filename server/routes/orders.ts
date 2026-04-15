@@ -40,8 +40,23 @@ router.get(
 
     const ordersWithDetails = await Promise.all(
       userOrders.map(async (order) => {
-        const pkg = await storage.getPackageById(order.packageId);
-        return { ...order, package: pkg };
+        const pkg = await storage.getUnifiedPackageById(order.packageId);
+        let destination;
+        if (pkg?.destinationId) {
+          destination = await storage.getDestinationById(pkg.destinationId);
+        }
+        const voucherUsage = await storage.getVoucherUsageByOrder(order.id);
+        const giftCardTransactions = await storage.getGiftCardTransactionsByOrder(order.id);
+        const referralTransactions = await storage.getReferralTransactionsByOrder(order.id);
+        const referralCreditsSpent = referralTransactions.filter(t => t.type === 'credit_used');
+
+        return {
+          ...order,
+          package: pkg ? { ...pkg, destination } : {},
+          giftCardTransactions: giftCardTransactions || [],
+          voucherUsage: voucherUsage || [],
+          referralTransactions: referralCreditsSpent || [],
+        };
       })
     );
 

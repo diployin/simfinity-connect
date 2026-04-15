@@ -27,7 +27,7 @@ router.get(
       const ordersWithDetails = await Promise.all(
         orders.map(async (order) => {
           const user = await storage.getUser(order.userId);
-          const pkg = await storage.getPackageById(order.packageId);
+          const pkg = await storage.getUnifiedPackageById(order.packageId);
           let destination;
           if (pkg?.destinationId) {
             destination = await storage.getDestinationById(pkg.destinationId);
@@ -37,12 +37,20 @@ router.get(
           const originalProviderName = order.originalProviderId ? providerMap.get(order.originalProviderId) : undefined;
           const finalProviderName = order.finalProviderId ? providerMap.get(order.finalProviderId) : undefined;
 
+          const giftCardTransactions = await storage.getGiftCardTransactionsByOrder(order.id);
+          const voucherUsage = await storage.getVoucherUsageByOrder(order.id);
+          const referralTransactions = await storage.getReferralTransactionsByOrder(order.id);
+          const referralCreditsSpent = referralTransactions.filter(t => t.type === 'credit_used');
+
           return {
             ...order,
             user,
-            package: { ...pkg, destination },
+            package: pkg ? { ...pkg, destination } : {},
             originalProviderName,
             finalProviderName,
+            giftCardTransactions: giftCardTransactions || [],
+            voucherUsage: voucherUsage || [],
+            referralTransactions: referralCreditsSpent || [],
           };
         })
       );
@@ -63,7 +71,12 @@ router.get(
       return ApiResponse.notFound(res, "Order not found");
     }
 
-    const pkg = await storage.getPackageById(order.packageId);
+    const pkg = await storage.getUnifiedPackageById(order.packageId);
+    let destination;
+    if (pkg?.destinationId) {
+      destination = await storage.getDestinationById(pkg.destinationId);
+    }
+    const packageWithDestination = pkg ? { ...pkg, destination } : {};
 
     // Fetch provider name from database for dynamic display
     let providerName = "Unknown";
@@ -77,11 +90,19 @@ router.get(
     // Use wholesalePrice if available, fallback to airaloPrice for legacy orders
     const providerCost = order.wholesalePrice || order.airaloPrice;
 
+    const giftCardTransactions = await storage.getGiftCardTransactionsByOrder(order.id);
+    const voucherUsage = await storage.getVoucherUsageByOrder(order.id);
+    const referralTransactions = await storage.getReferralTransactionsByOrder(order.id);
+    const referralCreditsSpent = referralTransactions.filter(t => t.type === 'credit_used');
+
     return ApiResponse.success(res, "Order fetched successfully", {
       ...order,
-      package: pkg,
+      package: packageWithDestination,
       providerName,
-      providerCost
+      providerCost,
+      giftCardTransactions: giftCardTransactions || [],
+      voucherUsage: voucherUsage || [],
+      referralTransactions: referralCreditsSpent || [],
     });
   })
 );

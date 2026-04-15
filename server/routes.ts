@@ -2752,6 +2752,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
               subject: confirmEmail.subject,
               html: confirmEmail.html,
             });
+
+            // 2️⃣ Installation email
+            if (order.status === 'completed' && !order.installationSent) {
+              try {
+                const installationEmail = await generateInstallationEmail({
+                  name: name || user?.name || 'Customer',
+                  packageName: pkg.title || 'Your eSIM Package',
+                  qrCodeUrl: simDetails.qrCodeUrl, // simDetails is already populated above
+                  iccid: simDetails.iccid,
+                  lpaCode: simDetails.lpaCode,
+                  activationCode: simDetails.activationCode,
+                  smdpAddress: simDetails.smdpAddress,
+                });
+
+                await sendEmail({
+                  to: customerEmail,
+                  subject: installationEmail.subject,
+                  html: installationEmail.html,
+                });
+
+                await storage.updateOrder(order.id, { installationSent: true });
+                console.log('✅ Installation email sent for free order');
+              } catch (err) {
+                console.error('❌ Installation email error (free order):', err);
+              }
+            }
           }
 
           if (finalUserId) {
@@ -3205,8 +3231,67 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 referredUserId: userId,
                 promoCode: metadata.promoCode,
                 orderId: order.id,
-                orderAmount: paidAmount,
+                orderAmount: totalPrice,
               });
+            }
+
+            // ── Deduct referral credits ──────────────────────────────────────
+            const usedCredits = parseFloat(metadata.referralCredits || '0');
+            if (usedCredits > 0 && userId) {
+              try {
+                const creditUser = await storage.getUserById(userId as string);
+                if (creditUser && creditUser.referralBalance) {
+                  const currentBalance = parseFloat(creditUser.referralBalance);
+                  const newBalance = Math.max(0, currentBalance - usedCredits);
+                  await storage.updateUser(userId as string, { referralBalance: newBalance.toFixed(2) });
+                  await storage.createReferralTransaction({
+                    userId: userId as string,
+                    orderId: order.id,
+                    amount: (-usedCredits).toFixed(2),
+                    type: 'credit_used',
+                    balanceAfter: newBalance.toFixed(2),
+                    balanceBefore: currentBalance.toFixed(2),
+                    referralId: metadata.referralId,
+                    description: `Used $${usedCredits.toFixed(2)} credits on order ${order.displayOrderId || order.id}`,
+                  });
+                }
+              } catch (creditError: any) {
+                console.error('[Regular Order] Error deducting referral credits:', creditError.message);
+              }
+            }
+
+            // ── Promo codes ──────────────────────────────────────────────────
+            if (metadata.promoType && metadata.promoCode) {
+              try {
+                if (metadata.promoType === 'voucher' && metadata.voucherId) {
+                  await storage.incrementVoucherUsage(metadata.voucherId);
+                  await storage.createVoucherUsage({
+                    voucherId: metadata.voucherId,
+                    userId: userId as string,
+                    orderId: order.id,
+                    discountAmount: metadata.promoDiscount,
+                  });
+                } else if (metadata.promoType === 'giftcard' && metadata.giftCardId) {
+                  const giftCard = await storage.getGiftCardByCode(metadata.promoCode);
+                  if (giftCard) {
+                    const promoDiscount = parseFloat(metadata.promoDiscount || '0');
+                    const currentBalance = parseFloat(giftCard.balance);
+                    const newBalance = Math.max(0, currentBalance - promoDiscount);
+                    await storage.updateGiftCardBalance(metadata.giftCardId, newBalance.toFixed(2));
+                    await storage.createGiftCardTransaction({
+                      giftCardId: metadata.giftCardId,
+                      usedBy: userId as string,
+                      orderId: order.id,
+                      amount: (-promoDiscount).toFixed(2),
+                      type: 'redemption',
+                      description: `Redeemed $${promoDiscount.toFixed(2)} on order ${order.displayOrderId || order.id}`,
+                      balanceAfter: newBalance.toFixed(2),
+                    });
+                  }
+                }
+              } catch (promoError: any) {
+                console.error('[Regular Order] Error processing promo code:', promoError.message);
+              }
             }
 
             // ── Notifications & Emails ─────────────────────────────────────
@@ -3259,7 +3344,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 try {
                   const installationEmail = await generateInstallationEmail({
                     name: user.name || 'Customer',
-                    packageName: pkg.name || 'Your eSIM Package',
+                    packageName: pkg.title || 'Your eSIM Package',
                     qrCodeUrl: finalQrUrl,                 // ✅ always a real URL or null
                     iccid: simDetails?.iccid,
                     lpaCode: simDetails?.lpaCode,

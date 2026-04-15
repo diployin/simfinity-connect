@@ -219,6 +219,7 @@ export interface IStorage {
   createVoucherUsage(usage: InsertVoucherUsage): Promise<void>;
   getVoucherUsageByUserAndVoucher(userId: string, voucherId: string): Promise<number>;
 
+  getVoucherUsageByOrder(orderId: string): Promise<any[]>;
   // Gift Cards
   getGiftCardByCode(code: string): Promise<GiftCard | undefined>;
   updateGiftCardBalance(id: string, newBalance: string): Promise<void>;
@@ -226,9 +227,11 @@ export interface IStorage {
   getGiftCardTransactions(giftCardId: string): Promise<any[]>;
   getGiftCardsByUser(userId: string): Promise<GiftCard[]>;
 
+  getGiftCardTransactionsByOrder(orderId: string): Promise<any[]>;
   // Referral Program
   getUserByReferralCode(code: string): Promise<User | undefined>;
 
+  getReferralTransactionsByOrder(orderId: string): Promise<any[]>;
   // Internationalization - Languages
   getAllLanguages(): Promise<Language[]>;
   getEnabledLanguages(): Promise<Language[]>;
@@ -1833,7 +1836,13 @@ export class DatabaseStorage implements IStorage {
     return Number(result[0]?.count) || 0;
   }
 
-  // Gift Cards
+  async getVoucherUsageByOrder(orderId: string) {
+    return await db.select().from(voucherUsage)
+      .where(eq(voucherUsage.orderId, orderId))
+      .orderBy(desc(voucherUsage.usedAt));
+  }
+
+  // Gift Cards mapping here if needed or just below
   async getGiftCardByCode(code: string) {
     const [giftCard] = await db.select().from(giftCards).where(eq(giftCards.code, code.toUpperCase()));
     return giftCard || undefined;
@@ -1852,6 +1861,12 @@ export class DatabaseStorage implements IStorage {
   async getGiftCardTransactions(giftCardId: string) {
     return await db.select().from(giftCardTransactions)
       .where(eq(giftCardTransactions.giftCardId, giftCardId))
+      .orderBy(desc(giftCardTransactions.usedAt));
+  }
+
+  async getGiftCardTransactionsByOrder(orderId: string) {
+    return await db.select().from(giftCardTransactions)
+      .where(eq(giftCardTransactions.orderId, orderId))
       .orderBy(desc(giftCardTransactions.usedAt));
   }
 
@@ -1877,6 +1892,13 @@ export class DatabaseStorage implements IStorage {
   async getReferralTransactions(userId: string) {
     return await db.select().from(referralTransactions)
       .where(eq(referralTransactions.userId, userId))
+      .orderBy(desc(referralTransactions.createdAt));
+  }
+
+
+  async getReferralTransactionsByOrder(orderId: string) {
+    return await db.select().from(referralTransactions)
+      .where(eq(referralTransactions.orderId, orderId))
       .orderBy(desc(referralTransactions.createdAt));
   }
 

@@ -21,6 +21,9 @@ import { Progress } from "@/components/ui/progress";
 
 type OrderWithDetails = Order & {
   package: UnifiedPackage & { destination?: Destination };
+  giftCardTransactions?: any[];
+  voucherUsage?: any[];
+  referralTransactions?: any[];
 };
 
 export default function MyOrders() {
@@ -246,7 +249,26 @@ export default function MyOrders() {
                     <div className="text-sm text-muted-foreground mb-1">{t('myOrders.amountPaid', 'Amount Paid')}</div>
                     {/* <div className="font-medium">${order.price}</div> */}
                     <div className="font-medium">
-                      {formatPrice(order.price, order.currency || order.orderCurrency)}
+                      {(order.giftCardTransactions?.length > 0 || order.voucherUsage?.length > 0 || order.referralTransactions?.length > 0) ? (
+                        <div className="flex flex-col">
+                          <span className="line-through text-muted-foreground text-xs font-normal">
+                            {formatPrice(order.price, order.currency || order.orderCurrency)}
+                          </span>
+                          <span className="text-green-600 dark:text-green-400">
+                            {formatPrice(
+                              Math.max(0,
+                                Number(order.price) -
+                                (order.giftCardTransactions?.reduce((acc: number, t: any) => acc + Number(t.amountUsed), 0) || 0) -
+                                (order.voucherUsage?.reduce((acc: number, v: any) => acc + Number(v.discountAmount), 0) || 0) -
+                                (order.referralTransactions?.reduce((acc: number, r: any) => acc + Number(r.amount), 0) || 0)
+                              ),
+                              order.currency || order.orderCurrency
+                            )}
+                          </span>
+                        </div>
+                      ) : (
+                        formatPrice(order.price, order.currency || order.orderCurrency)
+                      )}
                     </div>
                   </div>
                   <div>
@@ -769,8 +791,24 @@ export default function MyOrders() {
                           </Badge>
                         </div>
                         <div>
-                          <p className="text-sm text-muted-foreground">Customer Price</p>
-                          <p className="font-medium">${selectedOrder.price}</p>
+                          <p className="text-sm text-muted-foreground">Price Paid</p>
+                          <p className="font-medium">
+                            {(selectedOrder.giftCardTransactions?.length > 0 || selectedOrder.voucherUsage?.length > 0 || selectedOrder.referralTransactions?.length > 0) ? (
+                              <span className="text-green-600 dark:text-green-400">
+                                {formatPrice(
+                                  Math.max(0,
+                                    Number(selectedOrder.price) -
+                                    (selectedOrder.giftCardTransactions?.reduce((acc: number, t: any) => acc + Number(t.amountUsed), 0) || 0) -
+                                    (selectedOrder.voucherUsage?.reduce((acc: number, v: any) => acc + Number(v.discountAmount), 0) || 0) -
+                                    (selectedOrder.referralTransactions?.reduce((acc: number, r: any) => acc + Number(r.amount), 0) || 0)
+                                  ),
+                                  selectedOrder.currency || selectedOrder.orderCurrency
+                                )}
+                              </span>
+                            ) : (
+                              formatPrice(selectedOrder.price, selectedOrder.currency || selectedOrder.orderCurrency)
+                            )}
+                          </p>
                         </div>
                         {/* <div>
                           <p className="text-sm text-muted-foreground">Airalo Cost</p>

@@ -588,8 +588,26 @@ export default function OrderManagement() {
                       </div>
                     </TableCell>
                     <TableCell className="font-semibold text-emerald-600 dark:text-emerald-400">
-                      {/* ${order.price} */}
-                      {formatPrice(order.price, order.currency || order.orderCurrency)}
+                      {(order.giftCardTransactions?.length > 0 || order.voucherUsage?.length > 0 || order.referralTransactions?.length > 0) ? (
+                        <div className="flex flex-col">
+                          <span className="line-through text-muted-foreground text-xs font-normal">
+                            {formatPrice(order.price, order.currency || order.orderCurrency)}
+                          </span>
+                          <span className="text-green-600 dark:text-green-400">
+                            {formatPrice(
+                              Math.max(0,
+                                Number(order.price) -
+                                (order.giftCardTransactions?.reduce((acc: number, t: any) => acc + Number(t.amountUsed), 0) || 0) -
+                                (order.voucherUsage?.reduce((acc: number, v: any) => acc + Number(v.discountAmount), 0) || 0) -
+                                (order.referralTransactions?.reduce((acc: number, r: any) => acc + Number(r.amount), 0) || 0)
+                              ),
+                              order.currency || order.orderCurrency
+                            )}
+                          </span>
+                        </div>
+                      ) : (
+                        formatPrice(order.price, order.currency || order.orderCurrency)
+                      )}
                     </TableCell>
                     <TableCell>
                       <Badge className={statusStyles[order.status]} variant="outline">
