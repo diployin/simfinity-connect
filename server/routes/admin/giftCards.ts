@@ -111,8 +111,19 @@ router.get("/gift-cards/:id/transactions", requireAdmin, async (req: Request, re
   try {
     const { id } = req.params;
     const transactions = await db
-      .select()
+      .select({
+        id: giftCardTransactions.id,
+        giftCardId: giftCardTransactions.giftCardId,
+        orderId: giftCardTransactions.orderId,
+        amountUsed: giftCardTransactions.amountUsed,
+        balanceAfter: giftCardTransactions.balanceAfter,
+        usedBy: giftCardTransactions.usedBy,
+        usedAt: giftCardTransactions.usedAt,
+        userName: users.name,
+        userEmail: users.email,
+      })
       .from(giftCardTransactions)
+      .leftJoin(users, eq(giftCardTransactions.usedBy, users.id))
       .where(eq(giftCardTransactions.giftCardId, id))
       .orderBy(desc(giftCardTransactions.usedAt));
 

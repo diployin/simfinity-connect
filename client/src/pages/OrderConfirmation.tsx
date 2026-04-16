@@ -18,6 +18,7 @@ import {
   Loader2,
   Home,
   HelpCircle,
+  Zap,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -58,6 +59,7 @@ type OrderDetails = {
     countryCode: string | null;
     countryName: string | null;
   } | null;
+  shortUrl: string | null;
 };
 
 const statusConfig: Record<string, { label: string; color: string; icon: any }> = {
@@ -214,6 +216,17 @@ export default function OrderConfirmation() {
                             >
                               <Copy className="w-4 h-4 mr-2" />
                               Copy LPA Code
+                            </Button>
+                          )}
+                          {order.shortUrl && (
+                            <Button
+                              className="bg-orange-500 hover:bg-orange-600 text-white"
+                              size="sm"
+                              onClick={() => window.open(order.shortUrl!, '_blank')}
+                              data-testid="button-quick-install"
+                            >
+                              <Zap className="h-4 w-4 mr-2" />
+                              Quick Install
                             </Button>
                           )}
                         </div>

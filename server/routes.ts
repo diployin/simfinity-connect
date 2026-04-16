@@ -45,6 +45,7 @@ import {
   generateLowDataEmail,
   generateCustomNotificationEmail,
 } from './email';
+import { formatDisplayOrderId } from '@shared/utils';
 import { airaloSyncService } from './services/airalo/airalo-sync';
 import { airaloOrderService, type AiraloWebhookPayload } from './services/airalo/airalo-order';
 import { airaloNotificationService } from './services/airalo/airalo-notifications';
@@ -1714,11 +1715,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 await storage.updateGiftCardBalance(metadata.giftCardId, newBalance.toFixed(2));
                 await storage.createGiftCardTransaction({
                   giftCardId: metadata.giftCardId,
-                  usedBy: user.id,
+                  usedBy: user.id || null,
                   orderId: order.id,
-                  amount: (-promoDiscount).toFixed(2),
-                  type: 'redemption',
-                  description: `Redeemed $${promoDiscount.toFixed(2)} on order ${order.displayOrderId || order.id}`,
+                  amountUsed: promoDiscount.toFixed(2),
                   balanceAfter: newBalance.toFixed(2),
                 });
               }
@@ -1728,13 +1727,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         }
 
-        // ── 1️⃣ Confirmation email ─────────────────────────────────────────
+        let guestDestinationName = 'Unknown';
+        if (pkg.destinationId) {
+          const dest = await storage.getDestinationById(pkg.destinationId);
+          guestDestinationName = dest?.name || 'Unknown';
+        } else if (pkg.regionId) {
+          const reg = await storage.getRegionById(pkg.regionId);
+          guestDestinationName = reg?.name || 'Unknown';
+        } else {
+          guestDestinationName = pkg.title || 'Unknown';
+        }
+
         const confirmEmail = await generateOrderConfirmationEmail({
           id: order.id,
-          destination: pkg.countryName || 'Unknown',
+          displayId: formatDisplayOrderId(order.displayOrderId),
+          destination: guestDestinationName,
           dataAmount: pkg.dataAmount,
           validity: pkg.validity,
           price: pkg.price,
+          iccid: simDetails?.iccid,
+          qrCodeUrl: order.qrCodeUrl || null,
+          name: user?.name || guestEmail.split('@')[0] || 'Customer',
         });
         await sendEmail({ to: guestEmail, subject: confirmEmail.subject, html: confirmEmail.html });
         console.log('✅ Guest confirmation email sent');
@@ -1750,6 +1763,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               lpaCode: simDetails?.lpaCode,
               activationCode: simDetails?.activationCode,
               smdpAddress: simDetails?.smdpAddress,
+              shortUrl: order.shortUrl || simDetails?.shortUrl,
             });
 
             await sendEmail({
@@ -1820,6 +1834,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         usageData: order.usageData,
         guestEmail: order.guestEmail,
         guestPhone: order.guestPhone,
+        shortUrl: order.shortUrl,
         package: pkg
           ? {
             title: pkg.title,
@@ -2623,6 +2638,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         userId: userId || req.session?.userId,
       });
 
+      console.log('[Complete Order] Pricing calculated:', JSON.stringify({
+        subtotal: pricing.subtotal,
+        discount: pricing.discount,
+        total: pricing.total,
+        promoType,
+        promoCode,
+        appliedCredits: pricing.appliedCredits
+      }, null, 2));
+
       if (pricing.total > 0) {
         return res.status(400).json({
           success: false,
@@ -2693,6 +2717,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               apnType: 'automatic',
               apnValue: null,
               isRoaming: false,
+              shortUrl: providerResponse.shortUrl,
             };
 
             orderDetails = {
@@ -2724,27 +2749,108 @@ export async function registerRoutes(app: Express): Promise<Server> {
             apnType: simDetails.apnType,
             apnValue: simDetails.apnValue,
             isRoaming: simDetails.isRoaming,
+            shortUrl: simDetails.shortUrl,
             status: 'completed',
           });
 
+          // ── Referral Record (Referee reward) ─────────────────────────────────
           if (promoType === 'referral' && promoCode && finalUserId) {
+            console.log('[Complete Order] Processing referral reward for code:', promoCode);
             await handleReferralAfterOrder({
               referredUserId: finalUserId,
               promoCode,
               orderId: order.id,
-              orderAmount: 0,
+              orderAmount: pricing.subtotal, // Use subtotal for referral check
             });
           }
 
-          const customerEmail = email || (finalUserId ? (await storage.getUser(finalUserId))?.email : null);
+          // ── Deduct referral credits used ──────────────────────────────────────
+          if (pricing.appliedCredits > 0 && finalUserId) {
+            try {
+              console.log(`[Complete Order] Deducting ${pricing.appliedCredits} referral credits from user ${finalUserId}`);
+              const creditUser = await storage.getUser(finalUserId);
+              if (creditUser && creditUser.referralBalance) {
+                const currentBalance = parseFloat(creditUser.referralBalance);
+                const newBalance = Math.max(0, currentBalance - pricing.appliedCredits);
+                await storage.updateUser(finalUserId, { referralBalance: newBalance.toFixed(2) });
+                await storage.createReferralTransaction({
+                  userId: finalUserId,
+                  orderId: order.id,
+                  amount: (-pricing.appliedCredits).toFixed(2),
+                  type: 'credit_used',
+                  balanceAfter: newBalance.toFixed(2),
+                  balanceBefore: currentBalance.toFixed(2),
+                  referralId: null, // No specific referral ID for credit usage
+                  description: `Used $${pricing.appliedCredits.toFixed(2)} credits on free order ${formatDisplayOrderId(order.displayOrderId) || order.id}`,
+                });
+                console.log('✅ Referral credits deducted and transaction recorded');
+              }
+            } catch (creditError: any) {
+              console.error('❌ [Complete Order] Error deducting referral credits:', creditError.message);
+            }
+          }
+
+          // ── Promo Usage (Voucher / Gift Card) ───────────────────────────────
+          if (promoType && promoCode) {
+            try {
+              if (promoType === 'voucher' && voucherId) {
+                console.log(`[Complete Order] Recording voucher usage: ${promoCode} (ID: ${voucherId})`);
+                await storage.incrementVoucherUsage(voucherId);
+                await storage.createVoucherUsage({
+                  voucherId: voucherId,
+                  userId: finalUserId || 'guest',
+                  orderId: order.id,
+                  discountAmount: pricing.discount.toString(),
+                });
+                console.log('✅ Voucher usage recorded');
+              } else if (promoType === 'giftcard' && giftCardId) {
+                console.log(`[Complete Order] Recording gift card usage: ${promoCode} (ID: ${giftCardId})`);
+                const giftCard = await storage.getGiftCardByCode(promoCode);
+                if (giftCard) {
+                  const currentBalance = parseFloat(giftCard.balance);
+                  const newBalance = Math.max(0, currentBalance - pricing.discount);
+                  await storage.updateGiftCardBalance(giftCardId, newBalance.toFixed(2));
+                  await storage.createGiftCardTransaction({
+                    giftCardId: giftCardId,
+                    usedBy: finalUserId || null,
+                    orderId: order.id,
+                    amountUsed: pricing.discount.toFixed(2),
+                    balanceAfter: newBalance.toFixed(2),
+                  });
+                  console.log('✅ Gift card transaction recorded');
+                }
+              }
+            } catch (promoError: any) {
+              console.error('❌ [Complete Order] Error processing promo code:', promoError.message);
+            }
+          }
+
+          const updatedOrder = await storage.getOrderById(order.id) || order;
+          const user = finalUserId ? await storage.getUser(finalUserId) : null;
+          const customerEmail = email || user?.email;
+
+          let destinationName = 'Unknown';
+          if (pkg.destinationId) {
+            const dest = await storage.getDestinationById(pkg.destinationId);
+            destinationName = dest?.name || 'Unknown';
+          } else if (pkg.regionId) {
+            const reg = await storage.getRegionById(pkg.regionId);
+            destinationName = reg?.name || 'Unknown';
+          } else {
+            destinationName = pkg.title || 'Unknown';
+          }
 
           if (customerEmail) {
             const confirmEmail = await generateOrderConfirmationEmail({
-              id: order.id,
-              destination: 'Unknown',
+              id: updatedOrder.id,
+              displayId: formatDisplayOrderId(updatedOrder.displayOrderId),
+              destination: destinationName,
               dataAmount: pkg.dataAmount,
               validity: pkg.validity,
               price: pkg.price,
+              iccid: simDetails.iccid,
+              qrCodeUrl: simDetails.qrCodeUrl,
+              name: name || user?.name || 'Customer',
             });
 
             await sendEmail({
@@ -2754,7 +2860,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             });
 
             // 2️⃣ Installation email
-            if (order.status === 'completed' && !order.installationSent) {
+            if (updatedOrder.status === 'completed' && !updatedOrder.installationSent) {
               try {
                 const installationEmail = await generateInstallationEmail({
                   name: name || user?.name || 'Customer',
@@ -2764,6 +2870,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                   lpaCode: simDetails.lpaCode,
                   activationCode: simDetails.activationCode,
                   smdpAddress: simDetails.smdpAddress,
+                  shortUrl: simDetails.shortUrl,
                 });
 
                 await sendEmail({
@@ -2789,7 +2896,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 title: 'Order Confirmed',
                 message: `Your order is complete! Check your email for installation instructions.`,
                 read: false,
-                metadata: { orderId: order.id },
+                metadata: { orderId: updatedOrder.id },
               });
 
               if (user.fcmToken) {
@@ -2800,7 +2907,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                   },
                   data: {
                     type: 'purchase',
-                    orderId: order.id,
+                    orderId: formatDisplayOrderId(updatedOrder.displayOrderId) || updatedOrder.id,
                     click_action: 'FLUTTER_NOTIFICATION_CLICK',
                   },
                   token: user.fcmToken,
@@ -2817,7 +2924,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
           return res.json({
             success: true,
-            order,
+            order: updatedOrder,
             message: 'Order completed successfully',
           });
         } catch (err: any) {
@@ -3072,7 +3179,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!verification.success) return res.status(400).json(verification);
 
       const metadata = { ...reqMetadata, ...verification.metadata };
-      console.log('✅ metadata:', metadata);
+      console.log('[Confirm Payment] Derived metadata:', JSON.stringify(metadata, null, 2));
+      console.log('[Confirm Payment] Verification data:', JSON.stringify(verification, null, 2));
 
       const ZERO_DECIMAL_CURRENCIES = ['JPY', 'KRW', 'VND'];
 
@@ -3179,6 +3287,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 apnType: 'automatic',
                 apnValue: null,
                 isRoaming: false,
+                shortUrl: providerResponse.shortUrl,
               };
               orderDetails = {
                 providerOrderId: providerResponse.providerOrderId,
@@ -3222,6 +3331,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               apnType: simDetails.apnType,
               apnValue: simDetails.apnValue,
               isRoaming: simDetails.isRoaming,
+              shortUrl: simDetails.shortUrl,
               status: 'completed',
             });
 
@@ -3252,7 +3362,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                     balanceAfter: newBalance.toFixed(2),
                     balanceBefore: currentBalance.toFixed(2),
                     referralId: metadata.referralId,
-                    description: `Used $${usedCredits.toFixed(2)} credits on order ${order.displayOrderId || order.id}`,
+                    description: `Used $${usedCredits.toFixed(2)} credits on order ${formatDisplayOrderId(order.displayOrderId) || order.id}`,
                   });
                 }
               } catch (creditError: any) {
@@ -3263,6 +3373,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             // ── Promo codes ──────────────────────────────────────────────────
             if (metadata.promoType && metadata.promoCode) {
               try {
+                console.log(`[Confirm Payment] Processing promo usage: type=${metadata.promoType}, code=${metadata.promoCode}`);
                 if (metadata.promoType === 'voucher' && metadata.voucherId) {
                   await storage.incrementVoucherUsage(metadata.voucherId);
                   await storage.createVoucherUsage({
@@ -3271,7 +3382,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
                     orderId: order.id,
                     discountAmount: metadata.promoDiscount,
                   });
+                  console.log('✅ Voucher usage recorded');
                 } else if (metadata.promoType === 'giftcard' && metadata.giftCardId) {
+                  console.log(`[Confirm Payment] Recording gift card usage: ${metadata.promoCode}`);
                   const giftCard = await storage.getGiftCardByCode(metadata.promoCode);
                   if (giftCard) {
                     const promoDiscount = parseFloat(metadata.promoDiscount || '0');
@@ -3280,31 +3393,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
                     await storage.updateGiftCardBalance(metadata.giftCardId, newBalance.toFixed(2));
                     await storage.createGiftCardTransaction({
                       giftCardId: metadata.giftCardId,
-                      usedBy: userId as string,
+                      usedBy: userId as string || null,
                       orderId: order.id,
-                      amount: (-promoDiscount).toFixed(2),
-                      type: 'redemption',
-                      description: `Redeemed $${promoDiscount.toFixed(2)} on order ${order.displayOrderId || order.id}`,
+                      amountUsed: promoDiscount.toFixed(2),
                       balanceAfter: newBalance.toFixed(2),
                     });
+                    console.log('✅ Gift card transaction recorded');
                   }
                 }
               } catch (promoError: any) {
-                console.error('[Regular Order] Error processing promo code:', promoError.message);
+                console.error('❌ [Confirm Payment] Error processing promo code:', promoError.message);
               }
             }
 
             // ── Notifications & Emails ─────────────────────────────────────
             const user = await storage.getUser(order.userId || (userId as string));
 
+            let destinationName = 'Unknown';
+            if (pkg.destinationId) {
+              const dest = await storage.getDestinationById(pkg.destinationId);
+              destinationName = dest?.name || 'Unknown';
+            } else if (pkg.regionId) {
+              const reg = await storage.getRegionById(pkg.regionId);
+              destinationName = reg?.name || 'Unknown';
+            } else {
+              destinationName = pkg.title || 'Unknown';
+            }
+
             if (user) {
               // 1️⃣ Confirmation email
               const confirmEmail = await generateOrderConfirmationEmail({
                 id: order.id,
-                destination: pkg.countryName || 'Unknown',
+                displayId: formatDisplayOrderId(order.displayOrderId),
+                destination: destinationName,
                 dataAmount: pkg.dataAmount,
                 validity: pkg.validity,
                 price: pkg.price,
+                iccid: simDetails?.iccid,
+                qrCodeUrl: finalQrUrl,
+                name: user.name || 'Customer',
               });
               await sendEmail({
                 to: user.email,
@@ -3331,7 +3458,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                       title: 'Order Confirmed',
                       body: `Your ${pkg.dataAmount} eSIM is ready! Check your email for installation instructions.`,
                     },
-                    data: { type: 'purchase', orderId: String(order.id) },
+                    data: { type: 'purchase', orderId: formatDisplayOrderId(order.displayOrderId) || String(order.id) },
                     token: user.fcmToken,
                   });
                 } catch (err) {
@@ -3344,12 +3471,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 try {
                   const installationEmail = await generateInstallationEmail({
                     name: user.name || 'Customer',
-                    packageName: pkg.title || 'Your eSIM Package',
+                    packageName: pkg.title || pkg.name || 'Your eSIM Package',
                     qrCodeUrl: finalQrUrl,                 // ✅ always a real URL or null
                     iccid: simDetails?.iccid,
                     lpaCode: simDetails?.lpaCode,
                     activationCode: simDetails?.activationCode,
                     smdpAddress: simDetails?.smdpAddress,
+                    shortUrl: simDetails?.shortUrl,
                   });
 
                   await sendEmail({
@@ -3679,7 +3807,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                     title: 'Order Confirmed 🎉',
                     body: `Your ${pkg.dataAmount} eSIM is ready! Check your email for installation instructions.`,
                   },
-                  data: { type: 'purchase', orderId: String(order.id), click_action: 'FLUTTER_NOTIFICATION_CLICK' },
+                  data: { type: 'purchase', orderId: formatDisplayOrderId(order.displayOrderId) || String(order.id), click_action: 'FLUTTER_NOTIFICATION_CLICK' },
                   token: iapUser.fcmToken,
                 });
               } catch (fcmErr) {
@@ -3688,26 +3816,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
             }
 
             try {
+              let iapDestinationName = 'Unknown';
+              if (pkg.destinationId) {
+                const dest = await storage.getDestinationById(pkg.destinationId);
+                iapDestinationName = dest?.name || 'Unknown';
+              } else if (pkg.regionId) {
+                const reg = await storage.getRegionById(pkg.regionId);
+                iapDestinationName = reg?.name || 'Unknown';
+              } else {
+                iapDestinationName = pkg.title || 'Unknown';
+              }
+
               const confirmEmail = await generateOrderConfirmationEmail({
                 id: order.id,
-                displayId: order.displayOrderId || order.id,
+                displayId: formatDisplayOrderId(order.displayOrderId),
                 customerName: iapUser.name || 'Customer',
-                destination: pkg.title || 'eSIM',
+                destination: iapDestinationName,
                 dataAmount: pkg.dataAmount,
                 validity: pkg.validity,
                 price: order.price,
+                iccid: simDetails?.iccid,
+                qrCodeUrl: simDetails?.qrCodeUrl,
+                name: iapUser.name || 'Customer',
               });
               await sendEmail({ to: iapUser.email, subject: confirmEmail.subject, html: confirmEmail.html });
 
               const installEmail = await generateInstallationEmail({
-                name: iapUser.name || 'Traveler',
-                packageName: `${pkg.dataAmount} - ${pkg.validity} Days`,
-                qrCodeUrl: simDetails.qrCodeUrl,
-                iccid: simDetails.iccid,
-                activationCode: simDetails.activationCode,
-                smdpAddress: simDetails.smdpAddress,
-                qrCode: simDetails.qrCode,
-                lpaCode: simDetails.lpaCode,
+                name: iapUser.name || 'Customer',
+                packageName: pkg.title || `${pkg.dataAmount} - ${pkg.validity} Days`,
+                qrCodeUrl: simDetails?.qrCodeUrl,
+                iccid: simDetails?.iccid,
+                activationCode: simDetails?.activationCode,
+                smdpAddress: simDetails?.smdpAddress,
+                qrCode: simDetails?.qrCode,
+                lpaCode: simDetails?.lpaCode,
               });
               await sendEmail({ to: iapUser.email, subject: installEmail.subject, html: installEmail.html });
 
@@ -3922,12 +4064,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
               : null;
 
             if (user) {
+              let legacyDestinationName = 'Unknown';
+              if (pkg.destinationId) {
+                const dest = await storage.getDestinationById(pkg.destinationId);
+                legacyDestinationName = dest?.name || 'Unknown';
+              } else if (pkg.regionId) {
+                const reg = await storage.getRegionById(pkg.regionId);
+                legacyDestinationName = reg?.name || 'Unknown';
+              } else {
+                legacyDestinationName = pkg.title || 'Unknown';
+              }
+
               const confirmEmail = await generateOrderConfirmationEmail({
                 id: order.id,
-                destination: destination?.name || 'Unknown',
+                displayId: formatDisplayOrderId(order.displayOrderId),
+                destination: legacyDestinationName,
                 dataAmount: pkg.dataAmount,
                 validity: pkg.validity,
                 price: pkg.price,
+                iccid: simDetails?.iccid,
+                qrCodeUrl: simDetails?.qrCodeUrl,
+                name: user.name || 'Customer',
               });
 
               await sendEmail({
@@ -3937,12 +4094,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
               });
 
               const installEmail = await generateInstallationEmail({
-                name: user.name || 'Traveler',
-                packageName: `${pkg.dataAmount} - ${pkg.validity} Days`,
+                name: user.name || 'Customer',
+                packageName: pkg.title || `${pkg.dataAmount} - ${pkg.validity} Days`,
                 qrCodeUrl: simDetails.qrCodeUrl,
                 iccid: simDetails.iccid,
                 activationCode: simDetails.activationCode,
                 smdpAddress: simDetails.smdpAddress,
+                lpaCode: simDetails.lpaCode,
               });
 
               await sendEmail({
@@ -4049,18 +4207,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
             orderRecords.push(orderRecord);
           }
 
-          const user = await storage.getUser(userId);
-          const destination = pkg.destinationId
-            ? await storage.getDestinationById(pkg.destinationId)
-            : null;
+          let destinationName = 'Unknown';
+          if (pkg.destinationId) {
+            const dest = await storage.getDestinationById(pkg.destinationId);
+            destinationName = dest?.name || 'Unknown';
+          } else if (pkg.regionId) {
+            const reg = await storage.getRegionById(pkg.regionId);
+            destinationName = reg?.name || 'Unknown';
+          } else {
+            destinationName = pkg.title || 'Unknown';
+          }
 
           if (user) {
             const confirmEmail = await generateOrderConfirmationEmail({
               id: orderRecords[0].id,
-              destination: destination?.name || 'Unknown',
+              displayId: formatDisplayOrderId(orderRecords[0].displayOrderId),
+              destination: destinationName,
               dataAmount: `${pkg.dataAmount} x${quantity}`,
               validity: pkg.validity,
               price: (pricePerEsim * quantity).toString(),
+              name: user.name || 'Customer',
             });
 
             await sendEmail({
@@ -9560,6 +9726,52 @@ ${urls
     },
   );
 
+  // Get all referral transactions
+  app.get('/api/admin/referrals/transactions', requireAdmin, async (req: Request, res: Response) => {
+    try {
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 50;
+      const offset = (page - 1) * limit;
+
+      const txs = await db
+        .select({
+          id: referralTransactions.id,
+          userId: referralTransactions.userId,
+          userEmail: users.email,
+          userName: users.name,
+          type: referralTransactions.type,
+          amount: referralTransactions.amount,
+          balanceBefore: referralTransactions.balanceBefore,
+          balanceAfter: referralTransactions.balanceAfter,
+          description: referralTransactions.description,
+          createdAt: referralTransactions.createdAt,
+          orderId: referralTransactions.orderId,
+        })
+        .from(referralTransactions)
+        .leftJoin(users, eq(referralTransactions.userId, users.id))
+        .orderBy(desc(referralTransactions.createdAt))
+        .limit(limit)
+        .offset(offset);
+
+      const totalResult = await db.select({ count: count() }).from(referralTransactions);
+      const total = totalResult[0]?.count || 0;
+
+      res.json({
+        success: true,
+        transactions: txs,
+        pagination: {
+          page,
+          limit,
+          total,
+          totalPages: Math.ceil(total / limit),
+        },
+      });
+    } catch (error: any) {
+      console.error('Error getting referral transactions:', error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  });
+
   // Get referral analytics
   app.get('/api/admin/referrals/analytics', requireAdmin, async (req: Request, res: Response) => {
     try {
@@ -9624,6 +9836,18 @@ ${urls
         monthlyGrowth,
         statusDistribution,
         averageReward: parseFloat(avgRewardResult[0]?.avg || '0'),
+        avgTimeToConversion: await (async () => {
+          const result = await db
+            .select({
+              avgDays: sql<number>`AVG(EXTRACT(DAY FROM ${referrals.completedAt} - ${referrals.createdAt}))`,
+            })
+            .from(referrals)
+            .where(eq(referrals.status, 'completed'));
+          return parseFloat(result[0]?.avgDays?.toString() || '0');
+        })(),
+        mostActiveMonth: monthlyGrowth.length > 0 
+          ? monthlyGrowth.reduce((max, curr) => (curr.count > max.count ? curr : max), monthlyGrowth[0]).month 
+          : 'N/A',
       });
     } catch (error: any) {
       console.error('Error getting referral analytics:', error);

@@ -615,6 +615,7 @@ export const orders = pgTable("orders", {
   finalProviderId: varchar("final_provider_id").references(() => providers.id), // Provider that fulfilled the order
   failoverAttempts: jsonb("failover_attempts"), // Array of {providerId, timestamp, success, error, margin}
   orderSource: text("order_source").default("website"), // website, api, mobile, admin
+  shortUrl: text("short_url"), // Short URL for quick installation
 
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),

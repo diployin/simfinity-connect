@@ -38,6 +38,8 @@ import {
   Eye,
   Copy,
   BarChart3,
+  XCircle,
+  CheckCircle2,
 } from 'lucide-react';
 import type { VoucherCode, VoucherUsage } from '@shared/schema';
 
@@ -112,7 +114,7 @@ export default function AdminVouchers() {
   });
 
   const { data: usageData } = useQuery<{ usage: VoucherUsage[] }>({
-    queryKey: ['/api/admin/vouchers', selectedVoucher?.id, 'usage'],
+    queryKey: [`/api/admin/vouchers/${selectedVoucher?.id}/usage`],
     enabled: !!selectedVoucher,
   });
 
@@ -462,6 +464,43 @@ export default function AdminVouchers() {
                           >
                             <Edit className="h-4 w-4" />
                           </Button>
+                          {voucher.status === 'active' ? (
+                            <Button
+                              size="icon"
+                              variant="ghost"
+                              className="text-amber-500 hover:text-amber-600 hover:bg-amber-50"
+                              onClick={() => {
+                                if (window.confirm('Are you sure you want to deactivate this voucher?')) {
+                                  updateMutation.mutate({
+                                    id: voucher.id,
+                                    data: { status: 'inactive' },
+                                  });
+                                }
+                              }}
+                              disabled={updateMutation.isPending}
+                              title="Deactivate voucher"
+                            >
+                              <XCircle className="h-4 w-4" />
+                            </Button>
+                          ) : (
+                            voucher.status === 'inactive' && (
+                              <Button
+                                size="icon"
+                                variant="ghost"
+                                className="text-green-500 hover:text-green-600 hover:bg-green-50"
+                                onClick={() => {
+                                  updateMutation.mutate({
+                                    id: voucher.id,
+                                    data: { status: 'active' },
+                                  });
+                                }}
+                                disabled={updateMutation.isPending}
+                                title="Activate voucher"
+                              >
+                                <CheckCircle2 className="h-4 w-4" />
+                              </Button>
+                            )
+                          )}
                           <Button
                             size="icon"
                             variant="ghost"
@@ -583,6 +622,11 @@ export default function AdminVouchers() {
                       >
                         <div>
                           <p className="text-sm font-medium">Order #{usage.orderId?.slice(0, 8)}</p>
+                          {(usage as any).userName && (
+                            <p className="text-xs font-medium text-primary">
+                              By: {(usage as any).userName} ({(usage as any).userEmail})
+                            </p>
+                          )}
                           <p className="text-xs text-muted-foreground">
                             {format(new Date(usage.usedAt), 'PPP p')}
                           </p>

@@ -17,6 +17,7 @@ import { airaloOrderService, type AiraloWebhookPayload } from "../services/airal
 import { airaloNotificationService } from "../services/airalo/airalo-notifications";
 import { insertPageSchema, insertEmailTemplateSchema } from "@shared/schema";
 import * as ApiResponse from "../utils/response";
+import { formatDisplayOrderId } from "../../shared/utils";
 
 const stripe = process.env.STRIPE_SECRET_KEY
   ? new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: "2025-10-29.clover" })
@@ -115,16 +116,30 @@ router.post("/", requireAuth, async (req: Request, res: Response) => {
           status: "completed",
         });
 
+        let orderDestinationName = 'Unknown';
+        if (pkg.destinationId) {
+          const dest = await storage.getDestinationById(pkg.destinationId);
+          orderDestinationName = dest?.name || 'Unknown';
+        } else if (pkg.regionId) {
+          const reg = await storage.getRegionById(pkg.regionId);
+          orderDestinationName = reg?.name || 'Unknown';
+        } else {
+          orderDestinationName = pkg.title || 'Unknown';
+        }
+
         const user = await storage.getUser(userId);
-        const destination = pkg.destinationId ? await storage.getDestinationById(pkg.destinationId) : null;
 
         if (user) {
           const confirmEmail = await generateOrderConfirmationEmail({
             id: order.id,
-            destination: destination?.name || "Unknown",
+            displayId: formatDisplayOrderId(order.displayOrderId),
+            destination: orderDestinationName,
             dataAmount: pkg.dataAmount,
             validity: pkg.validity,
             price: pkg.price,
+            iccid: simDetails.iccid,
+            qrCodeUrl: simDetails.qrCodeUrl,
+            name: user.name || "Customer",
           });
 
           await sendEmail({
@@ -134,12 +149,14 @@ router.post("/", requireAuth, async (req: Request, res: Response) => {
           });
 
           const installEmail = await generateInstallationEmail({
-            name: user.name || "Traveler",
-            packageName: `${pkg.dataAmount} - ${pkg.validity} Days`,
+            name: user.name || "Customer",
+            packageName: pkg.title || `${pkg.dataAmount} - ${pkg.validity} Days`,
             qrCodeUrl: simDetails.qrCodeUrl,
             iccid: simDetails.iccid,
             activationCode: simDetails.activationCode,
             smdpAddress: simDetails.smdpAddress,
+            lpaCode: simDetails.lpaCode,
+            shortUrl: (simDetails as any).shortUrl,
           });
 
           await sendEmail({
@@ -166,7 +183,7 @@ router.post("/", requireAuth, async (req: Request, res: Response) => {
           userId,
           type: "purchase",
           title: "Order Confirmed",
-          message: `Your ${pkg.dataAmount} eSIM for ${destination?.name || "your destination"} is ready. Check your email for installation instructions.`,
+          message: `Your ${pkg.dataAmount} eSIM for ${orderDestinationName} is ready. Check your email for installation instructions.`,
           read: false,
           metadata: { orderId: order.id },
         });
@@ -210,10 +227,12 @@ router.post("/", requireAuth, async (req: Request, res: Response) => {
         if (user) {
           const confirmEmail = await generateOrderConfirmationEmail({
             id: orderRecords[0].id,
+            displayId: formatDisplayOrderId(orderRecords[0].displayOrderId),
             destination: destination?.name || "Unknown",
             dataAmount: `${pkg.dataAmount} x${quantity}`,
             validity: pkg.validity,
             price: totalPrice.toString(),
+            name: user.name || "Customer",
           });
 
           await sendEmail({
@@ -305,6 +324,7 @@ router.get("/:orderId/esim", requireAuth, async (req: Request, res: Response) =>
       apn_type: order.apnType,
       apn_value: order.apnValue,
       is_roaming: order.isRoaming,
+      shortUrl: order.shortUrl,
       created_at: order.createdAt,
       activation_date: order.activatedAt,
       expired_at: order.expiresAt,

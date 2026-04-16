@@ -355,6 +355,38 @@ export function ESimDetailsModal({ orderId, isOpen, onClose }: ESimDetailsModalP
                           <p className="font-mono text-sm">{esim.airalo_code}</p>
                         </div>
                       )}
+                      {(esim.shortUrl || order?.shortUrl) && (
+                        <div className="col-span-2">
+                          <p className="text-sm text-muted-foreground">Quick Setup Link</p>
+                          <div className="flex items-center gap-2 mt-1">
+                            <code className="flex-1 p-2 bg-muted rounded text-xs font-mono break-all">
+                              {esim.shortUrl || order?.shortUrl}
+                            </code>
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              className="h-8 w-8"
+                              onClick={() => {
+                                navigator.clipboard.writeText(esim.shortUrl || order?.shortUrl || "");
+                                toast({
+                                  title: "Copied!",
+                                  description: "Quick setup link copied",
+                                });
+                              }}
+                            >
+                              {copiedCode ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => window.open(esim.shortUrl || order?.shortUrl, '_blank')}
+                            >
+                              <Zap className="h-3 w-3 mr-1" />
+                              Open
+                            </Button>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -525,6 +557,28 @@ export function ESimDetailsModal({ orderId, isOpen, onClose }: ESimDetailsModalP
                         )}
                       </div>
                     )}
+
+                    {(esim?.shortUrl || order?.shortUrl) && (
+                      <div className="w-full p-4 bg-primary/5 border border-primary/20 rounded-lg">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="bg-primary p-2 rounded-full">
+                            <Zap className="h-5 w-5 text-primary-foreground" />
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-primary">Quick Installation</h4>
+                            <p className="text-sm text-muted-foreground">Direct activation link for the customer</p>
+                          </div>
+                        </div>
+                        <Button 
+                          className="w-full"
+                          onClick={() => window.open(esim?.shortUrl || order?.shortUrl, '_blank')}
+                        >
+                          <Zap className="h-4 w-4 mr-2" />
+                          Install eSIM Now
+                        </Button>
+                      </div>
+                    )}
+
                     {instructions.manual_code && (
                       <div className="w-full space-y-2">
                         <p className="text-sm font-medium">Manual Activation Code:</p>

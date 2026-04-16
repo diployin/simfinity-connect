@@ -312,6 +312,17 @@ export default function MyOrders() {
                         <QrCode className="h-4 w-4 mr-2" />
                         {t('myOrders.qrCode', 'QR Code')}
                       </Button>
+                      {(order.shortUrl || esim?.shortUrl) && (
+                        <Button
+                          className="bg-orange-500 hover:bg-orange-600 text-white"
+                          size="sm"
+                          onClick={() => window.open(order.shortUrl || esim?.shortUrl, '_blank')}
+                          data-testid={`button-quick-setup-${order.id}`}
+                        >
+                          <Zap className="h-4 w-4 mr-2" />
+                          {t('myOrders.quickSetup', 'Quick Setup')}
+                        </Button>
+                      )}
                     </div>
                   </div>
                 )}
@@ -572,110 +583,125 @@ export default function MyOrders() {
                 </div>
               ) : esim ? (
                 <>
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-2">
-                        <Smartphone className="h-5 w-5" />
-                        eSIM Information
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="grid gap-4">
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <p className="text-sm text-muted-foreground">ICCID</p>
-                          {/* <p className="font-mono text-xs font-medium" data-testid="text-iccid">{esim?.iccid || order?.iccid}</p> */}
-
-                          <p className="font-mono text-xs font-medium" data-testid="text-iccid">{esim?.iccid || selectedOrder?.iccid}</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Card>
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-sm font-semibold flex items-center gap-2">
+                          <Signal className="h-4 w-4 text-orange-500" />
+                          Connection Status
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-3">
+                        <div className="flex justify-between items-center border-b pb-2">
+                          <span className="text-sm text-muted-foreground">ICCID</span>
+                          <div className="flex items-center gap-2">
+                            <span className="font-mono text-xs font-semibold">{esim.iccid || selectedOrder?.iccid}</span>
+                            <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => copyToClipboard(esim.iccid || selectedOrder?.iccid, "ICCID")}>
+                              <Copy className="h-3 w-3" />
+                            </Button>
+                          </div>
                         </div>
-                        <div>
-                          <p className="text-sm text-muted-foreground">Status</p>
-                          <Badge variant={esim.status === 'activated' ? 'default' : 'secondary'} data-testid="badge-status">
-                            {esim.status || 'Unknown'}
+                        <div className="flex justify-between items-center border-b pb-2">
+                          <span className="text-sm text-muted-foreground">Status</span>
+                          <Badge variant={esim.status === 'activated' ? 'default' : 'secondary'} className="capitalize">
+                            {esim.status || 'Active'}
                           </Badge>
                         </div>
-                        {esim.created_at && (
-                          <div>
-                            <p className="text-sm text-muted-foreground">Created</p>
-                            <p className="text-sm font-medium">{new Date(esim.created_at).toLocaleDateString()}</p>
-                          </div>
-                        )}
-                        {esim.activation_date && (
-                          <div>
-                            <p className="text-sm text-muted-foreground">Activated</p>
-                            <p className="text-sm font-medium">{new Date(esim.activation_date).toLocaleDateString()}</p>
-                          </div>
-                        )}
-                        {esim.expired_at && (
-                          <div>
-                            <p className="text-sm text-muted-foreground">Expires</p>
-                            <p className="text-sm font-medium">{new Date(esim.expired_at).toLocaleDateString()}</p>
-                          </div>
-                        )}
                         {esim.imsis && (
-                          <div className="col-span-2">
-                            <p className="text-sm text-muted-foreground">IMSI</p>
-                            <p className="text-xs font-mono">{Array.isArray(esim.imsis) ? esim.imsis.join(', ') : esim.imsis}</p>
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm text-muted-foreground">IMSI</span>
+                            <span className="text-xs font-mono">{Array.isArray(esim.imsis) ? esim.imsis[0] : esim.imsis}</span>
                           </div>
                         )}
-                        {esim.lpa && (
-                          <div>
-                            <p className="text-sm text-muted-foreground">SM-DP+ Address</p>
-                            <p className="text-xs font-mono">{esim.lpa}</p>
+                      </CardContent>
+                    </Card>
+
+                    <Card>
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-sm font-semibold flex items-center gap-2">
+                          <Plus className="h-4 w-4 text-orange-500" />
+                          Configuration
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-3">
+                        <div className="flex justify-between items-center border-b pb-2">
+                          <span className="text-sm text-muted-foreground">APN Type</span>
+                          <Badge variant="outline" className="text-[10px]">{esim.apn_type || 'Default'}</Badge>
+                        </div>
+                        <div className="flex justify-between items-center border-b pb-2">
+                          <span className="text-sm text-muted-foreground">APN Value</span>
+                          <span className="text-xs font-medium">{esim.apn_value || 'internet'}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm text-muted-foreground">Data Roaming</span>
+                          <Badge variant={esim.is_roaming !== false ? "default" : "secondary"} className="text-[10px]">
+                            {esim.is_roaming !== false ? "Required" : "Not Required"}
+                          </Badge>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card className="md:col-span-2">
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-sm font-semibold flex items-center gap-2">
+                          <Calendar className="h-4 w-4 text-orange-500" />
+                          Lifecycle Information
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          <div className="space-y-1">
+                            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Purchased</p>
+                            <p className="text-sm font-medium">{new Date(selectedOrder.createdAt).toLocaleDateString()}</p>
                           </div>
-                        )}
-                        {esim.matching_id && (
-                          <div>
-                            <p className="text-sm text-muted-foreground">Activation Code</p>
-                            <p className="text-xs font-mono font-medium">{esim.matching_id}</p>
+                          <div className="space-y-1">
+                            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Activated</p>
+                            <p className="text-sm font-medium">
+                              {esim.activation_date ? new Date(esim.activation_date).toLocaleDateString() : 'Pending first use'}
+                            </p>
                           </div>
-                        )}
-                        {esim.qrcode && (
-                          <div className="col-span-2">
-                            <p className="text-sm text-muted-foreground">QR Code Data</p>
-                            <p className="text-xs font-mono truncate">{esim.qrcode}</p>
+                          <div className="space-y-1">
+                            <p className="text-[10px] uppercase tracking-wider text-muted-foreground">Expires</p>
+                            <p className="text-sm font-medium">
+                              {esim.expired_at ? new Date(esim.expired_at).toLocaleDateString() : 'N/A'}
+                            </p>
                           </div>
-                        )}
-                        {esim.confirmation_code && (
-                          <div>
-                            <p className="text-sm text-muted-foreground">Confirmation Code</p>
-                            <p className="font-medium">{esim.confirmation_code}</p>
-                          </div>
-                        )}
-                        {esim.apn_type && (
-                          <div>
-                            <p className="text-sm text-muted-foreground">APN Type</p>
-                            <Badge variant="outline">{esim.apn_type}</Badge>
-                          </div>
-                        )}
-                        {esim.apn_value && (
-                          <div>
-                            <p className="text-sm text-muted-foreground">APN Value</p>
-                            <p className="font-medium">{esim.apn_value}</p>
-                          </div>
-                        )}
-                        {esim.is_roaming !== undefined && (
-                          <div>
-                            <p className="text-sm text-muted-foreground">Roaming</p>
-                            <Badge variant={esim.is_roaming ? 'default' : 'secondary'}>
-                              {esim.is_roaming ? 'Enabled' : 'Disabled'}
-                            </Badge>
-                          </div>
-                        )}
-                        {esim.voucher_code && (
-                          <div>
-                            <p className="text-sm text-muted-foreground">Voucher Code</p>
-                            <p className="font-mono font-medium">{esim.voucher_code}</p>
-                          </div>
-                        )}
-                        {esim.airalo_code && (
-                          <div>
-                            <p className="text-sm text-muted-foreground">Code</p>
-                            <p className="font-mono text-sm">{esim.airalo_code}</p>
-                          </div>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
+                        </div>
+                      </CardContent>
+                    </Card>
+
+                    {(esim.shortUrl || selectedOrder?.shortUrl) && (
+                      <Card className="md:col-span-2 bg-orange-50 dark:bg-orange-950/20 border-orange-200 dark:border-orange-800">
+                        <CardContent className="pt-6">
+                           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                              <div className="flex items-center gap-3">
+                                <Zap className="h-8 w-8 text-orange-500" />
+                                <div>
+                                  <h4 className="font-bold text-orange-900 dark:text-orange-100">Quick Installation Tool</h4>
+                                  <p className="text-xs text-orange-700 dark:text-orange-300">Click to automatically start setup on your device</p>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-2 w-full md:w-auto">
+                                <Button 
+                                  className="flex-1 md:flex-none bg-orange-500 hover:bg-orange-600 text-white shadow-md"
+                                  onClick={() => window.open(esim.shortUrl || selectedOrder?.shortUrl, '_blank')}
+                                >
+                                  <Zap className="h-4 w-4 mr-2" />
+                                  Install Now
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  size="icon"
+                                  onClick={() => copyToClipboard(esim.shortUrl || selectedOrder?.shortUrl || "", "Link")}
+                                >
+                                   {copiedField === "Link" ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                                </Button>
+                              </div>
+                           </div>
+                        </CardContent>
+                      </Card>
+                    )}
+                  </div>
 
                   {esim.package && (
                     <Card>
@@ -855,6 +881,31 @@ export default function MyOrders() {
                           )}
                         </div>
                       )}
+
+                      {(esim?.shortUrl || selectedOrder?.shortUrl) && (
+                        <div className="w-full p-4 bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-900 rounded-lg">
+                          <div className="flex items-center gap-3 mb-3">
+                            <div className="bg-orange-500 p-2 rounded-full">
+                              <Zap className="h-5 w-5 text-white" />
+                            </div>
+                            <div>
+                              <h4 className="font-semibold text-orange-900 dark:text-orange-100">Quick Installation</h4>
+                              <p className="text-sm text-orange-700 dark:text-orange-300">Fastest way to set up your eSIM</p>
+                            </div>
+                          </div>
+                          <Button 
+                            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-6 text-lg shadow-lg shadow-orange-500/20"
+                            onClick={() => window.open(esim?.shortUrl || selectedOrder?.shortUrl, '_blank')}
+                          >
+                            <Zap className="h-6 w-6 mr-2 fill-white" />
+                            Install eSIM Now
+                          </Button>
+                          <p className="text-xs text-center text-orange-600 dark:text-orange-400 mt-3">
+                            * Recommended for iOS and compatible Android devices
+                          </p>
+                        </div>
+                      )}
+
                       {instructions.manual_code && (
                         <div className="w-full space-y-2">
                           <p className="text-sm font-medium">Manual Activation Code:</p>

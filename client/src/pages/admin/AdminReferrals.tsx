@@ -56,6 +56,11 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+import {
+  XCircle,
+  Clock,
+  ArrowRightLeft,
+} from 'lucide-react';
 
 // Types
 interface ReferralSettings {
@@ -120,13 +125,34 @@ interface MonthlyGrowthItem {
 }
 
 interface AnalyticsData {
-  totalReferrals: number;
-  completedReferrals: number;
-  conversionRate: number;
-  topReferrers: TopReferrer[];
-  monthlyGrowth: MonthlyGrowthItem[];
-  statusDistribution: StatusDistributionItem[];
   averageReward: number;
+  avgTimeToConversion: number;
+  mostActiveMonth: string;
+}
+
+interface ReferralTransaction {
+  id: string;
+  userId: string;
+  userEmail: string;
+  userName: string | null;
+  type: 'credit_earned' | 'credit_used' | 'credit_expired' | 'credit_adjusted';
+  amount: string;
+  balanceBefore: string;
+  balanceAfter: string;
+  description: string | null;
+  createdAt: string;
+  orderId: string | null;
+}
+
+interface TransactionsResponse {
+  success: boolean;
+  transactions: ReferralTransaction[];
+  pagination: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
 }
 
 // Form schema
@@ -505,181 +531,273 @@ function ReferralsTab() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              {t('adminPanel.referrals.pendingPayouts')}
-            </CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium">Most Active Month</CardTitle>
+            <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold">
-              {getCurrencySymbol('USD', currencies)}
-              {pendingPayouts.toFixed(2)}
-            </div>
+            <div className="text-2xl font-bold">{referralsData?.statistics ? (analyticsData?.mostActiveMonth || 'N/A') : <Skeleton className="h-8 w-20" />}</div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Filters & Search */}
-      <Card>
-        <CardHeader>
-          <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-            <CardTitle>Referral List</CardTitle>
-            <div className="flex gap-2 w-full sm:w-auto">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={exportToCSV}
-                data-testid="button-export-csv"
-              >
-                <Download className="h-4 w-4 mr-2" />
-                {t('adminPanel.referrals.exportCSV')}
-              </Button>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex flex-col sm:flex-row gap-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search by email or code..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
-                data-testid="input-search"
-              />
-            </div>
-            <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-full sm:w-[180px]" data-testid="select-status-filter">
-                <SelectValue placeholder="Filter by status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Statuses</SelectItem>
-                <SelectItem value="pending">Pending</SelectItem>
-                <SelectItem value="completed">Completed</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+      <Tabs defaultValue="list" className="space-y-4">
+        <TabsList>
+          <TabsTrigger value="list">Referral List</TabsTrigger>
+          <TabsTrigger value="transactions">Transactions</TabsTrigger>
+        </TabsList>
 
-          {/* Referrals Table */}
-          {isLoading ? (
-            <div className="space-y-3">
-              {[1, 2, 3].map((i) => (
-                <Skeleton key={i} className="h-16" />
-              ))}
-            </div>
-          ) : filteredReferrals.length === 0 ? (
-            <div className="text-center py-12">
-              <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <h3 className="text-lg font-semibold mb-2">No referrals found</h3>
-              <p className="text-muted-foreground">
-                {searchQuery || statusFilter !== 'all'
-                  ? 'Try adjusting your filters'
-                  : 'Referrals will appear here when users start sharing'}
-              </p>
-            </div>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b">
-                    <th className="text-left py-3 px-4 font-medium">Referrer</th>
-                    <th className="text-left py-3 px-4 font-medium">Referred User</th>
-                    <th className="text-left py-3 px-4 font-medium">Code</th>
-                    <th className="text-left py-3 px-4 font-medium">Status</th>
-                    <th className="text-left py-3 px-4 font-medium">Reward</th>
-                    <th className="text-left py-3 px-4 font-medium">Paid</th>
-                    <th className="text-left py-3 px-4 font-medium">Date</th>
-                    <th className="text-left py-3 px-4 font-medium">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredReferrals.map((referral: Referral, index: number) => (
-                    <tr
-                      key={referral.id}
-                      className="border-b"
-                      data-testid={`row-referral-${index}`}
-                    >
-                      <td className="py-4 px-4">
-                        <div className="text-sm">
-                          <div className="font-medium">{referral.referrerName || 'Unknown'}</div>
-                          <div className="text-muted-foreground">{referral.referrerEmail}</div>
-                        </div>
-                      </td>
-                      <td className="py-4 px-4">
-                        <div className="text-sm">
-                          <div className="font-medium">{referral.referredName || 'Unknown'}</div>
-                          <div className="text-muted-foreground">{referral.referredEmail}</div>
-                        </div>
-                      </td>
-                      <td className="py-4 px-4">
-                        <code className="text-xs bg-muted px-2 py-1 rounded">
-                          {referral.referralCode}
-                        </code>
-                      </td>
-                      <td className="py-4 px-4">
-                        <Badge
-                          variant={referral.status === 'completed' ? 'default' : 'secondary'}
-                          className={
-                            referral.status === 'completed' ? 'bg-green-500' : 'bg-yellow-500'
-                          }
-                        >
-                          {referral.status}
-                        </Badge>
-                      </td>
-                      <td className="py-4 px-4 font-semibold">
-                        {referral.rewardAmount
-                          ? `${getCurrencySymbol(
-                            'USD',
-                            currencies,
-                          )}${parseFloat(referral.rewardAmount).toFixed(2)}`
-                          : '-'}
-                      </td>
-                      <td className="py-4 px-4">
-                        {referral.rewardPaid ? (
-                          <Check className="h-5 w-5 text-green-500" />
-                        ) : (
-                          <X className="h-5 w-5 text-muted-foreground" />
-                        )}
-                      </td>
-                      <td className="py-4 px-4 text-sm text-muted-foreground">
-                        {format(new Date(referral.createdAt), 'MMM d, yyyy')}
-                      </td>
-                      <td className="py-4 px-4">
-                        {referral.status === 'completed' && !referral.rewardPaid && (
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => markPaidMutation.mutate(referral.id)}
-                            disabled={markPaidMutation.isPending}
-                            data-testid={`button-mark-paid-${index}`}
-                          >
-                            {t('adminPanel.referrals.markPaid')}
-                          </Button>
-                        )}
-                      </td>
-                    </tr>
+        <TabsContent value="list" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+                <CardTitle>Referral List</CardTitle>
+                <div className="flex gap-2 w-full sm:w-auto">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={exportToCSV}
+                    data-testid="button-export-csv"
+                  >
+                    <Download className="h-4 w-4 mr-2" />
+                    {t('adminPanel.referrals.exportCSV')}
+                  </Button>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex-1 relative">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Search by email or code..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10"
+                    data-testid="input-search"
+                  />
+                </div>
+                <Select value={statusFilter} onValueChange={setStatusFilter}>
+                  <SelectTrigger className="w-full sm:w-[180px]" data-testid="select-status-filter">
+                    <SelectValue placeholder="Filter by status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Statuses</SelectItem>
+                    <SelectItem value="pending">Pending</SelectItem>
+                    <SelectItem value="completed">Completed</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Referrals Table */}
+              {isLoading ? (
+                <div className="space-y-3">
+                  {[1, 2, 3].map((i) => (
+                    <Skeleton key={i} className="h-16" />
                   ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+                </div>
+              ) : filteredReferrals.length === 0 ? (
+                <div className="text-center py-12">
+                  <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">No referrals found</h3>
+                  <p className="text-muted-foreground">
+                    {searchQuery || statusFilter !== 'all'
+                      ? 'Try adjusting your filters'
+                      : 'Referrals will appear here when users start sharing'}
+                  </p>
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead>
+                      <tr className="border-b">
+                        <th className="text-left py-3 px-4 font-medium">Referrer</th>
+                        <th className="text-left py-3 px-4 font-medium">Referred User</th>
+                        <th className="text-left py-3 px-4 font-medium">Code</th>
+                        <th className="text-left py-3 px-4 font-medium">Status</th>
+                        <th className="text-left py-3 px-4 font-medium">Reward</th>
+                        <th className="text-left py-3 px-4 font-medium">Paid</th>
+                        <th className="text-left py-3 px-4 font-medium">Date</th>
+                        <th className="text-left py-3 px-4 font-medium">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredReferrals.map((referral: Referral, index: number) => (
+                        <tr
+                          key={referral.id}
+                          className="border-b"
+                          data-testid={`row-referral-${index}`}
+                        >
+                          <td className="py-4 px-4">
+                            <div className="text-sm">
+                              <div className="font-medium">{referral.referrerName || 'Unknown'}</div>
+                              <div className="text-muted-foreground">{referral.referrerEmail}</div>
+                            </div>
+                          </td>
+                          <td className="py-4 px-4">
+                            <div className="text-sm">
+                              <div className="font-medium">{referral.referredName || 'Unknown'}</div>
+                              <div className="text-muted-foreground">{referral.referredEmail}</div>
+                            </div>
+                          </td>
+                          <td className="py-4 px-4">
+                            <code className="text-xs bg-muted px-2 py-1 rounded">
+                              {referral.referralCode}
+                            </code>
+                          </td>
+                          <td className="py-4 px-4">
+                            <Badge
+                              variant={referral.status === 'completed' ? 'default' : 'secondary'}
+                              className={
+                                referral.status === 'completed' ? 'bg-green-500' : 'bg-yellow-500'
+                              }
+                            >
+                              {referral.status}
+                            </Badge>
+                          </td>
+                          <td className="py-4 px-4 font-semibold">
+                            {referral.rewardAmount
+                              ? `${getCurrencySymbol(
+                                'USD',
+                                currencies,
+                              )}${parseFloat(referral.rewardAmount).toFixed(2)}`
+                              : '-'}
+                          </td>
+                          <td className="py-4 px-4">
+                            {referral.rewardPaid ? (
+                              <Check className="h-5 w-5 text-green-500" />
+                            ) : (
+                              <X className="h-5 w-5 text-muted-foreground" />
+                            )}
+                          </td>
+                          <td className="py-4 px-4 text-sm text-muted-foreground">
+                            {format(new Date(referral.createdAt), 'MMM d, yyyy')}
+                          </td>
+                          <td className="py-4 px-4">
+                            {referral.status === 'completed' && !referral.rewardPaid && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => markPaidMutation.mutate(referral.id)}
+                                disabled={markPaidMutation.isPending}
+                                data-testid={`button-mark-paid-${index}`}
+                              >
+                                {t('adminPanel.referrals.markPaid')}
+                              </Button>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="transactions">
+          <ReferralTransactionsTab />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
+
+function ReferralTransactionsTab() {
+  const { currencies } = useCurrency();
+  const { data: txsData, isLoading } = useQuery<TransactionsResponse>({
+    queryKey: ['/api/admin/referrals/transactions'],
+  });
+
+  const transactions = txsData?.transactions || [];
+
+  if (isLoading) {
+    return (
+      <Card>
+        <CardContent className="pt-6">
+          <div className="space-y-3">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <Skeleton key={i} className="h-16" />
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Referral Transactions</CardTitle>
+        <CardDescription>History of all referral credits earned and used</CardDescription>
+      </CardHeader>
+      <CardContent>
+        {transactions.length === 0 ? (
+          <div className="text-center py-12 text-muted-foreground">
+            <ArrowRightLeft className="h-12 w-12 mx-auto mb-4 opacity-20" />
+            <p>No referral transactions found</p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b text-sm">
+                  <th className="text-left py-3 px-4 font-medium">User</th>
+                  <th className="text-left py-3 px-4 font-medium">Type</th>
+                  <th className="text-left py-3 px-4 font-medium">Amount</th>
+                  <th className="text-left py-3 px-4 font-medium">Balance</th>
+                  <th className="text-left py-3 px-4 font-medium">Description</th>
+                  <th className="text-left py-3 px-4 font-medium">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transactions.map((tx) => (
+                  <tr key={tx.id} className="border-b text-sm">
+                    <td className="py-3 px-4">
+                      <div>
+                        <div className="font-medium">{tx.userName || 'Unknown'}</div>
+                        <div className="text-xs text-muted-foreground">{tx.userEmail}</div>
+                      </div>
+                    </td>
+                    <td className="py-3 px-4">
+                      <Badge variant="outline" className="capitalize">
+                        {tx.type.replace('_', ' ')}
+                      </Badge>
+                    </td>
+                    <td className={`py-3 px-4 font-medium ${parseFloat(tx.amount) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                      {parseFloat(tx.amount) >= 0 ? '+' : ''}{getCurrencySymbol('USD', currencies)}{parseFloat(tx.amount).toFixed(2)}
+                    </td>
+                    <td className="py-3 px-4 text-muted-foreground">
+                      {getCurrencySymbol('USD', currencies)}{parseFloat(tx.balanceAfter).toFixed(2)}
+                    </td>
+                    <td className="py-3 px-4 max-w-xs truncate" title={tx.description || ''}>
+                      {tx.description}
+                    </td>
+                    <td className="py-3 px-4 text-xs text-muted-foreground">
+                      {format(new Date(tx.createdAt), 'MMM d, p')}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
 
 // Analytics Tab Component
 function AnalyticsTab() {
   const { t } = useTranslation();
   const { currencies } = useCurrency();
 
-  const { data: analytics, isLoading } = useQuery<AnalyticsData>({
+  const { data: analyticsData, isLoading } = useQuery<AnalyticsData>({
     queryKey: ['/api/admin/referrals/analytics'],
   });
 
-  console.log(analytics);
+  console.log(analyticsData);
 
   const COLORS = ['#2c7338', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
 
@@ -693,7 +811,7 @@ function AnalyticsTab() {
     );
   }
 
-  if (!analytics) {
+  if (!analyticsData) {
     return <div>No analytics data available</div>;
   }
 
@@ -708,7 +826,7 @@ function AnalyticsTab() {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">
-              {Number(analytics?.conversionRate).toFixed(1)}%
+              {Number(analyticsData?.conversionRate).toFixed(1)}%
             </div>
           </CardContent>
         </Card>
@@ -721,7 +839,7 @@ function AnalyticsTab() {
           <CardContent>
             <div className="text-3xl font-bold">
               {getCurrencySymbol('USD', currencies)}
-              {analytics.averageReward.toFixed(2)}
+              {analyticsData.averageReward.toFixed(2)}
             </div>
           </CardContent>
         </Card>
@@ -732,7 +850,7 @@ function AnalyticsTab() {
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            {/* <div className="text-3xl font-bold">{analytics.avgTimeToConversion.toFixed(0)}d</div> */}
+            <div className="text-3xl font-bold">{analyticsData?.avgTimeToConversion.toFixed(1)}d</div>
           </CardContent>
         </Card>
 
@@ -742,7 +860,7 @@ function AnalyticsTab() {
             <Gift className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            {/* <div className="text-2xl font-bold">{analytics.mostActiveMonth}</div> */}
+            <div className="text-2xl font-bold">{analyticsData?.mostActiveMonth}</div>
           </CardContent>
         </Card>
       </div>
@@ -755,7 +873,7 @@ function AnalyticsTab() {
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={analytics.monthlyGrowth}>
+            <LineChart data={analyticsData.monthlyGrowth}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="month" />
               <YAxis />
@@ -776,7 +894,7 @@ function AnalyticsTab() {
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={analytics.topReferrers.slice(0, 10)}>
+              <BarChart data={analyticsData.topReferrers.slice(0, 10)}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="userEmail" angle={-45} textAnchor="end" height={100} />
                 <YAxis />
@@ -797,25 +915,22 @@ function AnalyticsTab() {
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
-                  data={analytics.statusDistribution}
+                  data={analyticsData.statusDistribution}
                   cx="50%"
                   cy="50%"
-                  labelLine={false}
-                  label={({ status, percent }: { status: string; percent: number }) =>
-                    `${status} (${(percent * 100).toFixed(0)}%)`
-                  }
                   outerRadius={80}
-                  fill="#8884d8"
+                  paddingAngle={5}
                   dataKey="count"
                   nameKey="status"
                 >
-                  {analytics.statusDistribution.map(
+                  {analyticsData.statusDistribution.map(
                     (entry: StatusDistributionItem, index: number) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ),
                   )}
                 </Pie>
                 <Tooltip />
+                <Legend />
               </PieChart>
             </ResponsiveContainer>
           </CardContent>
