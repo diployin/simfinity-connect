@@ -38,6 +38,7 @@ import {
   TrendingUp,
   Send,
   Trash2,
+  XCircle,
 } from 'lucide-react';
 import type { GiftCard, GiftCardTransaction } from '@shared/schema';
 
@@ -110,7 +111,7 @@ export default function AdminGiftCards() {
   });
 
   const { data: transactionsData } = useQuery<{ transactions: GiftCardTransaction[] }>({
-    queryKey: ['/api/admin/gift-cards', selectedGiftCard?.id, 'transactions'],
+    queryKey: [`/api/admin/gift-cards/${selectedGiftCard?.id}/transactions`],
     enabled: !!selectedGiftCard,
   });
 
@@ -185,6 +186,20 @@ export default function AdminGiftCards() {
     },
     onError: (error: Error) => {
       toast({ title: 'Error deleting gift card', description: error.message, variant: 'destructive' });
+    },
+  });
+
+  const cancelMutation = useMutation({
+    mutationFn: async (id: string) => {
+      return apiRequest('PATCH', `/api/admin/gift-cards/${id}/cancel`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/gift-cards'] });
+      toast({ title: 'Gift card cancelled' });
+      setIsViewDialogOpen(false);
+    },
+    onError: (error: Error) => {
+      toast({ title: 'Error cancelling gift card', description: error.message, variant: 'destructive' });
     },
   });
 
@@ -489,6 +504,23 @@ export default function AdminGiftCards() {
                               <Send className="h-4 w-4" />
                             </Button>
                           )}
+                          {card.status === 'active' && (
+                            <Button
+                              size="icon"
+                              variant="ghost"
+                              className="text-amber-500 hover:text-amber-600 hover:bg-amber-50"
+                              onClick={() => {
+                                if (window.confirm('Are you sure you want to inactive/cancel this gift card?')) {
+                                  cancelMutation.mutate(card.id);
+                                }
+                              }}
+                              disabled={cancelMutation.isPending}
+                              title="Inactive gift card"
+                              data-testid={`button-cancel-${index}`}
+                            >
+                              <XCircle className="h-4 w-4" />
+                            </Button>
+                          )}
                           {Number(card.amount) === Number(card.balance) && (
                             <Button
                               size="icon"
@@ -597,6 +629,11 @@ export default function AdminGiftCards() {
                       >
                         <div>
                           <p className="text-sm font-medium">Order #{tx.orderId?.slice(0, 8)}</p>
+                          {(tx as any).userName && (
+                            <p className="text-xs font-medium text-primary">
+                              By: {(tx as any).userName} ({(tx as any).userEmail})
+                            </p>
+                          )}
                           <p className="text-xs text-muted-foreground">
                             {format(new Date(tx.usedAt), 'PPP p')}
                           </p>

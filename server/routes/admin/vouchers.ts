@@ -163,8 +163,11 @@ router.get("/vouchers/:id/usage", requireAdmin, async (req: Request, res: Respon
         orderId: voucherUsage.orderId,
         discountAmount: voucherUsage.discountAmount,
         usedAt: voucherUsage.usedAt,
+        userName: users.name,
+        userEmail: users.email,
       })
       .from(voucherUsage)
+      .leftJoin(users, eq(voucherUsage.userId, users.id))
       .where(eq(voucherUsage.voucherId, id))
       .orderBy(desc(voucherUsage.usedAt));
 

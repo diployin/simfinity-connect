@@ -1826,7 +1826,17 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createVoucherUsage(usage: InsertVoucherUsage) {
-    await db.insert(voucherUsage).values(usage);
+    try {
+      console.log(`[Storage] Inserting voucher usage for voucher ${usage.voucherId}, order ${usage.orderId}`);
+      await db.insert(voucherUsage).values({
+        ...usage,
+        usedAt: new Date(),
+      });
+      console.log('✅ [Storage] Voucher usage inserted successfully');
+    } catch (error) {
+      console.error('❌ [Storage] Failed to insert voucher usage:', error);
+      throw error;
+    }
   }
 
   async getVoucherUsageByUserAndVoucher(userId: string, voucherId: string) {
@@ -1855,7 +1865,17 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createGiftCardTransaction(transaction: InsertGiftCardTransaction) {
-    await db.insert(giftCardTransactions).values(transaction);
+    try {
+      console.log(`[Storage] Inserting gift card transaction for card ${transaction.giftCardId}, order ${transaction.orderId}`);
+      await db.insert(giftCardTransactions).values({
+        ...transaction,
+        createdAt: new Date(),
+      });
+      console.log('✅ [Storage] Gift card transaction inserted successfully');
+    } catch (error) {
+      console.error('❌ [Storage] Failed to insert gift card transaction:', error);
+      throw error;
+    }
   }
 
   async getGiftCardTransactions(giftCardId: string) {
@@ -1886,7 +1906,17 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createReferralTransaction(transaction: InsertReferralTransaction) {
-    await db.insert(referralTransactions).values(transaction);
+    try {
+      console.log(`[Storage] Inserting referral transaction for user ${transaction.userId}, type ${transaction.type}`);
+      await db.insert(referralTransactions).values({
+        ...transaction,
+        createdAt: new Date(),
+      });
+      console.log('✅ [Storage] Referral transaction inserted successfully');
+    } catch (error) {
+      console.error('❌ [Storage] Failed to insert referral transaction:', error);
+      throw error;
+    }
   }
 
   async getReferralTransactions(userId: string) {

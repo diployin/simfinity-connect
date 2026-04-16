@@ -1715,11 +1715,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 await storage.updateGiftCardBalance(metadata.giftCardId, newBalance.toFixed(2));
                 await storage.createGiftCardTransaction({
                   giftCardId: metadata.giftCardId,
-                  usedBy: user.id,
+                  usedBy: user.id || null,
                   orderId: order.id,
-                  amount: (-promoDiscount).toFixed(2),
-                  type: 'redemption',
-                  description: `Redeemed $${promoDiscount.toFixed(2)} on order ${order.displayOrderId || order.id}`,
+                  amountUsed: promoDiscount.toFixed(2),
                   balanceAfter: newBalance.toFixed(2),
                 });
               }
@@ -2640,6 +2638,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         userId: userId || req.session?.userId,
       });
 
+      console.log('[Complete Order] Pricing calculated:', JSON.stringify({
+        subtotal: pricing.subtotal,
+        discount: pricing.discount,
+        total: pricing.total,
+        promoType,
+        promoCode,
+        appliedCredits: pricing.appliedCredits
+      }, null, 2));
+
       if (pricing.total > 0) {
         return res.status(400).json({
           success: false,
@@ -2746,13 +2753,76 @@ export async function registerRoutes(app: Express): Promise<Server> {
             status: 'completed',
           });
 
+          // ── Referral Record (Referee reward) ─────────────────────────────────
           if (promoType === 'referral' && promoCode && finalUserId) {
+            console.log('[Complete Order] Processing referral reward for code:', promoCode);
             await handleReferralAfterOrder({
               referredUserId: finalUserId,
               promoCode,
               orderId: order.id,
-              orderAmount: 0,
+              orderAmount: pricing.subtotal, // Use subtotal for referral check
             });
+          }
+
+          // ── Deduct referral credits used ──────────────────────────────────────
+          if (pricing.appliedCredits > 0 && finalUserId) {
+            try {
+              console.log(`[Complete Order] Deducting ${pricing.appliedCredits} referral credits from user ${finalUserId}`);
+              const creditUser = await storage.getUser(finalUserId);
+              if (creditUser && creditUser.referralBalance) {
+                const currentBalance = parseFloat(creditUser.referralBalance);
+                const newBalance = Math.max(0, currentBalance - pricing.appliedCredits);
+                await storage.updateUser(finalUserId, { referralBalance: newBalance.toFixed(2) });
+                await storage.createReferralTransaction({
+                  userId: finalUserId,
+                  orderId: order.id,
+                  amount: (-pricing.appliedCredits).toFixed(2),
+                  type: 'credit_used',
+                  balanceAfter: newBalance.toFixed(2),
+                  balanceBefore: currentBalance.toFixed(2),
+                  referralId: null, // No specific referral ID for credit usage
+                  description: `Used $${pricing.appliedCredits.toFixed(2)} credits on free order ${formatDisplayOrderId(order.displayOrderId) || order.id}`,
+                });
+                console.log('✅ Referral credits deducted and transaction recorded');
+              }
+            } catch (creditError: any) {
+              console.error('❌ [Complete Order] Error deducting referral credits:', creditError.message);
+            }
+          }
+
+          // ── Promo Usage (Voucher / Gift Card) ───────────────────────────────
+          if (promoType && promoCode) {
+            try {
+              if (promoType === 'voucher' && voucherId) {
+                console.log(`[Complete Order] Recording voucher usage: ${promoCode} (ID: ${voucherId})`);
+                await storage.incrementVoucherUsage(voucherId);
+                await storage.createVoucherUsage({
+                  voucherId: voucherId,
+                  userId: finalUserId || 'guest',
+                  orderId: order.id,
+                  discountAmount: pricing.discount.toString(),
+                });
+                console.log('✅ Voucher usage recorded');
+              } else if (promoType === 'giftcard' && giftCardId) {
+                console.log(`[Complete Order] Recording gift card usage: ${promoCode} (ID: ${giftCardId})`);
+                const giftCard = await storage.getGiftCardByCode(promoCode);
+                if (giftCard) {
+                  const currentBalance = parseFloat(giftCard.balance);
+                  const newBalance = Math.max(0, currentBalance - pricing.discount);
+                  await storage.updateGiftCardBalance(giftCardId, newBalance.toFixed(2));
+                  await storage.createGiftCardTransaction({
+                    giftCardId: giftCardId,
+                    usedBy: finalUserId || null,
+                    orderId: order.id,
+                    amountUsed: pricing.discount.toFixed(2),
+                    balanceAfter: newBalance.toFixed(2),
+                  });
+                  console.log('✅ Gift card transaction recorded');
+                }
+              }
+            } catch (promoError: any) {
+              console.error('❌ [Complete Order] Error processing promo code:', promoError.message);
+            }
           }
 
           const updatedOrder = await storage.getOrderById(order.id) || order;
@@ -3109,7 +3179,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (!verification.success) return res.status(400).json(verification);
 
       const metadata = { ...reqMetadata, ...verification.metadata };
-      console.log('✅ metadata:', metadata);
+      console.log('[Confirm Payment] Derived metadata:', JSON.stringify(metadata, null, 2));
+      console.log('[Confirm Payment] Verification data:', JSON.stringify(verification, null, 2));
 
       const ZERO_DECIMAL_CURRENCIES = ['JPY', 'KRW', 'VND'];
 
@@ -3302,6 +3373,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             // ── Promo codes ──────────────────────────────────────────────────
             if (metadata.promoType && metadata.promoCode) {
               try {
+                console.log(`[Confirm Payment] Processing promo usage: type=${metadata.promoType}, code=${metadata.promoCode}`);
                 if (metadata.promoType === 'voucher' && metadata.voucherId) {
                   await storage.incrementVoucherUsage(metadata.voucherId);
                   await storage.createVoucherUsage({
@@ -3310,7 +3382,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
                     orderId: order.id,
                     discountAmount: metadata.promoDiscount,
                   });
+                  console.log('✅ Voucher usage recorded');
                 } else if (metadata.promoType === 'giftcard' && metadata.giftCardId) {
+                  console.log(`[Confirm Payment] Recording gift card usage: ${metadata.promoCode}`);
                   const giftCard = await storage.getGiftCardByCode(metadata.promoCode);
                   if (giftCard) {
                     const promoDiscount = parseFloat(metadata.promoDiscount || '0');
@@ -3319,17 +3393,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
                     await storage.updateGiftCardBalance(metadata.giftCardId, newBalance.toFixed(2));
                     await storage.createGiftCardTransaction({
                       giftCardId: metadata.giftCardId,
-                      usedBy: userId as string,
+                      usedBy: userId as string || null,
                       orderId: order.id,
-                      amount: (-promoDiscount).toFixed(2),
-                      type: 'redemption',
-                      description: `Redeemed $${promoDiscount.toFixed(2)} on order ${formatDisplayOrderId(order.displayOrderId) || order.id}`,
+                      amountUsed: promoDiscount.toFixed(2),
                       balanceAfter: newBalance.toFixed(2),
                     });
+                    console.log('✅ Gift card transaction recorded');
                   }
                 }
               } catch (promoError: any) {
-                console.error('[Regular Order] Error processing promo code:', promoError.message);
+                console.error('❌ [Confirm Payment] Error processing promo code:', promoError.message);
               }
             }
 
@@ -9653,6 +9726,52 @@ ${urls
     },
   );
 
+  // Get all referral transactions
+  app.get('/api/admin/referrals/transactions', requireAdmin, async (req: Request, res: Response) => {
+    try {
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 50;
+      const offset = (page - 1) * limit;
+
+      const txs = await db
+        .select({
+          id: referralTransactions.id,
+          userId: referralTransactions.userId,
+          userEmail: users.email,
+          userName: users.name,
+          type: referralTransactions.type,
+          amount: referralTransactions.amount,
+          balanceBefore: referralTransactions.balanceBefore,
+          balanceAfter: referralTransactions.balanceAfter,
+          description: referralTransactions.description,
+          createdAt: referralTransactions.createdAt,
+          orderId: referralTransactions.orderId,
+        })
+        .from(referralTransactions)
+        .leftJoin(users, eq(referralTransactions.userId, users.id))
+        .orderBy(desc(referralTransactions.createdAt))
+        .limit(limit)
+        .offset(offset);
+
+      const totalResult = await db.select({ count: count() }).from(referralTransactions);
+      const total = totalResult[0]?.count || 0;
+
+      res.json({
+        success: true,
+        transactions: txs,
+        pagination: {
+          page,
+          limit,
+          total,
+          totalPages: Math.ceil(total / limit),
+        },
+      });
+    } catch (error: any) {
+      console.error('Error getting referral transactions:', error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  });
+
   // Get referral analytics
   app.get('/api/admin/referrals/analytics', requireAdmin, async (req: Request, res: Response) => {
     try {
@@ -9717,6 +9836,18 @@ ${urls
         monthlyGrowth,
         statusDistribution,
         averageReward: parseFloat(avgRewardResult[0]?.avg || '0'),
+        avgTimeToConversion: await (async () => {
+          const result = await db
+            .select({
+              avgDays: sql<number>`AVG(EXTRACT(DAY FROM ${referrals.completedAt} - ${referrals.createdAt}))`,
+            })
+            .from(referrals)
+            .where(eq(referrals.status, 'completed'));
+          return parseFloat(result[0]?.avgDays?.toString() || '0');
+        })(),
+        mostActiveMonth: monthlyGrowth.length > 0 
+          ? monthlyGrowth.reduce((max, curr) => (curr.count > max.count ? curr : max), monthlyGrowth[0]).month 
+          : 'N/A',
       });
     } catch (error: any) {
       console.error('Error getting referral analytics:', error);
