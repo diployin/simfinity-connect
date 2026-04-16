@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { Smartphone, QrCode, Plus, Loader2 } from 'lucide-react';
+import { Smartphone, QrCode, Plus, Loader2, Zap, Copy, Check, Info, Calendar, Signal } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -540,6 +540,42 @@ export default function MyESIMsPage() {
                 </div>
               )}
 
+              {(instructions?.shortUrl || selectedOrder?.shortUrl) && (
+                <div className="w-full p-4 bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-800 rounded-lg">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="bg-orange-500 p-2 rounded-full">
+                      <Zap className="h-5 w-5 text-white" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-orange-900 dark:text-orange-100">{t('myOrders.quickInstallation', 'Quick Installation')}</h4>
+                      <p className="text-xs text-orange-700 dark:text-orange-300">{t('myOrders.quickInstallDesc', 'Click to automatically start setup on your device')}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button 
+                      className="flex-1 bg-orange-500 hover:bg-orange-600 text-white"
+                      onClick={() => window.open(instructions?.shortUrl || selectedOrder?.shortUrl, '_blank')}
+                    >
+                      <Zap className="h-4 w-4 mr-2" />
+                      {t('myOrders.installNow', 'Install eSIM Now')}
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={() => {
+                        navigator.clipboard.writeText(instructions?.shortUrl || selectedOrder?.shortUrl || "");
+                        toast({
+                          title: t('common.copied', 'Copied!'),
+                          description: t('myOrders.linkCopied', 'Quick setup link copied'),
+                        });
+                      }}
+                    >
+                      <Copy className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              )}
+
               {instructions.steps && instructions.steps.length > 0 && (
                 <div>
                   <h3 className="font-semibold mb-4">
@@ -558,14 +594,50 @@ export default function MyESIMsPage() {
                 </div>
               )}
 
-              {instructions.manual_code && (
-                <div>
-                  <h3 className="font-semibold mb-2">
-                    {t('myEsims.manualActivationCode', 'Manual Activation Code')}
-                  </h3>
-                  <code className="block p-3 bg-muted rounded-md text-sm font-mono break-all">
-                    {instructions.manual_code}
-                  </code>
+              {(instructions.manual_code || (instructions.smdpAddress && instructions.activationCode)) && (
+                <div className="space-y-4">
+                  <h3 className="font-semibold">{t('myOrders.manualInstallation', 'Manual Installation')}</h3>
+                  
+                  {instructions.smdpAddress && (
+                    <div className="space-y-1">
+                      <p className="text-xs text-muted-foreground uppercase font-bold tracking-tight">SM-DP+ Address</p>
+                      <div className="flex items-center gap-2">
+                        <code className="flex-1 p-2 bg-muted rounded text-xs font-mono">{instructions.smdpAddress}</code>
+                        <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => {
+                          navigator.clipboard.writeText(instructions.smdpAddress);
+                          toast({ title: t('common.copied', 'Copied!') });
+                        }}>
+                          <Copy className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+
+                  {instructions.activationCode && (
+                    <div className="space-y-1">
+                      <p className="text-xs text-muted-foreground uppercase font-bold tracking-tight">Activation Code</p>
+                      <div className="flex items-center gap-2">
+                        <code className="flex-1 p-2 bg-muted rounded text-xs font-mono">{instructions.activationCode}</code>
+                        <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => {
+                          navigator.clipboard.writeText(instructions.activationCode);
+                          toast({ title: t('common.copied', 'Copied!') });
+                        }}>
+                          <Copy className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+
+                  {instructions.manual_code && !instructions.smdpAddress && (
+                    <div>
+                      <h3 className="text-xs text-muted-foreground uppercase font-bold tracking-tight mb-1">
+                        {t('myEsims.manualActivationCode', 'Manual Activation Code')}
+                      </h3>
+                      <code className="block p-3 bg-muted rounded-md text-sm font-mono break-all">
+                        {instructions.manual_code}
+                      </code>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -799,26 +871,27 @@ function ESimCard({
         : 'inactive';
 
   return (
-    <Card className="hover-elevate" data-testid={`card-esim-${order.id}`}>
-      <CardHeader>
+    <Card className="hover-elevate overflow-hidden" data-testid={`card-esim-${order.id}`}>
+      <div className="h-1 bg-orange-500 w-full" />
+      <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <CardTitle className="text-lg font-bold flex flex-col gap-1">
-              <span>{order.package?.destination?.name || 'eSIM'}</span>
-              <span className="text-sm font-normal text-muted-foreground">
-                {order.package?.title || `${order.dataAmount || ''} - ${order.validity || ''} Days`}
-              </span>
-            </CardTitle>
-            {/* <div className="font-semibold text-primary mt-2">{order.dataAmount}</div>
-            <CardDescription className="mt-1">
-              {order.validity} {t('myEsims.daysValidity', 'days validity')}
-            </CardDescription> */}
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">{order.package?.destination?.flagEmoji || "🌍"}</span>
+            <div className="flex-1">
+              <CardTitle className="text-base font-bold flex flex-col">
+                <span>{order.package?.destination?.name || 'eSIM'}</span>
+                <span className="text-xs font-normal text-muted-foreground line-clamp-1">
+                  {order.package?.title || `${order.dataAmount || ''} - ${order.validity || ''} Days`}
+                </span>
+              </CardTitle>
+            </div>
           </div>
 
           <Badge
             variant={
               status === 'active' ? 'default' : status === 'expired' ? 'destructive' : 'secondary'
             }
+            className="text-[10px] px-2 py-0 h-5"
           >
             {status === 'active'
               ? t('myEsims.active', 'Active')
@@ -829,13 +902,21 @@ function ESimCard({
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-4">
-        {/* ICCID */}
-        <div>
-          <p className="text-xs text-muted-foreground">ICCID</p>
-          <p className="text-sm font-mono mt-1" data-testid="text-iccid">
-            {order.iccid || 'N/A'}
-          </p>
+      <CardContent className="space-y-4 pt-0">
+        {/* ICCID and Basic Info */}
+        <div className="grid grid-cols-2 gap-2 p-2 bg-muted/50 rounded-lg">
+          <div>
+            <p className="text-[10px] uppercase text-muted-foreground tracking-wider font-semibold">ICCID</p>
+            <p className="text-xs font-mono mt-0.5 truncate" data-testid="text-iccid">
+              {order.iccid || 'N/A'}
+            </p>
+          </div>
+          <div>
+            <p className="text-[10px] uppercase text-muted-foreground tracking-wider font-semibold">Validity</p>
+            <p className="text-xs font-medium mt-0.5">
+              {order.validity} {t('common.days', 'Days')}
+            </p>
+          </div>
         </div>
 
         {/* Loading Skeleton */}
@@ -881,28 +962,41 @@ function ESimCard({
         )}
 
         {/* Action Buttons */}
-        <div className="flex gap-2 pt-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="flex-1"
-            onClick={onViewInstructions}
-            data-testid="button-view-instructions"
-          >
-            <QrCode className="mr-2 h-4 w-4" />
-            {t('myEsims.setup', 'Setup')}
-          </Button>
+        <div className="flex flex-col gap-2 pt-2">
+          <div className="flex gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              className="flex-1"
+              onClick={onViewInstructions}
+              data-testid="button-view-instructions"
+            >
+              <QrCode className="mr-2 h-4 w-4" />
+              {t('myEsims.setup', 'Setup')}
+            </Button>
 
-          <Button
-            size="sm"
-            className="flex-1"
-            onClick={onViewTopups}
-            disabled={usage?.status !== 'active'}
-            data-testid="button-purchase-topup"
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            {t('myEsims.topUp', 'Top Up')}
-          </Button>
+            <Button
+              size="sm"
+              className="flex-1"
+              onClick={onViewTopups}
+              disabled={usage?.status !== 'active'}
+              data-testid="button-purchase-topup"
+            >
+              <Plus className="mr-2 h-4 w-4" />
+              {t('myEsims.topUp', 'Top Up')}
+            </Button>
+          </div>
+
+          {(order.shortUrl) && (
+            <Button
+              size="sm"
+              className="w-full bg-orange-500 hover:bg-orange-600 text-white"
+              onClick={() => window.open(order.shortUrl, '_blank')}
+            >
+              <Zap className="mr-2 h-4 w-4" />
+              {t('myOrders.quickSetup', 'Quick Setup')}
+            </Button>
+          )}
         </div>
       </CardContent>
     </Card>

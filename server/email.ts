@@ -419,6 +419,12 @@ export async function generateOrderConfirmationEmail(order: any) {
                 <td style="padding: 8px 0; font-weight: 600;">${order.validity} days</td>
               </tr>
               ` : ''}
+              ${order.iccid ? `
+              <tr>
+                <td style="padding: 8px 0; color: #6b7280;">ICCID:</td>
+                <td style="padding: 8px 0; font-weight: 600; font-family: monospace;">${order.iccid}</td>
+              </tr>
+              ` : ''}
               ${order.price ? `
               <tr>
                 <td style="padding: 8px 0; color: #6b7280;">Amount:</td>
@@ -454,6 +460,7 @@ export async function generateInstallationEmail(order: any) {
       esim_iccid: order.iccid || '',
       activation_code: order.activationCode || order.lpaCode || '',
       smdp_address: order.smdpAddress || '',
+      short_url: order.shortUrl || '',
       platform_name: platformName,
     });
 
@@ -473,13 +480,18 @@ export async function generateInstallationEmail(order: any) {
     }
   }
 
-  // ✅ qrCodeUrl is always a real http URL at this point
-  // (either from provider, or generated & saved by generateAndSaveQrCode)
-  const qrHtml = order.qrCodeUrl
+  // ✅ qrCodeUrl fallback: try provider URL → Google Charts (from LPA) → yellow box
+  const fallbackQrUrl = (order.lpaCode || order.qrCode || "").startsWith('LPA:')
+    ? `https://chart.googleapis.com/chart?cht=qr&chl=${encodeURIComponent(order.lpaCode || order.qrCode)}&chs=250x250&choe=UTF-8&chld=L|2`
+    : null;
+
+  const finalQrUrlToUse = order.qrCodeUrl || fallbackQrUrl;
+
+  const qrHtml = finalQrUrlToUse
     ? `
       <img
-        src="${order.qrCodeUrl}"
-        alt="QR Code"
+        src="${finalQrUrlToUse}"
+        alt="eSIM QR Code"
         style="max-width:250px;border:2px solid #e5e7eb;border-radius:8px;padding:10px;background:white;"
       />
     `
@@ -559,6 +571,11 @@ export async function generateInstallationEmail(order: any) {
                 <div class="qr-code-container">
                   <p style="font-size: 12px; color: #6b7280; margin-top: 0; margin-bottom: 10px;">Scan this QR code to install</p>
                   ${qrHtml}
+                  ${order.shortUrl ? `
+                  <div style="margin-top: 20px;">
+                    <a href="${order.shortUrl}" class="btn">Quick Install eSIM</a>
+                  </div>
+                  ` : ''}
                   <div style="margin-top: 15px; font-family: monospace; font-size: 14px; font-weight: 600;">ICCID: ${order.iccid || 'N/A'}</div>
                 </div>
               </div>

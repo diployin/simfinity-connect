@@ -45,6 +45,7 @@ import {
   generateLowDataEmail,
   generateCustomNotificationEmail,
 } from './email';
+import { formatDisplayOrderId } from '@shared/utils';
 import { airaloSyncService } from './services/airalo/airalo-sync';
 import { airaloOrderService, type AiraloWebhookPayload } from './services/airalo/airalo-order';
 import { airaloNotificationService } from './services/airalo/airalo-notifications';
@@ -1728,13 +1729,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         }
 
-        // ── 1️⃣ Confirmation email ─────────────────────────────────────────
+        let guestDestinationName = 'Unknown';
+        if (pkg.destinationId) {
+          const dest = await storage.getDestinationById(pkg.destinationId);
+          guestDestinationName = dest?.name || 'Unknown';
+        } else if (pkg.regionId) {
+          const reg = await storage.getRegionById(pkg.regionId);
+          guestDestinationName = reg?.name || 'Unknown';
+        } else {
+          guestDestinationName = pkg.title || 'Unknown';
+        }
+
         const confirmEmail = await generateOrderConfirmationEmail({
           id: order.id,
-          destination: pkg.countryName || 'Unknown',
+          displayId: formatDisplayOrderId(order.displayOrderId),
+          destination: guestDestinationName,
           dataAmount: pkg.dataAmount,
           validity: pkg.validity,
           price: pkg.price,
+          iccid: simDetails?.iccid,
+          qrCodeUrl: order.qrCodeUrl || null,
+          name: user?.name || guestEmail.split('@')[0] || 'Customer',
         });
         await sendEmail({ to: guestEmail, subject: confirmEmail.subject, html: confirmEmail.html });
         console.log('✅ Guest confirmation email sent');
@@ -1750,6 +1765,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               lpaCode: simDetails?.lpaCode,
               activationCode: simDetails?.activationCode,
               smdpAddress: simDetails?.smdpAddress,
+              shortUrl: order.shortUrl || simDetails?.shortUrl,
             });
 
             await sendEmail({
@@ -1820,6 +1836,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         usageData: order.usageData,
         guestEmail: order.guestEmail,
         guestPhone: order.guestPhone,
+        shortUrl: order.shortUrl,
         package: pkg
           ? {
             title: pkg.title,
@@ -2693,6 +2710,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               apnType: 'automatic',
               apnValue: null,
               isRoaming: false,
+              shortUrl: providerResponse.shortUrl,
             };
 
             orderDetails = {
@@ -2724,6 +2742,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             apnType: simDetails.apnType,
             apnValue: simDetails.apnValue,
             isRoaming: simDetails.isRoaming,
+            shortUrl: simDetails.shortUrl,
             status: 'completed',
           });
 
@@ -2736,15 +2755,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
             });
           }
 
-          const customerEmail = email || (finalUserId ? (await storage.getUser(finalUserId))?.email : null);
+          const updatedOrder = await storage.getOrderById(order.id) || order;
+          const user = finalUserId ? await storage.getUser(finalUserId) : null;
+          const customerEmail = email || user?.email;
+
+          let destinationName = 'Unknown';
+          if (pkg.destinationId) {
+            const dest = await storage.getDestinationById(pkg.destinationId);
+            destinationName = dest?.name || 'Unknown';
+          } else if (pkg.regionId) {
+            const reg = await storage.getRegionById(pkg.regionId);
+            destinationName = reg?.name || 'Unknown';
+          } else {
+            destinationName = pkg.title || 'Unknown';
+          }
 
           if (customerEmail) {
             const confirmEmail = await generateOrderConfirmationEmail({
-              id: order.id,
-              destination: 'Unknown',
+              id: updatedOrder.id,
+              displayId: formatDisplayOrderId(updatedOrder.displayOrderId),
+              destination: destinationName,
               dataAmount: pkg.dataAmount,
               validity: pkg.validity,
               price: pkg.price,
+              iccid: simDetails.iccid,
+              qrCodeUrl: simDetails.qrCodeUrl,
+              name: name || user?.name || 'Customer',
             });
 
             await sendEmail({
@@ -2754,7 +2790,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             });
 
             // 2️⃣ Installation email
-            if (order.status === 'completed' && !order.installationSent) {
+            if (updatedOrder.status === 'completed' && !updatedOrder.installationSent) {
               try {
                 const installationEmail = await generateInstallationEmail({
                   name: name || user?.name || 'Customer',
@@ -2764,6 +2800,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                   lpaCode: simDetails.lpaCode,
                   activationCode: simDetails.activationCode,
                   smdpAddress: simDetails.smdpAddress,
+                  shortUrl: simDetails.shortUrl,
                 });
 
                 await sendEmail({
@@ -2789,7 +2826,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 title: 'Order Confirmed',
                 message: `Your order is complete! Check your email for installation instructions.`,
                 read: false,
-                metadata: { orderId: order.id },
+                metadata: { orderId: updatedOrder.id },
               });
 
               if (user.fcmToken) {
@@ -2800,7 +2837,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                   },
                   data: {
                     type: 'purchase',
-                    orderId: order.id,
+                    orderId: formatDisplayOrderId(updatedOrder.displayOrderId) || updatedOrder.id,
                     click_action: 'FLUTTER_NOTIFICATION_CLICK',
                   },
                   token: user.fcmToken,
@@ -2817,7 +2854,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
           return res.json({
             success: true,
-            order,
+            order: updatedOrder,
             message: 'Order completed successfully',
           });
         } catch (err: any) {
@@ -3179,6 +3216,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 apnType: 'automatic',
                 apnValue: null,
                 isRoaming: false,
+                shortUrl: providerResponse.shortUrl,
               };
               orderDetails = {
                 providerOrderId: providerResponse.providerOrderId,
@@ -3222,6 +3260,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               apnType: simDetails.apnType,
               apnValue: simDetails.apnValue,
               isRoaming: simDetails.isRoaming,
+              shortUrl: simDetails.shortUrl,
               status: 'completed',
             });
 
@@ -3252,7 +3291,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                     balanceAfter: newBalance.toFixed(2),
                     balanceBefore: currentBalance.toFixed(2),
                     referralId: metadata.referralId,
-                    description: `Used $${usedCredits.toFixed(2)} credits on order ${order.displayOrderId || order.id}`,
+                    description: `Used $${usedCredits.toFixed(2)} credits on order ${formatDisplayOrderId(order.displayOrderId) || order.id}`,
                   });
                 }
               } catch (creditError: any) {
@@ -3284,7 +3323,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                       orderId: order.id,
                       amount: (-promoDiscount).toFixed(2),
                       type: 'redemption',
-                      description: `Redeemed $${promoDiscount.toFixed(2)} on order ${order.displayOrderId || order.id}`,
+                      description: `Redeemed $${promoDiscount.toFixed(2)} on order ${formatDisplayOrderId(order.displayOrderId) || order.id}`,
                       balanceAfter: newBalance.toFixed(2),
                     });
                   }
@@ -3297,14 +3336,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
             // ── Notifications & Emails ─────────────────────────────────────
             const user = await storage.getUser(order.userId || (userId as string));
 
+            let destinationName = 'Unknown';
+            if (pkg.destinationId) {
+              const dest = await storage.getDestinationById(pkg.destinationId);
+              destinationName = dest?.name || 'Unknown';
+            } else if (pkg.regionId) {
+              const reg = await storage.getRegionById(pkg.regionId);
+              destinationName = reg?.name || 'Unknown';
+            } else {
+              destinationName = pkg.title || 'Unknown';
+            }
+
             if (user) {
               // 1️⃣ Confirmation email
               const confirmEmail = await generateOrderConfirmationEmail({
                 id: order.id,
-                destination: pkg.countryName || 'Unknown',
+                displayId: formatDisplayOrderId(order.displayOrderId),
+                destination: destinationName,
                 dataAmount: pkg.dataAmount,
                 validity: pkg.validity,
                 price: pkg.price,
+                iccid: simDetails?.iccid,
+                qrCodeUrl: finalQrUrl,
+                name: user.name || 'Customer',
               });
               await sendEmail({
                 to: user.email,
@@ -3331,7 +3385,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                       title: 'Order Confirmed',
                       body: `Your ${pkg.dataAmount} eSIM is ready! Check your email for installation instructions.`,
                     },
-                    data: { type: 'purchase', orderId: String(order.id) },
+                    data: { type: 'purchase', orderId: formatDisplayOrderId(order.displayOrderId) || String(order.id) },
                     token: user.fcmToken,
                   });
                 } catch (err) {
@@ -3344,12 +3398,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 try {
                   const installationEmail = await generateInstallationEmail({
                     name: user.name || 'Customer',
-                    packageName: pkg.title || 'Your eSIM Package',
+                    packageName: pkg.title || pkg.name || 'Your eSIM Package',
                     qrCodeUrl: finalQrUrl,                 // ✅ always a real URL or null
                     iccid: simDetails?.iccid,
                     lpaCode: simDetails?.lpaCode,
                     activationCode: simDetails?.activationCode,
                     smdpAddress: simDetails?.smdpAddress,
+                    shortUrl: simDetails?.shortUrl,
                   });
 
                   await sendEmail({
@@ -3679,7 +3734,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                     title: 'Order Confirmed 🎉',
                     body: `Your ${pkg.dataAmount} eSIM is ready! Check your email for installation instructions.`,
                   },
-                  data: { type: 'purchase', orderId: String(order.id), click_action: 'FLUTTER_NOTIFICATION_CLICK' },
+                  data: { type: 'purchase', orderId: formatDisplayOrderId(order.displayOrderId) || String(order.id), click_action: 'FLUTTER_NOTIFICATION_CLICK' },
                   token: iapUser.fcmToken,
                 });
               } catch (fcmErr) {
@@ -3688,26 +3743,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
             }
 
             try {
+              let iapDestinationName = 'Unknown';
+              if (pkg.destinationId) {
+                const dest = await storage.getDestinationById(pkg.destinationId);
+                iapDestinationName = dest?.name || 'Unknown';
+              } else if (pkg.regionId) {
+                const reg = await storage.getRegionById(pkg.regionId);
+                iapDestinationName = reg?.name || 'Unknown';
+              } else {
+                iapDestinationName = pkg.title || 'Unknown';
+              }
+
               const confirmEmail = await generateOrderConfirmationEmail({
                 id: order.id,
-                displayId: order.displayOrderId || order.id,
+                displayId: formatDisplayOrderId(order.displayOrderId),
                 customerName: iapUser.name || 'Customer',
-                destination: pkg.title || 'eSIM',
+                destination: iapDestinationName,
                 dataAmount: pkg.dataAmount,
                 validity: pkg.validity,
                 price: order.price,
+                iccid: simDetails?.iccid,
+                qrCodeUrl: simDetails?.qrCodeUrl,
+                name: iapUser.name || 'Customer',
               });
               await sendEmail({ to: iapUser.email, subject: confirmEmail.subject, html: confirmEmail.html });
 
               const installEmail = await generateInstallationEmail({
-                name: iapUser.name || 'Traveler',
-                packageName: `${pkg.dataAmount} - ${pkg.validity} Days`,
-                qrCodeUrl: simDetails.qrCodeUrl,
-                iccid: simDetails.iccid,
-                activationCode: simDetails.activationCode,
-                smdpAddress: simDetails.smdpAddress,
-                qrCode: simDetails.qrCode,
-                lpaCode: simDetails.lpaCode,
+                name: iapUser.name || 'Customer',
+                packageName: pkg.title || `${pkg.dataAmount} - ${pkg.validity} Days`,
+                qrCodeUrl: simDetails?.qrCodeUrl,
+                iccid: simDetails?.iccid,
+                activationCode: simDetails?.activationCode,
+                smdpAddress: simDetails?.smdpAddress,
+                qrCode: simDetails?.qrCode,
+                lpaCode: simDetails?.lpaCode,
               });
               await sendEmail({ to: iapUser.email, subject: installEmail.subject, html: installEmail.html });
 
@@ -3922,12 +3991,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
               : null;
 
             if (user) {
+              let legacyDestinationName = 'Unknown';
+              if (pkg.destinationId) {
+                const dest = await storage.getDestinationById(pkg.destinationId);
+                legacyDestinationName = dest?.name || 'Unknown';
+              } else if (pkg.regionId) {
+                const reg = await storage.getRegionById(pkg.regionId);
+                legacyDestinationName = reg?.name || 'Unknown';
+              } else {
+                legacyDestinationName = pkg.title || 'Unknown';
+              }
+
               const confirmEmail = await generateOrderConfirmationEmail({
                 id: order.id,
-                destination: destination?.name || 'Unknown',
+                displayId: formatDisplayOrderId(order.displayOrderId),
+                destination: legacyDestinationName,
                 dataAmount: pkg.dataAmount,
                 validity: pkg.validity,
                 price: pkg.price,
+                iccid: simDetails?.iccid,
+                qrCodeUrl: simDetails?.qrCodeUrl,
+                name: user.name || 'Customer',
               });
 
               await sendEmail({
@@ -3937,12 +4021,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
               });
 
               const installEmail = await generateInstallationEmail({
-                name: user.name || 'Traveler',
-                packageName: `${pkg.dataAmount} - ${pkg.validity} Days`,
+                name: user.name || 'Customer',
+                packageName: pkg.title || `${pkg.dataAmount} - ${pkg.validity} Days`,
                 qrCodeUrl: simDetails.qrCodeUrl,
                 iccid: simDetails.iccid,
                 activationCode: simDetails.activationCode,
                 smdpAddress: simDetails.smdpAddress,
+                lpaCode: simDetails.lpaCode,
               });
 
               await sendEmail({
@@ -4049,18 +4134,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
             orderRecords.push(orderRecord);
           }
 
-          const user = await storage.getUser(userId);
-          const destination = pkg.destinationId
-            ? await storage.getDestinationById(pkg.destinationId)
-            : null;
+          let destinationName = 'Unknown';
+          if (pkg.destinationId) {
+            const dest = await storage.getDestinationById(pkg.destinationId);
+            destinationName = dest?.name || 'Unknown';
+          } else if (pkg.regionId) {
+            const reg = await storage.getRegionById(pkg.regionId);
+            destinationName = reg?.name || 'Unknown';
+          } else {
+            destinationName = pkg.title || 'Unknown';
+          }
 
           if (user) {
             const confirmEmail = await generateOrderConfirmationEmail({
               id: orderRecords[0].id,
-              destination: destination?.name || 'Unknown',
+              displayId: formatDisplayOrderId(orderRecords[0].displayOrderId),
+              destination: destinationName,
               dataAmount: `${pkg.dataAmount} x${quantity}`,
               validity: pkg.validity,
               price: (pricePerEsim * quantity).toString(),
+              name: user.name || 'Customer',
             });
 
             await sendEmail({

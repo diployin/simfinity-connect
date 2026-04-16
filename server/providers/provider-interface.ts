@@ -58,6 +58,7 @@ export interface ProviderOrderResponse {
   status: "completed" | "processing" | "pending" | "failed";
   errorMessage?: string; // Error details if failed
   processingTime?: number; // Estimated processing time in minutes
+  shortUrl?: string; // Short URL for quick installation
 }
 
 /**
@@ -77,6 +78,7 @@ export interface ProviderOrderStatus {
   apnValue?: string;
   apnType?: string;
   isRoaming?: boolean;
+  shortUrl?: string; // Short URL for quick installation
 }
 
 /**
