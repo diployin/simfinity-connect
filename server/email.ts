@@ -1,8 +1,7 @@
 import nodemailer from "nodemailer";
 import { db } from "./db";
-import { emailTemplates } from "@shared/schema";
+import { emailTemplates, settings, users } from "@shared/schema";
 import { eq, inArray } from "drizzle-orm";
-import { settings } from "@shared/schema";
 
 
 async function loadSmtpSettings() {
@@ -361,12 +360,26 @@ export async function generateWelcomeEmail(
 export async function generateOrderConfirmationEmail(order: any) {
   const settings = await loadSmtpSettings();
   const platformName = settings.platformName;
+  const baseUrl = process.env.BASE_URL || "https://simfinity.tel";
+
+  // Fetch customer name from user table if userId is present
+  let customerName = order.name || order.customerName || 'Traveler';
+  if (order.userId) {
+    try {
+      const userList = await db.select().from(users).where(eq(users.id, order.userId)).limit(1);
+      if (userList.length > 0 && userList[0].name) {
+        customerName = userList[0].name;
+      }
+    } catch (err) {
+      console.error("Failed to fetch user name for order confirmation email:", err);
+    }
+  }
 
   // Try to use database template first
   try {
     const templateRendered = await renderTemplate('esim_purchased', {
-      customer_name: order.customerName || order.name || 'Customer',
-      order_number: order.displayId || order.id || '',
+      customer_name: customerName,
+      order_number: order.displayOrderId || order.displayId || order.id || '',
       esim_iccid: order.iccid || 'Processing',
       country: order.destination || order.packageName || 'Destination',
       data_amount: order.dataAmount || '',
@@ -385,59 +398,98 @@ export async function generateOrderConfirmationEmail(order: any) {
 
   // Fallback to hardcoded template
   return {
-    subject: "Your eSIM Order Confirmation",
+    subject: `Order Confirmed: ${order.displayOrderId || order.displayId || order.id} - ${platformName}`,
     html: `
       <!DOCTYPE html>
       <html>
-      <body style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <div style="background: linear-gradient(135deg, #2c7338 0%, #3d9a4d 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
-          <h1 style="color: white; margin: 0; font-size: 28px;">${platformName}</h1>
-          <h2 style="color: white; margin: 0; font-size: 20px;">Order Confirmed!</h2>
-        </div>
-        <div style="background: #f0fdf4; padding: 40px; border-radius: 0 0 10px 10px;">
-          <p style="font-size: 16px;">Your eSIM order has been confirmed and is ready to use!</p>
-          <div style="background: white; border-radius: 8px; padding: 20px; margin: 20px 0;">
-            <h3 style="margin-top: 0; color: #2c7338;">Order Details</h3>
-            <table style="width: 100%; font-size: 14px;">
-              <tr>
-                <td style="padding: 8px 0; color: #6b7280;">Order ID:</td>
-                <td style="padding: 8px 0; font-weight: 600;">${order.displayId || order.id}</td>
-              </tr>
-              <tr>
-                <td style="padding: 8px 0; color: #6b7280;">Destination:</td>
-                <td style="padding: 8px 0; font-weight: 600;">${order.destination || order.packageName}</td>
-              </tr>
-              ${order.dataAmount ? `
-              <tr>
-                <td style="padding: 8px 0; color: #6b7280;">Data:</td>
-                <td style="padding: 8px 0; font-weight: 600;">${order.dataAmount}</td>
-              </tr>
-              ` : ''}
-              ${order.validity ? `
-              <tr>
-                <td style="padding: 8px 0; color: #6b7280;">Validity:</td>
-                <td style="padding: 8px 0; font-weight: 600;">${order.validity} days</td>
-              </tr>
-              ` : ''}
-              ${order.iccid ? `
-              <tr>
-                <td style="padding: 8px 0; color: #6b7280;">ICCID:</td>
-                <td style="padding: 8px 0; font-weight: 600; font-family: monospace;">${order.iccid}</td>
-              </tr>
-              ` : ''}
-              ${order.price ? `
-              <tr>
-                <td style="padding: 8px 0; color: #6b7280;">Amount:</td>
-                <td style="padding: 8px 0; font-weight: 600;">$${order.price}</td>
-              </tr>
-              ` : ''}
-            </table>
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+          body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f9fafb; }
+          .container { max-width: 600px; margin: 20px auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+          .header { background: linear-gradient(135deg, #2c7338 0%, #3d9a4d 100%); padding: 40px 20px; text-align: center; color: white; }
+          .header h1 { margin: 0; font-size: 24px; font-weight: 700; }
+          .content { padding: 40px 30px; }
+          .greeting { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+          .order-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 25px; margin: 25px 0; }
+          .order-title { font-weight: 700; color: #2c7338; margin-top: 0; font-size: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 15px; }
+          .order-table { width: 100%; font-size: 14px; }
+          .order-table td { padding: 8px 0; }
+          .label { color: #64748b; font-weight: 500; }
+          .value { text-align: right; font-weight: 600; color: #1e293b; }
+          .footer { background: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb; font-size: 12px; color: #9ca3af; }
+          .btn { background-color: #2c7338; color: #ffffff !important; padding: 12px 24px; text-decoration: none !important; border-radius: 6px; display: inline-block; font-weight: 600; margin-top: 20px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>${platformName}</h1>
+            <p style="margin: 5px 0 0 0; opacity: 0.9; font-size: 14px;">Order Confirmation</p>
           </div>
-          <p style="font-size: 16px; font-weight: 600; margin-top: 30px;">Next Steps:</p>
-          <p style="font-size: 14px;">Check your email for installation instructions with a QR code to activate your eSIM.</p>
-        </div>
-        <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
-          <p>© ${new Date().getFullYear()} ${platformName}. All rights reserved.</p>
+          <div class="content">
+            <p class="greeting">Hi ${customerName},</p>
+            <p>Your eSIM order has been successfully processed! We're excited to help you stay connected on your journey.</p>
+            
+            <div class="order-box">
+              <div class="order-title">Order Summary</div>
+              <table class="order-table">
+                <tr>
+                  <td class="label">Order ID:</td>
+                  <td class="value">${order.displayOrderId || order.displayId || order.id}</td>
+                </tr>
+                <tr>
+                  <td class="label">Package:</td>
+                  <td class="value">${order.destination || order.packageName || 'eSIM Package'}</td>
+                </tr>
+                <tr>
+                  <td class="label">Data:</td>
+                  <td class="value">${order.dataAmount || 'N/A'}</td>
+                </tr>
+                <tr>
+                  <td class="label">Validity:</td>
+                  <td class="value">${order.validity ? `${order.validity} Days` : 'N/A'}</td>
+                </tr>
+                ${order.iccid ? `
+                <tr>
+                  <td class="label">ICCID:</td>
+                  <td class="value"><span style="font-family: monospace;">${order.iccid}</span></td>
+                </tr>
+                ` : ''}
+                <tr style="border-top: 1px solid #e2e8f0;">
+                  <td class="label" style="padding-top: 15px; font-weight: 700; color: #1e293b;">Total Amount:</td>
+                  <td class="value" style="padding-top: 15px; font-size: 18px; color: #2c7338;">$${order.price || '0.00'}</td>
+                </tr>
+                <tr>
+                  <td class="label">Payment Method:</td>
+                  <td class="value" style="text-transform: capitalize;">${order.paymentMethod || 'Card'}</td>
+                </tr>
+                <tr>
+                  <td class="label">Order Date:</td>
+                  <td class="value">${new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</td>
+                </tr>
+              </table>
+            </div>
+
+            <div style="text-align: center;">
+              <p style="margin-bottom: 10px; font-weight: 600;">Ready to get started?</p>
+              <p style="font-size: 14px; color: #64748b;">You will receive another email shortly with detailed installation instructions and your QR code.</p>
+              <a href="${process.env.BASE_URL || 'https://simfinity.tel'}/my-orders" class="btn">View My Orders</a>
+            </div>
+
+            <p style="font-size: 14px; color: #6b7280; text-align: center; margin-top: 40px;">
+              Need help? Visit our Help Center or contact <a href="mailto:support@flexiroam.com" style="color: #2c7338; text-decoration: none;">support@flexiroam.com</a>
+            </p>
+          </div>
+          <div class="footer">
+            <p>&copy; ${new Date().getFullYear()} ${platformName}. All rights reserved.</p>
+            <p>Stay connected anywhere in the world.</p>
+            <div style="margin-top: 15px;">
+              <a href="${baseUrl}/pages/terms-and-condition" style="margin: 0 10px; display: inline-block; color: #9ca3af; text-decoration: none;">Terms & Conditions</a>
+              <a href="${baseUrl}/pages/privacy-policy" style="margin: 0 10px; display: inline-block; color: #9ca3af; text-decoration: none;">Privacy Policy</a>
+            </div>
+          </div>  
         </div>
       </body>
       </html>
@@ -451,10 +503,23 @@ export async function generateInstallationEmail(order: any) {
   const settings = await loadSmtpSettings();
   const platformName = settings.platformName;
 
+  // Fetch customer name from user table if userId is present
+  let customerName = order.name || order.customerName || 'Traveler';
+  if (order.userId) {
+    try {
+      const userList = await db.select().from(users).where(eq(users.id, order.userId)).limit(1);
+      if (userList.length > 0 && userList[0].name) {
+        customerName = userList[0].name;
+      }
+    } catch (err) {
+      console.error("Failed to fetch user name for installation email:", err);
+    }
+  }
+
   // ✅ Try DB template first
   try {
     const templateRendered = await renderTemplate('esim_installation', {
-      customer_name: order.name || 'Customer',
+      customer_name: customerName,
       package_name: order.packageName || 'Your Package',
       qr_code_url: order.qrCodeUrl || '',
       esim_iccid: order.iccid || '',
@@ -531,7 +596,8 @@ export async function generateInstallationEmail(order: any) {
           .manual-info { background: #f1f5f9; padding: 15px; border-radius: 6px; font-family: monospace; font-size: 13px; word-break: break-all; margin-top: 10px; border: 1px dashed #cbd5e1; }
           .manual-label { font-family: sans-serif; font-size: 12px; color: #64748b; margin-bottom: 4px; font-weight: 600; }
           .footer { background: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb; font-size: 12px; color: #9ca3af; }
-          .btn { background: #2c7338; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: 600; margin-top: 10px; }
+          .btn { background-color: #2c7338; color: #ffffff !important; padding: 12px 24px; text-decoration: none !important; border-radius: 6px; display: inline-block; font-weight: 600; margin-top: 10px; }
+          .btn span { color: #ffffff !important; }
         </style>
       </head>
       <body>
@@ -540,82 +606,122 @@ export async function generateInstallationEmail(order: any) {
             <h1>${platformName} - eSIM Installation</h1>
           </div>
           <div class="content">
-            <p class="greeting">Hello ${order.name || 'Traveler'},</p>
-            <p class="intro">Thank you for choosing ${platformName}! To get started with your eSIM, please follow these simple steps.</p>
+            <p class="greeting">Hello ${customerName},</p>
+            <p class="intro">Thank you for choosing ${platformName}! To get started with your eSIM, please follow these simple steps:</p>
 
             <div class="reminder-box">
               <h3>REMINDER! Before proceeding, please ensure:</h3>
               <ul>
                 <li>Your device is not carrier-locked.</li>
-                <li>You have a stable internet connection.</li>
-                <li>Activation typically takes 5 to 10 minutes. If it takes longer, try toggling Wi-Fi on and off.</li>
+                <li>You have a stable internet connection when installing eSIM/SIM.</li>
+                <li>eSIM activation typically takes 5 to 10 minutes. If it takes longer, try toggling Wi-Fi on and off on your device.</li>
                 <li><strong>Note:</strong> Most eSIMs can only be installed once; if removed, they cannot be reinstalled.</li>
               </ul>
             </div>
 
             <div class="step-section">
-              <div class="step-title">STEP 01: INSTALLATION</div>
+              <div class="step-title">FOR FIRST TIME TRAVELERS:</div>
+              <div style="font-weight: 700; font-size: 18px; margin-bottom: 15px; color: #111827;">STEP 01: INSTALLATION</div>
               <p style="font-weight: 600; margin-bottom: 15px;">A. eSIM</p>
 
               <div class="option-box">
                 <p class="option-title">Option 01: Direct Installation</p>
-                <p style="font-size: 14px; margin-bottom: 0;">Open your <strong>${platformName} App</strong>, go to <strong>My SIMs</strong>, and click the <strong>"Install"</strong> button for your eSIM. Follow the prompts on your device.</p>
+                <p style="font-size: 14px; margin-bottom: 0;">On <strong>Account > My SIMs</strong> click the <strong>"Install"</strong> button for your eSIM. Allow the eSIM to download and simply keep clicking continue/accept on the steps displayed by your device to install it. If requested, set it up as <strong>"Secondary"</strong>. Your device will notify you when it is successfully installed.</p>
               </div>
 
               <div class="option-box">
                 <p class="option-title">Option 02: QR Code</p>
                 <div style="font-size: 14px;">
-                  <p><strong>iOS:</strong> Settings > Cellular > Add eSIM > Use QR Code.</p>
-                  <p><strong>Android:</strong> Settings > Network & Internet > (+) Icon > Download a SIM instead? > Next.</p>
+                  <p><strong>iOS:</strong></p>
+                  <p style="margin-top: 5px;">Display the QR code on another device or use a printed copy, open <strong>Settings > Cellular > Add eSIM</strong>, select <strong>'Use QR Code'</strong>, and scan it with your device's camera.</p>
+                  
+                  <p style="margin-top: 10px;"><strong>Other options:</strong></p>
+                  <ul style="margin-top: 5px;">
+                    <li>(a) For iOS 17.4 or later: Long-press the QR code, then tap 'Add eSIM' from the menu.</li>
+                    <li>(b) For iOS 17.3 or below: Save the QR code as a photo, go to Settings > Cellular > Add eSIM, select 'Use QR Code', and choose the saved image from Photos to scan and install.</li>
+                  </ul>
+
+                  <p style="margin-top: 15px;"><strong>ANDROID:</strong></p>
+                  <p style="margin-top: 5px;">Go to <strong>Settings > Network & Internet</strong>, then tap the <strong>"+"</strong> icon. Select <strong>"Don’t have a SIM card?"</strong> and tap <strong>"Next"</strong>. Scan the QR code to proceed.</p>
+                  
+                  <p style="margin-top: 10px;">Allow the eSIM to download and simply keep clicking continue/accept on the steps displayed by your device to install it. If requested, set it up as <strong>"Secondary"</strong>. Your device will notify you when it is successfully installed.</p>
                 </div>
+                
                 <div class="qr-code-container">
-                  <p style="font-size: 12px; color: #6b7280; margin-top: 0; margin-bottom: 10px;">Scan this QR code to install</p>
+                  <p style="font-size: 12px; color: #6b7280; margin-top: 0; margin-bottom: 10px;">Use the following QR Code:</p>
                   ${qrHtml}
                   ${order.shortUrl ? `
                   <div style="margin-top: 20px;">
-                    <a href="${order.shortUrl}" class="btn">Quick Install eSIM</a>
+                    <a href="${order.shortUrl}" class="btn"><span style="color: #ffffff !important;">Quick Install eSIM</span></a>
                   </div>
                   ` : ''}
-                  <div style="margin-top: 15px; font-family: monospace; font-size: 14px; font-weight: 600;">ICCID: ${order.iccid || 'N/A'}</div>
+                  <div style="margin-top: 15px; font-family: monospace; font-size: 14px; font-weight: 600;">SN: ${order.iccid || 'N/A'}</div>
                 </div>
               </div>
 
               <div class="option-box">
                 <p class="option-title">Option 03: Manual Installation</p>
-                <p style="font-size: 14px;">If you can't scan the QR code, enter these details manually in your device's eSIM settings:</p>
+                <p style="font-size: 14px;">To manually activate an eSIM, go to the relevant settings on your device: <strong>[Cellular/Mobile Data]</strong> on iPhone, <strong>[Connections] > [SIM Card Manager]</strong> on Samsung Android, or <strong>[Network & Internet]</strong> on Google Android. Enter the SM-DP+ Address and activation code provided below:</p>
                 <div class="manual-info">
                   <div class="manual-label">SM-DP+ ADDRESS</div>
                   <div>${order.smdpAddress || 'Unavailable'}</div>
                   <div class="manual-label" style="margin-top: 10px;">ACTIVATION CODE</div>
                   <div>${activationCode || 'Unavailable'}</div>
                 </div>
+                <p style="font-size: 14px; margin-top: 15px;">Allow the eSIM to download and simply keep clicking continue/accept on the steps displayed by your device to install it. If requested, set it up as <strong>"Secondary"</strong>. Your device will notify you when it is successfully installed.</p>
               </div>
+
+              <p style="font-weight: 600; margin-top: 30px; margin-bottom: 15px;">B. Physical SIM</p>
+              <p style="font-size: 14px;">On <strong>Account > Link Starter Pack</strong>, scan the barcode of your Physical SIM card or enter the code manually to activate. Under <strong>Account > My SIMs</strong> you can check if your SIM card was correctly activated. After following STEP 02, install the SIM in your phone by ejecting your current one and replacing it with ${platformName} SIM or installing ${platformName} SIM in an additional slot.</p>
             </div>
 
             <div class="step-section">
-              <div class="step-title">STEP 02: ACTIVATE YOUR PLAN</div>
-              <ul style="font-size: 14px;">
-                <li>Make sure you have an active plan for your destination.</li>
-                <li>It may take 5-15 minutes for your internet to connect after activation.</li>
-              </ul>
+              <div style="font-weight: 700; font-size: 18px; margin-bottom: 15px; color: #111827;">STEP 02: ACTIVATE YOUR PLAN</div>
+              <p style="font-size: 14px;">On <strong>Account > My Plans</strong> make sure you have an active plan or activate the desired plan to be used. Make sure to check the coverage of the plan if necessary.</p>
+              <p style="font-size: 14px; font-style: italic; color: #6b7280;">Please note that it may take at least 5-15 minutes for your internet to be connected.</p>
             </div>
 
             <div class="step-section">
-              <div class="step-title">STEP 03: NETWORK CONFIGURATION</div>
+              <div style="font-weight: 700; font-size: 18px; margin-bottom: 15px; color: #111827;">STEP 03: NETWORK CONFIGURATION</div>
+              <p style="font-size: 14px; margin-bottom: 15px;"><strong>Tip:</strong> By default, your eSIM may be labeled as Secondary, Travel, Business, or another preset name. Tap on it on your device settings and rename it to <strong>${platformName}</strong> or other desired name to make it easier to identify it.</p>
+              
               <div style="font-size: 14px;">
-                <p><strong>A. Roaming:</strong> Enable "Data Roaming" for your new eSIM in settings.</p>
-                <p><strong>B. Default Network:</strong> Set the new eSIM as your primary "Cellular Data" line.</p>
-                <p><strong>C. APN:</strong> ${order.apn ? `Use APN: <strong>${order.apn}</strong>` : 'Most devices set this automatically. If not, check your plan details in the app.'}</p>
+                <p><strong>A. Activate the eSIM/SIM and enable Roaming:</strong></p>
+                <p>Go to your device's <strong>"Cellular"</strong> or <strong>"Mobile Data"</strong> settings. Make sure your ${platformName} eSIM/SIM is <strong>"On"</strong>. If not, set it to be <strong>"On"</strong>. Make sure <strong>Data Roaming</strong> is enabled for it.</p>
+                <p style="margin-top: 10px; color: #6b7280;"><em>Tip: It is recommended to turn off your primary SIM/eSIM (main primary line you use in your home country/town) to avoid unexpected costs due to mistaken configuration.</em></p>
+
+                <p style="margin-top: 20px;"><strong>B. Set Default Network:</strong></p>
+                <p>Ensure the correct network is set to come from your ${platformName} eSIM/SIM. If your device connects to the wrong network, disable automatic selection and manually choose a supported network.</p>
+
+                <p style="margin-top: 20px;"><strong>C. Configure APN if needed:</strong></p>
+                <p>For iOS devices the APN should be set automatically during installation. For Android devices, manual APN setup is required. Go to <strong>"Mobile Data Network"</strong> settings. Manually enter APN information provided in your plan details under <strong>Account > My Plans</strong> (can be found at plan info email as well). Restart your device.</p>
               </div>
             </div>
 
-            <p style="font-size: 14px; color: #6b7280; text-align: center; margin-top: 40px;">
-              Need help? Visit our Help Center or contact support@simfinity.tel
-            </p>
+            <div class="step-section">
+              <div style="font-weight: 700; font-size: 18px; margin-bottom: 15px; color: #111827;">FOR SUBSEQUENT TRAVELS:</div>
+              <p style="font-size: 14px;">Make sure the desired plan is activated in your app. On <strong>'Cellular'</strong> or <strong>'Mobile Data'</strong> device settings, tap on the active SIM card label and select the desired eSIM or SIM for use.</p>
+            </div>
+
+            <p style="font-weight: 600; margin-top: 40px;">Best Regards,</p>
+            <p>Team ${platformName}</p>
+
+            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; text-align: center; color: #6b7280; font-size: 14px;">
+              <p style="margin-bottom: 10px;"><a href="#" style="color: #2c7338; text-decoration: none; font-weight: 600;">Visit our Help Center</a></p>
+              <p>Contact us at <a href="mailto:support@flexiroam.com" style="color: #2c7338; text-decoration: none;">support@flexiroam.com</a></p>
+              <p>Message us on WhatsApp at <a href="https://wa.me/60132047800" style="color: #2c7338; text-decoration: none;">+6013-204-7800</a></p>
+              <p style="margin-top: 20px; font-weight: 600; color: #111827;">Stay connected anywhere in the world. Take ${platformName} with you!</p>
+            </div>
           </div>
           <div class="footer">
             <p>&copy; ${new Date().getFullYear()} ${platformName}. All rights reserved.</p>
-            <p>Stay connected anywhere in the world.</p>
+            <p><a href="#" style="color: #9ca3af; text-decoration: none; margin: 0 5px;">Terms and Conditions</a> | <a href="#" style="color: #9ca3af; text-decoration: none; margin: 0 5px;">Privacy Policy</a></p>
+            <div style="margin-top: 15px;">
+              <a href="#" style="margin: 0 10px; display: inline-block;"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20" alt="LinkedIn"></a>
+              <a href="#" style="margin: 0 10px; display: inline-block;"><img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" width="20" alt="Facebook"></a>
+              <a href="#" style="margin: 0 10px; display: inline-block;"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" width="20" alt="YouTube"></a>
+              <a href="#" style="margin: 0 10px; display: inline-block;"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="20" alt="Instagram"></a>
+            </div>
           </div>
         </div>
       </body>
@@ -676,10 +782,17 @@ export async function generateLowDataEmail(data: {
 
   // Customize message based on threshold
   switch (threshold) {
+    case "10_percent":
+      title = "Usage Update: 10% Data Used";
+      urgencyLevel = "Notice";
+      message = `You've used 10% of your data on your ${packageName} eSIM. You have ${remainingData} remaining out of ${totalData}.`;
+      actionText = "Just a friendly update on your data usage.";
+      break;
     case "75_percent":
+    case "80_percent":
       title = "Your eSIM Data is Running Low";
       urgencyLevel = "Notice";
-      message = `You've used 75% of your data on your ${packageName} eSIM. You have ${remainingData} remaining out of ${totalData}.`;
+      message = `You've used ${threshold === "75_percent" ? "75%" : "80%"} of your data on your ${packageName} eSIM. You have ${remainingData} remaining out of ${totalData}.`;
       actionText = "Consider topping up to avoid running out during your trip.";
       break;
     case "90_percent":
@@ -687,6 +800,12 @@ export async function generateLowDataEmail(data: {
       urgencyLevel = "Warning";
       message = `You've used 90% of your data on your ${packageName} eSIM. Only ${remainingData} remaining out of ${totalData}!`;
       actionText = "Top up now to stay connected.";
+      break;
+    case "100_percent":
+      title = "Out of Data!";
+      urgencyLevel = "Urgent";
+      message = `You've used 100% of your data on your ${packageName} eSIM. You have no data remaining!`;
+      actionText = "Top up immediately to restore connectivity.";
       break;
     case "3_days":
       title = "Your eSIM Expires in 3 Days";
