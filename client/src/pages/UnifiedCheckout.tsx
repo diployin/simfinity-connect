@@ -165,6 +165,7 @@ export default function UnifiedCheckout() {
   // Credits states
   const [appliedReferralCredits, setAppliedReferralCredits] = useState(0);
   const [isCreditsOpen, setIsCreditsOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const getCurrencySymbol = (currencyCode) =>
     currencies.find((c) => c.code === currencyCode)?.symbol || '$';
@@ -343,10 +344,19 @@ export default function UnifiedCheckout() {
   const totalAmount = Number(calculateTotal());
   const isFreeOrder = totalAmount === 0;
 
-
   const onSubmit = async (data) => {
+    setCustomerInfo(data);
+
+    const orderEmail = data?.email || user?.email;
+    const orderName = (user?.name && user.name !== 'Guest')
+      ? user.name
+      : (data?.name && data.name !== 'Guest')
+        ? data.name
+        : (orderEmail ? orderEmail.split('@')[0] : 'Guest');
+
     // 🟢 CASE 1: FREE ORDER (₹0)
     if (totalAmount === 0) {
+      setIsSubmitting(true);
       try {
         const res = await apiRequest('POST', '/api/complete-order', {
           type: 'package_purchase',
@@ -362,9 +372,9 @@ export default function UnifiedCheckout() {
           referralCredits: appliedReferralCredits || 0,
           promoDiscount: (appliedPromo?.discount || 0) + (appliedReferralCredits || 0),
 
-          // Customer info (for guests)
-          email: data?.email,
-          name: data?.name || 'Guest',
+          // Customer info
+          email: orderEmail,
+          name: orderName,
           phone: data?.phone,
         });
 
@@ -376,6 +386,7 @@ export default function UnifiedCheckout() {
             description: result.message,
             variant: 'destructive',
           });
+          setIsSubmitting(false);
           return;
         }
 
@@ -393,6 +404,7 @@ export default function UnifiedCheckout() {
           description: err.message || 'Failed to complete order',
           variant: 'destructive',
         });
+        setIsSubmitting(false);
         return;
       }
     }
@@ -407,7 +419,7 @@ export default function UnifiedCheckout() {
       return;
     }
 
-    setCustomerInfo(data);
+    setIsSubmitting(true);
 
     const payload = {
       gatewayId: selectedGateway.id,
@@ -427,9 +439,9 @@ export default function UnifiedCheckout() {
       // Referral
       referralCredits: appliedReferralCredits || 0,
 
-      // Guest info
-      email: data.email,
-      name: data.name || 'Guest',
+      // Customer info
+      email: orderEmail,
+      name: orderName,
     };
 
     if (selectedGateway.provider === 'powertranz') {
@@ -449,6 +461,7 @@ export default function UnifiedCheckout() {
             description: resData.message,
             variant: 'destructive',
           });
+          setIsSubmitting(false);
           return;
         }
 
@@ -459,12 +472,14 @@ export default function UnifiedCheckout() {
 
 
         setInitResponse(resData.payment);
+        setIsSubmitting(false);
       }).catch((err) => {
         toast({
           title: 'Payment Init Error',
           description: err.message || 'Failed to call payment init API',
           variant: 'destructive',
         });
+        setIsSubmitting(false);
       });
   };
 
@@ -1013,8 +1028,8 @@ export default function UnifiedCheckout() {
                                     className={`
                                       relative p-4 rounded-xl border-2 cursor-pointer transition-all duration-200
                                       flex flex-col items-center justify-center gap-3 text-center
-                                      ${isSelected 
-                                        ? 'border-[#2c7338] bg-green-50/50 dark:bg-[#2c7338]/10 shadow-sm' 
+                                      ${isSelected
+                                        ? 'border-[#2c7338] bg-green-50/50 dark:bg-[#2c7338]/10 shadow-sm'
                                         : 'border-border hover:border-muted-foreground/30 hover:bg-muted/30'}
                                     `}
                                   >
@@ -1043,8 +1058,15 @@ export default function UnifiedCheckout() {
                         )}
 
 
-                        <Button type="submit" className="w-full bg-[#2c7338] text-white">
-                          Continue to Payment
+                        <Button type="submit" className="w-full bg-[#2c7338] text-white" disabled={isSubmitting}>
+                          {isSubmitting ? (
+                            <>
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Processing...
+                            </>
+                          ) : (
+                            'Continue to Payment'
+                          )}
                         </Button>
                       </form>
                     </Form>
@@ -1092,8 +1114,8 @@ export default function UnifiedCheckout() {
                                     className={`
                                       relative p-4 rounded-xl border-2 cursor-pointer transition-all duration-200
                                       flex flex-col items-center justify-center gap-3 text-center
-                                      ${isSelected 
-                                        ? 'border-[#2c7338] bg-green-50/50 dark:bg-[#2c7338]/10 shadow-sm' 
+                                      ${isSelected
+                                        ? 'border-[#2c7338] bg-green-50/50 dark:bg-[#2c7338]/10 shadow-sm'
                                         : 'border-border hover:border-muted-foreground/30 hover:bg-muted/30'}
                                     `}
                                   >
@@ -1136,6 +1158,7 @@ export default function UnifiedCheckout() {
                         </Button> */}
 
                         <Button
+                          disabled={isSubmitting}
                           onClick={() =>
                             onSubmit({
                               email: user?.email || customerInfo?.email,
@@ -1145,7 +1168,14 @@ export default function UnifiedCheckout() {
                           }
                           className="w-full bg-[#2c7338] text-white"
                         >
-                          {isFreeOrder ? 'Confirm Order' : 'Complete Payment'}
+                          {isSubmitting ? (
+                            <>
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Processing...
+                            </>
+                          ) : (
+                            isFreeOrder ? 'Confirm Order' : 'Complete Payment'
+                          )}
                         </Button>
 
 
