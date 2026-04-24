@@ -12,7 +12,15 @@ async function loadSmtpSettings() {
     "smtp_pass",
     "smtp_from_email",
     "platform_name",
-    "platform_tagline"
+    "platform_tagline",
+    "email",
+    "phone",
+    "help_center_url",
+    "facebook_url",
+    "instagram_url",
+    "twitter_url",
+    "linkedin_url",
+    "youtube_url"
   ];
 
   const rows = await db
@@ -32,7 +40,15 @@ async function loadSmtpSettings() {
     pass: config.smtp_pass || "",
     fromEmail: config.smtp_from_email || "",
     platformName: config.platform_name || "Simfinity",
-    platformTagline: config.platform_tagline || ""
+    platformTagline: config.platform_tagline || "",
+    supportEmail: config.email || "support@simfinity.tel",
+    whatsappNumber: config.phone || "",
+    helpCenterUrl: config.help_center_url || "#",
+    facebookUrl: config.facebook_url || "#",
+    instagramUrl: config.instagram_url || "#",
+    twitterUrl: config.twitter_url || "#",
+    linkedinUrl: config.linkedin_url || "#",
+    youtubeUrl: config.youtube_url || "#"
   };
 }
 
@@ -105,7 +121,7 @@ export async function sendEmail({ to, subject, html, text }: EmailOptions) {
 
   try {
     await transporter!.sendMail({
-      from: `"Simfinity" <${smtp.fromEmail}>`,
+      from: `"${smtp.platformName}" <${smtp.fromEmail}>`,
       to,
       subject,
       html,
@@ -479,7 +495,7 @@ export async function generateOrderConfirmationEmail(order: any) {
             </div>
 
             <p style="font-size: 14px; color: #6b7280; text-align: center; margin-top: 40px;">
-              Need help? Visit our Help Center or contact <a href="mailto:support@flexiroam.com" style="color: #2c7338; text-decoration: none;">support@flexiroam.com</a>
+              Need help? <a href="${settings.helpCenterUrl}" style="color: #2c7338; text-decoration: none;">Visit our Help Center</a> or contact <a href="mailto:${settings.supportEmail}" style="color: #2c7338; text-decoration: none;">${settings.supportEmail}</a>
             </p>
           </div>
           <div class="footer">
@@ -707,20 +723,20 @@ export async function generateInstallationEmail(order: any) {
             <p>Team ${platformName}</p>
 
             <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; text-align: center; color: #6b7280; font-size: 14px;">
-              <p style="margin-bottom: 10px;"><a href="#" style="color: #2c7338; text-decoration: none; font-weight: 600;">Visit our Help Center</a></p>
-              <p>Contact us at <a href="mailto:support@flexiroam.com" style="color: #2c7338; text-decoration: none;">support@flexiroam.com</a></p>
-              <p>Message us on WhatsApp at <a href="https://wa.me/60132047800" style="color: #2c7338; text-decoration: none;">+6013-204-7800</a></p>
+              <p style="margin-bottom: 10px;"><a href="${settings.helpCenterUrl}" style="color: #2c7338; text-decoration: none; font-weight: 600;">Visit our Help Center</a></p>
+              <p>Contact us at <a href="mailto:${settings.supportEmail}" style="color: #2c7338; text-decoration: none;">${settings.supportEmail}</a></p>
+              ${settings.whatsappNumber ? `<p>Message us on WhatsApp at <a href="https://wa.me/${settings.whatsappNumber.replace(/[^0-9]/g, '')}" style="color: #2c7338; text-decoration: none;">${settings.whatsappNumber}</a></p>` : ''}
               <p style="margin-top: 20px; font-weight: 600; color: #111827;">Stay connected anywhere in the world. Take ${platformName} with you!</p>
             </div>
           </div>
           <div class="footer">
             <p>&copy; ${new Date().getFullYear()} ${platformName}. All rights reserved.</p>
-            <p><a href="#" style="color: #9ca3af; text-decoration: none; margin: 0 5px;">Terms and Conditions</a> | <a href="#" style="color: #9ca3af; text-decoration: none; margin: 0 5px;">Privacy Policy</a></p>
+            <p><a href="${process.env.BASE_URL || 'https://simfinity.tel'}/pages/terms-and-condition" style="color: #9ca3af; text-decoration: none; margin: 0 5px;">Terms and Conditions</a> | <a href="${process.env.BASE_URL || 'https://simfinity.tel'}/pages/privacy-policy" style="color: #9ca3af; text-decoration: none; margin: 0 5px;">Privacy Policy</a></p>
             <div style="margin-top: 15px;">
-              <a href="#" style="margin: 0 10px; display: inline-block;"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20" alt="LinkedIn"></a>
-              <a href="#" style="margin: 0 10px; display: inline-block;"><img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" width="20" alt="Facebook"></a>
-              <a href="#" style="margin: 0 10px; display: inline-block;"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" width="20" alt="YouTube"></a>
-              <a href="#" style="margin: 0 10px; display: inline-block;"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="20" alt="Instagram"></a>
+              ${settings.linkedinUrl !== '#' ? `<a href="${settings.linkedinUrl}" style="margin: 0 10px; display: inline-block;"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20" alt="LinkedIn"></a>` : ''}
+              ${settings.facebookUrl !== '#' ? `<a href="${settings.facebookUrl}" style="margin: 0 10px; display: inline-block;"><img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" width="20" alt="Facebook"></a>` : ''}
+              ${settings.youtubeUrl !== '#' ? `<a href="${settings.youtubeUrl}" style="margin: 0 10px; display: inline-block;"><img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" width="20" alt="YouTube"></a>` : ''}
+              ${settings.instagramUrl !== '#' ? `<a href="${settings.instagramUrl}" style="margin: 0 10px; display: inline-block;"><img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="20" alt="Instagram"></a>` : ''}
             </div>
           </div>
         </div>
@@ -835,7 +851,7 @@ export async function generateLowDataEmail(data: {
       <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f3f4f6;">
         <div style="max-width: 600px; margin: 0 auto; background-color: white;">
           <div style="background: linear-gradient(135deg, #2c7338 0%, #3d9a4d 100%); padding: 40px 30px; text-align: center;">
-            <h1 style="color: white; margin: 0; font-size: 28px;">Simfinity</h1>
+            <h1 style="color: white; margin: 0; font-size: 28px;">${smtp.platformName}</h1>
           </div>
           <div style="padding: 40px 30px;">
             <div style="background: ${urgencyColor}15; border-left: 4px solid ${urgencyColor}; padding: 20px; margin-bottom: 30px; border-radius: 4px;">
@@ -878,10 +894,10 @@ export async function generateLowDataEmail(data: {
               <p style="margin: 0; font-size: 14px; color: #2c7338;"><strong>Tip:</strong> Top up before you run out to avoid any interruption in service. Your eSIM will continue working seamlessly!</p>
             </div>
             
-            <p style="font-size: 14px; color: #6b7280; margin-top: 30px;">Need help? Contact our support team at info@simfinity.tel</p>
+            <p style="font-size: 14px; color: #6b7280; margin-top: 30px;">Need help? Contact our support team at ${smtp.supportEmail}</p>
           </div>
           <div style="background: #f9fafb; padding: 20px 30px; text-align: center; border-top: 1px solid #e5e7eb;">
-            <p style="margin: 0; font-size: 12px; color: #9ca3af;">© ${new Date().getFullYear()} Simfinity. All rights reserved.</p>
+            <p style="margin: 0; font-size: 12px; color: #9ca3af;">© ${new Date().getFullYear()} ${smtp.platformName}. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -894,10 +910,11 @@ export async function generateCustomNotificationEmail(subject: string, message: 
   // Try to use database template first
   // For custom notifications, we don't use the message variable since admins provide full content
   // But we can still use the template for consistent branding
+  const settings = await loadSmtpSettings();
   const templateRendered = await renderTemplate('custom', {
     customer_name: userName,
     customer_email: userEmail || '',
-    platform_name: 'Simfinity',
+    platform_name: settings.platformName,
   });
 
   // If template exists, we'll use the admin's custom subject and message instead of template
@@ -920,7 +937,7 @@ export async function generateCustomNotificationEmail(subject: string, message: 
       </head>
       <body style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: linear-gradient(135deg, #2c7338 0%, #3d9a4d 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
-          <h1 style="color: white; margin: 0; font-size: 28px;">Simfinity</h1>
+          <h1 style="color: white; margin: 0; font-size: 28px;">${settings.platformName}</h1>
         </div>
         <div style="background: #f0fdf4; padding: 40px; border-radius: 0 0 10px 10px;">
           <p style="font-size: 16px; margin-bottom: 20px;">Hi ${userName},</p>
@@ -932,7 +949,7 @@ export async function generateCustomNotificationEmail(subject: string, message: 
           </p>
         </div>
         <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
-          <p>© ${new Date().getFullYear()} Simfinity. All rights reserved.</p>
+          <p>© ${new Date().getFullYear()} ${settings.platformName}. All rights reserved.</p>
         </div>
       </body>
       </html>
@@ -955,6 +972,7 @@ interface EnterpriseQuoteEmailData {
 }
 
 export async function sendEnterpriseQuoteEmail(data: EnterpriseQuoteEmailData) {
+  const settings = await loadSmtpSettings();
   const formattedValidUntil = new Date(data.validUntil).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -975,7 +993,7 @@ export async function sendEnterpriseQuoteEmail(data: EnterpriseQuoteEmailData) {
       </head>
       <body style="font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: linear-gradient(135deg, #2c7338 0%, #3d9a4d 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
-          <h1 style="color: white; margin: 0; font-size: 28px;">Simfinity</h1>
+          <h1 style="color: white; margin: 0; font-size: 28px;">${settings.platformName}</h1>
           <p style="color: rgba(255,255,255,0.9); margin: 10px 0 0 0;">Enterprise Quote</p>
         </div>
         <div style="background: #f0fdf4; padding: 40px; border-radius: 0 0 10px 10px;">
@@ -1045,7 +1063,7 @@ export async function sendEnterpriseQuoteEmail(data: EnterpriseQuoteEmailData) {
           </p>
         </div>
         <div style="text-align: center; padding: 20px; color: #9ca3af; font-size: 12px;">
-          <p>© ${new Date().getFullYear()} Simfinity. All rights reserved.</p>
+          <p>© ${new Date().getFullYear()} ${settings.platformName}. All rights reserved.</p>
         </div>
       </body>
       </html>
