@@ -14,6 +14,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 // Types
 interface DestinationWithPricing {
@@ -45,6 +46,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
   const [searchType, setSearchType] = useState<"country" | "region">("country");
   const [, setLocation] = useLocation();
   const { currency } = useCurrency();
+  const { t } = useTranslation();
 
   const { data: destinationsWithPricing, isLoading: destinationsLoading } =
     useQuery<DestinationWithPricing[]>({
@@ -134,10 +136,10 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
           <DialogHeader className="px-6 pt-6 pb-4 border-b">
             <DialogTitle className="text-xl font-bold flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-primary" />
-              Search Destinations
+              {t('website.home.searchModal.title', 'Search Destinations')}
             </DialogTitle>
             <DialogDescription className="text-sm">
-              200+ countries & regions available
+              {t('website.home.searchModal.subtitle', '200+ countries & regions available')}
             </DialogDescription>
           </DialogHeader>
 
@@ -166,7 +168,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                       <Check className="h-2 w-2 text-primary" />
                     )}
                   </div>
-                  Countries
+                  {t('website.home.searchModal.countries', 'Countries')}
                 </button>
                 <button
                   onClick={() => {
@@ -188,7 +190,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                       <Check className="h-2 w-2 text-primary" />
                     )}
                   </div>
-                  Regions
+                  {t('website.home.searchModal.regions', 'Regions')}
                 </button>
               </div>
 
@@ -201,8 +203,8 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                       type="text"
                       placeholder={
                         searchType === "country"
-                          ? "Search countries..."
-                          : "Search regions..."
+                          ? t('website.home.searchModal.placeholderCountries', 'Search countries...')
+                          : t('website.home.searchModal.placeholderRegions', 'Search regions...')
                       }
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
@@ -223,7 +225,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide">
-                      Results
+                      {t('website.home.searchModal.results', 'Results')}
                     </h3>
                     <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
                       {getFilteredResults().length}
@@ -235,7 +237,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                     </div>
                   ) : getFilteredResults().length === 0 ? (
                     <div className="py-8 text-center text-sm text-muted-foreground">
-                      No results found
+                      {t('website.home.searchModal.noResults', 'No results found')}
                     </div>
                   ) : (
                     <div className="space-y-1.5">
@@ -276,7 +278,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                                 {(item as any).name}
                               </p>
                               <p className="text-xs text-muted-foreground">
-                                From{" "}
+                                {t('website.home.searchModal.from', 'From')}{" "}
                                 <span className="text-primary font-bold">
                                   $
                                   {parseFloat((item as any).minPrice).toFixed(
@@ -297,8 +299,9 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                   {/* Popular Section */}
                   <div>
                     <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide mb-3">
-                      Popular{" "}
-                      {searchType === "country" ? "Countries" : "Regions"}
+                      {searchType === "country"
+                        ? t('website.home.searchModal.popularCountries', 'Popular Countries')
+                        : t('website.home.searchModal.popularRegions', 'Popular Regions')}
                     </h3>
 
                     {searchType === "country" && (
@@ -360,7 +363,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                   {searchType === "country" && !destinationsLoading && (
                     <div>
                       <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide mb-3">
-                        All Countries ({getAllCountries().length})
+                        {t('website.home.searchModal.allCountries', 'All Countries')} ({getAllCountries().length})
                       </h3>
                       <div className="space-y-1">
                         {getAllCountries().map((dest) => (
@@ -385,7 +388,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                                   {dest.name}
                                 </p>
                                 <p className="text-xs text-muted-foreground">
-                                  From{" "}
+                                  {t('website.home.searchModal.from', 'From')}{" "}
                                   <span className="text-primary font-semibold">
                                     ${parseFloat(dest.minPrice).toFixed(1)}
                                   </span>
@@ -405,7 +408,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                     regionsWithPricing && (
                       <div>
                         <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide mb-3">
-                          All Regions ({regionsWithPricing.length})
+                          {t('website.home.searchModal.allRegions', 'All Regions')} ({regionsWithPricing.length})
                         </h3>
                         <div className="space-y-1">
                           {regionsWithPricing.map((region) => (
@@ -426,7 +429,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                                     {region.name}
                                   </p>
                                   <p className="text-xs text-muted-foreground">
-                                    From{" "}
+                                    {t('website.home.searchModal.from', 'From')}{" "}
                                     <span className="text-primary font-semibold">
                                       ${parseFloat(region.minPrice).toFixed(1)}
                                     </span>

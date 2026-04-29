@@ -13,17 +13,19 @@ import {
 } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { useSettingByKey } from '@/hooks/useSettings';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function Careers() {
   const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const { t } = useTranslation();
 
   const perks = [
-    { icon: Globe2, title: 'Remote First', desc: 'Work from anywhere in the world — we believe great work happens everywhere.', color: 'from-primary to-primary-dark' },
-    { icon: Heart, title: 'Health & Wellness', desc: 'Comprehensive health insurance, mental health support, and wellness stipend.', color: 'from-rose-500 to-rose-600' },
-    { icon: GraduationCap, title: 'Learning Budget', desc: '$2,000/year for courses, conferences, and professional development.', color: 'from-purple-500 to-purple-600' },
-    { icon: Coffee, title: 'Flexible Hours', desc: 'We focus on outcomes, not hours. Work when you\'re most productive.', color: 'from-amber-500 to-amber-600' },
-    { icon: Zap, title: 'Latest Tech', desc: 'Top-of-the-line equipment and tools to do your best work.', color: 'from-cyan-500 to-cyan-600' },
-    { icon: Users, title: 'Team Retreats', desc: 'Annual team gatherings in exciting destinations around the globe.', color: 'from-emerald-500 to-emerald-600' },
+    { icon: Globe2, title: t('careers.perkRemoteTitle', 'Remote First'), desc: t('careers.perkRemoteDesc', 'Work from anywhere in the world — we believe great work happens everywhere.'), color: 'from-primary to-primary-dark' },
+    { icon: Heart, title: t('careers.perkHealthTitle', 'Health & Wellness'), desc: t('careers.perkHealthDesc', 'Comprehensive health insurance, mental health support, and wellness stipend.'), color: 'from-rose-500 to-rose-600' },
+    { icon: GraduationCap, title: t('careers.perkLearningTitle', 'Learning Budget'), desc: t('careers.perkLearningDesc', '$2,000/year for courses, conferences, and professional development.'), color: 'from-purple-500 to-purple-600' },
+    { icon: Coffee, title: t('careers.perkHoursTitle', 'Flexible Hours'), desc: t('careers.perkHoursDesc', 'We focus on outcomes, not hours. Work when you\'re most productive.'), color: 'from-amber-500 to-amber-600' },
+    { icon: Zap, title: t('careers.perkTechTitle', 'Latest Tech'), desc: t('careers.perkTechDesc', 'Top-of-the-line equipment and tools to do your best work.'), color: 'from-cyan-500 to-cyan-600' },
+    { icon: Users, title: t('careers.perkRetreatsTitle', 'Team Retreats'), desc: t('careers.perkRetreatsDesc', 'Annual team gatherings in exciting destinations around the globe.'), color: 'from-emerald-500 to-emerald-600' },
   ];
 
   const openings = [
@@ -40,8 +42,8 @@ export default function Careers() {
   return (
     <>
       <Helmet>
-        <title>Careers — {siteName}</title>
-        <meta name="description" content={`Join ${siteName} and help connect the world. Explore open positions and build the future of travel connectivity.`} />
+        <title>{t('careers.pageTitle', 'Careers — {{siteName}}', { siteName })}</title>
+        <meta name="description" content={t('careers.pageMeta', 'Join {{siteName}} and help connect the world. Explore open positions and build the future of travel connectivity.', { siteName })} />
       </Helmet>
 
       <div className="min-h-screen bg-background">
@@ -53,17 +55,17 @@ export default function Careers() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
               <Sparkles className="w-4 h-4 text-white" />
-              <span className="text-sm font-medium text-white">We're hiring</span>
+              <span className="text-sm font-medium text-white">{t('careers.weAreHiring', 'We\'re hiring')}</span>
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Build the future of{' '}
-              <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">global connectivity</span>
+              {t('careers.heroTitlePrefix', 'Build the future of')}{' '}
+              <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">{t('careers.heroTitleHighlight', 'global connectivity')}</span>
             </h1>
             <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto">
-              Join a passionate team making travel connectivity effortless for millions of people worldwide.
+              {t('careers.heroSubtitle', 'Join a passionate team making travel connectivity effortless for millions of people worldwide.')}
             </p>
             <a href="#openings" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors">
-              View Open Positions
+              {t('careers.viewOpenings', 'View Open Positions')}
               <ArrowRight className="w-5 h-5" />
             </a>
           </div>
@@ -72,8 +74,8 @@ export default function Careers() {
         <section className="py-16 md:py-24 bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Why work at {siteName}?</h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">We believe happy teams build great products. Here's what we offer.</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('careers.whyWorkHere', 'Why work at {{siteName}}?', { siteName })}</h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t('careers.whySubtitle', 'We believe happy teams build great products. Here\'s what we offer.')}</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {perks.map((perk) => (
@@ -92,8 +94,8 @@ export default function Careers() {
         <section id="openings" className="py-16 md:py-24 bg-muted/30">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Open Positions</h2>
-              <p className="text-muted-foreground text-lg">Find your place on our team. All roles are remote-friendly.</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('careers.openingsTitle', 'Open Positions')}</h2>
+              <p className="text-muted-foreground text-lg">{t('careers.openingsSubtitle', 'Find your place on our team. All roles are remote-friendly.')}</p>
             </div>
             <div className="space-y-4">
               {openings.map((job) => (
@@ -107,7 +109,7 @@ export default function Careers() {
                     </div>
                   </div>
                   <button className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-gradient-to-r from-primary to-primary-dark text-white font-medium text-sm hover:opacity-90 transition-opacity whitespace-nowrap">
-                    Apply Now <ArrowRight className="w-4 h-4" />
+                    {t('careers.applyNow', 'Apply Now')} <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
               ))}
@@ -122,10 +124,10 @@ export default function Careers() {
                 <div className="absolute top-10 right-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl" />
               </div>
               <div className="relative z-10">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Don't see the right role?</h2>
-                <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">We're always looking for talented people. Send us your resume and we'll keep you in mind for future openings.</p>
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{t('careers.noRoleTitle', 'Don\'t see the right role?')}</h2>
+                <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">{t('careers.noRoleDesc', 'We\'re always looking for talented people. Send us your resume and we\'ll keep you in mind for future openings.')}</p>
                 <button className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-bold text-lg hover:bg-slate-100 transition-colors">
-                  Send Your Resume <ArrowRight className="w-5 h-5" />
+                  {t('careers.sendResume', 'Send Your Resume')} <ArrowRight className="w-5 h-5" />
                 </button>
               </div>
             </div>

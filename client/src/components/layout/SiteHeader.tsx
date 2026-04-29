@@ -454,7 +454,7 @@ export function SiteHeader() {
                       className="cursor-pointer flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
                     >
                       <User className="h-4 w-4" />
-                      Profile
+                      {t('website.nav.profile', 'Profile')}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
@@ -463,7 +463,7 @@ export function SiteHeader() {
                       className="cursor-pointer flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800"
                     >
                       <ShoppingBag className="h-4 w-4" />
-                      My Orders
+                      {t('website.nav.myOrders', 'My Orders')}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator className="bg-gray-100 dark:bg-gray-800" />
@@ -471,7 +471,7 @@ export function SiteHeader() {
                     onClick={handleLogout}
                     className="text-red-600 dark:text-red-400 focus:text-red-600 dark:focus:text-red-400 cursor-pointer rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20"
                   >
-                    Sign Out
+                    {t('website.nav.signOut', 'Sign Out')}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -488,7 +488,7 @@ export function SiteHeader() {
                 className="w-[85vw] sm:w-80 p-0 bg-white dark:bg-gray-950 overflow-y-auto [&>button]:hidden"
               >
                 <SheetHeader className="border-b border-gray-100 dark:border-gray-800 p-5 flex flex-row items-center justify-between">
-                  <SheetTitle className="text-gray-900 dark:text-white text-lg">Menu</SheetTitle>
+                  <SheetTitle className="text-gray-900 dark:text-white text-lg">{t('website.nav.menu', 'Menu')}</SheetTitle>
                   <button onClick={closeMobileMenu} className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-md transition-colors">
                     <X className="h-5 w-5 text-gray-500" />
                   </button>
@@ -508,10 +508,10 @@ export function SiteHeader() {
                       </div>
                       <div className="flex flex-col gap-1">
                         <Link href="/account/profile" onClick={closeMobileMenu}>
-                          <span className="block py-2 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">Profile</span>
+                          <span className="block py-2 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">{t('website.nav.profile', 'Profile')}</span>
                         </Link>
                         <Link href="/account/orders" onClick={closeMobileMenu}>
-                          <span className="block py-2 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">My Orders</span>
+                          <span className="block py-2 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">{t('website.nav.myOrders', 'My Orders')}</span>
                         </Link>
                       </div>
                     </div>
@@ -670,7 +670,7 @@ export function SiteHeader() {
                   </div>
 
                   <div className="pt-4 mt-4 border-t border-gray-100 dark:border-gray-800 space-y-3">
-                    <p className="text-xs font-medium text-gray-500 uppercase tracking-wider px-3">Settings</p>
+                    <p className="text-xs font-medium text-gray-500 uppercase tracking-wider px-3">{t('website.nav.settings', 'Settings')}</p>
 
                     <div>
                       <button
@@ -679,7 +679,7 @@ export function SiteHeader() {
                       >
                         <div className="flex items-center gap-2">
                           <Globe className="h-4 w-4" />
-                          {t('common.button.selectLanguage', 'Language')}
+                          {t('website.nav.languages', 'Language')}
                         </div>
                         <div className="flex items-center gap-2">
                           <ReactCountryFlag countryCode={language?.flagCode || 'US'} svg style={{ width: '16px', height: '12px' }} />
@@ -710,11 +710,11 @@ export function SiteHeader() {
                     </div>
 
                     <div className="flex items-center justify-between px-3 py-2">
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Theme</span>
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.theme', 'Theme')}</span>
                       <ThemeToggle />
                     </div>
                     <div className="flex items-center justify-between px-3 py-2">
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Currency</span>
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.currency', 'Currency')}</span>
                       <CurrencySelector />
                     </div>
                     {/* <div className="flex items-center justify-between px-3 py-2">
@@ -740,7 +740,7 @@ export function SiteHeader() {
                         onClick={() => { handleLogout(); closeMobileMenu(); }}
                         className="w-full text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 text-sm font-medium py-2.5 px-4 rounded-full transition-all"
                       >
-                        Sign Out
+                        {t('website.nav.signOut', 'Sign Out')}
                       </button>
                     </div>
                   )}

@@ -100,7 +100,7 @@ export function FAQWithSupport() {
           ))}
 
           {(!categories || categories.length === 0) && (
-            <p className="text-center text-muted-foreground">No FAQs available at the moment.</p>
+            <p className="text-center text-muted-foreground">{t('website.home.faq.noFaqs', 'No FAQs available at the moment.')}</p>
           )}
         </div>
 
@@ -120,7 +120,7 @@ export function FAQWithSupport() {
               className="rounded-full border-[#3d9a4d] dark:border-[#1e5427] text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800"
               data-testid="button-help-center"
             >
-              {t('website.home.faq.support.buGo to Help Center')}
+              {t('website.home.faq.support.button', 'Go to Help Center')}
             </Button>
           </Link>
         </div>

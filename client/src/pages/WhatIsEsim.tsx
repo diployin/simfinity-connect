@@ -13,34 +13,36 @@ import {
 import { Helmet } from 'react-helmet-async';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { useLocation } from 'wouter';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function WhatIsEsim() {
   const siteName = useSettingByKey('platform_name') || 'Simfinity';
   const [, navigate] = useLocation();
+  const { t } = useTranslation();
 
   const benefits = [
-    { icon: Zap, title: 'Instant Setup', desc: 'No need to visit a store or wait for delivery. Download and activate in minutes.', color: 'from-amber-500 to-amber-600' },
-    { icon: Globe2, title: 'Global Coverage', desc: 'Connect in 200+ destinations worldwide without swapping SIM cards.', color: 'from-blue-500 to-blue-600' },
-    { icon: Layers, title: 'Multiple Profiles', desc: 'Store several eSIM profiles on one device — perfect for frequent travelers.', color: 'from-purple-500 to-purple-600' },
-    { icon: Shield, title: 'More Secure', desc: 'eSIMs can\'t be physically removed, stolen, or lost. Built-in security.', color: 'from-rose-500 to-rose-600' },
-    { icon: RefreshCw, title: 'Eco-Friendly', desc: 'No plastic SIM cards, no packaging waste. Better for the planet.', color: 'from-emerald-500 to-emerald-600' },
-    { icon: Wifi, title: 'Dual SIM', desc: 'Keep your regular number active while using an eSIM for data abroad.', color: 'from-cyan-500 to-cyan-600' },
+    { icon: Zap, title: t('website.whatIsEsim.benefitSetupTitle', 'Instant Setup'), desc: t('website.whatIsEsim.benefitSetupDesc', 'No need to visit a store or wait for delivery. Download and activate in minutes.'), color: 'from-amber-500 to-amber-600' },
+    { icon: Globe2, title: t('website.whatIsEsim.benefitGlobalTitle', 'Global Coverage'), desc: t('website.whatIsEsim.benefitGlobalDesc', 'Connect in 200+ destinations worldwide without swapping SIM cards.'), color: 'from-blue-500 to-blue-600' },
+    { icon: Layers, title: t('website.whatIsEsim.benefitProfilesTitle', 'Multiple Profiles'), desc: t('website.whatIsEsim.benefitProfilesDesc', 'Store several eSIM profiles on one device — perfect for frequent travelers.'), color: 'from-purple-500 to-purple-600' },
+    { icon: Shield, title: t('website.whatIsEsim.benefitSecureTitle', 'More Secure'), desc: t('website.whatIsEsim.benefitSecureDesc', 'eSIMs can\'t be physically removed, stolen, or lost. Built-in security.'), color: 'from-rose-500 to-rose-600' },
+    { icon: RefreshCw, title: t('website.whatIsEsim.benefitEcoTitle', 'Eco-Friendly'), desc: t('website.whatIsEsim.benefitEcoDesc', 'No plastic SIM cards, no packaging waste. Better for the planet.'), color: 'from-emerald-500 to-emerald-600' },
+    { icon: Wifi, title: t('website.whatIsEsim.benefitDualTitle', 'Dual SIM'), desc: t('website.whatIsEsim.benefitDualDesc', 'Keep your regular number active while using an eSIM for data abroad.'), color: 'from-cyan-500 to-cyan-600' },
   ];
 
   const faqs = [
-    { q: 'What exactly is an eSIM?', a: 'An eSIM (embedded SIM) is a digital SIM built into your device. Instead of inserting a physical SIM card, you download a data plan digitally. It works just like a regular SIM but without the physical card.' },
-    { q: 'How is an eSIM different from a physical SIM?', a: 'A physical SIM is a small card you insert into your phone. An eSIM is embedded in your device and can be programmed with different carrier profiles digitally. You can switch plans without swapping cards.' },
-    { q: 'Does my phone support eSIM?', a: 'Most phones released after 2018 support eSIM, including iPhone XR and later, Samsung Galaxy S20 and later, Google Pixel 3 and later, and many more. Check our Supported Devices page for a full list.' },
-    { q: 'Can I keep my regular phone number with an eSIM?', a: 'Yes! You can use your eSIM for data while keeping your physical SIM for calls and texts with your regular number. This dual-SIM setup is perfect for travelers.' },
-    { q: 'How do I install an eSIM?', a: 'It\'s simple: purchase an eSIM plan, scan the QR code provided, and follow your phone\'s setup instructions. Most installations take under 5 minutes.' },
-    { q: 'Is an eSIM as reliable as a physical SIM?', a: 'Yes, eSIMs use the same cellular networks as physical SIMs. The only difference is how the SIM profile is delivered — digitally instead of on a physical card.' },
+    { q: t('website.whatIsEsim.faq1Q', 'What exactly is an eSIM?'), a: t('website.whatIsEsim.faq1A', 'An eSIM (embedded SIM) is a digital SIM built into your device. Instead of inserting a physical SIM card, you download a data plan digitally. It works just like a regular SIM but without the physical card.') },
+    { q: t('website.whatIsEsim.faq2Q', 'How is an eSIM different from a physical SIM?'), a: t('website.whatIsEsim.faq2A', 'A physical SIM is a small card you insert into your phone. An eSIM is embedded in your device and can be programmed with different carrier profiles digitally. You can switch plans without swapping cards.') },
+    { q: t('website.whatIsEsim.faq3Q', 'Does my phone support eSIM?'), a: t('website.whatIsEsim.faq3A', 'Most phones released after 2018 support eSIM, including iPhone XR and later, Samsung Galaxy S20 and later, Google Pixel 3 and later, and many more. Check our Supported Devices page for a full list.') },
+    { q: t('website.whatIsEsim.faq4Q', 'Can I keep my regular phone number with an eSIM?'), a: t('website.whatIsEsim.faq4A', 'Yes! You can use your eSIM for data while keeping your physical SIM for calls and texts with your regular number. This dual-SIM setup is perfect for travelers.') },
+    { q: t('website.whatIsEsim.faq5Q', 'How do I install an eSIM?'), a: t('website.whatIsEsim.faq5A', 'It\'s simple: purchase an eSIM plan, scan the QR code provided, and follow your phone\'s setup instructions. Most installations take under 5 minutes.') },
+    { q: t('website.whatIsEsim.faq6Q', 'Is an eSIM as reliable as a physical SIM?'), a: t('website.whatIsEsim.faq6A', 'Yes, eSIMs use the same cellular networks as physical SIMs. The only difference is how the SIM profile is delivered — digitally instead of on a physical card.') },
   ];
 
   return (
     <>
       <Helmet>
-        <title>What is an eSIM? — {siteName}</title>
-        <meta name="description" content="Learn what an eSIM is, how it works, and why it's the future of mobile connectivity for travelers." />
+        <title>{t('website.whatIsEsim.pageTitle', 'What is an eSIM? — {{siteName}}', { siteName })}</title>
+        <meta name="description" content={t('website.whatIsEsim.pageMeta', 'Learn what an eSIM is, how it works, and why it\'s the future of mobile connectivity for travelers.')} />
       </Helmet>
 
       <div className="min-h-screen bg-background">
@@ -53,18 +55,18 @@ export default function WhatIsEsim() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  What is an{' '}
-                  <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">eSIM?</span>
+                  {t('website.whatIsEsim.heroTitlePrefix', 'What is an')}{' '}
+                  <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">{t('website.whatIsEsim.heroTitleHighlight', 'eSIM?')}</span>
                 </h1>
                 <p className="text-lg md:text-xl text-white/80 mb-8">
-                  An eSIM is a digital SIM embedded in your device. It lets you connect to mobile networks without a physical SIM card — just download a plan and go.
+                  {t('website.whatIsEsim.heroSubtitle', 'An eSIM is a digital SIM embedded in your device. It lets you connect to mobile networks without a physical SIM card — just download a plan and go.')}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <button onClick={() => navigate('/destinations')} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors">
-                    Browse eSIM Plans <ArrowRight className="w-5 h-5" />
+                    {t('website.whatIsEsim.browsePlansBtn', 'Browse eSIM Plans')} <ArrowRight className="w-5 h-5" />
                   </button>
                   <button onClick={() => navigate('/supported-devices')} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-white/20 text-white font-semibold text-lg hover:bg-white/10 transition-colors">
-                    Check Compatibility
+                    {t('website.whatIsEsim.checkCompatBtn', 'Check Compatibility')}
                   </button>
                 </div>
               </div>
@@ -75,11 +77,11 @@ export default function WhatIsEsim() {
                   </div>
                   <div className="absolute -top-4 -right-4 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-xl px-4 py-2 flex items-center gap-2">
                     <Wifi className="w-4 h-4 text-white" />
-                    <span className="text-sm font-medium text-white">Connected</span>
+                    <span className="text-sm font-medium text-white">{t('website.whatIsEsim.badgeConnected', 'Connected')}</span>
                   </div>
                   <div className="absolute -bottom-4 -left-4 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-xl px-4 py-2 flex items-center gap-2">
                     <Globe2 className="w-4 h-4 text-white" />
-                    <span className="text-sm font-medium text-white">200+ countries</span>
+                    <span className="text-sm font-medium text-white">{t('website.whatIsEsim.badgeCountries', '200+ countries')}</span>
                   </div>
                 </div>
               </div>
@@ -91,13 +93,13 @@ export default function WhatIsEsim() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">How does an eSIM work?</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">{t('website.whatIsEsim.howWorksTitle', 'How does an eSIM work?')}</h2>
                 <div className="space-y-6">
                   {[
-                    { step: '1', text: 'Your device has a tiny chip built in that acts as a SIM card.' },
-                    { step: '2', text: 'Instead of inserting a physical card, you download a carrier profile digitally.' },
-                    { step: '3', text: 'The eSIM profile connects you to local networks in your destination.' },
-                    { step: '4', text: 'You can store multiple profiles and switch between them anytime.' },
+                    { step: '1', text: t('website.whatIsEsim.howWorksStep1', 'Your device has a tiny chip built in that acts as a SIM card.') },
+                    { step: '2', text: t('website.whatIsEsim.howWorksStep2', 'Instead of inserting a physical card, you download a carrier profile digitally.') },
+                    { step: '3', text: t('website.whatIsEsim.howWorksStep3', 'The eSIM profile connects you to local networks in your destination.') },
+                    { step: '4', text: t('website.whatIsEsim.howWorksStep4', 'You can store multiple profiles and switch between them anytime.') },
                   ].map((item) => (
                     <div key={item.step} className="flex items-start gap-4">
                       <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary-light flex items-center justify-center flex-shrink-0">
@@ -109,15 +111,15 @@ export default function WhatIsEsim() {
                 </div>
               </div>
               <div className="bg-muted/50 rounded-2xl p-8 border border-border">
-                <h3 className="text-xl font-bold text-foreground mb-6 text-center">eSIM vs Physical SIM</h3>
+                <h3 className="text-xl font-bold text-foreground mb-6 text-center">{t('website.whatIsEsim.vsTitle', 'eSIM vs Physical SIM')}</h3>
                 <div className="space-y-4">
                   {[
-                    { feature: 'Setup time', esim: 'Minutes', sim: 'Hours/Days' },
-                    { feature: 'Store visit', esim: 'Not needed', sim: 'Required' },
-                    { feature: 'Multiple plans', esim: 'Yes, digital', sim: 'Need multiple cards' },
-                    { feature: 'Can be lost', esim: 'No', sim: 'Yes' },
-                    { feature: 'Eco-friendly', esim: 'Yes', sim: 'Plastic waste' },
-                    { feature: 'Dual SIM', esim: 'Built-in', sim: 'Extra slot needed' },
+                    { feature: t('website.whatIsEsim.vsSetupTime', 'Setup time'), esim: t('website.whatIsEsim.valMinutes', 'Minutes'), sim: t('website.whatIsEsim.valHoursDays', 'Hours/Days') },
+                    { feature: t('website.whatIsEsim.vsStoreVisit', 'Store visit'), esim: t('website.whatIsEsim.valNotNeeded', 'Not needed'), sim: t('website.whatIsEsim.valRequired', 'Required') },
+                    { feature: t('website.whatIsEsim.vsMultiplePlans', 'Multiple plans'), esim: t('website.whatIsEsim.valDigital', 'Yes, digital'), sim: t('website.whatIsEsim.valMultipleCards', 'Need multiple cards') },
+                    { feature: t('website.whatIsEsim.vsLost', 'Can be lost'), esim: t('website.whatIsEsim.valNo', 'No'), sim: t('website.whatIsEsim.valYes', 'Yes') },
+                    { feature: t('website.whatIsEsim.vsEcoFriendly', 'Eco-friendly'), esim: t('website.whatIsEsim.valYes', 'Yes'), sim: t('website.whatIsEsim.valPlasticWaste', 'Plastic waste') },
+                    { feature: t('website.whatIsEsim.vsDualSim', 'Dual SIM'), esim: t('website.whatIsEsim.valBuiltIn', 'Built-in'), sim: t('website.whatIsEsim.valExtraSlot', 'Extra slot needed') },
                   ].map((row) => (
                     <div key={row.feature} className="grid grid-cols-3 gap-4 text-sm py-3 border-b border-border last:border-b-0">
                       <span className="font-medium text-foreground">{row.feature}</span>
@@ -134,7 +136,7 @@ export default function WhatIsEsim() {
         <section className="py-16 md:py-24 bg-muted/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Benefits of using an eSIM</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('website.whatIsEsim.benefitsTitle', 'Benefits of using an eSIM')}</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {benefits.map((b) => (
@@ -152,7 +154,7 @@ export default function WhatIsEsim() {
 
         <section className="py-16 md:py-24 bg-background">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-12">Frequently asked questions</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-12">{t('website.whatIsEsim.faqTitle', 'Frequently asked questions')}</h2>
             <div className="space-y-4">
               {faqs.map((faq, i) => (
                 <details key={i} className="group bg-card rounded-xl border border-border overflow-hidden">
@@ -176,10 +178,10 @@ export default function WhatIsEsim() {
                 <div className="absolute top-10 right-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl" />
               </div>
               <div className="relative z-10">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to try an eSIM?</h2>
-                <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">Browse our affordable plans and get connected in minutes — no physical SIM card needed.</p>
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{t('website.whatIsEsim.ctaTitle', 'Ready to try an eSIM?')}</h2>
+                <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">{t('website.whatIsEsim.ctaDesc', 'Browse our affordable plans and get connected in minutes — no physical SIM card needed.')}</p>
                 <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-bold text-lg hover:bg-slate-100 transition-colors">
-                  Browse Plans <ArrowRight className="w-5 h-5" />
+                  {t('website.whatIsEsim.ctaBtn', 'Browse Plans')} <ArrowRight className="w-5 h-5" />
                 </button>
               </div>
             </div>

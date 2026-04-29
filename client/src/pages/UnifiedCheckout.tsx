@@ -47,6 +47,7 @@ import { apiRequest, queryClient } from '@/lib/queryClient';
 import { CheckoutAuth } from '@/components/CheckoutAuth';
 import PaymentGatewayRenderer from '@/components/payments/PaymentGatewayRenderer';
 import { useSettingByKey } from '@/hooks/useSettings';
+import { useTranslation } from '@/contexts/TranslationContext';
 import { PackageDataApiRes } from '@/types/types';
 
 
@@ -130,11 +131,11 @@ const formatPackageTitle = (pkg: any): string => {
   return `${data} eSIM`;
 };
 
-const checkoutSchema = z.object({
-  email: z.string().email('Please enter a valid email address'),
-  phone: z.string().min(5, 'Please enter a valid phone number'),
+const checkoutSchema = (t: any) => z.object({
+  email: z.string().email(t('checkout.validation.email', 'Please enter a valid email address')),
+  phone: z.string().min(5, t('checkout.validation.phone', 'Please enter a valid phone number')),
   acceptTerms: z.boolean().refine((val) => val === true, {
-    message: 'You must accept the terms and privacy policy',
+    message: t('checkout.validation.terms', 'You must accept the terms and privacy policy'),
   }),
 });
 
@@ -146,6 +147,7 @@ export default function UnifiedCheckout() {
   const { toast } = useToast();
   const { currency, currencies } = useCurrency();
   const { user, isAuthenticated, isLoading: userLoading, refetchUser } = useUser();
+  const { t } = useTranslation();
 
   const [gateways, setGateways] = useState([]);
   const [selectedGateway, setSelectedGateway] = useState(null);
@@ -196,7 +198,7 @@ export default function UnifiedCheckout() {
   });
 
   const form = useForm({
-    resolver: zodResolver(checkoutSchema),
+    resolver: zodResolver(checkoutSchema(t)),
     defaultValues: {
       email: user?.email || '',
       phone: user?.phone || '',
@@ -603,22 +605,22 @@ export default function UnifiedCheckout() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>{`Checkout - ${formatDataAmount(packageData)} eSIM | ${siteName}`}</title>
+        <title>{`${t('checkout.title', 'Checkout')} - ${formatDataAmount(packageData)} eSIM | ${siteName}`}</title>
       </Helmet>
       {/* <SiteHeader /> */}
 
       <main className="flex-1 pt-20 pb-12">
         <div className="container mx-auto px-4 max-w-4xl">
           <Button variant="ghost" onClick={() => window.history.back()} className="mb-6">
-            <ArrowLeft className="w-4 h-4 mr-2" /> Back
+            <ArrowLeft className="w-4 h-4 mr-2" /> {t('checkout.back', 'Back')}
           </Button>
 
           <div className="grid lg:grid-cols-5 gap-8">
             <div className="lg:col-span-3 space-y-6">
               <div>
-                <h1 className="text-2xl font-bold text-foreground mb-2">Checkout</h1>
+                <h1 className="text-2xl font-bold text-foreground mb-2">{t('checkout.title', 'Checkout')}</h1>
                 <p className="text-muted-foreground">
-                  Complete your purchase to get instant access to your eSIM
+                  {t('checkout.subtitle', 'Complete your purchase to get instant access to your eSIM')}
                 </p>
               </div>
 
@@ -630,7 +632,7 @@ export default function UnifiedCheckout() {
                         <div className="flex items-center gap-2">
                           <Tag className="w-4 h-4 text-muted-foreground" />
                           <span className="font-medium text-foreground">
-                            Have promo, giftcard or referral?
+                            {t('checkout.promoCode', 'Have promo, giftcard or referral?')}
                           </span>
                         </div>
                         <Plus
@@ -648,7 +650,7 @@ export default function UnifiedCheckout() {
                                 onClick={() => setPromoCodeType('voucher')}
                               >
                                 <Tag className="w-3 h-3 mr-1" />
-                                Voucher
+                                {t('checkout.voucher', 'Voucher')}
                               </Button>
                               <Button
                                 type="button"
@@ -657,7 +659,7 @@ export default function UnifiedCheckout() {
                                 onClick={() => setPromoCodeType('giftcard')}
                               >
                                 <Gift className="w-3 h-3 mr-1" />
-                                Gift Card
+                                {t('checkout.giftCard', 'Gift Card')}
                               </Button>
                               <Button
                                 type="button"
@@ -666,7 +668,7 @@ export default function UnifiedCheckout() {
                                 onClick={() => setPromoCodeType('referral')}
                               >
                                 <Users className="w-3 h-3 mr-1" />
-                                Referral
+                                {t('checkout.referral', 'Referral')}
                               </Button>
                             </div>
 
@@ -685,7 +687,7 @@ export default function UnifiedCheckout() {
                                 {isValidatingPromo ? (
                                   <Loader2 className="w-4 h-4 animate-spin" />
                                 ) : (
-                                  'Apply'
+                                  t('checkout.apply', 'Apply')
                                 )}
                               </Button>
                             </div>
@@ -744,7 +746,7 @@ export default function UnifiedCheckout() {
                                 onClick={removePromo}
                                 className="text-red-500 hover:text-red-600"
                               >
-                                Remove
+                                {t('checkout.remove', 'Remove')}
                               </Button>
                             </div>
                           </>
@@ -762,11 +764,11 @@ export default function UnifiedCheckout() {
                   <CardContent className="p-4 space-y-4">
                     <h4 className="font-medium flex items-center gap-2">
                       <CreditCard className="w-4 h-4" />
-                      Card Details
+                      {t('checkout.cardDetails', 'Card Details')}
                     </h4>
 
                     <Input
-                      placeholder="Card Number"
+                      placeholder={t('checkout.cardNumber', 'Card Number')}
                       inputMode="numeric"
                       maxLength={19}
                       onChange={(e) =>
@@ -779,7 +781,7 @@ export default function UnifiedCheckout() {
 
                     <div className="grid grid-cols-2 gap-3">
                       <Input
-                        placeholder="MMYY"
+                        placeholder={t('checkout.expiry', 'MMYY')}
                         maxLength={4}
                         inputMode="numeric"
                         onChange={(e) =>
@@ -791,7 +793,7 @@ export default function UnifiedCheckout() {
                       />
 
                       <Input
-                        placeholder="CVV"
+                        placeholder={t('checkout.cvv', 'CVV')}
                         maxLength={4}
                         inputMode="numeric"
                         onChange={(e) =>
@@ -804,7 +806,7 @@ export default function UnifiedCheckout() {
                     </div>
 
                     <p className="text-xs text-muted-foreground">
-                      Your card is secured with 3D Secure authentication.
+                      {t('checkout.secureNote', 'Your card is secured with 3D Secure authentication.')}
                     </p>
                   </CardContent>
                 </Card>
@@ -820,9 +822,9 @@ export default function UnifiedCheckout() {
                       <CollapsibleTrigger className="flex items-center justify-between w-full">
                         <div className="flex items-center gap-2">
                           <Coins className="w-4 h-4 text-amber-500" />
-                          <span className="font-medium text-foreground">Use Referral Credits</span>
+                          <span className="font-medium text-foreground">{t('checkout.useReferralCredits', 'Use Referral Credits')}</span>
                           <span className="text-sm text-muted-foreground">
-                            (${availableCredits.toFixed(2)} available)
+                            (${availableCredits.toFixed(2)} {t('checkout.creditsAvailable', 'available')})
                           </span>
                         </div>
                         <Plus
@@ -831,7 +833,7 @@ export default function UnifiedCheckout() {
                       </CollapsibleTrigger>
                       <CollapsibleContent className="pt-4 space-y-4">
                         <p className="text-sm text-muted-foreground">
-                          You have referral credits that can be used as a discount on this order.
+                          {t('checkout.creditsNote', 'You have referral credits that can be used as a discount on this order.')}
                         </p>
 
                         {appliedReferralCredits > 0 ? (
@@ -839,7 +841,7 @@ export default function UnifiedCheckout() {
                             <div className="flex items-center gap-2">
                               <Check className="w-4 h-4 text-amber-600" />
                               <span className="text-sm text-amber-700 dark:text-amber-400">
-                                ${appliedReferralCredits.toFixed(2)} credits applied
+                                ${appliedReferralCredits.toFixed(2)} {t('checkout.creditsApplied', 'credits applied')}
                               </span>
                             </div>
                             <Button
@@ -849,7 +851,7 @@ export default function UnifiedCheckout() {
                               onClick={removeCredits}
                               className="text-red-500 hover:text-red-600"
                             >
-                              Remove
+                              {t('checkout.remove', 'Remove')}
                             </Button>
                           </div>
                         ) : (
@@ -860,7 +862,7 @@ export default function UnifiedCheckout() {
                               size="sm"
                               onClick={() => handleApplyCredits(availableCredits)}
                             >
-                              Apply All (${availableCredits.toFixed(2)})
+                              {t('checkout.applyAll', 'Apply All')} (${availableCredits.toFixed(2)})
                             </Button>
                             <Button
                               type="button"
@@ -875,7 +877,7 @@ export default function UnifiedCheckout() {
                                 handleApplyCredits(halfCredits);
                               }}
                             >
-                              Apply Half ($
+                              {t('checkout.applyHalf', 'Apply Half')} ($
                               {Math.min(availableCredits / 2, parseFloat(calculateTotal())).toFixed(
                                 2,
                               )}
@@ -894,9 +896,9 @@ export default function UnifiedCheckout() {
               {!isAuthenticated && !initResponse && (
                 <Card className="border-0 shadow-lg">
                   <CardContent className="p-6">
-                    <h3 className="font-semibold text-foreground mb-4">Contact Information</h3>
+                    <h3 className="font-semibold text-foreground mb-4">{t('checkout.contactInfo', 'Contact Information')}</h3>
                     <p className="text-sm text-muted-foreground mb-6">
-                      We'll send your eSIM details to this email. No account required.
+                      {t('checkout.contactNote', "We'll send your eSIM details to this email. No account required.")}
                     </p>
 
                     <Form {...form}>
@@ -906,14 +908,14 @@ export default function UnifiedCheckout() {
                           name="email"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Email Address</FormLabel>
+                              <FormLabel>{t('checkout.email', 'Email Address')}</FormLabel>
                               <FormControl>
                                 <div className="relative">
                                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                   <Input
                                     {...field}
                                     type="email"
-                                    placeholder="your@email.com"
+                                    placeholder={t('checkout.emailPlaceholder', 'your@email.com')}
                                     className="pl-10"
                                   />
                                 </div>
@@ -928,7 +930,7 @@ export default function UnifiedCheckout() {
                           name="phone"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>Phone Number</FormLabel>
+                              <FormLabel>{t('checkout.phone', 'Phone Number')}</FormLabel>
                               <FormControl>
                                 <div className="relative">
                                   <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -937,7 +939,7 @@ export default function UnifiedCheckout() {
                                     type="tel"
                                     inputMode="numeric"
                                     maxLength={12}
-                                    placeholder="1234567890"
+                                    placeholder={t('checkout.phonePlaceholder', '1234567890')}
                                     className="pl-10"
                                     onChange={(e) => {
                                       const value = e.target.value.replace(/\D/g, '');
@@ -961,14 +963,7 @@ export default function UnifiedCheckout() {
                               </FormControl>
                               <div className="space-y-1 leading-none">
                                 <FormLabel className="text-sm font-normal cursor-pointer">
-                                  I agree to the{' '}
-                                  <Link href="/terms-and-condition" className="text-[#1e5427] hover:underline">
-                                    Terms of Service
-                                  </Link>{' '}
-                                  and{' '}
-                                  <Link href="/privacy-policy" className="text-[#1e5427] hover:underline">
-                                    Privacy Policy
-                                  </Link>
+                                  {t('checkout.acceptTerms', 'I agree to the Terms of Service and Privacy Policy')}
                                 </FormLabel>
                                 <FormMessage />
                               </div>
@@ -1001,7 +996,7 @@ export default function UnifiedCheckout() {
 
                         {!isFreeOrder && gateways.length > 0 && (
                           <div className="space-y-4">
-                            <h3 className="font-semibold text-foreground">Select Payment Method</h3>
+                            <h3 className="font-semibold text-foreground">{t('checkout.selectPayment', 'Select Payment Method')}</h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                               {gateways.map((gateway) => {
                                 const isSelected = selectedGateway?.id === gateway.id;
@@ -1013,8 +1008,8 @@ export default function UnifiedCheckout() {
                                     className={`
                                       relative p-4 rounded-xl border-2 cursor-pointer transition-all duration-200
                                       flex flex-col items-center justify-center gap-3 text-center
-                                      ${isSelected 
-                                        ? 'border-[#2c7338] bg-green-50/50 dark:bg-[#2c7338]/10 shadow-sm' 
+                                      ${isSelected
+                                        ? 'border-[#2c7338] bg-green-50/50 dark:bg-[#2c7338]/10 shadow-sm'
                                         : 'border-border hover:border-muted-foreground/30 hover:bg-muted/30'}
                                     `}
                                   >
@@ -1044,7 +1039,7 @@ export default function UnifiedCheckout() {
 
 
                         <Button type="submit" className="w-full bg-[#2c7338] text-white">
-                          Continue to Payment
+                          {t('checkout.continueToPayment', 'Continue to Payment')}
                         </Button>
                       </form>
                     </Form>
@@ -1080,7 +1075,7 @@ export default function UnifiedCheckout() {
 
                         {!isFreeOrder && gateways.length > 0 && (
                           <>
-                            <h3 className="font-semibold text-foreground">Select Payment Method</h3>
+                            <h3 className="font-semibold text-foreground">{t('checkout.selectPayment', 'Select Payment Method')}</h3>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
                               {gateways.map((gateway) => {
                                 const isSelected = selectedGateway?.id === gateway.id;
@@ -1092,8 +1087,8 @@ export default function UnifiedCheckout() {
                                     className={`
                                       relative p-4 rounded-xl border-2 cursor-pointer transition-all duration-200
                                       flex flex-col items-center justify-center gap-3 text-center
-                                      ${isSelected 
-                                        ? 'border-[#2c7338] bg-green-50/50 dark:bg-[#2c7338]/10 shadow-sm' 
+                                      ${isSelected
+                                        ? 'border-[#2c7338] bg-green-50/50 dark:bg-[#2c7338]/10 shadow-sm'
                                         : 'border-border hover:border-muted-foreground/30 hover:bg-muted/30'}
                                     `}
                                   >
@@ -1145,7 +1140,7 @@ export default function UnifiedCheckout() {
                           }
                           className="w-full bg-[#2c7338] text-white"
                         >
-                          {isFreeOrder ? 'Confirm Order' : 'Complete Payment'}
+                          {isFreeOrder ? t('checkout.confirmOrder', 'Confirm Order') : t('checkout.completePayment', 'Complete Payment')}
                         </Button>
 
 
@@ -1166,11 +1161,11 @@ export default function UnifiedCheckout() {
               <div className="flex items-center gap-4 justify-center text-sm text-muted-foreground flex-wrap">
                 <div className="flex items-center gap-1">
                   <Shield className="w-4 h-4" />
-                  <span>Secure Checkout</span>
+                  <span>{t('checkout.secureCheckout', 'Secure Checkout')}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <Zap className="w-4 h-4" />
-                  <span>Instant Delivery</span>
+                  <span>{t('checkout.instantDelivery', 'Instant Delivery')}</span>
                 </div>
               </div>
             </div>
@@ -1179,7 +1174,7 @@ export default function UnifiedCheckout() {
             <div className="lg:col-span-2">
               <Card className="border-0 shadow-lg sticky top-24">
                 <CardContent className="p-6">
-                  <h3 className="font-semibold text-foreground mb-4">Order Summary</h3>
+                  <h3 className="font-semibold text-foreground mb-4">{t('checkout.orderSummary', 'Order Summary')}</h3>
 
                   <div className="flex items-center gap-3 mb-4 pb-4 border-b border-border">
                     {packageData.countryCode && (
@@ -1196,21 +1191,21 @@ export default function UnifiedCheckout() {
                       <p className="font-medium text-foreground">
                         {formatPackageTitle(packageData)}
                       </p>
-                      <p className="text-sm text-muted-foreground">eSIM Data Plan</p>
+                      <p className="text-sm text-muted-foreground">{t('checkout.dataAmountTitle', 'eSIM Data Plan')}</p>
                     </div>
                   </div>
 
                   <div className="space-y-3 mb-4 pb-4 border-b border-border">
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Data</span>
+                      <span className="text-muted-foreground">{t('checkout.data', 'Data')}</span>
                       <span className="font-medium text-foreground">
                         {formatDataAmount(packageData)}
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Validity</span>
+                      <span className="text-muted-foreground">{t('checkout.validity', 'Validity')}</span>
                       <span className="font-medium text-foreground">
-                        {packageData.validity} Days
+                        {packageData.validity} {t('checkout.days', 'Days')}
                       </span>
                     </div>
                     {/* <div className="flex justify-between text-sm">
@@ -1220,7 +1215,7 @@ export default function UnifiedCheckout() {
                       ))}
                     </div> */}
                     <div className="flex justify-between items-center text-sm">
-                      <span className="text-muted-foreground">Quantity</span>
+                      <span className="text-muted-foreground">{t('checkout.quantity', 'Quantity')}</span>
                       <div className="flex items-center gap-2">
                         {/* <Button
                           type="button"
@@ -1316,7 +1311,7 @@ export default function UnifiedCheckout() {
                   )}
 
                   <div className="flex justify-between items-center">
-                    <span className="font-semibold text-foreground">Total</span>
+                    <span className="font-semibold text-foreground">{t('checkout.total', 'Total')}</span>
                     <span className="text-2xl font-bold text-foreground">
                       {getCurrencySymbol(packageData.currency)}
                       {calculateTotal()}
@@ -1325,7 +1320,7 @@ export default function UnifiedCheckout() {
 
                   {isFreeOrder && (
                     <div className="mt-2 text-xs text-green-700 bg-green-100 px-2 py-1 rounded">
-                      🎉 Fully covered by credits. No payment required.
+                      🎉 {t('checkout.freeOrderLabel', 'Fully covered by credits. No payment required.')}
                     </div>
                   )}
 

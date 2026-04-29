@@ -43,6 +43,7 @@ import { useSettingByKey } from '@/hooks/useSettings';
 import { useCurrency } from '@/contexts/CurrencyContext';
 // import { SiteHeader } from '@/components/layout/SiteHeader';
 // import { SiteFooter } from '@/components/layout/SiteFooter';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
 
@@ -74,8 +75,9 @@ function GiftCardCheckoutForm({
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const [isProcessing, setIsProcessing] = useState(false);
+  const { t } = useTranslation();
 
-  const { currency, setCurrency, currencies } = useCurrency();
+  const { currency, currencies } = useCurrency();
 
   const enabledCurrencies = currencies.filter((c) => c.isEnabled);
   const currentCurrency =
@@ -101,20 +103,20 @@ function GiftCardCheckoutForm({
 
       if (error) {
         toast({
-          title: 'Payment Failed',
+          title: t('website.giftCards.paymentFailed', 'Payment Failed'),
           description: error.message,
           variant: 'destructive',
         });
       } else if (paymentIntent && paymentIntent.status === 'succeeded') {
         toast({
-          title: 'Gift Card Purchased!',
-          description: "The gift card has been sent to the recipient's email.",
+          title: t('website.giftCards.paymentSuccess', 'Gift Card Purchased!'),
+          description: t('website.giftCards.paymentSuccessDesc', "The gift card has been sent to the recipient's email."),
         });
         setLocation('/profile');
       }
     } catch (err: any) {
       toast({
-        title: 'Payment Error',
+        title: t('website.giftCards.paymentError', 'Payment Error'),
         description: err.message,
         variant: 'destructive',
       });
@@ -134,7 +136,7 @@ function GiftCardCheckoutForm({
           className="flex-1"
           data-testid="button-back-payment"
         >
-          Back
+          {t('website.giftCards.back', 'Back')}
         </Button>
         <Button
           type="submit"
@@ -145,10 +147,10 @@ function GiftCardCheckoutForm({
           {isProcessing ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Processing...
+              {t('website.giftCards.processing', 'Processing...')}
             </>
           ) : (
-            `Pay ${symbol}${amount}`
+            t('website.giftCards.payAmount', { symbol, amount })
           )}
         </Button>
       </div>
@@ -166,7 +168,8 @@ function GiftCardPreview({
   message?: string;
 }) {
   const siteName = useSettingByKey('platform_name');
-  const { currency, setCurrency, currencies } = useCurrency();
+  const { currency, currencies } = useCurrency();
+  const { t } = useTranslation();
 
   const enabledCurrencies = currencies.filter((c) => c.isEnabled);
   const currentCurrency =
@@ -185,11 +188,13 @@ function GiftCardPreview({
               <Globe className="h-6 w-6 text-white" />
               <span className="font-bold text-white text-lg">{siteName}</span>
             </div>
-            <Badge className="bg-white/20 text-white border-0 hover:bg-white/30">Gift Card</Badge>
+            <Badge className="bg-white/20 text-white border-0 hover:bg-white/30">
+              {t('website.giftCards.giftCardBadge', 'Gift Card')}
+            </Badge>
           </div>
 
           <div className="mb-6">
-            <p className="text-white/80 text-sm mb-1">Value</p>
+            <p className="text-white/80 text-sm mb-1">{t('website.giftCards.value', 'Value')}</p>
             <p className="text-4xl font-bold text-white">
               {symbol}
               {amount || 0}
@@ -198,7 +203,7 @@ function GiftCardPreview({
 
           {recipientName && (
             <div className="mb-4">
-              <p className="text-white/80 text-sm">For</p>
+              <p className="text-white/80 text-sm">{t('website.giftCards.for', 'For')}</p>
               <p className="text-white font-medium">{recipientName}</p>
             </div>
           )}
@@ -217,8 +222,9 @@ function GiftCardPreview({
 function MyGiftCardsSection() {
   const { isAuthenticated } = useUser();
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
+  const { t } = useTranslation();
 
-  const { currency, setCurrency, currencies } = useCurrency();
+  const { currency, currencies } = useCurrency();
 
   const enabledCurrencies = currencies.filter((c) => c.isEnabled);
   const currentCurrency =
@@ -262,9 +268,11 @@ function MyGiftCardsSection() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Wallet className="h-5 w-5 text-primary" />
-          My Gift Cards
+          {t('website.giftCards.myCardsTitle', 'My Gift Cards')}
         </CardTitle>
-        <CardDescription>Your purchased and redeemed gift cards</CardDescription>
+        <CardDescription>
+          {t('website.giftCards.myCardsDesc', 'Your purchased and redeemed gift cards')}
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-3">
@@ -292,8 +300,7 @@ function MyGiftCardsSection() {
                     </Badge>
                   </div>
                   <p className="text-sm text-muted-foreground">
-                    Balance: {symbol}
-                    {card.balance}
+                    {t('website.giftCards.balance', { symbol, balance: card.balance })}
                   </p>
                 </div>
               </div>
@@ -324,6 +331,7 @@ export default function GiftCards() {
   const { toast } = useToast();
   const { isAuthenticated, user } = useUser();
   const [, setLocation] = useLocation();
+  const { t } = useTranslation();
 
   const [selectedAmount, setSelectedAmount] = useState<number | null>(50);
   const [customAmount, setCustomAmount] = useState('');
@@ -354,8 +362,8 @@ export default function GiftCards() {
   const handlePurchase = async () => {
     if (!isAuthenticated) {
       toast({
-        title: 'Authentication Required',
-        description: 'Please log in to purchase a gift card',
+        title: t('website.giftCards.authRequired', 'Authentication Required'),
+        description: t('website.giftCards.authPurchaseDesc', 'Please log in to purchase a gift card'),
         variant: 'destructive',
       });
       setLocation('/login');
@@ -366,8 +374,8 @@ export default function GiftCards() {
 
     if (!amount || amount < 10) {
       toast({
-        title: 'Invalid Amount',
-        description: `Gift card amount must be at least ${symbol}10`,
+        title: t('website.giftCards.invalidAmount', 'Invalid Amount'),
+        description: t('website.giftCards.minAmountDesc', { symbol }),
         variant: 'destructive',
       });
       return;
@@ -385,7 +393,7 @@ export default function GiftCards() {
       setClientSecret(response.clientSecret);
     } catch (error: any) {
       toast({
-        title: 'Purchase Failed',
+        title: t('website.giftCards.purchaseFailed', 'Purchase Failed'),
         description: error.message,
         variant: 'destructive',
       });
@@ -395,8 +403,8 @@ export default function GiftCards() {
   const handleRedeem = async () => {
     if (!isAuthenticated) {
       toast({
-        title: 'Authentication Required',
-        description: 'Please log in to redeem a gift card',
+        title: t('website.giftCards.authRequired', 'Authentication Required'),
+        description: t('website.giftCards.authRedeemDesc', 'Please log in to redeem a gift card'),
         variant: 'destructive',
       });
       setLocation('/login');
@@ -405,8 +413,8 @@ export default function GiftCards() {
 
     if (!redemptionCode) {
       toast({
-        title: 'Code Required',
-        description: 'Please enter a gift card code',
+        title: t('website.giftCards.codeRequired', 'Code Required'),
+        description: t('website.giftCards.codeRequiredDesc', 'Please enter a gift card code'),
         variant: 'destructive',
       });
       return;
@@ -420,14 +428,14 @@ export default function GiftCards() {
       });
 
       toast({
-        title: 'Gift Card Redeemed!',
-        description: `${symbol}${response.amount} has been added to your account.`,
+        title: t('website.giftCards.redeemSuccess', 'Gift Card Redeemed!'),
+        description: t('website.giftCards.redeemSuccessDesc', { symbol, amount: response.amount }),
       });
 
       setRedemptionCode('');
     } catch (error: any) {
       toast({
-        title: 'Redemption Failed',
+        title: t('website.giftCards.redeemFailed', 'Redemption Failed'),
         description: error.message,
         variant: 'destructive',
       });
@@ -442,10 +450,10 @@ export default function GiftCards() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>Gift Cards - Give the Gift of Connectivity | {siteName}</title>
+        <title>{t('website.giftCards.pageTitle', { siteName })}</title>
         <meta
           name="description"
-          content={`Give the gift of global connectivity with ${siteName} gift cards. Perfect for travelers and remote workers.`}
+          content={t('website.giftCards.pageMeta', { siteName })}
         />
       </Helmet>
 
@@ -462,15 +470,16 @@ export default function GiftCards() {
             <div className="max-w-4xl mx-auto text-center">
               <div className="inline-flex items-center gap-2 bg-primary-light text-white px-4 py-2 rounded-full mb-6">
                 <Sparkles className="h-4 w-4" />
-                <span className="text-sm font-medium">Perfect Gift for Travelers</span>
+                <span className="text-sm font-medium">
+                  {t('website.giftCards.heroBadge', 'Perfect Gift for Travelers')}
+                </span>
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                Give the Gift of <span className="text-primary">Connectivity</span>
+                {t('website.giftCards.heroTitle', 'Give the Gift of Connectivity')}
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-                Send an {siteName} gift card to friends and family. Perfect for travelers, remote
-                workers, and anyone who needs to stay connected worldwide.
+                {t('website.giftCards.heroDescription', { siteName })}
               </p>
             </div>
           </div>
@@ -480,10 +489,10 @@ export default function GiftCards() {
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
               {[
-                { icon: Gift, label: 'Instant Delivery', desc: 'Email delivery in seconds' },
-                { icon: Globe, label: '200+ Countries', desc: 'Works worldwide' },
-                { icon: Clock, label: 'Never Expires', desc: 'Use anytime' },
-                { icon: Wallet, label: 'Any Amount', desc: 'From $10 to $500' },
+                { icon: Gift, label: t('website.giftCards.feature1Title', 'Instant Delivery'), desc: t('website.giftCards.feature1Desc', 'Email delivery in seconds') },
+                { icon: Globe, label: t('website.giftCards.feature2Title', '200+ Countries'), desc: t('website.giftCards.feature2Desc', 'Works worldwide') },
+                { icon: Clock, label: t('website.giftCards.feature3Title', 'Never Expires'), desc: t('website.giftCards.feature3Desc', 'Use anytime') },
+                { icon: Wallet, label: t('website.giftCards.feature4Title', 'Any Amount'), desc: t('website.giftCards.feature4Desc', { symbol: '$' }) },
               ].map((feature, index) => (
                 <div
                   key={index}
@@ -506,11 +515,11 @@ export default function GiftCards() {
               <TabsList className="grid w-full max-w-md mx-auto grid-cols-2">
                 <TabsTrigger value="purchase" data-testid="tab-purchase">
                   <Gift className="h-4 w-4 mr-2" />
-                  Buy Gift Card
+                  {t('website.giftCards.buyTab', 'Buy Gift Card')}
                 </TabsTrigger>
                 <TabsTrigger value="redeem" data-testid="tab-redeem">
                   <Check className="h-4 w-4 mr-2" />
-                  Redeem Code
+                  {t('website.giftCards.redeemTab', 'Redeem Code')}
                 </TabsTrigger>
               </TabsList>
 
@@ -520,14 +529,14 @@ export default function GiftCards() {
                     <div className="order-2 lg:order-1">
                       <Card>
                         <CardHeader>
-                          <CardTitle>Purchase Gift Card</CardTitle>
+                          <CardTitle>{t('website.giftCards.purchaseTitle', 'Purchase Gift Card')}</CardTitle>
                           <CardDescription>
-                            Select an amount and personalize your gift
+                            {t('website.giftCards.purchaseDesc', 'Select an amount and personalize your gift')}
                           </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-6">
                           <div>
-                            <Label className="mb-3 block">Select Amount</Label>
+                            <Label className="mb-3 block">{t('website.giftCards.selectAmount', 'Select Amount')}</Label>
                             <div className="grid grid-cols-2 gap-3">
                               {amounts.map((amount) => (
                                 <Button
@@ -549,14 +558,14 @@ export default function GiftCards() {
 
                           <div className="space-y-2">
                             <Label htmlFor="customAmount">
-                              Or Enter Custom Amount ({symbol}10 - {symbol}500)
+                              {t('website.giftCards.customAmount', { symbol })}
                             </Label>
                             <Input
                               id="customAmount"
                               type="number"
                               min="10"
                               max="500"
-                              placeholder="Enter amount"
+                              placeholder={String(t('website.giftCards.amountPlaceholder', 'Enter amount'))}
                               value={customAmount}
                               onChange={(e) => {
                                 setCustomAmount(e.target.value);
@@ -569,10 +578,10 @@ export default function GiftCards() {
                           <Separator />
 
                           <div className="space-y-2">
-                            <Label htmlFor="recipientName">Recipient Name</Label>
+                            <Label htmlFor="recipientName">{t('website.giftCards.recipientName', 'Recipient Name')}</Label>
                             <Input
                               id="recipientName"
-                              placeholder="John Doe"
+                              placeholder={String(t('website.giftCards.recipientNamePlaceholder', 'John Doe'))}
                               value={recipientName}
                               onChange={(e) => setRecipientName(e.target.value)}
                               data-testid="input-recipient-name"
@@ -580,11 +589,11 @@ export default function GiftCards() {
                           </div>
 
                           <div className="space-y-2">
-                            <Label htmlFor="recipientEmail">Recipient Email</Label>
+                            <Label htmlFor="recipientEmail">{t('website.giftCards.recipientEmail', 'Recipient Email')}</Label>
                             <Input
                               id="recipientEmail"
                               type="email"
-                              placeholder="friend@example.com"
+                              placeholder={String(t('website.giftCards.recipientEmailPlaceholder', 'friend@example.com'))}
                               value={recipientEmail}
                               onChange={(e) => setRecipientEmail(e.target.value)}
                               data-testid="input-recipient-email"
@@ -592,10 +601,10 @@ export default function GiftCards() {
                           </div>
 
                           <div className="space-y-2">
-                            <Label htmlFor="message">Personal Message (Optional)</Label>
+                            <Label htmlFor="message">{t('website.giftCards.personalMessage', 'Personal Message (Optional)')}</Label>
                             <Textarea
                               id="message"
-                              placeholder="Happy travels! Stay connected wherever you go..."
+                              placeholder={String(t('website.giftCards.messagePlaceholder', 'Happy travels! Stay connected wherever you go...'))}
                               value={message}
                               onChange={(e) => setMessage(e.target.value)}
                               rows={3}
@@ -606,7 +615,7 @@ export default function GiftCards() {
                           <Separator />
 
                           <div className="space-y-3">
-                            <Label>Payment Method</Label>
+                            <Label>{t('website.giftCards.paymentMethod', 'Payment Method')}</Label>
                             <RadioGroup
                               value={paymentMethod}
                               onValueChange={(value) =>
@@ -626,7 +635,7 @@ export default function GiftCards() {
                                     className="flex items-center gap-2 cursor-pointer flex-1"
                                   >
                                     <CreditCard className="h-4 w-4 text-muted-foreground" />
-                                    <span className="text-sm">Credit/Debit Card</span>
+                                    <span className="text-sm">{t('website.giftCards.creditCard', 'Credit/Debit Card')}</span>
                                   </Label>
                                 </div>
 
@@ -641,7 +650,7 @@ export default function GiftCards() {
                                     className="flex items-center gap-2 cursor-pointer flex-1"
                                   >
                                     <SiPaypal className="h-4 w-4 text-primary" />
-                                    <span className="text-sm">PayPal</span>
+                                    <span className="text-sm">{t('website.giftCards.payPal', 'PayPal')}</span>
                                   </Label>
                                 </div>
 
@@ -690,8 +699,7 @@ export default function GiftCards() {
                             data-testid="button-purchase-gift-card"
                           >
                             <Send className="mr-2 h-4 w-4" />
-                            Continue to Payment - {symbol}
-                            {currentAmount}
+                            {t('website.giftCards.continueToPayment', { symbol, amount: currentAmount })}
                           </Button>
                         </CardContent>
                       </Card>
@@ -700,7 +708,7 @@ export default function GiftCards() {
                     <div className="order-1 lg:order-2 space-y-6">
                       <div className="lg:sticky lg:top-24">
                         <h3 className="text-lg font-semibold mb-4 text-center lg:text-left">
-                          Preview
+                          {t('website.giftCards.preview', 'Preview')}
                         </h3>
                         <GiftCardPreview
                           amount={currentAmount}
@@ -710,15 +718,15 @@ export default function GiftCards() {
 
                         <Card className="mt-6">
                           <CardHeader>
-                            <CardTitle className="text-base">How It Works</CardTitle>
+                            <CardTitle className="text-base">{t('website.giftCards.howItWorksTitle', 'How It Works')}</CardTitle>
                           </CardHeader>
                           <CardContent className="space-y-3">
                             {[
-                              { step: 1, text: 'Choose an amount or enter a custom value' },
-                              { step: 2, text: 'Add recipient details and a message' },
-                              { step: 3, text: 'Complete secure payment' },
-                              { step: 4, text: 'Recipient gets the gift card instantly via email' },
-                              { step: 5, text: 'They can use it for any eSIM package' },
+                              { step: 1, text: t('website.giftCards.step1', 'Choose an amount or enter a custom value') },
+                              { step: 2, text: t('website.giftCards.step2', 'Add recipient details and a message') },
+                              { step: 3, text: t('website.giftCards.step3', 'Complete secure payment') },
+                              { step: 4, text: t('website.giftCards.step4', 'Recipient gets the gift card instantly via email') },
+                              { step: 5, text: t('website.giftCards.step5', 'They can use it for any eSIM package') },
                             ].map((item) => (
                               <div key={item.step} className="flex items-start gap-3">
                                 <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary text-white flex items-center justify-center text-xs font-semibold">
@@ -735,11 +743,10 @@ export default function GiftCards() {
                 ) : (
                   <Card className="max-w-lg mx-auto">
                     <CardHeader>
-                      <CardTitle>Complete Your Purchase</CardTitle>
+                      <CardTitle>{t('website.giftCards.completePurchase', 'Complete Your Purchase')}</CardTitle>
                       <CardDescription>
-                        {symbol}
-                        {selectedAmount || customAmount} Gift Card
-                        {recipientEmail && ` for ${recipientEmail}`}
+                        {t('website.giftCards.checkoutBadge', { symbol, amount: selectedAmount || customAmount })}
+                        {recipientEmail && t('website.giftCards.checkoutFor', { email: recipientEmail })}
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -764,14 +771,14 @@ export default function GiftCards() {
                       <div className="w-16 h-16 rounded-full bg-orange-500/10 flex items-center justify-center mx-auto mb-4">
                         <Gift className="h-8 w-8 text-primary" />
                       </div>
-                      <CardTitle>Redeem Your Gift Card</CardTitle>
+                      <CardTitle>{t('website.giftCards.redeemTitle', 'Redeem Your Gift Card')}</CardTitle>
                       <CardDescription>
-                        Enter your gift card code to add credit to your account
+                        {t('website.giftCards.redeemDesc', 'Enter your gift card code to add credit to your account')}
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div className="space-y-2">
-                        <Label htmlFor="redemptionCode">Gift Card Code</Label>
+                        <Label htmlFor="redemptionCode">{t('website.giftCards.redeemCodeLabel', 'Gift Card Code')}</Label>
                         <Input
                           id="redemptionCode"
                           placeholder="GIFT-XXXX-XXXX-XXXX"
@@ -791,12 +798,12 @@ export default function GiftCards() {
                         {isRedeeming ? (
                           <>
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Redeeming...
+                            {t('website.giftCards.redeeming', 'Redeeming...')}
                           </>
                         ) : (
                           <>
                             <Check className="mr-2 h-4 w-4" />
-                            Redeem Gift Card
+                            {t('website.giftCards.redeemBtn', 'Redeem Gift Card')}
                           </>
                         )}
                       </Button>
@@ -804,13 +811,13 @@ export default function GiftCards() {
                     <CardFooter className="flex-col gap-4 text-center">
                       <Separator />
                       <p className="text-sm text-muted-foreground">
-                        Don't have a gift card?{' '}
+                        {t('website.giftCards.dontHave', "Don't have a gift card?")}{' '}
                         <button
                           onClick={() => setActiveTab('purchase')}
                           className="text-primary hover:underline font-medium"
                           data-testid="link-buy-gift-card"
                         >
-                          Buy one for someone special
+                          {t('website.giftCards.buyOne', 'Buy one for someone special')}
                         </button>
                       </p>
                     </CardFooter>
@@ -826,24 +833,24 @@ export default function GiftCards() {
         <div className="bg-muted/30 py-16">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <h2 className="text-2xl font-bold text-center mb-8">Frequently Asked Questions</h2>
+              <h2 className="text-2xl font-bold text-center mb-8">{t('website.giftCards.faqTitle', 'Frequently Asked Questions')}</h2>
               <div className="grid md:grid-cols-2 gap-6">
                 {[
                   {
-                    q: 'How are gift cards delivered?',
-                    a: "Gift cards are delivered instantly via email to the recipient's email address you provide.",
+                    q: t('website.giftCards.faqQ1', 'How are gift cards delivered?'),
+                    a: t('website.giftCards.faqA1', "Gift cards are delivered instantly via email to the recipient's email address you provide."),
                   },
                   {
-                    q: 'Do gift cards expire?',
-                    a: `No, ${siteName} gift cards never expire. The recipient can use them anytime.`,
+                    q: t('website.giftCards.faqQ2', 'Do gift cards expire?'),
+                    a: t('website.giftCards.faqA2', { siteName }),
                   },
                   {
-                    q: 'Can I use a gift card for multiple purchases?',
-                    a: 'Yes! The gift card balance can be used across multiple purchases until the balance is depleted.',
+                    q: t('website.giftCards.faqQ3', 'Can I use a gift card for multiple purchases?'),
+                    a: t('website.giftCards.faqA3', 'Yes! The gift card balance can be used across multiple purchases until the balance is depleted.'),
                   },
                   {
-                    q: 'What if my purchase exceeds the gift card balance?',
-                    a: 'You can pay the remaining amount using any of our supported payment methods.',
+                    q: t('website.giftCards.faqQ4', 'What if my purchase exceeds the gift card balance?'),
+                    a: t('website.giftCards.faqA4', 'You can pay the remaining amount using any of our supported payment methods.'),
                   },
                 ].map((faq, index) => (
                   <Card key={index}>

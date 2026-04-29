@@ -500,9 +500,9 @@ export default function MyOrders() {
           <DialogHeader>
             <div className="flex items-center justify-between gap-2">
               <div>
-                <DialogTitle>eSIM Management</DialogTitle>
+                <DialogTitle>{t('myOrders.management', 'eSIM Management')}</DialogTitle>
                 <DialogDescription>
-                  Order {selectedOrder?.displayOrderId} • ICCID: {selectedOrder?.iccid}
+                  {t('myOrders.orderId', 'Order ID')} {selectedOrder?.displayOrderId} • ICCID: {selectedOrder?.iccid}
                 </DialogDescription>
               </div>
               {/* <Button
@@ -520,10 +520,10 @@ export default function MyOrders() {
 
           <Tabs defaultValue="details" className="mt-4">
             <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="details" data-testid="tab-details">Details</TabsTrigger>
-              <TabsTrigger value="installation" data-testid="tab-installation">Installation</TabsTrigger>
-              <TabsTrigger value="usage" data-testid="tab-usage">Usage</TabsTrigger>
-              {/* <TabsTrigger value="topups" data-testid="tab-topups">Top-Ups</TabsTrigger> */}
+              <TabsTrigger value="details" data-testid="tab-details">{t('myOrders.tabs.details', 'Details')}</TabsTrigger>
+              <TabsTrigger value="installation" data-testid="tab-installation">{t('myOrders.tabs.installation', 'Installation')}</TabsTrigger>
+              <TabsTrigger value="usage" data-testid="tab-usage">{t('myOrders.tabs.usage', 'Usage')}</TabsTrigger>
+              {/* <TabsTrigger value="topups" data-testid="tab-topups">{t('myOrders.tabs.topups', 'Top-Ups')}</TabsTrigger> */}
             </TabsList>
 
             {/* Details Tab */}
@@ -532,7 +532,7 @@ export default function MyOrders() {
                 <Globe className="h-4 w-4" />
                 <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
                   <SelectTrigger className="w-48" data-testid="select-language">
-                    <SelectValue placeholder="Select language" />
+                    <SelectValue placeholder={t('common.selectLanguage', 'Select language')} />
                   </SelectTrigger>
                   <SelectContent>
                     {languages.map(lang => (
@@ -554,7 +554,7 @@ export default function MyOrders() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <Smartphone className="h-5 w-5" />
-                        eSIM Information
+                        {t('myOrders.esimInfo', 'eSIM Information')}
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="grid gap-4">
@@ -566,14 +566,14 @@ export default function MyOrders() {
                           <p className="font-mono text-xs font-medium" data-testid="text-iccid">{esim?.iccid || selectedOrder?.iccid}</p>
                         </div>
                         <div>
-                          <p className="text-sm text-muted-foreground">Status</p>
+                          <p className="text-sm text-muted-foreground">{t('myOrders.statusLabel', 'Status')}</p>
                           <Badge variant={esim.status === 'activated' ? 'default' : 'secondary'} data-testid="badge-status">
-                            {esim.status || 'Unknown'}
+                            {t(`myOrders.status.${esim.status}`, esim.status || 'Unknown')}
                           </Badge>
                         </div>
                         {esim.created_at && (
                           <div>
-                            <p className="text-sm text-muted-foreground">Created</p>
+                            <p className="text-sm text-muted-foreground">{t('myOrders.created', 'Created')}</p>
                             <p className="text-sm font-medium">{new Date(esim.created_at).toLocaleDateString()}</p>
                           </div>
                         )}
@@ -597,13 +597,13 @@ export default function MyOrders() {
                         )}
                         {esim.lpa && (
                           <div>
-                            <p className="text-sm text-muted-foreground">SM-DP+ Address</p>
+                            <p className="text-sm text-muted-foreground">{t('myOrders.smdpAddress', 'SM-DP+ Address')}</p>
                             <p className="text-xs font-mono">{esim.lpa}</p>
                           </div>
                         )}
                         {esim.matching_id && (
                           <div>
-                            <p className="text-sm text-muted-foreground">Activation Code</p>
+                            <p className="text-sm text-muted-foreground">{t('myOrders.activationCode', 'Activation Code')}</p>
                             <p className="text-xs font-mono font-medium">{esim.matching_id}</p>
                           </div>
                         )}
@@ -666,14 +666,14 @@ export default function MyOrders() {
                       <CardContent className="grid gap-3">
                         <div className="grid grid-cols-2 gap-4">
                           <div className="col-span-2">
-                            <p className="text-sm text-muted-foreground">Package Name</p>
+                            <p className="text-sm text-muted-foreground">{t('myOrders.packageName', 'Package Name')}</p>
                             <p className="font-medium" data-testid="text-package">
-                              {esim.package.title || `${esim.package.data || ''} - ${esim.package.validity || ''} Days`}
+                              {esim.package.title || `${esim.package.data || ''} - ${esim.package.validity || ''} ${t('common.days', 'Days')}`}
                             </p>
                           </div>
                           {esim.package.id && (
                             <div className="col-span-2">
-                              <p className="text-sm text-muted-foreground">Package ID</p>
+                              <p className="text-sm text-muted-foreground">{t('myOrders.packageId', 'Package ID')}</p>
                               <p className="text-xs font-mono">{esim.package.id}</p>
                             </div>
                           )}
@@ -812,14 +812,14 @@ export default function MyOrders() {
                           />
                           {brandedQr?.qr_code && (
                             <p className="text-xs text-center text-muted-foreground mt-2">
-                              Branded QR Code
+                              {t('myOrders.brandedQRCode', 'Branded QR Code')}
                             </p>
                           )}
                         </div>
                       )}
                       {instructions.manual_code && (
                         <div className="w-full space-y-2">
-                          <p className="text-sm font-medium">Manual Activation Code:</p>
+                          <p className="text-sm font-medium">{t('myOrders.manualActivationCode', 'Manual Activation Code:')}</p>
                           <div className="flex items-center gap-2">
                             <code className="flex-1 p-3 bg-muted rounded-md text-sm font-mono break-all" data-testid="text-manual-code">
                               {instructions.manual_code}
@@ -841,7 +841,7 @@ export default function MyOrders() {
                   {instructions.steps && instructions.steps.length > 0 && (
                     <Card>
                       <CardHeader>
-                        <CardTitle>Installation Steps</CardTitle>
+                        <CardTitle>{t('myOrders.installationSteps', 'Installation Steps')}</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <ol className="space-y-3">
@@ -861,12 +861,12 @@ export default function MyOrders() {
                   {instructions.device_compatibility && (
                     <Card>
                       <CardHeader>
-                        <CardTitle>Device Compatibility</CardTitle>
+                        <CardTitle>{t('myOrders.deviceCompatibility', 'Device Compatibility')}</CardTitle>
                       </CardHeader>
                       <CardContent>
                         <div className="flex items-center gap-2">
                           <Badge variant={instructions.device_compatibility.compatible ? 'default' : 'destructive'}>
-                            {instructions.device_compatibility.compatible ? 'Compatible' : 'Not Compatible'}
+                            {instructions.device_compatibility.compatible ? t('common.compatible', 'Compatible') : t('common.notCompatible', 'Not Compatible')}
                           </Badge>
                           {instructions.device_compatibility.requirements && (
                             <p className="text-sm text-muted-foreground">
@@ -893,10 +893,10 @@ export default function MyOrders() {
                     <div>
                       <CardTitle className="flex items-center gap-2">
                         <Database className="h-5 w-5" />
-                        Data Usage
+                        {t('myOrders.dataUsage', 'Data Usage')}
                       </CardTitle>
                       <CardDescription>
-                        Real-time consumption tracking and validity details
+                        {t('myOrders.usageTracking', 'Real-time consumption tracking and validity details')}
                       </CardDescription>
                     </div>
 
@@ -908,12 +908,12 @@ export default function MyOrders() {
                             : "bg-red-100 text-red-700 border border-red-300"}
                                  `}
                       >
-                        {usage.status === "active" ? "Active" : "Inactive"}
+                        {usage.status === "active" ? t('myOrders.active', 'Active') : t('myOrders.inactive', 'Inactive')}
                       </span>
 
                       {usage.isUnlimited && (
                         <span className="px-3 py-1 text-xs rounded-full font-medium bg-blue-100 text-blue-700 border border-blue-300">
-                          Unlimited Plan
+                          {t('myOrders.unlimitedPlan', 'Unlimited Plan')}
                         </span>
                       )}
                     </div>
@@ -923,7 +923,7 @@ export default function MyOrders() {
                     {/* MAIN DATA USAGE */}
                     <div className="space-y-2">
                       <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Data Used</span>
+                        <span className="text-muted-foreground">{t('myOrders.dataUsed', 'Data Used')}</span>
                         <span className="font-semibold">
                           {usage.dataUsed || "N/A"} MB / {usage.dataTotal || "N/A"} MB
                         </span>
@@ -935,8 +935,8 @@ export default function MyOrders() {
                       />
 
                       <div className="flex justify-between text-xs text-muted-foreground">
-                        <span>{usage.dataRemaining} MB remaining</span>
-                        <span>{usage.percentageUsed?.toFixed(1)}% used</span>
+                        <span>{usage.dataRemaining} MB {t('myOrders.remaining', 'remaining')}</span>
+                        <span>{usage.percentageUsed?.toFixed(1)}% {t('myOrders.used', 'used')}</span>
                       </div>
                     </div>
 
@@ -947,7 +947,7 @@ export default function MyOrders() {
                       </div>
 
                       <div className="p-4 rounded-lg border bg-muted/30">
-                        <p className="text-xs text-muted-foreground">Validity</p>
+                        <p className="text-xs text-muted-foreground">{t('myOrders.validity', 'Validity')}</p>
                         <p className="text-sm font-semibold">
                           {usage.expiresAt ? new Date(usage.expiresAt).toLocaleDateString() : "N/A"}
                         </p>
@@ -958,7 +958,7 @@ export default function MyOrders() {
                     {(usage.voiceTotal > 0 || usage.textTotal > 0) && (
                       <div className="pt-4 border-t space-y-4">
                         <h3 className="text-sm font-semibold text-muted-foreground flex items-center gap-2">
-                          <Phone className="h-4 w-4" /> Calls & Messages
+                          <Phone className="h-4 w-4" /> {t('myOrders.callsAndMessages', 'Calls & Messages')}
                         </h3>
 
                         <div className="grid grid-cols-2 gap-4">
@@ -966,7 +966,7 @@ export default function MyOrders() {
                           {usage.voiceTotal > 0 && (
                             <div className="space-y-2 p-4 rounded-lg border bg-muted/40">
                               <div className="flex justify-between text-sm">
-                                <span>Voice</span>
+                                <span>{t('myOrders.voice', 'Voice')}</span>
                                 <span className="font-medium">
                                   {usage.voiceUsed}/{usage.voiceTotal} mins
                                 </span>
@@ -982,14 +982,14 @@ export default function MyOrders() {
                           {usage.textTotal > 0 && (
                             <div className="space-y-2 p-4 rounded-lg border bg-muted/40">
                               <div className="flex justify-between text-sm">
-                                <span>SMS</span>
+                                <span>{t('myOrders.sms', 'SMS')}</span>
                                 <span className="font-medium">
                                   {usage.textUsed}/{usage.textTotal}
                                 </span>
                               </div>
                               <Progress value={(usage.textPercentageUsed || 0) * 100} />
                               <p className="text-xs text-right text-muted-foreground">
-                                {Math.round((usage.textPercentageUsed || 0) * 100)}% Used
+                                {Math.round((usage.textPercentageUsed || 0) * 100)}% {t('myOrders.used', 'Used')}
                               </p>
                             </div>
                           )}
@@ -1000,7 +1000,7 @@ export default function MyOrders() {
                     {/* FOOTER */}
                     {usage.expiresAt && (
                       <div className="pt-4 border-t">
-                        <p className="text-sm text-muted-foreground">Valid Until</p>
+                        <p className="text-sm text-muted-foreground">{t('myOrders.validUntil', 'Valid Until')}</p>
                         <p className="font-medium">
                           {new Date(usage.expiresAt).toLocaleString()}
                         </p>
@@ -1021,7 +1021,7 @@ export default function MyOrders() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Plus className="h-5 w-5" />
-                    Available Top-Up Packages
+                    {t('myOrders.availableTopUps', 'Available Top-Up Packages')}
                   </CardTitle>
                   {/* <CardDescription>
                     eSIM-specific top-up packages with {topupMargin}% margin pricing
@@ -1077,7 +1077,7 @@ export default function MyOrders() {
                               ) : (
                                 <Plus className="h-4 w-4 mr-2" />
                               )}
-                              Apply Top-Up
+                              {t('myOrders.applyTopUp', 'Apply Top-Up')}
                             </Button>
                           </div>
                         </div>

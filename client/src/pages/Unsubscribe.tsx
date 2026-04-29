@@ -7,10 +7,12 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { CheckCircle, MailX } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 export default function Unsubscribe() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+  const { t } = useTranslation();
   const [unsubscribed, setUnsubscribed] = useState(false);
   const [reason, setReason] = useState("");
 
@@ -27,8 +29,8 @@ export default function Unsubscribe() {
   const handleSubmitFeedback = () => {
     // In a real implementation, this would send feedback to the backend
     toast({
-      title: "Thank you for your feedback",
-      description: "We're sorry to see you go. Your feedback helps us improve.",
+      title: t('website.unsubscribe.feedbackSentTitle', 'Thank you for your feedback'),
+      description: t('website.unsubscribe.feedbackSentDesc', "We're sorry to see you go. Your feedback helps us improve."),
     });
     setTimeout(() => {
       setLocation("/");
@@ -38,7 +40,7 @@ export default function Unsubscribe() {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <Helmet>
-        <title>Unsubscribe - eSIM Global</title>
+        <title>{t('website.unsubscribe.pageTitle', 'Unsubscribe - Simfinity')}</title>
       </Helmet>
 
       <Card className="w-full max-w-md">
@@ -51,35 +53,37 @@ export default function Unsubscribe() {
             )}
           </div>
           <CardTitle className="text-center text-2xl" data-testid="text-title">
-            {unsubscribed ? "You've been unsubscribed" : "Unsubscribe from emails"}
+            {unsubscribed
+              ? t('website.unsubscribe.unsubscribedTitle', "You've been unsubscribed")
+              : t('website.unsubscribe.unsubscribeTitle', "Unsubscribe from emails")}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           {!unsubscribed ? (
             <>
               <p className="text-center text-muted-foreground">
-                You will no longer receive marketing emails from us.
+                {t('website.unsubscribe.unsubscribeDesc', 'You will no longer receive marketing emails from us.')}
               </p>
               <Button
                 className="w-full"
                 onClick={() => setUnsubscribed(true)}
                 data-testid="button-confirm-unsubscribe"
               >
-                Confirm Unsubscribe
+                {t('website.unsubscribe.confirmBtn', 'Confirm Unsubscribe')}
               </Button>
             </>
           ) : (
             <>
               <div className="text-center text-muted-foreground">
-                <p className="mb-4">You have successfully unsubscribed from our mailing list.</p>
-                <p className="text-sm">You can resubscribe at any time from your account settings.</p>
+                <p className="mb-4">{t('website.unsubscribe.unsubscribedDesc', 'You have successfully unsubscribed from our mailing list.')}</p>
+                <p className="text-sm">{t('website.unsubscribe.resubscribeNote', 'You can resubscribe at any time from your account settings.')}</p>
               </div>
 
               <div className="space-y-4 pt-4 border-t">
-                <Label htmlFor="reason">Help us improve (optional)</Label>
+                <Label htmlFor="reason">{t('website.unsubscribe.helpImprove', 'Help us improve (optional)')}</Label>
                 <Textarea
                   id="reason"
-                  placeholder="Tell us why you're unsubscribing..."
+                  placeholder={String(t('website.unsubscribe.reasonPlaceholder', "Tell us why you're unsubscribing..."))}
                   value={reason}
                   onChange={(e) => setReason(e.target.value)}
                   rows={4}
@@ -92,7 +96,7 @@ export default function Unsubscribe() {
                     className="flex-1"
                     data-testid="button-go-home"
                   >
-                    Go to Homepage
+                    {t('website.unsubscribe.goHome', 'Go to Homepage')}
                   </Button>
                   <Button
                     onClick={handleSubmitFeedback}
@@ -100,7 +104,7 @@ export default function Unsubscribe() {
                     disabled={!reason.trim()}
                     data-testid="button-submit-feedback"
                   >
-                    Submit Feedback
+                    {t('website.unsubscribe.submitFeedback', 'Submit Feedback')}
                   </Button>
                 </div>
               </div>

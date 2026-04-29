@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 interface AccountLayoutProps {
   children: React.ReactNode;
@@ -23,6 +24,8 @@ interface NavItem {
   label: string;
   description: string;
   href: string;
+  translationKey: string;
+  translationDescKey: string;
 }
 
 const accountNavItems: NavItem[] = [
@@ -31,41 +34,55 @@ const accountNavItems: NavItem[] = [
     label: 'Account Information',
     description: 'Manage your personal details',
     href: '/account/profile',
+    translationKey: 'website.account.sidebar.nav.profile',
+    translationDescKey: 'website.account.sidebar.nav.profileDesc',
   },
   {
     icon: Smartphone,
     label: 'My E-Sim Details',
     description: 'Manage your eSIM profiles',
     href: '/account/esims',
+    translationKey: 'website.account.sidebar.nav.esims',
+    translationDescKey: 'website.account.sidebar.nav.esimsDesc',
   },
   {
     icon: Package,
     label: 'Order History',
     description: 'View your purchase history',
     href: '/account/orders',
+    translationKey: 'website.account.sidebar.nav.orders',
+    translationDescKey: 'website.account.sidebar.nav.ordersDesc',
   },
   {
     icon: BadgeCheck,
     label: 'KYC Verification',
     description: 'Verify your identity',
     href: '/account/kyc',
+    translationKey: 'website.account.sidebar.nav.kyc',
+    translationDescKey: 'website.account.sidebar.nav.kycDesc',
   },
   {
     icon: Shield,
     label: 'Referrals',
     description: 'Get referrals',
     href: '/account/referrals',
+    translationKey: 'website.account.sidebar.nav.referrals',
+    translationDescKey: 'website.account.sidebar.nav.referralsDesc',
   },
   {
     icon: Headphones,
     label: 'Customer Support',
     description: 'Get help and support',
     href: '/account/support',
+    translationKey: 'website.account.sidebar.nav.support',
+    translationDescKey: 'website.account.sidebar.nav.supportDesc',
   }
 ];
 
+
 export function AccountLayout({ children }: AccountLayoutProps) {
   const [location] = useLocation();
+  const { t } = useTranslation();
 
   const isActive = (href: string) => {
     if (href === '/account') return location === '/account';
@@ -75,7 +92,7 @@ export function AccountLayout({ children }: AccountLayoutProps) {
 
   const getCurrentPageName = () => {
     const currentItem = accountNavItems.find((item) => isActive(item.href));
-    return currentItem?.label || 'Account';
+    return currentItem ? t(currentItem.translationKey, currentItem.label) : t('website.account.sidebar.account', 'Account');
   };
 
   const isSubPage = location !== '/account' && location.startsWith('/account/');
@@ -90,7 +107,9 @@ export function AccountLayout({ children }: AccountLayoutProps) {
               <div className="bg-card rounded-lg border p-4 lg:sticky lg:top-24">
                 <div className="flex items-center gap-2 mb-6">
                   <Settings className="h-5 w-5 text-foreground" />
-                  <h2 className="font-semibold text-lg text-foreground">Account Settings</h2>
+                  <h2 className="font-semibold text-lg text-foreground">
+                    {t('website.account.sidebar.accountSettings', 'Account Settings')}
+                  </h2>
                 </div>
 
                 <nav className="space-y-1">
@@ -127,10 +146,10 @@ export function AccountLayout({ children }: AccountLayoutProps) {
                                 active ? 'text-[#2c7338]' : 'text-foreground',
                               )}
                             >
-                              {item.label}
+                              {t(item.translationKey, item.label)}
                             </div>
                             <div className="text-xs text-muted-foreground truncate">
-                              {item.description}
+                              {t(item.translationDescKey, item.description)}
                             </div>
                           </div>
 
@@ -149,7 +168,7 @@ export function AccountLayout({ children }: AccountLayoutProps) {
                 <Link href="/">
                   <Button variant="ghost" size="sm" className="gap-1 text-muted-foreground">
                     <Home className="h-4 w-4" />
-                    Home
+                    {t('website.account.sidebar.home', 'Home')}
                   </Button>
                 </Link>
 
@@ -160,14 +179,18 @@ export function AccountLayout({ children }: AccountLayoutProps) {
                     <Link href="/account/profile">
                       <Button variant="ghost" size="sm" className="gap-1 text-muted-foreground">
                         {/* <ArrowLeft className="h-4 w-4" /> */}
-                        Profile
+                        {t('website.account.sidebar.nav.profile', 'Profile')}
                       </Button>
                     </Link>
                     <ChevronRight className="h-4 w-4 text-muted-foreground" />
-                    <span className="font-medium text-muted-foreground ">{getCurrentPageName()}</span>
+                    <span className="font-medium text-muted-foreground ">
+                      {getCurrentPageName()}
+                    </span>
                   </>
                 ) : (
-                  <span className="font-medium">Account</span>
+                  <span className="font-medium">
+                    {t('website.account.sidebar.account', 'Account')}
+                  </span>
                 )}
               </div>
 

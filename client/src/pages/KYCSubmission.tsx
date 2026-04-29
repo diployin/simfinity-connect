@@ -148,13 +148,14 @@ export default function KYCSubmission() {
 
   const getDocumentStatusBadge = (status?: string) => {
     const variants = {
-      pending: { variant: 'secondary' as const, label: 'Under Review' },
-      approved: { variant: 'default' as const, label: 'Approved' },
-      rejected: { variant: 'destructive' as const, label: 'Rejected' },
+      pending: { variant: 'secondary' as const, label: t('website.kyc.underReview', 'Under Review') },
+      approved: { variant: 'default' as const, label: t('website.kyc.verificationApproved', 'Approved') },
+      rejected: { variant: 'destructive' as const, label: t('website.kyc.verificationRejected', 'Rejected') },
     };
 
     return variants[status as keyof typeof variants] || variants.pending;
   };
+
 
   const getStatusBadge = (status: string | undefined) => {
     const variants = {
@@ -423,26 +424,28 @@ export default function KYCSubmission() {
           <Dialog open={kycBlockedModal} onOpenChange={setKycBlockedModal}>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>KYC Already Submitted</DialogTitle>
+                <DialogTitle>{t('website.kyc.kycAlreadySubmitted', 'KYC Already Submitted')}</DialogTitle>
                 <DialogDescription>
                   {user?.kycStatus === 'submitted' &&
-                    'Your documents are currently under review. Please wait for verification.'}
+                    t('website.kyc.documentsUnderReview', 'Your documents are currently under review. Please wait for verification.')}
 
                   {user?.kycStatus === 'pending' &&
-                    'Please submit your documents once. Our team will review them shortly.'}
+                    t('website.kyc.submitOnce', 'Please submit your documents once. Our team will review them shortly.')}
 
                   {user?.kycStatus === 'approved' &&
-                    'Your KYC is already approved. No further action is required.'}
+                    t('website.kyc.alreadyApproved', 'Your KYC is already approved. No further action is required.')}
 
-                  {user?.kycStatus === 'verified' && 'Your identity is already verified.'}
+                  {user?.kycStatus === 'verified' &&
+                    t('website.kyc.alreadyVerified', 'Your identity is already verified.')}
                 </DialogDescription>
               </DialogHeader>
 
               <DialogFooter>
-                <Button onClick={() => setKycBlockedModal(false)}>OK</Button>
+                <Button onClick={() => setKycBlockedModal(false)}>{t('common.ok', 'OK')}</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
+
         </div>
       )}
      </>

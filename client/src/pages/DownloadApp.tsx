@@ -10,24 +10,26 @@ import {
 } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import { useSettingByKey } from '@/hooks/useSettings';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function DownloadApp() {
   const siteName = useSettingByKey('platform_name') || 'Simfinity';
   const androidLink = useSettingByKey('social_android') || '#';
   const iosLink = useSettingByKey('social_ios') || '#';
+  const { t } = useTranslation();
 
   const features = [
-    { icon: Globe2, title: 'Browse 200+ Destinations', desc: 'Find the perfect data plan for any country or region.', color: 'from-blue-500 to-blue-600' },
-    { icon: Zap, title: 'Instant Activation', desc: 'Purchase and activate your eSIM in minutes — right from the app.', color: 'from-amber-500 to-amber-600' },
-    { icon: Shield, title: 'Secure & Private', desc: 'Your data and payments are protected with enterprise-grade encryption.', color: 'from-emerald-500 to-emerald-600' },
-    { icon: Star, title: 'Manage Plans Easily', desc: 'View usage, top up data, and switch between plans seamlessly.', color: 'from-purple-500 to-purple-600' },
+    { icon: Globe2, title: t('downloadApp.feat1Title', 'Browse 200+ Destinations'), desc: t('downloadApp.feat1Desc', 'Find the perfect data plan for any country or region.'), color: 'from-blue-500 to-blue-600' },
+    { icon: Zap, title: t('downloadApp.feat2Title', 'Instant Activation'), desc: t('downloadApp.feat2Desc', 'Purchase and activate your eSIM in minutes — right from the app.'), color: 'from-amber-500 to-amber-600' },
+    { icon: Shield, title: t('downloadApp.feat3Title', 'Secure & Private'), desc: t('downloadApp.feat3Desc', 'Your data and payments are protected with enterprise-grade encryption.'), color: 'from-emerald-500 to-emerald-600' },
+    { icon: Star, title: t('downloadApp.feat4Title', 'Manage Plans Easily'), desc: t('downloadApp.feat4Desc', 'View usage, top up data, and switch between plans seamlessly.'), color: 'from-purple-500 to-purple-600' },
   ];
 
   return (
     <>
       <Helmet>
-        <title>Download the App — {siteName}</title>
-        <meta name="description" content={`Download the ${siteName} app to browse eSIM plans, manage your data, and stay connected worldwide.`} />
+        <title>{t('downloadApp.pageTitle', 'Download the App — {{siteName}}', { siteName })}</title>
+        <meta name="description" content={t('downloadApp.pageMeta', 'Download the {{siteName}} app to browse eSIM plans, manage your data, and stay connected worldwide.', { siteName })} />
       </Helmet>
 
       <div className="min-h-screen bg-background">
@@ -41,14 +43,14 @@ export default function DownloadApp() {
               <div>
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
                   <Download className="w-4 h-4 text-white" />
-                  <span className="text-sm font-medium text-white">Download App</span>
+                  <span className="text-sm font-medium text-white">{t('downloadApp.tagLabel', 'Download App')}</span>
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  Get the {siteName}{' '}
-                  <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">app</span>
+                  {t('downloadApp.heroTitlePrefix', 'Get the {{siteName}}', { siteName })}{' '}
+                  <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">{t('downloadApp.heroTitleHighlight', 'app')}</span>
                 </h1>
                 <p className="text-lg md:text-xl text-white/80 mb-8">
-                  Browse plans, activate eSIMs, and manage your data — all from your phone. Available on iOS and Android.
+                  {t('downloadApp.heroSubtitle', 'Browse plans, activate eSIMs, and manage your data — all from your phone. Available on iOS and Android.')}
                 </p>
                 <div className="flex items-center gap-3 mb-6">
                   <div className="flex items-center gap-1">
@@ -56,23 +58,23 @@ export default function DownloadApp() {
                       <Star key={s} className="w-5 h-5 fill-amber-400 text-amber-400" />
                     ))}
                   </div>
-                  <span className="text-white/80">4.7 rating</span>
+                  <span className="text-white/80">{t('downloadApp.rating', '4.7 rating')}</span>
                   <span className="text-white/40">|</span>
-                  <span className="text-white/80">97K+ reviews</span>
+                  <span className="text-white/80">{t('downloadApp.reviews', '97K+ reviews')}</span>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <a href={iosLink} className="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-white text-primary-dark font-medium hover:bg-slate-100 transition-colors">
                     <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" /></svg>
                     <div className="text-left">
-                      <p className="text-xs text-slate-500">Download on the</p>
-                      <p className="text-sm font-semibold">App Store</p>
+                      <p className="text-xs text-slate-500">{t('downloadApp.iosPrefix', 'Download on the')}</p>
+                      <p className="text-sm font-semibold">{t('downloadApp.iosStore', 'App Store')}</p>
                     </div>
                   </a>
                   <a href={androidLink} className="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-white text-primary-dark font-medium hover:bg-slate-100 transition-colors">
                     <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12l-9.85 9.85c-.5-.24-.84-.76-.84-1.35m13.81-5.38L6.05 21.34l8.49-8.49 2.27 2.27m3.35-4.31c.34.27.56.69.56 1.19s-.22.92-.56 1.19l-1.97 1.13-2.5-2.5 2.5-2.5 1.97 1.49M6.05 2.66l10.76 6.22-2.27 2.27-8.49-8.49z" /></svg>
                     <div className="text-left">
-                      <p className="text-xs text-slate-500">Get it on</p>
-                      <p className="text-sm font-semibold">Google Play</p>
+                      <p className="text-xs text-slate-500">{t('downloadApp.androidPrefix', 'Get it on')}</p>
+                      <p className="text-sm font-semibold">{t('downloadApp.androidStore', 'Google Play')}</p>
                     </div>
                   </a>
                 </div>
@@ -91,8 +93,8 @@ export default function DownloadApp() {
         <section className="py-16 md:py-24 bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Everything in one app</h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Manage your global connectivity from your pocket.</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('downloadApp.featuresTitle', 'Everything in one app')}</h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t('downloadApp.featuresDesc', 'Manage your global connectivity from your pocket.')}</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {features.map((f) => (
@@ -115,16 +117,16 @@ export default function DownloadApp() {
                 <div className="absolute top-10 right-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl" />
               </div>
               <div className="relative z-10">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Get connected in minutes</h2>
-                <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">Download the app, choose a plan, and you're online — it's that simple.</p>
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{t('downloadApp.ctaTitle', 'Get connected in minutes')}</h2>
+                <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">{t('downloadApp.ctaDesc', 'Download the app, choose a plan, and you\'re online — it\'s that simple.')}</p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <a href="#" className="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-white text-primary-dark font-medium hover:bg-slate-100 transition-colors">
                     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" /></svg>
-                    App Store
+                    {t('downloadApp.iosStore', 'App Store')}
                   </a>
                   <a href="#" className="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-white text-primary-dark font-medium hover:bg-slate-100 transition-colors">
                     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12l-9.85 9.85c-.5-.24-.84-.76-.84-1.35m13.81-5.38L6.05 21.34l8.49-8.49 2.27 2.27m3.35-4.31c.34.27.56.69.56 1.19s-.22.92-.56 1.19l-1.97 1.13-2.5-2.5 2.5-2.5 1.97 1.49M6.05 2.66l10.76 6.22-2.27 2.27-8.49-8.49z" /></svg>
-                    Google Play
+                    {t('downloadApp.androidStore', 'Google Play')}
                   </a>
                 </div>
               </div>

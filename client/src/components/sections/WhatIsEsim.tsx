@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { useSettingByKey } from '@/hooks/useSettings';
 
 const esimChipImg = '/images/esim-chip-illustration.png';
 
 export function WhatIsEsim() {
   const { t } = useTranslation();
+  const siteName = useSettingByKey('platform_name') || 'Simfinity';
 
   return (
     <section className="py-16 md:py-24 bg-white dark:bg-gray-950">
@@ -39,7 +41,7 @@ export function WhatIsEsim() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900 dark:text-white">eSIM #1</p>
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white">{t('website.home.whatIsEsim.esimNum', 'eSIM #1')}</p>
                   <p className="text-xs text-green-500 font-medium">{t('website.home.whatIsEsim.active', 'Active')}</p>
                 </div>
                 <div className="w-2.5 h-2.5 bg-green-500 rounded-full ml-1"></div>

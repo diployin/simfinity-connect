@@ -28,6 +28,7 @@ import { useCurrency } from '@/contexts/CurrencyContext';
 // import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import ReactCountryFlag from 'react-country-flag';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 type OrderDetails = {
   id: string;
@@ -60,17 +61,18 @@ type OrderDetails = {
   } | null;
 };
 
-const statusConfig: Record<string, { label: string; color: string; icon: any }> = {
-  pending: { label: 'Processing', color: 'bg-yellow-500', icon: Clock },
-  processing: { label: 'Processing', color: 'bg-[#2c7338]', icon: Loader2 },
-  completed: { label: 'Ready to Install', color: 'bg-green-500', icon: Check },
-  failed: { label: 'Failed', color: 'bg-red-500', icon: AlertCircle },
-};
+const getStatusConfig = (t: any): Record<string, { label: string; color: string; icon: any }> => ({
+  pending: { label: t('order.statusProcessing', 'Processing'), color: 'bg-yellow-500', icon: Clock },
+  processing: { label: t('order.statusProcessing', 'Processing'), color: 'bg-[#2c7338]', icon: Loader2 },
+  completed: { label: t('order.statusReady', 'Ready to Install'), color: 'bg-green-500', icon: Check },
+  failed: { label: t('order.statusFailed', 'Failed'), color: 'bg-red-500', icon: AlertCircle },
+});
 
 export default function OrderConfirmation() {
   const { token } = useParams();
   const { toast } = useToast();
   const { currencies } = useCurrency();
+  const { t } = useTranslation();
   const [showInstallSteps, setShowInstallSteps] = useState(true);
 
   const getCurrencySymbol = (currencyCode: string) => {
@@ -95,8 +97,8 @@ export default function OrderConfirmation() {
   const copyToClipboard = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
     toast({
-      title: 'Copied',
-      description: `${label} copied to clipboard`,
+      title: t('order.copied', 'Copied'),
+      description: t('order.copiedDesc', '{{label}} copied to clipboard', { label }),
     });
   };
 
@@ -107,7 +109,7 @@ export default function OrderConfirmation() {
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
             <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#2c7338] border-r-transparent"></div>
-            <p className="mt-4 text-muted-foreground">Loading your order...</p>
+            <p className="mt-4 text-muted-foreground">{t('order.loading', 'Loading your order...')}</p>
           </div>
         </div>
         {/* <SiteFooter /> */}
@@ -122,14 +124,14 @@ export default function OrderConfirmation() {
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center max-w-md mx-auto px-4">
             <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-foreground mb-2">Order Not Found</h1>
+            <h1 className="text-2xl font-bold text-foreground mb-2">{t('order.notFoundTitle', 'Order Not Found')}</h1>
             <p className="text-muted-foreground mb-6">
-              We couldn't find this order. Please check your email for the correct link.
+              {t('order.notFoundDesc', 'We couldn\'t find this order. Please check your email for the correct link.')}
             </p>
             <Link href="/">
               <Button data-testid="button-home">
                 <Home className="w-4 h-4 mr-2" />
-                Go Home
+                {t('order.goHome', 'Go Home')}
               </Button>
             </Link>
           </div>
@@ -139,13 +141,14 @@ export default function OrderConfirmation() {
     );
   }
 
+  const statusConfig = getStatusConfig(t);
   const status = statusConfig[order.status] || statusConfig.pending;
   const StatusIcon = status.icon;
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>{`Order #${order?.displayOrderId ?? '—'} | Simfinity`}</title>
+        <title>{t('order.pageTitle', 'Order #{{id}} | Simfinity', { id: order?.displayOrderId ?? '—' })}</title>
       </Helmet>
 
       {/* <SiteHeader /> */}
@@ -161,10 +164,10 @@ export default function OrderConfirmation() {
               />
             </div>
             <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
-              {order.status === 'completed' ? 'Your eSIM is Ready!' : 'Order Processing'}
+              {order.status === 'completed' ? t('order.headingReady', 'Your eSIM is Ready!') : t('order.headingProcessing', 'Order Processing')}
             </h1>
             <p className="text-muted-foreground">
-              Order #{order.displayOrderId?.toString().padStart(5, '0') || order.id.slice(0, 8)}
+              {t('order.orderNumber', 'Order #{{id}}', { id: order.displayOrderId?.toString().padStart(5, '0') || order.id.slice(0, 8) })}
             </p>
           </div>
 
@@ -184,11 +187,10 @@ export default function OrderConfirmation() {
                       </div>
                       <div className="flex-1 text-center md:text-left">
                         <h3 className="font-semibold text-foreground text-lg mb-2">
-                          Scan to Install
+                          {t('order.scanToInstall', 'Scan to Install')}
                         </h3>
                         <p className="text-sm text-muted-foreground mb-4">
-                          Open your phone's camera and scan this QR code to install your eSIM
-                          automatically.
+                          {t('order.scanQrDesc', 'Open your phone\'s camera and scan this QR code to install your eSIM automatically.')}
                         </p>
                         <div className="flex flex-wrap gap-2 justify-center md:justify-start">
                           <Button
@@ -203,7 +205,7 @@ export default function OrderConfirmation() {
                             data-testid="button-download-qr"
                           >
                             <Download className="w-4 h-4 mr-2" />
-                            Download QR
+                            {t('order.downloadQr', 'Download QR')}
                           </Button>
                           {order.lpaCode && (
                             <Button
@@ -213,7 +215,7 @@ export default function OrderConfirmation() {
                               data-testid="button-copy-lpa"
                             >
                               <Copy className="w-4 h-4 mr-2" />
-                              Copy LPA Code
+                              {t('order.copyLpa', 'Copy LPA Code')}
                             </Button>
                           )}
                         </div>
@@ -232,11 +234,10 @@ export default function OrderConfirmation() {
                       </div>
                       <div>
                         <h3 className="font-semibold text-foreground mb-2">
-                          Your eSIM is Being Prepared
+                          {t('order.preparingEsim', 'Your eSIM is Being Prepared')}
                         </h3>
                         <p className="text-sm text-muted-foreground">
-                          This usually takes less than a minute. This page will automatically update
-                          when your eSIM is ready.
+                          {t('order.preparingDesc', 'This usually takes less than a minute. This page will automatically update when your eSIM is ready.')}
                         </p>
                       </div>
                     </div>
@@ -249,20 +250,20 @@ export default function OrderConfirmation() {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <Wifi className="w-5 h-5" />
-                      Data Usage
+                      {t('order.dataUsage', 'Data Usage')}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
                       <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Used</span>
+                        <span className="text-muted-foreground">{t('order.used', 'Used')}</span>
                         <span className="font-medium">
                           {order.usageData.used} / {order.usageData.total}
                         </span>
                       </div>
                       <Progress value={order.usageData.percentage} className="h-3" />
                       <p className="text-xs text-muted-foreground">
-                        {100 - order.usageData.percentage}% remaining
+                        {t('order.percentageRemaining', '{{percentage}}% remaining', { percentage: 100 - order.usageData.percentage })}
                       </p>
                     </div>
                   </CardContent>
@@ -277,7 +278,7 @@ export default function OrderConfirmation() {
                   <div className="flex items-center justify-between">
                     <CardTitle className="flex items-center gap-2">
                       <Smartphone className="w-5 h-5" />
-                      Installation Guide
+                      {t('order.installGuide', 'Installation Guide')}
                     </CardTitle>
                     {showInstallSteps ? (
                       <ChevronUp className="w-5 h-5" />
@@ -294,9 +295,9 @@ export default function OrderConfirmation() {
                           1
                         </div>
                         <div>
-                          <p className="font-medium text-foreground">Open Camera or Settings</p>
+                          <p className="font-medium text-foreground">{t('order.step1Title', 'Open Camera or Settings')}</p>
                           <p className="text-sm text-muted-foreground">
-                            Go to Settings &gt; Cellular &gt; Add eSIM, or simply open your camera.
+                            {t('order.step1Desc', 'Go to Settings > Cellular > Add eSIM, or simply open your camera.')}
                           </p>
                         </div>
                       </div>
@@ -305,9 +306,9 @@ export default function OrderConfirmation() {
                           2
                         </div>
                         <div>
-                          <p className="font-medium text-foreground">Scan QR Code</p>
+                          <p className="font-medium text-foreground">{t('order.step2Title', 'Scan QR Code')}</p>
                           <p className="text-sm text-muted-foreground">
-                            Point your camera at the QR code above to start the installation.
+                            {t('order.step2Desc', 'Point your camera at the QR code above to start the installation.')}
                           </p>
                         </div>
                       </div>
@@ -316,10 +317,9 @@ export default function OrderConfirmation() {
                           3
                         </div>
                         <div>
-                          <p className="font-medium text-foreground">Activate When Ready</p>
+                          <p className="font-medium text-foreground">{t('order.step3Title', 'Activate When Ready')}</p>
                           <p className="text-sm text-muted-foreground">
-                            Turn on the eSIM when you arrive at your destination. Data starts
-                            counting from first use.
+                            {t('order.step3Desc', 'Turn on the eSIM when you arrive at your destination. Data starts counting from first use.')}
                           </p>
                         </div>
                       </div>
@@ -332,7 +332,7 @@ export default function OrderConfirmation() {
             <div className="space-y-6">
               <Card className="border-0 shadow-lg">
                 <CardHeader>
-                  <CardTitle>Order Details</CardTitle>
+                  <CardTitle>{t('order.orderDetails', 'Order Details')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center gap-3 pb-4 border-b border-border">
@@ -349,33 +349,33 @@ export default function OrderConfirmation() {
                       <p className="font-medium text-foreground">
                         {order.package?.countryName || order.package?.title}
                       </p>
-                      <p className="text-sm text-muted-foreground">eSIM Data Plan</p>
+                      <p className="text-sm text-muted-foreground">{t('order.esimDataPlan', 'eSIM Data Plan')}</p>
                     </div>
                   </div>
 
                   <div className="space-y-3">
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Data</span>
+                      <span className="text-muted-foreground">{t('checkout.data', 'Data')}</span>
                       <span className="font-medium text-foreground">{order.dataAmount}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Validity</span>
-                      <span className="font-medium text-foreground">{order.validity} Days</span>
+                      <span className="text-muted-foreground">{t('checkout.validity', 'Validity')}</span>
+                      <span className="font-medium text-foreground">{String(t('checkout.days', '{{count}} Days', { count: order.validity }))}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Status</span>
+                      <span className="text-muted-foreground">{t('order.status', 'Status')}</span>
                       <Badge className={`${status.color} text-white`}>{status.label}</Badge>
                     </div>
                     {order.iccid && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">ICCID</span>
+                        <span className="text-muted-foreground">{t('order.iccid', 'ICCID')}</span>
                         <span className="font-mono text-xs text-foreground">
                           {order.iccid.slice(0, 10)}...
                         </span>
                       </div>
                     )}
                     <div className="flex justify-between text-sm pt-3 border-t border-border">
-                      <span className="font-semibold text-foreground">Total Paid</span>
+                      <span className="font-semibold text-foreground">{t('order.totalPaid', 'Total Paid')}</span>
                       <span className="font-bold text-foreground">
                         {getCurrencySymbol(order.currency)}
                         {order.price}
@@ -388,7 +388,7 @@ export default function OrderConfirmation() {
               {(order.guestEmail || order.guestPhone) && (
                 <Card className="border-0 shadow-lg">
                   <CardHeader>
-                    <CardTitle className="text-base">Contact Info</CardTitle>
+                    <CardTitle className="text-base">{t('order.contactInfo', 'Contact Info')}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
                     {order.guestEmail && (
@@ -412,9 +412,9 @@ export default function OrderConfirmation() {
                   <div className="flex items-start gap-3">
                     <HelpCircle className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-medium text-foreground text-sm mb-1">Need Help?</p>
+                      <p className="font-medium text-foreground text-sm mb-1">{t('order.needHelp', 'Need Help?')}</p>
                       <p className="text-xs text-muted-foreground mb-2">
-                        Save this page URL to access your eSIM details anytime.
+                        {t('order.saveUrlDesc', 'Save this page URL to access your eSIM details anytime.')}
                       </p>
                       <Button
                         variant="outline"
@@ -423,7 +423,7 @@ export default function OrderConfirmation() {
                         data-testid="button-copy-url"
                       >
                         <Copy className="w-3 h-3 mr-2" />
-                        Copy Page URL
+                        {t('order.copyUrl', 'Copy Page URL')}
                       </Button>
                     </div>
                   </div>

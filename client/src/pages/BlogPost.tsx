@@ -11,9 +11,12 @@ import { ArticleSchema } from '@/components/StructuredData';
 // import { calculateReadingTime } from "@/lib/imageOptimization";
 import type { BlogPost as BlogPostType } from '@shared/schema';
 
+import { useTranslation } from '@/contexts/TranslationContext';
+
 export default function BlogPost() {
   const [, params] = useRoute('/blog/:slug');
   const API_BASE_URL = window.location.origin;
+  const { t, languageCode } = useTranslation();
 
   const { data: response, isLoading } = useQuery<{
     success: boolean;
@@ -47,6 +50,8 @@ export default function BlogPost() {
       }
     }
   };
+
+  const dateLocale = languageCode === 'fr' ? 'fr-FR' : 'en-US';
 
   if (isLoading) {
     return (
@@ -82,15 +87,15 @@ export default function BlogPost() {
             <Card className="max-w-2xl mx-auto">
               <CardContent className="text-center py-12 sm:py-16 px-4">
                 <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-4 sm:mb-6">
-                  Blog post not found
+                  {t('website.blog.postNotFound', 'Blog post not found')}
                 </h2>
                 <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8">
-                  The blog post you're looking for doesn't exist or has been removed.
+                  {t('website.blog.postNotFoundDesc', "The blog post you're looking for doesn't exist or has been removed.")}
                 </p>
                 <Link href="/blog">
                   <Button className="w-full sm:w-auto">
                     <ArrowLeft className="h-4 w-4 mr-2" />
-                    Back to Blog
+                    {t('website.blog.backToBlog', 'Back to Blog')}
                   </Button>
                 </Link>
               </CardContent>
@@ -105,7 +110,7 @@ export default function BlogPost() {
   return (
     <div className="min-h-screen flex flex-col pt-[100px]">
       <Helmet>
-        <title>{post.title} | eSIM Marketplace Blog</title>
+        <title>{post.title} | {t('website.blog.heroTitle', 'Simfinity Blog')}</title>
         <meta name="description" content={post.metaDescription || post.excerpt} />
         {post.metaKeywords && post.metaKeywords.length > 0 && (
           <meta name="keywords" content={post.metaKeywords.join(', ')} />
@@ -127,7 +132,7 @@ export default function BlogPost() {
           image={post.featuredImage || undefined}
           datePublished={post.publishedAt.toString()}
           dateModified={post.updatedAt.toString()}
-          authorName={post.author?.name || 'eSIM Marketplace'}
+          authorName={post.author?.name || 'Simfinity'}
         />
       )}
 
@@ -144,7 +149,7 @@ export default function BlogPost() {
               data-testid="button-back-to-blog"
             >
               <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-              Back to Blog
+              {t('website.blog.backToBlog', 'Back to Blog')}
             </Button>
           </Link>
 
@@ -164,20 +169,20 @@ export default function BlogPost() {
                 <Calendar className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
                 <span className="whitespace-nowrap">
                   {post.publishedAt
-                    ? new Date(post.publishedAt).toLocaleDateString('en-US', {
-                        month: 'long',
-                        day: 'numeric',
-                        year: 'numeric',
-                      })
+                    ? new Date(post.publishedAt).toLocaleDateString(dateLocale, {
+                      month: 'long',
+                      day: 'numeric',
+                      year: 'numeric',
+                    })
                     : 'Draft'}
                 </span>
               </div>
 
-              {/* Reading Time (commented out in original) */}
+              {/* Reading Time */}
               <div className="flex items-center gap-1.5 sm:gap-2">
                 <Clock className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
                 <span className="whitespace-nowrap">
-                  {/* {calculateReadingTime(post.content)} min read */}5 min read
+                  {t('website.blog.minRead', { count: 5 })}
                 </span>
               </div>
 
@@ -185,7 +190,7 @@ export default function BlogPost() {
               {post.author && (
                 <div className="flex items-center gap-1.5 sm:gap-2">
                   <User className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
-                  <span className="whitespace-nowrap">By {post.author.name}</span>
+                  <span className="whitespace-nowrap">{t('website.blog.by', { author: post.author.name })}</span>
                 </div>
               )}
             </div>
@@ -230,8 +235,8 @@ export default function BlogPost() {
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 sm:gap-6">
               {/* Last Updated */}
               <div className="text-xs sm:text-sm text-muted-foreground">
-                Last updated:{' '}
-                {new Date(post.updatedAt).toLocaleDateString('en-US', {
+                {t('website.blog.lastUpdated', 'Last updated:')}{' '}
+                {new Date(post.updatedAt).toLocaleDateString(dateLocale, {
                   month: 'long',
                   day: 'numeric',
                   year: 'numeric',
@@ -247,7 +252,7 @@ export default function BlogPost() {
                   className="w-full sm:w-auto text-sm"
                 >
                   <Share2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-2" />
-                  Share Article
+                  {t('website.blog.shareArticle', 'Share Article')}
                 </Button>
               )}
             </div>

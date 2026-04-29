@@ -7,6 +7,8 @@ import {
   ReactNode,
 } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useSettings } from "@/hooks/useSettings";
+
 
 interface Language {
   id: string;
@@ -43,12 +45,15 @@ type TranslationData = Record<string, Record<string, string>>;
 const STORAGE_KEY = "esim_language";
 
 export function TranslationProvider({ children }: { children: ReactNode }) {
+  const settings = useSettings();
+  const siteName = settings?.platform_name || "Simfinity FR";
+
   const [languageCode, setLanguageCode] = useState<string>(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem(STORAGE_KEY);
-      return saved || "en";
+      if (saved) return saved;
     }
-    return "en";
+    return ""; // Will be set once languages load
   });
 
   const [translations, setTranslations] = useState<TranslationData>({});
@@ -57,6 +62,14 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
     queryKey: ["/api/languages"],
     staleTime: 5 * 60 * 1000,
   });
+
+  useEffect(() => {
+    if (!languageCode && languages.length > 0) {
+      const defaultLanguage = languages.find((l) => l.isDefault)?.code || (languages.length > 0 ? languages[0].code : "en");
+      setLanguageCode(defaultLanguage);
+    }
+  }, [languageCode, languages]);
+
   const currentLanguage = languages.find((l) => l.code === languageCode) || null;
   const isRTL = currentLanguage?.isRTL || false;
 
@@ -92,13 +105,13 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
 
 
   const setLanguage = useCallback((code: string) => {
-  console.log("Language changed to:", code);
-  setLanguageCode(code);
-  setTranslations({}); // ✅ CLEAR OLD TRANSLATIONS
-  if (typeof window !== "undefined") {
-    localStorage.setItem(STORAGE_KEY, code);
-  }
-}, []);
+    console.log("Language changed to:", code);
+    setLanguageCode(code);
+    setTranslations({}); // ✅ CLEAR OLD TRANSLATIONS
+    if (typeof window !== "undefined") {
+      localStorage.setItem(STORAGE_KEY, code);
+    }
+  }, []);
 
 
   const t = useCallback(
@@ -120,40 +133,74 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
 
       const keyParts = key.split(".");
       const namespace = keyParts[0];
-      const translationKey = keyParts.slice(1).join(".");
+      const remainingParts = keyParts.slice(1);
+      const translationKey = remainingParts.join(".");
 
-      let value: string | undefined;
-      
+      let value: any;
+
+      // 1. Try exact match in the namespace (for flat keys like website -> "home.title")
       if (translations[namespace] && translationKey) {
         value = translations[namespace][translationKey];
-      } else if (!translationKey) {
+      }
+
+      // 2. Try deep traversal in the namespace (for nested JSON structure)
+      if (value === undefined && translations[namespace]) {
+        let current = translations[namespace];
+        for (const part of remainingParts) {
+          if (current && typeof current === "object" && part in current) {
+            current = current[part];
+          } else {
+            current = undefined;
+            break;
+          }
+        }
+        value = current;
+      }
+
+      // 3. Search across all namespaces if not found (fallback logic)
+      if (value === undefined) {
         for (const ns of Object.values(translations)) {
+          // Try flat match in this namespace
           if (ns[key]) {
             value = ns[key];
+            break;
+          }
+
+          // Try deep traversal in this namespace
+          let current: any = ns;
+          let found = true;
+          for (const part of keyParts) {
+            if (current && typeof current === "object" && part in current) {
+              current = current[part];
+            } else {
+              found = false;
+              break;
+            }
+          }
+          if (found && current !== undefined) {
+            value = current;
             break;
           }
         }
       }
 
-      if (!value) {
-        const result = fallback || key;
-        if (actualParams) {
-          return result.replace(/\{(\w+)\}/g, (match, paramKey) => {
-            return actualParams[paramKey]?.toString() || match;
-          });
-        }
-        return result;
+      if (typeof value !== "string") {
+        value = undefined;
       }
 
-      if (actualParams) {
-        return value.replace(/\{(\w+)\}/g, (match, paramKey) => {
-          return actualParams[paramKey]?.toString() || match;
-        });
-      }
+      const finalParams: Record<string, string | number> = {
+        siteName,
+        ...actualParams,
+      };
 
-      return value;
+      const strToReplace = value || fallback || key;
+
+      return strToReplace.replace(/\{\{(\w+)\}\}|\{(\w+)\}/g, (match, p1, p2) => {
+        const paramKey = p1 || p2;
+        return finalParams[paramKey]?.toString() || match;
+      });
     },
-    [translations, languageCode]
+    [translations, languageCode, siteName]
   );
 
   const isLoading = languagesLoading || translationsLoading;

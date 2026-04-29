@@ -45,6 +45,7 @@ import { SiteFooter } from '@/components/layout/SiteFooter';
 import ReactCountryFlag from 'react-country-flag';
 import { apiRequest } from '@/lib/queryClient';
 import { useSettingByKey } from '@/hooks/useSettings';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
 
@@ -128,26 +129,29 @@ const formatPackageTitle = (pkg: any): string => {
   return `${data} eSIM`;
 };
 
-const checkoutSchema = z.object({
-  email: z.string().email('Please enter a valid email address'),
-  phone: z.string().min(5, 'Please enter a valid phone number'),
-  acceptTerms: z.boolean().refine((val) => val === true, {
-    message: 'You must accept the terms and privacy policy',
-  }),
-});
+const getCheckoutSchema = (t: any) =>
+  z.object({
+    email: z.string().email(t('checkout.validation.email', 'Please enter a valid email address')),
+    phone: z.string().min(5, t('checkout.validation.phone', 'Please enter a valid phone number')),
+    acceptTerms: z.boolean().refine((val) => val === true, {
+      message: t('checkout.validation.terms', 'You must accept the terms and privacy policy'),
+    }),
+  });
 
-type CheckoutFormData = z.infer<typeof checkoutSchema>;
+type CheckoutFormData = z.infer<ReturnType<typeof getCheckoutSchema>>;
 
 function PaymentForm({
   packageData,
   clientSecret,
   customerInfo,
   totalPrice,
+  t,
 }: {
   packageData: UnifiedPackage;
   clientSecret: string;
   customerInfo: CheckoutFormData;
   totalPrice: number;
+  t: any;
 }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -181,7 +185,7 @@ function PaymentForm({
 
       if (error) {
         toast({
-          title: 'Payment Failed',
+          title: t('checkout.failedTitle', 'Payment Failed'),
           description: error.message,
           variant: 'destructive',
         });
@@ -200,8 +204,8 @@ function PaymentForm({
           setLocation(`/order/${data.guestAccessToken}`);
         } else {
           toast({
-            title: 'Order Created',
-            description: 'Your order is being processed.',
+            title: t('checkout.successTitle', 'Order Created'),
+            description: t('checkout.successDesc', 'Your order is being processed.'),
           });
           setLocation('/');
         }
@@ -209,7 +213,7 @@ function PaymentForm({
     } catch (err: any) {
       toast({
         title: 'Error',
-        description: err.message || 'Something went wrong',
+        description: err.message || t('checkout.failedDesc', 'Something went wrong'),
         variant: 'destructive',
       });
     }
@@ -223,7 +227,7 @@ function PaymentForm({
         <CardContent className="p-6">
           <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
             <CreditCard className="w-5 h-5" />
-            Payment Details
+            {t('checkout.paymentDetails', 'Payment Details')}
           </h3>
           <PaymentElement
             options={{
@@ -235,7 +239,7 @@ function PaymentForm({
 
       <div className="flex items-center gap-2 text-sm text-muted-foreground justify-center">
         <Lock className="w-4 h-4" />
-        <span>Secure payment powered by Stripe</span>
+        <span>{t('checkout.securePayment', 'Secure payment powered by Stripe')}</span>
       </div>
 
       <Button
@@ -247,12 +251,11 @@ function PaymentForm({
         {isProcessing ? (
           <>
             <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-            Processing...
+            {t('checkout.processing', 'Processing...')}
           </>
         ) : (
           <>
-            Pay {getCurrencySymbol(packageData.currency)}
-            {totalPrice.toFixed(2)}
+            {String(t('checkout.pay', 'Pay {{price}}', { price: `${getCurrencySymbol(packageData.currency)}${totalPrice.toFixed(2)}` }))}
           </>
         )}
       </Button>
@@ -266,6 +269,7 @@ export default function GuestCheckout() {
   const { toast } = useToast();
   const { currency, currencies } = useCurrency();
   const { user, isAuthenticated } = useUser();
+  const { t } = useTranslation();
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [customerInfo, setCustomerInfo] = useState<CheckoutFormData | null>(null);
   const [confirmedTotal, setConfirmedTotal] = useState<number>(0);
@@ -300,7 +304,7 @@ export default function GuestCheckout() {
   });
 
   const form = useForm<CheckoutFormData>({
-    resolver: zodResolver(checkoutSchema),
+    resolver: zodResolver(getCheckoutSchema(t)),
     defaultValues: {
       email: '',
       phone: '',
@@ -523,15 +527,15 @@ export default function GuestCheckout() {
             data-testid="button-back"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back
+            {t('checkout.back', 'Back')}
           </Button>
 
           <div className="grid lg:grid-cols-5 gap-8">
             <div className="lg:col-span-3 space-y-6">
               <div>
-                <h1 className="text-2xl font-bold text-foreground mb-2">Checkout</h1>
+                <h1 className="text-2xl font-bold text-foreground mb-2">{t('checkout.title', 'Checkout')}</h1>
                 <p className="text-muted-foreground">
-                  Complete your purchase to get instant access to your eSIM
+                  {t('checkout.subtitle', 'Complete your purchase to get instant access to your eSIM')}
                 </p>
               </div>
 
@@ -539,9 +543,9 @@ export default function GuestCheckout() {
                 <>
                   <Card className="border-0 shadow-lg">
                     <CardContent className="p-6">
-                      <h3 className="font-semibold text-foreground mb-4">Contact Information</h3>
+                      <h3 className="font-semibold text-foreground mb-4">{t('checkout.contactInfo', 'Contact Information')}</h3>
                       <p className="text-sm text-muted-foreground mb-6">
-                        We'll send your eSIM details to this email. No account required.
+                        {t('checkout.contactNote', 'We\'ll send your eSIM details to this email. No account required.')}
                       </p>
 
                       <Form {...form}>
@@ -551,14 +555,14 @@ export default function GuestCheckout() {
                             name="email"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel>Email Address</FormLabel>
+                                <FormLabel>{t('checkout.email', 'Email Address')}</FormLabel>
                                 <FormControl>
                                   <div className="relative">
                                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                     <Input
                                       {...field}
                                       type="email"
-                                      placeholder="your@email.com"
+                                      placeholder={String(t('checkout.emailPlaceholder', 'your@email.com'))}
                                       className="pl-10"
                                       data-testid="input-email"
                                     />
@@ -574,14 +578,14 @@ export default function GuestCheckout() {
                             name="phone"
                             render={({ field }) => (
                               <FormItem>
-                                <FormLabel>Phone Number</FormLabel>
+                                <FormLabel>{t('checkout.phone', 'Phone Number')}</FormLabel>
                                 <FormControl>
                                   <div className="relative">
                                     <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                                     <Input
                                       {...field}
                                       type="tel"
-                                      placeholder="+1 234 567 8900"
+                                      placeholder={String(t('checkout.phonePlaceholder', '+1 234 567 8900'))}
                                       className="pl-10"
                                       data-testid="input-phone"
                                     />
@@ -606,13 +610,19 @@ export default function GuestCheckout() {
                                 </FormControl>
                                 <div className="space-y-1 leading-none">
                                   <FormLabel className="text-sm font-normal cursor-pointer">
-                                    I agree to the{' '}
+                                    {String(t('checkout.acceptTerms', 'I agree to the {{terms}} and {{privacy}}', {
+                                      terms: t('checkout.terms', 'Terms of Service'),
+                                      privacy: t('checkout.privacy', 'Privacy Policy')
+                                    })).split(String(t('checkout.terms', 'Terms of Service')))[0]}
                                     <Link href="/terms-and-condition" className="text-[#1e5427] hover:underline">
-                                      Terms of Service
-                                    </Link>{' '}
-                                    and{' '}
+                                      {t('checkout.terms', 'Terms of Service')}
+                                    </Link>
+                                    {String(t('checkout.acceptTerms', 'I agree to the {{terms}} and {{privacy}}', {
+                                      terms: t('checkout.terms', 'Terms of Service'),
+                                      privacy: t('checkout.privacy', 'Privacy Policy')
+                                    })).split(String(t('checkout.terms', 'Terms of Service')))[1].split(String(t('checkout.privacy', 'Privacy Policy')))[0]}
                                     <Link href="/privacy-policy" className="text-[#1e5427] hover:underline">
-                                      Privacy Policy
+                                      {t('checkout.privacy', 'Privacy Policy')}
                                     </Link>
                                   </FormLabel>
                                   <FormMessage />
@@ -630,10 +640,10 @@ export default function GuestCheckout() {
                             {createPaymentIntent.isPending ? (
                               <>
                                 <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                Processing...
+                                {t('checkout.processing', 'Processing...')}
                               </>
                             ) : (
-                              'Continue to Payment'
+                              t('checkout.continue', 'Continue to Payment')
                             )}
                           </Button>
                         </form>
@@ -648,7 +658,7 @@ export default function GuestCheckout() {
                           <div className="flex items-center gap-2">
                             <Tag className="w-4 h-4 text-muted-foreground" />
                             <span className="font-medium text-foreground">
-                              Have promo, giftcard or referral?
+                              {t('checkout.promoToggle', 'Have promo, giftcard or referral?')}
                             </span>
                           </div>
                           <Plus
@@ -665,7 +675,7 @@ export default function GuestCheckout() {
                                 onClick={() => setPromoCodeType('voucher')}
                               >
                                 <Tag className="w-3 h-3 mr-1" />
-                                Voucher
+                                {t('checkout.voucher', 'Voucher')}
                               </Button>
                               <Button
                                 type="button"
@@ -674,7 +684,7 @@ export default function GuestCheckout() {
                                 onClick={() => setPromoCodeType('giftcard')}
                               >
                                 <Gift className="w-3 h-3 mr-1" />
-                                Gift Card
+                                {t('checkout.giftCard', 'Gift Card')}
                               </Button>
                               <Button
                                 type="button"
@@ -683,7 +693,7 @@ export default function GuestCheckout() {
                                 onClick={() => setPromoCodeType('referral')}
                               >
                                 <Users className="w-3 h-3 mr-1" />
-                                Referral
+                                {t('checkout.referral', 'Referral')}
                               </Button>
                             </div>
                           )}
@@ -691,7 +701,7 @@ export default function GuestCheckout() {
                           {!appliedPromo && (
                             <div className="flex gap-2">
                               <Input
-                                placeholder={`Enter ${promoCodeType === 'voucher' ? 'voucher' : promoCodeType === 'giftcard' ? 'gift card' : 'referral'} code`}
+                                placeholder={String(t('checkout.enterPromo', 'Enter {{type}} code', { type: promoCodeType === 'voucher' ? t('checkout.voucher', 'Voucher').toLowerCase() : promoCodeType === 'giftcard' ? t('checkout.giftCard', 'Gift Card').toLowerCase() : t('checkout.referral', 'Referral').toLowerCase() }))}
                                 value={promoCode}
                                 onChange={(e) => setPromoCode(e.target.value)}
                                 data-testid="input-promo-code"
@@ -706,7 +716,7 @@ export default function GuestCheckout() {
                                 {isValidatingPromo ? (
                                   <Loader2 className="w-4 h-4 animate-spin" />
                                 ) : (
-                                  'Apply'
+                                  t('checkout.apply', 'Apply')
                                 )}
                               </Button>
                             </div>
@@ -714,8 +724,7 @@ export default function GuestCheckout() {
 
                           {appliedPromo && (
                             <p className="text-xs text-muted-foreground">
-                              Only one code can be applied per order. Remove the current code to
-                              apply a different one.
+                              {t('checkout.promoNote', 'Only one code can be applied per order. Remove the current code to apply a different one.')}
                             </p>
                           )}
 
@@ -726,10 +735,10 @@ export default function GuestCheckout() {
                                   <Check className="w-4 h-4 text-green-600" />
                                   <span className="text-sm font-medium text-green-700 dark:text-green-400">
                                     {appliedPromo.type === 'voucher'
-                                      ? 'Voucher'
+                                      ? t('checkout.voucher', 'Voucher')
                                       : appliedPromo.type === 'giftcard'
-                                        ? 'Gift Card'
-                                        : 'Referral'}
+                                        ? t('checkout.giftCard', 'Gift Card')
+                                        : t('checkout.referral', 'Referral')}
                                     : {appliedPromo.code}
                                   </span>
                                 </div>
@@ -748,7 +757,7 @@ export default function GuestCheckout() {
                                 onClick={removePromo}
                                 className="text-red-500 hover:text-red-600"
                               >
-                                Remove
+                                {t('checkout.remove', 'Remove')}
                               </Button>
                             </div>
                           )}
@@ -765,10 +774,10 @@ export default function GuestCheckout() {
                             <div className="flex items-center gap-2">
                               <Coins className="w-4 h-4 text-amber-500" />
                               <span className="font-medium text-foreground">
-                                Use Referral Credits
+                                {t('checkout.useReferralCredits', 'Use Referral Credits')}
                               </span>
                               <span className="text-sm text-muted-foreground">
-                                (${availableCredits.toFixed(2)} available)
+                                ({String(t('checkout.creditsAvailable', '{{amount}} available', { amount: `$${availableCredits.toFixed(2)}` }))})
                               </span>
                             </div>
                             <Plus
@@ -777,8 +786,7 @@ export default function GuestCheckout() {
                           </CollapsibleTrigger>
                           <CollapsibleContent className="pt-4 space-y-4">
                             <p className="text-sm text-muted-foreground">
-                              You have referral credits that can be used as a discount on this
-                              order.
+                              {t('checkout.creditsNote', 'You have referral credits that can be used as a discount on this order.')}
                             </p>
 
                             {appliedReferralCredits > 0 ? (
@@ -786,7 +794,7 @@ export default function GuestCheckout() {
                                 <div className="flex items-center gap-2">
                                   <Check className="w-4 h-4 text-amber-600" />
                                   <span className="text-sm text-amber-700 dark:text-amber-400">
-                                    ${appliedReferralCredits.toFixed(2)} credits applied
+                                    {String(t('checkout.creditsApplied', '{{amount}} credits applied', { amount: `$${appliedReferralCredits.toFixed(2)}` }))}
                                   </span>
                                 </div>
                                 <Button
@@ -797,7 +805,7 @@ export default function GuestCheckout() {
                                   className="text-red-500 hover:text-red-600"
                                   data-testid="button-remove-credits"
                                 >
-                                  Remove
+                                  {t('checkout.remove', 'Remove')}
                                 </Button>
                               </div>
                             ) : (
@@ -809,7 +817,7 @@ export default function GuestCheckout() {
                                   onClick={() => handleApplyCredits(availableCredits)}
                                   data-testid="button-apply-all-credits"
                                 >
-                                  Apply All (${availableCredits.toFixed(2)})
+                                  {t('checkout.applyAll', 'Apply All')} (${availableCredits.toFixed(2)})
                                 </Button>
                                 <Button
                                   type="button"
@@ -825,7 +833,7 @@ export default function GuestCheckout() {
                                   }}
                                   data-testid="button-apply-half-credits"
                                 >
-                                  Apply Half ($
+                                  {t('checkout.applyHalf', 'Apply Half')} ($
                                   {Math.min(
                                     availableCredits / 2,
                                     parseFloat(calculateTotal()),
@@ -865,11 +873,11 @@ export default function GuestCheckout() {
               <div className="flex items-center gap-4 justify-center text-sm text-muted-foreground flex-wrap">
                 <div className="flex items-center gap-1">
                   <Shield className="w-4 h-4" />
-                  <span>Secure Checkout</span>
+                  <span>{t('checkout.secureCheckout', 'Secure Checkout')}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <Zap className="w-4 h-4" />
-                  <span>Instant Delivery</span>
+                  <span>{t('checkout.instantDelivery', 'Instant Delivery')}</span>
                 </div>
               </div>
             </div>
@@ -877,7 +885,7 @@ export default function GuestCheckout() {
             <div className="lg:col-span-2">
               <Card className="border-0 shadow-lg sticky top-24">
                 <CardContent className="p-6">
-                  <h3 className="font-semibold text-foreground mb-4">Order Summary</h3>
+                  <h3 className="font-semibold text-foreground mb-4">{t('checkout.orderSummary', 'Order Summary')}</h3>
 
                   <div className="flex items-center gap-3 mb-4 pb-4 border-b border-border">
                     {packageData.countryCode && (
@@ -899,23 +907,23 @@ export default function GuestCheckout() {
 
                   <div className="space-y-3 mb-4 pb-4 border-b border-border">
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Data</span>
+                      <span className="text-muted-foreground">{t('checkout.data', 'Data')}</span>
                       <span className="font-medium text-foreground">
-                        {formatDataAmount(packageData)}
+                        {formatDataAmount(packageData) === 'Unlimited' ? t('checkout.unlimited', 'Unlimited') : formatDataAmount(packageData)}
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Validity</span>
+                      <span className="text-muted-foreground">{t('checkout.validity', 'Validity')}</span>
                       <span className="font-medium text-foreground">
-                        {packageData.validity} Days
+                        {String(t('checkout.days', '{{count}} Days', { count: packageData.validity }))}
                       </span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Coverage</span>
+                      <span className="text-muted-foreground">{t('destinations.country', 'Coverage') || 'Coverage'}</span>
                       <span className="font-medium text-foreground">{packageData.countryName}</span>
                     </div>
                     <div className="flex justify-between items-center text-sm">
-                      <span className="text-muted-foreground">Quantity</span>
+                      <span className="text-muted-foreground">{t('checkout.quantity', 'Quantity')}</span>
                       <div className="flex items-center gap-2">
                         <Button
                           type="button"
@@ -949,14 +957,14 @@ export default function GuestCheckout() {
                   {quantity > 1 && (
                     <div className="space-y-2 mb-4 pb-4 border-b border-border">
                       <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Price per eSIM</span>
+                        <span className="text-muted-foreground">{t('checkout.pricePerEsim', 'Price per eSIM')}</span>
                         <span className="text-foreground">
                           {getCurrencySymbol(packageData.currency)}
                           {packageData.retailPrice || packageData.price}
                         </span>
                       </div>
                       <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Subtotal ({quantity} eSIMs)</span>
+                        <span className="text-muted-foreground">{t('checkout.subtotalQuantity', 'Subtotal ({{count}} eSIMs)', { count: quantity })}</span>
                         <span className="text-foreground">
                           {getCurrencySymbol(packageData.currency)}
                           {(
@@ -972,7 +980,7 @@ export default function GuestCheckout() {
                       {appliedPromo && (
                         <div className="flex justify-between text-sm">
                           <span className="text-green-600 dark:text-green-400">
-                            Promo Discount ({appliedPromo.code})
+                            {t('checkout.promoDiscount', 'Promo Discount')} ({appliedPromo.code})
                           </span>
                           <span className="text-green-600 dark:text-green-400">
                             -{getCurrencySymbol(packageData.currency)}
@@ -983,7 +991,7 @@ export default function GuestCheckout() {
                       {appliedReferralCredits > 0 && (
                         <div className="flex justify-between text-sm">
                           <span className="text-amber-600 dark:text-amber-400">
-                            Referral Credits
+                            {t('checkout.referralCredits', 'Referral Credits')}
                           </span>
                           <span className="text-amber-600 dark:text-amber-400">
                             -{getCurrencySymbol(packageData.currency)}
@@ -995,7 +1003,7 @@ export default function GuestCheckout() {
                   )}
 
                   <div className="flex justify-between items-center">
-                    <span className="font-semibold text-foreground">Total</span>
+                    <span className="font-semibold text-foreground">{t('checkout.total', 'Total')}</span>
                     <span className="text-2xl font-bold text-foreground">
                       {getCurrencySymbol(packageData.currency)}
                       {calculateTotal()}
@@ -1006,9 +1014,7 @@ export default function GuestCheckout() {
                     <div className="flex items-start gap-2">
                       <Check className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
                       <p className="text-xs text-green-700 dark:text-green-400">
-                        Instant activation after payment.{' '}
-                        {quantity > 1 ? `Your ${quantity} eSIMs will be` : 'Your eSIM will be'}{' '}
-                        ready immediately.
+                        {t('checkout.instantActivation', 'Instant activation after payment. Your eSIM(s) will be ready immediately.')}
                       </p>
                     </div>
                   </div>

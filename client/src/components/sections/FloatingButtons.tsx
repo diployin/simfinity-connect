@@ -3,9 +3,11 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { MessageCircle, ArrowUp } from 'lucide-react';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 export function FloatingButtons() {
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,7 +30,7 @@ export function FloatingButtons() {
         className="rounded-full shadow-lg w-12 h-12"
         onClick={() => window.open('/account/support', '_self')}
         data-testid="button-live-chat"
-        aria-label="Open live chat"
+        aria-label={t('website.home.floating.chat', 'Open live chat')}
       >
         <MessageCircle className="w-5 h-5" />
         <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-background" />
@@ -41,7 +43,7 @@ export function FloatingButtons() {
           className="rounded-full shadow-lg w-12 h-12 bg-card"
           onClick={scrollToTop}
           data-testid="button-back-to-top"
-          aria-label="Back to top"
+          aria-label={t('website.home.floating.top', 'Back to top')}
         >
           <ArrowUp className="w-5 h-5" />
         </Button>

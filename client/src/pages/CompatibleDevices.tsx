@@ -109,7 +109,7 @@ export default function CompatibleDevices() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">Loading compatible devices…</p>
+        <p className="text-muted-foreground">{t('website.compatibleDevices.loading', 'Loading compatible devices…')}</p>
       </div>
     );
   }
@@ -117,7 +117,7 @@ export default function CompatibleDevices() {
   if (isError || !data) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-destructive">Failed to load devices</p>
+        <p className="text-destructive">{t('website.compatibleDevices.error', 'Failed to load devices')}</p>
       </div>
     );
   }
@@ -176,7 +176,7 @@ export default function CompatibleDevices() {
             <Input
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder="Search by brand or model (e.g. iPhone, Galaxy S24)"
+              placeholder={t('website.compatibleDevices.searchPlaceholder', 'Search by brand or model (e.g. iPhone, Galaxy S24)')}
               className="pl-9"
             />
           </div>
@@ -184,18 +184,18 @@ export default function CompatibleDevices() {
 
         {/* iOS */}
         {iosDevices.length > 0 && (
-          <Section title="Apple (iOS)" devices={iosDevices} />
+          <Section title={t('website.compatibleDevices.appleTitle', 'Apple (iOS)')} devices={iosDevices} />
         )}
 
         {/* Android */}
         {androidDevices.length > 0 && (
-          <Section title="Android Devices" devices={androidDevices} />
+          <Section title={t('website.compatibleDevices.androidTitle', 'Android Devices')} devices={androidDevices} />
         )}
 
         {/* Empty State */}
         {iosDevices.length === 0 && androidDevices.length === 0 && (
           <p className="text-center text-muted-foreground mt-10">
-            No devices found for "{search}"
+            {t('website.compatibleDevices.noResults', 'No devices found for "{{search}}"', { search })}
           </p>
         )}
 

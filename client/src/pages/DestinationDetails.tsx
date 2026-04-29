@@ -96,7 +96,7 @@ type Pagination = {
 // Helper function to format data amount properly
 const formatDataAmount = (pkg: UnifiedPackage): string => {
   if (pkg.isUnlimited || pkg.dataMb === null || pkg.dataMb < 0) {
-    return 'Unlimited';
+    return t('destination.unlimited', 'Unlimited');
   }
 
   if (pkg.dataMb >= 1000) {
@@ -217,8 +217,8 @@ export default function DestinationDetails() {
     // Voice plans require login
     if (!isAuthenticated) {
       toast({
-        title: 'Please login first!',
-        description: 'Login is required for Voice plans.',
+        title: t('destination.loginRequiredTitle', 'Please login first!'),
+        description: t('destination.loginRequiredDesc', 'Login is required for Voice plans.'),
       });
       setTimeout(() => navigate('/login'), 2000);
       return;
@@ -227,8 +227,8 @@ export default function DestinationDetails() {
     // Voice plans require KYC
     if (!isKycComplete()) {
       toast({
-        title: 'KYC verification required!',
-        description: 'Complete your KYC to use Voice services.',
+        title: t('destination.kycRequiredTitle', 'KYC verification required!'),
+        description: t('destination.kycRequiredDesc', 'Complete your KYC to use Voice services.'),
       });
       setTimeout(() => navigate('/account/kyc'), 2000);
       return;
@@ -312,29 +312,24 @@ export default function DestinationDetails() {
 
   const faqs = [
     {
-      question: 'What is an eSIM and how does it work?',
-      answer:
-        'An eSIM is a built-in digital SIM that lets you activate a mobile data plan without a physical card. Just choose a plan, scan a QR code, and connect instantly when you travel.',
+      question: t('destination.faqs.q1', 'What is an eSIM and how does it work?'),
+      answer: t('destination.faqs.a1', 'An eSIM is a built-in digital SIM that lets you activate a mobile data plan without a physical card. Just choose a plan, scan a QR code, and connect instantly when you travel.'),
     },
     {
-      question: 'How do I set up my eSIM on my phone?',
-      answer:
-        "After purchase, you'll receive an email with a QR code. Open your phone's settings, scan the code, and follow the quick setup guide to start using data.",
+      question: t('destination.faqs.q2', 'How do I set up my eSIM on my phone?'),
+      answer: t('destination.faqs.a2', "After purchase, you'll receive an email with a QR code. Open your phone's settings, scan the code, and follow the quick setup guide to start using data."),
     },
     {
-      question: 'Can I use my physical SIM and eSIM together?',
-      answer:
-        'Yes. You can keep your regular SIM for calls and SMS while using your eSIM for data during international travel.',
+      question: t('destination.faqs.q3', 'Can I use my physical SIM and eSIM together?'),
+      answer: t('destination.faqs.a3', 'Yes. You can keep your regular SIM for calls and SMS while using your eSIM for data during international travel.'),
     },
     {
-      question: `Where does ${siteName} work?`,
-      answer:
-        'Our data plans cover over 200 destinations across Europe, Asia, the Americas, and more - giving you high-speed internet without roaming fees.',
+      question: t('destination.faqs.q4', `Where does {{siteName}} work?`, { siteName }),
+      answer: t('destination.faqs.a4', 'Our data plans cover over 200 destinations across Europe, Asia, the Americas, and more - giving you high-speed internet without roaming fees.'),
     },
     {
-      question: 'Can I top up or reuse my plan?',
-      answer:
-        'Yes. Some plans let you add more data or extend your validity directly from your account dashboard, so you can stay connected without buying a new QR code.',
+      question: t('destination.faqs.q5', 'Can I top up or reuse my plan?'),
+      answer: t('destination.faqs.a5', 'Yes. Some plans let you add more data or extend your validity directly from your account dashboard, so you can stay connected without buying a new QR code.'),
     },
   ];
 
@@ -342,21 +337,19 @@ export default function DestinationDetails() {
     {
       name: 'Sarah Chen',
       handle: '@sarahchen_travels',
-      review: `I used ${siteName} during my trip to Japan and it worked perfectly from the moment I landed. Setup took less than two minutes and the data speed was amazing!`,
+      review: t('destination.testimonials.t1', `I used {{siteName}} during my trip to Japan and it worked perfectly from the moment I landed. Setup took less than two minutes and the data speed was amazing!`, { siteName }),
       rating: 5,
     },
     {
       name: 'Marcus Weber',
       handle: '@marcusweber',
-      review:
-        'Super easy to install and no roaming fees. I stayed connected through my entire Europe trip without switching SIM cards. Totally worth it!',
+      review: t('destination.testimonials.t2', 'Super easy to install and no roaming fees. I stayed connected through my entire Europe trip without switching SIM cards. Totally worth it!'),
       rating: 5,
     },
     {
       name: 'Priya Sharma',
       handle: '@priyasharma',
-      review:
-        'I bought my plan online before traveling to Thailand. The QR code arrived instantly, and the connection was fast everywhere I went - beaches, cities, even remote areas.',
+      review: t('destination.testimonials.t3', 'I bought my plan online before traveling to Thailand. The QR code arrived instantly, and the connection was fast everywhere I went - beaches, cities, even remote areas.'),
       rating: 4,
     },
   ];
@@ -367,7 +360,7 @@ export default function DestinationDetails() {
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
             <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#2c7338] border-r-transparent"></div>
-            <p className="mt-4 text-muted-foreground">Loading...</p>
+            <p className="mt-4 text-muted-foreground">{t('destination.loading', 'Loading...')}</p>
           </div>
         </div>
       </div>
@@ -378,7 +371,7 @@ export default function DestinationDetails() {
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <div className="flex-1 flex items-center justify-center pt-20">
-          <p>Destination not found</p>
+          <p>{t('destination.notFound', 'Destination not found')}</p>
         </div>
       </div>
     );
@@ -388,11 +381,11 @@ export default function DestinationDetails() {
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
         <title>
-          eSIM for {destination.name} - Data Plans | {siteName}
+          {t('destination.seoTitle', 'eSIM for {{name}} - Data Plans | {{siteName}}', { name: destination.name, siteName })}
         </title>
         <meta
           name="description"
-          content={`Get affordable eSIM data plans for ${destination.name}. Instant activation, no roaming fees. Choose from multiple data packages.`}
+          content={t('destination.seoDescription', 'Get affordable eSIM data plans for {{name}}. Instant activation, no roaming fees. Choose from multiple data packages.', { name: destination.name })}
         />
       </Helmet>
 
@@ -409,7 +402,7 @@ export default function DestinationDetails() {
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbLink href="/destinations" data-testid="breadcrumb-destinations">
-                  Destinations
+                  {t('destination.breadcrumb', 'Destinations')}
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
@@ -533,12 +526,11 @@ export default function DestinationDetails() {
                     />
                   </div>
                   <h1 className="text-2xl md:text-3xl font-bold text-foreground">
-                    eSIM for {destination.name}
+                    {t('destination.title', 'eSIM for {{name}}', { name: destination.name })}
                   </h1>
                 </div>
                 <p className="text-muted-foreground">
-                  Buy prepaid eSIM for {destination.name}. Enjoy reliable and fast connections when
-                  traveling to {destination.name}.
+                  {t('destination.description', 'Buy prepaid eSIM for {{name}}. Enjoy reliable and fast connections when traveling to {{name}}.', { name: destination.name })}
                 </p>
               </div>
 
@@ -550,10 +542,10 @@ export default function DestinationDetails() {
 
                   {/* Choose Plan Section */}
                   <div className="flex-1 w-full sm:w-auto">
-                    <h2 className="text-xl font-bold text-foreground">Choose your data plan</h2>
+                    <h2 className="text-xl font-bold text-foreground">{t('destination.choosePlan', 'Choose your data plan')}</h2>
                     <div className="flex items-center gap-2 mt-1">
                       <p className="text-sm text-muted-foreground">
-                        {packageOptions.length} plan{packageOptions.length !== 1 ? 's' : ''} available
+                        {t('destination.plansAvailable', '{{count}} plans available', { count: packageOptions.length })}
                       </p>
                       {activeFiltersCount > 0 && (
                         <Button
@@ -563,7 +555,7 @@ export default function DestinationDetails() {
                           className="text-xs h-6 px-2 text-muted-foreground hover:text-foreground"
                         >
                           <X className="w-3 h-3 mr-1" />
-                          Clear filters
+                          {t('destination.clearFilters', 'Clear filters')}
                         </Button>
                       )}
                     </div>
@@ -579,7 +571,7 @@ export default function DestinationDetails() {
                     </div>
                     <div className="text-left flex-1">
                       <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-foreground">Filters & Sorting</h3>
+                        <h3 className="font-semibold text-foreground">{t('destination.filtersAndSorting', 'Filters & Sorting')}</h3>
                         {activeFiltersCount > 0 && (
                           <span className="px-2 py-0.5 text-xs font-medium bg-[#2c7338] text-white rounded-full">
                             {activeFiltersCount}
@@ -588,8 +580,8 @@ export default function DestinationDetails() {
                       </div>
                       <p className="text-xs text-muted-foreground">
                         {activeFiltersCount > 0
-                          ? `${activeFiltersCount} filter${activeFiltersCount !== 1 ? 's' : ''} active`
-                          : 'Click to filter plans'
+                          ? t('search.resultsFound', '{{count}} packages found', { count: activeFiltersCount })
+                          : t('destination.clickToFilter', 'Click to filter plans')
                         }
                       </p>
                     </div>
@@ -625,7 +617,7 @@ export default function DestinationDetails() {
                           }}
                           className="w-full text-xs h-9 font-medium"
                         >
-                          💰 Low to High
+                          {t('destination.lowToHigh', '💰 Low to High')}
                         </Button>
                         <Button
                           variant={sortBy === 'priceHighToLow' ? 'default' : 'outline'}
@@ -636,7 +628,7 @@ export default function DestinationDetails() {
                           }}
                           className="w-full text-xs h-9 font-medium"
                         >
-                          💎 High to Low
+                          {t('destination.highToLow', '💎 High to Low')}
                         </Button>
                       </div>
                     </div>
@@ -647,7 +639,7 @@ export default function DestinationDetails() {
                         <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#dcf0de] to-[#f0f9f1] dark:from-[#2c7338]/20 dark:to-[#2c7338]/10 flex items-center justify-center">
                           <Filter className="w-3.5 h-3.5 text-[#1e5427] dark:text-[#3d9a4d]" />
                         </div>
-                        Filter By
+                        {t('destination.filterBy', 'Filter By')}
                       </label>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                         <Button
@@ -660,7 +652,7 @@ export default function DestinationDetails() {
                           className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
                         >
                           <Sparkles className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
-                          Unlimited
+                          {t('destination.unlimited', 'Unlimited')}
                         </Button>
                         <Button
                           variant={filterBestPrice ? 'default' : 'outline'}
@@ -672,7 +664,7 @@ export default function DestinationDetails() {
                           className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
                         >
                           <Award className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
-                          Best Price
+                          {t('destination.bestPrice', 'Best Price')}
                         </Button>
                         <Button
                           variant={filterPopular ? 'default' : 'outline'}
@@ -684,7 +676,7 @@ export default function DestinationDetails() {
                           className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
                         >
                           <Star className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
-                          Popular
+                          {t('destination.popular', 'Popular')}
                         </Button>
                         <Button
                           variant={filterDataPack ? 'default' : 'outline'}
@@ -696,7 +688,7 @@ export default function DestinationDetails() {
                           className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
                         >
                           <Wifi className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
-                          Data Only
+                          {t('destination.dataOnly', 'Data Only')}
                         </Button>
                         <Button
                           variant={filterDataAndVoice ? 'default' : 'outline'}
@@ -708,7 +700,7 @@ export default function DestinationDetails() {
                           className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
                         >
                           <Wifi className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
-                          Data + Voice
+                          {t('destination.dataVoice', 'Data + Voice')}
                         </Button>
                         <Button
                           variant={filterVoiceAndDataAndSmsPack ? 'default' : 'outline'}
@@ -720,7 +712,7 @@ export default function DestinationDetails() {
                           className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium whitespace-normal text-left leading-tight"
                         >
                           <Wifi className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
-                          Data + Voice + SMS
+                          {t('destination.dataVoiceSms', 'Data + Voice + SMS')}
                         </Button>
                       </div>
                     </div>
@@ -757,7 +749,7 @@ export default function DestinationDetails() {
                                 className="bg-gradient-to-r from-green-500 to-green-600 text-white text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-md"
                                 data-testid={`badge-popular-${pkg.id}`}
                               >
-                                🔥 Popular
+                                {t('destination.badges.popular', '🔥 Popular')}
                               </span>
                             )}
                             {pkg.isRecommended && (
@@ -765,7 +757,7 @@ export default function DestinationDetails() {
                                 className="bg-gradient-to-r from-[#2c7338] to-[#1e5427] text-white text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-md"
                                 data-testid={`badge-recommended-${pkg.id}`}
                               >
-                                ⭐ Recommended
+                                {t('destination.badges.recommended', '⭐ Recommended')}
                               </span>
                             )}
                             {pkg.isBestValue && (
@@ -773,7 +765,7 @@ export default function DestinationDetails() {
                                 className="bg-gradient-to-r from-green-500 to-green-600 text-white text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-md"
                                 data-testid={`badge-best-value-${pkg.id}`}
                               >
-                                💎 Best Value
+                                {t('destination.badges.bestValue', '💎 Best Value')}
                               </span>
                             )}
                             {isBestChoice &&
@@ -784,7 +776,7 @@ export default function DestinationDetails() {
                                   className="bg-gradient-to-r from-green-500 to-green-600 text-white text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-md"
                                   data-testid={`badge-best-choice-${pkg.id}`}
                                 >
-                                  ✨ Best Choice
+                                  {t('destination.badges.bestChoice', '✨ Best Choice')}
                                 </span>
                               )}
                           </div>

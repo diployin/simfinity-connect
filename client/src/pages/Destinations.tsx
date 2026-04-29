@@ -227,7 +227,7 @@ export default function Destinations() {
                     data-testid="tab-passport"
                   >
                     <Ticket className="h-3.5 w-3.5 shrink-0" />
-                    Simfinity Passport
+                    {t('destinations.passport.title', 'Simfinity Passport')}
                   </button> */}
                 </div>
               </div>
@@ -257,11 +257,9 @@ export default function Destinations() {
           </div>
 
           {/* Results Count */}
-          {activeTab !== 'passport' && (
-            <p className="text-muted-foreground text-sm mb-6" data-testid="text-destination-count">
-              {t('destinations.showing', 'Showing')} {totalCount} {activeTab}
-            </p>
-          )}
+          <p className="text-muted-foreground text-sm mb-6" data-testid="text-destination-count">
+            {t('destinations.showing', 'Showing')} {totalCount} {t(`destinations.${activeTab}`, activeTab)}
+          </p>
 
           {/* Destinations Grid - All (Countries + Regions) */}
           {activeTab === 'all' && (
@@ -547,7 +545,7 @@ export default function Destinations() {
                         {/* Content */}
                         <div className="flex-1 min-w-0">
                           <h3 className="font-semibold text-foreground truncate group-hover:text-[#1e5427] dark:group-hover:text-[#3d9a4d] transition-colors">
-                            Global ({pkg.dataAmount})
+                            {t('destinations.global', 'Global')} ({pkg.dataAmount})
                           </h3>
                           <p className="text-sm text-muted-foreground">
                             {pkg.validity} {t('destinations.daysValidity', 'days validity')}
@@ -598,33 +596,33 @@ export default function Destinations() {
                   <div className="flex flex-col justify-center">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#2c7338]/20 border border-[#2c7338]/30 mb-6 w-fit">
                       <Sparkles className="w-4 h-4 text-[#3d9a4d]" />
-                      <span className="text-sm font-medium text-[#3d9a4d]">Limited First Batch — Pre-Book Now</span>
+                      <span className="text-sm font-medium text-[#3d9a4d]">{t('destinations.passport.badge', 'Limited First Batch — Pre-Book Now')}</span>
                     </div>
                     <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
-                      Simfinity{' '}
+                      {t('platform_name', 'Simfinity')}{' '}
                       <span className="bg-gradient-to-r from-[#3d9a4d] to-[#2c7338] bg-clip-text text-transparent">
-                        Passport
+                        {t('destinations.passport.title', 'Passport')}
                       </span>
                     </h2>
                     <p className="text-lg text-slate-300 leading-relaxed mb-6">
-                      The world's first AI-powered global travel connectivity device. Secure browsing, built-in power bank, and a personal AI concierge — everything you need to travel smarter.
+                      {t('destinations.passport.subtitle', "The world's first AI-powered global travel connectivity device. Secure browsing, built-in power bank, and a personal AI concierge — everything you need to travel smarter.")}
                     </p>
                     <div className="flex flex-wrap items-center gap-4 mb-8">
                       <div className="flex items-center gap-2 text-slate-300 text-sm">
                         <Globe className="w-4 h-4 text-[#3d9a4d]" />
-                        <span>190+ Countries</span>
+                        <span>{t('destinations.passport.countries', '190+ Countries')}</span>
                       </div>
                       <div className="flex items-center gap-2 text-slate-300 text-sm">
                         <Zap className="w-4 h-4 text-amber-400" />
-                        <span>5000mAh Battery</span>
+                        <span>{t('destinations.passport.battery', '5000mAh Battery')}</span>
                       </div>
                       <div className="flex items-center gap-2 text-slate-300 text-sm">
                         <Shield className="w-4 h-4 text-blue-400" />
-                        <span>DPN Protected</span>
+                        <span>{t('destinations.passport.dpn', 'DPN Protected')}</span>
                       </div>
                     </div>
                     <a href="#passport-prebook" className="btn-passport-cta inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] text-white font-semibold text-lg shadow-lg shadow-[#2c7338]/25 hover:shadow-xl transition-all hover:scale-[1.02] w-fit">
-                      Reserve Your Device
+                      {t('destinations.passport.reserve', 'Reserve Your Device')}
                       <ChevronRight className="w-5 h-5" />
                     </a>
                   </div>
@@ -644,16 +642,16 @@ export default function Destinations() {
               {/* Why Pre-Book */}
               <div className="px-4 sm:px-6 lg:px-8 mb-12">
                 <div className="text-center mb-8">
-                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Why Pre-Book?</h3>
-                  <p className="text-muted-foreground max-w-2xl mx-auto">Early users don't follow trends — they lead them. Secure your priority access today.</p>
+                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">{t('destinations.passport.whyTitle', 'Why Pre-Book?')}</h3>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">{t('destinations.passport.whySubtitle', "Early users don't follow trends — they lead them. Secure your priority access today.")}</p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                   {[
-                    { icon: Zap, label: 'Priority Shipping', desc: 'Be first in line', from: 'from-blue-500', to: 'to-blue-600' },
-                    { icon: Bot, label: 'Early AI Access', desc: 'AI Concierge priority', from: 'from-purple-500', to: 'to-purple-600' },
-                    { icon: Star, label: 'Launch Pricing', desc: 'Exclusive pricing', from: 'from-amber-500', to: 'to-amber-600' },
-                    { icon: Sparkles, label: "Founders' Badge", desc: 'Digital collector badge', from: 'from-rose-500', to: 'to-rose-600' },
-                    { icon: Shield, label: 'Premium Features', desc: 'First firmware updates', from: 'from-cyan-500', to: 'to-cyan-600' },
+                    { icon: Zap, label: t('destinations.passport.features.shipping.label', 'Priority Shipping'), desc: t('destinations.passport.features.shipping.desc', 'Be first in line'), from: 'from-blue-500', to: 'to-blue-600' },
+                    { icon: Bot, label: t('destinations.passport.features.ai.label', 'Early AI Access'), desc: t('destinations.passport.features.ai.desc', 'AI Concierge priority'), from: 'from-purple-500', to: 'to-purple-600' },
+                    { icon: Star, label: t('destinations.passport.features.pricing.label', 'Launch Pricing'), desc: t('destinations.passport.features.pricing.desc', 'Exclusive pricing'), from: 'from-amber-500', to: 'to-amber-600' },
+                    { icon: Sparkles, label: t('destinations.passport.features.badge.label', "Founders' Badge"), desc: t('destinations.passport.features.badge.desc', 'Digital collector badge'), from: 'from-rose-500', to: 'to-rose-600' },
+                    { icon: Shield, label: t('destinations.passport.features.updates.label', 'Premium Features'), desc: t('destinations.passport.features.updates.desc', 'First firmware updates'), from: 'from-cyan-500', to: 'to-cyan-600' },
                   ].map((item) => (
                     <div key={item.label} className="flex flex-col items-center text-center p-5 rounded-xl bg-card border border-border hover:border-[#3d9a4d]/50 transition-colors">
                       <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.from} ${item.to} flex items-center justify-center mb-3`}>
@@ -669,8 +667,8 @@ export default function Destinations() {
               {/* Core Features */}
               <div className="px-4 sm:px-6 lg:px-8 mb-12">
                 <div className="text-center mb-8">
-                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Built for the Modern Traveler</h3>
-                  <p className="text-muted-foreground max-w-2xl mx-auto">One device. Every feature you need across borders.</p>
+                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">{t('destinations.passport.modernTraveler.title', 'Built for the Modern Traveler')}</h3>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">{t('destinations.passport.modernTraveler.subtitle', 'One device. Every feature you need across borders.')}</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {/* Security Card */}
@@ -678,14 +676,14 @@ export default function Destinations() {
                     <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mb-5">
                       <Shield className="w-7 h-7 text-white" />
                     </div>
-                    <h4 className="text-xl font-bold text-foreground mb-3">Travel Without Fear</h4>
+                    <h4 className="text-xl font-bold text-foreground mb-3">{t('destinations.passport.security.title', 'Travel Without Fear')}</h4>
                     <ul className="space-y-2.5">
                       {[
-                        'Built-in DPN (Decentralized Private Network)',
-                        'Encrypted browsing on all connections',
-                        'Protection on public WiFi',
-                        'Remote device lock',
-                        'Secure eSIM architecture',
+                        t('destinations.passport.security.f1', 'Built-in DPN (Decentralized Private Network)'),
+                        t('destinations.passport.security.f2', 'Encrypted browsing on all connections'),
+                        t('destinations.passport.security.f3', 'Protection on public WiFi'),
+                        t('destinations.passport.security.f4', 'Remote device lock'),
+                        t('destinations.passport.security.f5', 'Secure eSIM architecture'),
                       ].map((item) => (
                         <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
                           <CheckCircle2 className="w-4 h-4 text-blue-500 flex-shrink-0 mt-0.5" />
@@ -700,14 +698,14 @@ export default function Destinations() {
                     <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mb-5">
                       <Bot className="w-7 h-7 text-white" />
                     </div>
-                    <h4 className="text-xl font-bold text-foreground mb-3">AI Travel Concierge</h4>
-                    <p className="text-sm text-muted-foreground mb-4">Your personal AI assistant can arrange everything from one ecosystem:</p>
+                    <h4 className="text-xl font-bold text-foreground mb-3">{t('destinations.passport.aiConcierge.title', 'AI Travel Concierge')}</h4>
+                    <p className="text-sm text-muted-foreground mb-4">{t('destinations.passport.aiConcierge.subtitle', 'Your personal AI assistant can arrange everything from one ecosystem:')}</p>
                     <div className="grid grid-cols-2 gap-2">
                       {[
-                        { icon: Plane, label: 'Flights' },
-                        { icon: Hotel, label: 'Hotels' },
-                        { icon: Car, label: 'Luxury Cars' },
-                        { icon: Star, label: 'Events' },
+                        { icon: Plane, label: t('destinations.passport.aiConcierge.flights', 'Flights') },
+                        { icon: Hotel, label: t('destinations.passport.aiConcierge.hotels', 'Hotels') },
+                        { icon: Car, label: t('destinations.passport.aiConcierge.cars', 'Luxury Cars') },
+                        { icon: Star, label: t('destinations.passport.aiConcierge.events', 'Events') },
                       ].map((s) => (
                         <div key={s.label} className="flex items-center gap-2 text-sm text-muted-foreground bg-white/50 dark:bg-white/5 rounded-lg px-3 py-2">
                           <s.icon className="w-4 h-4 text-purple-500" />
@@ -722,11 +720,11 @@ export default function Destinations() {
                     <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center mb-5">
                       <TreePine className="w-7 h-7 text-white" />
                     </div>
-                    <h4 className="text-xl font-bold text-foreground mb-3">Travel That Gives Back</h4>
-                    <p className="text-sm text-muted-foreground mb-4">Every eSIM activated plants one tree. Your connectivity creates real environmental impact.</p>
+                    <h4 className="text-xl font-bold text-foreground mb-3">{t('destinations.passport.sustainability.title', 'Travel That Gives Back')}</h4>
+                    <p className="text-sm text-muted-foreground mb-4">{t('destinations.passport.sustainability.description', 'Every eSIM activated plants one tree. Your connectivity creates real environmental impact.')}</p>
                     <div className="bg-white/60 dark:bg-white/5 rounded-xl p-4 text-center">
-                      <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent mb-1">1 eSIM = 1 Tree</div>
-                      <p className="text-xs text-muted-foreground">Join the movement from day one</p>
+                      <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent mb-1">{t('destinations.passport.sustainability.math', '1 eSIM = 1 Tree')}</div>
+                      <p className="text-xs text-muted-foreground">{t('destinations.passport.sustainability.mathdesc', 'Join the movement from day one')}</p>
                     </div>
                   </div>
                 </div>
@@ -738,19 +736,19 @@ export default function Destinations() {
                   <div>
                     <img
                       src="/images/passport-device-2.png"
-                      alt="What's inside the Simfinity Passport box"
+                      alt={t('destinations.passport.box.title', "What's inside the Simfinity Passport box")}
                       className="w-full rounded-2xl"
                     />
                   </div>
                   <div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6">What's Inside the Box</h3>
+                    <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6">{t('destinations.passport.box.title', "What's Inside the Box")}</h3>
                     <div className="space-y-4">
                       {[
-                        { icon: Package, label: 'Simfinity Passport Device', desc: 'Premium connectivity device with built-in global eSIM support' },
-                        { icon: BatteryFull, label: '5000mAh Power Bank', desc: 'Built-in battery to keep your devices charged on the go' },
-                        { icon: Zap, label: 'Premium Charging Cable', desc: 'High-quality USB-C cable for fast charging' },
-                        { icon: Globe, label: 'Quick-Start Guide', desc: 'Easy setup instructions to get connected in minutes' },
-                        { icon: Lock, label: 'Early Access Activation Code', desc: 'Exclusive code for priority activation and AI concierge access' },
+                        { icon: Package, label: t('destinations.passport.box.device.label', 'Simfinity Passport Device'), desc: t('destinations.passport.box.device.desc', 'Premium connectivity device with built-in global eSIM support') },
+                        { icon: BatteryFull, label: t('destinations.passport.box.powerbank.label', '5000mAh Power Bank'), desc: t('destinations.passport.box.powerbank.desc', 'Built-in battery to keep your devices charged on the go') },
+                        { icon: Zap, label: t('destinations.passport.box.cable.label', 'Premium Charging Cable'), desc: t('destinations.passport.box.cable.desc', 'High-quality USB-C cable for fast charging') },
+                        { icon: Globe, label: t('destinations.passport.box.guide.label', 'Quick-Start Guide'), desc: t('destinations.passport.box.guide.desc', 'Easy setup instructions to get connected in minutes') },
+                        { icon: Lock, label: t('destinations.passport.box.code.label', 'Early Access Activation Code'), desc: t('destinations.passport.box.code.desc', 'Exclusive code for priority activation and AI concierge access') },
                       ].map((item) => (
                         <div key={item.label} className="flex items-start gap-4 p-4 rounded-xl bg-card border border-border">
                           <div className="w-10 h-10 rounded-lg bg-[#2c7338]/10 flex items-center justify-center flex-shrink-0">
@@ -770,16 +768,16 @@ export default function Destinations() {
               {/* Who It's For */}
               <div className="px-4 sm:px-6 lg:px-8 mb-12">
                 <div className="text-center mb-8">
-                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Designed for Global Explorers</h3>
-                  <p className="text-muted-foreground">If you move across borders — this is for you.</p>
+                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">{t('destinations.passport.explorers.title', 'Designed for Global Explorers')}</h3>
+                  <p className="text-muted-foreground">{t('destinations.passport.explorers.subtitle', 'If you move across borders — this is for you.')}</p>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                   {[
-                    { icon: Wifi, label: 'Digital Nomads', desc: 'Work from anywhere' },
-                    { icon: Briefcase, label: 'Business Travelers', desc: 'Stay productive' },
-                    { icon: Plane, label: 'Frequent Flyers', desc: 'Always connected' },
-                    { icon: Backpack, label: 'Backpackers', desc: 'Explore freely' },
-                    { icon: Star, label: 'Luxury Travelers', desc: 'Premium experience' },
+                    { icon: Wifi, label: t('destinations.passport.explorers.nomads.label', 'Digital Nomads'), desc: t('destinations.passport.explorers.nomads.desc', 'Work from anywhere') },
+                    { icon: Briefcase, label: t('destinations.passport.explorers.business.label', 'Business Travelers'), desc: t('destinations.passport.explorers.business.desc', 'Stay productive') },
+                    { icon: Plane, label: t('destinations.passport.explorers.flyers.label', 'Frequent Flyers'), desc: t('destinations.passport.explorers.flyers.desc', 'Always connected') },
+                    { icon: Backpack, label: t('destinations.passport.explorers.backpackers.label', 'Backpackers'), desc: t('destinations.passport.explorers.backpackers.desc', 'Explore freely') },
+                    { icon: Star, label: t('destinations.passport.explorers.luxury.label', 'Luxury Travelers'), desc: t('destinations.passport.explorers.luxury.desc', 'Premium experience') },
                   ].map((persona) => (
                     <div key={persona.label} className="flex flex-col items-center text-center p-6 rounded-2xl bg-gradient-to-b from-card to-muted/30 border border-border hover:border-[#3d9a4d]/50 transition-all hover:shadow-md">
                       <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#2c7338]/10 to-[#3d9a4d]/10 flex items-center justify-center mb-3">
@@ -797,13 +795,13 @@ export default function Destinations() {
                 <div className="relative rounded-2xl overflow-hidden">
                   <img
                     src="/images/passport-device-3.png"
-                    alt="Travel with Simfinity Passport"
+                    alt={t('destinations.passport.imageAlt', 'Travel with Simfinity Passport')}
                     className="w-full h-64 md:h-80 object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/40 to-transparent flex items-center">
                     <div className="p-8 md:p-12 max-w-lg">
-                      <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">The Future of Travel Is Here</h3>
-                      <p className="text-slate-200 text-sm md:text-base">Before it goes global. Before it sells out. Before everyone has it. You get first access.</p>
+                      <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">{t('destinations.passport.futureTitle', 'The Future of Travel Is Here')}</h3>
+                      <p className="text-slate-200 text-sm md:text-base">{t('destinations.passport.futureSubtitle', 'Before it goes global. Before it sells out. Before everyone has it. You get first access.')}</p>
                     </div>
                   </div>
                 </div>
@@ -817,31 +815,31 @@ export default function Destinations() {
                     <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full blur-3xl" />
                   </div>
                   <div className="relative z-10">
-                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">Pre-Book Your Simfinity Passport</h3>
+                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">{t('destinations.passport.ctaTitle', 'Pre-Book Your Simfinity Passport')}</h3>
                     <p className="text-green-100 text-lg mb-2 max-w-2xl mx-auto">
-                      Be first. Travel smarter. Stay protected.
+                      {t('destinations.passport.ctaSubtitle', 'Be first. Travel smarter. Stay protected.')}
                     </p>
                     <p className="text-green-200/70 text-sm mb-8 max-w-xl mx-auto">
-                      The first production run is limited. Pre-booking secures your place in the first wave with priority activation and exclusive early benefits.
+                      {t('destinations.passport.ctaDescription', 'The first production run is limited. Pre-booking secures your place in the first wave with priority activation and exclusive early benefits.')}
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                       <button className="btn-passport-cta inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-[#1e5427] font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]">
-                        Reserve Your Device Now
+                        {t('destinations.passport.ctaButton', 'Reserve Your Device Now')}
                         <ChevronRight className="w-5 h-5" />
                       </button>
                     </div>
                     <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-green-100 text-sm">
                       <div className="flex items-center gap-2">
                         <CheckCircle2 className="w-4 h-4" />
-                        <span>Priority Shipping</span>
+                        <span>{t('destinations.passport.ctaShipping', 'Priority Shipping')}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle2 className="w-4 h-4" />
-                        <span>Exclusive Launch Pricing</span>
+                        <span>{t('destinations.passport.ctaPricing', 'Exclusive Launch Pricing')}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle2 className="w-4 h-4" />
-                        <span>Founders' Edition Badge</span>
+                        <span>{t('destinations.passport.ctaBadge', "Founders' Edition Badge")}</span>
                       </div>
                     </div>
                   </div>

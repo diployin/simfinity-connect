@@ -456,28 +456,26 @@ export default function Login() {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const platformBenefits = [
+    const platformBenefits = [
     {
       icon: Globe,
-      title: 'Global Coverage',
-      description: 'Access mobile data in 190+ countries worldwide',
+      title: t('website.auth.benefits.globalTitle', 'Global Coverage'),
+      description: t('website.auth.benefits.globalDesc', 'Access mobile data in 190+ countries worldwide'),
     },
     {
       icon: Zap,
-      title: 'Instant Activation',
-      description: 'Get connected in seconds with QR code setup',
+      title: t('website.auth.benefits.instantTitle', 'Instant Activation'),
+      description: t('website.auth.benefits.instantDesc', 'Get connected in seconds with QR code setup'),
     },
     {
       icon: Shield,
-      title: 'Secure & Reliable',
-      description: 'Enterprise-grade security for your data',
+      title: t('website.auth.benefits.secureTitle', 'Secure & Reliable'),
+      description: t('website.auth.benefits.secureDesc', 'Enterprise-grade security for your data'),
     },
     {
       icon: Clock,
-      title: '24/7 Support',
-      description: 'Our team is always here to help you',
+      title: t('website.auth.benefits.supportTitle', '24/7 Support'),
+      description: t('website.auth.benefits.supportDesc', 'Our team is always here to help you'),
     },
   ];
 
@@ -506,9 +504,11 @@ export default function Login() {
 
         <div className="relative z-10 space-y-8">
           <div>
-            <h1 className="text-4xl font-bold text-white mb-4">Stay Connected Anywhere</h1>
+            <h1 className="text-4xl font-bold text-white mb-4">
+              {t('website.auth.stayConnected', 'Stay Connected Anywhere')}
+            </h1>
             <p className="text-xl text-white/80">
-              Join millions of travelers using eSIM for seamless connectivity
+              {t('website.auth.stayConnectedDesc', 'Join millions of travelers using eSIM for seamless connectivity')}
             </p>
           </div>
 
@@ -528,7 +528,9 @@ export default function Login() {
         </div>
 
         <div className="relative z-10">
-          <p className="text-white/60 text-sm">Trusted by 2M+ travelers worldwide</p>
+          <p className="text-white/60 text-sm">
+            {t('website.auth.trustedBy', 'Trusted by 2M+ travelers worldwide')}
+          </p>
         </div>
       </div>
 
@@ -577,9 +579,11 @@ export default function Login() {
           </Link>
 
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-foreground">Welcome</h2>
+            <h2 className="text-2xl font-bold text-foreground">
+              {t('website.auth.loginTitle', 'Welcome')}
+            </h2>
             <p className="text-muted-foreground mt-1">
-              Sign in to your account or create a new one
+              {t('website.auth.loginSubtitle', 'Sign in to your account or create a new one')}
             </p>
           </div>
 
@@ -621,10 +625,10 @@ export default function Login() {
           >
             <TabsList className="grid w-full grid-cols-2 mb-6">
               <TabsTrigger value="signin" data-testid="tab-signin">
-                Sign In
+                {t('website.auth.signIn', 'Sign In')}
               </TabsTrigger>
               <TabsTrigger value="signup" data-testid="tab-signup">
-                Sign Up
+                {t('website.auth.signUp', 'Sign Up')}
               </TabsTrigger>
             </TabsList>
 
@@ -633,21 +637,23 @@ export default function Login() {
               {!showForgotPassword ? (
                 <Card>
                   <CardHeader>
-                    <CardTitle>Sign In</CardTitle>
-                    <CardDescription>Enter your email and password</CardDescription>
+                    <CardTitle>{t('website.auth.signIn', 'Sign In')}</CardTitle>
+                    <CardDescription>
+                      {t('website.auth.enterEmailPassword', 'Enter your email and password')}
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <form onSubmit={handlePasswordLogin} className="space-y-4">
                       <div>
                         <label htmlFor="email-signin" className="text-sm font-medium mb-2 block">
-                          Email
+                          {t('website.auth.email', 'Email')}
                         </label>
                         <div className="relative">
                           <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                           <Input
                             id="email-signin"
                             type="email"
-                            placeholder="you@example.com"
+                            placeholder={t('website.auth.placeholderEmail', 'you@example.com')}
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="pl-10"
@@ -659,14 +665,14 @@ export default function Login() {
                       </div>
                       <div>
                         <label htmlFor="password-signin" className="text-sm font-medium mb-2 block">
-                          Password
+                          {t('website.auth.password', 'Password')}
                         </label>
                         <div className="relative">
                           <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                           <Input
                             id="password-signin"
                             type={showPassword ? 'text' : 'password'}
-                            placeholder="Enter your password"
+                            placeholder={t('website.auth.placeholderPassword', 'Enter your password')}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             className="pl-10 pr-10"
@@ -694,7 +700,7 @@ export default function Login() {
                             onClick={() => setShowForgotPassword(true)}
                             data-testid="link-forgot-password"
                           >
-                            Forgot password?
+                            {t('website.auth.forgotPassword', 'Forgot password?')}
                           </button>
                         </div>
                       </div>
@@ -719,7 +725,9 @@ export default function Login() {
                         disabled={isLoading || (recaptchaEnabled && !captchaToken)}
                         data-testid="button-signin"
                       >
-                        {isLoading ? 'Signing in...' : 'Sign In'}
+                        {isLoading
+                          ? t('website.auth.signingIn', 'Signing in...')
+                          : t('website.auth.signIn', 'Sign In')}
                       </Button>
 
                       {/* ---------------------------------
@@ -729,7 +737,9 @@ export default function Login() {
                         <div className="absolute inset-0 flex items-center">
                           <div className="w-full border-t border-muted-foreground/20"></div>
                         </div>
-                        <span className="relative px-4 text-xs uppercase bg-background text-muted-foreground font-medium"> Or continue with </span>
+                        <span className="relative px-4 text-xs uppercase bg-background text-muted-foreground font-medium">
+                          {t('website.auth.orContinueWith', 'Or continue with')}
+                        </span>
                       </div>
 
                       <Button
@@ -747,11 +757,13 @@ export default function Login() {
                             <path d="M3.964 10.71a5.41 5.41 0 01-.282-1.71c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05" />
                             <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.443 2.048.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335" />
                           </svg>
-                          <span className="font-medium">Continue with Google</span>
+                          <span className="font-medium">
+                            {t('website.auth.googleContinue', 'Continue with Google')}
+                          </span>
                         </div>
                       </Button>
                       <p className="text-center text-sm text-muted-foreground">
-                        Don't have an account?{' '}
+                        {t('website.auth.noAccount', "Don't have an account?")}{' '}
                         <button
                           type="button"
                           className="text-primary hover:underline font-medium"
@@ -761,7 +773,7 @@ export default function Login() {
                           }}
                           data-testid="link-goto-signup"
                         >
-                          Sign up
+                          {t('website.auth.signUp', 'Sign Up')}
                         </button>
                       </p>
                     </form>
@@ -771,12 +783,14 @@ export default function Login() {
                 <Card>
                   <CardHeader>
                     <CardTitle>
-                      {forgotStep === 'email' ? 'Reset Password' : 'Set New Password'}
+                      {forgotStep === 'email'
+                        ? t('website.auth.resetPassword', 'Reset Password')
+                        : t('website.auth.setNewPassword', 'Set New Password')}
                     </CardTitle>
                     <CardDescription>
                       {forgotStep === 'email'
-                        ? 'Enter your email to receive a reset code'
-                        : `Enter the code sent to ${email} and your new password`}
+                        ? t('website.auth.enterEmailReset', 'Enter your email to receive a reset code')
+                        : t('website.auth.enterCodeSent', 'Enter the code sent to {{email}} and your new password', { email })}
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
@@ -784,14 +798,14 @@ export default function Login() {
                       <form onSubmit={handleForgotPassword} className="space-y-4">
                         <div>
                           <label htmlFor="email-forgot" className="text-sm font-medium mb-2 block">
-                            Email
+                            {t('website.auth.email', 'Email')}
                           </label>
                           <div className="relative">
                             <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                             <Input
                               id="email-forgot"
                               type="email"
-                              placeholder="you@example.com"
+                              placeholder={t('website.auth.placeholderEmail', 'you@example.com')}
                               value={email}
                               onChange={(e) => setEmail(e.target.value)}
                               className="pl-10"
@@ -807,10 +821,12 @@ export default function Login() {
                           disabled={isLoading}
                           data-testid="button-forgot-submit"
                         >
-                          {isLoading ? 'Sending...' : 'Send Reset Code'}
+                          {isLoading
+                            ? t('website.auth.sending', 'Sending...')
+                            : t('website.auth.sendResetCode', 'Send Reset Code')}
                         </Button>
                         <p className="text-center text-sm text-muted-foreground">
-                          Remember your password?{' '}
+                          {t('website.auth.rememberPassword', 'Remember your password?')}{' '}
                           <button
                             type="button"
                             className="text-primary hover:underline font-medium"
@@ -820,7 +836,7 @@ export default function Login() {
                             }}
                             data-testid="link-back-signin"
                           >
-                            Sign in
+                            {t('website.auth.signIn', 'Sign In')}
                           </button>
                         </p>
                       </form>
@@ -828,12 +844,12 @@ export default function Login() {
                       <form onSubmit={handleResetPassword} className="space-y-4">
                         <div>
                           <label htmlFor="reset-otp" className="text-sm font-medium mb-2 block">
-                            Reset Code
+                            {t('website.auth.resetCode', 'Reset Code')}
                           </label>
                           <Input
                             id="reset-otp"
                             type="text"
-                            placeholder="Enter 6-digit code"
+                            placeholder={t('website.auth.placeholderCode', 'Enter 6-digit code')}
                             value={otp}
                             onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
                             maxLength={6}
@@ -845,14 +861,14 @@ export default function Login() {
                         </div>
                         <div>
                           <label htmlFor="new-password" className="text-sm font-medium mb-2 block">
-                            New Password
+                            {t('website.auth.newPassword', 'New Password')}
                           </label>
                           <div className="relative">
                             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                             <Input
                               id="new-password"
                               type={showNewPassword ? 'text' : 'password'}
-                              placeholder="Min 8 characters"
+                              placeholder={t('website.auth.placeholderNewPassword', 'Min 8 characters')}
                               value={newPassword}
                               onChange={(e) => setNewPassword(e.target.value)}
                               className="pl-10 pr-10"
@@ -879,14 +895,14 @@ export default function Login() {
                             htmlFor="confirm-password-reset"
                             className="text-sm font-medium mb-2 block"
                           >
-                            Confirm Password
+                            {t('website.auth.confirmPassword', 'Confirm Password')}
                           </label>
                           <div className="relative">
                             <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                             <Input
                               id="confirm-password-reset"
                               type={showConfirmPassword ? 'text' : 'password'}
-                              placeholder="Confirm your new password"
+                              placeholder={t('website.auth.placeholderConfirmPassword', 'Confirm your new password')}
                               value={confirmPassword}
                               onChange={(e) => setConfirmPassword(e.target.value)}
                               className="pl-10 pr-10"
@@ -914,7 +930,9 @@ export default function Login() {
                           disabled={isLoading}
                           data-testid="button-reset-password"
                         >
-                          {isLoading ? 'Resetting...' : 'Reset Password'}
+                          {isLoading
+                            ? t('website.auth.resetting', 'Resetting...')
+                            : t('website.auth.resetPassword', 'Reset Password')}
                         </Button>
                         <Button
                           type="button"
@@ -923,7 +941,7 @@ export default function Login() {
                           onClick={() => setForgotStep('email')}
                           data-testid="button-back-forgot"
                         >
-                          Use different email
+                          {t('website.auth.useDifferentEmail', 'Use different email')}
                         </Button>
                       </form>
                     )}
@@ -937,14 +955,14 @@ export default function Login() {
               <Card>
                 <CardHeader>
                   <CardTitle>
-                    {signupStep === 'email' && 'Create Account'}
-                    {signupStep === 'otp' && 'Verify Email'}
-                    {signupStep === 'details' && 'Complete Setup'}
+                    {signupStep === 'email' && t('website.auth.createAccount', 'Create Account')}
+                    {signupStep === 'otp' && t('website.auth.verifyEmail', 'Verify Email')}
+                    {signupStep === 'details' && t('website.auth.completeSetup', 'Complete Setup')}
                   </CardTitle>
                   <CardDescription>
-                    {signupStep === 'email' && 'Enter your email to get started'}
-                    {signupStep === 'otp' && `Enter the code sent to ${email}`}
-                    {signupStep === 'details' && 'Enter your name and create a password'}
+                    {signupStep === 'email' && t('website.auth.enterEmailStart', 'Enter your email to get started')}
+                    {signupStep === 'otp' && t('website.auth.enterCodeSent', 'Enter the code sent to {{email}}', { email })}
+                    {signupStep === 'details' && t('website.auth.enterDetails', 'Enter your name and create a password')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -952,14 +970,14 @@ export default function Login() {
                     <form onSubmit={handleSendSignupOTP} className="space-y-4">
                       <div>
                         <label htmlFor="email-signup" className="text-sm font-medium mb-2 block">
-                          Email
+                          {t('website.auth.email', 'Email')}
                         </label>
                         <div className="relative">
                           <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                           <Input
                             id="email-signup"
                             type="email"
-                            placeholder="you@example.com"
+                            placeholder={t('website.auth.placeholderEmail', 'you@example.com')}
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="pl-10"
@@ -975,14 +993,18 @@ export default function Login() {
                         disabled={isLoading}
                         data-testid="button-send-signup-otp"
                       >
-                        {isLoading ? 'Sending...' : 'Continue'}
+                        {isLoading
+                          ? t('website.auth.sending', 'Sending...')
+                          : t('website.auth.continue', 'Continue')}
                       </Button>
 
                       <div className="relative my-6 text-center">
                         <div className="absolute inset-0 flex items-center">
                           <div className="w-full border-t border-muted-foreground/20"></div>
                         </div>
-                        <span className="relative px-4 text-xs uppercase bg-background text-muted-foreground font-medium"> Or continue with </span>
+                        <span className="relative px-4 text-xs uppercase bg-background text-muted-foreground font-medium">
+                          {t('website.auth.orContinueWith', 'Or continue with')}
+                        </span>
                       </div>
 
                       <Button
@@ -1000,12 +1022,14 @@ export default function Login() {
                             <path d="M3.964 10.71a5.41 5.41 0 01-.282-1.71c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.042l3.007-2.332z" fill="#FBBC05" />
                             <path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.443 2.048.957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335" />
                           </svg>
-                          <span className="font-medium">Continue with Google</span>
+                          <span className="font-medium">
+                            {t('website.auth.googleContinue', 'Continue with Google')}
+                          </span>
                         </div>
                       </Button>
 
                       <p className="text-center text-sm text-muted-foreground">
-                        Already have an account?{' '}
+                        {t('website.auth.alreadyHaveAccount', 'Already have an account?')}{' '}
                         <button
                           type="button"
                           className="text-primary hover:underline font-medium"
@@ -1015,7 +1039,7 @@ export default function Login() {
                           }}
                           data-testid="link-goto-signin"
                         >
-                          Sign in
+                          {t('website.auth.signIn', 'Sign In')}
                         </button>
                       </p>
                     </form>
@@ -1025,12 +1049,12 @@ export default function Login() {
                     <form onSubmit={handleVerifySignupOTP} className="space-y-4">
                       <div>
                         <label htmlFor="otp-signup" className="text-sm font-medium mb-2 block">
-                          Verification Code
+                          {t('website.auth.verificationCode', 'Verification Code')}
                         </label>
                         <Input
                           id="otp-signup"
                           type="text"
-                          placeholder="Enter 6-digit code"
+                          placeholder={t('website.auth.placeholderCode', 'Enter 6-digit code')}
                           value={otp}
                           onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
                           maxLength={6}
@@ -1046,7 +1070,9 @@ export default function Login() {
                         disabled={isLoading}
                         data-testid="button-verify-signup-otp"
                       >
-                        {isLoading ? 'Verifying...' : 'Verify Email'}
+                        {isLoading
+                          ? t('website.auth.verifying', 'Verifying...')
+                          : t('website.auth.verifyEmail', 'Verify Email')}
                       </Button>
                       <Button
                         type="button"
@@ -1055,7 +1081,7 @@ export default function Login() {
                         onClick={() => setSignupStep('email')}
                         data-testid="button-back-signup-email"
                       >
-                        Use different email
+                        {t('website.auth.useDifferentEmail', 'Use different email')}
                       </Button>
                     </form>
                   )}
@@ -1064,14 +1090,14 @@ export default function Login() {
                     <form onSubmit={handleCompleteSignup} className="space-y-4">
                       <div>
                         <label htmlFor="name-signup" className="text-sm font-medium mb-2 block">
-                          Full Name
+                          {t('website.auth.fullName', 'Full Name')}
                         </label>
                         <div className="relative">
                           <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                           <Input
                             id="name-signup"
                             type="text"
-                            placeholder="John Doe"
+                            placeholder={t('website.auth.placeholderName', 'John Doe')}
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                             className="pl-10"
@@ -1083,14 +1109,14 @@ export default function Login() {
                       </div>
                       <div>
                         <label htmlFor="password-signup" className="text-sm font-medium mb-2 block">
-                          Password
+                          {t('website.auth.password', 'Password')}
                         </label>
                         <div className="relative">
                           <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                           <Input
                             id="password-signup"
                             type={showNewPassword ? 'text' : 'password'}
-                            placeholder="Min 8 characters"
+                            placeholder={t('website.auth.placeholderNewPassword', 'Min 8 characters')}
                             value={newPassword}
                             onChange={(e) => setNewPassword(e.target.value)}
                             className="pl-10 pr-10"
@@ -1117,14 +1143,14 @@ export default function Login() {
                           htmlFor="confirm-password-signup"
                           className="text-sm font-medium mb-2 block"
                         >
-                          Confirm Password
+                          {t('website.auth.confirmPassword', 'Confirm Password')}
                         </label>
                         <div className="relative">
                           <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                           <Input
                             id="confirm-password-signup"
                             type={showConfirmPassword ? 'text' : 'password'}
-                            placeholder="Confirm your password"
+                            placeholder={t('website.auth.placeholderConfirmPassword', 'Confirm your password')}
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             className="pl-10 pr-10"
@@ -1152,7 +1178,9 @@ export default function Login() {
                         disabled={isLoading}
                         data-testid="button-complete-signup"
                       >
-                        {isLoading ? 'Creating Account...' : 'Create Account'}
+                        {isLoading
+                          ? t('website.auth.creatingAccount', 'Creating Account...')
+                          : t('website.auth.createAccount', 'Create Account')}
                       </Button>
                     </form>
                   )}
@@ -1162,17 +1190,22 @@ export default function Login() {
           </Tabs>
 
           <p className="text-center text-sm text-muted-foreground mt-6">
-            {t('checkout.termsAgreement', 'By continuing, you agree to our')}{' '}
+            {t('website.auth.termsAgreement', 'By continuing, you agree to our')}{' '}
             <Link href="/pages/terms-and-condition">
-              <span className="text-primary hover:underline cursor-pointer">Terms of Service</span>
+              <span className="text-primary hover:underline cursor-pointer">
+                {t('website.auth.terms', 'Terms of Service')}
+              </span>
             </Link>{' '}
-            and{' '}
+            {t('website.auth.and', 'and')}{' '}
             <Link href="/pages/privacy-policy">
-              <span className="text-primary hover:underline cursor-pointer">Privacy Policy</span>
+              <span className="text-primary hover:underline cursor-pointer">
+                {t('website.auth.privacy', 'Privacy Policy')}
+              </span>
             </Link>
           </p>
         </div>
-      </div >
-    </div >
+      </div>
+    </div>
   );
 }
+

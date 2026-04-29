@@ -41,13 +41,15 @@ export function NewFooter() {
   };
 
   const targetDestinations = [
-    { code: 'CHN', label: 'China' },
-    { code: 'JPN', label: 'Japan' },
-    { code: 'TH', label: 'Thailand' },
-    { code: 'AU', label: 'Australia' },
-    { code: 'USA', label: 'United States' },
-    { code: 'AE', label: 'UAE' },
+    { code: 'CHN', label: t('website.destinations.china', 'China') },
+    { code: 'JPN', label: t('website.destinations.japan', 'Japan') },
+    { code: 'TH', label: t('website.destinations.thailand', 'Thailand') },
+    { code: 'AU', label: t('website.destinations.australia', 'Australia') },
+    { code: 'USA', label: t('website.destinations.usa', 'United States') },
+    { code: 'AE', label: t('website.destinations.uae', 'UAE') },
   ];
+
+
 
   const topDestinations = targetDestinations
     .map((target) => {
@@ -95,7 +97,7 @@ export function NewFooter() {
               </Link>
             )}
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Simfinity FR provides fast, secure, and affordable eSIM solutions for travelers, businesses, and global users — helping you stay connected anywhere in the world without roaming stress.
+              {t('website.footer.description', 'Simfinity FR provides fast, secure, and affordable eSIM solutions for travelers, businesses, and global users — helping you stay connected anywhere in the world without roaming stress.')}
             </p>
           </div>
 
@@ -107,8 +109,8 @@ export function NewFooter() {
                     <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
                   </svg>
                   <div>
-                    <div className="text-[8px] leading-none">Download on the</div>
-                    <div className="text-xs font-semibold leading-tight">App Store</div>
+                    <div className="text-[8px] leading-none">{t('website.footer.downloadApp', 'Download on the')}</div>
+                    <div className="text-xs font-semibold leading-tight">{t('website.footer.appStore', 'App Store')}</div>
                   </div>
                 </div>
               </a>
@@ -120,8 +122,8 @@ export function NewFooter() {
                     <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.302 2.302a1 1 0 0 1 0 1.38l-2.302 2.302L15.196 12l2.502-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302L5.864 2.658z" />
                   </svg>
                   <div>
-                    <div className="text-[8px] leading-none">GET IT ON</div>
-                    <div className="text-xs font-semibold leading-tight">Google Play</div>
+                    <div className="text-[8px] leading-none">{t('website.footer.getItOn', 'GET IT ON')}</div>
+                    <div className="text-xs font-semibold leading-tight">{t('website.footer.googlePlay', 'Google Play')}</div>
                   </div>
                 </div>
               </a>
@@ -131,7 +133,7 @@ export function NewFooter() {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 mb-12">
           <div>
-            <h3 className="text-sm font-bold text-foreground mb-4">Popular Destinations</h3>
+            <h3 className="text-sm font-bold text-foreground mb-4">{t('website.footer.popularDestinations', 'Popular Destinations')}</h3>
             <ul className="space-y-2.5">
               {topDestinations.length > 0 ? (
                 topDestinations.map((dest: any) => (
@@ -158,17 +160,17 @@ export function NewFooter() {
           </div>
 
           <div>
-            <h3 className="text-sm font-bold text-foreground mb-4">{siteName}</h3>
+            <h3 className="text-sm font-bold text-foreground mb-4">{t('website.footer.company', siteName)}</h3>
             <ul className="space-y-2.5">
               {[
-                { label: 'Business', href: '/business' },
-                { label: 'About Us', href: '/about-us' },
-                { label: 'Careers', href: '/careers' },
-                { label: 'Refer a Friend', href: '/refer-a-friend' },
-                { label: 'Become an Affiliate', href: '/become-an-affiliate' },
-                { label: 'Student Discount', href: '/student-discount' },
+                { label: t('website.footer.business', 'Business'), href: '/business' },
+                { label: t('website.footer.about', 'About Us'), href: '/about-us' },
+                { label: t('website.footer.careers', 'Careers'), href: '/careers' },
+                { label: t('website.footer.referFriend', 'Refer a Friend'), href: '/refer-a-friend' },
+                { label: t('website.footer.becomeAffiliate', 'Become an Affiliate'), href: '/become-an-affiliate' },
+                { label: t('website.footer.studentDiscount', 'Student Discount'), href: '/student-discount' },
               ].map((link) => (
-                <li key={link.label}>
+                <li key={link.href}>
                   <Link href={link.href}>
                     <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">{link.label}</span>
                   </Link>
@@ -178,17 +180,17 @@ export function NewFooter() {
           </div>
 
           <div>
-            <h3 className="text-sm font-bold text-foreground mb-4">eSIM</h3>
+            <h3 className="text-sm font-bold text-foreground mb-4">{t('website.footer.esim', 'eSIM')}</h3>
             <ul className="space-y-2.5">
               {[
-                { label: 'What is an eSIM', href: '/what-is-esim' },
-                { label: 'Supported Devices', href: '/supported-devices' },
-                { label: 'Download App', href: '/download-app' },
-                { label: 'Security Features', href: '/security-features' },
-                { label: 'Data Usage Calculator', href: '/data-usage-calculator' },
-                { label: 'Blog', href: '/blog' },
+                { label: t('website.nav.whatIsEsim', 'What is an eSIM'), href: '/what-is-esim' },
+                { label: t('website.nav.supportedDevices', 'Supported Devices'), href: '/supported-devices' },
+                { label: t('website.footer.downloadApp', 'Download App'), href: '/download-app' },
+                { label: t('website.footer.securityFeatures', 'Security Features'), href: '/security-features' },
+                { label: t('website.footer.dataUsageCalculator', 'Data Usage Calculator'), href: '/data-usage-calculator' },
+                { label: t('website.nav.blog', 'Blog'), href: '/blog' },
               ].map((link) => (
-                <li key={link.label}>
+                <li key={link.href}>
                   <Link href={link.href}>
                     <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">{link.label}</span>
                   </Link>
@@ -207,17 +209,17 @@ export function NewFooter() {
           </div>
 
           <div>
-            <h3 className="text-sm font-bold text-foreground mb-4">Help</h3>
+            <h3 className="text-sm font-bold text-foreground mb-4">{t('website.footer.help', 'Help')}</h3>
             <ul className="space-y-2.5">
               {[
-                { label: 'Help Center', href: '/help-center' },
-                { label: 'Getting Started', href: '/help-center?category=getting-started' },
-                { label: 'Plans & Payments', href: '/help-center?category=plans-payments' },
-                { label: 'Troubleshooting', href: '/help-center?category=troubleshooting' },
-                { label: 'FAQ', href: '/help-center?category=faq' },
-                { label: 'Reviews', href: '/reviews' },
+                { label: t('website.nav.helpCenter', 'Help Center'), href: '/help-center' },
+                { label: t('website.nav.gettingStarted', 'Getting Started'), href: '/help-center?category=getting-started' },
+                { label: t('website.footer.plansPayments', 'Plans & Payments'), href: '/help-center?category=plans-payments' },
+                { label: t('website.nav.troubleshooting', 'Troubleshooting'), href: '/help-center?category=troubleshooting' },
+                { label: t('website.nav.faqs', 'FAQ'), href: '/help-center?category=faq' },
+                { label: t('website.nav.reviews', 'Reviews'), href: '/reviews' },
               ].map((link) => (
-                <li key={link.label}>
+                <li key={link.href}>
                   <Link href={link.href}>
                     <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">{link.label}</span>
                   </Link>
@@ -227,31 +229,32 @@ export function NewFooter() {
           </div>
 
           <div>
-            <h3 className="text-sm font-bold text-foreground mb-4">Contact Us</h3>
+            <h3 className="text-sm font-bold text-foreground mb-4">{t('website.footer.contactUs', 'Contact Us')}</h3>
             <ul className="space-y-2.5 mb-6">
               <li className="text-sm text-muted-foreground">
-                <span className="block font-medium text-foreground">Email:</span>
+                <span className="block font-medium text-foreground">{t('website.footer.emailLabel', 'Email')}:</span>
                 <a href={`mailto:${settings?.email || 'info@simfinity.fr'}`} className="hover:text-foreground transition-colors">
                   {settings?.email || 'info@simfinity.fr'}
                 </a>
               </li>
               <li className="text-sm text-muted-foreground">
-                <span className="block font-medium text-foreground">Phone:</span>
+                <span className="block font-medium text-foreground">{t('website.footer.phoneLabel', 'Phone')}:</span>
                 <a href={`tel:${settings?.phone?.replace(/\s/g, "") || "+330745574376"}`} className="hover:text-foreground transition-colors">
                   {settings?.phone || '+33 0745574376'}
                 </a>
               </li>
               <li className="text-sm text-muted-foreground">
-                <span className="block font-medium text-foreground">Support:</span>
-                {settings?.support_info || '24/7 Customer Support Available'}
+                <span className="block font-medium text-foreground">{t('website.footer.supportLabel', 'Support')}:</span>
+                {settings?.support_info || t('website.footer.supportDesc', '24/7 Customer Support Available')}
               </li>
               <li className="text-sm text-muted-foreground">
-                <span className="block font-medium text-foreground">Location:</span>
-                {settings?.location || 'France'}
+                <span className="block font-medium text-foreground">{t('website.footer.locationLabel', 'Location')}:</span>
+                {settings?.location || t('website.footer.france', 'France')}
               </li>
+
             </ul>
 
-            <h3 className="text-sm font-bold text-foreground mb-4">Follow Us</h3>
+            <h3 className="text-sm font-bold text-foreground mb-4">{t('website.footer.followUs', 'Follow Us')}</h3>
             <div className="flex flex-wrap gap-3">
               {[
                 { label: 'Facebook', icon: 'facebook', href: getSocialUrl(settings?.social_facebook), active: settings?.social_facebook_active !== 'false' },
@@ -278,18 +281,19 @@ export function NewFooter() {
         <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
             <div className="flex flex-col gap-1">
-              <span>© 2026 Simfinity FR. All rights reserved.</span>
-              <span>Powered by <a href="https://simfinity.dev" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground cursor-pointer">Simfinity.dev</a></span>
+              <span>© 2026 {siteName}. {t('website.footer.rightsReserved', 'All rights reserved.')}</span>
+              <span>{t('website.footer.poweredBy', 'Powered by')} <a href="https://simfinity.dev" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground cursor-pointer">Simfinity.dev</a></span>
             </div>
             <Link href="/privacy-policy">
-              <span className="underline hover:text-foreground cursor-pointer">Privacy Policy</span>
+              <span className="underline hover:text-foreground cursor-pointer">{t('website.footer.privacyPolicy', 'Privacy Policy')}</span>
             </Link>
             <Link href="/terms-of-service">
-              <span className="underline hover:text-foreground cursor-pointer">Terms of Service</span>
+              <span className="underline hover:text-foreground cursor-pointer">{t('website.footer.termsOfService', 'Terms of Service')}</span>
             </Link>
             <Link href="/cookie-policy">
-              <span className="underline hover:text-foreground cursor-pointer">Cookie Preference</span>
+              <span className="underline hover:text-foreground cursor-pointer">{t('website.footer.cookiePreference', 'Cookie Preference')}</span>
             </Link>
+
           </div>
 
           <div className="flex items-center gap-2 flex-wrap">

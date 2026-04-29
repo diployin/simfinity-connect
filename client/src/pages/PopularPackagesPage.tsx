@@ -111,15 +111,15 @@ const PopularPackagesPage = () => {
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <Check className="h-5 w-5 text-green-600 dark:text-green-400" />
-                <span className="text-sm">Instant Activation</span>
+                <span className="text-sm">{t('website.home.popular.instantActivation', 'Instant Activation')}</span>
               </div>
               <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <Check className="h-5 w-5 text-green-600 dark:text-green-400" />
-                <span className="text-sm">24/7 Support</span>
+                <span className="text-sm">{t('website.home.popular.support247', '24/7 Support')}</span>
               </div>
               <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <Check className="h-5 w-5 text-green-600 dark:text-green-400" />
-                <span className="text-sm">No Hidden Fees</span>
+                <span className="text-sm">{t('website.home.popular.noHiddenFees', 'No Hidden Fees')}</span>
               </div>
             </div>
 
@@ -138,12 +138,12 @@ const PopularPackagesPage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-              Popular Packages
+              {t('website.home.popular.title', 'Popular Packages')}
             </h2>
             <p className="text-gray-600 dark:text-gray-400">
               {isLoading
-                ? 'Loading packages...'
-                : `Showing ${packages.length} popular eSIM packages`}
+                ? t('website.home.popular.loading', 'Loading packages...')
+                : t('website.home.popular.showing', 'Showing {{count}} popular eSIM packages', { count: packages.length })}
             </p>
           </div>
 
@@ -151,11 +151,11 @@ const PopularPackagesPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {isLoading
               ? Array(8)
-                  .fill(0)
-                  .map((_, i) => <SkeletonCard key={`skeleton-${i}`} />)
+                .fill(0)
+                .map((_, i) => <SkeletonCard key={`skeleton-${i}`} />)
               : packages.map((pkg) => (
-                  <PlanCommonCard key={pkg.id} {...transformPackageToCardProps(pkg)} />
-                ))}
+                <PlanCommonCard key={pkg.id} {...transformPackageToCardProps(pkg)} />
+              ))}
           </div>
 
           {/* Empty State */}
@@ -165,14 +165,14 @@ const PopularPackagesPage = () => {
                 <Wifi className="h-16 w-16 text-gray-400 dark:text-gray-600 mx-auto" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
-                No packages available
+                {t('website.home.popular.noPackages', 'No packages available')}
               </h3>
               <p className="text-gray-600 dark:text-gray-400 mb-6">
-                We're currently updating our package offerings. Please check back soon!
+                {t('website.home.popular.noPackagesDesc', "We're currently updating our package offerings. Please check back soon!")}
               </p>
               <Link href="/destinations">
                 <Button className="bg-button-gradient text-white rounded-full px-6">
-                  Browse All Destinations
+                  {t('website.home.popular.browseAll', 'Browse All Destinations')}
                 </Button>
               </Link>
             </div>
@@ -184,15 +184,15 @@ const PopularPackagesPage = () => {
       <section className="py-12 md:py-16 border-t border-gray-200 dark:border-gray-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-            Can't find what you're looking for?
+            {t('website.home.popular.cantFind', "Can't find what you're looking for?")}
           </h2>
           <p className="text-gray-600 dark:text-gray-400 mb-6">
-            Explore all destinations or contact our support team for personalized recommendations.
+            {t('website.home.popular.exploreAll', 'Explore all destinations or contact our support team for personalized recommendations.')}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/destinations">
               <Button className="bg-button-gradient text-white rounded-full px-6">
-                View All Destinations
+                {t('website.home.popular.viewAll', 'View All Destinations')}
               </Button>
             </Link>
             <Link href="/contact">
@@ -201,7 +201,7 @@ const PopularPackagesPage = () => {
                 className="rounded-full px-6 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800"
               >
                 <MessageSquare className="h-4 w-4 mr-2" />
-                Contact Support
+                {t('website.home.popular.contactSupport', 'Contact Support')}
               </Button>
             </Link>
           </div>

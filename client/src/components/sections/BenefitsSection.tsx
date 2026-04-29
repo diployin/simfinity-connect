@@ -88,7 +88,7 @@ export function BenefitsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12 md:mb-16">
           <p className="text-sm text-[#2c7338] dark:text-[#3d9a4d] font-medium mb-3">
-            {t('website.home.benefits.label', `Why ${siteName}?`)}
+            {t('website.home.benefits.label', `Why ${siteName}?`, { siteName })}
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-[42px] font-bold text-foreground leading-tight">
             {t('website.home.benefits.title', 'Travel Smart. Stay Online. Go Anywhere.')}

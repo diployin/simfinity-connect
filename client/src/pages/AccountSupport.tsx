@@ -203,14 +203,14 @@ export default function AccountSupport() {
     },
     onSuccess: () => {
       refetchTickets();
-      toast({ title: 'Success', description: 'Ticket created successfully' });
+      toast({ title: t('common.success', 'Success'), description: t('support.ticketCreated', 'Ticket created successfully') });
       setShowCreateDialog(false);
       setCreateFormData({ title: '', description: '', priority: 'medium' });
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
-        description: error.message || 'Failed to create ticket',
+        title: t('common.error', 'Error'),
+        description: error.message || t('support.createFailed', 'Failed to create ticket'),
         variant: 'destructive',
       });
     },
@@ -231,12 +231,12 @@ export default function AccountSupport() {
       refetchTickets();
       refetchTicketDetails();
       setNewMessage('');
-      toast({ title: 'Success', description: 'Message sent successfully' });
+      toast({ title: t('common.success', 'Success'), description: t('support.messageSent', 'Message sent successfully') });
     },
     onError: (error: any) => {
       toast({
-        title: 'Error',
-        description: error.message || 'Failed to send message',
+        title: t('common.error', 'Error'),
+        description: error.message || t('support.sendFailed', 'Failed to send message'),
         variant: 'destructive',
       });
     },
@@ -245,8 +245,8 @@ export default function AccountSupport() {
   const handleCreateTicket = () => {
     if (!createFormData.title || !createFormData.description) {
       toast({
-        title: 'Validation Error',
-        description: 'Please fill in all required fields',
+        title: t('support.validationError', 'Validation Error'),
+        description: t('support.fillFields', 'Please fill in all required fields'),
         variant: 'destructive',
       });
       return;
@@ -342,7 +342,7 @@ export default function AccountSupport() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Open</p>
+                <p className="text-sm font-medium text-muted-foreground">{t('support.open', 'Open')}</p>
                 <h3 className="text-2xl font-bold mt-1" data-testid="text-count-open">
                   {tickets?.filter((t) => t.status === 'open').length || 0}
                 </h3>
@@ -358,7 +358,7 @@ export default function AccountSupport() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">In Progress</p>
+                <p className="text-sm font-medium text-muted-foreground">{t('support.inProgress', 'In Progress')}</p>
                 <h3 className="text-2xl font-bold mt-1" data-testid="text-count-in-progress">
                   {tickets?.filter((t) => t.status === 'in_progress').length || 0}
                 </h3>
@@ -374,7 +374,7 @@ export default function AccountSupport() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Resolved</p>
+                <p className="text-sm font-medium text-muted-foreground">{t('support.resolved', 'Resolved')}</p>
                 <h3 className="text-2xl font-bold mt-1" data-testid="text-count-resolved">
                   {tickets?.filter((t) => t.status === 'resolved').length || 0}
                 </h3>
@@ -390,7 +390,7 @@ export default function AccountSupport() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Total</p>
+                <p className="text-sm font-medium text-muted-foreground">{t('support.total', 'Total')}</p>
                 <h3 className="text-2xl font-bold mt-1" data-testid="text-count-total">
                   {tickets?.length || 0}
                 </h3>
@@ -414,11 +414,11 @@ export default function AccountSupport() {
               onChange={(e) => setStatusFilter(e.target.value)}
               className="flex-1 px-3 py-2 border rounded-lg bg-background text-sm"
             >
-              <option value="all">All</option>
-              <option value="open">Open</option>
-              <option value="in_progress">In Progress</option>
-              <option value="resolved">Resolved</option>
-              <option value="closed">Closed</option>
+              <option value="all">{t('support.all', 'All')}</option>
+              <option value="open">{t('support.open', 'Open')}</option>
+              <option value="in_progress">{t('support.inProgress', 'In Progress')}</option>
+              <option value="resolved">{t('support.resolved', 'Resolved')}</option>
+              <option value="closed">{t('support.closed', 'Closed')}</option>
             </select>
 
             <select
@@ -458,12 +458,12 @@ export default function AccountSupport() {
                         <span
                           className={`px-2 py-0.5 rounded text-xs font-medium ${getStatusColor(ticket.status)}`}
                         >
-                          {ticket.status.replace('_', ' ')}
+                          {t(`support.${ticket.status}`, ticket.status.replace('_', ' '))}
                         </span>
                         <span
                           className={`px-2 py-0.5 rounded text-xs font-medium ${getPriorityColor(ticket.priority)}`}
                         >
-                          {ticket.priority}
+                          {t(`support.priorities.${ticket.priority}`, ticket.priority)}
                         </span>
                       </div>
 
@@ -491,11 +491,11 @@ export default function AccountSupport() {
                 <Card>
                   <CardContent className="p-8 text-center">
                     <Headphones className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                    <h3 className="text-lg font-medium mb-2">No tickets found</h3>
+                    <h3 className="text-lg font-medium mb-2">{t('support.noTicketsFound', 'No tickets found')}</h3>
                     <p className="text-muted-foreground mb-4">
                       {statusFilter !== 'all'
-                        ? 'Try adjusting your filter'
-                        : 'Create your first support ticket'}
+                        ? t('support.adjustFilter', 'Try adjusting your filter')
+                        : t('support.createFirstTicket', 'Create your first support ticket')}
                     </p>
                     <Button
                       onClick={() => setShowCreateDialog(true)}
@@ -503,7 +503,7 @@ export default function AccountSupport() {
                       data-testid="button-create-first-ticket"
                     >
                       <Plus className="w-4 h-4" />
-                      Create Ticket
+                      {t('support.createTicket', 'Create Ticket')}
                     </Button>
                   </CardContent>
                 </Card>
@@ -517,11 +517,11 @@ export default function AccountSupport() {
               disabled={page === 1}
               onClick={() => setPage((p) => p - 1)}
             >
-              Previous
+              {t('support.previous', 'Previous')}
             </Button>
 
             <span className="text-sm text-muted-foreground">
-              Page <span className="font-medium">{page}</span> of {totalPages}
+              {t('support.pageOf', 'Page {{page}} of {{total}}', { page, total: totalPages })}
             </span>
 
             <Button
@@ -530,7 +530,7 @@ export default function AccountSupport() {
               disabled={page >= totalPages}
               onClick={() => setPage((p) => p + 1)}
             >
-              Next
+              {t('support.next', 'Next')}
             </Button>
           </div>
         </div>
@@ -546,7 +546,7 @@ export default function AccountSupport() {
                     <span
                       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(selectedTicket.status)}`}
                     >
-                      {selectedTicket.status.replace('_', ' ')}
+                      {t(`support.${selectedTicket.status}`, selectedTicket.status.replace('_', ' '))}
                     </span>
                   </div>
                   <Button
@@ -557,7 +557,7 @@ export default function AccountSupport() {
                     data-testid="button-refresh-ticket"
                   >
                     <RefreshCw className="w-4 h-4" />
-                    Refresh
+                    {t('support.refresh', 'Refresh')}
                   </Button>
                 </div>
               </CardHeader>
@@ -566,18 +566,18 @@ export default function AccountSupport() {
                 {/* Ticket Info */}
                 <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
                   <div>
-                    <span className="text-muted-foreground">Created:</span>
+                    <span className="text-muted-foreground">{t('support.created', 'Created')}:</span>
                     <div className="font-medium mt-1">
                       {new Date(selectedTicket.createdAt).toLocaleString()}
                     </div>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Priority:</span>
+                    <span className="text-muted-foreground">{t('support.priority', 'Priority')}:</span>
                     <div className="mt-1">
                       <span
                         className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${getPriorityColor(selectedTicket.priority)}`}
                       >
-                        {selectedTicket.priority}
+                        {t(`support.priorities.${selectedTicket.priority}`, selectedTicket.priority)}
                       </span>
                     </div>
                   </div>
@@ -586,7 +586,7 @@ export default function AccountSupport() {
                 {/* Description */}
                 <div className="rounded-lg border bg-muted/30 p-4">
                   <span className="text-xs text-muted-foreground uppercase tracking-wide">
-                    Description
+                    {t('support.description', 'Description')}
                   </span>
                   <p className="mt-2 text-sm whitespace-pre-wrap leading-relaxed">
                     {selectedTicket.description}
@@ -595,12 +595,12 @@ export default function AccountSupport() {
 
                 {/* Conversation */}
                 <div className="border-t pt-6 flex flex-col h-[500px]">
-                  <h3 className="font-medium mb-3">Conversation</h3>
+                  <h3 className="font-medium mb-3">{t('support.conversation', 'Conversation')}</h3>
 
                   <div className="flex-1 space-y-4 overflow-y-auto px-1 pr-2 mb-4">
                     {!liveMessages || liveMessages.length === 0 ? (
                       <p className="text-sm text-muted-foreground text-center py-12">
-                        No messages yet. Start the conversation!
+                        {t('support.noMessages', 'No messages yet. Start the conversation!')}
                       </p>
                     ) : (
                       liveMessages.map((msg: Message) => {
@@ -625,7 +625,7 @@ export default function AccountSupport() {
 
                                 {!isUser && (
                                   <span className="text-[10px] px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-500">
-                                    Support
+                                    {t('support.supportLabel', 'Support')}
                                   </span>
                                 )}
                               </div>
@@ -652,7 +652,7 @@ export default function AccountSupport() {
                   {/* Reply Box */}
                   <div className="border-t pt-3 flex items-end gap-2">
                     <Textarea
-                      placeholder="Type your reply..."
+                      placeholder={t('support.typeReply', 'Type your reply...')}
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
                       className="flex-1 resize-none rounded-xl"
@@ -674,9 +674,9 @@ export default function AccountSupport() {
             <Card>
               <CardContent className="p-12 text-center">
                 <Headphones className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-medium mb-2">No ticket selected</h3>
+                <h3 className="text-lg font-medium mb-2">{t('support.noTicketSelected', 'No ticket selected')}</h3>
                 <p className="text-muted-foreground mb-4">
-                  Select a ticket from the list to view details and conversation
+                  {t('support.selectTicketHint', 'Select a ticket from the list to view details and conversation')}
                 </p>
               </CardContent>
             </Card>
@@ -691,7 +691,7 @@ export default function AccountSupport() {
             <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-[#dcf0de] dark:bg-[#194520]/30 flex items-center justify-center">
               <Mail className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
             </div>
-            <div className="font-medium mb-1">Email Support</div>
+            <div className="font-medium mb-1">{t('support.emailSupport', 'Email Support')}</div>
             <div className="text-sm text-muted-foreground">{email || 'support@esim-global.com'}</div>
           </CardContent>
         </Card>
@@ -700,8 +700,8 @@ export default function AccountSupport() {
             <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-[#dcf0de] dark:bg-[#194520]/30 flex items-center justify-center">
               <MessageCircle className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
             </div>
-            <div className="font-medium mb-1">Live Chat</div>
-            <div className="text-sm text-muted-foreground">Available 24/7</div>
+            <div className="font-medium mb-1">{t('support.liveChat', 'Live Chat')}</div>
+            <div className="text-sm text-muted-foreground">{t('support.available247', 'Available 24/7')}</div>
           </CardContent>
         </Card>
         <Card data-testid="card-help-center">
@@ -709,8 +709,8 @@ export default function AccountSupport() {
             <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-[#dcf0de] dark:bg-[#194520]/30 flex items-center justify-center">
               <BookOpen className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
             </div>
-            <div className="font-medium mb-1">Help Center</div>
-            <div className="text-sm text-muted-foreground">Browse FAQs & Guides</div>
+            <div className="font-medium mb-1">{t('support.helpCenter', 'Help Center')}</div>
+            <div className="text-sm text-muted-foreground">{t('support.browseFaqs', 'Browse FAQs & Guides')}</div>
           </CardContent>
         </Card>
       </div>
@@ -719,39 +719,39 @@ export default function AccountSupport() {
       <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>Create New Support Ticket</DialogTitle>
+            <DialogTitle>{t('support.createNewTicket', 'Create New Support Ticket')}</DialogTitle>
             <DialogDescription>
-              Describe your issue and we'll get back to you as soon as possible.
+              {t('support.createTicketDesc', "Describe your issue and we'll get back to you as soon as possible.")}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label htmlFor="title">Title *</Label>
+              <Label htmlFor="title">{t('support.titleLabel', 'Title *')}</Label>
               <Input
                 id="title"
                 value={createFormData.title}
                 onChange={(e) => setCreateFormData({ ...createFormData, title: e.target.value })}
-                placeholder="Brief description of your issue"
+                placeholder={t('support.titlePlaceholder', 'Brief description of your issue')}
                 className="mt-1"
                 data-testid="input-ticket-title"
               />
             </div>
             <div>
-              <Label htmlFor="description">Description *</Label>
+              <Label htmlFor="description">{t('support.descriptionLabel', 'Description *')}</Label>
               <Textarea
                 id="description"
                 value={createFormData.description}
                 onChange={(e) =>
                   setCreateFormData({ ...createFormData, description: e.target.value })
                 }
-                placeholder="Please provide detailed information about your issue"
+                placeholder={t('support.descriptionPlaceholder', 'Please provide detailed information about your issue')}
                 rows={5}
                 className="mt-1"
                 data-testid="input-ticket-description"
               />
             </div>
             <div>
-              <Label htmlFor="priority">Priority</Label>
+              <Label htmlFor="priority">{t('support.priorityLabel', 'Priority')}</Label>
               <select
                 id="priority"
                 value={createFormData.priority}
@@ -764,10 +764,10 @@ export default function AccountSupport() {
                 className="w-full px-4 py-2 mt-1 border rounded-md bg-background"
                 data-testid="select-ticket-priority"
               >
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-                <option value="urgent">Urgent</option>
+                <option value="low">{t('support.priorities.low', 'Low')}</option>
+                <option value="medium">{t('support.priorities.medium', 'Medium')}</option>
+                <option value="high">{t('support.priorities.high', 'High')}</option>
+                <option value="urgent">{t('support.priorities.urgent', 'Urgent')}</option>
               </select>
             </div>
           </div>
@@ -777,7 +777,7 @@ export default function AccountSupport() {
               onClick={() => setShowCreateDialog(false)}
               data-testid="button-cancel-ticket"
             >
-              Cancel
+              {t('support.cancel', 'Cancel')}
             </Button>
             <Button
               onClick={handleCreateTicket}
@@ -785,7 +785,7 @@ export default function AccountSupport() {
               className="bg-[#2c7338] hover:bg-[#1e5427] text-white"
               data-testid="button-submit-ticket"
             >
-              {createTicketMutation.isPending ? 'Creating...' : 'Create Ticket'}
+              {createTicketMutation.isPending ? t('support.creating', 'Creating...') : t('support.createTicket', 'Create Ticket')}
             </Button>
           </DialogFooter>
         </DialogContent>

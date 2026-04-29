@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'wouter';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { useSettingByKey } from '@/hooks/useSettings';
 
 const connectImg = '/images/connect-instantly-travel.png';
 const avoidWaitingImg = '/images/avoid-waiting-traveler.png';
@@ -8,6 +9,7 @@ const stayProtectedImg = '/images/stay-protected-phone.png';
 
 export function InstantConnection() {
   const { t } = useTranslation();
+  const siteName = useSettingByKey('platform_name') || 'Simfinity';
 
   return (
     <section className="py-16 md:py-24 bg-white dark:bg-gray-950">
@@ -52,7 +54,8 @@ export function InstantConnection() {
               <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-sm mb-6">
                 {t(
                   'website.home.instant.connect.description',
-                  'Skip the setup stress. With Simfinity FR, simply choose your plan, install your eSIM, and you’re ready to go. The moment you arrive, your connection is already active — no extra steps needed.'
+                  'Skip the setup stress. With {{siteName}}, simply choose your plan, install your eSIM, and you’re ready to go. The moment you arrive, your connection is already active — no extra steps needed.',
+                  { siteName }
                 )}
               </p>
               <div className="inline-flex items-center gap-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm px-4 py-3">
@@ -62,7 +65,7 @@ export function InstantConnection() {
                     <path d="M12 12h.01" />
                   </svg>
                 </div>
-                <span className="text-sm font-semibold text-gray-900 dark:text-white">eSIM #1</span>
+                <span className="text-sm font-semibold text-gray-900 dark:text-white">{t('website.home.instant.connect.esimNum', 'eSIM #1')}</span>
                 <span className="text-xs text-[#2c7338] dark:text-[#3d9a4d] font-medium bg-[#f0f9f1] dark:bg-[#194520]/30 px-2 py-0.5 rounded-full">
                   {t('website.home.instant.connect.installed', 'Installed')}
                 </span>
@@ -106,7 +109,7 @@ export function InstantConnection() {
                   >
                     <div>
                       <span className="text-sm font-semibold text-gray-900 dark:text-white">{plan}</span>
-                      <span className="text-xs text-gray-400 ml-2">30 days</span>
+                      <span className="text-xs text-gray-400 ml-2">{t('website.home.instant.avoid.daysValidity', '30 days')}</span>
                     </div>
                     {i === 0 && (
                       <div className="w-6 h-6 bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] rounded-full flex items-center justify-center">

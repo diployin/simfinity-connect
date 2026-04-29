@@ -11,16 +11,18 @@ import {
 import { Helmet } from 'react-helmet-async';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { useLocation } from 'wouter';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function StudentDiscount() {
   const siteName = useSettingByKey('platform_name') || 'Simfinity';
   const [, navigate] = useLocation();
+  const { t } = useTranslation();
 
   return (
     <>
       <Helmet>
-        <title>Student Discount — {siteName}</title>
-        <meta name="description" content={`Students get 15% off all ${siteName} eSIM plans. Stay connected while studying or traveling abroad for less.`} />
+        <title>{t('student.pageTitle', 'Student Discount — {{siteName}}', { siteName })}</title>
+        <meta name="description" content={t('student.pageMeta', 'Students get 15% off all {{siteName}} eSIM plans. Stay connected while studying or traveling abroad for less.', { siteName })} />
       </Helmet>
 
       <div className="min-h-screen bg-background">
@@ -34,17 +36,17 @@ export default function StudentDiscount() {
               <div>
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
                   <GraduationCap className="w-4 h-4 text-white" />
-                  <span className="text-sm font-medium text-white">Student Program</span>
+                  <span className="text-sm font-medium text-white">{t('student.heroLabel', 'Student Program')}</span>
                 </div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">15% off</span>{' '}
-                  for students
+                  <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">{t('student.heroDiscount', '15% off')}</span>{' '}
+                  {t('student.heroTitle', 'for students')}
                 </h1>
                 <p className="text-lg md:text-xl text-white/80 mb-8">
-                  Whether you're studying abroad, backpacking between semesters, or heading home for the holidays — stay connected for less with our student discount.
+                  {t('student.heroDesc', 'Whether you\'re studying abroad, backpacking between semesters, or heading home for the holidays — stay connected for less with our student discount.')}
                 </p>
                 <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors">
-                  Verify Student Status <ArrowRight className="w-5 h-5" />
+                  {t('student.verifyBtn', 'Verify Student Status')} <ArrowRight className="w-5 h-5" />
                 </button>
               </div>
               <div className="flex justify-center">
@@ -52,9 +54,9 @@ export default function StudentDiscount() {
                   <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center mx-auto mb-6">
                     <Percent className="w-10 h-10 text-white" />
                   </div>
-                  <p className="text-5xl font-bold text-white mb-2">15%</p>
-                  <p className="text-xl text-primary-light font-semibold mb-4">Student Discount</p>
-                  <p className="text-slate-400 text-sm">Valid on all eSIM plans with a verified student email</p>
+                  <p className="text-5xl font-bold text-white mb-2">{t('student.cardDiscount', '15%')}</p>
+                  <p className="text-xl text-primary-light font-semibold mb-4">{t('student.cardTitle', 'Student Discount')}</p>
+                  <p className="text-slate-400 text-sm">{t('student.cardDesc', 'Valid on all eSIM plans with a verified student email')}</p>
                 </div>
               </div>
             </div>
@@ -64,15 +66,15 @@ export default function StudentDiscount() {
         <section className="py-16 md:py-24 bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Perfect for student travelers</h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Stay connected wherever your studies take you.</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('student.perfectTitle', 'Perfect for student travelers')}</h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t('student.perfectDesc', 'Stay connected wherever your studies take you.')}</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                { icon: BookOpen, title: 'Study Abroad', desc: 'Affordable data for semester programs anywhere in the world.', color: 'from-blue-500 to-blue-600' },
-                { icon: Plane, title: 'Gap Year Travel', desc: 'Backpack through Europe, Asia, or anywhere — always stay connected.', color: 'from-purple-500 to-purple-600' },
-                { icon: Globe2, title: 'International Students', desc: 'Keep in touch with family back home without roaming charges.', color: 'from-amber-500 to-amber-600' },
-                { icon: Sparkles, title: 'Group Trips', desc: 'Coordinate with classmates on group trips with affordable data plans.', color: 'from-rose-500 to-rose-600' },
+                { icon: BookOpen, title: t('student.feat1Title', 'Study Abroad'), desc: t('student.feat1Desc', 'Affordable data for semester programs anywhere in the world.'), color: 'from-blue-500 to-blue-600' },
+                { icon: Plane, title: t('student.feat2Title', 'Gap Year Travel'), desc: t('student.feat2Desc', 'Backpack through Europe, Asia, or anywhere — always stay connected.'), color: 'from-purple-500 to-purple-600' },
+                { icon: Globe2, title: t('student.feat3Title', 'International Students'), desc: t('student.feat3Desc', 'Keep in touch with family back home without roaming charges.'), color: 'from-amber-500 to-amber-600' },
+                { icon: Sparkles, title: t('student.feat4Title', 'Group Trips'), desc: t('student.feat4Desc', 'Coordinate with classmates on group trips with affordable data plans.'), color: 'from-rose-500 to-rose-600' },
               ].map((item) => (
                 <div key={item.title} className="bg-card rounded-2xl p-6 border border-border text-center">
                   <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center mx-auto mb-4`}>
@@ -89,13 +91,13 @@ export default function StudentDiscount() {
         <section className="py-16 md:py-24 bg-muted/30">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">How to get your discount</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('student.howItWorksTitle', 'How to get your discount')}</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
-                { num: '1', title: 'Sign Up', desc: 'Create your account using your .edu or university email address.', color: 'from-blue-500 to-blue-600' },
-                { num: '2', title: 'Verify', desc: 'We\'ll verify your student status — usually instant with a .edu email.', color: 'from-purple-500 to-purple-600' },
-                { num: '3', title: 'Save 15%', desc: 'Your discount is automatically applied to all eSIM purchases.', color: 'from-amber-500 to-amber-600' },
+                { num: '1', title: t('student.step1Title', 'Sign Up'), desc: t('student.step1Desc', 'Create your account using your .edu or university email address.'), color: 'from-blue-500 to-blue-600' },
+                { num: '2', title: t('student.step2Title', 'Verify'), desc: t('student.step2Desc', 'We\'ll verify your student status — usually instant with a .edu email.'), color: 'from-purple-500 to-purple-600' },
+                { num: '3', title: t('student.step3Title', 'Save 15%'), desc: t('student.step3Desc', 'Your discount is automatically applied to all eSIM purchases.'), color: 'from-amber-500 to-amber-600' },
               ].map((step) => (
                 <div key={step.num} className="bg-card rounded-2xl p-8 border border-border text-center">
                   <div className={`w-16 h-16 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center mx-auto mb-6`}>
@@ -116,10 +118,10 @@ export default function StudentDiscount() {
                 <div className="absolute top-10 right-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl" />
               </div>
               <div className="relative z-10">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to save on your next trip?</h2>
-                <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">Sign up with your student email and get 15% off every eSIM plan — no code needed.</p>
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{t('student.ctaTitle', 'Ready to save on your next trip?')}</h2>
+                <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">{t('student.ctaDesc', 'Sign up with your student email and get 15% off every eSIM plan — no code needed.')}</p>
                 <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-bold text-lg hover:bg-slate-100 transition-colors">
-                  Browse Plans <ArrowRight className="w-5 h-5" />
+                  {t('student.browsePlansBtn', 'Browse Plans')} <ArrowRight className="w-5 h-5" />
                 </button>
               </div>
             </div>

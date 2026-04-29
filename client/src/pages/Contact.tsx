@@ -9,25 +9,35 @@ import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Mail, MessageSquare, Clock, MapPin, Send, Loader2 } from 'lucide-react';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 const contactInfo = [
   {
     icon: Mail,
-    title: 'Email Us',
-    description: 'info@simfinity.tel',
-    detail: 'We respond within 24 hours',
+    titleKey: 'contact.emailUs',
+    defaultTitle: 'Email Us',
+    descKey: 'contact.emailDesc',
+    defaultDesc: 'info@simfinity.tel',
+    detailKey: 'contact.emailDetail',
+    defaultDetail: 'We respond within 24 hours',
   },
   {
     icon: MessageSquare,
-    title: 'Live Chat',
-    description: 'Available',
-    detail: 'Instant support for urgent issues',
+    titleKey: 'contact.liveChat',
+    defaultTitle: 'Live Chat',
+    descKey: 'contact.chatDesc',
+    defaultDesc: 'Available',
+    detailKey: 'contact.chatDetail',
+    defaultDetail: 'Instant support for urgent issues',
   },
   {
     icon: Clock,
-    title: 'Response Time',
-    description: 'Within 2 hours',
-    detail: 'For urgent connectivity issues',
+    titleKey: 'contact.responseTime',
+    defaultTitle: 'Response Time',
+    descKey: 'contact.timeDesc',
+    defaultDesc: 'Within 2 hours',
+    detailKey: 'contact.timeDetail',
+    defaultDetail: 'For urgent connectivity issues',
   },
 ];
 
@@ -40,6 +50,7 @@ export default function Contact() {
     message: '',
   });
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,8 +59,8 @@ export default function Contact() {
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
     toast({
-      title: 'Message sent!',
-      description: "We'll get back to you within 24 hours.",
+      title: t('website.contact.sentTitle', 'Message sent!'),
+      description: t('website.contact.sentDesc', "We'll get back to you within 24 hours."),
     });
 
     setFormData({ name: '', email: '', subject: '', message: '' });
@@ -59,10 +70,10 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>Contact Us - Simfinity</title>
+        <title>{t('website.contact.pageTitle', 'Contact Us - Simfinity')}</title>
         <meta
           name="description"
-          content="Get in touch with Simfinity support. We're here to help with your eSIM questions, technical issues, and more."
+          content={t('website.contact.pageMeta', "Get in touch with Simfinity support. We're here to help with your eSIM questions, technical issues, and more.")}
         />
       </Helmet>
 
@@ -74,10 +85,10 @@ export default function Contact() {
         <div className="relative containers mx-auto px-4 sm:px-6 lg:px-8    ">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-extrabold  text-foreground mb-4">
-              Get in Touch
+              {t('website.contact.heroTitle', 'Get in Touch')}
             </h1>
             <p className="text-lg  text-muted-foreground">
-              Have a question? We're here to help 24/7.
+              {t('website.contact.heroSubtitle', 'Have a question? We\'re here to help 24/7.')}
             </p>
           </div>
         </div>
@@ -93,9 +104,9 @@ export default function Contact() {
                   <div className="h-12 w-12 rounded-xl gradient-primary flex items-center justify-center mx-auto mb-4">
                     <item.icon className="h-6 w-6 text-white" />
                   </div>
-                  <h3 className="font-semibold text-lg mb-1">{item.title}</h3>
-                  <p className="text-primary font-medium mb-1">{item.description}</p>
-                  <p className="text-sm text-muted-foreground">{item.detail}</p>
+                  <h3 className="font-semibold text-lg mb-1">{t(`website.${item.titleKey}`, item.defaultTitle)}</h3>
+                  <p className="text-primary font-medium mb-1">{t(`website.${item.descKey}`, item.defaultDesc)}</p>
+                  <p className="text-sm text-muted-foreground">{t(`website.${item.detailKey}`, item.defaultDetail)}</p>
                 </Card>
               ))}
             </div>
@@ -103,14 +114,14 @@ export default function Contact() {
             {/* Contact Form */}
             <div className="max-w-2xl mx-auto">
               <Card className="p-8">
-                <h2 className="text-2xl font-bold mb-6">Send us a message</h2>
+                <h2 className="text-2xl font-bold mb-6">{t('website.contact.formTitle', 'Send us a message')}</h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="name">Name</Label>
+                      <Label htmlFor="name">{t('website.contact.name', 'Name')}</Label>
                       <Input
                         id="name"
-                        placeholder="Your name"
+                        placeholder={String(t('website.contact.namePlaceholder', 'Your name'))}
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         required
@@ -118,11 +129,11 @@ export default function Contact() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
+                      <Label htmlFor="email">{t('website.contact.email', 'Email')}</Label>
                       <Input
                         id="email"
                         type="email"
-                        placeholder="your@email.com"
+                        placeholder={String(t('website.contact.emailPlaceholder', 'your@email.com'))}
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         required
@@ -131,10 +142,10 @@ export default function Contact() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="subject">Subject</Label>
+                    <Label htmlFor="subject">{t('website.contact.subject', 'Subject')}</Label>
                     <Input
                       id="subject"
-                      placeholder="How can we help?"
+                      placeholder={String(t('website.contact.subjectPlaceholder', 'How can we help?'))}
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                       required
@@ -142,10 +153,10 @@ export default function Contact() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
+                    <Label htmlFor="message">{t('website.contact.message', 'Message')}</Label>
                     <Textarea
                       id="message"
-                      placeholder="Tell us more about your question or issue..."
+                      placeholder={String(t('website.contact.messagePlaceholder', 'Tell us more about your question or issue...'))}
                       rows={5}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -162,12 +173,12 @@ export default function Contact() {
                     {isSubmitting ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Sending...
+                        {t('website.contact.sending', 'Sending...')}
                       </>
                     ) : (
                       <>
                         <Send className="mr-2 h-4 w-4" />
-                        Send Message
+                        {t('website.contact.sendBtn', 'Send Message')}
                       </>
                     )}
                   </Button>

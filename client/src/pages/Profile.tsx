@@ -223,8 +223,8 @@ export default function Profile() {
   return (
     <div className="flex-1">
       <Helmet>
-        <title>My Profile | eSIM Global</title>
-        <meta name="description" content="Manage your profile information and account settings" />
+        <title>{t('profile.title', 'My Profile')} | eSIM Global</title>
+        <meta name="description" content={t('profile.description', 'Manage your profile information and account settings')} />
       </Helmet>
 
       <div className="mb-8">
@@ -446,8 +446,8 @@ export default function Profile() {
 
                           <PopoverContent className="w-full p-0">
                             <Command>
-                              <CommandInput placeholder="Search country..." />
-                              <CommandEmpty>No country found.</CommandEmpty>
+                              <CommandInput placeholder={t('profile.searchCountry', 'Search country...')} />
+                              <CommandEmpty>{t('profile.noCountryFound', 'No country found.')}</CommandEmpty>
                               <CommandList>
                                 {destinations?.map((country: any) => (
                                   <CommandItem
@@ -506,8 +506,8 @@ export default function Profile() {
 
                           <PopoverContent className="w-full p-0">
                             <Command>
-                              <CommandInput placeholder="Search currency..." />
-                              <CommandEmpty>No currency found.</CommandEmpty>
+                              <CommandInput placeholder={t('profile.searchCurrency', 'Search currency...')} />
+                              <CommandEmpty>{t('profile.noCurrencyFound', 'No currency found.')}</CommandEmpty>
                               <CommandList>
                                 {currencies?.map((currency: any) => (
                                   <CommandItem

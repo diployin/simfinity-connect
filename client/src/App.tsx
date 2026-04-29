@@ -119,7 +119,7 @@ import PaymentPage from './pages/payment/PaymentPage';
 import { Provider } from 'react-redux';
 import { persistor, store, useAppDispatch } from './redux/store/store';
 import { PersistGate } from 'redux-persist/integration/react';
-import WhatIsESIM from './pages/WhatIsESIM';
+
 import { ScrollToTop } from './components/ScrollToTop';
 import { setSettings, SettingsState } from './redux/slice/settingsSlice';
 import {
@@ -171,7 +171,7 @@ const PUBLIC_ROUTES = [
   { path: '/order/:token', component: OrderConfirmation },
   { path: '/pages/:slug', component: DynamicPage },
   { path: '/faq', component: FaqPage },
-  { path: '/what-is-esim', component: WhatIsESIM },
+
   { path: '/notifications', component: NotificationsPage },
   { path: '/populer-packages', component: PopularPackagesPage },
 ];

@@ -486,8 +486,8 @@ export default function Checkout() {
       // console.log("Voucher applied:", data);
 
       toast({
-        title: "Voucher Applied",
-        description: `You saved ${getCurrencySymbol(pkg.currency)}${data.discount}`,
+        title: t('checkout.voucherApplied', 'Voucher Applied'),
+        description: t('checkout.youSaved', { symbol: getCurrencySymbol(pkg.currency), discount: data.discount }, `You saved ${getCurrencySymbol(pkg.currency)}${data.discount}`),
       });
 
       setVoucherOpen(false);
@@ -496,7 +496,7 @@ export default function Checkout() {
 
     onError: (error: any) => {
       toast({
-        title: "Invalid Voucher",
+        title: t('checkout.invalidVoucher', 'Invalid Voucher'),
         description: error.message,
         variant: "destructive",
       });
@@ -515,7 +515,7 @@ export default function Checkout() {
     if (!referralCode.trim()) {
       toast({
         title: t('common.error'),
-        description: "Please enter a referral code",
+        description: t('checkout.enterReferral', "Please enter a referral code"),
         variant: "destructive",
       });
       return;
@@ -524,7 +524,7 @@ export default function Checkout() {
     if (!isAuthenticated) {
       toast({
         title: t('common.error'),
-        description: "Please sign in to apply a referral code",
+        description: t('checkout.signInToApplyReferral', "Please sign in to apply a referral code"),
         variant: "destructive",
       });
       return;
@@ -635,10 +635,10 @@ export default function Checkout() {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Checkout - {pkg.title}</title>
-        <meta name="description" content="Complete your eSIM purchase securely. Instant delivery via email." />
-        <meta property="og:title" content={`Checkout - ${pkg.title} | eSIM Global`} />
-        <meta property="og:description" content="Complete your eSIM purchase securely. Instant delivery via email." />
+        <title>{t('checkout.checkoutTitle', { title: pkg.title }, `Checkout - ${pkg.title}`)}</title>
+        <meta name="description" content={t('checkout.seoDescription', 'Complete your eSIM purchase securely. Instant delivery via email.')} />
+        <meta property="og:title" content={t('checkout.ogTitle', { title: pkg.title }, `Checkout - ${pkg.title} | eSIM Global`)} />
+        <meta property="og:description" content={t('checkout.ogDescription', 'Complete your eSIM purchase securely. Instant delivery via email.')} />
         <meta property="og:type" content="website" />
       </Helmet>
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -796,7 +796,7 @@ export default function Checkout() {
               {isAuthenticated && (
                 <Card>
                   <CardHeader>
-                    <CardTitle>Payment Method</CardTitle>
+                    <CardTitle>{t('checkout.paymentMethod', 'Payment Method')}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <RadioGroup value={paymentMethod} onValueChange={(value) => setPaymentMethod(value as PaymentMethodType)} data-testid="radiogroup-payment-method">
@@ -806,8 +806,8 @@ export default function Checkout() {
                           <Label htmlFor="payment-card" className="flex items-center gap-3 cursor-pointer flex-1">
                             <CreditCard className="h-5 w-5 text-muted-foreground" />
                             <div>
-                              <div className="font-medium">Credit/Debit Card</div>
-                              <div className="text-xs text-muted-foreground">Pay securely with your card</div>
+                              <div className="font-medium">{t('checkout.creditCard', 'Credit/Debit Card')}</div>
+                              <div className="text-xs text-muted-foreground">{t('checkout.creditCardDesc', 'Pay securely with your card')}</div>
                             </div>
                           </Label>
                         </div>
@@ -817,8 +817,8 @@ export default function Checkout() {
                           <Label htmlFor="payment-paypal" className="flex items-center gap-3 cursor-pointer flex-1">
                             <SiPaypal className="h-5 w-5 text-[#00457C]" />
                             <div>
-                              <div className="font-medium">PayPal</div>
-                              <div className="text-xs text-muted-foreground">Pay with your PayPal account</div>
+                              <div className="font-medium">{t('checkout.paypal', 'PayPal')}</div>
+                              <div className="text-xs text-muted-foreground">{t('checkout.paypalDesc', 'Pay with your PayPal account')}</div>
                             </div>
                           </Label>
                         </div>
@@ -829,8 +829,8 @@ export default function Checkout() {
                             <Label htmlFor="payment-apple" className="flex items-center gap-3 cursor-pointer flex-1">
                               <SiApplepay className="h-5 w-5 text-muted-foreground" />
                               <div>
-                                <div className="font-medium">Apple Pay</div>
-                                <div className="text-xs text-muted-foreground">Quick and secure payment</div>
+                                <div className="font-medium">{t('checkout.applePay', 'Apple Pay')}</div>
+                                <div className="text-xs text-muted-foreground">{t('checkout.applePayDesc', 'Quick and secure payment')}</div>
                               </div>
                             </Label>
                           </div>
@@ -842,8 +842,8 @@ export default function Checkout() {
                             <Label htmlFor="payment-google" className="flex items-center gap-3 cursor-pointer flex-1">
                               <SiGooglepay className="h-5 w-5 text-muted-foreground" />
                               <div>
-                                <div className="font-medium">Google Pay</div>
-                                <div className="text-xs text-muted-foreground">Fast checkout with Google</div>
+                                <div className="font-medium">{t('checkout.googlePay', 'Google Pay')}</div>
+                                <div className="text-xs text-muted-foreground">{t('checkout.googlePayDesc', 'Fast checkout with Google')}</div>
                               </div>
                             </Label>
                           </div>
@@ -929,7 +929,7 @@ export default function Checkout() {
                       <div className="flex justify-between text-green-600 dark:text-green-400">
                         <span className="flex items-center gap-1">
                           <Tag className="h-3 w-3" />
-                          Voucher ({appliedVoucher.code})
+                          {t('checkout.voucher', 'Voucher')} ({appliedVoucher.code})
                         </span>
                         <span className="font-medium" data-testid="text-voucher-discount">
                           -{getCurrencySymbol(pkg.currency || "USD")}{appliedVoucher.discount.toFixed(2)}
