@@ -456,7 +456,9 @@ export default function Login() {
     } finally {
       setIsLoading(false);
     }
-    const platformBenefits = [
+  };
+
+  const platformBenefits = [
     {
       icon: Globe,
       title: t('website.auth.benefits.globalTitle', 'Global Coverage'),

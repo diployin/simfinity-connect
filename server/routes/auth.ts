@@ -41,10 +41,11 @@ function validatePassword(password: string): { valid: boolean; message?: string 
 
 router.post('/send-otp', async (req: Request, res: Response) => {
   try {
-    const { email, purpose = 'login' } = req.body;
-    if (!email) {
+    const { email: rawEmail, purpose = 'login' } = req.body;
+    if (!rawEmail) {
       return ApiResponse.badRequest(res, 'Email is required');
     }
+    const email = rawEmail.trim().toLowerCase();
 
     if (purpose === 'signup') {
       const existingUser = await storage.getUserByEmail(email);
@@ -138,11 +139,12 @@ router.post('/app/send-otp', async (req: Request, res: Response) => {
 
 router.post('/app/verify-otp', async (req: Request, res: Response) => {
   try {
-    const { email, otp } = req.body;
+    const { email: rawEmail, otp } = req.body;
 
-    if (!email) {
+    if (!rawEmail) {
       return ApiResponse.badRequest(res, 'Email is required');
     }
+    const email = rawEmail.trim().toLowerCase();
 
     if (!otp) {
       return ApiResponse.badRequest(res, 'OTP is required');
@@ -179,7 +181,7 @@ router.post('/app/verify-otp', async (req: Request, res: Response) => {
 router.post('/verify-otp', async (req: Request, res: Response) => {
   try {
     const {
-      email,
+      email: rawEmail,
       otp,
       purpose,
       isFromGoogle = false,
@@ -194,9 +196,10 @@ router.post('/verify-otp', async (req: Request, res: Response) => {
       name,
     } = req.body;
 
-    if (!email) {
+    if (!rawEmail) {
       return ApiResponse.badRequest(res, 'Email is required');
     }
+    const email = rawEmail.trim().toLowerCase();
 
     if (!isFromGoogle) {
       if (!otp) {
@@ -267,10 +270,11 @@ router.post('/verify-otp', async (req: Request, res: Response) => {
 
 router.post('/check-email', async (req: Request, res: Response) => {
   try {
-    const { email } = req.body;
-    if (!email) {
+    const { email: rawEmail } = req.body;
+    if (!rawEmail) {
       return ApiResponse.badRequest(res, 'Email is required');
     }
+    const email = rawEmail.trim().toLowerCase();
 
     const user = await storage.getUserByEmail(email);
 
@@ -285,11 +289,12 @@ router.post('/check-email', async (req: Request, res: Response) => {
 
 router.post('/login-password', async (req: Request, res: Response) => {
   try {
-    const { email, password, captchaToken } = req.body;
+    const { email: rawEmail, password, captchaToken } = req.body;
 
-    if (!email || !password) {
+    if (!rawEmail || !password) {
       return ApiResponse.badRequest(res, 'Email and password are required');
     }
+    const email = rawEmail.trim().toLowerCase();
 
     /* ---------------------------------
        RECAPTCHA VERIFICATION
@@ -565,10 +570,11 @@ router.post('/change-password', requireAuth, async (req: any, res: Response) => 
 
 router.post('/forgot-password', async (req: Request, res: Response) => {
   try {
-    const { email } = req.body;
-    if (!email) {
+    const { email: rawEmail } = req.body;
+    if (!rawEmail) {
       return ApiResponse.badRequest(res, 'Email is required');
     }
+    const email = rawEmail.trim().toLowerCase();
 
     const user = await storage.getUserByEmail(email);
 
@@ -616,13 +622,17 @@ router.post('/reset-password', async (req: Request, res: Response) => {
       return ApiResponse.badRequest(res, validation.message || 'Invalid password');
     }
 
-    const isValid = await storage.verifyOTP(email, otp, 'password_reset');
+    const normalizedEmail = email.trim().toLowerCase();
+
+    const isValid = await storage.verifyOTP(normalizedEmail, otp, 'password_reset');
     if (!isValid) {
+      logger.warn('Password reset failed: Invalid or expired code', { email: normalizedEmail });
       return ApiResponse.badRequest(res, 'Invalid or expired reset code');
     }
 
-    const user = await storage.getUserByEmail(email);
+    const user = await storage.getUserByEmail(normalizedEmail);
     if (!user) {
+      logger.warn('Password reset failed: User not found', { email: normalizedEmail });
       return ApiResponse.badRequest(res, 'Invalid or expired reset code');
     }
 
@@ -759,15 +769,26 @@ router.post('/app/login-with-google', async (req: Request, res: Response) => {
   }
 });
 
-router.post('/web/login-with-google', async (req: Request, res: Response) => {
-  try {
-    const { idToken, referralCode } = req.body;
-
-    if (!idToken) {
-      return ApiResponse.badRequest(res, 'ID Token is required');
-    }
-
+router.post(
+  "/web/login-with-google",
+  async (req: Request, res: Response) => {
     try {
+      const { idToken, referralCode } =
+        req.body;
+
+
+      // console.log(idToken, referralCode, "Req body")
+
+      /* -----------------------------------
+         VALIDATE TOKEN
+      ----------------------------------- */
+      if (!idToken) {
+        return ApiResponse.badRequest(
+          res,
+          "Firebase token is required"
+        );
+      }
+
       /* -----------------------------------
          VERIFY FIREBASE TOKEN
       ----------------------------------- */
@@ -776,98 +797,125 @@ router.post('/web/login-with-google', async (req: Request, res: Response) => {
         .auth()
         .verifyIdToken(idToken);
 
-      const { email, name, picture, uid } = decoded;
+      const firebaseUid = decoded.uid;
+      const email = decoded.email;
+      const name = decoded.name;
+      const imagePath = decoded.picture;
 
       if (!email) {
-        return ApiResponse.badRequest(res, 'Google account missing email');
+        return ApiResponse.badRequest(
+          res,
+          "Email not found"
+        );
       }
 
-      let user = await storage.getUserByEmail(email);
+      /* -----------------------------------
+         CHECK USER
+      ----------------------------------- */
+      let user =
+        await storage.getUserByEmail(
+          email
+        );
 
       /* -----------------------------------
-         MERGE OR CREATE ACCOUNT
+         CREATE USER (Signup via Google)
       ----------------------------------- */
-      if (user) {
-        // Update user if already exists
-        await storage.updateUser(user.id, {
-          isFromGoogle: true,
-          googleId: uid,
-          imagePath: picture || user.imagePath,
-          name: name || user.name,
-          lastGoogleLoginAt: new Date(),
-        });
-      } else {
-        // Create new user
-        user = await storage.createUser({
-          email,
-          name: name || '',
-          imagePath: picture || null,
-          isFromGoogle: true,
-          googleId: uid,
-          kycStatus: 'pending',
-          lastGoogleLoginAt: new Date(),
-          referralCode: null, // User's own referral code is generated automatically if storage handles it
-        });
+      if (!user) {
+        user =
+          await storage.createUser({
+            email,
+            name,
+            firebaseUid,
+            isFromGoogle: true,
+            imagePath,
+            kycStatus: "pending",
+          });
 
-        /* -----------------------------------
-           HANDLE REFERRAL (OPTIONAL)
-        ----------------------------------- */
-        if (referralCode) {
-          try {
-            const referrer = await storage.getUserByReferralCode(referralCode);
-            if (referrer && referrer.id !== user.id) {
-              await storage.updateUser(user.id, { referredBy: referrer.id });
-              console.log(`✅ User ${user.id} referred by ${referrer.id}`);
-            }
-          } catch (refErr) {
-            console.error('❌ Referral error:', refErr);
+        /* -------- Referral Apply -------- */
+        // if (referralCode) {
+        //   try {
+        //     await applyReferral(
+        //       user.id,
+        //       referralCode
+        //     );
+        //   } catch (err) {
+        //     console.log(
+        //       "Referral error:",
+        //       err
+        //     );
+        //   }
+        // }
+      }
+      /* -----------------------------------
+         CHECK BLOCKED/DELETED
+      ----------------------------------- */
+      if (user && user.isBlocked && !user.isDeleted) {
+        return ApiResponse.badRequest(
+          res,
+          "Your account has been blocked. Please contact support."
+        );
+      }
+
+      if (user && user.isDeleted) {
+        return ApiResponse.badRequest(
+          res,
+          "Your account has been deleted or deactivated. Please contact support."
+        );
+      }
+
+      /* -----------------------------------
+         MERGE ACCOUNT
+      ----------------------------------- */
+      if (user && !user.firebaseUid) {
+        await storage.updateUser(
+          user.id,
+          {
+            firebaseUid,
+            isFromGoogle: true,
           }
-        }
-
-        // Welcome Email & Notification
-        try {
-          const welcomeEmail = await generateWelcomeEmail(user.name || 'Traveler', email);
-          await sendEmail({
-            to: email,
-            subject: welcomeEmail.subject,
-            html: welcomeEmail.html,
-          });
-
-          await storage.createNotification({
-            userId: user.id,
-            type: 'welcome',
-            title: 'Welcome to Simfinity!',
-            message: 'Your Google account has been linked. Enjoy your first eSIM!',
-            read: false,
-          });
-        } catch (mailErr) {
-          console.error('❌ Social welcome email error:', mailErr);
-        }
+        );
       }
 
       /* -----------------------------------
-         SESSION & TOKEN
+         GENERATE SESSION / JWT
       ----------------------------------- */
-      req.session.userId = user.id;
-      const token = generateToken(user);
-
-      return ApiResponse.success(res, 'Verified with Google', {
+      const token = generateToken({
         id: user.id,
         email: user.email,
-        name: user.name,
-        token,
-        passwordSet: Boolean(user.hashedPassword),
       });
 
-    } catch (firebaseErr: any) {
-      console.error('❌ Firebase auth error:', firebaseErr);
-      return ApiResponse.badRequest(res, 'Invalid Google ID Token');
-    }
+      req.session.userId = user.id;
 
-  } catch (error: any) {
-    console.error('❌ Google Login error:', error);
-    return ApiResponse.serverError(res, error.message);
+      /* -----------------------------------
+         RESPONSE
+      ----------------------------------- */
+      return ApiResponse.success(
+        res,
+        "Google login successful",
+        {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          imagePath:
+            user.imagePath,
+          token,
+          passwordSet: Boolean(
+            user.hashedPassword
+          ),
+        }
+      );
+    } catch (err: any) {
+      console.error(
+        "Website Google login error:",
+        err.message
+      );
+
+      return ApiResponse.serverError(
+        res,
+        err.message
+      );
+    }
   }
-});
+);
 
 export default router;

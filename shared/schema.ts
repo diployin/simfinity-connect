@@ -141,6 +141,7 @@ export const destinations = pgTable("destinations", {
   countryCode: text("country_code").notNull(),
   flagEmoji: text("flag_emoji"),
   image: text("image"),
+  bannerImage: text("banner_image"),
   isTerritory: boolean("is_territory").notNull().default(false), // Territories like Canary Islands, Puerto Rico
   parentCountryCode: text("parent_country_code"), // Parent country code for territories (e.g., "ES" for Canary Islands)
   active: boolean("active").notNull().default(true),
@@ -156,6 +157,7 @@ export const regions = pgTable("regions", {
   slug: text("slug").notNull().unique(),
   countries: text("countries").array(),
   image: text("image"),
+  bannerImage: text("banner_image"),
   active: boolean("active").notNull().default(true),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
@@ -613,6 +615,7 @@ export const orders = pgTable("orders", {
   finalProviderId: varchar("final_provider_id").references(() => providers.id), // Provider that fulfilled the order
   failoverAttempts: jsonb("failover_attempts"), // Array of {providerId, timestamp, success, error, margin}
   orderSource: text("order_source").default("website"), // website, api, mobile, admin
+  shortUrl: text("short_url"), // Short URL for quick installation
 
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),

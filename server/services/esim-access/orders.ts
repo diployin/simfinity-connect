@@ -72,6 +72,7 @@ export async function createEsimAccessOrder(
       qrCode: allocatedOrder.qrCode,
       smdpAddress: allocatedOrder.smdpAddress,
       activationCode: allocatedOrder.activationCode,
+      shortUrl: allocatedOrder.shortUrl,
     };
   } catch (error) {
     return {
@@ -215,6 +216,7 @@ export async function getEsimAccessOrderStatus(
       // Optional
       imsi: obj.imsi,
       apn: obj.apn,
+      shortUrl: obj.shortUrl,
     };
 
   } catch (error) {

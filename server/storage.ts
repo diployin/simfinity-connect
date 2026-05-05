@@ -219,6 +219,7 @@ export interface IStorage {
   createVoucherUsage(usage: InsertVoucherUsage): Promise<void>;
   getVoucherUsageByUserAndVoucher(userId: string, voucherId: string): Promise<number>;
 
+  getVoucherUsageByOrder(orderId: string): Promise<any[]>;
   // Gift Cards
   getGiftCardByCode(code: string): Promise<GiftCard | undefined>;
   updateGiftCardBalance(id: string, newBalance: string): Promise<void>;
@@ -226,9 +227,11 @@ export interface IStorage {
   getGiftCardTransactions(giftCardId: string): Promise<any[]>;
   getGiftCardsByUser(userId: string): Promise<GiftCard[]>;
 
+  getGiftCardTransactionsByOrder(orderId: string): Promise<any[]>;
   // Referral Program
   getUserByReferralCode(code: string): Promise<User | undefined>;
 
+  getReferralTransactionsByOrder(orderId: string): Promise<any[]>;
   // Internationalization - Languages
   getAllLanguages(): Promise<Language[]>;
   getEnabledLanguages(): Promise<Language[]>;
@@ -288,12 +291,13 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getUserByEmail(email: string) {
-    const [user] = await db.select().from(users).where(eq(users.email, email));
+    const [user] = await db.select().from(users).where(eq(sql`LOWER(${users.email})`, email.toLowerCase()));
     return user || undefined;
   }
 
   async createUser(insertUser: InsertUser) {
-    const [user] = await db.insert(users).values(insertUser).returning();
+    const data = { ...insertUser, email: insertUser.email.toLowerCase() };
+    const [user] = await db.insert(users).values(data).returning();
     return user;
   }
 
@@ -397,14 +401,15 @@ export class DatabaseStorage implements IStorage {
 
   // OTP
   async createOTP(insertOtp: InsertOtpCode) {
-    const [otp] = await db.insert(otpCodes).values(insertOtp).returning();
+    const data = { ...insertOtp, email: insertOtp.email.toLowerCase() };
+    const [otp] = await db.insert(otpCodes).values(data).returning();
     return otp;
   }
 
   async getOTPByEmail(email: string, purpose: string = "login") {
     const [otp] = await db.select().from(otpCodes)
       .where(and(
-        eq(otpCodes.email, email),
+        eq(sql`LOWER(${otpCodes.email})`, email.toLowerCase()),
         eq(otpCodes.verified, false),
         eq(otpCodes.purpose, purpose)
       ))
@@ -425,7 +430,7 @@ export class DatabaseStorage implements IStorage {
 
   // Admins
   async getAdminByEmail(email: string) {
-    const [admin] = await db.select().from(admins).where(eq(admins.email, email));
+    const [admin] = await db.select().from(admins).where(eq(sql`LOWER(${admins.email})`, email.toLowerCase()));
     return admin || undefined;
   }
 
@@ -1821,7 +1826,17 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createVoucherUsage(usage: InsertVoucherUsage) {
-    await db.insert(voucherUsage).values(usage);
+    try {
+      console.log(`[Storage] Inserting voucher usage for voucher ${usage.voucherId}, order ${usage.orderId}`);
+      await db.insert(voucherUsage).values({
+        ...usage,
+        usedAt: new Date(),
+      });
+      console.log('✅ [Storage] Voucher usage inserted successfully');
+    } catch (error) {
+      console.error('❌ [Storage] Failed to insert voucher usage:', error);
+      throw error;
+    }
   }
 
   async getVoucherUsageByUserAndVoucher(userId: string, voucherId: string) {
@@ -1831,7 +1846,13 @@ export class DatabaseStorage implements IStorage {
     return Number(result[0]?.count) || 0;
   }
 
-  // Gift Cards
+  async getVoucherUsageByOrder(orderId: string) {
+    return await db.select().from(voucherUsage)
+      .where(eq(voucherUsage.orderId, orderId))
+      .orderBy(desc(voucherUsage.usedAt));
+  }
+
+  // Gift Cards mapping here if needed or just below
   async getGiftCardByCode(code: string) {
     const [giftCard] = await db.select().from(giftCards).where(eq(giftCards.code, code.toUpperCase()));
     return giftCard || undefined;
@@ -1844,12 +1865,28 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createGiftCardTransaction(transaction: InsertGiftCardTransaction) {
-    await db.insert(giftCardTransactions).values(transaction);
+    try {
+      console.log(`[Storage] Inserting gift card transaction for card ${transaction.giftCardId}, order ${transaction.orderId}`);
+      await db.insert(giftCardTransactions).values({
+        ...transaction,
+        createdAt: new Date(),
+      });
+      console.log('✅ [Storage] Gift card transaction inserted successfully');
+    } catch (error) {
+      console.error('❌ [Storage] Failed to insert gift card transaction:', error);
+      throw error;
+    }
   }
 
   async getGiftCardTransactions(giftCardId: string) {
     return await db.select().from(giftCardTransactions)
       .where(eq(giftCardTransactions.giftCardId, giftCardId))
+      .orderBy(desc(giftCardTransactions.usedAt));
+  }
+
+  async getGiftCardTransactionsByOrder(orderId: string) {
+    return await db.select().from(giftCardTransactions)
+      .where(eq(giftCardTransactions.orderId, orderId))
       .orderBy(desc(giftCardTransactions.usedAt));
   }
 
@@ -1869,12 +1906,29 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createReferralTransaction(transaction: InsertReferralTransaction) {
-    await db.insert(referralTransactions).values(transaction);
+    try {
+      console.log(`[Storage] Inserting referral transaction for user ${transaction.userId}, type ${transaction.type}`);
+      await db.insert(referralTransactions).values({
+        ...transaction,
+        createdAt: new Date(),
+      });
+      console.log('✅ [Storage] Referral transaction inserted successfully');
+    } catch (error) {
+      console.error('❌ [Storage] Failed to insert referral transaction:', error);
+      throw error;
+    }
   }
 
   async getReferralTransactions(userId: string) {
     return await db.select().from(referralTransactions)
       .where(eq(referralTransactions.userId, userId))
+      .orderBy(desc(referralTransactions.createdAt));
+  }
+
+
+  async getReferralTransactionsByOrder(orderId: string) {
+    return await db.select().from(referralTransactions)
+      .where(eq(referralTransactions.orderId, orderId))
       .orderBy(desc(referralTransactions.createdAt));
   }
 

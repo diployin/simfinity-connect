@@ -186,10 +186,10 @@ router.post("/:id/sync-topups", requireAdmin, async (req: Request, res: Response
     let result: any;
 
     if (provider.slug === 'airalo') {
-      const { syncAiraloTopups } = await import("./services/airalo/topup-sync");
+      const { syncAiraloTopups } = await import("../../services/airalo/topup-sync");
       result = await syncAiraloTopups(provider);
     } else if (provider.slug === 'esim-access') {
-      const { syncEsimAccessTopups } = await import("./services/esim-access/topup-sync");
+      const { syncEsimAccessTopups } = await import("../../services/esim-access/topup-sync");
       // eSIM Access needs API credentials
       const accessCode = process.env.ESIM_ACCESS_CLIENT_ID;
       const secretKey = process.env.ESIM_ACCESS_CLIENT_SECRET;
@@ -203,7 +203,7 @@ router.post("/:id/sync-topups", requireAdmin, async (req: Request, res: Response
 
       result = await syncEsimAccessTopups(provider, accessCode, secretKey);
     } else if (provider.slug === 'esim-go') {
-      const { syncEsimGoTopups } = await import("./services/esim-go/topup-sync");
+      const { syncEsimGoTopups } = await import("../../services/esim-go/topup-sync");
       // eSIM Go needs API key
       const apiKey = process.env.ESIM_GO_API_KEY;
 
@@ -219,6 +219,13 @@ router.post("/:id/sync-topups", requireAdmin, async (req: Request, res: Response
       return res.status(400).json({
         success: false,
         message: `Topup sync not supported for ${provider.name}.`
+      });
+    }
+
+
+    if (result.success) {
+      await storage.updateProvider(provider.id, {
+        lastSyncAt: new Date(),
       });
     }
 
