@@ -1082,7 +1082,8 @@ export class DatabaseStorage implements IStorage {
              RECAPTCHA CONFIG (PUBLIC)
           ---------------------------------- */
           'recaptcha_enabled',
-          'recaptcha_site_key'
+          'recaptcha_site_key',
+          'maintenance_mode'
         ]),
       );
   }
