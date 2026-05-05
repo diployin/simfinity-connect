@@ -17,7 +17,8 @@ import {
   Flame,
   Bot,
   ImageIcon,
-  Globe
+  Globe,
+  Hammer
 } from 'lucide-react';
 import { SiPaypal, SiApplepay, SiGooglepay } from 'react-icons/si';
 import { Button } from '@/components/ui/button';
@@ -44,6 +45,7 @@ import { AdminAccountSettings } from '@/components/admin/tabs/AdminAccountSettin
 import { HomepagePopupSettings } from '@/components/admin/tabs/HomepagePopupSettings';
 import { AppStoreSettings } from '@/components/admin/tabs/AppStoreSettings';
 import { SEOSettings } from '@/components/admin/tabs/SEOSettings';
+import { MaintenanceSettings } from '@/components/admin/tabs/MaintenanceSettings';
 
 function PaymentMethodsManagement() {
   const { toast } = useToast();
@@ -416,9 +418,13 @@ export default function Settings() {
   };
 
   useEffect(() => {
-    console.log('LOGO STATE:', logo);
-    console.log('FAVICON STATE:', favicon);
-  }, [logo, favicon]);
+    const hash = window.location.hash.replace('#', '');
+    if (hash && ['general', 'smtp', 'firebase', 'recaptcha', 'app-store', 'theme', 'social-media', 'seo', 'account', 'popup', 'maintenance'].includes(hash)) {
+      setActiveTab(hash);
+    }
+  }, []);
+
+  const [activeTab, setActiveTab] = useState('general');
 
   return (
     <div className="p-6 lg:p-8 space-y-6">
@@ -432,7 +438,7 @@ export default function Settings() {
         </p>
       </div>
 
-      <Tabs defaultValue="general" className="w-full">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <div className="relative">
           <div className="overflow-x-auto scrollbar-hide pb-2">
             <TabsList className="flex min-w-max gap-2 p-1 bg-muted/50" data-testid="tabs-settings">
@@ -532,6 +538,15 @@ export default function Settings() {
                 <span className="hidden sm:inline">{t("adminPanel.admin.settings.popupTab", "Homepage Popup")}</span>
                 <span className="sm:hidden">Popup</span>
               </TabsTrigger>
+              <TabsTrigger
+                value="maintenance"
+                className="gap-1 whitespace-nowrap text-amber-600 dark:text-amber-500"
+                data-testid="tab-maintenance"
+              >
+                <Hammer className="h-4 w-4 shrink-0" />
+                <span className="hidden sm:inline">Maintenance</span>
+                <span className="sm:hidden">Maint.</span>
+              </TabsTrigger>
             </TabsList>
           </div>
         </div>
@@ -581,6 +596,9 @@ export default function Settings() {
         </TabsContent>
         <TabsContent value="popup" className="space-y-4">
           <HomepagePopupSettings />
+        </TabsContent>
+        <TabsContent value="maintenance" className="space-y-4">
+          <MaintenanceSettings />
         </TabsContent>
       </Tabs>
     </div>

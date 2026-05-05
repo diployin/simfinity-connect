@@ -96,6 +96,7 @@ const Contact = lazy(() => import('@/pages/Contact'));
 const FAQPage = lazy(() => import('@/pages/FAQ'));
 const Blog = lazy(() => import('@/pages/Blog'));
 const BlogPost = lazy(() => import('@/pages/BlogPost'));
+const Maintenance = lazy(() => import('@/pages/Maintenance'));
 const NotFound = lazy(() => import('@/pages/not-found'));
 const MobileTopupPayment = lazy(() => import('@/pages/MobileTopupPayment'));
 const AdminVouchers = lazy(() => import('@/pages/admin/AdminVouchers'));
@@ -174,6 +175,7 @@ const PUBLIC_ROUTES = [
   { path: '/what-is-esim', component: WhatIsESIM },
   { path: '/notifications', component: NotificationsPage },
   { path: '/populer-packages', component: PopularPackagesPage },
+  { path: '/maintenance', component: Maintenance, layout: 'empty' },
 ];
 
 const AUTH_ROUTES = [
@@ -477,7 +479,13 @@ function Router() {
   const faviconUrl =
     settingsResponse?.favicon && `${window.location.origin}${settingsResponse.favicon}`;
 
-  // console.log(faviconUrl, 'check $$$$$$$$$$$$$$$$$$$');
+  const isMaintenanceMode = settingsResponse?.maintenance_mode === 'true';
+  const location = window.location.pathname;
+  const isAdminRoute = location.startsWith('/admin');
+
+  if (isMaintenanceMode && !isAdminRoute && location !== '/maintenance') {
+    return <Redirect to="/maintenance" />;
+  }
 
   return (
     <>
@@ -526,6 +534,7 @@ function Router() {
 
         <Route component={NotFound} />
       </Switch>
+      {!isMaintenanceMode && location !== '/maintenance' && <GlobalFloatingNav />}
     </>
   );
 }
@@ -556,7 +565,6 @@ function App() {
                             <AuthDialog />
                             <Suspense fallback={<LoadingFallback />}>
                               <Router />
-                              <GlobalFloatingNav />
                             </Suspense>
                           </TooltipProvider>
                         </AuthDialogProvider>

@@ -34,6 +34,7 @@ import {
   FileText,
   Image,
   CreditCard,
+  Hammer,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
@@ -157,6 +158,7 @@ const navigation: NavigationEntry[] = [
       { name: 'Banner Management', href: '/admin/banner-management', icon: Image },
       { name: 'Pages Management', href: '/admin/pages', icon: FileText },
       { name: 'FAQ Management', href: '/admin/faq-management', icon: FileText },
+      { name: 'Maintenance', href: '/admin/settings#maintenance', icon: Hammer },
       // { name: "Privacy Policy", href:"/admin/privacy-policy", icon: FileText},
       // { name: "Terms & Conditions", href:"/admin/terms-conditions", icon: FileText}
     ],
