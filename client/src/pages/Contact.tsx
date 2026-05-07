@@ -14,7 +14,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: 'Email Us',
-    description: 'info@simfinity.tel',
+    description: 'info@voltey.com',
     detail: 'We respond within 24 hours',
   },
   {
@@ -59,10 +59,10 @@ export default function Contact() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>Contact Us - Simfinity</title>
+        <title>Contact Us - Voltey</title>
         <meta
           name="description"
-          content="Get in touch with Simfinity support. We're here to help with your eSIM questions, technical issues, and more."
+          content="Get in touch with Voltey support. We're here to help with your eSIM questions, technical issues, and more."
         />
       </Helmet>
 

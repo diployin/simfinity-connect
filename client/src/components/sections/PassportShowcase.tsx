@@ -86,13 +86,13 @@ export function PassportShowcase() {
               className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#2c7338]/20 to-[#3d9a4d]/20 border border-[#2c7338]/30 mb-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             >
               <Sparkles className="w-4 h-4 text-[#3d9a4d]" />
-              <span className="text-sm font-medium text-[#3d9a4d]">Pre-Book Now — Limited First Batch</span>
+              <span className="text-sm font-medium text-[#3d9a4d]">Pre-Order · Limited First Batch</span>
             </div>
 
             <h2
               className={`text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             >
-              Simfinity{' '}
+              Voltey{' '}
               <span className="bg-gradient-to-r from-[#3d9a4d] to-[#2c7338] bg-clip-text text-transparent">
                 Passport
               </span>
@@ -101,7 +101,7 @@ export function PassportShowcase() {
             <p
               className={`text-lg md:text-xl text-slate-300 leading-relaxed mb-6 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             >
-              The world's first AI-powered global travel connectivity device. Secure browsing, built-in power, and an AI concierge — all in one.
+              Voltey Passport is an AI-powered global travel connectivity device. Secure browsing, built-in power, and an intelligent concierge, all in one refined design.
             </p>
 
             <div
@@ -161,7 +161,7 @@ export function PassportShowcase() {
               <div className="absolute -inset-4 bg-gradient-to-r from-[#2c7338]/20 via-[#3d9a4d]/10 to-[#2c7338]/20 rounded-3xl blur-xl" />
               <img
                 src="/images/passport-device-1.png"
-                alt="Simfinity Passport Device"
+                alt="Voltey Passport Device"
                 className="relative w-full max-w-sm md:max-w-md rounded-2xl"
               />
             </div>

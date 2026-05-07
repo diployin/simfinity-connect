@@ -3,7 +3,7 @@ import { useSettingByKey } from '@/hooks/useSettings';
 
 export function BenefitsSection() {
   const { t } = useTranslation();
-  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
 
   const benefits = [
     {

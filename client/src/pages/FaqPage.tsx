@@ -55,10 +55,10 @@ export default function FaqPage() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>Frequently Asked Questions - Simfinity</title>
+        <title>Frequently Asked Questions - Voltey</title>
         <meta
           name="description"
-          content="Find answers to commonly asked questions about Simfinity services, pricing, and support."
+          content="Find answers to commonly asked questions about Voltey services, pricing, and support."
         />
       </Helmet>
 

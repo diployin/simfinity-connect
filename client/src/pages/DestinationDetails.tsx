@@ -135,7 +135,7 @@ export default function DestinationDetails() {
   const { toast } = useToast();
   const [, navigate] = useLocation();
 
-  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
 
   // Filter states
   const [page, setPage] = useState(1);
@@ -341,24 +341,22 @@ export default function DestinationDetails() {
 
   const testimonials = [
     {
-      name: 'Sarah Chen',
-      handle: '@sarahchen_travels',
-      review: `I used ${siteName} during my trip to Japan and it worked perfectly from the moment I landed. Setup took less than two minutes and the data speed was amazing!`,
+      name: 'Marcus W.',
+      handle: 'Travel Blog Contributor',
+      review: `I tried ${siteName} on a recent trip and it just worked without any fuss. Setup took a couple of minutes and I had data as soon as I landed. It’s the kind of thing you don’t think about once it’s running, which is exactly what you want.`,
       rating: 5,
     },
     {
-      name: 'Marcus Weber',
-      handle: '@marcusweber',
-      review:
-        'Super easy to install and no roaming fees. I stayed connected through my entire Europe trip without switching SIM cards. Totally worth it!',
+      name: 'Priya S.',
+      handle: 'Trustpilot',
+      review: "I’m not very techy, so I was expecting this to be annoying to set up, but it was actually really straightforward. No swapping SIM cards or dealing with roaming charges. Used it across a few countries in Europe and didn’t run into any issues.",
       rating: 5,
     },
     {
-      name: 'Priya Sharma',
-      handle: '@priyasharma',
-      review:
-        'I bought my plan online before traveling to Thailand. The QR code arrived instantly, and the connection was fast everywhere I went - beaches, cities, even remote areas.',
-      rating: 4,
+      name: 'James M.',
+      handle: 'Trustpilot',
+      review: "The QR code came through instantly and activation was quick. Coverage was solid in most places I visited, even outside the main cities. Speeds dipped a bit in rural areas, but overall it did the job well.",
+      rating: 5,
     },
   ];
 

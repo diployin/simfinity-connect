@@ -1052,14 +1052,14 @@ router.post('/powertranz/confirm', optionalAuth, async (req, res) => {
   Paystack redirects the user here after payment (callback_url we set in init).
   We verify the payment, call the confirm-payment logic, then return a small HTML
   page that:
-    1. Calls window.SimfinityAndroid.onPaymentSuccess() (Android JS interface)
+    1. Calls window.VolteyAndroid.onPaymentSuccess() (Android JS interface)
     2. window.ReactNativeWebView.postMessage()           (React Native)
     3. postMessage to parent                             (Flutter WebView)
-    4. Redirects to deep-link scheme                    (e.g. simfinity://payment-success)
+    4. Redirects to deep-link scheme                    (e.g. voltey://payment-success)
   ──────────────────────────────────────────────────────────────────────────────
 */
 router.get('/topup/paystack-callback', async (req, res) => {
-  const { reference, iccid, orderId, topupId, packageId, callbackScheme = 'simfinity' } = req.query as Record<string, string>;
+  const { reference, iccid, orderId, topupId, packageId, callbackScheme = 'voltey' } = req.query as Record<string, string>;
 
   const sendHtml = (success: boolean, message: string, extra: Record<string, string> = {}) => {
     const payload = JSON.stringify({ eventType: success ? 'success' : 'failure', iccid, orderId, topupId, message, ...extra });
@@ -1090,7 +1090,7 @@ router.get('/topup/paystack-callback', async (req, res) => {
       <script>
         var PAYLOAD = ${payload};
         function closeWindow() {
-          try { window.SimfinityAndroid && window.SimfinityAndroid.onPaymentSuccess(JSON.stringify(PAYLOAD)); } catch(e){}
+          try { window.VolteyAndroid && window.VolteyAndroid.onPaymentSuccess(JSON.stringify(PAYLOAD)); } catch(e){}
           try { window.ReactNativeWebView && window.ReactNativeWebView.postMessage(JSON.stringify(PAYLOAD)); } catch(e){}
           try { window.parent && window.parent.postMessage(JSON.stringify(PAYLOAD), '*'); } catch(e){}
           try { window.top && window.top.postMessage(JSON.stringify(PAYLOAD), '*'); } catch(e){}
@@ -1100,9 +1100,9 @@ router.get('/topup/paystack-callback', async (req, res) => {
         setTimeout(closeWindow, 2000);
         // Immediate try
         try {
-          if(window.SimfinityAndroid) { ${success
-        ? 'window.SimfinityAndroid.onPaymentSuccess(JSON.stringify(PAYLOAD));'
-        : 'window.SimfinityAndroid.onPaymentFailure(JSON.stringify(PAYLOAD));'
+          if(window.VolteyAndroid) { ${success
+        ? 'window.VolteyAndroid.onPaymentSuccess(JSON.stringify(PAYLOAD));'
+        : 'window.VolteyAndroid.onPaymentFailure(JSON.stringify(PAYLOAD));'
       } }
           if(window.ReactNativeWebView) { window.ReactNativeWebView.postMessage(JSON.stringify(PAYLOAD)); }
           if(window.parent) { window.parent.postMessage(JSON.stringify(PAYLOAD), '*'); }

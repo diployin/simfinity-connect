@@ -28,7 +28,7 @@ export default function DemoPage() {
         </>
       }
       /* 🌍 Web Demo */
-      demoUrl="https://simfinity.diploy.in/admin/login"
+      demoUrl="https://voltey.diploy.in/admin/login"
       demoAdmin={{
         email: 'demo@diploy.in',
         password: 'Demo@123',
@@ -41,7 +41,7 @@ export default function DemoPage() {
       }}
       /* CTA Button */
       buttonLabel="🚀 Visit eSimConnect"
-      buttonLink="https://simfinity.diploy.in/admin/login"
+      buttonLink="https://voltey.diploy.in/admin/login"
       bottomHelp=""
       supportEmail="support@diploy.in"
     />

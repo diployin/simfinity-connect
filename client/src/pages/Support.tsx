@@ -463,8 +463,8 @@ export default function UserSupportTickets() {
                           >
                             <div
                               className={`max-w-md ${msg.senderType === 'user'
-                                  ? 'bg-primary text-primary-foreground'
-                                  : 'bg-muted'
+                                ? 'bg-primary text-primary-foreground'
+                                : 'bg-muted'
                                 } px-4 py-3 rounded-lg`}
                             >
                               <div className="flex items-center gap-2 mb-1">
@@ -526,7 +526,7 @@ export default function UserSupportTickets() {
             <CardContent className="pt-6 text-center">
               <div className="text-3xl mb-2">📧</div>
               <div className="font-medium mb-1">Email Support</div>
-              <div className="text-sm text-muted-foreground">info@simfinity.tel</div>
+              <div className="text-sm text-muted-foreground">info@voltey.com</div>
             </CardContent>
           </Card>
           <Card>

@@ -4,7 +4,7 @@ import { useSettingByKey } from '@/hooks/useSettings';
 
 export function DownloadApp() {
   const { t } = useTranslation();
-  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
   const androidLink = useSettingByKey('social_android') || '#';
   const iosLink = useSettingByKey('social_ios') || '#';
 

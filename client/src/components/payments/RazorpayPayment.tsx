@@ -21,7 +21,7 @@ export default function RazorpayPayment({
       amount,
       currency,
       order_id: orderId,
-      name: "Simfinity",
+      name: "Voltey",
       description: "Order Payment",
       prefill: { email },
 

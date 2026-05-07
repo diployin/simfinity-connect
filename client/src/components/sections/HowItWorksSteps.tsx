@@ -108,7 +108,7 @@ function UsageDashboardMockup() {
 
 export function HowItWorksSteps() {
   const { t } = useTranslation();
-  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
 
   const steps = [
     {

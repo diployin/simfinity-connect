@@ -48,7 +48,7 @@ function RazorpayTopup({
       key: publicKey,
       amount: amount, // Amount is already in smallest unit from backend init
       currency: currency,
-      name: 'Simfinity',
+      name: 'Voltey',
       description: 'Top-up Payment',
       order_id: orderId,
       prefill: { email },

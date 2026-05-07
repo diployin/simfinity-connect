@@ -6,10 +6,10 @@ export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>Privacy Policy - Simfinity</title>
+        <title>Privacy Policy - Voltey</title>
         <meta
           name="description"
-          content="Read Simfinity's privacy policy to understand how we collect, use, and protect your personal information."
+          content="Read Voltey's privacy policy to understand how we collect, use, and protect your personal information."
         />
       </Helmet>
 

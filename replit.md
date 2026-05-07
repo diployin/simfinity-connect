@@ -1,7 +1,7 @@
-# Simfinity
+# Voltey
 
 ## Overview
-Simfinity is a full-stack eSIM marketplace application that allows users to browse, purchase, and manage eSIM data plans for global connectivity. It supports multiple eSIM providers (Airalo, eSIM Access, eSIM Go, Maya Mobile).
+Voltey is a full-stack eSIM marketplace application that allows users to browse, purchase, and manage eSIM data plans for global connectivity. It supports multiple eSIM providers (Airalo, eSIM Access, eSIM Go, Maya Mobile).
 
 ## Tech Stack
 - **Frontend**: React 18 + TypeScript, Vite, TailwindCSS, Radix UI, Redux Toolkit
@@ -58,16 +58,16 @@ migrations/       - Drizzle database migrations
   - SiteFooter: All '#' links updated to actual paths (Careers, Refer a Friend, Become an Affiliate, Student Discount, Download App, Security Features, Data Usage Calculator)
 - 2026-02-19: Business page, passport UI improvements, button animations
   - Business: New page at /business inspired by saily.com/esim-for-business — dark hero, 6 feature cards (varied colors), 3-step how-it-works, benefits with stats grid, FAQ accordion, CTA. Route + lazy import added, footer "Business" link updated from # to /business
-  - Destinations passport tab: Hidden "Showing 0 Simfinity passport" count text when passport tab active; Why Pre-Book icons now use varied colors (blue/purple/amber/rose/cyan) instead of all-green; fixed SiteFooter import (named → default)
+  - Destinations passport tab: Hidden "Showing 0 Voltey passport" count text when passport tab active; Why Pre-Book icons now use varied colors (blue/purple/amber/rose/cyan) instead of all-green; fixed SiteFooter import (named → default)
   - Reserve Your Device buttons: Added shimmer sweep (light streak) + gentle float (margin-based bob) CSS animations via .btn-passport-cta class on homepage showcase + destinations hero + bottom CTA
   - Passport images: Replaced AI-generated images with user-provided real product photos (passport-device-1..4.png)
-- 2026-02-19: Simfinity Passport product showcase
+- 2026-02-19: Voltey Passport product showcase
   - PassportShowcase: New homepage section (dark bg, product image, 4 feature cards, floating badges, CTA → /destinations?tab=passport)
   - Destinations passport tab: Full product landing page replacing "Coming Soon" placeholder — hero with device image, Why Pre-Book (5 cards), Core Features (Security/AI Concierge/Sustainability), What's in the Box (5 items with unboxing image), Who It's For (5 persona cards), lifestyle banner, green gradient pre-book CTA
   - Home.tsx section order: Hero → WhatIsEsim → DestinationsTabs → InstantConnection → **PassportShowcase** → Benefits → HowItWorks → Testimonials → FAQ → DownloadApp → ReferAndEarn → Impact
   - Generated images: passport-device.png, passport-unboxing.png, passport-lifestyle.png
 - 2026-02-13: New pages and navigation updates
-  - AboutUs: Complete rewrite — 8 sections: hero ("Meet the people behind Simfinity"), mission, press logos, 6 values grid, timeline (2023-2025), team quotes (dark bg), life at company cards, green gradient CTA. Removed framer-motion.
+  - AboutUs: Complete rewrite — 8 sections: hero ("Meet the people behind Voltey"), mission, press logos, 6 values grid, timeline (2023-2025), team quotes (dark bg), life at company cards, green gradient CTA. Removed framer-motion.
   - Reviews: New page at /reviews — hero with star rating, 4 "reasons to buy" cards, 6 customer testimonials, competitor comparison table, CTA
   - HelpCenter: New page at /help-center — search bar hero, 4 category cards (Getting Started, Plans & Payments, Troubleshooting, FAQ), 20 expandable articles, contact support CTA
   - Login: Fixed "eSIM Global" branding → dynamic siteName from useSettingByKey('platform_name')
@@ -79,12 +79,12 @@ migrations/       - Drizzle database migrations
   - HowItWorksSteps ("How does it work"): 3 rounded cards on slate-50 bg, numbered badges (1,2,3), plan selection/install/usage mockups inside each card
   - DownloadApp: New section with Trustpilot rating, app store badges (inline SVG), star ratings, phone+QR image
   - ReferAndEarn: New section with blue gradient banner, gift icon, referral headline, "Learn More" bordered button, friends photo
-  - SiteFooter: Complete redesign — Simfinity logo + app store badges, 5-column link grid (Popular Destinations, Simfinity, eSIM, Help, Follow Us), dynamic social/page links, payment method badges, copyright bar
+  - SiteFooter: Complete redesign — Voltey logo + app store badges, 5-column link grid (Popular Destinations, Voltey, eSIM, Help, Follow Us), dynamic social/page links, payment method badges, copyright bar
   - Home.tsx section order: Hero → WhatIsEsim → DestinationsTabs → InstantConnection → Benefits → HowItWorks → Testimonials → FAQ → DownloadApp → ReferAndEarn
   - Generated images: download-app-phone.png, refer-friends.png
   - All sections mobile responsive with grid breakpoints
-- 2026-02-13: Rebrand from eSIMConnect to Simfinity with green (#2c7338) color scheme
-  - Brand name: All "eSIMConnect" / "eSIM Connect" references replaced with "Simfinity"
+- 2026-02-13: Rebrand from eSIMConnect to Voltey with green (#2c7338) color scheme
+  - Brand name: All "eSIMConnect" / "eSIM Connect" references replaced with "Voltey"
   - Logo: "Sim" + gradient green "finity" text, green gradient icon
   - Color palette: Primary #2c7338, secondary #1e5427, light #3d9a4d, dark #194520
   - CSS variables updated in index.css (both light and dark mode palettes)

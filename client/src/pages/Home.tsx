@@ -44,7 +44,7 @@ export default function Home() {
         <meta property="og:title" content={seoTitle} />
         <meta property="og:description" content={seoDescription} />
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://simfinity.tel" />
+        <link rel="canonical" href="https://voltey.com" />
       </Helmet>
 
       <div className="min-h-screen bg-background">

@@ -233,7 +233,7 @@ router.post('/verify-otp', async (req: Request, res: Response) => {
       await storage.createNotification({
         userId: user.id,
         type: 'welcome',
-        title: 'Welcome message coming up as simfinity!',
+        title: 'Welcome message coming up as voltey!',
         message: 'Thank you for joining us. Start browsing destinations to get your first eSIM.',
         read: false,
       });
@@ -590,7 +590,7 @@ router.post('/forgot-password', async (req: Request, res: Response) => {
     const emailContent = await generateOTPEmail(code);
     await sendEmail({
       to: email,
-      subject: 'Password Reset Code - Simfinity',
+      subject: 'Password Reset Code - Voltey',
       html: emailContent.html.replace('verification code', 'password reset code'),
     });
 

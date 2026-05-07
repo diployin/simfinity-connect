@@ -15,7 +15,7 @@ import { useSettingByKey } from '@/hooks/useSettings';
 import { useLocation } from 'wouter';
 
 export default function WhatIsEsim() {
-  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
   const [, navigate] = useLocation();
 
   const benefits = [
@@ -53,8 +53,7 @@ export default function WhatIsEsim() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  What is an{' '}
-                  <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">eSIM?</span>
+                  What is an eSIM?
                 </h1>
                 <p className="text-lg md:text-xl text-white/80 mb-8">
                   An eSIM is a digital SIM embedded in your device. It lets you connect to mobile networks without a physical SIM card — just download a plan and go.

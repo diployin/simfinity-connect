@@ -8,7 +8,7 @@ export default function Maintenance() {
   });
 
   const logoUrl = settings?.logo;
-  const platformName = settings?.platform_name || 'Simfinity Connect';
+  const platformName = settings?.platform_name || 'Voltey Connect';
   const siteName = settings?.site_name || platformName;
 
   if (isLoading) {

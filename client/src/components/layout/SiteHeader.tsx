@@ -143,7 +143,7 @@ export function SiteHeader() {
                   <Globe className="h-4 w-4 text-white" />
                 </div>
                 <span className="font-bold text-lg text-gray-900 dark:text-white">
-                  Sim<span className="bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] bg-clip-text text-transparent">finity</span>
+                  Vol<span className="bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] bg-clip-text text-transparent">tey</span>
                 </span>
               </div>
             </Link>
@@ -206,7 +206,7 @@ export function SiteHeader() {
                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-pink-600 dark:text-pink-400"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" /><path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" /></svg>
                         </div>
                         <div>
-                          <p className="text-sm font-semibold text-gray-900 dark:text-white mb-0.5">Simfinity Passport</p>
+                          <p className="text-sm font-semibold text-gray-900 dark:text-white mb-0.5">Voltey Passport</p>
                           <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Exclusive global access</p>
                         </div>
                       </div>
@@ -548,7 +548,7 @@ export function SiteHeader() {
                         {/* <Link href="/destinations?tab=passport" onClick={closeMobileMenu}>
                           <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 text-pink-600 dark:text-pink-400"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" /><path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" /></svg>
-                            Simfinity Passport
+                            Voltey Passport
                           </span>
                         </Link> */}
                       </div>

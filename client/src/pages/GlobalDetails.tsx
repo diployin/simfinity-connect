@@ -180,29 +180,7 @@ const faqs = [
   },
 ];
 
-const testimonials = [
-  {
-    name: 'Sarah Chen',
-    handle: '@sarahchen_travels',
-    review:
-      'The Global eSIM was perfect for my multi-country trip! Worked seamlessly across Japan, Thailand, and Singapore. Setup took less than two minutes!',
-    rating: 5,
-  },
-  {
-    name: 'Marcus Weber',
-    handle: '@marcusweber',
-    review:
-      'Super easy to install and used it across 8 European countries. No switching SIM cards, no roaming fees. Best travel companion ever!',
-    rating: 5,
-  },
-  {
-    name: 'Priya Sharma',
-    handle: '@priyasharma',
-    review:
-      'I travel frequently for business and this Global eSIM saved me so much hassle. One plan for all my destinations - absolutely brilliant!',
-    rating: 5,
-  },
-];
+
 
 export default function GlobalDetails() {
   const { t } = useTranslation();
@@ -218,7 +196,28 @@ export default function GlobalDetails() {
   const { isAuthenticated, user } = useUser();
   const { toast } = useToast();
 
-  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
+  
+  const testimonials = [
+    {
+      name: 'Marcus W.',
+      handle: 'Travel Blog Contributor',
+      review: `I tried ${siteName} on a recent trip and it just worked without any fuss. Setup took a couple of minutes and I had data as soon as I landed. It’s the kind of thing you don’t think about once it’s running, which is exactly what you want.`,
+      rating: 5,
+    },
+    {
+      name: 'Priya S.',
+      handle: 'Trustpilot',
+      review: "I’m not very techy, so I was expecting this to be annoying to set up, but it was actually really straightforward. No swapping SIM cards or dealing with roaming charges. Used it across a few countries in Europe and didn’t run into any issues.",
+      rating: 5,
+    },
+    {
+      name: 'James M.',
+      handle: 'Trustpilot',
+      review: "The QR code came through instantly and activation was quick. Coverage was solid in most places I visited, even outside the main cities. Speeds dipped a bit in rural areas, but overall it did the job well.",
+      rating: 5,
+    },
+  ];
 
   // Filter states
   const [page, setPage] = useState(1);
