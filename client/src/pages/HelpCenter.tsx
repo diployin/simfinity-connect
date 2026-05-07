@@ -168,7 +168,7 @@ export default function HelpCenter() {
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <Helmet>
-          <title>Help Center | {siteName || 'Simfinity'}</title>
+          <title>Help Center | {siteName || 'Voltey'}</title>
         </Helmet>
         <div className="flex-1 flex items-center justify-center">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
@@ -180,7 +180,7 @@ export default function HelpCenter() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>Help Center | {siteName || 'Simfinity'}</title>
+        <title>Help Center | {siteName || 'Voltey'}</title>
         <meta
           name="description"
           content="Get help with your eSIM. Find answers about installation, plans, payments, troubleshooting, and more."
@@ -348,10 +348,10 @@ export default function HelpCenter() {
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-1">Email Support</h3>
                 <a
-                  href={`mailto:${email || 'support@simfinity.tel'}`}
+                  href={`mailto:${email || 'support@voltey.com'}`}
                   className="text-[#2c7338] hover:underline text-sm"
                 >
-                  {email || 'support@simfinity.tel'}
+                  {email || 'support@voltey.com'}
                 </a>
               </div>
               <div className="p-6 rounded-xl border border-gray-100 bg-slate-50 hover:shadow-md transition-shadow">

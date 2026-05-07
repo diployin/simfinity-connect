@@ -18,7 +18,7 @@ import { useSettingByKey } from '@/hooks/useSettings';
 import { useLocation } from 'wouter';
 
 export default function Business() {
-  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
   const [, navigate] = useLocation();
 
   const features = [

@@ -22,12 +22,12 @@ export function InstantConnection() {
           <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-gray-900 dark:text-white leading-tight mb-4">
             {t('website.home.instant.title', 'Instant connection and safer browsing')}
             <br className="hidden sm:block" />
-            {' '}{t('website.home.instant.titleSuffix', 'with Simfinity')}
+            {' '}{t('website.home.instant.titleSuffix', 'with Voltey')}
           </h2>
           <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto mb-6">
             {t(
               'website.home.instant.subtitle',
-              'Do you travel often, live abroad, or simply need reliable mobile data on the go? Simfinity makes it simple to stay connected, wherever life takes you.'
+              'Do you travel often, live abroad, or simply need reliable mobile data on the go? Voltey makes it simple to stay connected, wherever life takes you.'
             )}
           </p>
           <Link href="/destinations">
@@ -52,7 +52,7 @@ export function InstantConnection() {
               <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-sm mb-6">
                 {t(
                   'website.home.instant.connect.description',
-                  'Simfinity is a hassle-free solution — just choose your data plan and get ready to travel! When you arrive at your destination, you can go online right away.'
+                  'Voltey is a hassle-free solution — just choose your data plan and get ready to travel! When you arrive at your destination, you can go online right away.'
                 )}
               </p>
               <div className="inline-flex items-center gap-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm px-4 py-3">

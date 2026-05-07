@@ -49,7 +49,7 @@ export function AboutUs() {
     },
   ];
 
-  const whySimfinity = [
+  const whyVoltey = [
     { text: "100% digital experience", icon: Smartphone },
     { text: "Transparent pricing", icon: CreditCard },
     { text: "Quick activation process", icon: Zap },
@@ -75,10 +75,10 @@ export function AboutUs() {
             About <span style={{ color: '#2c7338' }}>Us</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-900 font-medium max-w-3xl mx-auto leading-relaxed mb-6">
-            At Simfinity, we are redefining global connectivity with seamless, digital-first eSIM solutions designed for the modern world.
+            At Voltey, we make staying connected worldwide simple with smart and reliable eSIM technology.
           </p>
           <p className="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            In today’s fast-moving, borderless environment, staying connected should be simple, reliable, and affordable. Whether you’re traveling internationally, managing a remote business, or working across multiple countries, uninterrupted internet access is essential. Simfinity was created to remove the traditional barriers of mobile connectivity and replace them with a smarter, faster, and fully digital experience.
+            At Voltey, we make global connectivity simple through fast and reliable eSIM solutions. Since 2020, we’ve helped travelers, professionals, and global users stay connected without the hassle of roaming or physical SIM cards. Our platform is built for speed, ease, and reliability across multiple countries.
           </p>
         </div>
       </section>
@@ -89,21 +89,21 @@ export function AboutUs() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Who We Are
+                Who We Are?
               </h2>
               <div className="space-y-4 text-gray-600 leading-relaxed">
                 <p>
-                  Simfinity is a forward-thinking telecommunications brand focused on delivering advanced eSIM technology to customers worldwide. We combine telecom expertise with strong digital infrastructure to ensure secure transactions, instant activation, and dependable global coverage.
+                  Voltey is a global eSIM brand focused on delivering simple, reliable, and seamless mobile connectivity for modern travelers and digital users. Since 2020, we’ve been helping people stay connected across multiple countries through fast activation, dependable network coverage, and fully digital eSIM solutions.
+
                 </p>
                 <p>
-                  Our approach is built around innovation, simplicity, and customer trust. Every service we offer is designed to eliminate complexity and provide a smooth user experience from purchase to activation.
-                </p>
+                  Built with a customer-first approach, Voltey combines advanced telecom technology with a smooth user experience to make global connectivity easier, more accessible, and hassle-free for everyone.                </p>
               </div>
             </div>
             <div className="bg-slate-100 rounded-2xl aspect-[4/3] flex items-center justify-center overflow-hidden shadow-lg border border-gray-100">
               <img
                 src="/images/about/Voices_crew1.png"
-                alt="Simfinity Team"
+                alt="Voltey Team"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -253,16 +253,16 @@ export function AboutUs() {
         </div>
       </section>
 
-      {/* Why Simfinity (Grid of small cards) */}
+      {/* Why Voltey (Grid of small cards) */}
       <section className="py-16 md:py-24 bg-slate-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Why Simfinity
+              Why Voltey?
             </h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {whySimfinity.map((item, index) => (
+            {whyVoltey.map((item, index) => (
               <div
                 key={index}
                 className="group bg-white rounded-xl p-6 border border-gray-200 hover:border-green-200 hover:shadow-sm transition-all duration-300 flex items-center gap-4"
@@ -285,7 +285,7 @@ export function AboutUs() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Simfinity in Action
+              Voltey in Action
             </h2>
             <p className="text-gray-500 text-lg max-w-2xl mx-auto">
               Connecting people, places, and experiences around the globe.
@@ -345,17 +345,17 @@ export function AboutUs() {
             style={{ background: 'linear-gradient(135deg, #2c7338, #3a9c4d, #2c7338)' }}
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-              Stay connected. Stay global. Stay Simfinity.
+              Travel smarter. Stay connected everywhere.
             </h2>
             <p className="text-green-100 text-lg md:text-xl max-w-2xl mx-auto mb-8 font-medium">
-              At Simfinity, we don’t just provide eSIMs. we provide freedom to connect without boundaries.
+              With Voltey, instant global connectivity is always within reach. Activate your eSIM in minutes and enjoy seamless internet access wherever your journey takes you.
             </p>
             <Button
               onClick={() => navigate('/destinations')}
               size="lg"
               className="bg-white hover:bg-gray-100 text-gray-900 font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
             >
-              Get Connected
+              Get Started
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>

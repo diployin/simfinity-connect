@@ -66,7 +66,7 @@ export function NewFooter() {
   console.log(topDestinations)
 
   const { theme } = useTheme();
-  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
   const logo = useSettingByKey('logo');
   const whiteLogo = useSettingByKey('white_logo');
   const currentLogo = theme === 'dark' ? (whiteLogo || logo) : logo;
@@ -89,7 +89,7 @@ export function NewFooter() {
                     <Globe className="h-4 w-4 text-white" />
                   </div>
                   <span className="font-bold text-lg text-gray-900 dark:text-white">
-                    Sim<span className="bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] bg-clip-text text-transparent">finity</span>
+                    Vol<span className="bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] bg-clip-text text-transparent">tey</span>
                   </span>
                 </div>
               </Link>
@@ -231,8 +231,8 @@ export function NewFooter() {
             <ul className="space-y-2.5 mb-6">
               <li className="text-sm text-muted-foreground">
                 <span className="block font-medium text-foreground">Email:</span>
-                <a href={`mailto:${settings?.email || 'info@simfinity.tel'}`} className="hover:text-foreground transition-colors">
-                  {settings?.email || 'info@simfinity.tel'}
+                <a href={`mailto:${settings?.email || 'info@voltey.com'}`} className="hover:text-foreground transition-colors">
+                  {settings?.email || 'info@voltey.com'}
                 </a>
               </li>
               <li className="text-sm text-muted-foreground">
@@ -279,7 +279,7 @@ export function NewFooter() {
           <div className="flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
             <div className="flex flex-col gap-1">
               <span>© {new Date().getFullYear()} {siteName}. All rights reserved.</span>
-              <span>Powered by <a href="https://simfinity.dev" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground cursor-pointer">Simfinity.dev</a></span>
+              <span>Powered by <a href="https://voltey.dev" target="_blank" rel="noopener noreferrer" className="underline hover:text-foreground cursor-pointer">Voltey.dev</a></span>
             </div>
             <Link href="/privacy-policy">
               <span className="underline hover:text-foreground cursor-pointer">Privacy Policy</span>

@@ -5,7 +5,7 @@ import { useSettingByKey } from '@/hooks/useSettings';
 
 export function ReferAndEarn() {
   const { t } = useTranslation();
-  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
 
   return (
     <section className="py-10 md:py-12 bg-background">

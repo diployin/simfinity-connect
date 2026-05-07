@@ -473,7 +473,7 @@ export default function Login() {
             ) : (
               <div className="flex items-center gap-2 text-white cursor-pointer" data-testid="link-logo">
                 <Globe className="h-8 w-8" />
-                <span className="font-bold text-2xl">{siteName || 'Simfinity'}</span>
+                <span className="font-bold text-2xl">{siteName || 'Voltey'}</span>
               </div>
             )}
           </Link>
@@ -518,8 +518,8 @@ export default function Login() {
                 data-testid="link-logo-mobile"
               >
                 {logo ? (
-                  <img src={useSettingByKey('logo')} alt={siteName || 'Simfinity'} className="h-10" />
-                ) : (siteName && siteName.toLowerCase() === 'simfinity') || !siteName ? (
+                  <img src={useSettingByKey('logo')} alt={siteName || 'Voltey'} className="h-10" />
+                ) : (siteName && siteName.toLowerCase() === 'voltey') || !siteName ? (
                   <>
                     <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-[#2c7338] to-[#1e5427] flex items-center justify-center">
                       <Globe className="h-4 w-4 text-white" />

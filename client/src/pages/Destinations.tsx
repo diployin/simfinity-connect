@@ -132,7 +132,7 @@ export default function Destinations() {
       <Helmet>
         <title>
           {String(
-            t('destinations.title', 'Browse eSIM Destinations - 190+ Countries | Simfinity'),
+            t('destinations.title', 'Browse eSIM Destinations - 190+ Countries | Voltey'),
           )}
         </title>
         <meta
@@ -164,7 +164,7 @@ export default function Destinations() {
             <p className="text-muted-foreground max-w-2xl mx-auto">
               {t(
                 'destinations.heroDescription',
-                'Find the best data plans across 200+ destinations and enjoy secure, seamless internet wherever you travel. Connect instantly with Simfinity eSIM',
+                'Find the best data plans across 200+ destinations and enjoy secure, seamless internet wherever you travel. Connect instantly with Voltey eSIM',
               )}
             </p>
           </div>
@@ -227,7 +227,7 @@ export default function Destinations() {
                     data-testid="tab-passport"
                   >
                     <Ticket className="h-3.5 w-3.5 shrink-0" />
-                    Simfinity Passport
+                    Voltey Passport
                   </button>
                 </div>
               </div>
@@ -633,7 +633,7 @@ export default function Destinations() {
                       <span className="text-sm font-medium text-[#3d9a4d]">Limited First Batch — Pre-Book Now</span>
                     </div>
                     <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
-                      Simfinity{' '}
+                      Voltey{' '}
                       <span className="bg-gradient-to-r from-[#3d9a4d] to-[#2c7338] bg-clip-text text-transparent">
                         Passport
                       </span>
@@ -665,7 +665,7 @@ export default function Destinations() {
                       <div className="absolute -inset-6 bg-gradient-to-r from-[#2c7338]/20 via-transparent to-[#2c7338]/20 rounded-3xl blur-xl" />
                       <img
                         src="/images/passport-device-1.png"
-                        alt="Simfinity Passport Device"
+                        alt="Voltey Passport Device"
                         className="relative w-full max-w-sm rounded-2xl"
                       />
                     </div>
@@ -770,7 +770,7 @@ export default function Destinations() {
                   <div>
                     <img
                       src="/images/passport-device-2.png"
-                      alt="What's inside the Simfinity Passport box"
+                      alt="What's inside the Voltey Passport box"
                       className="w-full rounded-2xl"
                     />
                   </div>
@@ -778,7 +778,7 @@ export default function Destinations() {
                     <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-6">What's Inside the Box</h3>
                     <div className="space-y-4">
                       {[
-                        { icon: Package, label: 'Simfinity Passport Device', desc: 'Premium connectivity device with built-in global eSIM support' },
+                        { icon: Package, label: 'Voltey Passport Device', desc: 'Premium connectivity device with built-in global eSIM support' },
                         { icon: BatteryFull, label: '5000mAh Power Bank', desc: 'Built-in battery to keep your devices charged on the go' },
                         { icon: Zap, label: 'Premium Charging Cable', desc: 'High-quality USB-C cable for fast charging' },
                         { icon: Globe, label: 'Quick-Start Guide', desc: 'Easy setup instructions to get connected in minutes' },
@@ -829,7 +829,7 @@ export default function Destinations() {
                 <div className="relative rounded-2xl overflow-hidden">
                   <img
                     src="/images/passport-device-3.png"
-                    alt="Travel with Simfinity Passport"
+                    alt="Travel with Voltey Passport"
                     className="w-full h-64 md:h-80 object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/40 to-transparent flex items-center">
@@ -849,7 +849,7 @@ export default function Destinations() {
                     <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full blur-3xl" />
                   </div>
                   <div className="relative z-10">
-                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">Pre-Book Your Simfinity Passport</h3>
+                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">Pre-Book Your Voltey Passport</h3>
                     <p className="text-green-100 text-lg mb-2 max-w-2xl mx-auto">
                       Be first. Travel smarter. Stay protected.
                     </p>

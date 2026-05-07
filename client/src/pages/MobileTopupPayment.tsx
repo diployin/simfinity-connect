@@ -5,10 +5,10 @@
  * an Android WebView (or any mobile WebView) for eSIM top-up payments.
  *
  * URL format:
- *   /mobile-topup?iccid=xxx&orderId=xxx&topupId=xxx&gatewayId=xxx&token=xxx&callbackScheme=simfinity
+ *   /mobile-topup?iccid=xxx&orderId=xxx&topupId=xxx&gatewayId=xxx&token=xxx&callbackScheme=voltey
  *
  * On success the page tries 3 layers of signalling back to the native app:
- *   1. window.SimfinityAndroid.onPaymentSuccess(json) – Android JavascriptInterface
+ *   1. window.VolteyAndroid.onPaymentSuccess(json) – Android JavascriptInterface
  *   2. window.ReactNativeWebView.postMessage(json)    – React Native WebView bridge
  *   3. Redirect to  <callbackScheme>://payment-success?...  – deep-link / custom URL scheme
  *
@@ -30,15 +30,15 @@ function getParam(name: string): string {
 /** Notify the native Android app via every available channel */
 function notifyNative(eventType: 'success' | 'failure', payload: Record<string, unknown>) {
     const msg = JSON.stringify({ eventType, ...payload });
-    const scheme = getParam('callbackScheme') || 'simfinity';
+    const scheme = getParam('callbackScheme') || 'voltey';
 
     // 1) Android JavascriptInterface
     try {
-        if ((window as any).SimfinityAndroid) {
+        if ((window as any).VolteyAndroid) {
             if (eventType === 'success') {
-                (window as any).SimfinityAndroid.onPaymentSuccess(msg);
+                (window as any).VolteyAndroid.onPaymentSuccess(msg);
             } else {
-                (window as any).SimfinityAndroid.onPaymentFailure(msg);
+                (window as any).VolteyAndroid.onPaymentFailure(msg);
             }
         }
     } catch (_) { }
@@ -188,7 +188,7 @@ function RazorpayButton({
             key: publicKey,
             amount,
             currency,
-            name: 'Simfinity',
+            name: 'Voltey',
             description: 'eSIM Top-Up',
             order_id: rzpOrderId,
             prefill: { email },
@@ -376,7 +376,7 @@ export default function MobileTopupPayment() {
     const topupId = getParam('topupId');
     const packageId = getParam('packageId');
     const email = getParam('email');
-    const callbackScheme = getParam('callbackScheme') || 'simfinity';
+    const callbackScheme = getParam('callbackScheme') || 'voltey';
     const preGatewayId = getParam('gatewayId'); // optional: pre-select a gateway
 
     const [status, setStatus] = useState<Status>('loading');
@@ -605,7 +605,7 @@ export default function MobileTopupPayment() {
                     <div className="w-9 h-9 rounded-full bg-emerald-500/20 flex items-center justify-center">
                         <Smartphone className="w-5 h-5 text-emerald-400" />
                     </div>
-                    <span className="font-bold text-lg tracking-tight">Simfinity</span>
+                    <span className="font-bold text-lg tracking-tight">Voltey</span>
                 </div>
                 <p className="text-slate-400 text-xs mt-1">eSIM Top-Up Payment</p>
             </div>
@@ -725,7 +725,7 @@ export default function MobileTopupPayment() {
 
                 {/* Security note */}
                 <p className="text-center text-xs text-slate-500 mt-4">
-                    🔒 Payments are securely processed. Simfinity never stores your card details.
+                    🔒 Payments are securely processed. Voltey never stores your card details.
                 </p>
             </div>
         </div>

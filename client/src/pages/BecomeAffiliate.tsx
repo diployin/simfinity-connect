@@ -13,7 +13,7 @@ import { Helmet } from 'react-helmet-async';
 import { useSettingByKey } from '@/hooks/useSettings';
 
 export default function BecomeAffiliate() {
-  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
 
   const benefits = [
     { icon: Percent, title: 'Competitive Commissions', desc: 'Earn up to 30% commission on every sale made through your referral link.', color: 'from-blue-500 to-blue-600' },

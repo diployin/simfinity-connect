@@ -15,7 +15,7 @@ import { Helmet } from 'react-helmet-async';
 import { useSettingByKey } from '@/hooks/useSettings';
 
 export default function Careers() {
-  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
 
   const perks = [
     { icon: Globe2, title: 'Remote First', desc: 'Work from anywhere in the world — we believe great work happens everywhere.', color: 'from-primary to-primary-dark' },

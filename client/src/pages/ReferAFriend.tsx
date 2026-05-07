@@ -12,7 +12,7 @@ import { useSettingByKey } from '@/hooks/useSettings';
 import { useLocation } from 'wouter';
 
 export default function ReferAFriend() {
-  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
   const [, navigate] = useLocation();
 
   const steps = [

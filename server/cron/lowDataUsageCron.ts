@@ -113,7 +113,7 @@ export const startLowDataUsageCron = () => {
                                 totalData: formatBytes(usage.dataTotal),
                                 packageName: esimName,
                                 iccid: order.iccid,
-                                topupUrl: `${process.env.BASE_URL || "https://simfinity.tel"}/topup?iccid=${order.iccid}`
+                                topupUrl: `${process.env.BASE_URL || "https://voltey.com"}/topup?iccid=${order.iccid}`
                             };
 
                             const emailContent = await generateLowDataEmail(emailData);

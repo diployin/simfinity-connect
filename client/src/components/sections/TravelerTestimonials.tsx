@@ -119,42 +119,32 @@ export function TravelerTestimonials() {
 
   const testimonials: Testimonial[] = [
     {
-      name: 'Sarah Chen',
-      handle: '@sarahchen_travels',
+      name: 'Marcus W.',
+      handle: 'Travel Blog Contributor',
       rating: 5,
       content: t(
         'website.home.testimonials.t1',
-        `I used ${siteName} during my trip to Japan and it worked perfectly from the moment I landed. Setup took less than two minutes and the data speed was amazing!`,
-      ),
-      initials: 'SC',
-    },
-    {
-      name: 'Marcus Weber',
-      handle: '@marcusweber',
-      rating: 5,
-      content: t(
-        'website.home.testimonials.t2',
-        'Super easy to install and no roaming fees. I stayed connected through my entire Europe trip without switching SIM cards. Totally worth it!',
+        `I tried ${siteName} on a recent trip and it just worked without any fuss. Setup took a couple of minutes and I had data as soon as I landed. It’s the kind of thing you don’t think about once it’s running, which is exactly what you want.`,
       ),
       initials: 'MW',
     },
     {
-      name: 'Priya Sharma',
-      handle: '@priyasharma',
-      rating: 4,
+      name: 'Priya S.',
+      handle: 'Trustpilot',
+      rating: 5,
       content: t(
-        'website.home.testimonials.t3',
-        'I bought my plan online before traveling to Thailand. The QR code arrived instantly, and the connection was fast everywhere I went — beaches, cities, even remote areas.',
+        'website.home.testimonials.t2',
+        "I’m not very techy, so I was expecting this to be annoying to set up, but it was actually really straightforward. No swapping SIM cards or dealing with roaming charges. Used it across a few countries in Europe and didn’t run into any issues.",
       ),
       initials: 'PS',
     },
     {
-      name: 'James Mitchell',
-      handle: '@jamesmitchell',
-      rating: 4,
+      name: 'James M.',
+      handle: 'Trustpilot',
+      rating: 5,
       content: t(
-        'website.home.testimonials.t4',
-        `I was surprised how smooth everything was. ${siteName} saved me from buying local SIMs and hunting for Wi-Fi. Great coverage and fair pricing.`,
+        'website.home.testimonials.t3',
+        "The QR code came through instantly and activation was quick. Coverage was solid in most places I visited, even outside the main cities. Speeds dipped a bit in rural areas, but overall it did the job well.",
       ),
       initials: 'JM',
     },

@@ -39,9 +39,9 @@ async function loadSmtpSettings() {
     user: config.smtp_user || "",
     pass: config.smtp_pass || "",
     fromEmail: config.smtp_from_email || "",
-    platformName: config.platform_name || "Simfinity",
+    platformName: config.platform_name || "Voltey",
     platformTagline: config.platform_tagline || "",
-    supportEmail: config.email || "support@simfinity.tel",
+    supportEmail: config.email || "support@voltey.com",
     whatsappNumber: config.phone || "",
     helpCenterUrl: config.help_center_url || "#",
     facebookUrl: config.facebook_url || "#",
@@ -183,7 +183,7 @@ export async function generateOTPEmail(
     const templateRendered = await renderTemplate("otp", {
       customer_name: name || "Customer",
       code,
-      platform_name: "Simfinity",
+      platform_name: "Voltey",
       customer_email: email,
     });
 
@@ -216,7 +216,7 @@ export async function generateOTPEmail(
   }
 
   // 3️⃣ Safe defaults (never undefined)
-  const platformName = settingsMap.platform_name || "Simfinity";
+  const platformName = settingsMap.platform_name || "Voltey";
   const greeting = name ? `Hi ${name}` : "Hello";
   const year = new Date().getFullYear();
 
@@ -279,7 +279,7 @@ export async function generateWelcomeEmail(
     const templateRendered = await renderTemplate("welcome", {
       customer_name: name || "Customer",
       customer_email: email || "",
-      platform_name: "Simfinity",
+      platform_name: "Voltey",
     });
 
     if (templateRendered) {
@@ -310,7 +310,7 @@ export async function generateWelcomeEmail(
   }
 
   // 3️⃣ Safe defaults
-  const platformName = settingsMap.platform_name || "Simfinity";
+  const platformName = settingsMap.platform_name || "Voltey";
   const customerName = name || "Customer";
   const baseUrl = process.env.BASE_URL || "http://localhost:5000";
 
@@ -376,7 +376,7 @@ export async function generateWelcomeEmail(
 export async function generateOrderConfirmationEmail(order: any) {
   const settings = await loadSmtpSettings();
   const platformName = settings.platformName;
-  const baseUrl = process.env.BASE_URL || "https://simfinity.tel";
+  const baseUrl = process.env.BASE_URL || "https://voltey.com";
 
   // Fetch customer name from user table if userId is present
   let customerName = order.name || order.customerName || 'Traveler';
@@ -491,7 +491,7 @@ export async function generateOrderConfirmationEmail(order: any) {
             <div style="text-align: center;">
               <p style="margin-bottom: 10px; font-weight: 600;">Ready to get started?</p>
               <p style="font-size: 14px; color: #64748b;">You will receive another email shortly with detailed installation instructions and your QR code.</p>
-              <a href="${process.env.BASE_URL || 'https://simfinity.tel'}/my-orders" class="btn">View My Orders</a>
+              <a href="${process.env.BASE_URL || 'https://voltey.com'}/my-orders" class="btn">View My Orders</a>
             </div>
 
             <p style="font-size: 14px; color: #6b7280; text-align: center; margin-top: 40px;">
@@ -731,7 +731,7 @@ export async function generateInstallationEmail(order: any) {
           </div>
           <div class="footer">
             <p>&copy; ${new Date().getFullYear()} ${platformName}. All rights reserved.</p>
-            <p><a href="${process.env.BASE_URL || 'https://simfinity.tel'}/pages/terms-and-condition" style="color: #9ca3af; text-decoration: none; margin: 0 5px;">Terms and Conditions</a> | <a href="${process.env.BASE_URL || 'https://simfinity.tel'}/pages/privacy-policy" style="color: #9ca3af; text-decoration: none; margin: 0 5px;">Privacy Policy</a></p>
+            <p><a href="${process.env.BASE_URL || 'https://voltey.com'}/pages/terms-and-condition" style="color: #9ca3af; text-decoration: none; margin: 0 5px;">Terms and Conditions</a> | <a href="${process.env.BASE_URL || 'https://voltey.com'}/pages/privacy-policy" style="color: #9ca3af; text-decoration: none; margin: 0 5px;">Privacy Policy</a></p>
             <div style="margin-top: 15px;">
               ${settings.linkedinUrl !== '#' ? `<a href="${settings.linkedinUrl}" style="margin: 0 10px; display: inline-block;"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" width="20" alt="LinkedIn"></a>` : ''}
               ${settings.facebookUrl !== '#' ? `<a href="${settings.facebookUrl}" style="margin: 0 10px; display: inline-block;"><img src="https://cdn-icons-png.flaticon.com/512/124/124010.png" width="20" alt="Facebook"></a>` : ''}

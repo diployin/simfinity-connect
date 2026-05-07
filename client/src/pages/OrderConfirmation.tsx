@@ -147,7 +147,7 @@ export default function OrderConfirmation() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>{`Order #${order?.displayOrderId ?? '—'} | Simfinity`}</title>
+        <title>{`Order #${order?.displayOrderId ?? '—'} | Voltey`}</title>
       </Helmet>
 
       {/* <SiteHeader /> */}

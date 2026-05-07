@@ -276,7 +276,7 @@ export default function PaymentProcessing() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>Processing Payment | Simfinity</title>
+        <title>Processing Payment | Voltey</title>
       </Helmet>
 
       {/* <SiteHeader /> */}
