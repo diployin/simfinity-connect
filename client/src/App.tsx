@@ -112,6 +112,9 @@ const DynamicPage = lazy(() => import('@/pages/DynamicPage'));
 const FaqPage = lazy(() => import('@/pages/FaqPage'));
 const FaqManagement = lazy(() => import('@/pages/admin/FaqManagement'));
 const AdminPriceBrackets = lazy(() => import('@/pages/admin/AdminPriceBrackets'));
+const ContactSupport = lazy(() => import('@/pages/ContactSupport'));
+const GettingStarted = lazy(() => import('@/pages/GettingStarted'));
+const Troubleshooting = lazy(() => import('@/pages/Troubleshooting'));
 import { AccountShell } from './components/layout/AccountShell';
 import SiteHeader from './components/layout/SiteHeader';
 import SiteFooter from './components/layout/SiteFooter';
@@ -175,6 +178,9 @@ const PUBLIC_ROUTES = [
   { path: '/what-is-esim', component: WhatIsESIM },
   { path: '/notifications', component: NotificationsPage },
   { path: '/populer-packages', component: PopularPackagesPage },
+  { path: '/getting-started', component: GettingStarted },
+  { path: '/troubleshooting', component: Troubleshooting },
+  { path: '/contact-support', component: ContactSupport },
   { path: '/maintenance', component: Maintenance, layout: 'empty' },
 ];
 
