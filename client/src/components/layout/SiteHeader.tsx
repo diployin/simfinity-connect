@@ -326,20 +326,20 @@ export function SiteHeader() {
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.faqs', 'FAQs')}</span>
                     </div>
                   </Link>
-                  <Link href="/help-center?category=getting-started" onClick={() => setActiveMenu(null)}>
+                  <Link href="/getting-started" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
                       <Compass className="h-4 w-4 text-blue-500" />
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.gettingStarted', 'Getting Started')}</span>
                     </div>
                   </Link>
-                  <Link href="/help-center?category=troubleshooting" onClick={() => setActiveMenu(null)}>
+                  <Link href="/troubleshooting" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
                       <Wrench className="h-4 w-4 text-amber-500" />
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.troubleshooting', 'Troubleshooting')}</span>
                     </div>
                   </Link>
                   <div className="mx-2 my-1 border-t border-gray-100 dark:border-gray-800" />
-                  <Link href="/help-center?category=plans-payments" onClick={() => setActiveMenu(null)}>
+                  <Link href="/contact-support" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
                       <Headphones className="h-4 w-4 text-purple-500" />
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.helpCenter', 'Contact Support')}</span>

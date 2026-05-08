@@ -211,10 +211,10 @@ export function NewFooter() {
             <ul className="space-y-2.5">
               {[
                 { label: 'Help Center', href: '/help-center' },
-                { label: 'Getting Started', href: '/help-center?category=getting-started' },
-                { label: 'Plans & Payments', href: '/help-center?category=plans-payments' },
-                { label: 'Troubleshooting', href: '/help-center?category=troubleshooting' },
-                { label: 'FAQ', href: '/help-center?category=faq' },
+                { label: 'Getting Started', href: '/getting-started' },
+                { label: 'Troubleshooting', href: '/troubleshooting' },
+                { label: 'Contact Support', href: '/contact-support' },
+                { label: 'FAQ', href: '/faq' },
                 { label: 'Reviews', href: '/reviews' },
               ].map((link) => (
                 <li key={link.label}>

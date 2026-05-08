@@ -68,6 +68,7 @@ import apiV1Router from './routes/api-v1';
 import pagesRouter from './routes/admin/pages';
 import faqsRouter from './routes/admin/faqs';
 import PaymentsRouter from './routes/payments';
+import contactRouter from './routes/contact';
 import { asyncHandler } from './lib/asyncHandler';
 import { ValidationError, NotFoundError } from './lib/errors';
 import { requireAuth } from './lib/middleware';
@@ -306,6 +307,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // console.log("optionalAdminAuth")
   app.use(optionalAdminAuth);      // sets req.user
 
+
+  app.use('/api/contact', contactRouter);
 
   // Authentication middleware
   const requireAuthh = (req: any, res: Response, next: Function) => {
