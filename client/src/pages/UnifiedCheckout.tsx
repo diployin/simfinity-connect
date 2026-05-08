@@ -25,6 +25,7 @@ import {
   Coins,
   Wallet,
   CircleDollarSign,
+  X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -39,15 +40,33 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import { cn } from "@/lib/utils";
+import { ChevronsUpDown, Check as CheckIcon } from "lucide-react";
 import { useToast } from '@/hooks/use-toast';
 import { useUser } from '@/hooks/use-user';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import ReactCountryFlag from 'react-country-flag';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { CheckoutAuth } from '@/components/CheckoutAuth';
-import PaymentGatewayRenderer from '@/components/payments/PaymentGatewayRenderer';
-import { useSettingByKey } from '@/hooks/useSettings';
 import { PackageDataApiRes } from '@/types/types';
+import { signInWithGoogle } from "@/lib/firebase";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useSettingByKey } from '@/hooks/useSettings';
 
 
 type UnifiedPackage = {
@@ -69,6 +88,8 @@ type UnifiedPackage = {
   countryCode: string | null;
   countryName: string | null;
 };
+
+import { countries } from '@/lib/countries';
 
 const formatDataAmount = (pkg: any): string => {
   if (!pkg) return 'eSIM';
@@ -166,6 +187,33 @@ export default function UnifiedCheckout() {
   const [appliedReferralCredits, setAppliedReferralCredits] = useState(0);
   const [isCreditsOpen, setIsCreditsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [openCountry, setOpenCountry] = useState(false);
+  const [selectedDialCode, setSelectedDialCode] = useState('+91');
+
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithGoogle();
+      const idToken = await result.user.getIdToken();
+
+      await apiRequest("POST", "/api/auth/web/login-with-google", {
+        idToken,
+        referralCode: localStorage.getItem("pendingReferralCode"),
+      });
+
+      refetchUser();
+      toast({
+        title: "Success",
+        description: "Signed in with Google successfully",
+      });
+    } catch (err) {
+      console.error("Google login error", err);
+      toast({
+        title: "Error",
+        description: "Failed to sign in with Google",
+        variant: "destructive",
+      });
+    }
+  };
 
   const getCurrencySymbol = (currencyCode) =>
     currencies.find((c) => c.code === currencyCode)?.symbol || '$';
@@ -616,604 +664,346 @@ export default function UnifiedCheckout() {
   const unitPrice = parseFloat(packageData.retailPrice || packageData.price || '0');
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-[#F8F9FA] flex flex-col font-sans">
       <Helmet>
         <title>{`Checkout - ${formatDataAmount(packageData)} eSIM | ${siteName}`}</title>
       </Helmet>
-      {/* <SiteHeader /> */}
 
-      <main className="flex-1 pt-20 pb-12">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <Button variant="ghost" onClick={() => window.history.back()} className="mb-6">
-            <ArrowLeft className="w-4 h-4 mr-2" /> Back
-          </Button>
+      <main className="flex-1 py-8">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="flex items-center gap-2 mb-6">
+            <Button variant="ghost" onClick={() => window.history.back()} className="p-0 h-auto hover:bg-transparent text-gray-600">
+              <ArrowLeft className="w-4 h-4 mr-1" />
+              <span className="text-base font-medium">Back to plans</span>
+            </Button>
+          </div>
 
-          <div className="grid lg:grid-cols-5 gap-8">
-            <div className="lg:col-span-3 space-y-6">
-              <div>
-                <h1 className="text-2xl font-bold text-foreground mb-2">Checkout</h1>
-                <p className="text-muted-foreground">
-                  Complete your purchase to get instant access to your eSIM
-                </p>
-              </div>
-
-              {showPromo && isAuthenticated && (
-                <Card className="border-0 shadow-lg">
-                  <CardContent className="p-6">
-                    <Collapsible open={isPromoOpen} onOpenChange={setIsPromoOpen}>
-                      <CollapsibleTrigger className="flex items-center justify-between w-full">
-                        <div className="flex items-center gap-2">
-                          <Tag className="w-4 h-4 text-muted-foreground" />
-                          <span className="font-medium text-foreground">
-                            Have promo, giftcard or referral?
-                          </span>
+          <div className="grid lg:grid-cols-12 gap-6 items-start">
+            {/* LEFT COLUMN */}
+            <div className="lg:col-span-7 space-y-6">
+              
+              {/* ACCOUNT & CONTACT SECTION */}
+              <Card className="border-0 shadow-sm rounded-xl overflow-hidden bg-white">
+                <CardContent className="p-6">
+                  {isAuthenticated ? (
+                    <div className="space-y-4">
+                      <h2 className="text-xl font-bold text-[#1A1A1A]">Your Account</h2>
+                      <div className="flex items-center gap-3 bg-[#F0FDF4] p-3 rounded-lg border border-[#DCFCE7]">
+                        <div className="w-10 h-10 rounded-full bg-[#1e5427] flex items-center justify-center text-white font-bold text-lg">
+                          {user?.name?.charAt(0) || user?.email?.charAt(0).toUpperCase()}
                         </div>
-                        <Plus
-                          className={`w-4 h-4 transition-transform ${isPromoOpen ? 'rotate-45' : ''}`}
-                        />
-                      </CollapsibleTrigger>
-                      <CollapsibleContent className="pt-4 space-y-4">
-                        {!appliedPromo && (
-                          <>
-                            <div className="flex gap-2 flex-wrap">
-                              <Button
-                                type="button"
-                                variant={promoCodeType === 'voucher' ? 'default' : 'outline'}
-                                size="sm"
-                                onClick={() => setPromoCodeType('voucher')}
-                              >
-                                <Tag className="w-3 h-3 mr-1" />
-                                Voucher
-                              </Button>
-                              <Button
-                                type="button"
-                                variant={promoCodeType === 'giftcard' ? 'default' : 'outline'}
-                                size="sm"
-                                onClick={() => setPromoCodeType('giftcard')}
-                              >
-                                <Gift className="w-3 h-3 mr-1" />
-                                Gift Card
-                              </Button>
-                              <Button
-                                type="button"
-                                variant={promoCodeType === 'referral' ? 'default' : 'outline'}
-                                size="sm"
-                                onClick={() => setPromoCodeType('referral')}
-                              >
-                                <Users className="w-3 h-3 mr-1" />
-                                Referral
-                              </Button>
-                            </div>
-
-                            <div className="flex gap-2">
-                              <Input
-                                placeholder={`Enter ${promoCodeType === 'voucher' ? 'voucher' : promoCodeType === 'giftcard' ? 'gift card' : 'referral'} code`}
-                                value={promoCode}
-                                onChange={(e) => setPromoCode(e.target.value)}
-                              />
-                              <Button
-                                type="button"
-                                onClick={handleApplyPromo}
-                                variant="outline"
-                                disabled={isValidatingPromo}
-                              >
-                                {isValidatingPromo ? (
-                                  <Loader2 className="w-4 h-4 animate-spin" />
-                                ) : (
-                                  'Apply'
-                                )}
-                              </Button>
-                            </div>
-                          </>
-                        )}
-
-                        {appliedPromo && (
-                          <>
-                            <p className="text-xs text-muted-foreground">
-                              Only one code can be applied per order. Remove the current code to
-                              apply a different one.
-                            </p>
-                            <div className="flex items-center justify-between bg-green-50 dark:bg-green-500/10 p-3 rounded-lg">
-                              <div className="flex flex-col gap-1">
-                                <div className="flex items-center gap-2">
-                                  <Check className="w-4 h-4 text-green-600" />
-                                  <span className="text-sm font-medium text-green-700 dark:text-green-400">
-                                    {appliedPromo.type === 'voucher'
-                                      ? 'Voucher'
-                                      : appliedPromo.type === 'giftcard'
-                                        ? 'Gift Card'
-                                        : 'Referral'}
-                                    : {appliedPromo.code}
-                                  </span>
-                                </div>
-                                {/* <span className="text-xs text-green-600 dark:text-green-500 ml-6">
-                                  {appliedPromo.type === 'giftcard' && appliedPromo.balance
-                                    ? `$${appliedPromo.discount.toFixed(2)} applied (Balance: $${appliedPromo.balance.toFixed(2)})`
-                                    : appliedPromo.discount > 0
-                                      ? `-$${appliedPromo.discount.toFixed(2)} discount`
-                                      : appliedPromo.description || 'Discount applied'}
-                                </span> */}
-
-                                <span className="text-xs text-green-600 dark:text-green-500 ml-6">
-                                  {appliedPromo.type === 'giftcard' && appliedPromo.balance ? (
-                                    <>
-                                      {getCurrencySymbol(packageData.currency)}
-                                      {appliedPromo.discount.toFixed(2)} applied (Balance:
-                                      {getCurrencySymbol(packageData.currency)}
-                                      {appliedPromo.balance.toFixed(2)})
-                                    </>
-                                  ) : appliedPromo.discount > 0 ? (
-                                    <>
-                                      -{getCurrencySymbol(packageData.currency)}
-                                      {appliedPromo.discount.toFixed(2)} discount
-                                    </>
-                                  ) : (
-                                    appliedPromo.description || 'Discount applied'
-                                  )}
-                                </span>
-                              </div>
-                              <Button
-                                type="button"
-                                variant="ghost"
-                                size="sm"
-                                onClick={removePromo}
-                                className="text-red-500 hover:text-red-600"
-                              >
-                                Remove
-                              </Button>
-                            </div>
-                          </>
-                        )}
-                      </CollapsibleContent>
-                    </Collapsible>
-                  </CardContent>
-                </Card>
-              )}
-
-
-              {/* POWERTRANZ CARD FORM */}
-              {selectedGateway?.provider === 'powertranz' && !initResponse && (
-                <Card className="border border-border">
-                  <CardContent className="p-4 space-y-4">
-                    <h4 className="font-medium flex items-center gap-2">
-                      <CreditCard className="w-4 h-4" />
-                      Card Details
-                    </h4>
-
-                    <Input
-                      placeholder="Card Number"
-                      inputMode="numeric"
-                      maxLength={19}
-                      onChange={(e) =>
-                        setCustomerInfo((prev) => ({
-                          ...prev,
-                          cardPan: e.target.value.replace(/\D/g, ''),
-                        }))
-                      }
-                    />
-
-                    <div className="grid grid-cols-2 gap-3">
-                      <Input
-                        placeholder="MMYY"
-                        maxLength={4}
-                        inputMode="numeric"
-                        onChange={(e) =>
-                          setCustomerInfo((prev) => ({
-                            ...prev,
-                            cardExpiry: e.target.value.replace(/\D/g, ''),
-                          }))
-                        }
-                      />
-
-                      <Input
-                        placeholder="CVV"
-                        maxLength={4}
-                        inputMode="numeric"
-                        onChange={(e) =>
-                          setCustomerInfo((prev) => ({
-                            ...prev,
-                            cardCvv: e.target.value.replace(/\D/g, ''),
-                          }))
-                        }
-                      />
-                    </div>
-
-                    <p className="text-xs text-muted-foreground">
-                      Your card is secured with 3D Secure authentication.
-                    </p>
-                  </CardContent>
-                </Card>
-              )}
-
-
-
-              {/* REFERRAL CREDITS - Only for authenticated users */}
-              {isAuthenticated && availableCredits > 0 && (
-                <Card className="border-0 shadow-lg">
-                  <CardContent className="p-6">
-                    <Collapsible open={isCreditsOpen} onOpenChange={setIsCreditsOpen}>
-                      <CollapsibleTrigger className="flex items-center justify-between w-full">
-                        <div className="flex items-center gap-2">
-                          <Coins className="w-4 h-4 text-amber-500" />
-                          <span className="font-medium text-foreground">Use Referral Credits</span>
-                          <span className="text-sm text-muted-foreground">
-                            (${availableCredits.toFixed(2)} available)
-                          </span>
+                        <div className="flex-1">
+                          <p className="font-semibold text-sm text-[#1A1A1A]">{user?.name || 'User'}</p>
+                          <p className="text-xs text-[#4B5563]">{user?.email}</p>
                         </div>
-                        <Plus
-                          className={`w-4 h-4 transition-transform ${isCreditsOpen ? 'rotate-45' : ''}`}
-                        />
-                      </CollapsibleTrigger>
-                      <CollapsibleContent className="pt-4 space-y-4">
-                        <p className="text-sm text-muted-foreground">
-                          You have referral credits that can be used as a discount on this order.
-                        </p>
-
-                        {appliedReferralCredits > 0 ? (
-                          <div className="flex items-center justify-between bg-amber-50 dark:bg-amber-500/10 p-3 rounded-lg">
-                            <div className="flex items-center gap-2">
-                              <Check className="w-4 h-4 text-amber-600" />
-                              <span className="text-sm text-amber-700 dark:text-amber-400">
-                                ${appliedReferralCredits.toFixed(2)} credits applied
-                              </span>
-                            </div>
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="sm"
-                              onClick={removeCredits}
-                              className="text-red-500 hover:text-red-600"
-                            >
-                              Remove
-                            </Button>
-                          </div>
-                        ) : (
-                          <div className="flex gap-2 flex-wrap">
-                            <Button
-                              type="button"
-                              variant="outline"
-                              size="sm"
-                              onClick={() => handleApplyCredits(availableCredits)}
-                            >
-                              Apply All (${availableCredits.toFixed(2)})
-                            </Button>
-                            <Button
-                              type="button"
-                              variant="outline"
-                              size="sm"
-                              onClick={() => {
-                                const basePrice = parseFloat(
-                                  packageData?.retailPrice || packageData?.price || '0',
-                                );
-                                const subtotal = basePrice * quantity;
-                                const halfCredits = Math.min(availableCredits / 2, subtotal);
-                                handleApplyCredits(halfCredits);
-                              }}
-                            >
-                              Apply Half ($
-                              {Math.min(availableCredits / 2, parseFloat(calculateTotal())).toFixed(
-                                2,
-                              )}
-                              )
-                            </Button>
-                          </div>
-                        )}
-                      </CollapsibleContent>
-                    </Collapsible>
-                  </CardContent>
-                </Card>
-              )}
-
-
-              {/* CONTACT FORM - Only show for guest users */}
-              {!isAuthenticated && !initResponse && (
-                <Card className="border-0 shadow-lg">
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold text-foreground mb-4">Contact Information</h3>
-                    <p className="text-sm text-muted-foreground mb-6">
-                      We'll send your eSIM details to this email. No account required.
-                    </p>
-
-                    <Form {...form}>
-                      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                        <FormField
-                          control={form.control}
-                          name="email"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Email Address</FormLabel>
-                              <FormControl>
-                                <div className="relative">
-                                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                                  <Input
-                                    {...field}
-                                    type="email"
-                                    placeholder="your@email.com"
-                                    className="pl-10"
-                                  />
-                                </div>
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-
-                        <FormField
-                          control={form.control}
-                          name="phone"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>Phone Number</FormLabel>
-                              <FormControl>
-                                <div className="relative">
-                                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                                  <Input
-                                    {...field}
-                                    type="tel"
-                                    inputMode="numeric"
-                                    maxLength={12}
-                                    placeholder="1234567890"
-                                    className="pl-10"
-                                    onChange={(e) => {
-                                      const value = e.target.value.replace(/\D/g, '');
-                                      field.onChange(value);
-                                    }}
-                                  />
-                                </div>
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-
-                        <FormField
-                          control={form.control}
-                          name="acceptTerms"
-                          render={({ field }) => (
-                            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-border p-4 bg-muted/30">
-                              <FormControl>
-                                <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                              </FormControl>
-                              <div className="space-y-1 leading-none">
-                                <FormLabel className="text-sm font-normal cursor-pointer">
-                                  I agree to the{' '}
-                                  <Link href="/terms-and-condition" className="text-[#1e5427] hover:underline">
-                                    Terms of Service
-                                  </Link>{' '}
-                                  and{' '}
-                                  <Link href="/privacy-policy" className="text-[#1e5427] hover:underline">
-                                    Privacy Policy
-                                  </Link>
-                                </FormLabel>
-                                <FormMessage />
-                              </div>
-                            </FormItem>
-                          )}
-                        />
-
-                        {/* PAYMENT GATEWAY SELECTION */}
-                        {/* {gateways.length > 0 && (
-                          <div className="space-y-4">
-                            <h3 className="font-semibold text-foreground">Select Payment Method</h3>
-                            <div className="flex flex-col md:flex-row gap-3 justify-center">
-                              {gateways.map((gateway) => (
-                                <Button
-                                  key={gateway.id}
-                                  type="button"
-                                  variant={selectedGateway?.id === gateway.id ? '' : 'outline'}
-                                  className="w-fit justify-start"
-                                  onClick={() => setSelectedGateway(gateway)}
-                                >
-                                  {gateway.provider.toUpperCase()}
-                                </Button>
-                              ))}
-                            </div>
-                          </div>
-                        )} */}
-
-
-
-
-                        {!isFreeOrder && gateways.length > 0 && (
-                          <div className="space-y-4">
-                            <h3 className="font-semibold text-foreground">Select Payment Method</h3>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                              {gateways.map((gateway) => {
-                                const isSelected = selectedGateway?.id === gateway.id;
-                                const providerName = gateway.provider.toLowerCase();
-                                return (
-                                  <div
-                                    key={gateway.id}
-                                    onClick={() => setSelectedGateway(gateway)}
-                                    className={`
-                                      relative p-4 rounded-xl border-2 cursor-pointer transition-all duration-200
-                                      flex flex-col items-center justify-center gap-3 text-center
-                                      ${isSelected
-                                        ? 'border-[#2c7338] bg-green-50/50 dark:bg-[#2c7338]/10 shadow-sm'
-                                        : 'border-border hover:border-muted-foreground/30 hover:bg-muted/30'}
-                                    `}
-                                  >
-                                    {isSelected && (
-                                      <div className="absolute top-2 right-2">
-                                        <Check className="w-4 h-4 text-[#2c7338] dark:text-green-400" />
-                                      </div>
-                                    )}
-                                    <div className={`p-3 rounded-full ${isSelected ? 'bg-[#2c7338]/10 text-[#2c7338] dark:text-green-400' : 'bg-muted text-muted-foreground'}`}>
-                                      {providerName.includes('stripe') || providerName.includes('powertranz') || providerName.includes('card') ? (
-                                        <CreditCard className="w-6 h-6" />
-                                      ) : providerName.includes('paypal') || providerName.includes('maya') || providerName.includes('xendit') ? (
-                                        <Wallet className="w-6 h-6" />
-                                      ) : (
-                                        <CircleDollarSign className="w-6 h-6" />
-                                      )}
-                                    </div>
-                                    <span className={`font-medium text-sm ${isSelected ? 'text-[#2c7338] dark:text-green-400' : 'text-foreground'}`}>
-                                      {gateway.provider.toUpperCase()}
-                                    </span>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        )}
-
-
-                        <Button type="submit" className="w-full bg-[#2c7338] text-white" disabled={isSubmitting}>
-                          {isSubmitting ? (
-                            <>
-                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                              Processing...
-                            </>
-                          ) : (
-                            'Continue to Payment'
-                          )}
+                        <Button variant="ghost" size="sm" onClick={() => apiRequest('POST', '/api/auth/logout').then(() => refetchUser())} className="h-8 text-xs text-red-600 hover:text-red-700 hover:bg-red-50">
+                          Logout
                         </Button>
-                      </form>
-                    </Form>
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* PAYMENT UI - For logged in users or after guest submits */}
-              {(isAuthenticated || initResponse) && (
-                <Card className="border-0 shadow-lg">
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold text-foreground mb-4">Payment</h3>
-
-                    {!initResponse ? (
-                      <div className="space-y-4">
-                        {/* PAYMENT GATEWAY SELECTION */}
-                        {/* {gateways.length > 0 && (
-                          <>
-                            <h3 className="font-semibold text-foreground">Select Payment Method</h3>
-                            {gateways.map((gateway) => (
-                              <Button
-                                key={gateway.id}
-                                type="button"
-                                variant={selectedGateway?.id === gateway.id ? 'default' : 'outline'}
-                                className="w-full justify-start"
-                                onClick={() => setSelectedGateway(gateway)}
-                              >
-                                {gateway.provider.toUpperCase()}
-                              </Button>
-                            ))}
-                          </>
-                        )} */}
-
-                        {!isFreeOrder && gateways.length > 0 && (
-                          <>
-                            <h3 className="font-semibold text-foreground">Select Payment Method</h3>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-                              {gateways.map((gateway) => {
-                                const isSelected = selectedGateway?.id === gateway.id;
-                                const providerName = gateway.provider.toLowerCase();
-                                return (
-                                  <div
-                                    key={gateway.id}
-                                    onClick={() => setSelectedGateway(gateway)}
-                                    className={`
-                                      relative p-4 rounded-xl border-2 cursor-pointer transition-all duration-200
-                                      flex flex-col items-center justify-center gap-3 text-center
-                                      ${isSelected
-                                        ? 'border-[#2c7338] bg-green-50/50 dark:bg-[#2c7338]/10 shadow-sm'
-                                        : 'border-border hover:border-muted-foreground/30 hover:bg-muted/30'}
-                                    `}
-                                  >
-                                    {isSelected && (
-                                      <div className="absolute top-2 right-2">
-                                        <Check className="w-4 h-4 text-[#2c7338] dark:text-green-400" />
-                                      </div>
-                                    )}
-                                    <div className={`p-3 rounded-full ${isSelected ? 'bg-[#2c7338]/10 text-[#2c7338] dark:text-green-400' : 'bg-muted text-muted-foreground'}`}>
-                                      {providerName.includes('stripe') || providerName.includes('powertranz') || providerName.includes('card') ? (
-                                        <CreditCard className="w-6 h-6" />
-                                      ) : providerName.includes('paypal') || providerName.includes('maya') || providerName.includes('xendit') ? (
-                                        <Wallet className="w-6 h-6" />
-                                      ) : (
-                                        <CircleDollarSign className="w-6 h-6" />
-                                      )}
-                                    </div>
-                                    <span className={`font-medium text-sm ${isSelected ? 'text-[#2c7338] dark:text-green-400' : 'text-foreground'}`}>
-                                      {gateway.provider.toUpperCase()}
-                                    </span>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </>
-                        )}
-
-
-                        {/* <Button
-                          onClick={() =>
-                            onSubmit({
-                              email: user?.email || customerInfo?.email,
-                              phone: user?.phone || customerInfo?.phone,
-                              acceptTerms: true,
-                            })
-                          }
-                          className="w-full bg-[#2c7338] text-white"
-                        >
-                          Complete Payment
-                        </Button> */}
-
-                        <Button
-                          disabled={isSubmitting}
-                          onClick={() =>
-                            onSubmit({
-                              email: user?.email || customerInfo?.email,
-                              phone: user?.phone || customerInfo?.phone,
-                              acceptTerms: true,
-                            })
-                          }
-                          className="w-full bg-[#2c7338] text-white"
-                        >
-                          {isSubmitting ? (
-                            <>
-                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                              Processing...
-                            </>
-                          ) : (
-                            isFreeOrder ? 'Confirm Order' : 'Complete Payment'
-                          )}
-                        </Button>
-
-
                       </div>
-                    ) : (
-                      <PaymentGatewayRenderer
-                        initData={initResponse}
-                        email={customerInfo?.email || user?.email}
-                      />
-                    )}
-                  </CardContent>
-                </Card>
-              )}
+                      <p className="text-xs text-gray-400">Your eSIM details will be sent to this email address.</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-6">
+                      <div>
+                        <h2 className="text-xl font-bold text-[#1A1A1A] mb-4">Sign up or log in</h2>
+                        <div className="flex flex-col sm:flex-row gap-3">
+                          <Button 
+                            variant="outline" 
+                            onClick={handleGoogleLogin}
+                            className="h-11 px-6 rounded-lg border-gray-200 hover:bg-gray-50 flex items-center justify-center gap-2 text-sm font-semibold"
+                          >
+                            <svg width="18" height="18" viewBox="0 0 24 24">
+                              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+                              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                            </svg>
+                            Continue with Google
+                          </Button>
+                        </div>
+                      </div>
 
-              {/* PROMO CODE SECTION - Available for all users */}
+                      <div className="relative py-2">
+                        <div className="absolute inset-0 flex items-center">
+                          <span className="w-full border-t border-gray-100"></span>
+                        </div>
+                        <div className="relative flex justify-center text-xs uppercase">
+                          <span className="bg-white px-2 text-gray-400">Or continue as guest</span>
+                        </div>
+                      </div>
 
+                      {!initResponse && (
+                        <Form {...form}>
+                          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                            <FormField
+                              control={form.control}
+                              name="email"
+                              render={({ field }) => (
+                                <FormItem className="space-y-1.5">
+                                  <FormLabel className="text-xs font-semibold text-[#374151]">Email</FormLabel>
+                                  <FormControl>
+                                    <div className="relative">
+                                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                      <Input
+                                        {...field}
+                                        type="email"
+                                        placeholder="your@email.com"
+                                        className="h-11 pl-10 rounded-lg border-gray-200 focus:border-[#1e5427]"
+                                      />
+                                    </div>
+                                  </FormControl>
+                                  <FormMessage className="text-xs" />
+                                </FormItem>
+                              )}
+                            />
 
-              <div className="flex items-center gap-4 justify-center text-sm text-muted-foreground flex-wrap">
-                <div className="flex items-center gap-1">
-                  <Shield className="w-4 h-4" />
+                            <FormField
+                              control={form.control}
+                              name="phone"
+                              render={({ field }) => (
+                                <FormItem className="space-y-1.5">
+                                  <FormLabel className="text-xs font-semibold text-[#374151]">Phone number</FormLabel>
+                                  <div className="flex gap-2">
+                                    <Popover open={openCountry} onOpenChange={setOpenCountry}>
+                                      <PopoverTrigger asChild>
+                                        <Button
+                                          variant="outline"
+                                          role="combobox"
+                                          aria-expanded={openCountry}
+                                          className="w-[100px] h-11 rounded-lg border-gray-200 justify-between px-3 font-normal"
+                                        >
+                                          <div className="flex items-center gap-2 overflow-hidden">
+                                            <ReactCountryFlag 
+                                              countryCode={countries.find((c) => c.dialCode === selectedDialCode)?.code || 'IN'} 
+                                              svg 
+                                            />
+                                            <span className="text-sm truncate">{selectedDialCode}</span>
+                                          </div>
+                                          <ChevronsUpDown className="ml-1 h-3 w-3 shrink-0 opacity-50" />
+                                        </Button>
+                                      </PopoverTrigger>
+                                      <PopoverContent className="w-[300px] p-0" align="start">
+                                        <Command>
+                                          <CommandInput placeholder="Search country or code..." />
+                                          <CommandList>
+                                            <CommandEmpty>No country found.</CommandEmpty>
+                                            <CommandGroup className="max-h-[300px] overflow-auto">
+                                              {countries.map((c) => (
+                                                <CommandItem
+                                                  key={`${c.code}-${c.dialCode}`}
+                                                  value={`${c.name} ${c.dialCode} ${c.code}`}
+                                                  onSelect={() => {
+                                                    setSelectedDialCode(c.dialCode);
+                                                    setOpenCountry(false);
+                                                  }}
+                                                >
+                                                  <div className="flex items-center gap-3 w-full">
+                                                    <ReactCountryFlag countryCode={c.code} svg />
+                                                    <span className="flex-1 text-sm">{c.name}</span>
+                                                    <span className="text-xs text-gray-400">{c.dialCode}</span>
+                                                    <CheckIcon
+                                                      className={cn(
+                                                        "ml-auto h-4 w-4",
+                                                        selectedDialCode === c.dialCode ? "opacity-100" : "opacity-0"
+                                                      )}
+                                                    />
+                                                  </div>
+                                                </CommandItem>
+                                              ))}
+                                            </CommandGroup>
+                                          </CommandList>
+                                        </Command>
+                                      </PopoverContent>
+                                    </Popover>
+                                    <FormControl className="flex-1">
+                                      <div className="relative flex-1">
+                                        <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                        <Input
+                                          {...field}
+                                          type="tel"
+                                          inputMode="numeric"
+                                          placeholder="000 000 000"
+                                          className="h-11 pl-10 rounded-lg border-gray-200"
+                                          onChange={(e) => {
+                                            const value = e.target.value.replace(/\D/g, '');
+                                            field.onChange(value);
+                                          }}
+                                        />
+                                      </div>
+                                    </FormControl>
+                                  </div>
+                                  <FormMessage className="text-xs" />
+                                </FormItem>
+                              )}
+                            />
+
+                            <FormField
+                              control={form.control}
+                              name="acceptTerms"
+                              render={({ field }) => (
+                                <FormItem className="flex flex-row items-start space-x-2 space-y-0 pt-1">
+                                  <FormControl>
+                                    <Checkbox checked={field.value} onCheckedChange={field.onChange} className="mt-0.5 w-4 h-4 border-gray-300 data-[state=checked]:bg-[#1e5427]" />
+                                  </FormControl>
+                                  <div className="leading-tight">
+                                    <FormLabel className="text-xs font-normal text-[#4B5563] cursor-pointer">
+                                      I agree to the{' '}
+                                      <Link href="/terms-and-condition" className="text-[#1e5427] font-medium hover:underline">
+                                        Terms of Service
+                                      </Link>{' '}
+                                      and{' '}
+                                      <Link href="/privacy-policy" className="text-[#1e5427] font-medium hover:underline">
+                                        Privacy Policy
+                                      </Link>
+                                    </FormLabel>
+                                    <FormMessage className="text-xs" />
+                                  </div>
+                                </FormItem>
+                              )}
+                            />
+                          </form>
+                        </Form>
+                      )}
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* PAYMENT SECTION */}
+              <Card className="border-0 shadow-sm rounded-xl bg-white overflow-hidden">
+                <CardContent className="p-6">
+                  <h2 className="text-xl font-bold text-[#1A1A1A] mb-4">Select a payment method</h2>
+                  
+                  {!initResponse ? (
+                    <div className="space-y-4">
+                      {gateways.length > 0 ? (
+                        <div className="space-y-2.5">
+                          {gateways.map((gateway) => {
+                            const isSelected = selectedGateway?.id === gateway.id;
+                            const providerName = gateway.provider.toLowerCase();
+                            
+                            return (
+                              <div
+                                key={gateway.id}
+                                onClick={() => setSelectedGateway(gateway)}
+                                className={`
+                                  group relative p-4 rounded-lg border transition-all duration-200
+                                  flex items-center justify-between
+                                  ${isSelected
+                                    ? 'border-[#1e5427] bg-[#F0FDF4]'
+                                    : 'border-gray-100 hover:border-gray-200 bg-white'}
+                                `}
+                              >
+                                <div className="flex items-center gap-3">
+                                  <div className={`w-9 h-9 rounded-full flex items-center justify-center ${isSelected ? 'bg-[#1e5427]/10 text-[#1e5427]' : 'bg-gray-50 text-gray-400'}`}>
+                                    {providerName.includes('card') || providerName.includes('stripe') || providerName.includes('powertranz') ? (
+                                      <CreditCard className="w-4.5 h-4.5" />
+                                    ) : providerName.includes('paypal') ? (
+                                      <Wallet className="w-4.5 h-4.5" />
+                                    ) : (
+                                      <CircleDollarSign className="w-4.5 h-4.5" />
+                                    )}
+                                  </div>
+                                  <div>
+                                    <p className={`font-semibold text-sm ${isSelected ? 'text-[#1e5427]' : 'text-[#1A1A1A]'}`}>
+                                      {providerName.includes('stripe') || providerName.includes('powertranz') ? 'Credit or debit card' : 
+                                       providerName.includes('paypal') ? 'PayPal' : 
+                                       providerName.includes('google') ? 'Google Pay' : gateway.provider.toUpperCase()}
+                                    </p>
+                                    {providerName.includes('card') && (
+                                      <div className="flex gap-1 mt-0.5">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" className="h-2.5 opacity-60" alt="Visa" />
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" className="h-2.5 opacity-60" alt="Mastercard" />
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+                                <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${isSelected ? 'border-[#1e5427] bg-[#1e5427]' : 'border-gray-200'}`}>
+                                  {isSelected && <Check className="w-3 h-3 text-white" />}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <div className="p-6 text-center border border-dashed border-gray-100 rounded-lg">
+                          <p className="text-sm text-gray-400">No payment methods available for this currency.</p>
+                        </div>
+                      )}
+
+                      {/* POWERTRANZ CARD FORM */}
+                      {selectedGateway?.provider === 'powertranz' && (
+                        <div className="mt-4 p-4 bg-gray-50 rounded-xl space-y-3 border border-gray-100">
+                          <h4 className="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2">
+                            <CreditCard className="w-4 h-4 text-gray-400" />
+                            Card Details
+                          </h4>
+                          <Input
+                            placeholder="Card Number"
+                            className="h-10 text-sm rounded-md border-gray-200"
+                            onChange={(e) => setCustomerInfo(prev => ({ ...prev, cardPan: e.target.value.replace(/\D/g, '') }))}
+                          />
+                          <div className="grid grid-cols-2 gap-3">
+                            <Input
+                              placeholder="MM/YY"
+                              className="h-10 text-sm rounded-md border-gray-200"
+                              onChange={(e) => setCustomerInfo(prev => ({ ...prev, cardExpiry: e.target.value.replace(/\D/g, '') }))}
+                            />
+                            <Input
+                              placeholder="CVV"
+                              className="h-10 text-sm rounded-md border-gray-200"
+                              onChange={(e) => setCustomerInfo(prev => ({ ...prev, cardCvv: e.target.value.replace(/\D/g, '') }))}
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      <Button 
+                        disabled={isSubmitting || !selectedGateway} 
+                        onClick={() => isAuthenticated ? onSubmit({ email: user?.email, acceptTerms: true }) : form.handleSubmit(onSubmit)()}
+                        className="w-full h-12 mt-2 bg-[#1e5427] hover:bg-[#1a4a22] text-white text-base font-bold rounded-lg transition-all"
+                      >
+                        {isSubmitting ? (
+                          <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Processing...</>
+                        ) : (
+                          isFreeOrder ? 'Confirm Order' : 'Complete Purchase'
+                        )}
+                      </Button>
+                    </div>
+                  ) : (
+                    <PaymentGatewayRenderer
+                      initData={initResponse}
+                      email={customerInfo?.email || user?.email}
+                    />
+                  )}
+                </CardContent>
+              </Card>
+
+              <div className="flex items-center gap-4 justify-center py-2">
+                <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                  <Shield className="w-3.5 h-3.5" />
                   <span>Secure Checkout</span>
                 </div>
-                <div className="flex items-center gap-1">
-                  <Zap className="w-4 h-4" />
+                <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                  <Lock className="w-3.5 h-3.5" />
+                  <span>Encrypted</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                  <Zap className="w-3.5 h-3.5" />
                   <span>Instant Delivery</span>
                 </div>
               </div>
             </div>
 
-            {/* ORDER SUMMARY */}
-            <div className="lg:col-span-2">
-              <Card className="border-0 shadow-lg sticky top-24">
+            {/* RIGHT COLUMN - ORDER SUMMARY */}
+            <div className="lg:col-span-5">
+              <Card className="border-0 shadow-sm rounded-xl bg-white sticky top-8">
                 <CardContent className="p-6">
-                  <h3 className="font-semibold text-foreground mb-4">Order Summary</h3>
+                  <h2 className="text-xl font-bold text-[#1A1A1A] mb-6">Order summary</h2>
 
-                  <div className="flex items-center gap-3 mb-4 pb-4 border-b border-border">
+                  <div className="bg-[#F8F9FA] rounded-xl p-3.5 flex items-center gap-3 mb-6">
                     {packageData.countryCode && (
-                      <div className="w-10 h-8 rounded overflow-hidden border border-border flex-shrink-0">
+                      <div className="w-10 h-7 rounded overflow-hidden shadow-sm flex-shrink-0">
                         <ReactCountryFlag
                           countryCode={packageData.countryCode}
                           svg
@@ -1221,163 +1011,151 @@ export default function UnifiedCheckout() {
                         />
                       </div>
                     )}
-
-                    <div>
-                      <p className="font-medium text-foreground">
-                        {formatPackageTitle(packageData)}
-                      </p>
-                      <p className="text-sm text-muted-foreground">eSIM Data Plan</p>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3 mb-4 pb-4 border-b border-border">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Data</span>
-                      <span className="font-medium text-foreground">
-                        {formatDataAmount(packageData)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Validity</span>
-                      <span className="font-medium text-foreground">
-                        {packageData.validity} Days
-                      </span>
-                    </div>
-                    {/* <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Coverage</span>
-                      {packageData.coverage.map((res) => (
-                        <span className="font-medium text-foreground">{res}</span>
-                      ))}
-                    </div> */}
-                    <div className="flex justify-between items-center text-sm">
-                      <span className="text-muted-foreground">Quantity</span>
-                      <div className="flex items-center gap-2">
-                        {/* <Button
-                          type="button"
-                          size="icon"
-                          variant="outline"
-                          className="h-7 w-7"
-                          onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                          disabled={quantity <= 1}
-                        >
-                          <Minus className="w-3 h-3" />
-                        </Button> */}
-                        <span className="font-medium text-foreground w-8 text-center">
-                          {quantity}
-                        </span>
-                        {/* <Button
-                          type="button"
-                          size="icon"
-                          variant="outline"
-                          className="h-7 w-7"
-                          onClick={() => setQuantity(Math.min(10, quantity + 1))}
-                          disabled={quantity >= 10}
-                        >
-                          <Plus className="w-3 h-3" />
-                        </Button> */}
-                      </div>
-                    </div>
-                  </div>
-
-                  {quantity > 1 && (
-                    <div className="space-y-2 mb-4 pb-4 border-b border-border">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Price per eSIM</span>
-                        <span className="text-foreground">
-                          {getCurrencySymbol(packageData.currency)}
-                          {packageData.retailPrice || packageData.price}
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Subtotal ({quantity} eSIMs)</span>
-                        <span className="text-foreground">
-                          {getCurrencySymbol(packageData.currency)}
-                          {(
-                            parseFloat(packageData.retailPrice || packageData.price) * quantity
-                          ).toFixed(2)}
-                        </span>
-                      </div>
-                    </div>
-                  )}
-
-                  {(appliedPromo || appliedReferralCredits > 0) && (
-                    <div className="space-y-2 mb-4 pb-4 border-b border-border">
-                      {/* {appliedPromo && (
-                        <div className="flex justify-between text-sm">
-                          <span className="text-green-600 dark:text-green-400">
-                            Promo Discount ({appliedPromo.code})
-                          </span>
-                          <span className="text-green-600 dark:text-green-400">
-                            -{getCurrencySymbol(packageData.currency)}
-                            {appliedPromo.discount.toFixed(2)}
-                          </span>
-                        </div>
-                      )} */}
-
-                      {appliedPromo && (
-                        <div className="flex justify-between text-sm">
-                          <span className="text-green-600 dark:text-green-400">
-                            {appliedPromo.type === 'voucher' &&
-                              `Voucher Applied (${appliedPromo.code})`}
-                            {appliedPromo.type === 'giftcard' &&
-                              `Gift Card Applied (${appliedPromo.code})`}
-                            {appliedPromo.type === 'referral' &&
-                              `Referral Applied (${appliedPromo.code})`}
-                          </span>
-                          <span className="text-green-600 dark:text-green-400">
-                            -{getCurrencySymbol(packageData.currency)}
-                            {appliedPromo.discount.toFixed(2)}
-                          </span>
-                        </div>
-                      )}
-
-                      {appliedReferralCredits > 0 && (
-                        <div className="flex justify-between text-sm">
-                          <span className="text-amber-600 dark:text-amber-400">
-                            Referral Credits
-                          </span>
-                          <span className="text-amber-600 dark:text-amber-400">
-                            -{getCurrencySymbol(packageData.currency)}
-                            {appliedReferralCredits.toFixed(2)}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  <div className="flex justify-between items-center">
-                    <span className="font-semibold text-foreground">Total</span>
-                    <span className="text-2xl font-bold text-foreground">
-                      {getCurrencySymbol(packageData.currency)}
-                      {calculateTotal()}
+                    <span className="text-lg font-bold text-[#1A1A1A]">
+                      {packageData.countryName || packageData.countryCode || 'Global'}
                     </span>
                   </div>
 
-                  {isFreeOrder && (
-                    <div className="mt-2 text-xs text-green-700 bg-green-100 px-2 py-1 rounded">
-                      🎉 Fully covered by credits. No payment required.
+                  <div className="space-y-4 pb-6 border-b border-gray-100">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-[#6B7280]">Plan</span>
+                      <span className="font-bold text-[#1A1A1A]">{formatDataAmount(packageData)}</span>
                     </div>
-                  )}
-
-
-                  <div className="mt-4 p-3 bg-green-50 dark:bg-green-500/10 rounded-lg">
-                    <div className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
-                      <p className="text-xs text-green-700 dark:text-green-400">
-                        Instant activation after payment.{' '}
-                        {quantity > 1 ? `Your ${quantity} eSIMs will be` : 'Your eSIM will be'}{' '}
-                        ready immediately.
-                      </p>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-[#6B7280]">Type</span>
+                      <span className="font-bold text-[#1A1A1A]">Data only</span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-[#6B7280]">Duration</span>
+                      <span className="font-bold text-[#1A1A1A]">{packageData.validity} days</span>
                     </div>
                   </div>
+
+                  {/* PRICE & PROMOS */}
+                  <div className="py-6 space-y-3.5">
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg font-bold text-[#1A1A1A]">Total</span>
+                      <span className="text-2xl font-black text-[#1A1A1A]">
+                        {getCurrencySymbol(packageData.currency)}{calculateTotal()}
+                      </span>
+                    </div>
+
+                    {appliedPromo && (
+                      <div className="flex justify-between items-center bg-green-50 p-2.5 rounded-lg border border-green-100">
+                        <div className="flex items-center gap-2">
+                          <Tag className="w-3.5 h-3.5 text-green-600" />
+                          <span className="text-xs font-semibold text-green-700">{appliedPromo.code} applied</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-bold text-green-700">-{getCurrencySymbol(packageData.currency)}{appliedPromo.discount.toFixed(2)}</span>
+                          <Button variant="ghost" size="sm" onClick={removePromo} className="h-5 w-5 p-0 rounded-full hover:bg-green-100 text-green-700">
+                            <X className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+
+                    {appliedReferralCredits > 0 && (
+                      <div className="flex justify-between items-center bg-amber-50 p-2.5 rounded-lg border border-amber-100">
+                        <div className="flex items-center gap-2">
+                          <Coins className="w-3.5 h-3.5 text-amber-600" />
+                          <span className="text-xs font-semibold text-amber-700">Credits used</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-bold text-amber-700">-{getCurrencySymbol(packageData.currency)}{appliedReferralCredits.toFixed(2)}</span>
+                          <Button variant="ghost" size="sm" onClick={removeCredits} className="h-5 w-5 p-0 rounded-full hover:bg-amber-100 text-amber-700">
+                            <X className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* PROMO ACTIONS - Only show if logged in */}
+                  {isAuthenticated && (
+                    <div className="space-y-4">
+                      <Collapsible open={isPromoOpen} onOpenChange={setIsPromoOpen}>
+                        <CollapsibleTrigger asChild>
+                          <Button variant="ghost" className="w-full h-10 rounded-lg text-[#1e5427] hover:text-[#1a4a22] hover:bg-green-50 text-sm font-bold border border-green-100">
+                            Got a coupon?
+                          </Button>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="pt-3 space-y-3 animate-in slide-in-from-top-2 duration-200">
+                          {/* Restore Promo Type Selection */}
+                          {!appliedPromo && (
+                            <div className="flex gap-1 p-1 bg-gray-100 rounded-lg">
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                className={`flex-1 h-8 text-[10px] uppercase tracking-wider font-bold transition-all ${
+                                  promoCodeType === 'voucher' 
+                                    ? 'bg-[#1e5427] text-white shadow-sm hover:bg-[#1e5427] hover:text-white' 
+                                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
+                                }`}
+                                onClick={() => setPromoCodeType('voucher')}
+                              >
+                                Voucher
+                              </Button>
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                className={`flex-1 h-8 text-[10px] uppercase tracking-wider font-bold transition-all ${
+                                  promoCodeType === 'giftcard' 
+                                    ? 'bg-[#1e5427] text-white shadow-sm hover:bg-[#1e5427] hover:text-white' 
+                                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
+                                }`}
+                                onClick={() => setPromoCodeType('giftcard')}
+                              >
+                                Gift Card
+                              </Button>
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                className={`flex-1 h-8 text-[10px] uppercase tracking-wider font-bold transition-all ${
+                                  promoCodeType === 'referral' 
+                                    ? 'bg-[#1e5427] text-white shadow-sm hover:bg-[#1e5427] hover:text-white' 
+                                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
+                                }`}
+                                onClick={() => setPromoCodeType('referral')}
+                              >
+                                Referral
+                              </Button>
+                            </div>
+                          )}
+
+                          <div className="flex gap-2">
+                            <Input 
+                              placeholder={`Enter ${promoCodeType} code`} 
+                              value={promoCode} 
+                              onChange={(e) => setPromoCode(e.target.value)}
+                              className="h-10 text-sm rounded-lg"
+                            />
+                            <Button onClick={handleApplyPromo} disabled={isValidatingPromo || !promoCode} className="h-10 px-4 rounded-lg bg-[#1e5427]">
+                              {isValidatingPromo ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : 'Apply'}
+                            </Button>
+                          </div>
+                        </CollapsibleContent>
+                      </Collapsible>
+
+                      {availableCredits > 0 && !appliedReferralCredits && (
+                        <div className="p-3 bg-amber-50 rounded-lg border border-amber-100">
+                          <p className="text-xs font-semibold text-amber-800 mb-2">Available Credits: ${availableCredits.toFixed(2)}</p>
+                          <Button size="sm" onClick={() => handleApplyCredits(availableCredits)} className="w-full h-8 bg-amber-600 hover:bg-amber-700 text-xs font-bold rounded-md">
+                            Apply Referral Credits
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </div>
           </div>
         </div>
       </main>
-
-      {/* <SiteFooter /> */}
     </div>
   );
 }
