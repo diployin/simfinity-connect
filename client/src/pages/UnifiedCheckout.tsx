@@ -25,6 +25,7 @@ import {
   Coins,
   Wallet,
   CircleDollarSign,
+  X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -39,16 +40,34 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import { cn } from "@/lib/utils";
+import { ChevronsUpDown, Check as CheckIcon } from "lucide-react";
 import { useToast } from '@/hooks/use-toast';
 import { useUser } from '@/hooks/use-user';
 import { useCurrency } from '@/contexts/CurrencyContext';
 import ReactCountryFlag from 'react-country-flag';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { CheckoutAuth } from '@/components/CheckoutAuth';
-import PaymentGatewayRenderer from '@/components/payments/PaymentGatewayRenderer';
-import { useSettingByKey } from '@/hooks/useSettings';
-import { useTranslation } from '@/contexts/TranslationContext';
 import { PackageDataApiRes } from '@/types/types';
+import { signInWithGoogle } from "@/lib/firebase";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useSettingByKey } from '@/hooks/useSettings';
+import { useTranslation } from "@/contexts/TranslationContext";
 
 
 type UnifiedPackage = {
@@ -71,8 +90,11 @@ type UnifiedPackage = {
   countryName: string | null;
 };
 
-const formatDataAmount = (pkg: any): string => {
-  if (!pkg) return 'eSIM';
+import { countries } from '@/lib/countries';
+import PaymentGatewayRenderer from '@/components/payments/PaymentGatewayRenderer';
+
+const formatDataAmount = (pkg: any, t: any): string => {
+  if (!pkg) return t('checkout.esim', 'eSIM');
   const dataMb = Number(pkg.dataMb);
   if (
     pkg.isUnlimited ||
@@ -81,7 +103,7 @@ const formatDataAmount = (pkg: any): string => {
     pkg.dataAmount === '-1MB' ||
     pkg.dataAmount?.includes('-1')
   ) {
-    return 'Unlimited';
+    return t('checkout.unlimited', 'Unlimited');
   }
   if (!isNaN(dataMb) && dataMb > 0) {
     if (dataMb >= 1024) {
@@ -96,11 +118,11 @@ const formatDataAmount = (pkg: any): string => {
   if (pkg.dataAmount && !pkg.dataAmount.includes('-1')) {
     return pkg.dataAmount;
   }
-  return 'Data';
+  return t('checkout.data', 'Data');
 };
 
-const formatPackageTitle = (pkg: any): string => {
-  const data = formatDataAmount(pkg);
+const formatPackageTitle = (pkg: any, t: any): string => {
+  const data = formatDataAmount(pkg, t);
   let validity = pkg.validity ?? pkg.validityDays ?? 0;
   const country = pkg.countryName || pkg.countryCode || '';
 
@@ -113,41 +135,44 @@ const formatPackageTitle = (pkg: any): string => {
 
   if (country && data) {
     if (validity > 0) {
-      return `${data} - ${validity} Days - ${country}`;
+      return `${data} - ${validity} ${t('checkout.days', 'Days')} - ${country}`;
     }
     return `${data} - ${country}`;
   }
   if (pkg.title) {
     let formattedTitle = pkg.title
-      .replace(/-1MB/g, 'Unlimited')
-      .replace(/-1 MB/g, 'Unlimited')
-      .replace(/-1mb/g, 'Unlimited');
+      .replace(/-1MB/g, t('checkout.unlimited', 'Unlimited'))
+      .replace(/-1 MB/g, t('checkout.unlimited', 'Unlimited'))
+      .replace(/-1mb/g, t('checkout.unlimited', 'Unlimited'));
     const parts = formattedTitle.match(/^(.+?)\s+(\d+(?:GB|MB)|Unlimited)\s+(\d+)\s*Days?$/i);
     if (parts) {
-      return `${parts[2]} - ${parts[3]} Days - ${parts[1]}`;
+      return `${parts[2]} - ${parts[3]} ${t('checkout.days', 'Days')} - ${parts[1]}`;
     }
     return formattedTitle;
   }
-  return `${data} eSIM`;
+  return `${data} ${t('checkout.esim', 'eSIM')}`;
 };
 
-const checkoutSchema = (t: any) => z.object({
-  email: z.string().email(t('checkout.validation.email', 'Please enter a valid email address')),
-  phone: z.string().min(5, t('checkout.validation.phone', 'Please enter a valid phone number')),
-  acceptTerms: z.boolean().refine((val) => val === true, {
-    message: t('checkout.validation.terms', 'You must accept the terms and privacy policy'),
-  }),
-});
-
-type CheckoutFormData = z.infer<typeof checkoutSchema>;
-
 export default function UnifiedCheckout() {
+  const { t } = useTranslation();
+
+  const guestSchema = z.object({
+    email: z.string().email(t('checkout.validation.email', 'Please enter a valid email address')),
+    phone: z.string().optional().refine(val => !val || val.length >= 7, {
+      message: t('checkout.validation.phone', 'Please enter a valid phone number')
+    }),
+    acceptTerms: z.boolean().refine(val => val === true, {
+      message: t('checkout.validation.terms', 'You must accept the terms and privacy policy')
+    }),
+  });
+
+  type CheckoutFormData = z.infer<typeof guestSchema>;
+
   const { packageSlug } = useParams();
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const { currency, currencies } = useCurrency();
   const { user, isAuthenticated, isLoading: userLoading, refetchUser } = useUser();
-  const { t } = useTranslation();
 
   const [gateways, setGateways] = useState([]);
   const [selectedGateway, setSelectedGateway] = useState(null);
@@ -167,20 +192,37 @@ export default function UnifiedCheckout() {
   // Credits states
   const [appliedReferralCredits, setAppliedReferralCredits] = useState(0);
   const [isCreditsOpen, setIsCreditsOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [openCountry, setOpenCountry] = useState(false);
+  const [selectedDialCode, setSelectedDialCode] = useState('+91');
+
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithGoogle();
+      const idToken = await result.user.getIdToken();
+
+      await apiRequest("POST", "/api/auth/web/login-with-google", {
+        idToken,
+        referralCode: localStorage.getItem("pendingReferralCode"),
+      });
+
+      refetchUser();
+      toast({
+        title: t("checkout.toasts.success", "Success"),
+        description: t("checkout.toasts.signedIn", "Signed in with Google successfully"),
+      });
+    } catch (err) {
+      console.error("Google login error", err);
+      toast({
+        title: t("checkout.toasts.error", "Error"),
+        description: t("checkout.toasts.signInFailed", "Failed to sign in with Google"),
+        variant: "destructive",
+      });
+    }
+  };
 
   const getCurrencySymbol = (currencyCode) =>
     currencies.find((c) => c.code === currencyCode)?.symbol || '$';
-
-  // useEffect(() => {
-  //   apiRequest('GET', '/api/payments/gateways')
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setGateways(data.data || []);
-  //       if (data.data?.length === 1) setSelectedGateway(data.data[0]);
-  //     });
-  // }, []);
-
-
 
   useEffect(() => {
     apiRequest('GET', `/api/payments/gateways?currency=${currency}`)
@@ -198,7 +240,7 @@ export default function UnifiedCheckout() {
   });
 
   const form = useForm({
-    resolver: zodResolver(checkoutSchema(t)),
+    resolver: zodResolver(guestSchema),
     defaultValues: {
       email: user?.email || '',
       phone: user?.phone || '',
@@ -211,11 +253,13 @@ export default function UnifiedCheckout() {
     enabled: !!packageSlug,
   });
 
-  console.log('packageData', packageData?.coverage);
+  const calculateSubtotal = () => {
+    const basePrice = parseFloat(packageData?.retailPrice || packageData?.price || '0');
+    return basePrice * quantity;
+  };
 
   const calculateTotal = () => {
-    const basePrice = parseFloat(packageData?.retailPrice || packageData?.price || '0');
-    const subtotal = basePrice * quantity;
+    const subtotal = calculateSubtotal();
     const totalDiscount = (appliedPromo?.discount || 0) + appliedReferralCredits;
     return Math.max(subtotal - totalDiscount, 0).toFixed(2);
   };
@@ -223,18 +267,19 @@ export default function UnifiedCheckout() {
   const availableCredits = referralBalanceData?.balance || 0;
 
   const handleApplyPromo = async () => {
-    if (!promoCode.trim()) {
+    if (!promoCode) {
       toast({
-        title: 'Enter a code',
-        description: 'Please enter a promo code, gift card, or referral code',
+        title: t('checkout.toasts.enterCode', 'Enter a code'),
+        description: t('checkout.toasts.enterCodeDesc', 'Please enter a promo code, gift card, or referral code'),
         variant: 'destructive',
       });
       return;
     }
+
     if (appliedPromo) {
       toast({
-        title: 'Code Already Applied',
-        description: 'Remove the current code first to apply a different one',
+        title: t('checkout.toasts.codeAlreadyApplied', 'Code Already Applied'),
+        description: t('checkout.toasts.removeCodeFirst', 'Remove the current code first to apply a different one'),
         variant: 'destructive',
       });
       return;
@@ -242,8 +287,7 @@ export default function UnifiedCheckout() {
 
     setIsValidatingPromo(true);
     try {
-      const basePrice = parseFloat(packageData?.retailPrice || packageData?.price || '0');
-      const orderAmount = basePrice * quantity;
+      const orderAmount = calculateSubtotal();
 
       const res = await apiRequest('POST', '/api/validate-promo-code', {
         code: promoCode.trim(),
@@ -253,54 +297,36 @@ export default function UnifiedCheckout() {
 
       const data = await res.json();
 
-      if (!data.success) {
+      if (data.success) {
+        setAppliedPromo({
+          code: data.code,
+          discount: data.discount,
+          type: data.type,
+          voucherId: data.voucherId,
+          giftCardId: data.giftCardId,
+          referrerId: data.referrerId,
+          balance: data.balance,
+          description: data.description,
+        });
+
         toast({
-          title: 'Invalid Code',
-          description: 'This code is not valid',
+          title: t('checkout.toasts.codeApplied', 'Code Applied'),
+          description: data.description || t('checkout.toasts.discountApplied', 'Discount applied'),
+        });
+
+        setPromoCode('');
+        setIsPromoOpen(false);
+      } else {
+        toast({
+          title: t('checkout.toasts.invalidCode', 'Invalid Code'),
+          description: t('checkout.toasts.invalidCodeDesc', 'This code is not valid'),
           variant: 'destructive',
         });
-        return;
       }
-
-      setAppliedPromo({
-        code: data.code,
-        discount: data.discount,
-        type: data.type,
-        voucherId: data.voucherId,
-        giftCardId: data.giftCardId,
-        referrerId: data.referrerId,
-        balance: data.balance,
-        description: data.description,
-      });
-
-      // toast({
-      //   title: 'Code Applied',
-      //   description: data.description || `Discount of $${data.discount.toFixed(2)} applied`,
-      // });
-
-      toast({
-        title: 'Code Applied',
-        description:
-          data.description ||
-          `Discount of ${getCurrencySymbol(packageData.currency)}${data.discount.toFixed(2)} applied`,
-      });
-
-      setPromoCode('');
-      setIsPromoOpen(false);
     } catch (error) {
-      const extractErrorMessage = (error: any): string => {
-        if (typeof error?.message !== 'string') return 'Something went wrong';
-
-        try {
-          const json = error.message.slice(error.message.indexOf('{'));
-          return JSON.parse(json).message;
-        } catch {
-          return error.message;
-        }
-      };
       toast({
-        title: 'Error',
-        description: extractErrorMessage(error) || 'Failed to validate code',
+        title: t('checkout.toasts.invalidCode', 'Invalid Code'),
+        description: t('checkout.toasts.invalidCodeDesc', 'This code is not valid'),
         variant: 'destructive',
       });
     } finally {
@@ -310,164 +336,117 @@ export default function UnifiedCheckout() {
 
   const removePromo = () => {
     setAppliedPromo(null);
-    toast({ title: 'Code Removed', description: 'Promo code has been removed' });
+    toast({ title: t('checkout.toasts.codeRemoved', 'Code Removed'), description: t('checkout.toasts.promoCodeRemoved', 'Promo code has been removed') });
   };
 
-  const handleApplyCredits = (amount) => {
-    const basePrice = parseFloat(packageData?.retailPrice || packageData?.price || '0');
-    const subtotal = basePrice * quantity;
-    const promoDiscount = appliedPromo?.discount || 0;
-    const maxCredits = Math.min(amount, subtotal - promoDiscount, availableCredits);
-
-    if (maxCredits <= 0) {
+  const handleApplyCredits = (amount: number) => {
+    if (amount > calculateSubtotal() - (appliedPromo?.discount || 0)) {
       toast({
-        title: 'Cannot apply credits',
-        description: 'Credits cannot exceed the order total',
+        title: t('checkout.toasts.cannotApplyCredits', 'Cannot apply credits'),
+        description: t('checkout.toasts.creditsExceedTotal', 'Credits cannot exceed the order total'),
         variant: 'destructive',
       });
       return;
     }
-
-    setAppliedReferralCredits(Math.round(maxCredits * 100) / 100);
+    setAppliedReferralCredits(amount);
     toast({
-      title: 'Credits Applied',
-      description: `$${maxCredits.toFixed(2)} in referral credits applied to your order`,
+      title: t('checkout.toasts.creditsApplied', 'Credits Applied'),
     });
   };
 
   const removeCredits = () => {
     setAppliedReferralCredits(0);
     toast({
-      title: 'Credits Removed',
-      description: 'Referral credits have been removed from your order',
+      title: t('checkout.toasts.creditsRemoved', 'Credits Removed'),
+      description: t('checkout.toasts.referralCreditsRemoved', 'Referral credits have been removed from your order'),
     });
   };
   const totalAmount = Number(calculateTotal());
   const isFreeOrder = totalAmount === 0;
 
+  const onFreeOrderComplete = async (values: any) => {
+    setIsSubmitting(true);
+    try {
+      const orderData = {
+        packageId: packageData.id,
+        email: values.email,
+        promoCode: appliedPromo?.code,
+        appliedCredits: appliedReferralCredits,
+        isFreeOrder: true,
+      };
 
-  const onSubmit = async (data) => {
-    // 🟢 CASE 1: FREE ORDER (₹0)
-    if (totalAmount === 0) {
-      try {
-        const res = await apiRequest('POST', '/api/complete-order', {
-          type: 'package_purchase',
-          userId: user?.id,
-          packageId: packageData.id,
-          quantity,
-          currency: packageData.currency,
+      const res = await apiRequest('POST', '/api/orders', orderData);
+      const data = await res.json();
 
-          promoType: appliedPromo?.type || null,
-          promoCode: appliedPromo?.code || null,
-          giftCardId: appliedPromo?.giftCardId || null,
-          voucherId: appliedPromo?.voucherId || null,
-          referralCredits: appliedReferralCredits || 0,
-          promoDiscount: (appliedPromo?.discount || 0) + (appliedReferralCredits || 0),
-
-          // Customer info (for guests)
-          email: data?.email,
-          name: data?.name || 'Guest',
-          phone: data?.phone,
-        });
-
-        const result = await res.json();
-
-        if (!result.success) {
-          toast({
-            title: 'Order Failed',
-            description: result.message,
-            variant: 'destructive',
-          });
-          return;
-        }
-
-        toast({
-          title: 'Order Confirmed 🎉',
-          description: 'Your eSIM has been activated successfully',
-        });
-
-        // ✅ Redirect to success / orders page
-        setLocation(`/account/orders`);
-        return;
-      } catch (err: any) {
-        toast({
-          title: 'Error',
-          description: err.message || 'Failed to complete order',
-          variant: 'destructive',
-        });
-        return;
-      }
-    }
-
-    // 🔵 CASE 2: PAID ORDER → Normal Gateway Flow
-    if (!selectedGateway) {
       toast({
-        title: 'Select payment method',
-        description: 'Please choose a payment gateway',
+        title: t('checkout.toasts.orderConfirmed', 'Order Confirmed 🎉'),
+        description: t('checkout.toasts.orderConfirmedDesc', 'Your eSIM has been activated successfully'),
+      });
+      setLocation(`/account/orders`);
+    } catch (error: any) {
+      console.error('Checkout error:', error);
+      toast({
+        title: t('checkout.toasts.orderFailed', 'Order Failed'),
+        description: error.message || t('checkout.somethingWrong', 'Something went wrong. Please try again.'),
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const onSubmit = async (values: any) => {
+    if (!isFreeOrder && !selectedGateway) {
+      toast({
+        title: t('checkout.toasts.selectPayment', 'Select payment method'),
+        description: t('checkout.toasts.chooseGateway', 'Please choose a payment gateway'),
         variant: 'destructive',
       });
       return;
     }
 
-    setCustomerInfo(data);
+    setCustomerInfo(values);
 
-    const payload = {
-      gatewayId: selectedGateway.id,
-
-      // 🔑 Pricing inputs (NOT amount)
-      packageId: packageData.id,
-      quantity,
-      currency: packageData.currency,
-      orderId: `ORDER_${Date.now()}`,
-
-      // Promo
-      promoCode: appliedPromo?.code || null,
-      promoType: appliedPromo?.type || null,
-      voucherId: appliedPromo?.voucherId || null,
-      giftCardId: appliedPromo?.giftCardId || null,
-
-      // Referral
-      referralCredits: appliedReferralCredits || 0,
-
-      // Guest info
-      email: data.email,
-      name: data.name || 'Guest',
-    };
-
-    if (selectedGateway.provider === 'powertranz') {
-      payload.card = {
-        pan: customerInfo?.cardPan,
-        cvv: customerInfo?.cardCvv,
-        expiry: customerInfo?.cardExpiry,
-      };
+    if (isFreeOrder) {
+      return onFreeOrderComplete(values);
     }
 
-    apiRequest('POST', '/api/payments/init', payload)
-      .then((res) => res.json())
-      .then((resData) => {
-        if (!resData.success) {
-          toast({
-            title: 'Payment Init Failed',
-            description: resData.message,
-            variant: 'destructive',
-          });
-          return;
-        }
+    setIsSubmitting(true);
+    try {
+      const initData = {
+        packageId: packageData.id,
+        gatewayId: selectedGateway?.id,
+        email: values.email,
+        phone: values.phone,
+        promoCode: appliedPromo?.code,
+        appliedCredits: appliedReferralCredits,
+        // Powertranz specific
+        cardPan: customerInfo?.cardPan,
+        cardExpiry: customerInfo?.cardExpiry,
+        cardCvv: customerInfo?.cardCvv,
+      };
 
-        console.log(selectedGateway.provider, {
-          redirectData: resData?.powertranz?.redirectData,
-          spiToken: resData?.powertranz?.spiToken,
-        });
+      const res = await apiRequest('POST', '/api/payments/init', initData);
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || t('checkout.paymentInitFailed', 'Failed to initialize payment'));
+      }
 
-
-        setInitResponse(resData.payment);
-      }).catch((err) => {
-        toast({
-          title: 'Payment Init Error',
-          description: err.message || 'Failed to call payment init API',
-          variant: 'destructive',
-        });
+      const data = await res.json();
+      setInitResponse(data);
+      toast({
+        title: t('checkout.toasts.paymentInitialized', 'Payment Initialized'),
+        description: t('checkout.toasts.paymentInitializedDesc', 'You can now complete your payment'),
       });
+    } catch (error: any) {
+      toast({
+        title: t('checkout.toasts.paymentInitFailed', 'Payment Init Failed'),
+        description: error.message || t('checkout.toasts.paymentInitError', 'Payment Init Error'),
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
 
@@ -477,14 +456,13 @@ export default function UnifiedCheckout() {
 
       if (!event.data.success) {
         toast({
-          title: 'Payment Failed',
-          description: '3DS authentication failed',
+          title: t('checkout.toasts.paymentFailed', 'Payment Failed'),
+          description: t('checkout.toasts.authFailed', '3DS authentication failed'),
           variant: 'destructive',
         });
         return;
       }
 
-      // ✅ Final payment completion
       apiRequest('POST', '/api/payments/confirm-payments', {
         provider: 'powertranz',
         spiToken: event.data.spiToken,
@@ -495,7 +473,7 @@ export default function UnifiedCheckout() {
             setLocation('/account/orders');
           } else {
             toast({
-              title: 'Payment Failed',
+              title: t('checkout.toasts.paymentFailed', 'Payment Failed'),
               description: res.message,
               variant: 'destructive',
             });
@@ -507,78 +485,15 @@ export default function UnifiedCheckout() {
     return () => window.removeEventListener('message', handler);
   }, []);
 
-
-
-  const onSubmitOLD = (data) => {
-    if (!selectedGateway) {
-      toast({
-        title: 'Select payment method',
-        description: 'Please choose a payment gateway',
-        variant: 'destructive',
-      });
-      return;
-    }
-
-    setCustomerInfo(data);
-
-    const payload = {
-      gatewayId: selectedGateway.id,
-
-      // 🔑 Pricing inputs (NOT amount)
-      packageId: packageData.id,
-      quantity,
-      currency: packageData.currency,
-      orderId: `ORDER_${Date.now()}`,
-
-      // Promo
-      promoCode: appliedPromo?.code || null,
-      promoType: appliedPromo?.type || null,
-      voucherId: appliedPromo?.voucherId || null,
-      giftCardId: appliedPromo?.giftCardId || null,
-
-      // Referral
-      referralCredits: appliedReferralCredits || 0,
-
-      // Guest info
-      email: data.email,
-      name: data.name || 'Guest',
-    };
-
-    apiRequest('POST', '/api/payments/init', payload)
-      .then((res) => res.json())
-      .then((resData) => {
-        if (resData.success) {
-          setShowPromo(false);
-          setInitResponse(resData.payment);
-          toast({ title: 'Payment Initialized', description: 'You can now complete your payment' });
-        } else {
-          toast({
-            title: 'Payment Init Failed',
-            description: resData.message || 'Could not initialize payment',
-            variant: 'destructive',
-          });
-        }
-      })
-      .catch((err) => {
-        toast({
-          title: 'Payment Init Error',
-          description: err.message || 'Failed to call payment init API',
-          variant: 'destructive',
-        });
-      });
-  };
-
   if (isLoadingPackage) {
     return (
       <div className="min-h-screen bg-background flex flex-col">
-        {/* <SiteHeader /> */}
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
             <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#2c7338] border-r-transparent"></div>
-            <p className="mt-4 text-muted-foreground">Loading...</p>
+            <p className="mt-4 text-muted-foreground">{t('common.loading', 'Loading...')}</p>
           </div>
         </div>
-        {/* <SiteFooter /> */}
       </div>
     );
   }
@@ -586,599 +501,333 @@ export default function UnifiedCheckout() {
   if (!packageData) {
     return (
       <div className="min-h-screen bg-background flex flex-col">
-        {/* <SiteHeader /> */}
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
-            <p className="text-muted-foreground">Package not found</p>
+            <p className="text-muted-foreground">{t('checkout.packageNotFound', 'Package not found')}</p>
             <Button onClick={() => setLocation('/')} className="mt-4">
-              Go Home
+              {t('common.goHome', 'Go Home')}
             </Button>
           </div>
         </div>
-        {/* <SiteFooter /> */}
       </div>
     );
   }
 
-  const unitPrice = parseFloat(packageData.retailPrice || packageData.price || '0');
-
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-[#FDFDFD] font-sans selection:bg-[#1e5427]/10">
       <Helmet>
-        <title>{`${t('checkout.title', 'Checkout')} - ${formatDataAmount(packageData)} eSIM | ${siteName}`}</title>
+        <title>{`${t('checkout.title', 'Checkout')} - ${formatDataAmount(packageData, t)} | ${siteName}`}</title>
       </Helmet>
-      {/* <SiteHeader /> */}
 
-      <main className="flex-1 pt-20 pb-12">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <Button variant="ghost" onClick={() => window.history.back()} className="mb-6">
-            <ArrowLeft className="w-4 h-4 mr-2" /> {t('checkout.back', 'Back')}
-          </Button>
-
-          <div className="grid lg:grid-cols-5 gap-8">
-            <div className="lg:col-span-3 space-y-6">
-              <div>
-                <h1 className="text-2xl font-bold text-foreground mb-2">{t('checkout.title', 'Checkout')}</h1>
-                <p className="text-muted-foreground">
-                  {t('checkout.subtitle', 'Complete your purchase to get instant access to your eSIM')}
-                </p>
+      <main className="flex-1 py-8">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="flex items-center gap-2 mb-6">
+            <Link href={`/destination/${packageData.countryCode || 'global'}`} className="inline-flex items-center gap-2 text-gray-500 hover:text-[#1e5427] transition-colors group">
+              <div className="p-2 rounded-full group-hover:bg-green-50 transition-colors">
+                <ArrowLeft className="w-4 h-4" />
               </div>
+              <span className="text-base font-medium">{t('checkout.backToPlans', 'Back to plans')}</span>
+            </Link>
+          </div>
 
-              {showPromo && isAuthenticated && (
-                <Card className="border-0 shadow-lg">
-                  <CardContent className="p-6">
-                    <Collapsible open={isPromoOpen} onOpenChange={setIsPromoOpen}>
-                      <CollapsibleTrigger className="flex items-center justify-between w-full">
-                        <div className="flex items-center gap-2">
-                          <Tag className="w-4 h-4 text-muted-foreground" />
-                          <span className="font-medium text-foreground">
-                            {t('checkout.promoCode', 'Have promo, giftcard or referral?')}
-                          </span>
+          <div className="grid lg:grid-cols-12 gap-6 items-start">
+            <div className="lg:col-span-7 space-y-6">
+
+              <Card className="border-0 shadow-sm rounded-xl overflow-hidden bg-white">
+                <CardContent className="p-6">
+                  {isAuthenticated ? (
+                    <div className="space-y-4">
+                      <h2 className="text-xl font-bold text-[#1A1A1A]">{t('checkout.yourAccount', 'Your Account')}</h2>
+                      <div className="flex items-center gap-4">
+                        <div className="flex flex-col">
+                          <span className="text-sm font-bold text-[#1A1A1A]">{user?.email}</span>
+                          <button
+                            onClick={() => apiRequest('POST', '/api/auth/logout').then(() => refetchUser())}
+                            className="text-xs text-red-500 hover:text-red-600 font-medium text-left"
+                          >
+                            {t('checkout.logout', 'Logout')}
+                          </button>
                         </div>
-                        <Plus
-                          className={`w-4 h-4 transition-transform ${isPromoOpen ? 'rotate-45' : ''}`}
-                        />
-                      </CollapsibleTrigger>
-                      <CollapsibleContent className="pt-4 space-y-4">
-                        {!appliedPromo && (
-                          <>
-                            <div className="flex gap-2 flex-wrap">
-                              <Button
-                                type="button"
-                                variant={promoCodeType === 'voucher' ? 'default' : 'outline'}
-                                size="sm"
-                                onClick={() => setPromoCodeType('voucher')}
-                              >
-                                <Tag className="w-3 h-3 mr-1" />
-                                {t('checkout.voucher', 'Voucher')}
-                              </Button>
-                              <Button
-                                type="button"
-                                variant={promoCodeType === 'giftcard' ? 'default' : 'outline'}
-                                size="sm"
-                                onClick={() => setPromoCodeType('giftcard')}
-                              >
-                                <Gift className="w-3 h-3 mr-1" />
-                                {t('checkout.giftCard', 'Gift Card')}
-                              </Button>
-                              <Button
-                                type="button"
-                                variant={promoCodeType === 'referral' ? 'default' : 'outline'}
-                                size="sm"
-                                onClick={() => setPromoCodeType('referral')}
-                              >
-                                <Users className="w-3 h-3 mr-1" />
-                                {t('checkout.referral', 'Referral')}
-                              </Button>
-                            </div>
-
-                            <div className="flex gap-2">
-                              <Input
-                                placeholder={`Enter ${promoCodeType === 'voucher' ? 'voucher' : promoCodeType === 'giftcard' ? 'gift card' : 'referral'} code`}
-                                value={promoCode}
-                                onChange={(e) => setPromoCode(e.target.value)}
-                              />
-                              <Button
-                                type="button"
-                                onClick={handleApplyPromo}
-                                variant="outline"
-                                disabled={isValidatingPromo}
-                              >
-                                {isValidatingPromo ? (
-                                  <Loader2 className="w-4 h-4 animate-spin" />
-                                ) : (
-                                  t('checkout.apply', 'Apply')
-                                )}
-                              </Button>
-                            </div>
-                          </>
-                        )}
-
-                        {appliedPromo && (
-                          <>
-                            <p className="text-xs text-muted-foreground">
-                              Only one code can be applied per order. Remove the current code to
-                              apply a different one.
-                            </p>
-                            <div className="flex items-center justify-between bg-green-50 dark:bg-green-500/10 p-3 rounded-lg">
-                              <div className="flex flex-col gap-1">
-                                <div className="flex items-center gap-2">
-                                  <Check className="w-4 h-4 text-green-600" />
-                                  <span className="text-sm font-medium text-green-700 dark:text-green-400">
-                                    {appliedPromo.type === 'voucher'
-                                      ? 'Voucher'
-                                      : appliedPromo.type === 'giftcard'
-                                        ? 'Gift Card'
-                                        : 'Referral'}
-                                    : {appliedPromo.code}
-                                  </span>
-                                </div>
-                                {/* <span className="text-xs text-green-600 dark:text-green-500 ml-6">
-                                  {appliedPromo.type === 'giftcard' && appliedPromo.balance
-                                    ? `$${appliedPromo.discount.toFixed(2)} applied (Balance: $${appliedPromo.balance.toFixed(2)})`
-                                    : appliedPromo.discount > 0
-                                      ? `-$${appliedPromo.discount.toFixed(2)} discount`
-                                      : appliedPromo.description || 'Discount applied'}
-                                </span> */}
-
-                                <span className="text-xs text-green-600 dark:text-green-500 ml-6">
-                                  {appliedPromo.type === 'giftcard' && appliedPromo.balance ? (
-                                    <>
-                                      {getCurrencySymbol(packageData.currency)}
-                                      {appliedPromo.discount.toFixed(2)} applied (Balance:
-                                      {getCurrencySymbol(packageData.currency)}
-                                      {appliedPromo.balance.toFixed(2)})
-                                    </>
-                                  ) : appliedPromo.discount > 0 ? (
-                                    <>
-                                      -{getCurrencySymbol(packageData.currency)}
-                                      {appliedPromo.discount.toFixed(2)} discount
-                                    </>
-                                  ) : (
-                                    appliedPromo.description || 'Discount applied'
-                                  )}
-                                </span>
-                              </div>
-                              <Button
-                                type="button"
-                                variant="ghost"
-                                size="sm"
-                                onClick={removePromo}
-                                className="text-red-500 hover:text-red-600"
-                              >
-                                {t('checkout.remove', 'Remove')}
-                              </Button>
-                            </div>
-                          </>
-                        )}
-                      </CollapsibleContent>
-                    </Collapsible>
-                  </CardContent>
-                </Card>
-              )}
-
-
-              {/* POWERTRANZ CARD FORM */}
-              {selectedGateway?.provider === 'powertranz' && !initResponse && (
-                <Card className="border border-border">
-                  <CardContent className="p-4 space-y-4">
-                    <h4 className="font-medium flex items-center gap-2">
-                      <CreditCard className="w-4 h-4" />
-                      {t('checkout.cardDetails', 'Card Details')}
-                    </h4>
-
-                    <Input
-                      placeholder={t('checkout.cardNumber', 'Card Number')}
-                      inputMode="numeric"
-                      maxLength={19}
-                      onChange={(e) =>
-                        setCustomerInfo((prev) => ({
-                          ...prev,
-                          cardPan: e.target.value.replace(/\D/g, ''),
-                        }))
-                      }
-                    />
-
-                    <div className="grid grid-cols-2 gap-3">
-                      <Input
-                        placeholder={t('checkout.expiry', 'MMYY')}
-                        maxLength={4}
-                        inputMode="numeric"
-                        onChange={(e) =>
-                          setCustomerInfo((prev) => ({
-                            ...prev,
-                            cardExpiry: e.target.value.replace(/\D/g, ''),
-                          }))
-                        }
-                      />
-
-                      <Input
-                        placeholder={t('checkout.cvv', 'CVV')}
-                        maxLength={4}
-                        inputMode="numeric"
-                        onChange={(e) =>
-                          setCustomerInfo((prev) => ({
-                            ...prev,
-                            cardCvv: e.target.value.replace(/\D/g, ''),
-                          }))
-                        }
-                      />
-                    </div>
-
-                    <p className="text-xs text-muted-foreground">
-                      {t('checkout.secureNote', 'Your card is secured with 3D Secure authentication.')}
-                    </p>
-                  </CardContent>
-                </Card>
-              )}
-
-
-
-              {/* REFERRAL CREDITS - Only for authenticated users */}
-              {isAuthenticated && availableCredits > 0 && (
-                <Card className="border-0 shadow-lg">
-                  <CardContent className="p-6">
-                    <Collapsible open={isCreditsOpen} onOpenChange={setIsCreditsOpen}>
-                      <CollapsibleTrigger className="flex items-center justify-between w-full">
-                        <div className="flex items-center gap-2">
-                          <Coins className="w-4 h-4 text-amber-500" />
-                          <span className="font-medium text-foreground">{t('checkout.useReferralCredits', 'Use Referral Credits')}</span>
-                          <span className="text-sm text-muted-foreground">
-                            (${availableCredits.toFixed(2)} {t('checkout.creditsAvailable', 'available')})
-                          </span>
-                        </div>
-                        <Plus
-                          className={`w-4 h-4 transition-transform ${isCreditsOpen ? 'rotate-45' : ''}`}
-                        />
-                      </CollapsibleTrigger>
-                      <CollapsibleContent className="pt-4 space-y-4">
-                        <p className="text-sm text-muted-foreground">
-                          {t('checkout.creditsNote', 'You have referral credits that can be used as a discount on this order.')}
-                        </p>
-
-                        {appliedReferralCredits > 0 ? (
-                          <div className="flex items-center justify-between bg-amber-50 dark:bg-amber-500/10 p-3 rounded-lg">
-                            <div className="flex items-center gap-2">
-                              <Check className="w-4 h-4 text-amber-600" />
-                              <span className="text-sm text-amber-700 dark:text-amber-400">
-                                ${appliedReferralCredits.toFixed(2)} {t('checkout.creditsApplied', 'credits applied')}
-                              </span>
-                            </div>
-                            <Button
-                              type="button"
-                              variant="ghost"
-                              size="sm"
-                              onClick={removeCredits}
-                              className="text-red-500 hover:text-red-600"
-                            >
-                              {t('checkout.remove', 'Remove')}
-                            </Button>
-                          </div>
-                        ) : (
-                          <div className="flex gap-2 flex-wrap">
-                            <Button
-                              type="button"
-                              variant="outline"
-                              size="sm"
-                              onClick={() => handleApplyCredits(availableCredits)}
-                            >
-                              {t('checkout.applyAll', 'Apply All')} (${availableCredits.toFixed(2)})
-                            </Button>
-                            <Button
-                              type="button"
-                              variant="outline"
-                              size="sm"
-                              onClick={() => {
-                                const basePrice = parseFloat(
-                                  packageData?.retailPrice || packageData?.price || '0',
-                                );
-                                const subtotal = basePrice * quantity;
-                                const halfCredits = Math.min(availableCredits / 2, subtotal);
-                                handleApplyCredits(halfCredits);
-                              }}
-                            >
-                              {t('checkout.applyHalf', 'Apply Half')} ($
-                              {Math.min(availableCredits / 2, parseFloat(calculateTotal())).toFixed(
-                                2,
-                              )}
-                              )
-                            </Button>
-                          </div>
-                        )}
-                      </CollapsibleContent>
-                    </Collapsible>
-                  </CardContent>
-                </Card>
-              )}
-
-
-              {/* CONTACT FORM - Only show for guest users */}
-              {!isAuthenticated && !initResponse && (
-                <Card className="border-0 shadow-lg">
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold text-foreground mb-4">{t('checkout.contactInfo', 'Contact Information')}</h3>
-                    <p className="text-sm text-muted-foreground mb-6">
-                      {t('checkout.contactNote', "We'll send your eSIM details to this email. No account required.")}
-                    </p>
-
-                    <Form {...form}>
-                      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                        <FormField
-                          control={form.control}
-                          name="email"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>{t('checkout.email', 'Email Address')}</FormLabel>
-                              <FormControl>
-                                <div className="relative">
-                                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                                  <Input
-                                    {...field}
-                                    type="email"
-                                    placeholder={t('checkout.emailPlaceholder', 'your@email.com')}
-                                    className="pl-10"
-                                  />
-                                </div>
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-
-                        <FormField
-                          control={form.control}
-                          name="phone"
-                          render={({ field }) => (
-                            <FormItem>
-                              <FormLabel>{t('checkout.phone', 'Phone Number')}</FormLabel>
-                              <FormControl>
-                                <div className="relative">
-                                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                                  <Input
-                                    {...field}
-                                    type="tel"
-                                    inputMode="numeric"
-                                    maxLength={12}
-                                    placeholder={t('checkout.phonePlaceholder', '1234567890')}
-                                    className="pl-10"
-                                    onChange={(e) => {
-                                      const value = e.target.value.replace(/\D/g, '');
-                                      field.onChange(value);
-                                    }}
-                                  />
-                                </div>
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-
-                        <FormField
-                          control={form.control}
-                          name="acceptTerms"
-                          render={({ field }) => (
-                            <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-border p-4 bg-muted/30">
-                              <FormControl>
-                                <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                              </FormControl>
-                              <div className="space-y-1 leading-none">
-                                <FormLabel className="text-sm font-normal cursor-pointer">
-                                  {t('checkout.acceptTerms', 'I agree to the Terms of Service and Privacy Policy')}
-                                </FormLabel>
-                                <FormMessage />
-                              </div>
-                            </FormItem>
-                          )}
-                        />
-
-                        {/* PAYMENT GATEWAY SELECTION */}
-                        {/* {gateways.length > 0 && (
-                          <div className="space-y-4">
-                            <h3 className="font-semibold text-foreground">Select Payment Method</h3>
-                            <div className="flex flex-col md:flex-row gap-3 justify-center">
-                              {gateways.map((gateway) => (
-                                <Button
-                                  key={gateway.id}
-                                  type="button"
-                                  variant={selectedGateway?.id === gateway.id ? '' : 'outline'}
-                                  className="w-fit justify-start"
-                                  onClick={() => setSelectedGateway(gateway)}
-                                >
-                                  {gateway.provider.toUpperCase()}
-                                </Button>
-                              ))}
-                            </div>
-                          </div>
-                        )} */}
-
-
-
-
-                        {!isFreeOrder && gateways.length > 0 && (
-                          <div className="space-y-4">
-                            <h3 className="font-semibold text-foreground">{t('checkout.selectPayment', 'Select Payment Method')}</h3>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                              {gateways.map((gateway) => {
-                                const isSelected = selectedGateway?.id === gateway.id;
-                                const providerName = gateway.provider.toLowerCase();
-                                return (
-                                  <div
-                                    key={gateway.id}
-                                    onClick={() => setSelectedGateway(gateway)}
-                                    className={`
-                                      relative p-4 rounded-xl border-2 cursor-pointer transition-all duration-200
-                                      flex flex-col items-center justify-center gap-3 text-center
-                                      ${isSelected
-                                        ? 'border-[#2c7338] bg-green-50/50 dark:bg-[#2c7338]/10 shadow-sm'
-                                        : 'border-border hover:border-muted-foreground/30 hover:bg-muted/30'}
-                                    `}
-                                  >
-                                    {isSelected && (
-                                      <div className="absolute top-2 right-2">
-                                        <Check className="w-4 h-4 text-[#2c7338] dark:text-green-400" />
-                                      </div>
-                                    )}
-                                    <div className={`p-3 rounded-full ${isSelected ? 'bg-[#2c7338]/10 text-[#2c7338] dark:text-green-400' : 'bg-muted text-muted-foreground'}`}>
-                                      {providerName.includes('stripe') || providerName.includes('powertranz') || providerName.includes('card') ? (
-                                        <CreditCard className="w-6 h-6" />
-                                      ) : providerName.includes('paypal') || providerName.includes('maya') || providerName.includes('xendit') ? (
-                                        <Wallet className="w-6 h-6" />
-                                      ) : (
-                                        <CircleDollarSign className="w-6 h-6" />
-                                      )}
-                                    </div>
-                                    <span className={`font-medium text-sm ${isSelected ? 'text-[#2c7338] dark:text-green-400' : 'text-foreground'}`}>
-                                      {gateway.provider.toUpperCase()}
-                                    </span>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        )}
-
-
-                        <Button type="submit" className="w-full bg-[#2c7338] text-white">
-                          {t('checkout.continueToPayment', 'Continue to Payment')}
-                        </Button>
-                      </form>
-                    </Form>
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* PAYMENT UI - For logged in users or after guest submits */}
-              {(isAuthenticated || initResponse) && (
-                <Card className="border-0 shadow-lg">
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold text-foreground mb-4">Payment</h3>
-
-                    {!initResponse ? (
-                      <div className="space-y-4">
-                        {/* PAYMENT GATEWAY SELECTION */}
-                        {/* {gateways.length > 0 && (
-                          <>
-                            <h3 className="font-semibold text-foreground">Select Payment Method</h3>
-                            {gateways.map((gateway) => (
-                              <Button
-                                key={gateway.id}
-                                type="button"
-                                variant={selectedGateway?.id === gateway.id ? 'default' : 'outline'}
-                                className="w-full justify-start"
-                                onClick={() => setSelectedGateway(gateway)}
-                              >
-                                {gateway.provider.toUpperCase()}
-                              </Button>
-                            ))}
-                          </>
-                        )} */}
-
-                        {!isFreeOrder && gateways.length > 0 && (
-                          <>
-                            <h3 className="font-semibold text-foreground">{t('checkout.selectPayment', 'Select Payment Method')}</h3>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-                              {gateways.map((gateway) => {
-                                const isSelected = selectedGateway?.id === gateway.id;
-                                const providerName = gateway.provider.toLowerCase();
-                                return (
-                                  <div
-                                    key={gateway.id}
-                                    onClick={() => setSelectedGateway(gateway)}
-                                    className={`
-                                      relative p-4 rounded-xl border-2 cursor-pointer transition-all duration-200
-                                      flex flex-col items-center justify-center gap-3 text-center
-                                      ${isSelected
-                                        ? 'border-[#2c7338] bg-green-50/50 dark:bg-[#2c7338]/10 shadow-sm'
-                                        : 'border-border hover:border-muted-foreground/30 hover:bg-muted/30'}
-                                    `}
-                                  >
-                                    {isSelected && (
-                                      <div className="absolute top-2 right-2">
-                                        <Check className="w-4 h-4 text-[#2c7338] dark:text-green-400" />
-                                      </div>
-                                    )}
-                                    <div className={`p-3 rounded-full ${isSelected ? 'bg-[#2c7338]/10 text-[#2c7338] dark:text-green-400' : 'bg-muted text-muted-foreground'}`}>
-                                      {providerName.includes('stripe') || providerName.includes('powertranz') || providerName.includes('card') ? (
-                                        <CreditCard className="w-6 h-6" />
-                                      ) : providerName.includes('paypal') || providerName.includes('maya') || providerName.includes('xendit') ? (
-                                        <Wallet className="w-6 h-6" />
-                                      ) : (
-                                        <CircleDollarSign className="w-6 h-6" />
-                                      )}
-                                    </div>
-                                    <span className={`font-medium text-sm ${isSelected ? 'text-[#2c7338] dark:text-green-400' : 'text-foreground'}`}>
-                                      {gateway.provider.toUpperCase()}
-                                    </span>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </>
-                        )}
-
-
-                        {/* <Button
-                          onClick={() =>
-                            onSubmit({
-                              email: user?.email || customerInfo?.email,
-                              phone: user?.phone || customerInfo?.phone,
-                              acceptTerms: true,
-                            })
-                          }
-                          className="w-full bg-[#2c7338] text-white"
-                        >
-                          Complete Payment
-                        </Button> */}
-
-                        <Button
-                          onClick={() =>
-                            onSubmit({
-                              email: user?.email || customerInfo?.email,
-                              phone: user?.phone || customerInfo?.phone,
-                              acceptTerms: true,
-                            })
-                          }
-                          className="w-full bg-[#2c7338] text-white"
-                        >
-                          {isFreeOrder ? t('checkout.confirmOrder', 'Confirm Order') : t('checkout.completePayment', 'Complete Payment')}
-                        </Button>
-
-
                       </div>
-                    ) : (
-                      <PaymentGatewayRenderer
-                        initData={initResponse}
-                        email={customerInfo?.email || user?.email}
-                      />
-                    )}
-                  </CardContent>
-                </Card>
-              )}
+                      <p className="text-sm text-gray-500">
+                        {t('checkout.emailNote', 'Your eSIM details will be sent to this email address.')}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="space-y-6">
+                      <div className="space-y-4">
+                        <h2 className="text-xl font-bold text-[#1A1A1A]">{t('checkout.signUpOrLogin', 'Sign up or log in')}</h2>
+                        <div className="flex flex-col sm:flex-row gap-3">
+                          <Button
+                            variant="outline"
+                            onClick={handleGoogleLogin}
+                            className="h-11 px-6 rounded-lg border-gray-200 hover:bg-gray-50 flex items-center justify-center gap-2 text-sm font-semibold"
+                          >
+                            <svg width="18" height="18" viewBox="0 0 24 24">
+                              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+                              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05" />
+                              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+                            </svg>
+                            {t('checkout.continueWithGoogle', 'Continue with Google')}
+                          </Button>
+                        </div>
+                      </div>
 
-              {/* PROMO CODE SECTION - Available for all users */}
+                      <div className="relative">
+                        <div className="absolute inset-0 flex items-center">
+                          <span className="w-full border-t border-gray-100" />
+                        </div>
+                        <div className="relative flex justify-center text-xs uppercase">
+                          <span className="bg-white px-3 text-gray-400 font-medium tracking-wider">
+                            {t('checkout.continueAsGuest', 'Or continue as guest')}
+                          </span>
+                        </div>
+                      </div>
 
+                      <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                          <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="text-xs font-bold text-[#4B5563] uppercase tracking-wider">
+                                  {t('checkout.emailLabel', 'Email')}
+                                </FormLabel>
+                                <FormControl>
+                                  <div className="relative">
+                                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                    <Input
+                                      {...field}
+                                      type="email"
+                                      placeholder={t('checkout.emailPlaceholder', 'your@email.com')}
+                                      className="h-11 pl-10 rounded-lg border-gray-200"
+                                    />
+                                  </div>
+                                </FormControl>
+                                <FormMessage className="text-xs" />
+                              </FormItem>
+                            )}
+                          />
 
-              <div className="flex items-center gap-4 justify-center text-sm text-muted-foreground flex-wrap">
-                <div className="flex items-center gap-1">
-                  <Shield className="w-4 h-4" />
+                          <FormField
+                            control={form.control}
+                            name="phone"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="text-xs font-bold text-[#4B5563] uppercase tracking-wider">
+                                  {t('checkout.phone', 'Phone number')}
+                                </FormLabel>
+                                <div className="flex gap-2">
+                                  <Popover open={openCountry} onOpenChange={setOpenCountry}>
+                                    <PopoverTrigger asChild>
+                                      <Button
+                                        variant="outline"
+                                        role="combobox"
+                                        aria-expanded={openCountry}
+                                        className="w-[100px] h-11 rounded-lg border-gray-200 justify-between px-3 font-normal"
+                                      >
+                                        <div className="flex items-center gap-2 overflow-hidden">
+                                          <ReactCountryFlag
+                                            countryCode={countries.find((c) => c.dialCode === selectedDialCode)?.code || 'IN'}
+                                            svg
+                                          />
+                                          <span className="text-sm truncate">{selectedDialCode}</span>
+                                        </div>
+                                        <ChevronsUpDown className="ml-1 h-3 w-3 shrink-0 opacity-50" />
+                                      </Button>
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-[300px] p-0" align="start">
+                                      <Command>
+                                        <CommandInput placeholder={t('checkout.searchCountry', 'Search country or code...')} className="h-9" />
+                                        <CommandList>
+                                          <CommandEmpty>{t('checkout.noCountryFound', 'No country found.')}</CommandEmpty>
+                                          <CommandGroup className="max-h-[300px] overflow-y-auto">
+                                            {countries.map((c) => (
+                                              <CommandItem
+                                                key={`${c.code}-${c.dialCode}`}
+                                                value={`${c.name} ${c.dialCode} ${c.code}`}
+                                                onSelect={() => {
+                                                  setSelectedDialCode(c.dialCode);
+                                                  setOpenCountry(false);
+                                                }}
+                                              >
+                                                <div className="flex items-center gap-3 w-full">
+                                                  <ReactCountryFlag countryCode={c.code} svg />
+                                                  <span className="flex-1 text-sm">{c.name}</span>
+                                                  <span className="text-xs text-gray-400">{c.dialCode}</span>
+                                                  <CheckIcon
+                                                    className={cn(
+                                                      "ml-auto h-4 w-4",
+                                                      selectedDialCode === c.dialCode ? "opacity-100" : "opacity-0"
+                                                    )}
+                                                  />
+                                                </div>
+                                              </CommandItem>
+                                            ))}
+                                          </CommandGroup>
+                                        </CommandList>
+                                      </Command>
+                                    </PopoverContent>
+                                  </Popover>
+                                  <FormControl className="flex-1">
+                                    <div className="relative flex-1">
+                                      <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                      <Input
+                                        {...field}
+                                        type="tel"
+                                        placeholder="000 000 000"
+                                        className="h-11 pl-10 rounded-lg border-gray-200"
+                                      />
+                                    </div>
+                                  </FormControl>
+                                </div>
+                                <FormMessage className="text-xs" />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="acceptTerms"
+                            render={({ field }) => (
+                              <FormItem className="flex flex-row items-start space-x-2 space-y-0 pt-1">
+                                <FormControl>
+                                  <Checkbox checked={field.value} onCheckedChange={field.onChange} className="mt-0.5 w-4 h-4 border-gray-300" />
+                                </FormControl>
+                                <div className="leading-tight">
+                                  <FormLabel className="text-xs font-normal text-[#4B5563] cursor-pointer">
+                                    {t('checkout.agreeTo', 'I agree to the')}{' '}
+                                    <Link href="/terms-and-condition" className="text-[#1e5427] font-medium hover:underline">
+                                      {t('checkout.termsOfService', 'Terms of Service')}
+                                    </Link>{' '}
+                                    {t('checkout.and', 'and')}{' '}
+                                    <Link href="/privacy-policy" className="text-[#1e5427] font-medium hover:underline">
+                                      {t('checkout.privacyPolicy', 'Privacy Policy')}
+                                    </Link>
+                                  </FormLabel>
+                                  <FormMessage className="text-xs" />
+                                </div>
+                              </FormItem>
+                            )}
+                          />
+                        </form>
+                      </Form>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              <Card className="border-0 shadow-sm rounded-xl bg-white overflow-hidden">
+                <CardContent className="p-6">
+                  <h2 className="text-xl font-bold text-[#1A1A1A] mb-4">{t('checkout.selectPaymentMethod', 'Select a payment method')}</h2>
+
+                  {!initResponse ? (
+                    <div className="space-y-4">
+                      {gateways.length > 0 ? (
+                        <div className="space-y-2.5">
+                          {gateways.map((gateway) => {
+                            const isSelected = selectedGateway?.id === gateway.id;
+                            const providerName = gateway.provider.toLowerCase();
+                            return (
+                              <div
+                                key={gateway.id}
+                                onClick={() => setSelectedGateway(gateway)}
+                                className={`group relative p-4 rounded-lg border transition-all duration-200 flex items-center justify-between cursor-pointer ${isSelected ? 'border-[#1e5427] bg-[#F0FDF4]' : 'border-gray-100 bg-white'}`}
+                              >
+                                <div className="flex items-center gap-3">
+                                  <div className={`w-9 h-9 rounded-full flex items-center justify-center ${isSelected ? 'bg-[#1e5427]/10' : 'bg-gray-50'}`}>
+                                    <CreditCard className={`w-4 h-4 ${isSelected ? 'text-[#1e5427]' : 'text-gray-400'}`} />
+                                  </div>
+                                  <p className={`font-semibold text-sm ${isSelected ? 'text-[#1e5427]' : 'text-[#1A1A1A]'}`}>
+                                    {providerName.includes('stripe') || providerName.includes('powertranz') ? t('checkout.creditOrDebit', 'Credit or debit card') :
+                                      providerName.includes('paypal') ? t('checkout.paypal', 'PayPal') :
+                                        providerName.includes('google') ? t('checkout.googlePay', 'Google Pay') : gateway.provider.toUpperCase()}
+                                  </p>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <div className="p-6 text-center border border-dashed border-gray-100 rounded-lg">
+                          <p className="text-sm text-gray-400">{t('checkout.noGateways', 'No payment methods available for this currency.')}</p>
+                        </div>
+                      )}
+
+                      {/* POWERTRANZ CARD FORM */}
+                      {selectedGateway?.provider === 'powertranz' && (
+                        <div className="mt-4 p-4 bg-gray-50 rounded-xl space-y-3 border border-gray-100">
+                          <h4 className="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2">
+                            <CreditCard className="w-4 h-4 text-gray-400" />
+                            {t('checkout.cardDetails', 'Card Details')}
+                          </h4>
+                          <Input
+                            placeholder={t('checkout.cardNumber', 'Card Number')}
+                            className="h-10 text-sm rounded-md border-gray-200"
+                            onChange={(e) => setCustomerInfo(prev => ({ ...prev, cardPan: e.target.value.replace(/\D/g, '') }))}
+                          />
+                          <div className="grid grid-cols-2 gap-3">
+                            <Input
+                              placeholder={t('checkout.expiry', 'MM/YY')}
+                              className="h-10 text-sm rounded-md border-gray-200"
+                              onChange={(e) => setCustomerInfo(prev => ({ ...prev, cardExpiry: e.target.value.replace(/\D/g, '') }))}
+                            />
+                            <Input
+                              placeholder={t('checkout.cvv', 'CVV')}
+                              className="h-10 text-sm rounded-md border-gray-200"
+                              onChange={(e) => setCustomerInfo(prev => ({ ...prev, cardCvv: e.target.value.replace(/\D/g, '') }))}
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      <Button
+                        disabled={isSubmitting || !selectedGateway}
+                        onClick={form.handleSubmit(onSubmit)}
+                        className="w-full h-11 bg-[#1e5427] hover:bg-[#1a4a22] text-white font-semibold rounded-lg"
+                      >
+                        {isSubmitting ? (
+                          <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t('checkout.processing', 'Processing...')}</>
+                        ) : (
+                          isFreeOrder ? t('checkout.confirmOrder', 'Confirm Order') : t('checkout.completePurchase', 'Complete Purchase')
+                        )}
+                      </Button>
+                    </div>
+                  ) : (
+                    <PaymentGatewayRenderer
+                      initData={initResponse}
+                      email={customerInfo?.email || user?.email}
+                    />
+                  )}
+                </CardContent>
+              </Card>
+
+              <div className="flex items-center gap-4 justify-center py-2">
+                <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                  <Shield className="w-3.5 h-3.5" />
                   <span>{t('checkout.secureCheckout', 'Secure Checkout')}</span>
                 </div>
-                <div className="flex items-center gap-1">
-                  <Zap className="w-4 h-4" />
+                <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                  <Lock className="w-3.5 h-3.5" />
+                  <span>{t('checkout.encrypted', 'Encrypted')}</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                  <Zap className="w-3.5 h-3.5" />
                   <span>{t('checkout.instantDelivery', 'Instant Delivery')}</span>
                 </div>
               </div>
             </div>
 
-            {/* ORDER SUMMARY */}
-            <div className="lg:col-span-2">
-              <Card className="border-0 shadow-lg sticky top-24">
+            {/* RIGHT COLUMN - ORDER SUMMARY */}
+            <div className="lg:col-span-5">
+              <Card className="border-0 shadow-sm rounded-xl bg-white sticky top-8">
                 <CardContent className="p-6">
-                  <h3 className="font-semibold text-foreground mb-4">{t('checkout.orderSummary', 'Order Summary')}</h3>
+                  <h2 className="text-xl font-bold text-[#1A1A1A] mb-6">{t('checkout.orderSummary', 'Order summary')}</h2>
 
-                  <div className="flex items-center gap-3 mb-4 pb-4 border-b border-border">
+                  <div className="bg-[#F8F9FA] rounded-xl p-3.5 flex items-center gap-3 mb-6">
                     {packageData.countryCode && (
-                      <div className="w-10 h-8 rounded overflow-hidden border border-border flex-shrink-0">
+                      <div className="w-10 h-7 rounded overflow-hidden shadow-sm flex-shrink-0">
                         <ReactCountryFlag
                           countryCode={packageData.countryCode}
                           svg
@@ -1186,163 +835,148 @@ export default function UnifiedCheckout() {
                         />
                       </div>
                     )}
-
-                    <div>
-                      <p className="font-medium text-foreground">
-                        {formatPackageTitle(packageData)}
-                      </p>
-                      <p className="text-sm text-muted-foreground">{t('checkout.dataAmountTitle', 'eSIM Data Plan')}</p>
-                    </div>
-                  </div>
-
-                  <div className="space-y-3 mb-4 pb-4 border-b border-border">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">{t('checkout.data', 'Data')}</span>
-                      <span className="font-medium text-foreground">
-                        {formatDataAmount(packageData)}
-                      </span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">{t('checkout.validity', 'Validity')}</span>
-                      <span className="font-medium text-foreground">
-                        {packageData.validity} {t('checkout.days', 'Days')}
-                      </span>
-                    </div>
-                    {/* <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Coverage</span>
-                      {packageData.coverage.map((res) => (
-                        <span className="font-medium text-foreground">{res}</span>
-                      ))}
-                    </div> */}
-                    <div className="flex justify-between items-center text-sm">
-                      <span className="text-muted-foreground">{t('checkout.quantity', 'Quantity')}</span>
-                      <div className="flex items-center gap-2">
-                        {/* <Button
-                          type="button"
-                          size="icon"
-                          variant="outline"
-                          className="h-7 w-7"
-                          onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                          disabled={quantity <= 1}
-                        >
-                          <Minus className="w-3 h-3" />
-                        </Button> */}
-                        <span className="font-medium text-foreground w-8 text-center">
-                          {quantity}
-                        </span>
-                        {/* <Button
-                          type="button"
-                          size="icon"
-                          variant="outline"
-                          className="h-7 w-7"
-                          onClick={() => setQuantity(Math.min(10, quantity + 1))}
-                          disabled={quantity >= 10}
-                        >
-                          <Plus className="w-3 h-3" />
-                        </Button> */}
-                      </div>
-                    </div>
-                  </div>
-
-                  {quantity > 1 && (
-                    <div className="space-y-2 mb-4 pb-4 border-b border-border">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Price per eSIM</span>
-                        <span className="text-foreground">
-                          {getCurrencySymbol(packageData.currency)}
-                          {packageData.retailPrice || packageData.price}
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Subtotal ({quantity} eSIMs)</span>
-                        <span className="text-foreground">
-                          {getCurrencySymbol(packageData.currency)}
-                          {(
-                            parseFloat(packageData.retailPrice || packageData.price) * quantity
-                          ).toFixed(2)}
-                        </span>
-                      </div>
-                    </div>
-                  )}
-
-                  {(appliedPromo || appliedReferralCredits > 0) && (
-                    <div className="space-y-2 mb-4 pb-4 border-b border-border">
-                      {/* {appliedPromo && (
-                        <div className="flex justify-between text-sm">
-                          <span className="text-green-600 dark:text-green-400">
-                            Promo Discount ({appliedPromo.code})
-                          </span>
-                          <span className="text-green-600 dark:text-green-400">
-                            -{getCurrencySymbol(packageData.currency)}
-                            {appliedPromo.discount.toFixed(2)}
-                          </span>
-                        </div>
-                      )} */}
-
-                      {appliedPromo && (
-                        <div className="flex justify-between text-sm">
-                          <span className="text-green-600 dark:text-green-400">
-                            {appliedPromo.type === 'voucher' &&
-                              `Voucher Applied (${appliedPromo.code})`}
-                            {appliedPromo.type === 'giftcard' &&
-                              `Gift Card Applied (${appliedPromo.code})`}
-                            {appliedPromo.type === 'referral' &&
-                              `Referral Applied (${appliedPromo.code})`}
-                          </span>
-                          <span className="text-green-600 dark:text-green-400">
-                            -{getCurrencySymbol(packageData.currency)}
-                            {appliedPromo.discount.toFixed(2)}
-                          </span>
-                        </div>
-                      )}
-
-                      {appliedReferralCredits > 0 && (
-                        <div className="flex justify-between text-sm">
-                          <span className="text-amber-600 dark:text-amber-400">
-                            Referral Credits
-                          </span>
-                          <span className="text-amber-600 dark:text-amber-400">
-                            -{getCurrencySymbol(packageData.currency)}
-                            {appliedReferralCredits.toFixed(2)}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  <div className="flex justify-between items-center">
-                    <span className="font-semibold text-foreground">{t('checkout.total', 'Total')}</span>
-                    <span className="text-2xl font-bold text-foreground">
-                      {getCurrencySymbol(packageData.currency)}
-                      {calculateTotal()}
+                    <span className="text-lg font-bold text-[#1A1A1A]">
+                      {packageData.countryName || packageData.countryCode || t('checkout.global', 'Global')}
                     </span>
                   </div>
 
-                  {isFreeOrder && (
-                    <div className="mt-2 text-xs text-green-700 bg-green-100 px-2 py-1 rounded">
-                      🎉 {t('checkout.freeOrderLabel', 'Fully covered by credits. No payment required.')}
+                  <div className="space-y-4 pb-6 border-b border-gray-100">
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-[#6B7280]">{t('checkout.plan', 'Plan')}</span>
+                      <span className="font-bold text-[#1A1A1A]">{formatDataAmount(packageData, t)}</span>
                     </div>
-                  )}
-
-
-                  <div className="mt-4 p-3 bg-green-50 dark:bg-green-500/10 rounded-lg">
-                    <div className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
-                      <p className="text-xs text-green-700 dark:text-green-400">
-                        Instant activation after payment.{' '}
-                        {quantity > 1 ? `Your ${quantity} eSIMs will be` : 'Your eSIM will be'}{' '}
-                        ready immediately.
-                      </p>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-[#6B7280]">{t('checkout.type', 'Type')}</span>
+                      <span className="font-bold text-[#1A1A1A]">{t('checkout.dataOnly', 'Data only')}</span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm">
+                      <span className="text-[#6B7280]">{t('checkout.duration', 'Duration')}</span>
+                      <span className="font-bold text-[#1A1A1A]">{packageData.validity} {t('checkout.days', 'days')}</span>
                     </div>
                   </div>
+
+                  {/* PRICE & PROMOS */}
+                  <div className="py-6 space-y-3.5">
+                    <div className="flex justify-between items-center">
+                      <span className="text-lg font-bold text-[#1A1A1A]">{t('checkout.total', 'Total')}</span>
+                      <span className="text-2xl font-black text-[#1A1A1A]">
+                        {getCurrencySymbol(packageData.currency)}{calculateTotal()}
+                      </span>
+                    </div>
+
+                    {appliedPromo && (
+                      <div className="flex justify-between items-center bg-green-50 p-2.5 rounded-lg border border-green-100">
+                        <div className="flex items-center gap-2">
+                          <Tag className="w-3.5 h-3.5 text-green-600" />
+                          <span className="text-xs font-semibold text-green-700">{appliedPromo.code} {t('checkout.applied', 'applied')}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-bold text-green-700">-{getCurrencySymbol(packageData.currency)}{appliedPromo.discount.toFixed(2)}</span>
+                          <Button variant="ghost" size="sm" onClick={removePromo} className="h-5 w-5 p-0 rounded-full hover:bg-green-100 text-green-700">
+                            <X className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+
+                    {appliedReferralCredits > 0 && (
+                      <div className="flex justify-between items-center bg-amber-50 p-2.5 rounded-lg border border-amber-100">
+                        <div className="flex items-center gap-2">
+                          <Coins className="w-3.5 h-3.5 text-amber-600" />
+                          <span className="text-xs font-semibold text-amber-700">{t('checkout.creditsUsed', 'Credits used')}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-bold text-amber-700">-{getCurrencySymbol(packageData.currency)}{appliedReferralCredits.toFixed(2)}</span>
+                          <Button variant="ghost" size="sm" onClick={removeCredits} className="h-5 w-5 p-0 rounded-full hover:bg-amber-100 text-amber-700">
+                            <X className="h-3 w-3" />
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* PROMO ACTIONS - Only show if logged in */}
+                  {isAuthenticated && (
+                    <div className="space-y-4">
+                      <Collapsible open={isPromoOpen} onOpenChange={setIsPromoOpen}>
+                        <CollapsibleTrigger asChild>
+                          <Button variant="ghost" className="w-full h-10 rounded-lg text-[#1e5427] hover:text-[#1a4a22] hover:bg-green-50 text-sm font-bold border border-green-100">
+                            {t('checkout.gotCoupon', 'Got a coupon?')}
+                          </Button>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="pt-3 space-y-3 animate-in slide-in-from-top-2 duration-200">
+                          {/* Restore Promo Type Selection */}
+                          {!appliedPromo && (
+                            <div className="flex gap-1 p-1 bg-gray-100 rounded-lg">
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                className={`flex-1 h-8 text-[10px] uppercase tracking-wider font-bold transition-all ${promoCodeType === 'voucher'
+                                  ? 'bg-[#1e5427] text-white shadow-sm hover:bg-[#1e5427] hover:text-white'
+                                  : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
+                                  }`}
+                                onClick={() => setPromoCodeType('voucher')}
+                              >
+                                {t('checkout.voucher', 'Voucher')}
+                              </Button>
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                className={`flex-1 h-8 text-[10px] uppercase tracking-wider font-bold transition-all ${promoCodeType === 'giftcard'
+                                  ? 'bg-[#1e5427] text-white shadow-sm hover:bg-[#1e5427] hover:text-white'
+                                  : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
+                                  }`}
+                                onClick={() => setPromoCodeType('giftcard')}
+                              >
+                                {t('checkout.giftCard', 'Gift Card')}
+                              </Button>
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                className={`flex-1 h-8 text-[10px] uppercase tracking-wider font-bold transition-all ${promoCodeType === 'referral'
+                                  ? 'bg-[#1e5427] text-white shadow-sm hover:bg-[#1e5427] hover:text-white'
+                                  : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
+                                  }`}
+                                onClick={() => setPromoCodeType('referral')}
+                              >
+                                {t('checkout.referral', 'Referral')}
+                              </Button>
+                            </div>
+                          )}
+
+                          <div className="flex gap-2">
+                            <Input
+                              placeholder={t('checkout.enterCode', { type: t(`checkout.${promoCodeType}`, promoCodeType) }, `Enter ${promoCodeType} code`)}
+                              value={promoCode}
+                              onChange={(e) => setPromoCode(e.target.value)}
+                              className="h-10 text-sm rounded-lg"
+                            />
+                            <Button onClick={handleApplyPromo} disabled={isValidatingPromo || !promoCode} className="h-10 px-4 rounded-lg bg-[#1e5427]">
+                              {isValidatingPromo ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : t('checkout.apply', 'Apply')}
+                            </Button>
+                          </div>
+                        </CollapsibleContent>
+                      </Collapsible>
+
+                      {availableCredits > 0 && !appliedReferralCredits && (
+                        <div className="p-3 bg-amber-50 rounded-lg border border-amber-100">
+                          <p className="text-xs font-semibold text-amber-800 mb-2">{t('checkout.availableCredits', 'Available Credits:')} ${availableCredits.toFixed(2)}</p>
+                          <Button size="sm" onClick={() => handleApplyCredits(availableCredits)} className="w-full h-8 bg-amber-600 hover:bg-amber-700 text-xs font-bold rounded-md">
+                            {t('checkout.applyReferralCredits', 'Apply Referral Credits')}
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </div>
           </div>
         </div>
       </main>
-
-      {/* <SiteFooter /> */}
     </div>
   );
 }

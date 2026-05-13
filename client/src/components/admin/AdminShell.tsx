@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'wouter';
 import { AdminLayout } from './AdminLayout';
 import AdminPriceBrackets from '@/pages/admin/AdminPriceBrackets';
+import ESimLoader from '../ESimLoader';
 
 const AdminDashboard = lazy(() => import('@/pages/admin/AdminDashboard'));
 const OrderManagement = lazy(() => import('@/pages/admin/OrderManagement'));
@@ -42,7 +43,7 @@ const PaymentGatewayManagement = lazy(() => import('@/pages/admin/PaymentGateway
 export default function AdminShell() {
   return (
     <AdminLayout>
-      <Suspense fallback={<div className="p-6">Loading...</div>}>
+      <Suspense fallback={<ESimLoader />}>
         <Switch>
           {/* default */}
           <Route path="/admin">

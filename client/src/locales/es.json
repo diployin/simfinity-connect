@@ -252,17 +252,105 @@
     "instantDelivery": "Entrega instantánea • Pago seguro • Garantía de devolución de 7 días"
   },
   "checkout": {
-    "title": "Completa tu Compra",
-    "paymentFailed": "Pago Fallido",
+    "title": "Pagar",
+    "subtitle": "Completa tu compra para obtener acceso instantáneo a tu eSIM",
+    "back": "Atrás",
+    "backToPlans": "Volver a los planes",
+    "yourAccount": "Tu Cuenta",
+    "logout": "Cerrar sesión",
+    "emailNote": "Los detalles de tu eSIM se enviarán a esta dirección de correo electrónico.",
+    "guestEmailNote": "Enviaremos los detalles de tu eSIM a este correo. No se requiere cuenta.",
+    "signUpOrLogin": "Regístrate o inicia sesión",
+    "continueWithGoogle": "Continuar con Google",
+    "continueAsGuest": "O continuar como invitado",
+    "email": "Dirección de correo electrónico",
+    "emailLabel": "Correo electrónico",
+    "phone": "Número de teléfono",
+    "phoneNumber": "Número de teléfono",
+    "searchCountry": "Buscar país o código...",
+    "noCountryFound": "No se encontró el país.",
+    "agreeTo": "Acepto los",
+    "and": "y",
+    "termsOfService": "Términos de servicio",
+    "privacyPolicy": "Política de privacidad",
+    "selectPayment": "Seleccionar método de pago",
+    "selectPaymentMethod": "Selecciona un método de pago",
+    "creditOrDebit": "Tarjeta de crédito o débito",
+    "paypal": "PayPal",
+    "googlePay": "Google Pay",
+    "noGateways": "No hay métodos de pago disponibles para esta moneda.",
+    "cardDetails": "Detalles de la tarjeta",
+    "cardNumber": "Número de tarjeta",
+    "expiry": "MM/AA",
+    "cvv": "CVV",
+    "processing": "Procesando...",
+    "confirmOrder": "Confirmar pedido",
+    "completePurchase": "Completar compra",
+    "secureCheckout": "Pago seguro",
+    "encrypted": "Encriptado",
+    "instantDelivery": "Entrega instantánea",
+    "orderSummary": "Resumen del pedido",
+    "plan": "Plan",
+    "type": "Tipo",
+    "dataOnly": "Solo datos",
+    "duration": "Duración",
+    "days": "días",
+    "total": "Total",
+    "applied": "aplicado",
+    "creditsUsed": "Créditos usados",
+    "gotCoupon": "¿Tienes un cupón?",
+    "voucher": "Cupón",
+    "giftCard": "Tarjeta de regalo",
+    "referral": "Referido",
+    "enterCode": "Ingresar código de {{type}}",
+    "apply": "Aplicar",
+    "remove": "Eliminar",
+    "availableCredits": "Créditos disponibles:",
+    "applyReferralCredits": "Aplicar créditos de referido",
+    "freeOrderLabel": "Totalmente cubierto por créditos. No se requiere pago.",
+    "validation": {
+      "email": "Por favor, introduce una dirección de correo electrónico válida",
+      "phone": "Por favor, introduce un número de teléfono válido",
+      "terms": "Debes aceptar los términos y la política de privacidad"
+    },
+    "toasts": {
+      "enterCode": "Introduce un código",
+      "enterCodeDesc": "Por favor, introduce un código promocional, tarjeta de regalo o código de referido",
+      "codeAlreadyApplied": "Código ya aplicado",
+      "removeCodeFirst": "Elimina el código actual primero para aplicar uno diferente",
+      "invalidCode": "Código inválido",
+      "invalidCodeDesc": "Este código no es válido",
+      "codeApplied": "Código aplicado",
+      "codeRemoved": "Código eliminado",
+      "promoCodeRemoved": "El código promocional ha sido eliminado",
+      "cannotApplyCredits": "No se pueden aplicar créditos",
+      "creditsExceedTotal": "Los créditos no pueden exceder el total del pedido",
+      "creditsApplied": "Créditos aplicados",
+      "creditsRemoved": "Créditos eliminados",
+      "referralCreditsRemoved": "Los créditos de referido han sido eliminados de tu pedido",
+      "orderFailed": "Pedido fallido",
+      "orderConfirmed": "Pedido confirmado 🎉",
+      "orderConfirmedDesc": "Tu eSIM ha sido activada con éxito",
+      "selectPayment": "Seleccionar método de pago",
+      "chooseGateway": "Por favor, elige una pasarela de pago",
+      "paymentInitFailed": "Error al iniciar el pago",
+      "paymentInitError": "Error al iniciar el pago",
+      "paymentFailed": "Pago fallido",
+      "3dsFailed": "La autenticación 3DS falló",
+      "paymentInitialized": "Pago inicializado",
+      "paymentInitializedDesc": "Ahora puedes completar tu pago",
+      "packageNotFound": "Paquete no encontrado"
+    },
+    "paymentFailedOld": "Pago Fallido",
     "orderCreationFailed": "Falló la creación del pedido en el servidor",
     "orderSuccessful": "¡Pedido Exitoso!",
     "orderSuccessDesc": "Tu eSIM ha sido enviada a tu correo electrónico. Revisa tu bandeja de entrada para las instrucciones de instalación.",
-    "orderFailed": "Pedido Fallido",
+    "orderFailedOld": "Pedido Fallido",
     "orderFailedDesc": "El pago fue exitoso pero falló la creación del pedido. Por favor, contacta al soporte.",
     "somethingWrong": "Algo salió mal. Por favor, inténtalo de nuevo.",
     "processingPayment": "Procesando Pago...",
     "pay": "Pagar",
-    "instantDelivery": "Entrega instantánea de eSIM por correo electrónico",
+    "instantDeliveryOld": "Entrega instantánea de eSIM por correo electrónico",
     "securePayment": "Procesamiento de pago seguro",
     "support247": "Soporte al cliente 24/7",
     "orderDetails": "Detalles del Pedido",
@@ -270,35 +358,30 @@
     "multipleEsimsNote": "Recibirás {{quantity}} eSIMs separadas, cada una con {{dataAmount}} por {{validity}} días.",
     "singleEsimNote": "Cada eSIM puede instalarse en un dispositivo.",
     "havePromo": "¿Tienes un código promocional?",
-    "voucher": "Cupón",
-    "giftcard": "Tarjeta de Regalo",
-    "referral": "Referido",
     "enterPromoCode": "Ingresar código promocional",
     "paymentMethod": "Método de Pago",
     "creditCard": "Tarjeta de Crédito/Débito",
     "creditCardDesc": "Paga de forma segura con tu tarjeta",
-    "paypal": "PayPal",
+    "paypalOld": "PayPal",
     "paypalDesc": "Paga con tu cuenta de PayPal",
     "applePay": "Apple Pay",
     "applePayDesc": "Pago rápido y seguro",
-    "googlePay": "Google Pay",
+    "googlePayOld": "Google Pay",
     "googlePayDesc": "Pago rápido con Google",
     "paymentInfo": "Información de Pago",
     "updatingPayment": "Actualizando pago...",
     "initializingPayment": "Inicializando pago...",
-    "orderSummary": "Resumen del Pedido",
     "pricePerEsim": "Precio por eSIM",
     "quantity": "Cantidad",
     "subtotal": "Subtotal",
     "referralDiscount": "Descuento por Referido",
-    "total": "Total",
     "enterPromo": "Por favor ingresa un código promocional",
     "oneCodeAllowed": "Solo se permite un código por pedido",
     "invalidPromo": "Código promocional inválido",
     "promoApplied": "Código promocional aplicado con éxito",
     "promoApplyErr": "Error al aplicar el código promocional",
     "promoRemoved": "Código promocional eliminado",
-    "paymentInitFailed": "Error al inicializar el pago",
+    "paymentInitFailedOld": "Error al inicializar el pago",
     "paymentMethodType": "Método de Pago",
     "voucherApplied": "Cupón Aplicado",
     "youSaved": "Ahorraste {{symbol}}{{discount}}",
@@ -306,7 +389,7 @@
     "enterEmail": "Ingresa tu correo electrónico",
     "emailPlaceholder": "tu@email.com",
     "sendCode": "Enviar código de verificación",
-    "enterCode": "Ingresa el código de verificación",
+    "enterCodeOld": "Ingresa el código de verificación",
     "codePlaceholder": "Ingresa el código de 6 dígitos",
     "verifyAndSignIn": "Verificar e iniciar sesión",
     "package": "Paquete",
@@ -1366,6 +1449,175 @@
         "email": "Por favor, introduce un correo electrónico válido",
         "phone": "Por favor, introduce un número de teléfono válido",
         "terms": "Debes aceptar los términos y la política de privacidad"
+      }
+    },
+    "contactSupport": {
+      "title": "Contactar Soporte",
+      "heroTitle": "¿Cómo podemos ayudarte?",
+      "heroSubtitle": "Nuestro equipo de soporte global está distribuido en diferentes zonas horarias para asegurar que nunca te quedes sin conexión.",
+      "humanSupport": "Soporte Humano 24/7",
+      "channels": {
+        "liveChat": {
+          "title": "Chat en Vivo",
+          "description": "La forma más rápida de obtener ayuda. Habla con nuestros expertos al instante.",
+          "action": "Iniciar Chat",
+          "status": "En línea"
+        },
+        "emailSupport": {
+          "title": "Soporte por Correo",
+          "description": "Envíanos tus preguntas y responderemos en menos de 12 horas.",
+          "status": "Monitoreo 24/7"
+        },
+        "prioritySupport": {
+          "title": "Soporte Prioritario",
+          "description": "Disponible para nuestros clientes de planes Globales y Enterprise.",
+          "action": "Abrir Ticket",
+          "status": "Prioridad Alta"
+        }
+      },
+      "form": {
+        "title": "Envíanos un Mensaje",
+        "name": "Nombre Completo",
+        "namePlaceholder": "Juan Pérez",
+        "email": "Correo Electrónico",
+        "emailPlaceholder": "juan@ejemplo.com",
+        "subject": "Asunto",
+        "subjectPlaceholder": "¿Cómo podemos ayudar?",
+        "message": "Mensaje",
+        "messagePlaceholder": "Cuéntanos más sobre tu consulta...",
+        "submit": "Enviar Mensaje",
+        "sending": "Enviando...",
+        "successTitle": "¡Mensaje Recibido!",
+        "successDesc": "Hemos recibido tu solicitud y nuestro equipo te responderá a la brevedad.",
+        "sendAnother": "Enviar otro mensaje"
+      },
+      "info": {
+        "globalPresence": "Presencia Global",
+        "headquarters": "Sede Corporativa",
+        "phoneSupport": "Soporte Telefónico",
+        "globalNetwork": "Red Global",
+        "globalNetworkDesc": "Con equipos de soporte local en Norteamérica, Europa y Asia-Pacífico, brindamos asistencia localizada en todos los continentes.",
+        "connectWithUs": "Conéctate con nosotros"
+      },
+      "cta": {
+        "title": "Únete a la revolución de la conectividad global",
+        "subtitle": "Experimenta el mundo sin cargos por roaming. Tu viaje comienza con {{siteName}}.",
+        "action": "Explorar Planes de Datos"
+      },
+      "toasts": {
+        "success": "Mensaje Enviado",
+        "successDesc": "Hemos recibido tu solicitud y te contactaremos pronto.",
+        "error": "Error",
+        "errorDesc": "Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde."
+      }
+    },
+    "gettingStarted": {
+      "title": "Primeros Pasos",
+      "heroTitle": "¿Listo para empezar?",
+      "heroSubtitle": "Configurar tu eSIM de {{siteName}} es rápido, sencillo y 100% digital. Sigue estos pasos para desbloquear la conectividad global en minutos.",
+      "findPlan": "Buscar un Plan",
+      "checkCompatibility": "Comprobar Compatibilidad",
+      "steps": {
+        "step1": {
+          "title": "Elige tu Destino",
+          "description": "Selecciona entre más de 190 países y regiones. Ofrecemos planes de datos flexibles adaptados a la duración de tu viaje y tus necesidades de datos."
+        },
+        "step2": {
+          "title": "Compra Rápida y Segura",
+          "description": "Elige tu plan y completa el pago en segundos. Aceptamos todas las principales tarjetas de crédito y billeteras digitales."
+        },
+        "step3": {
+          "title": "Recibe tu eSIM",
+          "description": "Obtén tu código QR de eSIM al instante por correo electrónico y en tu panel de control de {{siteName}}. Sin esperas, sin tarjetas SIM físicas."
+        },
+        "step4": {
+          "title": "Escanea y Activa",
+          "description": "Escanea el código QR con tu dispositivo compatible. Sigue las sencillas instrucciones en pantalla para instalar y activar tu plan de datos."
+        }
+      },
+      "stepLabel": "Paso",
+      "features": {
+        "digitalDelivery": "Entrega digital instantánea en tu bandeja de entrada",
+        "noSwapping": "No requiere cambiar tarjetas SIM físicas"
+      },
+      "activationGuide": {
+        "title": "Guía de Activación del Dispositivo",
+        "subtitle": "Los pasos de activación varían ligeramente entre iOS y Android. Nuestro sistema automatizado se encarga de los detalles técnicos; tú solo tienes que escanear y listo.",
+        "ios": "Instalación en iOS",
+        "iosSteps": "Ajustes > Datos móviles > Añadir eSIM > Escanear código QR",
+        "android": "Instalación en Android",
+        "androidSteps": "Ajustes > Redes > SIMs > Añadir más > Descargar eSIM",
+        "wifiRequired": "Se requiere Wi-Fi estable para la configuración",
+        "roamingOn": "La itinerancia de datos debe estar activada"
+      },
+      "cta": {
+        "title": "¿Listo para viajar sin límites?",
+        "subtitle": "Únete a miles de viajeros que confían en {{siteName}} para una conectividad sin interrupciones.",
+        "action": "Iniciar Mi Viaje"
+      }
+    },
+    "troubleshooting": {
+      "title": "Solución de Problemas",
+      "heroTitle": "¿Tienes problemas?",
+      "heroSubtitle": "Solucionémoslo juntos.",
+      "heroDesc": "La mayoría de los problemas de eSIM pueden resolverse en menos de 2 minutos siguiendo nuestras guías sencillas. Elige el problema que enfrentas a continuación.",
+      "supportCenter": "Centro de Soporte",
+      "issues": {
+        "noData": {
+          "title": "Sin Conexión de Datos",
+          "description": "Has instalado la eSIM pero no puedes acceder a internet.",
+          "solutions": [
+            "Asegúrate de que la \"Itinerancia de datos\" esté activada para la eSIM de {{siteName}}.",
+            "Verifica que la eSIM de {{siteName}} esté seleccionada como la línea de datos principal.",
+            "Reinicia tu dispositivo para refrescar la conexión de red.",
+            "Espera hasta 5 minutes para que la eSIM se registre en la red local."
+          ]
+        },
+        "qrScan": {
+          "title": "El Código QR no se Escanea",
+          "description": "La cámara no reconoce el código QR o muestra un error.",
+          "solutions": [
+            "Asegúrate de escanear a través de los ajustes de \"Celular\" o \"Redes\" del dispositivo, no desde la aplicación de la cámara.",
+            "Aumenta el brillo de la pantalla en el dispositivo que muestra el código QR.",
+            "Verifica tu conexión a internet; la activación requiere Wi-Fi.",
+            "Ingresa manualmente la dirección SM-DP+ y el código de activación proporcionados."
+          ]
+        },
+        "slowSpeed": {
+          "title": "Velocidades de Conexión Lentas",
+          "description": "Los datos funcionan pero se sienten más lentos de lo esperado.",
+          "solutions": [
+            "Verifica si estás en una zona de baja cobertura (ascensores, sótanos, regiones remotas).",
+            "Activa y desactiva el Modo Avión para restablecer una señal más limpia.",
+            "Asegúrate de no haber alcanzado tu límite diario de datos de alta velocidad.",
+            "Desactiva la actualización de aplicaciones en segundo plano para las apps no esenciales."
+          ]
+        },
+        "activationError": {
+          "title": "Error de Activación",
+          "description": "El dispositivo muestra \"No se pudo activar\" o \"SIM no compatible\".",
+          "solutions": [
+            "Verifica que tu dispositivo esté liberado (las eSIM solo funcionan en teléfonos desbloqueados).",
+            "Comprueba si la eSIM ya ha sido instalada en otro dispositivo (uso único).",
+            "Asegúrate de que el software de tu dispositivo esté actualizado.",
+            "Confirma que tu dispositivo sea compatible con la tecnología eSIM."
+          ]
+        }
+      },
+      "manualInstallation": {
+        "title": "Instalación Manual",
+        "description": "Si el código QR falla, puedes ingresar los detalles manualmente en los ajustes de tu teléfono. Encontrarás estos detalles en tu correo de confirmación.",
+        "smdp": "Dirección SM-DP+",
+        "smdpDesc": "Proporcionada en tu correo de pedido",
+        "activationCode": "Código de Activación",
+        "activationCodeDesc": "Código único para tu eSIM",
+        "instructions": "Sigue las instrucciones en tu dispositivo cuidadosamente."
+      },
+      "stillStuck": {
+        "title": "¿Sigues atascado? Estamos aquí para ti.",
+        "description": "Si nuestras guías no han resuelto tu problema, nuestro equipo de soporte técnico está disponible 24/7 para ayudarte a volver a estar en línea.",
+        "contactSupport": "Contactar Soporte",
+        "browseFaq": "Explorar FAQ"
       }
     }
   }

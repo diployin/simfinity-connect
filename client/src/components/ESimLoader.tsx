@@ -9,24 +9,19 @@ export default function ESimLoader() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-[#f0f9f1] to-white dark:from-gray-950 dark:to-gray-900 px-6">
-
-      {currentLogo ? (
-        <div className="flex flex-col items-center justify-center gap-8 w-full max-w-md animate-in fade-in zoom-in duration-500">
-          <div className="relative w-full flex items-center justify-center">
+      <div className="flex flex-col items-center justify-center gap-8 w-full max-w-md animate-in fade-in zoom-in duration-500">
+        {/* Logo Section */}
+        {currentLogo && (
+          <div className="relative w-full flex items-center justify-center mb-4 animate-pulse">
             <img
               src={currentLogo}
-              alt="Loading..."
-              className="max-w-[240px] md:max-w-[280px] w-full h-auto max-h-[120px] object-contain drop-shadow-sm transition-all duration-300"
+              alt="Logo"
+              className="max-w-[200px] md:max-w-[240px] w-full h-auto max-h-[80px] object-contain drop-shadow-sm"
             />
           </div>
+        )}
 
-          <div className="flex items-center gap-2.5">
-            <span className="w-3 h-3 rounded-full bg-[#2c7338] animate-bounce [animation-delay:-0.3s]" />
-            <span className="w-3 h-3 rounded-full bg-[#3d9a4d] animate-bounce [animation-delay:-0.15s]" />
-            <span className="w-3 h-3 rounded-full bg-[#4ade80] animate-bounce" />
-          </div>
-        </div>
-      ) : (
+        {/* Animation Section */}
         <div className="flex flex-col items-center gap-6">
           <div className="relative w-24 h-24">
             <svg
@@ -120,10 +115,12 @@ export default function ESimLoader() {
           </div>
 
           <div className="flex flex-col items-center gap-2">
-            <div className="flex items-center">
-              <span className="text-lg font-bold text-gray-900 dark:text-white">Sim</span>
-              <span className="text-lg font-bold bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] bg-clip-text text-transparent">finity</span>
-            </div>
+            {!currentLogo && (
+              <div className="flex items-center">
+                <span className="text-lg font-bold text-gray-900 dark:text-white">Sim</span>
+                <span className="text-lg font-bold bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] bg-clip-text text-transparent">finity</span>
+              </div>
+            )}
             <div className="flex gap-1">
               <span
                 className="w-2 h-2 rounded-full bg-[#2c7338] animate-bounce"
@@ -140,7 +137,7 @@ export default function ESimLoader() {
             </div>
           </div>
         </div>
-      )}
+      </div>
 
       <style>{`
         @keyframes signal-wave {

@@ -82,6 +82,7 @@ import { demoMaskResponse } from './utils/demoMaskResponse';
 import supportedDevices from "./lib/devices.json";
 import QRCode from "qrcode";
 import { fileURLToPath } from 'url';
+import contactRouter from './routes/contact';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -305,6 +306,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   // console.log("optionalAdminAuth")
   app.use(optionalAdminAuth);      // sets req.user
+
+  app.use('/api/contact', contactRouter);
 
 
   // Authentication middleware
@@ -9845,8 +9848,8 @@ ${urls
             .where(eq(referrals.status, 'completed'));
           return parseFloat(result[0]?.avgDays?.toString() || '0');
         })(),
-        mostActiveMonth: monthlyGrowth.length > 0 
-          ? monthlyGrowth.reduce((max, curr) => (curr.count > max.count ? curr : max), monthlyGrowth[0]).month 
+        mostActiveMonth: monthlyGrowth.length > 0
+          ? monthlyGrowth.reduce((max, curr) => (curr.count > max.count ? curr : max), monthlyGrowth[0]).month
           : 'N/A',
       });
     } catch (error: any) {

@@ -158,17 +158,105 @@
     "instantDelivery": "Instant delivery • Secure payment • 7-day money-back guarantee"
   },
   "checkout": {
-    "title": "Complete Your Purchase",
-    "paymentFailed": "Payment Failed",
+    "title": "Checkout",
+    "subtitle": "Complete your purchase to get instant access to your eSIM",
+    "back": "Back",
+    "backToPlans": "Back to plans",
+    "yourAccount": "Your Account",
+    "logout": "Logout",
+    "emailNote": "Your eSIM details will be sent to this email address.",
+    "guestEmailNote": "We'll send your eSIM details to this email. No account required.",
+    "signUpOrLogin": "Sign up or log in",
+    "continueWithGoogle": "Continue with Google",
+    "continueAsGuest": "Or continue as guest",
+    "email": "Email Address",
+    "emailLabel": "Email",
+    "phone": "Phone Number",
+    "phoneNumber": "Phone number",
+    "searchCountry": "Search country or code...",
+    "noCountryFound": "No country found.",
+    "agreeTo": "I agree to the",
+    "and": "and",
+    "termsOfService": "Terms of Service",
+    "privacyPolicy": "Privacy Policy",
+    "selectPayment": "Select Payment Method",
+    "selectPaymentMethod": "Select a payment method",
+    "creditOrDebit": "Credit or debit card",
+    "paypal": "PayPal",
+    "googlePay": "Google Pay",
+    "noGateways": "No payment methods available for this currency.",
+    "cardDetails": "Card Details",
+    "cardNumber": "Card Number",
+    "expiry": "MM/YY",
+    "cvv": "CVV",
+    "processing": "Processing...",
+    "confirmOrder": "Confirm Order",
+    "completePurchase": "Complete Purchase",
+    "secureCheckout": "Secure Checkout",
+    "encrypted": "Encrypted",
+    "instantDelivery": "Instant Delivery",
+    "orderSummary": "Order Summary",
+    "plan": "Plan",
+    "type": "Type",
+    "dataOnly": "Data only",
+    "duration": "Duration",
+    "days": "days",
+    "total": "Total",
+    "applied": "applied",
+    "creditsUsed": "Credits used",
+    "gotCoupon": "Got a coupon?",
+    "voucher": "Voucher",
+    "giftCard": "Gift Card",
+    "referral": "Referral",
+    "enterCode": "Enter {{type}} code",
+    "apply": "Apply",
+    "remove": "Remove",
+    "availableCredits": "Available Credits:",
+    "applyReferralCredits": "Apply Referral Credits",
+    "freeOrderLabel": "Fully covered by credits. No payment required.",
+    "validation": {
+      "email": "Please enter a valid email address",
+      "phone": "Please enter a valid phone number",
+      "terms": "You must accept the terms and privacy policy"
+    },
+    "toasts": {
+      "enterCode": "Enter a code",
+      "enterCodeDesc": "Please enter a promo code, gift card, or referral code",
+      "codeAlreadyApplied": "Code Already Applied",
+      "removeCodeFirst": "Remove the current code first to apply a different one",
+      "invalidCode": "Invalid Code",
+      "invalidCodeDesc": "This code is not valid",
+      "codeApplied": "Code Applied",
+      "codeRemoved": "Code Removed",
+      "promoCodeRemoved": "Promo code has been removed",
+      "cannotApplyCredits": "Cannot apply credits",
+      "creditsExceedTotal": "Credits cannot exceed the order total",
+      "creditsApplied": "Credits Applied",
+      "creditsRemoved": "Credits Removed",
+      "referralCreditsRemoved": "Referral credits have been removed from your order",
+      "orderFailed": "Order Failed",
+      "orderConfirmed": "Order Confirmed 🎉",
+      "orderConfirmedDesc": "Your eSIM has been activated successfully",
+      "selectPayment": "Select payment method",
+      "chooseGateway": "Please choose a payment gateway",
+      "paymentInitFailed": "Payment Init Failed",
+      "paymentInitError": "Payment Init Error",
+      "paymentFailed": "Payment Failed",
+      "3dsFailed": "3DS authentication failed",
+      "paymentInitialized": "Payment Initialized",
+      "paymentInitializedDesc": "You can now complete your payment",
+      "packageNotFound": "Package not found"
+    },
+    "paymentFailedOld": "Payment Failed",
     "orderCreationFailed": "Order creation failed on backend",
     "orderSuccessful": "Order Successful!",
     "orderSuccessDesc": "Your eSIM has been sent to your email. Check your inbox for installation instructions.",
-    "orderFailed": "Order Failed",
+    "orderFailedOld": "Order Failed",
     "orderFailedDesc": "Payment succeeded but order creation failed. Please contact support.",
     "somethingWrong": "Something went wrong. Please try again.",
     "processingPayment": "Processing Payment...",
     "pay": "Pay",
-    "instantDelivery": "Instant eSIM delivery via email",
+    "instantDeliveryOld": "Instant eSIM delivery via email",
     "securePayment": "Secure payment processing",
     "support247": "24/7 customer support",
     "orderDetails": "Order Details",
@@ -176,35 +264,30 @@
     "multipleEsimsNote": "You'll receive {{quantity}} separate eSIMs, each with {{dataAmount}} for {{validity}} days.",
     "singleEsimNote": "Each eSIM can be installed on one device.",
     "havePromo": "Have a promo code?",
-    "voucher": "Voucher",
-    "giftcard": "Gift Card",
-    "referral": "Referral",
     "enterPromoCode": "Enter promo code",
     "paymentMethod": "Payment Method",
     "creditCard": "Credit/Debit Card",
     "creditCardDesc": "Pay securely with your card",
-    "paypal": "PayPal",
+    "paypalOld": "PayPal",
     "paypalDesc": "Pay with your PayPal account",
     "applePay": "Apple Pay",
     "applePayDesc": "Quick and secure payment",
-    "googlePay": "Google Pay",
+    "googlePayOld": "Google Pay",
     "googlePayDesc": "Fast checkout with Google",
     "paymentInfo": "Payment Information",
     "updatingPayment": "Updating payment...",
     "initializingPayment": "Initializing payment...",
-    "orderSummary": "Order Summary",
     "pricePerEsim": "Price per eSIM",
     "quantity": "Quantity",
     "subtotal": "Subtotal",
     "referralDiscount": "Referral Discount",
-    "total": "Total",
     "enterPromo": "Please enter a promo code",
     "oneCodeAllowed": "Only one code can be applied per order",
     "invalidPromo": "Invalid promo code",
     "promoApplied": "Promo code applied successfully",
     "promoApplyErr": "Failed to apply promo code",
     "promoRemoved": "Promo code removed",
-    "paymentInitFailed": "Failed to initialize payment",
+    "paymentInitFailedOld": "Failed to initialize payment",
     "paymentMethodType": "Payment Method",
     "voucherApplied": "Voucher Applied",
     "youSaved": "You saved {{symbol}}{{discount}}",
@@ -212,7 +295,7 @@
     "enterEmail": "Enter your email",
     "emailPlaceholder": "your@email.com",
     "sendCode": "Send Verification Code",
-    "enterCode": "Enter verification code",
+    "enterCodeOld": "Enter verification code",
     "codePlaceholder": "Enter 6-digit code",
     "verifyAndSignIn": "Verify & Sign In",
     "package": "Package",
@@ -1750,6 +1833,175 @@
       "submitOnce": "Please submit your documents once. Our team will review them shortly.",
       "alreadyApproved": "Your KYC is already approved. No further action is required.",
       "alreadyVerified": "Your identity is already verified."
+    }
+  },
+  "contactSupport": {
+    "title": "Contact Support",
+    "heroTitle": "How can we help you?",
+    "heroSubtitle": "Our global support team is distributed across time zones to ensure you’re never left without a connection.",
+    "humanSupport": "24/7 Human Support",
+    "channels": {
+      "liveChat": {
+        "title": "Live Chat",
+        "description": "The fastest way to get help. Speak with our experts instantly.",
+        "action": "Start Chat",
+        "status": "Online"
+      },
+      "emailSupport": {
+        "title": "Email Support",
+        "description": "Send us your questions and we’ll respond within 12 hours.",
+        "status": "24/7 Monitoring"
+      },
+      "prioritySupport": {
+        "title": "Priority Support",
+        "description": "Available for our Enterprise and Global plan customers.",
+        "action": "Open Ticket",
+        "status": "High Priority"
+      }
+    },
+    "form": {
+      "title": "Send us a Message",
+      "name": "Full Name",
+      "namePlaceholder": "John Doe",
+      "email": "Email Address",
+      "emailPlaceholder": "john@example.com",
+      "subject": "Subject",
+      "subjectPlaceholder": "How can we help?",
+      "message": "Message",
+      "messagePlaceholder": "Tell us more about your inquiry...",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "successTitle": "Message Received!",
+      "successDesc": "We’ve received your request and our team will get back to you shortly.",
+      "sendAnother": "Send another message"
+    },
+    "info": {
+      "globalPresence": "Global Presence",
+      "headquarters": "Corporate Headquarters",
+      "phoneSupport": "Phone Support",
+      "globalNetwork": "Global Network",
+      "globalNetworkDesc": "With local support teams in North America, Europe, and Asia-Pacific, we provide localized assistance across all continents.",
+      "connectWithUs": "Connect with us"
+    },
+    "cta": {
+      "title": "Join the global connectivity revolution",
+      "subtitle": "Experience the world without roaming fees. Your journey starts with {{siteName}}.",
+      "action": "Explore Data Plans"
+    },
+    "toasts": {
+      "success": "Message Sent",
+      "successDesc": "We've received your request and will get back to you soon.",
+      "error": "Error",
+      "errorDesc": "Failed to send message. Please try again later."
+    }
+  },
+  "gettingStarted": {
+    "title": "Getting Started",
+    "heroTitle": "Ready to Get Started?",
+    "heroSubtitle": "Setting up your {{siteName}} eSIM is fast, simple, and 100% digital. Follow these steps to unlock global connectivity in minutes.",
+    "findPlan": "Find a Plan",
+    "checkCompatibility": "Check Compatibility",
+    "steps": {
+      "step1": {
+        "title": "Choose Your Destination",
+        "description": "Select from over 190+ countries and regions. We offer flexible data plans tailored to your travel duration and data needs."
+      },
+      "step2": {
+        "title": "Quick & Secure Purchase",
+        "description": "Choose your plan and complete the checkout in seconds. We support all major credit cards and digital wallets."
+      },
+      "step3": {
+        "title": "Receive Your eSIM",
+        "description": "Get your eSIM QR code instantly via email and in your {{siteName}} account dashboard. No waiting, no physical SIM cards."
+      },
+      "step4": {
+        "title": "Scan & Activate",
+        "description": "Scan the QR code with your compatible device. Follow the simple on-screen prompts to install and activate your data plan."
+      }
+    },
+    "stepLabel": "Step",
+    "features": {
+      "digitalDelivery": "Instant digital delivery to your inbox",
+      "noSwapping": "No physical SIM card swapping required"
+    },
+    "activationGuide": {
+      "title": "Device Activation Guide",
+      "subtitle": "Activation steps vary slightly between iOS and Android. Our automated system handles the technical bits—you just need to scan and go.",
+      "ios": "iOS Installation",
+      "iosSteps": "Settings > Cellular > Add eSIM > Scan QR Code",
+      "android": "Android Installation",
+      "androidSteps": "Settings > Network > SIMs > Add More > Download eSIM",
+      "wifiRequired": "Stable Wi-Fi required for setup",
+      "roamingOn": "Data roaming must be ON"
+    },
+    "cta": {
+      "title": "Ready to travel without limits?",
+      "subtitle": "Join thousands of travelers who trust {{siteName}} for seamless connectivity.",
+      "action": "Start My Journey"
+    }
+  },
+  "troubleshooting": {
+    "title": "Troubleshooting",
+    "heroTitle": "Having Trouble?",
+    "heroSubtitle": "Let’s fix it together.",
+    "heroDesc": "Most eSIM issues can be resolved in under 2 minutes by following our simple troubleshooting guides. Choose the issue you’re facing below.",
+    "supportCenter": "Support Center",
+    "issues": {
+      "noData": {
+        "title": "No Data Connection",
+        "description": "You’ve installed the eSIM but can’t access the internet.",
+        "solutions": [
+          "Ensure \"Data Roaming\" is toggled ON for the {{siteName}} eSIM.",
+          "Check that the {{siteName}} eSIM is selected as the primary data line.",
+          "Restart your device to refresh the network connection.",
+          "Wait up to 5 minutes for the eSIM to register with the local network."
+        ]
+      },
+      "qrScan": {
+        "title": "QR Code Won’t Scan",
+        "description": "The camera doesn’t recognize the QR code or shows an error.",
+        "solutions": [
+          "Ensure you are scanning via the device \"Cellular\" settings, not the camera app.",
+          "Increase screen brightness on the device displaying the QR code.",
+          "Check your internet connection; activation requires Wi-Fi.",
+          "Manually enter the SM-DP+ Address and Activation Code provided."
+        ]
+      },
+      "slowSpeed": {
+        "title": "Slow Connection Speeds",
+        "description": "Data is working but feels slower than expected.",
+        "solutions": [
+          "Check if you are in a low-coverage area (elevators, basements, remote regions).",
+          "Toggle Airplane Mode ON and OFF to re-establish a cleaner signal.",
+          "Ensure you haven’t reached your daily high-speed data limit.",
+          "Disable background app refresh for non-essential applications."
+        ]
+      },
+      "activationError": {
+        "title": "Activation Error",
+        "description": "The device displays \"Unable to Activate\" or \"SIM Not Supported\".",
+        "solutions": [
+          "Verify your device is carrier-unlocked (ESIMs only work on unlocked phones).",
+          "Check if the eSIM has already been installed on another device (one-time use).",
+          "Ensure your device software is up to date.",
+          "Confirm your device supports eSIM technology."
+        ]
+      }
+    },
+    "manualInstallation": {
+      "title": "Manual Installation",
+      "description": "If the QR code fails to scan, you can manually enter the details into your phone's settings. You'll find these details in your confirmation email.",
+      "smdp": "SM-DP+ Address",
+      "smdpDesc": "Provided in your order email",
+      "activationCode": "Activation Code",
+      "activationCodeDesc": "Unique code for your eSIM",
+      "instructions": "Follow instructions on your device carefully."
+    },
+    "stillStuck": {
+      "title": "Still stuck? We're here for you.",
+      "description": "If our guides haven’t solved your problem, our technical support team is available 24/7 to help you get back online.",
+      "contactSupport": "Contact Support",
+      "browseFaq": "Browse FAQ"
     }
   }
 }
