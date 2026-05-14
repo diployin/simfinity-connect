@@ -25,6 +25,7 @@ import {
   Star,
   Package,
   Zap,
+  Shield,
 } from 'lucide-react';
 import {
   DropdownMenu,
