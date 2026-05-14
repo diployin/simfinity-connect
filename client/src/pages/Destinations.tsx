@@ -152,7 +152,7 @@ export default function Destinations() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Header Section */}
           <div className="text-center mb-10">
-            <Badge className="mb-4 bg-[#1e5427] hover:bg-[#1e5427] text-white px-4 py-1.5 rounded-full">
+            <Badge className="mb-4 bg-primary-second hover:bg-primary-second text-white px-4 py-1.5 rounded-full">
               <Globe className="h-3.5 w-3.5 mr-1.5" />
               {t('destinations.globalCoverage', 'Global Coverage')}
             </Badge>
@@ -177,7 +177,7 @@ export default function Destinations() {
                   <button
                     onClick={() => handleTabChange('all')}
                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${activeTab === 'all'
-                      ? 'bg-[#1e5427] text-white'
+                      ? 'bg-primary-second text-white'
                       : 'bg-muted text-muted-foreground hover:bg-muted/80'
                       }`}
                     data-testid="tab-all"
@@ -188,7 +188,7 @@ export default function Destinations() {
                   <button
                     onClick={() => handleTabChange('countries')}
                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${activeTab === 'countries'
-                      ? 'bg-[#1e5427] text-white'
+                      ? 'bg-primary-second text-white'
                       : 'bg-muted text-muted-foreground hover:bg-muted/80'
                       }`}
                     data-testid="tab-countries"
@@ -199,7 +199,7 @@ export default function Destinations() {
                   <button
                     onClick={() => handleTabChange('regions')}
                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${activeTab === 'regions'
-                      ? 'bg-[#1e5427] text-white'
+                      ? 'bg-primary-second text-white'
                       : 'bg-muted text-muted-foreground hover:bg-muted/80'
                       }`}
                     data-testid="tab-regions"
@@ -210,7 +210,7 @@ export default function Destinations() {
                   <button
                     onClick={() => handleTabChange('global')}
                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${activeTab === 'global'
-                      ? 'bg-[#1e5427] text-white'
+                      ? 'bg-primary-second text-white'
                       : 'bg-muted text-muted-foreground hover:bg-muted/80'
                       }`}
                     data-testid="tab-global"
@@ -221,7 +221,7 @@ export default function Destinations() {
                   <button
                     onClick={() => handleTabChange('passport')}
                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${activeTab === 'passport'
-                      ? 'bg-[#1e5427] text-white'
+                      ? 'bg-primary-second text-white'
                       : 'bg-muted text-muted-foreground hover:bg-muted/80'
                       }`}
                     data-testid="tab-passport"
@@ -288,7 +288,7 @@ export default function Destinations() {
                   {filteredDestinations?.map((dest) => (
                     <Link key={dest.id} href={`/destination/${dest.slug}`}>
                       <div
-                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-[#3d9a4d] dark:hover:border-[#2c7338]/50 hover:shadow-md transition-all cursor-pointer group"
+                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-[var(--primary-light)] dark:hover:border-[var(--primary)]/50 hover:shadow-md transition-all cursor-pointer group"
                         data-testid={`card-destination-${dest.slug}`}
                       >
                         <div className="w-12 h-12 rounded-full overflow-hidden bg-muted flex items-center justify-center flex-shrink-0 border-2 border-gray-100 dark:border-gray-700">
@@ -307,7 +307,7 @@ export default function Destinations() {
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground truncate group-hover:text-[#1e5427] dark:group-hover:text-[#3d9a4d] transition-colors">
+                          <h3 className="font-semibold text-foreground truncate group-hover:text-primary-second dark:group-hover:text-[var(--primary-light)] transition-colors">
                             {dest.name}
                           </h3>
                           <p className="text-sm text-muted-foreground">
@@ -318,7 +318,7 @@ export default function Destinations() {
                             </span>
                           </p>
                         </div>
-                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-[#2c7338] transition-colors flex-shrink-0" />
+                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-[var(--primary)] transition-colors flex-shrink-0" />
                       </div>
                     </Link>
                   ))}
@@ -326,10 +326,10 @@ export default function Destinations() {
                   {filteredRegions?.map((region) => (
                     <Link key={region.id} href={`/region/${region.slug}`}>
                       <div
-                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-[#3d9a4d] dark:hover:border-[#2c7338]/50 hover:shadow-md transition-all cursor-pointer group"
+                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-[var(--primary-light)] dark:hover:border-[var(--primary)]/50 hover:shadow-md transition-all cursor-pointer group"
                         data-testid={`card-region-${region.slug}`}
                       >
-                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-[#dcf0de] to-[#dcf0de] dark:from-[#194520]/30 dark:to-[#194520]/30 flex items-center justify-center flex-shrink-0 border-2 border-[#dcf0de] dark:border-[#1e5427]">
+                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-primary/10 to-primary/10 dark:from-[var(--primary-dark)]/30 dark:to-[var(--primary-dark)]/30 flex items-center justify-center flex-shrink-0 border-2 border-primary/10 dark:border-primary-second">
                           {region.image ? (
                             <img
                               src={region.image}
@@ -337,11 +337,11 @@ export default function Destinations() {
                               className="w-full h-full object-cover"
                             />
                           ) : (
-                            <Globe className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
+                            <Globe className="w-6 h-6 text-primary-second dark:text-[var(--primary-light)]" />
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground truncate group-hover:text-[#1e5427] dark:group-hover:text-[#3d9a4d] transition-colors">
+                          <h3 className="font-semibold text-foreground truncate group-hover:text-primary-second dark:group-hover:text-[var(--primary-light)] transition-colors">
                             {region.name}
                           </h3>
                           <p className="text-sm text-muted-foreground">
@@ -352,7 +352,7 @@ export default function Destinations() {
                             </span>
                           </p>
                         </div>
-                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-[#2c7338] transition-colors flex-shrink-0" />
+                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-[var(--primary)] transition-colors flex-shrink-0" />
                       </div>
                     </Link>
                   ))}
@@ -402,7 +402,7 @@ export default function Destinations() {
                   {filteredDestinations?.map((dest) => (
                     <Link key={dest.id} href={`/destination/${dest.slug}`}>
                       <div
-                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-[#3d9a4d] dark:hover:border-[#2c7338]/50 hover:shadow-md transition-all cursor-pointer group"
+                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-[var(--primary-light)] dark:hover:border-[var(--primary)]/50 hover:shadow-md transition-all cursor-pointer group"
                         data-testid={`card-destination-${dest.slug}`}
                       >
                         {/* Flag Circle */}
@@ -428,7 +428,7 @@ export default function Destinations() {
 
                         {/* Content */}
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground truncate group-hover:text-[#1e5427] dark:group-hover:text-[#3d9a4d] transition-colors">
+                          <h3 className="font-semibold text-foreground truncate group-hover:text-primary-second dark:group-hover:text-[var(--primary-light)] transition-colors">
                             {dest.name}
                           </h3>
                           <p className="text-sm text-muted-foreground">
@@ -441,7 +441,7 @@ export default function Destinations() {
                         </div>
 
                         {/* Chevron */}
-                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-[#2c7338] transition-colors flex-shrink-0" />
+                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-[var(--primary)] transition-colors flex-shrink-0" />
                       </div>
                     </Link>
                   ))}
@@ -489,11 +489,11 @@ export default function Destinations() {
                   {filteredRegions?.map((region) => (
                     <Link key={region.id} href={`/region/${region.slug}`}>
                       <div
-                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-[#3d9a4d] dark:hover:border-[#2c7338]/50 hover:shadow-md transition-all cursor-pointer group"
+                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-[var(--primary-light)] dark:hover:border-[var(--primary)]/50 hover:shadow-md transition-all cursor-pointer group"
                         data-testid={`card-region-${region.slug}`}
                       >
                         {/* Globe Icon Circle */}
-                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-[#dcf0de] to-[#dcf0de] dark:from-[#194520]/30 dark:to-[#194520]/30 flex items-center justify-center flex-shrink-0 border-2 border-[#dcf0de] dark:border-[#1e5427]">
+                        <div className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-br from-primary/10 to-primary/10 dark:from-[var(--primary-dark)]/30 dark:to-[var(--primary-dark)]/30 flex items-center justify-center flex-shrink-0 border-2 border-primary/10 dark:border-primary-second">
                           {region.image ? (
                             <img
                               src={region.image}
@@ -501,13 +501,13 @@ export default function Destinations() {
                               className="w-full h-full object-cover"
                             />
                           ) : (
-                            <Globe className="w-6 h-6 text-[#1e5427] dark:text-[#3d9a4d]" />
+                            <Globe className="w-6 h-6 text-primary-second dark:text-[var(--primary-light)]" />
                           )}
                         </div>
 
                         {/* Content */}
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground truncate group-hover:text-[#1e5427] dark:group-hover:text-[#3d9a4d] transition-colors">
+                          <h3 className="font-semibold text-foreground truncate group-hover:text-primary-second dark:group-hover:text-[var(--primary-light)] transition-colors">
                             {region.name}
                           </h3>
                           <p className="text-sm text-muted-foreground">
@@ -520,7 +520,7 @@ export default function Destinations() {
                         </div>
 
                         {/* Chevron */}
-                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-[#2c7338] transition-colors flex-shrink-0" />
+                        <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:text-[var(--primary)] transition-colors flex-shrink-0" />
                       </div>
                     </Link>
                   ))}
@@ -568,7 +568,7 @@ export default function Destinations() {
                   {filteredGlobalPackages?.map((pkg) => (
                     <Link key={pkg.id} href="/global">
                       <div
-                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-[#3d9a4d] dark:hover:border-[#2c7338]/50 hover:shadow-md transition-all cursor-pointer group"
+                        className="flex items-center gap-4 p-4 bg-card rounded-xl border border-border hover:border-[var(--primary-light)] dark:hover:border-[var(--primary)]/50 hover:shadow-md transition-all cursor-pointer group"
                         data-testid={`card-global-${pkg.id}`}
                       >
                         {/* Globe Icon Circle */}
@@ -578,7 +578,7 @@ export default function Destinations() {
 
                         {/* Content */}
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-foreground truncate group-hover:text-[#1e5427] dark:group-hover:text-[#3d9a4d] transition-colors">
+                          <h3 className="font-semibold text-foreground truncate group-hover:text-primary-second dark:group-hover:text-[var(--primary-light)] transition-colors">
                             Global ({pkg.dataAmount})
                           </h3>
                           <p className="text-sm text-muted-foreground">
@@ -623,18 +623,18 @@ export default function Destinations() {
               {/* Hero Section */}
               <div className="relative bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 rounded-2xl overflow-hidden mx-4 sm:mx-6 lg:mx-8 mb-8">
                 <div className="absolute inset-0 pointer-events-none">
-                  <div className="absolute top-0 right-0 w-96 h-96 bg-[#2c7338]/15 rounded-full blur-3xl" />
-                  <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#2c7338]/10 rounded-full blur-3xl" />
+                  <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--primary)]/15 rounded-full blur-3xl" />
+                  <div className="absolute bottom-0 left-0 w-72 h-72 bg-[var(--primary)]/10 rounded-full blur-3xl" />
                 </div>
                 <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 md:p-12 lg:p-16">
                   <div className="flex flex-col justify-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#2c7338]/20 border border-[#2c7338]/30 mb-6 w-fit">
-                      <Sparkles className="w-4 h-4 text-[#3d9a4d]" />
-                      <span className="text-sm font-medium text-[#3d9a4d]">Limited First Batch — Pre-Book Now</span>
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--primary)]/20 border border-[var(--primary)]/30 mb-6 w-fit">
+                      <Sparkles className="w-4 h-4 text-[var(--primary-light)]" />
+                      <span className="text-sm font-medium text-[var(--primary-light)]">Limited First Batch — Pre-Book Now</span>
                     </div>
                     <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
                       Voltey{' '}
-                      <span className="bg-gradient-to-r from-[#3d9a4d] to-[#2c7338] bg-clip-text text-transparent">
+                      <span className="bg-gradient-to-r from-[var(--primary-light)] to-[var(--primary)] bg-clip-text text-transparent">
                         Passport
                       </span>
                     </h2>
@@ -643,7 +643,7 @@ export default function Destinations() {
                     </p>
                     <div className="flex flex-wrap items-center gap-4 mb-8">
                       <div className="flex items-center gap-2 text-slate-300 text-sm">
-                        <Globe className="w-4 h-4 text-[#3d9a4d]" />
+                        <Globe className="w-4 h-4 text-[var(--primary-light)]" />
                         <span>190+ Countries</span>
                       </div>
                       <div className="flex items-center gap-2 text-slate-300 text-sm">
@@ -655,14 +655,14 @@ export default function Destinations() {
                         <span>DPN Protected</span>
                       </div>
                     </div>
-                    <a href="#passport-prebook" className="btn-passport-cta inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] text-white font-semibold text-lg shadow-lg shadow-[#2c7338]/25 hover:shadow-xl transition-all hover:scale-[1.02] w-fit">
+                    <a href="#passport-prebook" className="btn-passport-cta inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] text-white font-semibold text-lg shadow-lg shadow-[var(--primary)]/25 hover:shadow-xl transition-all hover:scale-[1.02] w-fit">
                       Reserve Your Device
                       <ChevronRight className="w-5 h-5" />
                     </a>
                   </div>
                   <div className="flex items-center justify-center">
                     <div className="relative">
-                      <div className="absolute -inset-6 bg-gradient-to-r from-[#2c7338]/20 via-transparent to-[#2c7338]/20 rounded-3xl blur-xl" />
+                      <div className="absolute -inset-6 bg-gradient-to-r from-[var(--primary)]/20 via-transparent to-[var(--primary)]/20 rounded-3xl blur-xl" />
                       <img
                         src="/images/passport-device-1.png"
                         alt="Voltey Passport Device"
@@ -687,7 +687,7 @@ export default function Destinations() {
                     { icon: Sparkles, label: "Founders' Badge", desc: 'Digital collector badge', from: 'from-rose-500', to: 'to-rose-600' },
                     { icon: Shield, label: 'Premium Features', desc: 'First firmware updates', from: 'from-cyan-500', to: 'to-cyan-600' },
                   ].map((item) => (
-                    <div key={item.label} className="flex flex-col items-center text-center p-5 rounded-xl bg-card border border-border hover:border-[#3d9a4d]/50 transition-colors">
+                    <div key={item.label} className="flex flex-col items-center text-center p-5 rounded-xl bg-card border border-border hover:border-[var(--primary-light)]/50 transition-colors">
                       <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.from} ${item.to} flex items-center justify-center mb-3`}>
                         <item.icon className="w-6 h-6 text-white" />
                       </div>
@@ -785,8 +785,8 @@ export default function Destinations() {
                         { icon: Lock, label: 'Early Access Activation Code', desc: 'Exclusive code for priority activation and AI concierge access' },
                       ].map((item) => (
                         <div key={item.label} className="flex items-start gap-4 p-4 rounded-xl bg-card border border-border">
-                          <div className="w-10 h-10 rounded-lg bg-[#2c7338]/10 flex items-center justify-center flex-shrink-0">
-                            <item.icon className="w-5 h-5 text-[#2c7338]" />
+                          <div className="w-10 h-10 rounded-lg bg-[var(--primary)]/10 flex items-center justify-center flex-shrink-0">
+                            <item.icon className="w-5 h-5 text-[var(--primary)]" />
                           </div>
                           <div>
                             <h4 className="font-semibold text-foreground">{item.label}</h4>
@@ -813,9 +813,9 @@ export default function Destinations() {
                     { icon: Backpack, label: 'Backpackers', desc: 'Explore freely' },
                     { icon: Star, label: 'Luxury Travelers', desc: 'Premium experience' },
                   ].map((persona) => (
-                    <div key={persona.label} className="flex flex-col items-center text-center p-6 rounded-2xl bg-gradient-to-b from-card to-muted/30 border border-border hover:border-[#3d9a4d]/50 transition-all hover:shadow-md">
-                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#2c7338]/10 to-[#3d9a4d]/10 flex items-center justify-center mb-3">
-                        <persona.icon className="w-7 h-7 text-[#2c7338]" />
+                    <div key={persona.label} className="flex flex-col items-center text-center p-6 rounded-2xl bg-gradient-to-b from-card to-muted/30 border border-border hover:border-[var(--primary-light)]/50 transition-all hover:shadow-md">
+                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--primary)]/10 to-[var(--primary-light)]/10 flex items-center justify-center mb-3">
+                        <persona.icon className="w-7 h-7 text-[var(--primary)]" />
                       </div>
                       <h4 className="font-semibold text-foreground text-sm mb-1">{persona.label}</h4>
                       <p className="text-xs text-muted-foreground">{persona.desc}</p>
@@ -843,7 +843,7 @@ export default function Destinations() {
 
               {/* Pre-Book CTA */}
               <div id="passport-prebook" className="px-4 sm:px-6 lg:px-8 mb-8">
-                <div className="rounded-2xl bg-gradient-to-br from-[#2c7338] via-[#1e5427] to-[#194520] p-8 md:p-12 text-center relative overflow-hidden">
+                <div className="rounded-2xl bg-gradient-to-br from-[var(--primary)] via-primary-second to-[var(--primary-dark)] p-8 md:p-12 text-center relative overflow-hidden">
                   <div className="absolute inset-0 pointer-events-none">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl" />
                     <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/5 rounded-full blur-3xl" />
@@ -857,7 +857,7 @@ export default function Destinations() {
                       The first production run is limited. Pre-booking secures your place in the first wave with priority activation and exclusive early benefits.
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                      <button className="btn-passport-cta inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-[#1e5427] font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]">
+                      <button className="btn-passport-cta inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-second font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]">
                         Reserve Your Device Now
                         <ChevronRight className="w-5 h-5" />
                       </button>

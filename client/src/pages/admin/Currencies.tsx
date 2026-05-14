@@ -280,7 +280,7 @@ export default function Currencies() {
                     </TableCell>
                     <TableCell>
                       {currency.isDefault ? (
-                        <Badge className="bg-[#2c7338] text-white">Default</Badge>
+                        <Badge className="bg-[var(--primary)] text-white">Default</Badge>
                       ) : (
                         <Button
                           variant="ghost"

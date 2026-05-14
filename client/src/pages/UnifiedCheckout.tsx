@@ -635,7 +635,7 @@ export default function UnifiedCheckout() {
         {/* <SiteHeader /> */}
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
-            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#2c7338] border-r-transparent"></div>
+            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[var(--primary)] border-r-transparent"></div>
             <p className="mt-4 text-muted-foreground">Loading...</p>
           </div>
         </div>
@@ -688,8 +688,8 @@ export default function UnifiedCheckout() {
                   {isAuthenticated ? (
                     <div className="space-y-4">
                       <h2 className="text-xl font-bold text-[#1A1A1A]">Your Account</h2>
-                      <div className="flex items-center gap-3 bg-[#F0FDF4] p-3 rounded-lg border border-[#DCFCE7]">
-                        <div className="w-10 h-10 rounded-full bg-[#1e5427] flex items-center justify-center text-white font-bold text-lg">
+                      <div className="flex items-center gap-3 bg-primary/5 p-3 rounded-lg border border-primary/10">
+                        <div className="w-10 h-10 rounded-full bg-primary-second flex items-center justify-center text-white font-bold text-lg">
                           {user?.name?.charAt(0) || user?.email?.charAt(0).toUpperCase()}
                         </div>
                         <div className="flex-1">
@@ -748,7 +748,7 @@ export default function UnifiedCheckout() {
                                         {...field}
                                         type="email"
                                         placeholder="your@email.com"
-                                        className="h-11 pl-10 rounded-lg border-gray-200 focus:border-[#1e5427]"
+                                        className="h-11 pl-10 rounded-lg border-gray-200 focus:border-primary-second"
                                       />
                                     </div>
                                   </FormControl>
@@ -843,16 +843,16 @@ export default function UnifiedCheckout() {
                               render={({ field }) => (
                                 <FormItem className="flex flex-row items-start space-x-2 space-y-0 pt-1">
                                   <FormControl>
-                                    <Checkbox checked={field.value} onCheckedChange={field.onChange} className="mt-0.5 w-4 h-4 border-gray-300 data-[state=checked]:bg-[#1e5427]" />
+                                    <Checkbox checked={field.value} onCheckedChange={field.onChange} className="mt-0.5 w-4 h-4 border-gray-300 data-[state=checked]:bg-primary-second" />
                                   </FormControl>
                                   <div className="leading-tight">
                                     <FormLabel className="text-xs font-normal text-[#4B5563] cursor-pointer">
                                       I agree to the{' '}
-                                      <Link href="/terms-and-condition" className="text-[#1e5427] font-medium hover:underline">
+                                      <Link href="/terms-and-condition" className="text-primary-second font-medium hover:underline">
                                         Terms of Service
                                       </Link>{' '}
                                       and{' '}
-                                      <Link href="/privacy-policy" className="text-[#1e5427] font-medium hover:underline">
+                                      <Link href="/privacy-policy" className="text-primary-second font-medium hover:underline">
                                         Privacy Policy
                                       </Link>
                                     </FormLabel>
@@ -890,12 +890,12 @@ export default function UnifiedCheckout() {
                                   group relative p-4 rounded-lg border transition-all duration-200
                                   flex items-center justify-between
                                   ${isSelected
-                                    ? 'border-[#1e5427] bg-[#F0FDF4]'
+                                    ? 'border-primary-second bg-[#F0FDF4]'
                                     : 'border-gray-100 hover:border-gray-200 bg-white'}
                                 `}
                               >
                                 <div className="flex items-center gap-3">
-                                  <div className={`w-9 h-9 rounded-full flex items-center justify-center ${isSelected ? 'bg-[#1e5427]/10 text-[#1e5427]' : 'bg-gray-50 text-gray-400'}`}>
+                                  <div className={`w-9 h-9 rounded-full flex items-center justify-center ${isSelected ? 'bg-primary-second/10 text-primary-second' : 'bg-gray-50 text-gray-400'}`}>
                                     {providerName.includes('card') || providerName.includes('stripe') || providerName.includes('powertranz') ? (
                                       <CreditCard className="w-4.5 h-4.5" />
                                     ) : providerName.includes('paypal') ? (
@@ -905,7 +905,7 @@ export default function UnifiedCheckout() {
                                     )}
                                   </div>
                                   <div>
-                                    <p className={`font-semibold text-sm ${isSelected ? 'text-[#1e5427]' : 'text-[#1A1A1A]'}`}>
+                                    <p className={`font-semibold text-sm ${isSelected ? 'text-primary-second' : 'text-[#1A1A1A]'}`}>
                                       {providerName.includes('stripe') || providerName.includes('powertranz') ? 'Credit or debit card' : 
                                        providerName.includes('paypal') ? 'PayPal' : 
                                        providerName.includes('google') ? 'Google Pay' : gateway.provider.toUpperCase()}
@@ -918,7 +918,7 @@ export default function UnifiedCheckout() {
                                     )}
                                   </div>
                                 </div>
-                                <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${isSelected ? 'border-[#1e5427] bg-[#1e5427]' : 'border-gray-200'}`}>
+                                <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${isSelected ? 'border-primary-second bg-primary-second' : 'border-gray-200'}`}>
                                   {isSelected && <Check className="w-3 h-3 text-white" />}
                                 </div>
                               </div>
@@ -961,7 +961,7 @@ export default function UnifiedCheckout() {
                       <Button 
                         disabled={isSubmitting || !selectedGateway} 
                         onClick={() => isAuthenticated ? onSubmit({ email: user?.email, acceptTerms: true }) : form.handleSubmit(onSubmit)()}
-                        className="w-full h-12 mt-2 bg-[#1e5427] hover:bg-[#1a4a22] text-white text-base font-bold rounded-lg transition-all"
+                        className="w-full h-12 mt-2 bg-primary-second hover:bg-[#1a4a22] text-white text-base font-bold rounded-lg transition-all"
                       >
                         {isSubmitting ? (
                           <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Processing...</>
@@ -1076,7 +1076,7 @@ export default function UnifiedCheckout() {
                     <div className="space-y-4">
                       <Collapsible open={isPromoOpen} onOpenChange={setIsPromoOpen}>
                         <CollapsibleTrigger asChild>
-                          <Button variant="ghost" className="w-full h-10 rounded-lg text-[#1e5427] hover:text-[#1a4a22] hover:bg-green-50 text-sm font-bold border border-green-100">
+                          <Button variant="ghost" className="w-full h-10 rounded-lg text-primary-second hover:text-[#1a4a22] hover:bg-green-50 text-sm font-bold border border-green-100">
                             Got a coupon?
                           </Button>
                         </CollapsibleTrigger>
@@ -1090,7 +1090,7 @@ export default function UnifiedCheckout() {
                                 size="sm"
                                 className={`flex-1 h-8 text-[10px] uppercase tracking-wider font-bold transition-all ${
                                   promoCodeType === 'voucher' 
-                                    ? 'bg-[#1e5427] text-white shadow-sm hover:bg-[#1e5427] hover:text-white' 
+                                    ? 'bg-primary-second text-white shadow-sm hover:bg-primary-second hover:text-white' 
                                     : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
                                 }`}
                                 onClick={() => setPromoCodeType('voucher')}
@@ -1103,7 +1103,7 @@ export default function UnifiedCheckout() {
                                 size="sm"
                                 className={`flex-1 h-8 text-[10px] uppercase tracking-wider font-bold transition-all ${
                                   promoCodeType === 'giftcard' 
-                                    ? 'bg-[#1e5427] text-white shadow-sm hover:bg-[#1e5427] hover:text-white' 
+                                    ? 'bg-primary-second text-white shadow-sm hover:bg-primary-second hover:text-white' 
                                     : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
                                 }`}
                                 onClick={() => setPromoCodeType('giftcard')}
@@ -1116,7 +1116,7 @@ export default function UnifiedCheckout() {
                                 size="sm"
                                 className={`flex-1 h-8 text-[10px] uppercase tracking-wider font-bold transition-all ${
                                   promoCodeType === 'referral' 
-                                    ? 'bg-[#1e5427] text-white shadow-sm hover:bg-[#1e5427] hover:text-white' 
+                                    ? 'bg-primary-second text-white shadow-sm hover:bg-primary-second hover:text-white' 
                                     : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
                                 }`}
                                 onClick={() => setPromoCodeType('referral')}
@@ -1133,7 +1133,7 @@ export default function UnifiedCheckout() {
                               onChange={(e) => setPromoCode(e.target.value)}
                               className="h-10 text-sm rounded-lg"
                             />
-                            <Button onClick={handleApplyPromo} disabled={isValidatingPromo || !promoCode} className="h-10 px-4 rounded-lg bg-[#1e5427]">
+                            <Button onClick={handleApplyPromo} disabled={isValidatingPromo || !promoCode} className="h-10 px-4 rounded-lg bg-primary-second">
                               {isValidatingPromo ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : 'Apply'}
                             </Button>
                           </div>

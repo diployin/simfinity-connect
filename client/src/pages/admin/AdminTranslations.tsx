@@ -489,7 +489,7 @@ export default function AdminTranslations() {
                 </div>
                 <Progress
                   value={Math.min(completionPercentage, 100)}
-                  className="mt-2 [&>div]:bg-[#2c7338]"
+                  className="mt-2 [&>div]:bg-[var(--primary)]"
                 />
               </CardContent>
             </Card>

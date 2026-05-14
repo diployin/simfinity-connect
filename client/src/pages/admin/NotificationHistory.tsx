@@ -300,7 +300,7 @@ export default function NotificationHistory() {
       '3days': {
         variant: 'outline',
         labelKey: 'admin.notifications.type.expiring3Days',
-        color: 'text-[#1e5427] dark:text-[#3d9a4d]',
+        color: 'text-primary-second dark:text-[var(--primary-light)]',
       },
       '1day': {
         variant: 'outline',
@@ -310,7 +310,7 @@ export default function NotificationHistory() {
       custom: {
         variant: 'outline',
         labelKey: 'admin.notifications.type.custom',
-        color: 'text-[#1e5427] dark:text-[#3d9a4d]',
+        color: 'text-primary-second dark:text-[var(--primary-light)]',
       },
     };
 

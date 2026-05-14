@@ -14,7 +14,7 @@ export function DownloadApp() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
           <div>
             {/* <div className="flex items-center gap-2 mb-4">
-              <span className="text-sm font-semibold text-[#2c7338] dark:text-[#3d9a4d]">Excellent</span>
+              <span className="text-sm font-semibold text-[var(--primary)] dark:text-[var(--primary-light)]">Excellent</span>
               <span className="text-sm text-muted-foreground">4.7 out of 5</span>
               <Star className="h-4 w-4 fill-[#00b67a] text-[#00b67a]" />
               <span className="text-sm font-semibold text-foreground">Trustpilot</span>

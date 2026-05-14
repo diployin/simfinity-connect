@@ -72,7 +72,7 @@ export function AboutUs() {
       <section className="py-20 md:py-28 lg:py-36 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-            About <span style={{ color: '#2c7338' }}>Us</span>
+            About <span style={{ color: 'var(--primary)' }}>Us</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-900 font-medium max-w-3xl mx-auto leading-relaxed mb-6">
             At Voltey, we make staying connected worldwide simple with smart and reliable eSIM technology.
@@ -128,7 +128,7 @@ export function AboutUs() {
               <TabsList className="grid w-full max-w-md grid-cols-1 h-auto p-1 bg-slate-100 rounded-full">
                 <TabsTrigger
                   value="iphone"
-                  className="rounded-full py-3 text-base font-medium data-[state=active]:bg-[#2c7338] data-[state=active]:text-white transition-all"
+                  className="rounded-full py-3 text-base font-medium data-[state=active]:bg-[var(--primary)] data-[state=active]:text-white transition-all"
                 >
                   On iPhone
                 </TabsTrigger>
@@ -147,7 +147,7 @@ export function AboutUs() {
                     />
                   </div>
                   <div className="p-8 text-center flex flex-col items-center flex-grow">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#2c7338] transition-colors">Scan QR Code</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[var(--primary)] transition-colors">Scan QR Code</h3>
                     <p className="text-gray-500 leading-relaxed max-w-xs mx-auto text-lg">
                       Go to Settings &gt; Cellular &gt; Add eSIM and scan the QR code provided in your email.
                     </p>
@@ -164,7 +164,7 @@ export function AboutUs() {
                     />
                   </div>
                   <div className="p-8 text-center flex flex-col items-center flex-grow">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#2c7338] transition-colors">Activate eSIM</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[var(--primary)] transition-colors">Activate eSIM</h3>
                     <p className="text-gray-500 leading-relaxed max-w-xs mx-auto text-lg">
                       Follow the on-screen prompts to label your new plan (e.g., "Travel") and continue.
                     </p>
@@ -181,7 +181,7 @@ export function AboutUs() {
                     />
                   </div>
                   <div className="p-8 text-center flex flex-col items-center flex-grow">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#2c7338] transition-colors">Connect</h3>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[var(--primary)] transition-colors">Connect</h3>
                     <p className="text-gray-500 leading-relaxed max-w-xs mx-auto text-lg">
                       Turn on "Data Roaming" for your new eSIM line to start browsing instantly.
                     </p>
@@ -214,7 +214,7 @@ export function AboutUs() {
                   className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
                   style={{ backgroundColor: 'rgba(44, 115, 56, 0.1)' }}
                 >
-                  <item.icon className="w-6 h-6" style={{ color: '#2c7338' }} />
+                  <item.icon className="w-6 h-6" style={{ color: 'var(--primary)' }} />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
                 <p className="text-gray-500 leading-relaxed">{item.description}</p>
@@ -231,7 +231,7 @@ export function AboutUs() {
             {/* Mission */}
             <div className="bg-slate-50 rounded-2xl p-10 border border-gray-100 hover:shadow-md transition-all duration-300">
               <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-6">
-                <CheckCircle2 className="w-8 h-8 text-[#2c7338]" />
+                <CheckCircle2 className="w-8 h-8 text-[var(--primary)]" />
               </div>
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Our Mission</h2>
               <p className="text-gray-600 text-lg leading-relaxed">
@@ -242,7 +242,7 @@ export function AboutUs() {
             {/* Vision */}
             <div className="bg-slate-50 rounded-2xl p-10 border border-gray-100 hover:shadow-md transition-all duration-300">
               <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-6">
-                <Globe2 className="w-8 h-8 text-[#2c7338]" />
+                <Globe2 className="w-8 h-8 text-[var(--primary)]" />
               </div>
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Our Vision</h2>
               <p className="text-gray-600 text-lg leading-relaxed">
@@ -271,7 +271,7 @@ export function AboutUs() {
                   className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
                   style={{ backgroundColor: 'rgba(44, 115, 56, 0.1)' }}
                 >
-                  <item.icon className="w-5 h-5" style={{ color: '#2c7338' }} />
+                  <item.icon className="w-5 h-5" style={{ color: 'var(--primary)' }} />
                 </div>
                 <span className="text-lg font-bold text-gray-900">{item.text}</span>
               </div>
@@ -342,7 +342,7 @@ export function AboutUs() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
             className="rounded-3xl px-8 py-16 md:px-16 md:py-20 text-center shadow-xl"
-            style={{ background: 'linear-gradient(135deg, #2c7338, #3a9c4d, #2c7338)' }}
+            style={{ background: 'linear-gradient(135deg, var(--primary), #3a9c4d, var(--primary))' }}
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
               Travel smarter. Stay connected everywhere.

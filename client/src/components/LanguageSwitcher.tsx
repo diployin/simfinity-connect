@@ -124,7 +124,7 @@ export function LanguageSwitcher() {
             </div>
 
             {languageCode === lang.code && (
-              <div className="h-2 w-2 rounded-full bg-gradient-to-r from-[#2c7338] to-[#1e5427]" />
+              <div className="h-2 w-2 rounded-full bg-gradient-to-r from-[var(--primary)] to-primary-second" />
             )}
           </DropdownMenuItem>
         ))}

@@ -69,9 +69,9 @@ export default function WorldMap({ data, timeFilter = "lifetime", onTimeFilterCh
     // Light mode: teal gradient
     if (intensity < 0.2) return "#ccfbf1"; // teal-100
     if (intensity < 0.4) return "#5cb86c"; // teal-300
-    if (intensity < 0.6) return "#3d9a4d"; // teal-400
-    if (intensity < 0.8) return "#2c7338"; // teal-500
-    return "#1e5427"; // teal-600
+    if (intensity < 0.6) return "var(--primary-light)"; // teal-400
+    if (intensity < 0.8) return "var(--primary)"; // teal-500
+    return "var(--primary-second)"; // teal-600
   };
 
   const handleMouseEnter = (geo: any, event: any) => {
@@ -152,7 +152,7 @@ export default function WorldMap({ data, timeFilter = "lifetime", onTimeFilterCh
                       style={{
                         default: { outline: "none" },
                         hover: { 
-                          fill: count > 0 ? "#194520" : "#e2e8f0", // teal-700 on hover
+                          fill: count > 0 ? "var(--primary-dark)" : "#e2e8f0", // teal-700 on hover
                           outline: "none",
                           cursor: count > 0 ? "pointer" : "default",
                         },
@@ -198,11 +198,11 @@ export default function WorldMap({ data, timeFilter = "lifetime", onTimeFilterCh
             <span className="text-xs text-slate-600 dark:text-slate-400">Low</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded" style={{ backgroundColor: "#3d9a4d" }}></div>
+            <div className="w-4 h-4 rounded" style={{ backgroundColor: "var(--primary-light)" }}></div>
             <span className="text-xs text-slate-600 dark:text-slate-400">Medium</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded" style={{ backgroundColor: "#1e5427" }}></div>
+            <div className="w-4 h-4 rounded" style={{ backgroundColor: "var(--primary-second)" }}></div>
             <span className="text-xs text-slate-600 dark:text-slate-400">High</span>
           </div>
         </div>

@@ -85,11 +85,11 @@ export function NewFooter() {
             ) : (
               <Link href="/" data-testid="link-home" className="flex-shrink-0">
                 <div className="flex items-center gap-2 cursor-pointer transition-all duration-200 hover:opacity-80">
-                  <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-[#2c7338] to-[#1e5427] flex items-center justify-center">
+                  <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-[var(--primary)] to-primary-second flex items-center justify-center">
                     <Globe className="h-4 w-4 text-white" />
                   </div>
                   <span className="font-bold text-lg text-gray-900 dark:text-white">
-                    Vol<span className="bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] bg-clip-text text-transparent">tey</span>
+                    Vol<span className="bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] bg-clip-text text-transparent">tey</span>
                   </span>
                 </div>
               </Link>

@@ -118,12 +118,12 @@ export default function Notifications() {
       case 'installation':
         return 'bg-green-500/10 text-green-700 dark:text-green-400';
       case 'topup':
-        return 'bg-[#2c7338]/10 text-[#1e5427] dark:text-[#3d9a4d]';
+        return 'bg-[var(--primary)]/10 text-primary-second dark:text-[var(--primary-light)]';
       case 'expiring':
       case 'expired':
         return 'bg-orange-500/10 text-orange-700 dark:text-orange-400';
       case 'ticket_reply':
-        return 'bg-[#2c7338]/10 text-[#1e5427] dark:text-[#3d9a4d]';
+        return 'bg-[var(--primary)]/10 text-primary-second dark:text-[var(--primary-light)]';
       default:
         return 'bg-muted text-muted-foreground';
     }

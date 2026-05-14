@@ -41,7 +41,7 @@ export default function MyOrders() {
   const getStatusColor = (status: string) => {
     const colors: Record<string, string> = {
       pending: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-      processing: "bg-[#dcf0de] text-[#194520] dark:bg-[#194520] dark:text-[#c8e6c9]",
+      processing: "bg-primary/10 text-[var(--primary-dark)] dark:bg-[var(--primary-dark)] dark:text-primary/10",
       completed: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
       failed: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
     };
@@ -328,14 +328,14 @@ export default function MyOrders() {
                 )}
 
                 {order.status === "processing" && (
-                  <div className="bg-[#f0f9f1] dark:bg-[#0a2e14]/20 border border-[#dcf0de] dark:border-[#194520] rounded-lg p-4">
+                  <div className="bg-primary/5 dark:bg-[#0a2e14]/20 border border-primary/10 dark:border-[var(--primary-dark)] rounded-lg p-4">
                     <div className="flex items-start gap-3">
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-[#1e5427] mt-0.5"></div>
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary-second mt-0.5"></div>
                       <div className="flex-1">
-                        <p className="font-medium text-[#194520] dark:text-[#dcf0de] mb-1">
+                        <p className="font-medium text-[var(--primary-dark)] dark:text-primary/10 mb-1">
                           {t('myOrders.processingOrder', 'Processing Your Order')}
                         </p>
-                        <p className="text-sm text-[#1e5427] dark:text-[#3d9a4d]">
+                        <p className="text-sm text-primary-second dark:text-[var(--primary-light)]">
                           {order.orderType === "batch"
                             ? t('myOrders.processingBatch', "Your eSIM is being provisioned. You'll receive installation instructions via email within a few minutes.")
                             : t('myOrders.processingRegular', 'Your eSIM is being processed. This usually takes a few moments.')}
@@ -376,7 +376,7 @@ export default function MyOrders() {
             <h3 className="text-lg font-semibold mb-2">{t('myOrders.noOrders', 'No orders yet')}</h3>
             <p className="text-muted-foreground mb-6">{t('myOrders.noOrdersDesc', 'Start exploring our destinations and get your first eSIM')}</p>
             <Link href="/destinations">
-              <Button className="bg-[#2c7338] hover:bg-[#1e5427] text-white" data-testid="button-browse-destinations">{t('myOrders.browseDestinations', 'Browse Destinations')}</Button>
+              <Button className="bg-[var(--primary)] hover:bg-primary-second text-white" data-testid="button-browse-destinations">{t('myOrders.browseDestinations', 'Browse Destinations')}</Button>
             </Link>
           </CardContent>
         </Card>
@@ -501,9 +501,9 @@ export default function MyOrders() {
                 )}
               </div>
 
-              <div className="bg-[#f0f9f1] dark:bg-[#0a2e14]/20 border border-[#dcf0de] dark:border-[#194520] rounded-lg p-4">
-                <h4 className="font-medium text-[#194520] dark:text-[#dcf0de] mb-2">{t('myOrders.installationSteps', 'Installation Steps')}</h4>
-                <ol className="list-decimal list-inside space-y-1 text-sm text-[#1e5427] dark:text-[#3d9a4d]">
+              <div className="bg-primary/5 dark:bg-[#0a2e14]/20 border border-primary/10 dark:border-[var(--primary-dark)] rounded-lg p-4">
+                <h4 className="font-medium text-[var(--primary-dark)] dark:text-primary/10 mb-2">{t('myOrders.installationSteps', 'Installation Steps')}</h4>
+                <ol className="list-decimal list-inside space-y-1 text-sm text-primary-second dark:text-[var(--primary-light)]">
                   <li>{t('myOrders.step1', 'Go to Settings on your device')}</li>
                   <li>{t('myOrders.step2', 'Select Cellular/Mobile Data')}</li>
                   <li>{t('myOrders.step3', 'Tap "Add eSIM" or "Add Cellular Plan"')}</li>
