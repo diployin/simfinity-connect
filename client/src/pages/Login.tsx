@@ -550,12 +550,12 @@ export default function Login() {
                   <img src={currentLogo} alt={siteName || 'Simfinity'} className="h-10" />
                 ) : (siteName && siteName.toLowerCase() === 'simfinity') || !siteName ? (
                   <>
-                    <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-[#2c7338] to-[#1e5427] flex items-center justify-center">
+                    <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-[var(--primary)] to-primary-second flex items-center justify-center">
                       <Globe className="h-4 w-4 text-white" />
                     </div>
                     <span className="font-bold text-lg text-gray-900 dark:text-white">
                       Sim
-                      <span className="bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] bg-clip-text text-transparent">
+                      <span className="bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] bg-clip-text text-transparent">
                         finity
                       </span>
                     </span>
@@ -592,7 +592,7 @@ export default function Login() {
           {/* Referral Banner */}
           {showReferralBanner && referralCode && (
             <Alert
-              className="mb-6 border-primary-light bg-[#2c7338]/5 relative"
+              className="mb-6 border-primary-light bg-[var(--primary)]/5 relative"
               data-testid="alert-referral-banner"
             >
               <Gift className="h-4 w-4 text-primary" />

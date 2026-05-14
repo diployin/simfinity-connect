@@ -221,7 +221,7 @@ export default function AdminGiftCards() {
       case 'active':
         return <Badge className="bg-green-500/10 text-green-500 border-green-500/20">Active</Badge>;
       case 'used':
-        return <Badge className="bg-[#2c7338]/10 text-[#2c7338] border-[#2c7338]/20">Used</Badge>;
+        return <Badge className="bg-[var(--primary)]/10 text-[var(--primary)] border-[var(--primary)]/20">Used</Badge>;
       case 'expired':
         return <Badge className="bg-red-500/10 text-red-500 border-red-500/20">Expired</Badge>;
       case 'cancelled':

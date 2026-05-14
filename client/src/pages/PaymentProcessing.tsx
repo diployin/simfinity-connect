@@ -81,7 +81,7 @@
 //         <div className="text-center max-w-md mx-auto px-4">
 //           {status === "processing" && (
 //             <>
-//               <Loader2 className="w-16 h-16 text-[#2c7338] animate-spin mx-auto mb-4" />
+//               <Loader2 className="w-16 h-16 text-[var(--primary)] animate-spin mx-auto mb-4" />
 //               <h1 className="text-2xl font-bold text-foreground mb-2">Processing Payment</h1>
 //               <p className="text-muted-foreground">{message}</p>
 //             </>
@@ -285,7 +285,7 @@ export default function PaymentProcessing() {
         <div className="text-center max-w-md mx-auto px-4">
           {status === "processing" && (
             <>
-              <Loader2 className="w-16 h-16 text-[#2c7338] animate-spin mx-auto mb-4" />
+              <Loader2 className="w-16 h-16 text-[var(--primary)] animate-spin mx-auto mb-4" />
               <h1 className="text-2xl font-bold mb-2">Processing Payment</h1>
               <p className="text-muted-foreground">{message}</p>
             </>

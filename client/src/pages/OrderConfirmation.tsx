@@ -63,7 +63,7 @@ type OrderDetails = {
 
 const getStatusConfig = (t: any): Record<string, { label: string; color: string; icon: any }> => ({
   pending: { label: t('order.statusProcessing', 'Processing'), color: 'bg-yellow-500', icon: Clock },
-  processing: { label: t('order.statusProcessing', 'Processing'), color: 'bg-[#2c7338]', icon: Loader2 },
+  processing: { label: t('order.statusProcessing', 'Processing'), color: 'bg-[var(--primary)]', icon: Loader2 },
   completed: { label: t('order.statusReady', 'Ready to Install'), color: 'bg-green-500', icon: Check },
   failed: { label: t('order.statusFailed', 'Failed'), color: 'bg-red-500', icon: AlertCircle },
 });
@@ -108,7 +108,7 @@ export default function OrderConfirmation() {
         {/* <SiteHeader /> */}
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
-            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#2c7338] border-r-transparent"></div>
+            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[var(--primary)] border-r-transparent"></div>
             <p className="mt-4 text-muted-foreground">{t('order.loading', 'Loading your order...')}</p>
           </div>
         </div>
@@ -226,11 +226,11 @@ export default function OrderConfirmation() {
               )}
 
               {(order.status === 'pending' || order.status === 'processing') && (
-                <Card className="border-0 shadow-lg border-l-4 border-l-[#2c7338]">
+                <Card className="border-0 shadow-lg border-l-4 border-l-[var(--primary)]">
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
                       <div className="flex-shrink-0">
-                        <Loader2 className="w-8 h-8 text-[#2c7338] animate-spin" />
+                        <Loader2 className="w-8 h-8 text-[var(--primary)] animate-spin" />
                       </div>
                       <div>
                         <h3 className="font-semibold text-foreground mb-2">
@@ -291,7 +291,7 @@ export default function OrderConfirmation() {
                   <CardContent>
                     <div className="space-y-4">
                       <div className="flex gap-4">
-                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#dcf0de] dark:bg-[#2c7338]/20 flex items-center justify-center text-[#1e5427] font-semibold">
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 dark:bg-[var(--primary)]/20 flex items-center justify-center text-primary-second font-semibold">
                           1
                         </div>
                         <div>
@@ -302,7 +302,7 @@ export default function OrderConfirmation() {
                         </div>
                       </div>
                       <div className="flex gap-4">
-                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#dcf0de] dark:bg-[#2c7338]/20 flex items-center justify-center text-[#1e5427] font-semibold">
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 dark:bg-[var(--primary)]/20 flex items-center justify-center text-primary-second font-semibold">
                           2
                         </div>
                         <div>
@@ -313,7 +313,7 @@ export default function OrderConfirmation() {
                         </div>
                       </div>
                       <div className="flex gap-4">
-                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[#dcf0de] dark:bg-[#2c7338]/20 flex items-center justify-center text-[#1e5427] font-semibold">
+                        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 dark:bg-[var(--primary)]/20 flex items-center justify-center text-primary-second font-semibold">
                           3
                         </div>
                         <div>

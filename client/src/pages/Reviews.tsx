@@ -129,7 +129,7 @@ export function Reviews() {
                 {t('website.reviews.heroSubtitle', 'An affordable eSIM service for global travelers')}
               </p>
               <Link href="/destinations">
-                <span className="inline-flex items-center gap-2 text-[#2c7338] font-semibold text-lg hover:underline cursor-pointer">
+                <span className="inline-flex items-center gap-2 text-[var(--primary)] font-semibold text-lg hover:underline cursor-pointer">
                   {t('website.reviews.viewAllPlans', 'View All Plans')}
                   <ArrowRight className="w-5 h-5" />
                 </span>
@@ -163,7 +163,7 @@ export function Reviews() {
                   className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
                   style={{ backgroundColor: 'rgba(44, 115, 56, 0.1)' }}
                 >
-                  <reason.icon className="w-6 h-6 text-[#2c7338]" />
+                  <reason.icon className="w-6 h-6 text-[var(--primary)]" />
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{reason.title}</h3>
                 <p className="text-gray-500 leading-relaxed">{reason.description}</p>
@@ -185,7 +185,7 @@ export function Reviews() {
                 key={index}
                 className="min-w-[300px] md:min-w-0 bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:shadow-md transition-all duration-300 flex flex-col"
               >
-                <Quote className="w-8 h-8 text-[#2c7338] mb-4 opacity-40" />
+                <Quote className="w-8 h-8 text-[var(--primary)] mb-4 opacity-40" />
                 <p className="text-gray-700 leading-relaxed mb-6 flex-1">
                   "{review.quote}"
                 </p>
@@ -239,7 +239,7 @@ export function Reviews() {
                     <th
                       key={provider + index}
                       className={`text-center text-sm font-semibold px-6 py-4 ${index === 0
-                        ? 'text-[#2c7338] bg-green-50'
+                        ? 'text-[var(--primary)] bg-green-50'
                         : 'text-gray-500'
                         }`}
                     >
@@ -264,7 +264,7 @@ export function Reviews() {
                           }`}
                       >
                         {value ? (
-                          <Check className="w-5 h-5 text-[#2c7338] mx-auto" />
+                          <Check className="w-5 h-5 text-[var(--primary)] mx-auto" />
                         ) : (
                           <X className="w-5 h-5 text-red-400 mx-auto" />
                         )}
@@ -283,7 +283,7 @@ export function Reviews() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
             className="rounded-3xl px-8 py-16 md:px-16 md:py-20 text-center"
-            style={{ background: 'linear-gradient(135deg, #2c7338, #3a9c4d, #2c7338)' }}
+            style={{ background: 'linear-gradient(135deg, var(--primary), #3a9c4d, var(--primary))' }}
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               {t('website.reviews.ctaTitle', 'Choose the best eSIM plan for your stay')}

@@ -8,7 +8,7 @@ export default function ESimLoader() {
   const currentLogo = theme === 'dark' ? (whiteLogo || logo) : logo;
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-[#f0f9f1] to-white dark:from-gray-950 dark:to-gray-900 px-6">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-primary/5 to-white dark:from-gray-950 dark:to-gray-900 px-6">
       <div className="flex flex-col items-center justify-center gap-8 w-full max-w-md animate-in fade-in zoom-in duration-500">
         {/* Logo Section */}
         {currentLogo && (
@@ -36,7 +36,7 @@ export default function ESimLoader() {
                 width="64"
                 height="80"
                 rx="8"
-                className="fill-white dark:fill-gray-800 stroke-[#2c7338]"
+                className="fill-white dark:fill-gray-800 stroke-[var(--primary)]"
                 strokeWidth="2.5"
               />
 
@@ -46,17 +46,17 @@ export default function ESimLoader() {
                 width="48"
                 height="48"
                 rx="6"
-                className="fill-[#f0f9f1] dark:fill-gray-700 stroke-[#2c7338]"
+                className="fill-primary/5 dark:fill-gray-700 stroke-[var(--primary)]"
                 strokeWidth="1.5"
               />
 
-              <rect x="28" y="20" width="18" height="18" rx="2" className="fill-[#2c7338]/15" />
-              <rect x="50" y="20" width="18" height="18" rx="2" className="fill-[#2c7338]/15" />
-              <rect x="28" y="42" width="18" height="18" rx="2" className="fill-[#2c7338]/15" />
-              <rect x="50" y="42" width="18" height="18" rx="2" className="fill-[#2c7338]/15" />
+              <rect x="28" y="20" width="18" height="18" rx="2" className="fill-[var(--primary)]/15" />
+              <rect x="50" y="20" width="18" height="18" rx="2" className="fill-[var(--primary)]/15" />
+              <rect x="28" y="42" width="18" height="18" rx="2" className="fill-[var(--primary)]/15" />
+              <rect x="50" y="42" width="18" height="18" rx="2" className="fill-[var(--primary)]/15" />
 
-              <line x1="48" y1="20" x2="48" y2="60" className="stroke-[#2c7338]/30" strokeWidth="1" />
-              <line x1="28" y1="40" x2="68" y2="40" className="stroke-[#2c7338]/30" strokeWidth="1" />
+              <line x1="48" y1="20" x2="48" y2="60" className="stroke-[var(--primary)]/30" strokeWidth="1" />
+              <line x1="28" y1="40" x2="68" y2="40" className="stroke-[var(--primary)]/30" strokeWidth="1" />
 
               <rect
                 x="28"
@@ -64,7 +64,7 @@ export default function ESimLoader() {
                 width="40"
                 height="4"
                 rx="2"
-                className="fill-[#2c7338]/20"
+                className="fill-[var(--primary)]/20"
               />
               <rect
                 x="28"
@@ -72,12 +72,12 @@ export default function ESimLoader() {
                 width="24"
                 height="3"
                 rx="1.5"
-                className="fill-[#2c7338]/10"
+                className="fill-[var(--primary)]/10"
               />
 
               <g className="animate-pulse">
-                <circle cx="76" cy="16" r="4" className="fill-[#3d9a4d]" />
-                <circle cx="76" cy="16" r="7" className="fill-[#3d9a4d]/20" />
+                <circle cx="76" cy="16" r="4" className="fill-[var(--primary-light)]" />
+                <circle cx="76" cy="16" r="7" className="fill-[var(--primary-light)]/20" />
               </g>
             </svg>
 
@@ -85,27 +85,27 @@ export default function ESimLoader() {
               <svg viewBox="0 0 32 32" className="w-8 h-8" fill="none">
                 <path
                   d="M16 28C16 28 16 22 16 20"
-                  className="stroke-[#2c7338] animate-signal-1"
+                  className="stroke-[var(--primary)] animate-signal-1"
                   strokeWidth="2"
                   strokeLinecap="round"
                 />
                 <path
                   d="M10 22C12.5 19.5 19.5 19.5 22 22"
-                  className="stroke-[#2c7338] animate-signal-2"
+                  className="stroke-[var(--primary)] animate-signal-2"
                   strokeWidth="2"
                   strokeLinecap="round"
                   fill="none"
                 />
                 <path
                   d="M6 18C10 14 22 14 26 18"
-                  className="stroke-[#2c7338] animate-signal-3"
+                  className="stroke-[var(--primary)] animate-signal-3"
                   strokeWidth="2"
                   strokeLinecap="round"
                   fill="none"
                 />
                 <path
                   d="M2 14C8 8 24 8 30 14"
-                  className="stroke-[#2c7338]/60 animate-signal-4"
+                  className="stroke-[var(--primary)]/60 animate-signal-4"
                   strokeWidth="2"
                   strokeLinecap="round"
                   fill="none"
@@ -118,20 +118,20 @@ export default function ESimLoader() {
             {!currentLogo && (
               <div className="flex items-center">
                 <span className="text-lg font-bold text-gray-900 dark:text-white">Sim</span>
-                <span className="text-lg font-bold bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] bg-clip-text text-transparent">finity</span>
+                <span className="text-lg font-bold bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] bg-clip-text text-transparent">finity</span>
               </div>
             )}
             <div className="flex gap-1">
               <span
-                className="w-2 h-2 rounded-full bg-[#2c7338] animate-bounce"
+                className="w-2 h-2 rounded-full bg-[var(--primary)] animate-bounce"
                 style={{ animationDelay: '0ms' }}
               />
               <span
-                className="w-2 h-2 rounded-full bg-[#2c7338] animate-bounce"
+                className="w-2 h-2 rounded-full bg-[var(--primary)] animate-bounce"
                 style={{ animationDelay: '150ms' }}
               />
               <span
-                className="w-2 h-2 rounded-full bg-[#2c7338] animate-bounce"
+                className="w-2 h-2 rounded-full bg-[var(--primary)] animate-bounce"
                 style={{ animationDelay: '300ms' }}
               />
             </div>

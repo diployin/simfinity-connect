@@ -245,7 +245,7 @@ function PaymentForm({
       <Button
         type="submit"
         disabled={!stripe || isProcessing}
-        className="w-full bg-gradient-to-r from-[#2c7338] to-[#1e5427] hover:from-[#1e5427] hover:to-[#194520] text-white py-6 text-lg"
+        className="w-full bg-gradient-to-r from-[var(--primary)] to-primary-second hover:from-primary-second hover:to-[var(--primary-dark)] text-white py-6 text-lg"
         data-testid="button-pay"
       >
         {isProcessing ? (
@@ -483,7 +483,7 @@ export default function GuestCheckout() {
         {/* <SiteHeader /> */}
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
-            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#2c7338] border-r-transparent"></div>
+            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[var(--primary)] border-r-transparent"></div>
             <p className="mt-4 text-muted-foreground">Loading...</p>
           </div>
         </div>
@@ -614,14 +614,14 @@ export default function GuestCheckout() {
                                       terms: t('checkout.terms', 'Terms of Service'),
                                       privacy: t('checkout.privacy', 'Privacy Policy')
                                     })).split(String(t('checkout.terms', 'Terms of Service')))[0]}
-                                    <Link href="/terms-and-condition" className="text-[#1e5427] hover:underline">
+                                    <Link href="/terms-and-condition" className="text-primary-second hover:underline">
                                       {t('checkout.terms', 'Terms of Service')}
                                     </Link>
                                     {String(t('checkout.acceptTerms', 'I agree to the {{terms}} and {{privacy}}', {
                                       terms: t('checkout.terms', 'Terms of Service'),
                                       privacy: t('checkout.privacy', 'Privacy Policy')
                                     })).split(String(t('checkout.terms', 'Terms of Service')))[1].split(String(t('checkout.privacy', 'Privacy Policy')))[0]}
-                                    <Link href="/privacy-policy" className="text-[#1e5427] hover:underline">
+                                    <Link href="/privacy-policy" className="text-primary-second hover:underline">
                                       {t('checkout.privacy', 'Privacy Policy')}
                                     </Link>
                                   </FormLabel>
@@ -634,7 +634,7 @@ export default function GuestCheckout() {
                           <Button
                             type="submit"
                             disabled={createPaymentIntent.isPending}
-                            className="w-full bg-gradient-to-r from-[#2c7338] to-[#1e5427] hover:from-[#1e5427] hover:to-[#194520] text-white"
+                            className="w-full bg-gradient-to-r from-[var(--primary)] to-primary-second hover:from-primary-second hover:to-[var(--primary-dark)] text-white"
                             data-testid="button-continue"
                           >
                             {createPaymentIntent.isPending ? (

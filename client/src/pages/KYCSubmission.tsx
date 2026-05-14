@@ -302,7 +302,7 @@ export default function KYCSubmission() {
                     <div className="border-2 border-dashed rounded-lg p-8 text-center">
                       {selectedFile ? (
                         <div className="space-y-3">
-                          <FileText className="h-12 w-12 mx-auto text-[#2c7338]" />
+                          <FileText className="h-12 w-12 mx-auto text-[var(--primary)]" />
                           <div>
                             <div className="font-medium">{selectedFile.name}</div>
                             <div className="text-sm text-muted-foreground">
@@ -324,7 +324,7 @@ export default function KYCSubmission() {
                           <Upload className="h-12 w-12 mx-auto text-muted-foreground" />
                           <div>
                             <Label htmlFor="file-upload" className="cursor-pointer">
-                              <span className="text-[#2c7338] hover:underline">
+                              <span className="text-[var(--primary)] hover:underline">
                                 {t('kyc.clickToUpload', 'Click to upload')}
                               </span>
                               {' ' + t('kyc.orDragAndDrop', 'or drag and drop')}
@@ -346,14 +346,14 @@ export default function KYCSubmission() {
                     </div>
                   </div>
 
-                  <div className="bg-[#f0f9f1] dark:bg-[#0a2e14]/20 p-4 rounded-lg border border-[#dcf0de] dark:border-[#194520]">
+                  <div className="bg-primary/5 dark:bg-[#0a2e14]/20 p-4 rounded-lg border border-primary/10 dark:border-[var(--primary-dark)]">
                     <div className="flex gap-3">
-                      <AlertCircle className="h-5 w-5 text-[#1e5427] dark:text-[#3d9a4d] flex-shrink-0 mt-0.5" />
-                      <div className="text-sm text-[#194520] dark:text-[#dcf0de]">
+                      <AlertCircle className="h-5 w-5 text-primary-second dark:text-[var(--primary-light)] flex-shrink-0 mt-0.5" />
+                      <div className="text-sm text-[var(--primary-dark)] dark:text-primary/10">
                         <div className="font-medium mb-1">
                           {t('kyc.documentRequirements', 'Document Requirements:')}
                         </div>
-                        <ul className="list-disc list-inside space-y-1 text-[#194520] dark:text-[#c8e6c9]">
+                        <ul className="list-disc list-inside space-y-1 text-[var(--primary-dark)] dark:text-primary/10">
                           <li>{t('kyc.requirement1', 'Must be a government-issued ID')}</li>
                           <li>{t('kyc.requirement2', 'Photo should be clear and readable')}</li>
                           <li>
@@ -367,7 +367,7 @@ export default function KYCSubmission() {
 
                   <Button
                     type="submit"
-                    className="w-full bg-[#2c7338] hover:bg-[#1e5427] text-white"
+                    className="w-full bg-[var(--primary)] hover:bg-primary-second text-white"
                     disabled={!selectedFile || !documentType || uploadMutation.isPending}
                     data-testid="button-submit-kyc"
                   >

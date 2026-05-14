@@ -146,12 +146,12 @@ export function HeroSection() {
 
   return (
     <section className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#e8f5e9] via-[#f0f9f1] to-[#c8e6c9] dark:bg-none dark:bg-gray-900" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-primary/5 to-primary/10 dark:bg-none dark:bg-gray-900" />
 
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <svg className="absolute -top-20 right-0 w-[65%] h-[120%]" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-          <path d="M250 -80 Q380 30 460 160 Q540 290 490 440 Q470 540 600 560 L600 -80 Z" fill="#2c7338" opacity="0.12" />
-          <path d="M320 -40 Q420 90 500 220 Q580 350 540 490 Q520 560 600 540 L600 -40 Z" fill="#2c7338" opacity="0.06" />
+          <path d="M250 -80 Q380 30 460 160 Q540 290 490 440 Q470 540 600 560 L600 -80 Z" fill="var(--primary)" opacity="0.12" />
+          <path d="M320 -40 Q420 90 500 220 Q580 350 540 490 Q520 560 600 540 L600 -40 Z" fill="var(--primary)" opacity="0.06" />
         </svg>
       </div>
 
@@ -182,12 +182,12 @@ export function HeroSection() {
             <motion.div variants={itemVariants} className="w-full max-w-[420px] mb-8">
               <button
                 onClick={() => setIsSearchModalOpen(true)}
-                className="w-full flex items-center gap-3 pl-5 pr-2 py-2.5 rounded-full border border-gray-200/80 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-[#3d9a4d] dark:hover:border-[#2c7338] transition-all shadow-sm hover:shadow-md group cursor-pointer text-left"
+                className="w-full flex items-center gap-3 pl-5 pr-2 py-2.5 rounded-full border border-gray-200/80 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-[var(--primary-light)] dark:hover:border-[var(--primary)] transition-all shadow-sm hover:shadow-md group cursor-pointer text-left"
               >
                 <span className="text-sm text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-300 transition-colors flex-1">
                   {t('website.home.hero.search', 'Where are you going next?')}
                 </span>
-                <div className="p-2.5 rounded-full bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] text-white flex-shrink-0 transition-colors">
+                <div className="p-2.5 rounded-full bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] text-white flex-shrink-0 transition-colors">
                   <Search className="h-4 w-4" />
                 </div>
               </button>
@@ -203,7 +203,7 @@ export function HeroSection() {
                     <motion.div
                       whileHover={{ scale: 1.04 }}
                       whileTap={{ scale: 0.97 }}
-                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700 hover:border-[#3d9a4d] dark:hover:border-[#2c7338] transition-all cursor-pointer shadow-sm hover:shadow"
+                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700 hover:border-[var(--primary-light)] dark:hover:border-[var(--primary)] transition-all cursor-pointer shadow-sm hover:shadow"
                     >
                       <img
                         src={`https://flagcdn.com/16x12/${dest.countryCode.toLowerCase()}.png`}
@@ -220,10 +220,10 @@ export function HeroSection() {
                   <motion.div
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#f0f9f1] dark:bg-[#194520]/30 border border-[#dcf0de] dark:border-[#1e5427] hover:bg-[#dcf0de] dark:hover:bg-[#194520]/50 transition-all cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/5 dark:bg-[var(--primary-dark)]/30 border border-primary/10 dark:border-primary-second hover:bg-primary/10 dark:hover:bg-[var(--primary-dark)]/50 transition-all cursor-pointer"
                   >
-                    <Globe className="h-3 w-3 text-[#2c7338] dark:text-[#3d9a4d]" />
-                    <span className="text-xs font-medium text-[#2c7338] dark:text-[#3d9a4d]">
+                    <Globe className="h-3 w-3 text-[var(--primary)] dark:text-[var(--primary-light)]" />
+                    <span className="text-xs font-medium text-[var(--primary)] dark:text-[var(--primary-light)]">
                       {t('website.home.hero.viewAll', 'View all')}
                     </span>
                   </motion.div>
@@ -251,32 +251,32 @@ export function HeroSection() {
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-6 sm:py-7">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
             <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3 text-center sm:text-left">
-              <div className="flex-shrink-0 w-9 h-9 rounded-full bg-[#f0f9f1] dark:bg-[#194520]/30 flex items-center justify-center">
-                <CheckCircle className="h-4 w-4 text-[#2c7338] dark:text-[#3d9a4d]" />
+              <div className="flex-shrink-0 w-9 h-9 rounded-full bg-primary/5 dark:bg-[var(--primary-dark)]/30 flex items-center justify-center">
+                <CheckCircle className="h-4 w-4 text-[var(--primary)] dark:text-[var(--primary-light)]" />
               </div>
               <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
                 {t('website.home.hero.statDownloads', 'Trusted by 10,000+ Travelers')}
               </span>
             </div>
             <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3 text-center sm:text-left">
-              <div className="flex-shrink-0 w-9 h-9 rounded-full bg-[#f0f9f1] dark:bg-[#194520]/30 flex items-center justify-center">
-                <Signal className="h-4 w-4 text-[#2c7338] dark:text-[#3d9a4d]" />
+              <div className="flex-shrink-0 w-9 h-9 rounded-full bg-primary/5 dark:bg-[var(--primary-dark)]/30 flex items-center justify-center">
+                <Signal className="h-4 w-4 text-[var(--primary)] dark:text-[var(--primary-light)]" />
               </div>
               <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
                 {t('website.home.hero.statCoverage', 'Coverage in 200+ Destinations')}
               </span>
             </div>
             <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3 text-center sm:text-left">
-              <div className="flex-shrink-0 w-9 h-9 rounded-full bg-[#f0f9f1] dark:bg-[#194520]/30 flex items-center justify-center">
-                <Database className="h-4 w-4 text-[#2c7338] dark:text-[#3d9a4d]" />
+              <div className="flex-shrink-0 w-9 h-9 rounded-full bg-primary/5 dark:bg-[var(--primary-dark)]/30 flex items-center justify-center">
+                <Database className="h-4 w-4 text-[var(--primary)] dark:text-[var(--primary-light)]" />
               </div>
               <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
                 {t('website.home.hero.statPlans', 'Flexible Plans from 1GB to Unlimited')}
               </span>
             </div>
             <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3 text-center sm:text-left">
-              <div className="flex-shrink-0 w-9 h-9 rounded-full bg-[#f0f9f1] dark:bg-[#194520]/30 flex items-center justify-center">
-                <Star className="h-4 w-4 text-[#2c7338] dark:text-[#3d9a4d]" />
+              <div className="flex-shrink-0 w-9 h-9 rounded-full bg-primary/5 dark:bg-[var(--primary-dark)]/30 flex items-center justify-center">
+                <Star className="h-4 w-4 text-[var(--primary)] dark:text-[var(--primary-light)]" />
               </div>
               <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
                 {t('website.home.hero.statRatings', 'Rated 5 Stars by Thousands')}

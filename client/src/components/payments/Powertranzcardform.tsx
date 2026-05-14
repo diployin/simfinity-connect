@@ -303,7 +303,7 @@ export function PowerTranzCardForm({
                         <Button
                             type="submit"
                             disabled={isLoading || !isFormValid}
-                            className="flex-1 bg-[#2c7338] hover:bg-[#1e5427] disabled:opacity-50"
+                            className="flex-1 bg-[var(--primary)] hover:bg-primary-second disabled:opacity-50"
                         >
                             {isLoading ? (
                                 <>

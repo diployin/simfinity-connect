@@ -59,14 +59,14 @@ export function InstantConnection() {
                 )}
               </p>
               <div className="inline-flex items-center gap-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm px-4 py-3">
-                <div className="w-8 h-8 bg-[#f0f9f1] dark:bg-[#194520]/30 rounded-lg flex items-center justify-center">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2c7338" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <div className="w-8 h-8 bg-primary/5 dark:bg-[var(--primary-dark)]/30 rounded-lg flex items-center justify-center">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="2" y="6" width="20" height="12" rx="2" />
                     <path d="M12 12h.01" />
                   </svg>
                 </div>
                 <span className="text-sm font-semibold text-gray-900 dark:text-white">{t('website.home.instant.connect.esimNum', 'eSIM #1')}</span>
-                <span className="text-xs text-[#2c7338] dark:text-[#3d9a4d] font-medium bg-[#f0f9f1] dark:bg-[#194520]/30 px-2 py-0.5 rounded-full">
+                <span className="text-xs text-[var(--primary)] dark:text-[var(--primary-light)] font-medium bg-primary/5 dark:bg-[var(--primary-dark)]/30 px-2 py-0.5 rounded-full">
                   {t('website.home.instant.connect.installed', 'Installed')}
                 </span>
               </div>
@@ -112,7 +112,7 @@ export function InstantConnection() {
                       <span className="text-xs text-gray-400 ml-2">{t('website.home.instant.avoid.daysValidity', '30 days')}</span>
                     </div>
                     {i === 0 && (
-                      <div className="w-6 h-6 bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] rounded-full flex items-center justify-center">
+                      <div className="w-6 h-6 bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] rounded-full flex items-center justify-center">
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                           <polyline points="20 6 9 17 4 12" />
                         </svg>
@@ -186,7 +186,7 @@ export function InstantConnection() {
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                 </div>
                 <div className="absolute bottom-4 right-0 translate-x-1 bg-white dark:bg-gray-800 rounded-xl shadow-lg px-4 py-2 flex items-center gap-2">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2c7338" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                   </svg>
                   <span className="text-xs font-medium text-gray-700 dark:text-gray-300">

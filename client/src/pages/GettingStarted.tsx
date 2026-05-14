@@ -66,7 +66,7 @@ export function GettingStarted() {
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
                     <div className="text-center">
                         <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
-                            {t('gettingStarted.heroTitle').split('?')[0]} <span className="text-[#2c7338]">{t('gettingStarted.heroTitle').split('?')[1] || '?'}</span>
+                            {t('gettingStarted.heroTitle').split('?')[0]} <span className="text-[var(--primary)]">{t('gettingStarted.heroTitle').split('?')[1] || '?'}</span>
                         </h1>
                         <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed mb-10">
                             {t('gettingStarted.heroSubtitle', { siteName })}
@@ -75,7 +75,7 @@ export function GettingStarted() {
                             <Button
                                 onClick={() => navigate('/destinations')}
                                 size="lg"
-                                className="bg-[#2c7338] hover:bg-[#235d2d] text-white px-8 h-14 rounded-xl text-lg font-semibold shadow-lg shadow-green-900/10 transition-all hover:scale-105"
+                                className="bg-[var(--primary)] hover:bg-[#235d2d] text-white px-8 h-14 rounded-xl text-lg font-semibold shadow-lg shadow-green-900/10 transition-all hover:scale-105"
                             >
                                 {t('gettingStarted.findPlan')}
                                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -84,7 +84,7 @@ export function GettingStarted() {
                                 variant="outline"
                                 onClick={() => navigate('/compatible-devices')}
                                 size="lg"
-                                className="border-gray-200 hover:bg-white hover:border-[#2c7338] hover:text-[#2c7338] px-8 h-14 rounded-xl text-lg font-semibold transition-all"
+                                className="border-gray-200 hover:bg-white hover:border-[var(--primary)] hover:text-[var(--primary)] px-8 h-14 rounded-xl text-lg font-semibold transition-all"
                             >
                                 {t('gettingStarted.checkCompatibility')}
                             </Button>
@@ -104,10 +104,10 @@ export function GettingStarted() {
                                     }`}
                             >
                                 <div className="flex-1">
-                                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-green-50 text-[#2c7338] mb-8">
+                                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-green-50 text-[var(--primary)] mb-8">
                                         <step.icon className="w-8 h-8" />
                                     </div>
-                                    <div className="inline-block ml-4 text-sm font-bold text-[#2c7338] tracking-widest uppercase mb-8">
+                                    <div className="inline-block ml-4 text-sm font-bold text-[var(--primary)] tracking-widest uppercase mb-8">
                                         {t('gettingStarted.stepLabel')} 0{index + 1}
                                     </div>
                                     <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
@@ -180,7 +180,7 @@ export function GettingStarted() {
                                 <div className="space-y-4">
                                     <div className="h-48 bg-green-50 rounded-3xl flex items-center justify-center p-6 text-center">
                                         <div>
-                                            <Wifi className="w-8 h-8 text-[#2c7338] mx-auto mb-3" />
+                                            <Wifi className="w-8 h-8 text-[var(--primary)] mx-auto mb-3" />
                                             <p className="text-sm font-semibold text-gray-900">{t('gettingStarted.activationGuide.wifiRequired')}</p>
                                         </div>
                                     </div>
@@ -213,7 +213,7 @@ export function GettingStarted() {
                     <Button
                         onClick={() => navigate('/destinations')}
                         size="lg"
-                        className="bg-[#2c7338] hover:bg-[#235d2d] text-white px-10 h-16 rounded-2xl text-xl font-bold shadow-xl shadow-green-900/20 transition-all hover:scale-105"
+                        className="bg-[var(--primary)] hover:bg-[#235d2d] text-white px-10 h-16 rounded-2xl text-xl font-bold shadow-xl shadow-green-900/20 transition-all hover:scale-105"
                     >
                         {t('gettingStarted.cta.action')}
                         <ArrowRight className="ml-2 h-6 w-6" />

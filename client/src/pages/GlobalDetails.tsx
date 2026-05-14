@@ -383,7 +383,7 @@ export default function GlobalDetails() {
       <div className="min-h-screen bg-background flex flex-col">
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
-            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#2c7338] border-r-transparent"></div>
+            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[var(--primary)] border-r-transparent"></div>
             <p className="mt-4 text-muted-foreground">Loading global packages...</p>
           </div>
         </div>
@@ -558,8 +558,8 @@ export default function GlobalDetails() {
             <div className="space-y-6">
               <div>
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-full bg-[#dcf0de] dark:bg-[#194520]/30 flex items-center justify-center flex-shrink-0">
-                    <Globe className="w-5 h-5 text-[#1e5427] dark:text-[#3d9a4d]" />
+                  <div className="w-10 h-10 rounded-full bg-primary/10 dark:bg-[var(--primary-dark)]/30 flex items-center justify-center flex-shrink-0">
+                    <Globe className="w-5 h-5 text-primary-second dark:text-[var(--primary-light)]" />
                   </div>
                   <h1 className="text-2xl md:text-3xl font-bold text-foreground">Global eSIM</h1>
                 </div>
@@ -597,16 +597,16 @@ export default function GlobalDetails() {
                   {/* Filter Toggle Button */}
                   <button
                     onClick={() => setShowFilters(!showFilters)}
-                    className="flex items-center gap-3 px-4 py-3 bg-card border border-border rounded-xl hover:bg-accent/50 hover:border-[#2c7338]/50 transition-all cursor-pointer group w-full sm:w-auto"
+                    className="flex items-center gap-3 px-4 py-3 bg-card border border-border rounded-xl hover:bg-accent/50 hover:border-[var(--primary)]/50 transition-all cursor-pointer group w-full sm:w-auto"
                   >
-                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#dcf0de] to-[#f0f9f1] dark:from-[#2c7338]/20 dark:to-[#2c7338]/10 flex items-center justify-center group-hover:scale-105 transition-transform">
-                      <Filter className="w-5 h-5 text-[#1e5427] dark:text-[#3d9a4d]" />
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/10 to-primary/5 dark:from-[var(--primary)]/20 dark:to-[var(--primary)]/10 flex items-center justify-center group-hover:scale-105 transition-transform">
+                      <Filter className="w-5 h-5 text-primary-second dark:text-[var(--primary-light)]" />
                     </div>
                     <div className="text-left flex-1">
                       <div className="flex items-center gap-2">
                         <h3 className="font-semibold text-foreground">Filters & Sorting</h3>
                         {activeFiltersCount > 0 && (
-                          <span className="px-2 py-0.5 text-xs font-medium bg-[#2c7338] text-white rounded-full">
+                          <span className="px-2 py-0.5 text-xs font-medium bg-[var(--primary)] text-white rounded-full">
                             {activeFiltersCount}
                           </span>
                         )}
@@ -667,8 +667,8 @@ export default function GlobalDetails() {
                     {/* Filter Options */}
                     <div>
                       <label className="text-sm font-medium text-foreground mb-3 flex items-center gap-2">
-                        <div className="w-6 h-6 rounded-md bg-gradient-to-br from-[#dcf0de] to-[#f0f9f1] dark:from-[#2c7338]/20 dark:to-[#2c7338]/10 flex items-center justify-center">
-                          <Filter className="w-3.5 h-3.5 text-[#1e5427] dark:text-[#3d9a4d]" />
+                        <div className="w-6 h-6 rounded-md bg-gradient-to-br from-primary/10 to-primary/5 dark:from-[var(--primary)]/20 dark:to-[var(--primary)]/10 flex items-center justify-center">
+                          <Filter className="w-3.5 h-3.5 text-primary-second dark:text-[var(--primary-light)]" />
                         </div>
                         Filter By
                       </label>
@@ -761,7 +761,7 @@ export default function GlobalDetails() {
                         No global packages available at the moment.
                       </p>
                       <Link href="/destinations">
-                        <Button className="bg-[#2c7338] hover:bg-[#1e5427] text-white">
+                        <Button className="bg-[var(--primary)] hover:bg-primary-second text-white">
                           Browse Other Destinations
                         </Button>
                       </Link>
@@ -770,7 +770,7 @@ export default function GlobalDetails() {
                 ) : (
                   <div
                     className={`grid grid-cols-2 md:grid-cols-3 gap-3 ${packageOptions.length > 9
-                      ? 'max-h-[500px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-[#2c7338]/20 scrollbar-track-transparent hover:scrollbar-thumb-[#2c7338]/40'
+                      ? 'max-h-[500px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-[var(--primary)]/20 scrollbar-track-transparent hover:scrollbar-thumb-[var(--primary)]/40'
                       : ''
                       }`}
                   >
@@ -785,8 +785,8 @@ export default function GlobalDetails() {
                           key={pkg.id}
                           onClick={() => setSelectedPackage(pkg)}
                           className={`relative p-4 rounded-xl border-2 transition-all text-left overflow-visible group ${isSelected
-                            ? 'border-[#2c7338] bg-gradient-to-br from-[#f0f9f1]/50 to-[#dcf0de]/30 dark:from-[#2c7338]/10 dark:to-[#2c7338]/20 shadow-lg shadow-[#2c7338]/20 scale-[1.02]'
-                            : 'border-border bg-card hover:border-[#2c7338]/30 hover:shadow-md hover:scale-[1.01]'
+                            ? 'border-[var(--primary)] bg-gradient-to-br from-primary/5/50 to-primary/10/30 dark:from-[var(--primary)]/10 dark:to-[var(--primary)]/20 shadow-lg shadow-[var(--primary)]/20 scale-[1.02]'
+                            : 'border-border bg-card hover:border-[var(--primary)]/30 hover:shadow-md hover:scale-[1.01]'
                             }`}
                           data-testid={`button-package-${pkg.dataAmount}`}
                         >
@@ -803,7 +803,7 @@ export default function GlobalDetails() {
                               )}
                               {pkg.isRecommended && (
                                 <span
-                                  className="bg-gradient-to-r from-[#2c7338] to-[#1e5427] text-white text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-md"
+                                  className="bg-gradient-to-r from-[var(--primary)] to-primary-second text-white text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-md"
                                   data-testid={`badge-recommended-${pkg.id}`}
                                 >
                                   ⭐ Recommended
@@ -832,8 +832,8 @@ export default function GlobalDetails() {
                           <div className="flex items-center gap-2 mb-2 mt-1">
                             <div
                               className={`w-8 h-8 rounded-lg flex items-center justify-center ${isSelected
-                                ? 'bg-[#2c7338] text-white'
-                                : 'bg-gradient-to-br from-[#dcf0de] to-[#f0f9f1] dark:from-[#2c7338]/20 dark:to-[#2c7338]/10 text-[#1e5427] dark:text-[#3d9a4d]'
+                                ? 'bg-[var(--primary)] text-white'
+                                : 'bg-gradient-to-br from-primary/10 to-primary/5 dark:from-[var(--primary)]/20 dark:to-[var(--primary)]/10 text-primary-second dark:text-[var(--primary-light)]'
                                 }`}
                             >
                               <Wifi className="w-4 h-4" />
@@ -896,8 +896,8 @@ export default function GlobalDetails() {
                             {/* Radio indicator with checkmark */}
                             <div
                               className={`w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all ${isSelected
-                                ? 'border-[#2c7338] bg-[#2c7338] scale-110'
-                                : 'border-muted-foreground/30 group-hover:border-[#2c7338]/50'
+                                ? 'border-[var(--primary)] bg-[var(--primary)] scale-110'
+                                : 'border-muted-foreground/30 group-hover:border-[var(--primary)]/50'
                                 }`}
                             >
                               {isSelected && <Check className="h-4 w-4 text-white font-bold" />}
@@ -949,7 +949,7 @@ export default function GlobalDetails() {
 
               {/* Checkout Card */}
               <div className="lg:sticky lg:top-24">
-                <Card className="shadow-lg border-0 bg-gradient-to-br from-[#f0f9f1] to-[#f0f9f1] dark:from-[#2c7338]/10 dark:to-[#2c7338]/10">
+                <Card className="shadow-lg border-0 bg-gradient-to-br from-primary/5 to-primary/5 dark:from-[var(--primary)]/10 dark:to-[var(--primary)]/10">
                   <CardContent className="p-4">
                     {selectedPackage ? (
                       <>
@@ -1014,8 +1014,8 @@ export default function GlobalDetails() {
             <div className="grid md:grid-cols-3 gap-8">
               <Card className="text-center border-0 shadow-lg">
                 <CardContent className="p-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-[#dcf0de] to-[#dcf0de] dark:from-[#2c7338]/20 dark:to-[#2c7338]/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <CreditCard className="w-8 h-8 text-[#1e5427] dark:text-[#3d9a4d]" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-primary/10 dark:from-[var(--primary)]/20 dark:to-[var(--primary)]/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <CreditCard className="w-8 h-8 text-primary-second dark:text-[var(--primary-light)]" />
                   </div>
                   <Badge variant="outline" className="mb-3">
                     Step 1
@@ -1088,8 +1088,8 @@ export default function GlobalDetails() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <Card className="border-0 shadow-lg text-center">
                 <CardContent className="p-6">
-                  <div className="w-14 h-14 bg-[#dcf0de] dark:bg-[#2c7338]/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <Wifi className="w-7 h-7 text-[#1e5427] dark:text-[#3d9a4d]" />
+                  <div className="w-14 h-14 bg-primary/10 dark:bg-[var(--primary)]/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <Wifi className="w-7 h-7 text-primary-second dark:text-[var(--primary-light)]" />
                   </div>
                   <h3 className="font-semibold text-foreground mb-2">Unlimited data plans</h3>
                   <p className="text-sm text-muted-foreground">
@@ -1124,8 +1124,8 @@ export default function GlobalDetails() {
 
               <Card className="border-0 shadow-lg text-center">
                 <CardContent className="p-6">
-                  <div className="w-14 h-14 bg-[#dcf0de] dark:bg-[#2c7338]/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <Zap className="w-7 h-7 text-[#1e5427] dark:text-[#3d9a4d]" />
+                  <div className="w-14 h-14 bg-primary/10 dark:bg-[var(--primary)]/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <Zap className="w-7 h-7 text-primary-second dark:text-[var(--primary-light)]" />
                   </div>
                   <h3 className="font-semibold text-foreground mb-2">Quick eSIM setup</h3>
                   <p className="text-sm text-muted-foreground">
@@ -1171,10 +1171,10 @@ export default function GlobalDetails() {
               </div>
 
               <div>
-                <Card className="border-0 shadow-lg bg-gradient-to-br from-[#f0f9f1] to-[#f0f9f1] dark:from-[#2c7338]/10 dark:to-[#2c7338]/10">
+                <Card className="border-0 shadow-lg bg-gradient-to-br from-primary/5 to-primary/5 dark:from-[var(--primary)]/10 dark:to-[var(--primary)]/10">
                   <CardContent className="p-6 text-center">
                     <div className="w-16 h-16 bg-white dark:bg-card rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
-                      <Headphones className="w-8 h-8 text-[#1e5427] dark:text-[#3d9a4d]" />
+                      <Headphones className="w-8 h-8 text-primary-second dark:text-[var(--primary-light)]" />
                     </div>
                     <Badge variant="outline" className="mb-3 bg-white dark:bg-card">
                       support
@@ -1209,7 +1209,7 @@ export default function GlobalDetails() {
                 <Card key={index} className="border-0 shadow-lg">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 bg-gradient-to-br from-[#3d9a4d] to-[#2c7338] rounded-full flex items-center justify-center text-white font-semibold">
+                      <div className="w-10 h-10 bg-gradient-to-br from-[var(--primary-light)] to-[var(--primary)] rounded-full flex items-center justify-center text-white font-semibold">
                         {testimonial.name.charAt(0)}
                       </div>
                       <div>

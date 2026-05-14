@@ -134,12 +134,12 @@ export function ContactSupport() {
             {/* Hero Section */}
             <section className="relative pt-24 pb-48 overflow-hidden bg-[#f8fafc]">
                 <div className="absolute top-0 left-0 w-full h-full">
-                    <div className="absolute top-0 right-0 w-1/3 h-full bg-[#2c7338]/5 transform skew-x-12 translate-x-1/2" />
+                    <div className="absolute top-0 right-0 w-1/3 h-full bg-[var(--primary)]/5 transform skew-x-12 translate-x-1/2" />
                     <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-blue-500/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
                 </div>
 
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm border border-slate-100 text-[#2c7338] text-sm font-bold mb-8">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm border border-slate-100 text-[var(--primary)] text-sm font-bold mb-8">
                         <Clock className="w-4 h-4" />
                         {t('contactSupport.humanSupport')}
                     </div>
@@ -179,14 +179,14 @@ export function ContactSupport() {
                                         className="flex items-center justify-between w-full p-4 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-900 font-bold transition-colors group/btn"
                                     >
                                         {channel.action}
-                                        <ArrowRight className="w-5 h-5 text-[#2c7338] group-hover/btn:translate-x-1 transition-transform" />
+                                        <ArrowRight className="w-5 h-5 text-[var(--primary)] group-hover/btn:translate-x-1 transition-transform" />
                                     </a>
                                 ) : (
                                     <button
                                         className="flex items-center justify-between w-full p-4 rounded-xl bg-slate-50 hover:bg-slate-100 text-slate-900 font-bold transition-colors group/btn"
                                     >
                                         {channel.action}
-                                        <ArrowRight className="w-5 h-5 text-[#2c7338] group-hover/btn:translate-x-1 transition-transform" />
+                                        <ArrowRight className="w-5 h-5 text-[var(--primary)] group-hover/btn:translate-x-1 transition-transform" />
                                     </button>
                                 )}
                             </div>
@@ -211,7 +211,7 @@ export function ContactSupport() {
                                     <p className="text-slate-500">{t('contactSupport.form.successDesc')}</p>
                                     <Button
                                         variant="outline"
-                                        className="mt-8 rounded-xl border-[#2c7338] text-[#2c7338] hover:bg-green-50"
+                                        className="mt-8 rounded-xl border-[var(--primary)] text-[var(--primary)] hover:bg-green-50"
                                         onClick={() => setSubmitted(false)}
                                     >
                                         {t('contactSupport.form.sendAnother')}
@@ -227,7 +227,7 @@ export function ContactSupport() {
                                                 value={formData.name}
                                                 onChange={handleChange}
                                                 placeholder={t('contactSupport.form.namePlaceholder')}
-                                                className="h-14 rounded-xl border-slate-200 focus:ring-[#2c7338] focus:border-[#2c7338]"
+                                                className="h-14 rounded-xl border-slate-200 focus:ring-[var(--primary)] focus:border-[var(--primary)]"
                                                 required
                                             />
                                         </div>
@@ -239,7 +239,7 @@ export function ContactSupport() {
                                                 value={formData.email}
                                                 onChange={handleChange}
                                                 placeholder={t('contactSupport.form.emailPlaceholder')}
-                                                className="h-14 rounded-xl border-slate-200 focus:ring-[#2c7338] focus:border-[#2c7338]"
+                                                className="h-14 rounded-xl border-slate-200 focus:ring-[var(--primary)] focus:border-[var(--primary)]"
                                                 required
                                             />
                                         </div>
@@ -251,7 +251,7 @@ export function ContactSupport() {
                                             value={formData.subject}
                                             onChange={handleChange}
                                             placeholder={t('contactSupport.form.subjectPlaceholder')}
-                                            className="h-14 rounded-xl border-slate-200 focus:ring-[#2c7338] focus:border-[#2c7338]"
+                                            className="h-14 rounded-xl border-slate-200 focus:ring-[var(--primary)] focus:border-[var(--primary)]"
                                             required
                                         />
                                     </div>
@@ -262,14 +262,14 @@ export function ContactSupport() {
                                             value={formData.message}
                                             onChange={handleChange}
                                             placeholder={t('contactSupport.form.messagePlaceholder')}
-                                            className="min-h-[150px] rounded-xl border-slate-200 focus:ring-[#2c7338] focus:border-[#2c7338]"
+                                            className="min-h-[150px] rounded-xl border-slate-200 focus:ring-[var(--primary)] focus:border-[var(--primary)]"
                                             required
                                         />
                                     </div>
                                     <Button
                                         type="submit"
                                         disabled={isSubmitting}
-                                        className="w-full bg-[#2c7338] hover:bg-[#235d2d] h-16 rounded-xl text-lg font-bold shadow-lg shadow-green-900/10"
+                                        className="w-full bg-[var(--primary)] hover:bg-[#235d2d] h-16 rounded-xl text-lg font-bold shadow-lg shadow-green-900/10"
                                     >
                                         {isSubmitting ? (
                                             <>
@@ -293,7 +293,7 @@ export function ContactSupport() {
                             <div className="space-y-12">
                                 <div className="flex gap-6">
                                     <div className="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center flex-shrink-0 border border-slate-100">
-                                        <MapPin className="w-6 h-6 text-[#2c7338]" />
+                                        <MapPin className="w-6 h-6 text-[var(--primary)]" />
                                     </div>
                                     <div>
                                         <h4 className="text-lg font-bold text-slate-900 mb-2">{t('contactSupport.info.headquarters')}</h4>
@@ -306,7 +306,7 @@ export function ContactSupport() {
                                 {supportPhone && (
                                     <div className="flex gap-6">
                                         <div className="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center flex-shrink-0 border border-slate-100">
-                                            <Phone className="w-6 h-6 text-[#2c7338]" />
+                                            <Phone className="w-6 h-6 text-[var(--primary)]" />
                                         </div>
                                         <div>
                                             <h4 className="text-lg font-bold text-slate-900 mb-2">{t('contactSupport.info.phoneSupport')}</h4>
@@ -319,7 +319,7 @@ export function ContactSupport() {
 
                                 <div className="flex gap-6">
                                     <div className="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center flex-shrink-0 border border-slate-100">
-                                        <Globe className="w-6 h-6 text-[#2c7338]" />
+                                        <Globe className="w-6 h-6 text-[var(--primary)]" />
                                     </div>
                                     <div>
                                         <h4 className="text-lg font-bold text-slate-900 mb-2">{t('contactSupport.info.globalNetwork')}</h4>
@@ -340,7 +340,7 @@ export function ContactSupport() {
                                                 href={link.url}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center hover:bg-[#2c7338] hover:text-white transition-all border border-slate-100 text-slate-600"
+                                                className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center hover:bg-[var(--primary)] hover:text-white transition-all border border-slate-100 text-slate-600"
                                             >
                                                 <link.Icon className="w-5 h-5" />
                                             </a>
@@ -358,7 +358,7 @@ export function ContactSupport() {
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="rounded-[3rem] bg-slate-900 p-12 md:p-20 text-center relative overflow-hidden">
                         <div className="absolute top-0 left-0 w-full h-full opacity-30">
-                            <div className="absolute top-0 left-0 w-64 h-64 bg-[#2c7338] rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2" />
+                            <div className="absolute top-0 left-0 w-64 h-64 bg-[var(--primary)] rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2" />
                             <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-600 rounded-full blur-[120px] translate-x-1/2 translate-y-1/2" />
                         </div>
                         <div className="relative z-10">

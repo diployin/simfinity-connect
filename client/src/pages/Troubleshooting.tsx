@@ -160,7 +160,7 @@ export function Troubleshooting() {
             {/* Still Stuck? Section */}
             <section className="py-24">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-50 text-[#2c7338] mb-8">
+                    <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-50 text-[var(--primary)] mb-8">
                         <MessageCircle className="w-10 h-10" />
                     </div>
                     <h2 className="text-4xl font-bold text-gray-900 mb-6">{t('troubleshooting.stillStuck.title')}</h2>
@@ -171,7 +171,7 @@ export function Troubleshooting() {
                         <Button
                             onClick={() => navigate('/contact-support')}
                             size="lg"
-                            className="bg-[#2c7338] hover:bg-[#235d2d] text-white px-10 h-16 rounded-2xl text-lg font-bold shadow-xl shadow-green-900/10 transition-all hover:scale-105"
+                            className="bg-[var(--primary)] hover:bg-[#235d2d] text-white px-10 h-16 rounded-2xl text-lg font-bold shadow-xl shadow-green-900/10 transition-all hover:scale-105"
                         >
                             {t('troubleshooting.stillStuck.contactSupport')}
                             <ChevronRight className="ml-2 h-5 w-5" />

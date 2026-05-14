@@ -122,19 +122,19 @@ export function AccountLayout({ children }: AccountLayoutProps) {
                         <div
                           className={cn(
                             'flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors',
-                            active ? 'bg-[#2c7338]/10 border border-[#2c7338]/20' : 'hover-elevate',
+                            active ? 'bg-[var(--primary)]/10 border border-[var(--primary)]/20' : 'hover-elevate',
                           )}
                         >
                           <div
                             className={cn(
                               'w-10 h-10 rounded-lg flex items-center justify-center',
-                              active ? 'bg-[#2c7338]/20' : 'bg-muted',
+                              active ? 'bg-[var(--primary)]/20' : 'bg-muted',
                             )}
                           >
                             <Icon
                               className={cn(
                                 'h-5 w-5',
-                                active ? 'text-[#2c7338]' : 'text-muted-foreground',
+                                active ? 'text-[var(--primary)]' : 'text-muted-foreground',
                               )}
                             />
                           </div>
@@ -143,7 +143,7 @@ export function AccountLayout({ children }: AccountLayoutProps) {
                             <div
                               className={cn(
                                 'font-medium text-sm',
-                                active ? 'text-[#2c7338]' : 'text-foreground',
+                                active ? 'text-[var(--primary)]' : 'text-foreground',
                               )}
                             >
                               {t(item.translationKey, item.label)}
