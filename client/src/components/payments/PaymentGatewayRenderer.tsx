@@ -245,13 +245,13 @@ export default function PaymentGatewayRenderer({
     // State: Method Selection 🔥 NEW
     if (powertranzState === 'method_select') {
       return (
-        <Card className="border-2 border-blue-200 dark:border-blue-800">
+        <Card className="border-2 border-primary/20 dark:border-primary/40">
           <CardContent className="p-8">
             <div className="text-center mb-6">
               <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                 Choose Payment Method
               </h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+              <p className="text-sm text-muted-foreground mt-2">
                 Select how you'd like to complete your payment
               </p>
             </div>
@@ -260,17 +260,17 @@ export default function PaymentGatewayRenderer({
               {/* HPP METHOD */}
               <button
                 onClick={handleHppMethodSelect}
-                className="w-full p-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-950/20 transition-all text-left"
+                className="w-full p-4 border-2 border-gray-200 dark:border-gray-800 rounded-lg hover:border-primary hover:bg-primary/5 transition-all text-left"
               >
                 <div className="flex items-start gap-3">
-                  <div className="p-2 bg-blue-100 dark:bg-blue-900/50 rounded-lg">
-                    <CreditCard className="w-5 h-5 text-blue-600" />
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <CreditCard className="w-5 h-5 text-primary" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900 dark:text-white">
+                    <h4 className="font-semibold text-foreground">
                       🌐 Hosted Payment Page (Recommended)
                     </h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    <p className="text-sm text-muted-foreground mt-1">
                       Secure hosted page - your card details stay safe
                     </p>
                     <ul className="text-xs text-gray-500 dark:text-gray-500 mt-2 space-y-1">
@@ -285,17 +285,17 @@ export default function PaymentGatewayRenderer({
               {/* SPI METHOD */}
               <button
                 onClick={handleSpiMethodSelect}
-                className="w-full p-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg hover:border-amber-500 hover:bg-amber-50 dark:hover:bg-amber-950/20 transition-all text-left"
+                className="w-full p-4 border-2 border-gray-200 dark:border-gray-800 rounded-lg hover:border-primary-second hover:bg-primary-second/5 transition-all text-left"
               >
                 <div className="flex items-start gap-3">
-                  <div className="p-2 bg-amber-100 dark:bg-amber-900/50 rounded-lg">
-                    <CreditCard className="w-5 h-5 text-amber-600" />
+                  <div className="p-2 bg-primary-second/10 rounded-lg">
+                    <CreditCard className="w-5 h-5 text-primary-second" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900 dark:text-white">
+                    <h4 className="font-semibold text-foreground">
                       💳 Card Form with 3D Secure
                     </h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    <p className="text-sm text-muted-foreground mt-1">
                       Enter card details directly in iframe
                     </p>
                     <ul className="text-xs text-gray-500 dark:text-gray-500 mt-2 space-y-1">
@@ -308,9 +308,9 @@ export default function PaymentGatewayRenderer({
               </button>
             </div>
 
-            <div className="mt-6 p-3 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg flex items-start gap-2">
-              <AlertCircle className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-              <p className="text-xs text-blue-700 dark:text-blue-300">
+            <div className="mt-6 p-3 bg-primary/5 border border-primary/10 rounded-lg flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 text-primary mt-0.5 flex-shrink-0" />
+              <p className="text-xs text-primary/80">
                 Both methods are secure. HPP is recommended for faster checkout.
               </p>
             </div>
@@ -322,12 +322,12 @@ export default function PaymentGatewayRenderer({
     // State: HPP Redirect 🔥 NEW
     if (powertranzState === 'hpp_redirect') {
       return (
-        <Card className="border-blue-200">
+        <Card className="border-primary/20">
           <CardContent className="p-8 flex flex-col items-center gap-4">
-            <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+            <Loader2 className="w-8 h-8 text-primary animate-spin" />
             <div className="text-center">
               <p className="font-medium">Redirecting to payment page...</p>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+              <p className="text-sm text-muted-foreground mt-2">
                 You'll be taken to our secure payment processor
               </p>
             </div>
@@ -358,9 +358,9 @@ export default function PaymentGatewayRenderer({
     // State: Processing
     if (powertranzState === 'processing') {
       return (
-        <Card className="border-blue-200">
+        <Card className="border-primary/20">
           <CardContent className="p-8 flex flex-col items-center gap-4">
-            <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+            <Loader2 className="w-8 h-8 text-primary animate-spin" />
             <p className="text-center">Processing your payment...</p>
           </CardContent>
         </Card>
@@ -371,7 +371,7 @@ export default function PaymentGatewayRenderer({
     if (powertranzState === '3ds_challenge') {
       if (!initData.redirectData) {
         return (
-          <Card className="border-red-200">
+          <Card className="border-red-200 dark:border-red-900/30 bg-red-50/50 dark:bg-red-950/10">
             <CardContent className="p-4">
               <AlertCircle className="w-5 h-5 text-red-600" />
               <p className="text-red-900">3D Secure Error</p>
@@ -390,11 +390,11 @@ export default function PaymentGatewayRenderer({
       return (
         <div className="w-full space-y-4">
           <div className="w-full border rounded-md overflow-hidden shadow-lg">
-            <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900 p-3 border-b">
-              <p className="text-sm font-medium text-blue-900 dark:text-blue-100">
+            <div className="bg-gradient-to-r from-primary/5 to-primary/10 p-3 border-b">
+              <p className="text-sm font-medium text-primary-dark">
                 🔒 3D Secure Authentication
               </p>
-              <p className="text-xs text-blue-700 dark:text-blue-300 mt-1">
+              <p className="text-xs text-primary/80 mt-1">
                 Complete verification to confirm your payment
               </p>
             </div>
@@ -438,9 +438,9 @@ export default function PaymentGatewayRenderer({
     // State: Confirming
     if (powertranzState === 'confirming') {
       return (
-        <Card className="border-blue-200">
+        <Card className="border-primary/20">
           <CardContent className="p-8 flex flex-col items-center gap-4">
-            <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+            <Loader2 className="w-8 h-8 text-primary animate-spin" />
             <p className="text-center font-medium">Confirming your payment...</p>
           </CardContent>
         </Card>
@@ -450,7 +450,7 @@ export default function PaymentGatewayRenderer({
     // State: Success
     if (powertranzState === 'success') {
       return (
-        <Card className="border-green-200 bg-green-50 dark:bg-green-950/20">
+        <Card className="border-green-200 dark:border-green-900/30 bg-green-50 dark:bg-green-950/20">
           <CardContent className="p-8 flex flex-col items-center gap-4">
             <CheckCircle className="w-12 h-12 text-green-600" />
             <div className="text-center">
@@ -473,7 +473,7 @@ export default function PaymentGatewayRenderer({
     // State: Error
     if (powertranzState === 'error') {
       return (
-        <Card className="border-red-200 bg-red-50 dark:bg-red-950/20">
+        <Card className="border-red-200 dark:border-red-900/30 bg-red-50 dark:bg-red-950/20">
           <CardContent className="p-4">
             <div className="flex items-start gap-2">
               <AlertCircle className="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0" />

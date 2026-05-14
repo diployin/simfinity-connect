@@ -25,6 +25,9 @@ import {
   Star,
   Package,
   Zap,
+  Shield,
+  Briefcase,
+  Users,
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -152,17 +155,17 @@ export function SiteHeader() {
           <nav className="hidden xl:flex items-center gap-0.5" data-testid="nav-main">
             <div
               className="relative"
-              onMouseEnter={() => handleMenuEnter('products')}
+              onMouseEnter={() => handleMenuEnter('plans')}
               onMouseLeave={handleMenuLeave}
             >
               <span className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer flex items-center gap-1">
-                {t('website.nav.products', 'Products')}
-                <ChevronDown className={cn('h-3.5 w-3.5 text-gray-400 transition-transform duration-200', activeMenu === 'products' && 'rotate-180')} />
+                {t('website.nav.plans', 'Plans')}
+                <ChevronDown className={cn('h-3.5 w-3.5 text-gray-400 transition-transform duration-200', activeMenu === 'plans' && 'rotate-180')} />
               </span>
 
               <div className={cn(
                 'absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-200',
-                activeMenu === 'products' ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
+                activeMenu === 'plans' ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
               )}>
                 <div className="w-[520px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-5">
                   <div className="grid grid-cols-2 gap-3">
@@ -229,6 +232,49 @@ export function SiteHeader() {
 
             <div
               className="relative"
+              onMouseEnter={() => handleMenuEnter('how-it-works')}
+              onMouseLeave={handleMenuLeave}
+            >
+              <span className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer flex items-center gap-1">
+                {t('website.nav.howItWorks', 'How It Works')}
+                <ChevronDown className={cn('h-3.5 w-3.5 text-gray-400 transition-transform duration-200', activeMenu === 'how-it-works' && 'rotate-180')} />
+              </span>
+
+              <div className={cn(
+                'absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-200',
+                activeMenu === 'how-it-works' ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
+              )}>
+                <div className="w-[280px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
+                  <Link href="/what-is-esim" onClick={() => setActiveMenu(null)}>
+                    <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
+                      <Smartphone className="h-4 w-4 text-primary" />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.whatIsEsim', 'What is an eSIM')}</span>
+                    </div>
+                  </Link>
+                  <Link href="/supported-devices" onClick={() => setActiveMenu(null)}>
+                    <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
+                      <Smartphone className="h-4 w-4 text-purple-500" />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.supportedDevices', 'Supported Devices')}</span>
+                    </div>
+                  </Link>
+                  <Link href="/data-calculator" onClick={() => setActiveMenu(null)}>
+                    <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
+                      <Zap className="h-4 w-4 text-amber-500" />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.dataCalculator', 'Data Usage Calculator')}</span>
+                    </div>
+                  </Link>
+                  <Link href="/security" onClick={() => setActiveMenu(null)}>
+                    <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
+                      <Shield className="h-4 w-4 text-green-500" />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.security', 'Security Features')}</span>
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <div
+              className="relative"
               onMouseEnter={() => handleMenuEnter('resources')}
               onMouseLeave={handleMenuLeave}
             >
@@ -241,17 +287,11 @@ export function SiteHeader() {
                 'absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-200',
                 activeMenu === 'resources' ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
               )}>
-                <div className="w-[280px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
-                  <Link href="/what-is-esim" onClick={() => setActiveMenu(null)}>
+                <div className="w-[240px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
+                  <Link href="/blog" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
-                      <Smartphone className="h-4 w-4 text-primary" />
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.whatIsEsim', 'What is an eSIM')}</span>
-                    </div>
-                  </Link>
-                  <Link href="/about-us" onClick={() => setActiveMenu(null)}>
-                    <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
-                      <Star className="h-4 w-4 text-amber-500" />
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.about', 'About Us')}</span>
+                      <BookOpen className="h-4 w-4 text-blue-500" />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.blog', 'Blog')}</span>
                     </div>
                   </Link>
                   <Link href="/reviews" onClick={() => setActiveMenu(null)}>
@@ -260,50 +300,64 @@ export function SiteHeader() {
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.reviews', 'Reviews')}</span>
                     </div>
                   </Link>
-                  <Link href="/blog" onClick={() => setActiveMenu(null)}>
+                  <Link href="/getting-started" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
-                      <BookOpen className="h-4 w-4 text-blue-500" />
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.blog', 'Blog')}</span>
+                      <Compass className="h-4 w-4 text-primary" />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.gettingStarted', 'Getting Started')}</span>
                     </div>
                   </Link>
-                  <Link href="/supported-devices" onClick={() => setActiveMenu(null)}>
+                  <Link href="/help-center?category=faq" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
-                      <Smartphone className="h-4 w-4 text-purple-500" />
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.supportedDevices', 'Supported Devices')}</span>
+                      <HelpCircle className="h-4 w-4 text-amber-500" />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.faqs', 'FAQ')}</span>
                     </div>
                   </Link>
                 </div>
               </div>
             </div>
 
-            {navlinks?.data && navlinks.data.length > 0 && (
-              <div
-                className="relative"
-                onMouseEnter={() => handleMenuEnter('pages')}
-                onMouseLeave={handleMenuLeave}
-              >
-                <span className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer flex items-center gap-1">
-                  {t('website.nav.pages', 'Pages')}
-                  <ChevronDown className={cn('h-3.5 w-3.5 text-gray-400 transition-transform duration-200', activeMenu === 'pages' && 'rotate-180')} />
-                </span>
+            <div
+              className="relative"
+              onMouseEnter={() => handleMenuEnter('company')}
+              onMouseLeave={handleMenuLeave}
+            >
+              <span className="px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer flex items-center gap-1">
+                {t('website.nav.company', 'Company')}
+                <ChevronDown className={cn('h-3.5 w-3.5 text-gray-400 transition-transform duration-200', activeMenu === 'company' && 'rotate-180')} />
+              </span>
 
-                <div className={cn(
-                  'absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-200',
-                  activeMenu === 'pages' ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
-                )}>
-                  <div className="w-[240px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
-                    {navlinks.data.map((page: any) => (
-                      <Link key={page.id} href={`/pages/${page.slug}`} onClick={() => setActiveMenu(null)}>
-                        <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
-                          <FileText className="h-4 w-4 text-gray-400" />
-                          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{page.title}</span>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
+              <div className={cn(
+                'absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-200',
+                activeMenu === 'company' ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
+              )}>
+                <div className="w-[240px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
+                  <Link href="/about-us" onClick={() => setActiveMenu(null)}>
+                    <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
+                      <Star className="h-4 w-4 text-amber-500" />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.about', 'About Us')}</span>
+                    </div>
+                  </Link>
+                  <Link href="/careers" onClick={() => setActiveMenu(null)}>
+                    <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
+                      <Briefcase className="h-4 w-4 text-blue-500" />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.careers', 'Careers')}</span>
+                    </div>
+                  </Link>
+                  <Link href="/refer-a-friend" onClick={() => setActiveMenu(null)}>
+                    <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
+                      <Users className="h-4 w-4 text-green-500" />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.refer', 'Refer a Friend')}</span>
+                    </div>
+                  </Link>
+                  <Link href="/business" onClick={() => setActiveMenu(null)}>
+                    <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
+                      <Globe className="h-4 w-4 text-primary" />
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.business', 'Business')}</span>
+                    </div>
+                  </Link>
                 </div>
               </div>
-            )}
+            </div>
 
             <div
               className="relative"
@@ -320,10 +374,10 @@ export function SiteHeader() {
                 activeMenu === 'help' ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
               )}>
                 <div className="w-[280px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
-                  <Link href="/help-center?category=faq" onClick={() => setActiveMenu(null)}>
+                  <Link href="/help-center" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
                       <HelpCircle className="h-4 w-4 text-primary" />
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.faqs', 'FAQs')}</span>
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.helpCenter', 'Help Center')}</span>
                     </div>
                   </Link>
                   <Link href="/getting-started" onClick={() => setActiveMenu(null)}>
@@ -332,17 +386,10 @@ export function SiteHeader() {
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.gettingStarted', 'Getting Started')}</span>
                     </div>
                   </Link>
-                  <Link href="/troubleshooting" onClick={() => setActiveMenu(null)}>
-                    <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
-                      <Wrench className="h-4 w-4 text-amber-500" />
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.troubleshooting', 'Troubleshooting')}</span>
-                    </div>
-                  </Link>
-                  <div className="mx-2 my-1 border-t border-gray-100 dark:border-gray-800" />
                   <Link href="/contact-support" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
                       <Headphones className="h-4 w-4 text-purple-500" />
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.helpCenter', 'Contact Support')}</span>
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.contactSupport', 'Contact Support')}</span>
                     </div>
                   </Link>
                 </div>
@@ -522,7 +569,7 @@ export function SiteHeader() {
                       onClick={() => setProductsOpen(!productsOpen)}
                       className="w-full flex items-center justify-between py-2.5 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all"
                     >
-                      {t('website.nav.products', 'Products')}
+                      {t('website.nav.plans', 'Plans')}
                       <ChevronRight className={cn('h-4 w-4 text-gray-400 transition-transform duration-200', productsOpen && 'rotate-90')} />
                     </button>
                     {productsOpen && (
@@ -545,12 +592,12 @@ export function SiteHeader() {
                             {t('website.nav.globalEsim', 'Global eSIMs')}
                           </span>
                         </Link>
-                        {/* <Link href="/destinations?tab=passport" onClick={closeMobileMenu}>
+                        <Link href="/destinations?tab=all" onClick={closeMobileMenu}>
                           <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 text-pink-600 dark:text-pink-400"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" /><path d="M13 5v2" /><path d="M13 17v2" /><path d="M13 11v2" /></svg>
-                            Voltey Passport
+                            <Package className="h-4 w-4 text-amber-500" />
+                            {t('website.nav.allPlans', 'All Plans')}
                           </span>
-                        </Link> */}
+                        </Link>
                       </div>
                     )}
                   </div>
@@ -560,7 +607,7 @@ export function SiteHeader() {
                       onClick={() => setResourcesOpen(!resourcesOpen)}
                       className="w-full flex items-center justify-between py-2.5 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all"
                     >
-                      {t('website.nav.resources', 'Resources')}
+                      {t('website.nav.howItWorks', 'How It Works')}
                       <ChevronRight className={cn('h-4 w-4 text-gray-400 transition-transform duration-200', resourcesOpen && 'rotate-90')} />
                     </button>
                     {resourcesOpen && (
@@ -571,89 +618,130 @@ export function SiteHeader() {
                             {t('website.nav.whatIsEsim', 'What is an eSIM')}
                           </span>
                         </Link>
-                        <Link href="/about-us" onClick={closeMobileMenu}>
-                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
-                            <Star className="h-4 w-4" />
-                            {t('website.nav.about', 'About Us')}
-                          </span>
-                        </Link>
-                        <Link href="/reviews" onClick={closeMobileMenu}>
-                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
-                            <MessageCircle className="h-4 w-4" />
-                            {t('website.nav.reviews', 'Reviews')}
-                          </span>
-                        </Link>
-                        <Link href="/blog" onClick={closeMobileMenu}>
-                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
-                            <BookOpen className="h-4 w-4" />
-                            {t('website.nav.blog', 'Blog')}
-                          </span>
-                        </Link>
                         <Link href="/supported-devices" onClick={closeMobileMenu}>
                           <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                             <Smartphone className="h-4 w-4" />
                             {t('website.nav.supportedDevices', 'Supported Devices')}
                           </span>
                         </Link>
+                        <Link href="/data-calculator" onClick={closeMobileMenu}>
+                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
+                            <Zap className="h-4 w-4 text-amber-500" />
+                            {t('website.nav.dataCalculator', 'Data Usage Calculator')}
+                          </span>
+                        </Link>
+                        <Link href="/security" onClick={closeMobileMenu}>
+                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
+                            <Shield className="h-4 w-4 text-green-500" />
+                            {t('website.nav.security', 'Security Features')}
+                          </span>
+                        </Link>
                       </div>
                     )}
                   </div>
 
-                  {navlinks?.data && navlinks.data.length > 0 && (
-                    <div className="space-y-1">
-                      <button
-                        onClick={() => setPagesOpen(!pagesOpen)}
-                        className="w-full flex items-center justify-between py-2.5 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all"
-                      >
-                        {t('website.nav.pages', 'Pages')}
-                        <ChevronRight className={cn('h-4 w-4 text-gray-400 transition-transform duration-200', pagesOpen && 'rotate-90')} />
-                      </button>
-                      {pagesOpen && (
-                        <div className="ml-3 space-y-1 border-l-2 border-primary/30 pl-3">
-                          {navlinks.data.map((page: any) => (
-                            <Link key={page.id} href={`/pages/${page.slug}`} onClick={closeMobileMenu}>
-                              <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
-                                <FileText className="h-4 w-4" />
-                                {page.title}
-                              </span>
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  )}
+                  <div className="space-y-1">
+                    <button
+                      onClick={() => setPagesOpen(!pagesOpen)}
+                      className="w-full flex items-center justify-between py-2.5 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all"
+                    >
+                      {t('website.nav.resources', 'Resources')}
+                      <ChevronRight className={cn('h-4 w-4 text-gray-400 transition-transform duration-200', pagesOpen && 'rotate-90')} />
+                    </button>
+                    {pagesOpen && (
+                      <div className="ml-3 space-y-1 border-l-2 border-primary/30 pl-3">
+                        <Link href="/blog" onClick={closeMobileMenu}>
+                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
+                            <BookOpen className="h-4 w-4 text-blue-500" />
+                            {t('website.nav.blog', 'Blog')}
+                          </span>
+                        </Link>
+                        <Link href="/reviews" onClick={closeMobileMenu}>
+                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
+                            <MessageCircle className="h-4 w-4 text-green-500" />
+                            {t('website.nav.reviews', 'Reviews')}
+                          </span>
+                        </Link>
+                        <Link href="/getting-started" onClick={closeMobileMenu}>
+                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
+                            <Compass className="h-4 w-4 text-primary" />
+                            {t('website.nav.gettingStarted', 'Getting Started')}
+                          </span>
+                        </Link>
+                        <Link href="/help-center?category=faq" onClick={closeMobileMenu}>
+                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
+                            <HelpCircle className="h-4 w-4 text-amber-500" />
+                            {t('website.nav.faqs', 'FAQ')}
+                          </span>
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+
                   <div className="space-y-1">
                     <button
                       onClick={() => setHelpOpen(!helpOpen)}
                       className="w-full flex items-center justify-between py-2.5 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all"
                     >
-                      {t('website.nav.help', 'Help')}
+                      {t('website.nav.company', 'Company')}
                       <ChevronRight className={cn('h-4 w-4 text-gray-400 transition-transform duration-200', helpOpen && 'rotate-90')} />
                     </button>
                     {helpOpen && (
-                      <div className="ml-3 space-y-1 border-l-2 border-[var(--primary)]/30 pl-3">
-                        <Link href="/help-center?category=faq" onClick={closeMobileMenu}>
+                      <div className="ml-3 space-y-1 border-l-2 border-primary/30 pl-3">
+                        <Link href="/about-us" onClick={closeMobileMenu}>
                           <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
-                            <HelpCircle className="h-4 w-4" />
-                            {t('website.nav.faqs', 'FAQs')}
+                            <Star className="h-4 w-4 text-amber-500" />
+                            {t('website.nav.about', 'About Us')}
                           </span>
                         </Link>
-                        <Link href="/help-center?category=getting-started" onClick={closeMobileMenu}>
+                        <Link href="/careers" onClick={closeMobileMenu}>
+                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
+                            <Briefcase className="h-4 w-4 text-blue-500" />
+                            {t('website.nav.careers', 'Careers')}
+                          </span>
+                        </Link>
+                        <Link href="/refer-a-friend" onClick={closeMobileMenu}>
+                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
+                            <Users className="h-4 w-4 text-green-500" />
+                            {t('website.nav.refer', 'Refer a Friend')}
+                          </span>
+                        </Link>
+                        <Link href="/business" onClick={closeMobileMenu}>
+                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
+                            <Globe className="h-4 w-4 text-primary" />
+                            {t('website.nav.business', 'Business')}
+                          </span>
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="space-y-1">
+                    <button
+                      onClick={() => setLanguageOpen(!languageOpen)}
+                      className="w-full flex items-center justify-between py-2.5 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all"
+                    >
+                      {t('website.nav.help', 'Help')}
+                      <ChevronRight className={cn('h-4 w-4 text-gray-400 transition-transform duration-200', languageOpen && 'rotate-90')} />
+                    </button>
+                    {languageOpen && (
+                      <div className="ml-3 space-y-1 border-l-2 border-primary/30 pl-3">
+                        <Link href="/help-center" onClick={closeMobileMenu}>
+                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
+                            <HelpCircle className="h-4 w-4" />
+                            {t('website.nav.helpCenter', 'Help Center')}
+                          </span>
+                        </Link>
+                        <Link href="/getting-started" onClick={closeMobileMenu}>
                           <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                             <Compass className="h-4 w-4" />
                             {t('website.nav.gettingStarted', 'Getting Started')}
                           </span>
                         </Link>
-                        <Link href="/help-center?category=troubleshooting" onClick={closeMobileMenu}>
-                          <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
-                            <Wrench className="h-4 w-4" />
-                            {t('website.nav.troubleshooting', 'Troubleshooting')}
-                          </span>
-                        </Link>
-                        <Link href="/help-center?category=plans-payments" onClick={closeMobileMenu}>
+                        <Link href="/contact-support" onClick={closeMobileMenu}>
                           <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                             <Headphones className="h-4 w-4 text-purple-500" />
-                            {t('website.nav.helpCenter', 'Contact Support')}
+                            {t('website.nav.contactSupport', 'Contact Support')}
                           </span>
                         </Link>
                       </div>
