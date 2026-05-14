@@ -537,14 +537,14 @@ export default function UnifiedCheckout() {
                 <CardContent className="p-6">
                   {isAuthenticated ? (
                     <div className="space-y-4">
-                      <h2 className="text-xl font-bold text-[#1A1A1A]">{t('checkout.yourAccount', 'Your Account')}</h2>
+                      <h2 className="text-xl font-bold text-foreground">{t('checkout.yourAccount', 'Your Account')}</h2>
                       <div className="flex items-center gap-3 bg-primary/5 p-3 rounded-lg border border-primary/10">
-                        <div className="w-10 h-10 rounded-full bg-primary-second flex items-center justify-center text-white font-bold text-lg">
+                        <div className="w-10 h-10 rounded-full bg-primary-second text-primary-second-foreground flex items-center justify-center font-bold text-lg">
                           {user?.name?.charAt(0) || user?.email?.charAt(0).toUpperCase()}
                         </div>
                         <div className="flex-1">
-                          <p className="font-semibold text-sm text-[#1A1A1A]">{user?.name || 'User'}</p>
-                          <p className="text-xs text-[#4B5563]">{user?.email}</p>
+                          <p className="font-semibold text-sm text-foreground">{user?.name || 'User'}</p>
+                          <p className="text-xs text-muted-foreground">{user?.email}</p>
                         </div>
                         <Button variant="ghost" size="sm" onClick={() => apiRequest('POST', '/api/auth/logout').then(() => refetchUser())} className="h-8 text-xs text-red-600 hover:text-red-700 hover:bg-red-50">
                           {t('checkout.logout', 'Logout')}
@@ -557,7 +557,7 @@ export default function UnifiedCheckout() {
                   ) : (
                     <div className="space-y-6">
                       <div className="space-y-4">
-                        <h2 className="text-xl font-bold text-[#1A1A1A]">{t('checkout.signUpOrLogin', 'Sign up or log in')}</h2>
+                        <h2 className="text-xl font-bold text-foreground">{t('checkout.signUpOrLogin', 'Sign up or log in')}</h2>
                         <div className="flex flex-col sm:flex-row gap-3">
                           <Button
                             variant="outline"
@@ -697,7 +697,7 @@ export default function UnifiedCheckout() {
                                   <Checkbox checked={field.value} onCheckedChange={field.onChange} className="mt-0.5 w-4 h-4 border-gray-300" />
                                 </FormControl>
                                 <div className="leading-tight">
-                                  <FormLabel className="text-xs font-normal text-[#4B5563] cursor-pointer">
+                                  <FormLabel className="text-xs font-normal text-muted-foreground cursor-pointer">
                                     {t('checkout.agreeTo', 'I agree to the')}{' '}
                                     <Link href="/terms-and-condition" className="text-primary-second font-medium hover:underline">
                                       {t('checkout.termsOfService', 'Terms of Service')}
@@ -721,7 +721,7 @@ export default function UnifiedCheckout() {
 
               <Card className="border-0 shadow-sm rounded-xl bg-white overflow-hidden">
                 <CardContent className="p-6">
-                  <h2 className="text-xl font-bold text-[#1A1A1A] mb-4">{t('checkout.selectPaymentMethod', 'Select a payment method')}</h2>
+                  <h2 className="text-xl font-bold text-foreground mb-4">{t('checkout.selectPaymentMethod', 'Select a payment method')}</h2>
 
                   {!initResponse ? (
                     <div className="space-y-4">
@@ -734,13 +734,13 @@ export default function UnifiedCheckout() {
                               <div
                                 key={gateway.id}
                                 onClick={() => setSelectedGateway(gateway)}
-                                className={`group relative p-4 rounded-lg border transition-all duration-200 flex items-center justify-between cursor-pointer ${isSelected ? 'border-primary-second bg-[#F0FDF4]' : 'border-gray-100 bg-white'}`}
+                                className={`group relative p-4 rounded-lg border transition-all duration-200 flex items-center justify-between cursor-pointer ${isSelected ? 'border-primary-second bg-primary/5' : 'border-gray-100 bg-white'}`}
                               >
                                 <div className="flex items-center gap-3">
                                   <div className={`w-9 h-9 rounded-full flex items-center justify-center ${isSelected ? 'bg-primary-second/10' : 'bg-gray-50'}`}>
                                     <CreditCard className={`w-4 h-4 ${isSelected ? 'text-primary-second' : 'text-gray-400'}`} />
                                   </div>
-                                  <p className={`font-semibold text-sm ${isSelected ? 'text-primary-second' : 'text-[#1A1A1A]'}`}>
+                                  <p className={`font-semibold text-sm ${isSelected ? 'text-primary-second' : 'text-foreground'}`}>
                                     {providerName.includes('stripe') || providerName.includes('powertranz') ? t('checkout.creditOrDebit', 'Credit or debit card') :
                                       providerName.includes('paypal') ? t('checkout.paypal', 'PayPal') :
                                         providerName.includes('google') ? t('checkout.googlePay', 'Google Pay') : gateway.provider.toUpperCase()}
@@ -759,7 +759,7 @@ export default function UnifiedCheckout() {
                       {/* POWERTRANZ CARD FORM */}
                       {selectedGateway?.provider === 'powertranz' && (
                         <div className="mt-4 p-4 bg-gray-50 rounded-xl space-y-3 border border-gray-100">
-                          <h4 className="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2">
+                          <h4 className="text-sm font-semibold text-foreground flex items-center gap-2">
                             <CreditCard className="w-4 h-4 text-gray-400" />
                             {t('checkout.cardDetails', 'Card Details')}
                           </h4>
@@ -786,7 +786,7 @@ export default function UnifiedCheckout() {
                       <Button
                         disabled={isSubmitting || !selectedGateway}
                         onClick={form.handleSubmit(onSubmit)}
-                        className="w-full h-11 bg-primary-second hover:bg-[#1a4a22] text-white font-semibold rounded-lg"
+                        className="w-full h-11 bg-primary-second hover:bg-primary-dark text-primary-second-foreground font-semibold rounded-lg"
                       >
                         {isSubmitting ? (
                           <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> {t('checkout.processing', 'Processing...')}</>
