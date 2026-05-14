@@ -55,7 +55,7 @@ const CATEGORY_STYLES = [
     accentColor: 'text-green-600',
     borderColor: 'border-l-green-500',
     bgColor: 'bg-green-50',
-    hoverRing: 'ring-[#2c7338]/20',
+    hoverRing: 'ring-[var(--primary)]/20',
   },
   {
     icon: CreditCard,
@@ -207,7 +207,7 @@ export default function HelpCenter() {
                 <input
                   type="search"
                   placeholder="Search for answers..."
-                  className="w-full pl-12 pr-4 h-14 text-base rounded-xl border border-gray-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#2c7338]/30 focus:border-[#2c7338] transition-all"
+                  className="w-full pl-12 pr-4 h-14 text-base rounded-xl border border-gray-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/30 focus:border-[var(--primary)] transition-all"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -242,11 +242,11 @@ export default function HelpCenter() {
                           {category.icon}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-[#2c7338] transition-colors">
+                          <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-[var(--primary)] transition-colors">
                             {category.title}
                           </h3>
                           <p className="text-sm text-gray-500">{category.description}</p>
-                          <span className="inline-flex items-center gap-1 mt-2 text-sm font-medium text-[#2c7338]">
+                          <span className="inline-flex items-center gap-1 mt-2 text-sm font-medium text-[var(--primary)]">
                             {selectedCategory === category.id ? (
                               <>
                                 Hide articles <ChevronUp className="h-4 w-4" />
@@ -301,7 +301,7 @@ export default function HelpCenter() {
                             {article.title}
                           </span>
                           {isExpanded ? (
-                            <Minus className="h-5 w-5 text-[#2c7338] flex-shrink-0" />
+                            <Minus className="h-5 w-5 text-[var(--primary)] flex-shrink-0" />
                           ) : (
                             <Plus className="h-5 w-5 text-gray-400 flex-shrink-0" />
                           )}
@@ -344,19 +344,19 @@ export default function HelpCenter() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
               <div className="p-6 rounded-xl border border-gray-100 bg-slate-50 hover:shadow-md transition-shadow">
                 <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
-                  <Mail className="h-6 w-6 text-[#2c7338]" />
+                  <Mail className="h-6 w-6 text-[var(--primary)]" />
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-1">Email Support</h3>
                 <a
                   href={`mailto:${email || 'support@voltey.com'}`}
-                  className="text-[#2c7338] hover:underline text-sm"
+                  className="text-[var(--primary)] hover:underline text-sm"
                 >
                   {email || 'support@voltey.com'}
                 </a>
               </div>
               <div className="p-6 rounded-xl border border-gray-100 bg-slate-50 hover:shadow-md transition-shadow">
                 <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
-                  <MessageSquare className="h-6 w-6 text-[#2c7338]" />
+                  <MessageSquare className="h-6 w-6 text-[var(--primary)]" />
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-1">Live Chat</h3>
                 <p className="text-sm text-gray-500">Available 24/7</p>

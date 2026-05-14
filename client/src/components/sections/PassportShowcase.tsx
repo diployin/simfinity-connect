@@ -74,8 +74,8 @@ export function PassportShowcase() {
       className="py-16 md:py-24 bg-gradient-to-b from-slate-950 to-slate-900 relative overflow-hidden"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#2c7338]/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[#2c7338]/8 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[var(--primary)]/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[var(--primary)]/8 rounded-full blur-3xl" />
         <div className="absolute top-1/2 left-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl" />
       </div>
 
@@ -83,17 +83,17 @@ export function PassportShowcase() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div>
             <div
-              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#2c7338]/20 to-[#3d9a4d]/20 border border-[#2c7338]/30 mb-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[var(--primary)]/20 to-[var(--primary-light)]/20 border border-[var(--primary)]/30 mb-6 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             >
-              <Sparkles className="w-4 h-4 text-[#3d9a4d]" />
-              <span className="text-sm font-medium text-[#3d9a4d]">Pre-Order · Limited First Batch</span>
+              <Sparkles className="w-4 h-4 text-[var(--primary-light)]" />
+              <span className="text-sm font-medium text-[var(--primary-light)]">Pre-Order · Limited First Batch</span>
             </div>
 
             <h2
               className={`text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             >
               Voltey{' '}
-              <span className="bg-gradient-to-r from-[#3d9a4d] to-[#2c7338] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[var(--primary-light)] to-[var(--primary)] bg-clip-text text-transparent">
                 Passport
               </span>
             </h2>
@@ -108,7 +108,7 @@ export function PassportShowcase() {
               className={`flex items-center gap-3 mb-8 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             >
               <div className="flex items-center gap-1.5 text-slate-400 text-sm">
-                <Globe className="w-4 h-4 text-[#3d9a4d]" />
+                <Globe className="w-4 h-4 text-[var(--primary-light)]" />
                 <span>190+ Countries</span>
               </div>
               <div className="w-1 h-1 rounded-full bg-slate-600" />
@@ -141,7 +141,7 @@ export function PassportShowcase() {
 
             <Link href="/destinations?tab=passport">
               <button
-                className={`btn-passport-cta group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-[#2c7338] to-[#3d9a4d] text-white font-semibold text-lg shadow-lg shadow-[#2c7338]/25 hover:shadow-xl hover:shadow-[#2c7338]/30 transition-all duration-500 hover:scale-[1.02] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+                className={`btn-passport-cta group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] text-white font-semibold text-lg shadow-lg shadow-[var(--primary)]/25 hover:shadow-xl hover:shadow-[var(--primary)]/30 transition-all duration-500 hover:scale-[1.02] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
                 style={{ transitionDelay: isVisible ? '800ms' : '0ms' }}
               >
                 Reserve Your Device
@@ -154,11 +154,11 @@ export function PassportShowcase() {
             className={`relative flex items-center justify-center transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
           >
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-72 h-72 md:w-96 md:h-96 rounded-full bg-gradient-to-br from-[#2c7338]/20 to-transparent blur-2xl animate-pulse-slow" />
+              <div className="w-72 h-72 md:w-96 md:h-96 rounded-full bg-gradient-to-br from-[var(--primary)]/20 to-transparent blur-2xl animate-pulse-slow" />
             </div>
 
             <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-r from-[#2c7338]/20 via-[#3d9a4d]/10 to-[#2c7338]/20 rounded-3xl blur-xl" />
+              <div className="absolute -inset-4 bg-gradient-to-r from-[var(--primary)]/20 via-[var(--primary-light)]/10 to-[var(--primary)]/20 rounded-3xl blur-xl" />
               <img
                 src="/images/passport-device-1.png"
                 alt="Voltey Passport Device"

@@ -303,7 +303,7 @@ function TopupPaymentForm({
       <PaymentElement />
       <Button
         type="submit"
-        className="w-full bg-[#2c7338] hover:bg-[#1e5427] text-white"
+        className="w-full bg-[var(--primary)] hover:bg-primary-second text-white"
         disabled={!stripe || isProcessing}
       >
         {isProcessing ? (
@@ -484,7 +484,7 @@ export default function MyESIMsPage() {
               <p className="text-slate-600 dark:text-slate-400 mb-6">
                 {t('myEsims.noEsimsDesc', 'Purchase a package to get started with your first eSIM')}
               </p>
-              <Button asChild className="bg-[#2c7338] hover:bg-[#1e5427] text-white">
+              <Button asChild className="bg-[var(--primary)] hover:bg-primary-second text-white">
                 <a href="/destinations">{t('myEsims.browsePackages', 'Browse Packages')}</a>
               </Button>
             </div>
@@ -815,7 +815,7 @@ export default function MyESIMsPage() {
                         <p className="text-lg font-bold text-foreground">${pkg.customer_price || pkg.price}</p>
                         <Button
                           size="sm"
-                          className="bg-[#2c7338] hover:bg-[#1e5427] text-white"
+                          className="bg-[var(--primary)] hover:bg-primary-second text-white"
                           data-testid={`button-select-topup-${index}`}
                         >
                           {t('myEsims.select', 'Select')}

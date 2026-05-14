@@ -39,7 +39,7 @@ function TestimonialCard({ testimonial, index }: { testimonial: Testimonial; ind
       data-testid={`testimonial-card-${index}`}
     >
       <div className="flex items-center justify-between mb-3">
-        <h4 className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">{testimonial.name}</h4>
+        <h4 className="font-bold text-zinc-900 dark:text-zinc-100 text-sm">{testimonial?.name}</h4>
         <div className="flex items-center gap-1.5">
           <span className="text-emerald-500">
             <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
@@ -50,11 +50,11 @@ function TestimonialCard({ testimonial, index }: { testimonial: Testimonial; ind
         </div>
       </div>
 
-      <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4">{testimonial.content}</p>
+      <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4">{testimonial?.content}</p>
 
       <div className="flex items-center gap-1.5">
-        <span className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{testimonial.rating}</span>
-        <StarRating rating={testimonial.rating} />
+        <span className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">{testimonial?.rating}</span>
+        <StarRating rating={testimonial?.rating} />
       </div>
     </div>
   );

@@ -67,6 +67,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useSettingByKey } from '@/hooks/useSettings';
+// import { PaymentGatewayRenderer } from '@/components/payments/PaymentGatewayRenderer';
 
 
 type UnifiedPackage = {
@@ -90,6 +91,7 @@ type UnifiedPackage = {
 };
 
 import { countries } from '@/lib/countries';
+import PaymentGatewayRenderer from '@/components/payments/PaymentGatewayRenderer';
 
 const formatDataAmount = (pkg: any): string => {
   if (!pkg) return 'eSIM';
@@ -635,7 +637,7 @@ export default function UnifiedCheckout() {
         {/* <SiteHeader /> */}
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
-            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[#2c7338] border-r-transparent"></div>
+            <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[var(--primary)] border-r-transparent"></div>
             <p className="mt-4 text-muted-foreground">Loading...</p>
           </div>
         </div>
@@ -664,7 +666,7 @@ export default function UnifiedCheckout() {
   const unitPrice = parseFloat(packageData.retailPrice || packageData.price || '0');
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] flex flex-col font-sans">
+    <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
       <Helmet>
         <title>{`Checkout - ${formatDataAmount(packageData)} eSIM | ${siteName}`}</title>
       </Helmet>
@@ -681,20 +683,20 @@ export default function UnifiedCheckout() {
           <div className="grid lg:grid-cols-12 gap-6 items-start">
             {/* LEFT COLUMN */}
             <div className="lg:col-span-7 space-y-6">
-              
+
               {/* ACCOUNT & CONTACT SECTION */}
               <Card className="border-0 shadow-sm rounded-xl overflow-hidden bg-white">
                 <CardContent className="p-6">
                   {isAuthenticated ? (
                     <div className="space-y-4">
-                      <h2 className="text-xl font-bold text-[#1A1A1A]">Your Account</h2>
-                      <div className="flex items-center gap-3 bg-[#F0FDF4] p-3 rounded-lg border border-[#DCFCE7]">
-                        <div className="w-10 h-10 rounded-full bg-[#1e5427] flex items-center justify-center text-white font-bold text-lg">
+                      <h2 className="text-xl font-bold text-gray-900">Your Account</h2>
+                      <div className="flex items-center gap-3 bg-primary/5 p-3 rounded-lg border border-primary/10">
+                        <div className="w-10 h-10 rounded-full bg-primary-second flex items-center justify-center text-white font-bold text-lg">
                           {user?.name?.charAt(0) || user?.email?.charAt(0).toUpperCase()}
                         </div>
                         <div className="flex-1">
-                          <p className="font-semibold text-sm text-[#1A1A1A]">{user?.name || 'User'}</p>
-                          <p className="text-xs text-[#4B5563]">{user?.email}</p>
+                          <p className="font-semibold text-sm text-gray-900">{user?.name || 'User'}</p>
+                          <p className="text-xs text-gray-600">{user?.email}</p>
                         </div>
                         <Button variant="ghost" size="sm" onClick={() => apiRequest('POST', '/api/auth/logout').then(() => refetchUser())} className="h-8 text-xs text-red-600 hover:text-red-700 hover:bg-red-50">
                           Logout
@@ -705,18 +707,18 @@ export default function UnifiedCheckout() {
                   ) : (
                     <div className="space-y-6">
                       <div>
-                        <h2 className="text-xl font-bold text-[#1A1A1A] mb-4">Sign up or log in</h2>
+                        <h2 className="text-xl font-bold text-gray-900 mb-4">Sign up or log in</h2>
                         <div className="flex flex-col sm:flex-row gap-3">
-                          <Button 
-                            variant="outline" 
+                          <Button
+                            variant="outline"
                             onClick={handleGoogleLogin}
                             className="h-11 px-6 rounded-lg border-gray-200 hover:bg-gray-50 flex items-center justify-center gap-2 text-sm font-semibold"
                           >
                             <svg width="18" height="18" viewBox="0 0 24 24">
-                              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
-                              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+                              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05" />
+                              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
                             </svg>
                             Continue with Google
                           </Button>
@@ -740,7 +742,7 @@ export default function UnifiedCheckout() {
                               name="email"
                               render={({ field }) => (
                                 <FormItem className="space-y-1.5">
-                                  <FormLabel className="text-xs font-semibold text-[#374151]">Email</FormLabel>
+                                  <FormLabel className="text-xs font-semibold text-gray-700">Email</FormLabel>
                                   <FormControl>
                                     <div className="relative">
                                       <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -748,7 +750,7 @@ export default function UnifiedCheckout() {
                                         {...field}
                                         type="email"
                                         placeholder="your@email.com"
-                                        className="h-11 pl-10 rounded-lg border-gray-200 focus:border-[#1e5427]"
+                                        className="h-11 pl-10 rounded-lg border-gray-200 focus:border-primary-second"
                                       />
                                     </div>
                                   </FormControl>
@@ -762,7 +764,7 @@ export default function UnifiedCheckout() {
                               name="phone"
                               render={({ field }) => (
                                 <FormItem className="space-y-1.5">
-                                  <FormLabel className="text-xs font-semibold text-[#374151]">Phone number</FormLabel>
+                                  <FormLabel className="text-xs font-semibold text-gray-700">Phone number</FormLabel>
                                   <div className="flex gap-2">
                                     <Popover open={openCountry} onOpenChange={setOpenCountry}>
                                       <PopoverTrigger asChild>
@@ -773,9 +775,9 @@ export default function UnifiedCheckout() {
                                           className="w-[100px] h-11 rounded-lg border-gray-200 justify-between px-3 font-normal"
                                         >
                                           <div className="flex items-center gap-2 overflow-hidden">
-                                            <ReactCountryFlag 
-                                              countryCode={countries.find((c) => c.dialCode === selectedDialCode)?.code || 'IN'} 
-                                              svg 
+                                            <ReactCountryFlag
+                                              countryCode={countries.find((c) => c.dialCode === selectedDialCode)?.code || 'IN'}
+                                              svg
                                             />
                                             <span className="text-sm truncate">{selectedDialCode}</span>
                                           </div>
@@ -843,16 +845,16 @@ export default function UnifiedCheckout() {
                               render={({ field }) => (
                                 <FormItem className="flex flex-row items-start space-x-2 space-y-0 pt-1">
                                   <FormControl>
-                                    <Checkbox checked={field.value} onCheckedChange={field.onChange} className="mt-0.5 w-4 h-4 border-gray-300 data-[state=checked]:bg-[#1e5427]" />
+                                    <Checkbox checked={field.value} onCheckedChange={field.onChange} className="mt-0.5 w-4 h-4 border-gray-300 data-[state=checked]:bg-primary-second" />
                                   </FormControl>
                                   <div className="leading-tight">
-                                    <FormLabel className="text-xs font-normal text-[#4B5563] cursor-pointer">
+                                    <FormLabel className="text-xs font-normal text-gray-600 cursor-pointer">
                                       I agree to the{' '}
-                                      <Link href="/terms-and-condition" className="text-[#1e5427] font-medium hover:underline">
+                                      <Link href="/terms-and-condition" className="text-primary-second font-medium hover:underline">
                                         Terms of Service
                                       </Link>{' '}
                                       and{' '}
-                                      <Link href="/privacy-policy" className="text-[#1e5427] font-medium hover:underline">
+                                      <Link href="/privacy-policy" className="text-primary-second font-medium hover:underline">
                                         Privacy Policy
                                       </Link>
                                     </FormLabel>
@@ -872,8 +874,8 @@ export default function UnifiedCheckout() {
               {/* PAYMENT SECTION */}
               <Card className="border-0 shadow-sm rounded-xl bg-white overflow-hidden">
                 <CardContent className="p-6">
-                  <h2 className="text-xl font-bold text-[#1A1A1A] mb-4">Select a payment method</h2>
-                  
+                  <h2 className="text-xl font-bold text-gray-900 mb-4">Select a payment method</h2>
+
                   {!initResponse ? (
                     <div className="space-y-4">
                       {gateways.length > 0 ? (
@@ -881,7 +883,7 @@ export default function UnifiedCheckout() {
                           {gateways.map((gateway) => {
                             const isSelected = selectedGateway?.id === gateway.id;
                             const providerName = gateway.provider.toLowerCase();
-                            
+
                             return (
                               <div
                                 key={gateway.id}
@@ -890,12 +892,12 @@ export default function UnifiedCheckout() {
                                   group relative p-4 rounded-lg border transition-all duration-200
                                   flex items-center justify-between
                                   ${isSelected
-                                    ? 'border-[#1e5427] bg-[#F0FDF4]'
+                                    ? 'border-primary-second bg-primary/5'
                                     : 'border-gray-100 hover:border-gray-200 bg-white'}
                                 `}
                               >
                                 <div className="flex items-center gap-3">
-                                  <div className={`w-9 h-9 rounded-full flex items-center justify-center ${isSelected ? 'bg-[#1e5427]/10 text-[#1e5427]' : 'bg-gray-50 text-gray-400'}`}>
+                                  <div className={`w-9 h-9 rounded-full flex items-center justify-center ${isSelected ? 'bg-primary-second/10 text-primary-second' : 'bg-gray-50 text-gray-400'}`}>
                                     {providerName.includes('card') || providerName.includes('stripe') || providerName.includes('powertranz') ? (
                                       <CreditCard className="w-4.5 h-4.5" />
                                     ) : providerName.includes('paypal') ? (
@@ -905,10 +907,10 @@ export default function UnifiedCheckout() {
                                     )}
                                   </div>
                                   <div>
-                                    <p className={`font-semibold text-sm ${isSelected ? 'text-[#1e5427]' : 'text-[#1A1A1A]'}`}>
-                                      {providerName.includes('stripe') || providerName.includes('powertranz') ? 'Credit or debit card' : 
-                                       providerName.includes('paypal') ? 'PayPal' : 
-                                       providerName.includes('google') ? 'Google Pay' : gateway.provider.toUpperCase()}
+                                    <p className={`font-semibold text-sm ${isSelected ? 'text-primary-second' : 'text-gray-900'}`}>
+                                      {providerName.includes('stripe') || providerName.includes('powertranz') ? 'Credit or debit card' :
+                                        providerName.includes('paypal') ? 'PayPal' :
+                                          providerName.includes('google') ? 'Google Pay' : gateway.provider.toUpperCase()}
                                     </p>
                                     {providerName.includes('card') && (
                                       <div className="flex gap-1 mt-0.5">
@@ -918,7 +920,7 @@ export default function UnifiedCheckout() {
                                     )}
                                   </div>
                                 </div>
-                                <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${isSelected ? 'border-[#1e5427] bg-[#1e5427]' : 'border-gray-200'}`}>
+                                <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${isSelected ? 'border-primary-second bg-primary-second' : 'border-gray-200'}`}>
                                   {isSelected && <Check className="w-3 h-3 text-white" />}
                                 </div>
                               </div>
@@ -934,7 +936,7 @@ export default function UnifiedCheckout() {
                       {/* POWERTRANZ CARD FORM */}
                       {selectedGateway?.provider === 'powertranz' && (
                         <div className="mt-4 p-4 bg-gray-50 rounded-xl space-y-3 border border-gray-100">
-                          <h4 className="text-sm font-semibold text-[#1A1A1A] flex items-center gap-2">
+                          <h4 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
                             <CreditCard className="w-4 h-4 text-gray-400" />
                             Card Details
                           </h4>
@@ -958,10 +960,10 @@ export default function UnifiedCheckout() {
                         </div>
                       )}
 
-                      <Button 
-                        disabled={isSubmitting || !selectedGateway} 
+                      <Button
+                        disabled={isSubmitting || !selectedGateway}
                         onClick={() => isAuthenticated ? onSubmit({ email: user?.email, acceptTerms: true }) : form.handleSubmit(onSubmit)()}
-                        className="w-full h-12 mt-2 bg-[#1e5427] hover:bg-[#1a4a22] text-white text-base font-bold rounded-lg transition-all"
+                        className="w-full h-12 mt-2 bg-primary-second hover:bg-primary-dark text-white text-base font-bold rounded-lg transition-all"
                       >
                         {isSubmitting ? (
                           <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Processing...</>
@@ -999,9 +1001,9 @@ export default function UnifiedCheckout() {
             <div className="lg:col-span-5">
               <Card className="border-0 shadow-sm rounded-xl bg-white sticky top-8">
                 <CardContent className="p-6">
-                  <h2 className="text-xl font-bold text-[#1A1A1A] mb-6">Order summary</h2>
+                  <h2 className="text-xl font-bold text-gray-900 mb-6">Order summary</h2>
 
-                  <div className="bg-[#F8F9FA] rounded-xl p-3.5 flex items-center gap-3 mb-6">
+                  <div className="bg-gray-50 rounded-xl p-3.5 flex items-center gap-3 mb-6">
                     {packageData.countryCode && (
                       <div className="w-10 h-7 rounded overflow-hidden shadow-sm flex-shrink-0">
                         <ReactCountryFlag
@@ -1011,31 +1013,31 @@ export default function UnifiedCheckout() {
                         />
                       </div>
                     )}
-                    <span className="text-lg font-bold text-[#1A1A1A]">
+                    <span className="text-lg font-bold text-gray-900">
                       {packageData.countryName || packageData.countryCode || 'Global'}
                     </span>
                   </div>
 
                   <div className="space-y-4 pb-6 border-b border-gray-100">
                     <div className="flex justify-between items-center text-sm">
-                      <span className="text-[#6B7280]">Plan</span>
-                      <span className="font-bold text-[#1A1A1A]">{formatDataAmount(packageData)}</span>
+                      <span className="text-gray-500">Plan</span>
+                      <span className="font-bold text-gray-900">{formatDataAmount(packageData)}</span>
                     </div>
                     <div className="flex justify-between items-center text-sm">
-                      <span className="text-[#6B7280]">Type</span>
-                      <span className="font-bold text-[#1A1A1A]">Data only</span>
+                      <span className="text-gray-500">Type</span>
+                      <span className="font-bold text-gray-900">Data only</span>
                     </div>
                     <div className="flex justify-between items-center text-sm">
-                      <span className="text-[#6B7280]">Duration</span>
-                      <span className="font-bold text-[#1A1A1A]">{packageData.validity} days</span>
+                      <span className="text-gray-500">Duration</span>
+                      <span className="font-bold text-gray-900">{packageData.validity} days</span>
                     </div>
                   </div>
 
                   {/* PRICE & PROMOS */}
                   <div className="py-6 space-y-3.5">
                     <div className="flex justify-between items-center">
-                      <span className="text-lg font-bold text-[#1A1A1A]">Total</span>
-                      <span className="text-2xl font-black text-[#1A1A1A]">
+                      <span className="text-lg font-bold text-gray-900">Total</span>
+                      <span className="text-2xl font-black text-gray-900">
                         {getCurrencySymbol(packageData.currency)}{calculateTotal()}
                       </span>
                     </div>
@@ -1076,7 +1078,7 @@ export default function UnifiedCheckout() {
                     <div className="space-y-4">
                       <Collapsible open={isPromoOpen} onOpenChange={setIsPromoOpen}>
                         <CollapsibleTrigger asChild>
-                          <Button variant="ghost" className="w-full h-10 rounded-lg text-[#1e5427] hover:text-[#1a4a22] hover:bg-green-50 text-sm font-bold border border-green-100">
+                          <Button variant="ghost" className="w-full h-10 rounded-lg text-primary-second hover:text-[#1a4a22] hover:bg-green-50 text-sm font-bold border border-green-100">
                             Got a coupon?
                           </Button>
                         </CollapsibleTrigger>
@@ -1088,11 +1090,10 @@ export default function UnifiedCheckout() {
                                 type="button"
                                 variant="ghost"
                                 size="sm"
-                                className={`flex-1 h-8 text-[10px] uppercase tracking-wider font-bold transition-all ${
-                                  promoCodeType === 'voucher' 
-                                    ? 'bg-[#1e5427] text-white shadow-sm hover:bg-[#1e5427] hover:text-white' 
+                                className={`flex-1 h-8 text-[10px] uppercase tracking-wider font-bold transition-all ${promoCodeType === 'voucher'
+                                    ? 'bg-primary-second text-white shadow-sm hover:bg-primary-second hover:text-white'
                                     : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
-                                }`}
+                                  }`}
                                 onClick={() => setPromoCodeType('voucher')}
                               >
                                 Voucher
@@ -1101,11 +1102,10 @@ export default function UnifiedCheckout() {
                                 type="button"
                                 variant="ghost"
                                 size="sm"
-                                className={`flex-1 h-8 text-[10px] uppercase tracking-wider font-bold transition-all ${
-                                  promoCodeType === 'giftcard' 
-                                    ? 'bg-[#1e5427] text-white shadow-sm hover:bg-[#1e5427] hover:text-white' 
+                                className={`flex-1 h-8 text-[10px] uppercase tracking-wider font-bold transition-all ${promoCodeType === 'giftcard'
+                                    ? 'bg-primary-second text-white shadow-sm hover:bg-primary-second hover:text-white'
                                     : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
-                                }`}
+                                  }`}
                                 onClick={() => setPromoCodeType('giftcard')}
                               >
                                 Gift Card
@@ -1114,11 +1114,10 @@ export default function UnifiedCheckout() {
                                 type="button"
                                 variant="ghost"
                                 size="sm"
-                                className={`flex-1 h-8 text-[10px] uppercase tracking-wider font-bold transition-all ${
-                                  promoCodeType === 'referral' 
-                                    ? 'bg-[#1e5427] text-white shadow-sm hover:bg-[#1e5427] hover:text-white' 
+                                className={`flex-1 h-8 text-[10px] uppercase tracking-wider font-bold transition-all ${promoCodeType === 'referral'
+                                    ? 'bg-primary-second text-white shadow-sm hover:bg-primary-second hover:text-white'
                                     : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
-                                }`}
+                                  }`}
                                 onClick={() => setPromoCodeType('referral')}
                               >
                                 Referral
@@ -1127,13 +1126,13 @@ export default function UnifiedCheckout() {
                           )}
 
                           <div className="flex gap-2">
-                            <Input 
-                              placeholder={`Enter ${promoCodeType} code`} 
-                              value={promoCode} 
+                            <Input
+                              placeholder={`Enter ${promoCodeType} code`}
+                              value={promoCode}
                               onChange={(e) => setPromoCode(e.target.value)}
                               className="h-10 text-sm rounded-lg"
                             />
-                            <Button onClick={handleApplyPromo} disabled={isValidatingPromo || !promoCode} className="h-10 px-4 rounded-lg bg-[#1e5427]">
+                            <Button onClick={handleApplyPromo} disabled={isValidatingPromo || !promoCode} className="h-10 px-4 rounded-lg bg-primary-second">
                               {isValidatingPromo ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : 'Apply'}
                             </Button>
                           </div>

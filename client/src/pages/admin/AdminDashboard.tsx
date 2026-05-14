@@ -76,7 +76,7 @@ interface StatsData {
 
 const COLORS = {
   pending: '#f59e0b',
-  processing: '#2c7338',
+  processing: 'var(--primary)',
   completed: '#10b981',
   failed: '#ef4444',
   cancelled: '#6b7280',
@@ -103,7 +103,7 @@ export default function AdminDashboard() {
     return (
       <div className="flex items-center justify-center h-screen">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-[#1e5427] mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary-second mx-auto mb-4"></div>
           <p className="text-slate-600 dark:text-slate-400">
             {t('admin.dashboard.loadingDashboard', 'Loading dashboard...')}
           </p>
@@ -139,13 +139,13 @@ export default function AdminDashboard() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {/* Total Revenue */}
         <Card
-          className="relative overflow-hidden border-0 bg-gradient-to-br from-[#f0f9f1] to-indigo-50 dark:from-[#0a2e14]/30 dark:to-indigo-950/30 shadow-lg shadow-[#dcf0de]/50 dark:shadow-[#194520]/10"
+          className="relative overflow-hidden border-0 bg-gradient-to-br from-primary/5 to-indigo-50 dark:from-[#0a2e14]/30 dark:to-indigo-950/30 shadow-lg shadow-primary/10/50 dark:shadow-[var(--primary-dark)]/10"
           data-testid="card-total-revenue"
         >
           <div className="p-6">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm font-medium text-[#1e5427] dark:text-[#3d9a4d]">
+                <p className="text-sm font-medium text-primary-second dark:text-[var(--primary-light)]">
                   {t('admin.dashboard.totalRevenue', 'Total Revenue')}
                 </p>
                 <h3
@@ -155,7 +155,7 @@ export default function AdminDashboard() {
                   ${stats?.totalRevenue.toFixed(2) || '0.00'}
                 </h3>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#1e5427] to-indigo-600 shadow-lg shadow-[#2c7338]/50">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary-second to-indigo-600 shadow-lg shadow-[var(--primary)]/50">
                 <DollarSign className="h-6 w-6 text-white" />
               </div>
             </div>
@@ -177,7 +177,7 @@ export default function AdminDashboard() {
               </div>
             )}
           </div>
-          <div className="absolute -bottom-6 -right-6 h-24 w-24 rounded-full bg-gradient-to-br from-[#3d9a4d]/20 to-indigo-400/20 blur-2xl"></div>
+          <div className="absolute -bottom-6 -right-6 h-24 w-24 rounded-full bg-gradient-to-br from-[var(--primary-light)]/20 to-indigo-400/20 blur-2xl"></div>
         </Card>
 
         {/* Total Cost */}
@@ -222,7 +222,7 @@ export default function AdminDashboard() {
 
         {/* Total Orders + eSIMs */}
         <Card
-          className="relative overflow-hidden border-0 bg-gradient-to-br from-emerald-50 to-[#f0f9f1] dark:from-emerald-950/30 dark:to-[#0a2e14]/30 shadow-lg shadow-emerald-100/50 dark:shadow-emerald-900/10"
+          className="relative overflow-hidden border-0 bg-gradient-to-br from-emerald-50 to-primary/5 dark:from-emerald-950/30 dark:to-[#0a2e14]/30 shadow-lg shadow-emerald-100/50 dark:shadow-emerald-900/10"
           data-testid="card-total-orders"
         >
           <div className="p-6">
@@ -245,7 +245,7 @@ export default function AdminDashboard() {
                   {t('admin.dashboard.totalEsims', 'eSIMs sold')}
                 </p>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-600 to-[#1e5427] shadow-lg shadow-emerald-500/50">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-600 to-primary-second shadow-lg shadow-emerald-500/50">
                 <ShoppingCart className="h-6 w-6 text-white" />
               </div>
             </div>
@@ -267,18 +267,18 @@ export default function AdminDashboard() {
               </div>
             )}
           </div>
-          <div className="absolute -bottom-6 -right-6 h-24 w-24 rounded-full bg-gradient-to-br from-emerald-400/20 to-[#3d9a4d]/20 blur-2xl"></div>
+          <div className="absolute -bottom-6 -right-6 h-24 w-24 rounded-full bg-gradient-to-br from-emerald-400/20 to-[var(--primary-light)]/20 blur-2xl"></div>
         </Card>
 
         {/* Total Customers */}
         <Card
-          className="relative overflow-hidden border-0 bg-gradient-to-br from-[#f0f9f1] to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 shadow-lg shadow-[#dcf0de]/50 dark:shadow-[#194520]/10"
+          className="relative overflow-hidden border-0 bg-gradient-to-br from-primary/5 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 shadow-lg shadow-primary/10/50 dark:shadow-[var(--primary-dark)]/10"
           data-testid="card-total-customers"
         >
           <div className="p-6">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm font-medium text-[#1e5427] dark:text-[#3d9a4d]">
+                <p className="text-sm font-medium text-primary-second dark:text-[var(--primary-light)]">
                   {t('admin.dashboard.customers', 'Customers')}
                 </p>
                 <h3
@@ -288,7 +288,7 @@ export default function AdminDashboard() {
                   {stats?.totalCustomers.toLocaleString() || 0}
                 </h3>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#1e5427] to-pink-600 shadow-lg shadow-[#2c7338]/50">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary-second to-pink-600 shadow-lg shadow-[var(--primary)]/50">
                 <Users className="h-6 w-6 text-white" />
               </div>
             </div>
@@ -296,14 +296,14 @@ export default function AdminDashboard() {
               <div className="mt-4 flex items-center gap-2">
                 <Badge
                   variant="secondary"
-                  className="bg-[#dcf0de] dark:bg-[#194520]/30 text-[#1e5427] dark:text-[#3d9a4d]"
+                  className="bg-primary/10 dark:bg-[var(--primary-dark)]/30 text-primary-second dark:text-[var(--primary-light)]"
                 >
                   +{stats.trends.customers} {t('admin.dashboard.thisMonth', 'this month')}
                 </Badge>
               </div>
             )}
           </div>
-          <div className="absolute -bottom-6 -right-6 h-24 w-24 rounded-full bg-gradient-to-br from-[#3d9a4d]/20 to-pink-400/20 blur-2xl"></div>
+          <div className="absolute -bottom-6 -right-6 h-24 w-24 rounded-full bg-gradient-to-br from-[var(--primary-light)]/20 to-pink-400/20 blur-2xl"></div>
         </Card>
 
         {/* Active Packages */}
@@ -394,8 +394,8 @@ export default function AdminDashboard() {
                   <LineChart data={stats?.revenueByMonth || []}>
                     <defs>
                       <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#2c7338" stopOpacity={0.3} />
-                        <stop offset="95%" stopColor="#2c7338" stopOpacity={0} />
+                        <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.3} />
+                        <stop offset="95%" stopColor="var(--primary)" stopOpacity={0} />
                       </linearGradient>
                     </defs>
                     <CartesianGrid
@@ -421,10 +421,10 @@ export default function AdminDashboard() {
                     <Line
                       type="monotone"
                       dataKey="revenue"
-                      stroke="#2c7338"
+                      stroke="var(--primary)"
                       strokeWidth={3}
                       fill="url(#colorRevenue)"
-                      dot={{ fill: '#2c7338', r: 5 }}
+                      dot={{ fill: 'var(--primary)', r: 5 }}
                       activeDot={{ r: 7 }}
                     />
                   </LineChart>
@@ -659,7 +659,7 @@ export default function AdminDashboard() {
         /* Empty State */
         <Card className="border-0 shadow-lg">
           <div className="p-12 text-center">
-            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[#dcf0de] to-indigo-100 dark:from-[#194520]/30 dark:to-indigo-900/30 mx-auto mb-6">
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-primary/10 to-indigo-100 dark:from-[var(--primary-dark)]/30 dark:to-indigo-900/30 mx-auto mb-6">
               <ShoppingCart className="h-10 w-10 text-primary dark:text-primary-dark" />
             </div>
             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">

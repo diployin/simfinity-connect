@@ -17,8 +17,8 @@ function PlanSelectionMockup() {
           </div>
         </div>
 
-        <div className="flex items-center gap-3 p-3 bg-white dark:bg-slate-700/30 rounded-lg border-2 border-[#2c7338]/40 dark:border-[#3d9a4d]/30">
-          <div className="h-4 w-4 rounded-full bg-[#2c7338] flex items-center justify-center">
+        <div className="flex items-center gap-3 p-3 bg-white dark:bg-slate-700/30 rounded-lg border-2 border-[var(--primary)]/40 dark:border-[var(--primary-light)]/30">
+          <div className="h-4 w-4 rounded-full bg-[var(--primary)] flex items-center justify-center">
             <div className="h-1.5 w-1.5 rounded-full bg-white" />
           </div>
           <div className="flex-1">
@@ -75,7 +75,7 @@ function UsageDashboardMockup() {
             {t('website.home.howItWorks.mockup.country', 'Thailand')}
           </span>
         </div>
-        <span className="text-xs font-medium text-[#2c7338] bg-[#f0f9f1] dark:bg-[#194520]/30 px-2 py-0.5 rounded-full">
+        <span className="text-xs font-medium text-[var(--primary)] bg-primary/5 dark:bg-[var(--primary-dark)]/30 px-2 py-0.5 rounded-full">
           {t('website.home.howItWorks.mockup.active', 'Active')}
         </span>
       </div>
@@ -141,7 +141,7 @@ export function HowItWorksSteps() {
     <section className="py-16 md:py-24 bg-white dark:bg-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12 md:mb-16">
-          <p className="text-sm text-[#2c7338] dark:text-[#3d9a4d] font-medium mb-3">
+          <p className="text-sm text-[var(--primary)] dark:text-[var(--primary-light)] font-medium mb-3">
             {t('website.home.howItWorks.label', `How to use the ${siteName} eSIM service`)}
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-[42px] font-bold text-foreground leading-tight mb-4">
