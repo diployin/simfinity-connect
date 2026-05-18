@@ -44,41 +44,45 @@ export default function WhatIsEsim() {
       </Helmet>
 
       <div className="min-h-screen bg-background">
-        <section className="relative overflow-hidden bg-hero-gradient text-white">
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
-            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary-light/10 rounded-full blur-3xl" />
+        <section className="relative pt-24 pb-32 overflow-hidden bg-[#f8fafc]">
+          <div className="absolute top-0 left-0 w-full h-full">
+            <div className="absolute top-0 right-0 w-1/3 h-full bg-[var(--primary)]/5 transform skew-x-12 translate-x-1/2" />
+            <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-blue-500/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
           </div>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  What is an eSIM?
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm border border-slate-100 text-[var(--primary)] text-sm font-bold mb-8">
+                  <Smartphone className="w-4 h-4" />
+                  eSIM Technology
+                </div>
+                <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
+                  What is an <span className="text-[var(--primary)]">eSIM?</span>
                 </h1>
-                <p className="text-lg md:text-xl text-white/80 mb-8">
+                <p className="text-xl text-slate-600 leading-relaxed mb-8">
                   An eSIM is a digital SIM embedded in your device. It lets you connect to mobile networks without a physical SIM card — just download a plan and go.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <button onClick={() => navigate('/destinations')} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors">
+                  <button onClick={() => navigate('/destinations')} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[var(--primary)] text-white font-semibold text-lg hover:bg-[#235d2d] transition-all shadow-lg shadow-green-900/10">
                     Browse eSIM Plans <ArrowRight className="w-5 h-5" />
                   </button>
-                  <button onClick={() => navigate('/supported-devices')} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-white/20 text-white font-semibold text-lg hover:bg-white/10 transition-colors">
+                  <button onClick={() => navigate('/supported-devices')} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold text-lg hover:bg-slate-50 transition-colors shadow-sm">
                     Check Compatibility
                   </button>
                 </div>
               </div>
-              <div className="flex justify-center">
+              <div className="flex justify-center lg:justify-end">
                 <div className="relative">
-                  <div className="w-64 h-64 md:w-72 md:h-72 bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl flex items-center justify-center">
-                    <Smartphone className="w-24 h-24 text-white" />
+                  <div className="w-64 h-64 md:w-72 md:h-72 bg-white shadow-xl border border-slate-100 rounded-3xl flex items-center justify-center">
+                    <Smartphone className="w-24 h-24 text-[var(--primary)]" />
                   </div>
-                  <div className="absolute -top-4 -right-4 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-xl px-4 py-2 flex items-center gap-2">
-                    <Wifi className="w-4 h-4 text-white" />
-                    <span className="text-sm font-medium text-white">Connected</span>
+                  <div className="absolute -top-4 -right-4 bg-white shadow-lg border border-slate-100 rounded-2xl px-4 py-2 flex items-center gap-2">
+                    <Wifi className="w-4 h-4 text-green-500" />
+                    <span className="text-sm font-bold text-slate-700">Connected</span>
                   </div>
-                  <div className="absolute -bottom-4 -left-4 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-xl px-4 py-2 flex items-center gap-2">
-                    <Globe2 className="w-4 h-4 text-white" />
-                    <span className="text-sm font-medium text-white">200+ countries</span>
+                  <div className="absolute -bottom-4 -left-4 bg-white shadow-lg border border-slate-100 rounded-2xl px-4 py-2 flex items-center gap-2">
+                    <Globe2 className="w-4 h-4 text-[var(--primary)]" />
+                    <span className="text-sm font-bold text-slate-700">200+ Countries</span>
                   </div>
                 </div>
               </div>

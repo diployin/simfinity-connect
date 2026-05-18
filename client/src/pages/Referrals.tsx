@@ -207,13 +207,13 @@ export default function Referrals() {
       setIsRedeemDialogOpen(false);
       setFormData(initialRedeemFormData);
       toast({
-        title: 'Success!',
-        description: 'Your balance has been converted to a gift card',
+        title: t('website.referrals.toasts.redeemSuccessTitle'),
+        description: t('website.referrals.toasts.redeemSuccessDesc'),
       });
     },
     onError: (error: Error) => {
       toast({
-        title: 'Error',
+        title: t('common.error'),
         description: error.message,
         variant: 'destructive',
       });
@@ -225,16 +225,16 @@ export default function Referrals() {
     try {
       await navigator.clipboard.writeText(text);
       toast({
-        title: type === 'code' ? 'Code copied!' : 'Link copied!',
+        title: type === 'code' ? t('website.referrals.toasts.codeCopiedTitle') : t('website.referrals.toasts.linkCopiedTitle'),
         description:
           type === 'code'
-            ? 'Referral code copied to clipboard'
-            : 'Referral link copied to clipboard',
+            ? t('website.referrals.toasts.codeCopiedDesc')
+            : t('website.referrals.toasts.linkCopiedDesc'),
       });
     } catch (err) {
       toast({
-        title: 'Error',
-        description: 'Failed to copy to clipboard',
+        title: t('common.error'),
+        description: t('website.referrals.toasts.copyErrorDesc'),
         variant: 'destructive',
       });
     }
@@ -242,23 +242,35 @@ export default function Referrals() {
 
   // Share functions
   const shareEmail = () => {
-    const subject = encodeURIComponent(`Join me on eSIM Global!`);
+    const subject = encodeURIComponent(t('website.referrals.shareEmailSubject'));
     const body = encodeURIComponent(
-      `I'm using eSIM Global for affordable travel data. Use my code ${program?.referralCode} to get ${settings?.referredUserDiscount}% off your first order!\n\n${shareUrl}`,
+      t('website.referrals.shareEmailBody', {
+        code: program?.referralCode,
+        discount: settings?.referredUserDiscount,
+        url: shareUrl,
+      }),
     );
     window.location.href = `mailto:?subject=${subject}&body=${body}`;
   };
 
   const shareWhatsApp = () => {
     const text = encodeURIComponent(
-      `Join me on eSIM Global! Use code ${program?.referralCode} for ${settings?.referredUserDiscount}% off: ${shareUrl}`,
+      t('website.referrals.shareWhatsApp', {
+        code: program?.referralCode,
+        discount: settings?.referredUserDiscount,
+        url: shareUrl,
+      }),
     );
     window.open(`https://wa.me/?text=${text}`, '_blank');
   };
 
   const shareTwitter = () => {
     const text = encodeURIComponent(
-      `Get ${settings?.referredUserDiscount}% off your first eSIM on @eSIMGlobal with my code ${program?.referralCode}! ${shareUrl}`,
+      t('website.referrals.shareTwitter', {
+        code: program?.referralCode,
+        discount: settings?.referredUserDiscount,
+        url: shareUrl,
+      }),
     );
     window.open(`https://twitter.com/intent/tweet?text=${text}`, '_blank');
   };
@@ -285,8 +297,8 @@ export default function Referrals() {
   const handleRedeemSubmit = () => {
     if (!formData.amount || parseFloat(formData.amount) <= 0) {
       toast({
-        title: 'Invalid amount',
-        description: 'Please enter a valid amount',
+        title: t('website.referrals.toasts.invalidAmountTitle'),
+        description: t('website.referrals.toasts.invalidAmountDesc'),
         variant: 'destructive',
       });
       return;
@@ -295,8 +307,8 @@ export default function Referrals() {
     const availableBalance = parseFloat(program?.totalEarnings || '0');
     if (parseFloat(formData.amount) > availableBalance) {
       toast({
-        title: 'Insufficient balance',
-        description: 'Amount exceeds your available balance',
+        title: t('website.referrals.toasts.insufficientBalanceTitle'),
+        description: t('website.referrals.toasts.insufficientBalanceDesc'),
         variant: 'destructive',
       });
       return;
@@ -324,10 +336,10 @@ export default function Referrals() {
   return (
     <>
       <Helmet>
-        <title>{String(t('userPanel.referrals.title', 'Referrals'))} - eSIM Global</title>
+        <title>{String(t('website.referrals.title', 'Referrals'))} - eSIM Global</title>
         <meta
           name="description"
-          content={String(t('userPanel.referrals.subtitle', 'Earn rewards by referring friends'))}
+          content={String(t('website.referrals.subtitle', 'Earn rewards by referring friends'))}
         />
       </Helmet>
 
@@ -339,21 +351,21 @@ export default function Referrals() {
               <Gift className="h-8 w-8 text-primary" />
               <h1 className="text-4xl font-bold text-foreground">{t('website.referrals.title')}</h1>
             </div>
-            <p className="text-muted-foreground text-lg">{t('userPanel.referrals.subtitle')}</p>
+            <p className="text-muted-foreground text-lg">{t('website.referrals.subtitle')}</p>
           </div>
 
           {/* Referral Code Section */}
           <Card className="mb-8 border-primary/20">
             <CardHeader>
-              <CardTitle>{t('userPanel.referrals.yourCode')}</CardTitle>
-              <CardDescription>{t('userPanel.referrals.shareVia')}</CardDescription>
+              <CardTitle>{t('website.referrals.yourCode')}</CardTitle>
+              <CardDescription>{t('website.referrals.shareVia')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Code Display */}
               <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-xl p-4 md:p-6 border border-primary/20">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8">
                   <div className="text-center md:text-left w-full md:w-auto">
-                    <p className="text-sm text-muted-foreground mb-2">{t('referrals.yourCode')}</p>
+                    <p className="text-sm text-muted-foreground mb-2">{t('website.referrals.yourCode')}</p>
                     <div className="bg-background/50 rounded-lg px-4 py-2 inline-block md:block w-full md:w-auto">
                       <p
                         className="text-3xl md:text-5xl font-bold tracking-wider break-all"
@@ -372,7 +384,7 @@ export default function Referrals() {
                       data-testid="button-copy-code"
                     >
                       <Copy className="h-5 w-5 mr-2" />
-                      {t('userPanel.referrals.copyCode')}
+                      {t('website.referrals.copyCode')}
                     </Button>
                     <Button
                       variant="default"
@@ -382,7 +394,7 @@ export default function Referrals() {
                       data-testid="button-copy-link"
                     >
                       <Share2 className="h-5 w-5 mr-2" />
-                      {t('userPanel.referrals.copyLink')}
+                      {t('website.referrals.copyLink')}
                     </Button>
                   </div>
                 </div>
@@ -397,7 +409,7 @@ export default function Referrals() {
                   data-testid="button-share-email"
                 >
                   <Mail className="h-5 w-5 mr-2" />
-                  Email
+                  {t('website.referrals.email')}
                 </Button>
                 <Button
                   variant="outline"
@@ -405,8 +417,8 @@ export default function Referrals() {
                   className="h-auto py-4"
                   data-testid="button-share-whatsapp"
                 >
-                  <SiWhatsapp className="h-5 w-5 mr-2" />
-                  WhatsApp
+                  <SiWhatsApp className="h-5 w-5 mr-2" />
+                  {t('website.referrals.whatsapp')}
                 </Button>
                 <Button
                   variant="outline"
@@ -415,7 +427,7 @@ export default function Referrals() {
                   data-testid="button-share-twitter"
                 >
                   <SiX className="h-5 w-5 mr-2" />
-                  Twitter
+                  {t('website.referrals.twitter')}
                 </Button>
                 <Button
                   variant="outline"
@@ -424,7 +436,7 @@ export default function Referrals() {
                   data-testid="button-share-facebook"
                 >
                   <SiFacebook className="h-5 w-5 mr-2" />
-                  Facebook
+                  {t('website.referrals.facebook')}
                 </Button>
               </div>
             </CardContent>
@@ -435,7 +447,7 @@ export default function Referrals() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  {t('userPanel.referrals.totalReferrals')}
+                  {t('website.referrals.totalReferrals')}
                 </CardTitle>
                 <Users className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -449,7 +461,7 @@ export default function Referrals() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  {t('userPanel.referrals.successfulReferrals')}
+                  {t('website.referrals.successfulReferrals')}
                 </CardTitle>
                 <CheckCircle className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -463,7 +475,7 @@ export default function Referrals() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  {t('userPanel.referrals.totalEarnings')}
+                  {t('website.referrals.totalEarnings')}
                 </CardTitle>
                 <DollarSign className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -481,7 +493,7 @@ export default function Referrals() {
                 // disabled={parseFloat(program?.totalEarnings || "0") <= 0}
                 >
                   <CreditCard className="h-4 w-4 mr-2 shrink-0" />
-                  <span className="truncate">{t('userPanel.referrals.convertToGiftCard')}</span>
+                  <span className="truncate">{t('website.referrals.convertToGiftCard')}</span>
                 </Button>
               </CardFooter>
             </Card>
@@ -489,7 +501,7 @@ export default function Referrals() {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">
-                  {t('userPanel.referrals.pendingRewards')}
+                  {t('website.referrals.pendingRewards')}
                 </CardTitle>
                 <Clock className="h-4 w-4 text-muted-foreground" />
               </CardHeader>
@@ -505,7 +517,7 @@ export default function Referrals() {
           {/* How It Works */}
           <Card className="mb-8">
             <CardHeader>
-              <CardTitle>{t('userPanel.referrals.howItWorks')}</CardTitle>
+              <CardTitle>{t('website.referrals.howItWorks')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-3 gap-6">
@@ -513,27 +525,27 @@ export default function Referrals() {
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <Share2 className="h-8 w-8 text-primary" />
                   </div>
-                  <h3 className="font-semibold mb-2">{t('userPanel.referrals.step1Title')}</h3>
+                  <h3 className="font-semibold mb-2">{t('website.referrals.step1Title')}</h3>
                   <p className="text-sm text-muted-foreground">
-                    {t('userPanel.referrals.step1Desc')}
+                    {t('website.referrals.step1Desc')}
                   </p>
                 </div>
                 <div className="text-center">
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <Users className="h-8 w-8 text-primary" />
                   </div>
-                  <h3 className="font-semibold mb-2">{t('userPanel.referrals.step2Title')}</h3>
+                  <h3 className="font-semibold mb-2">{t('website.referrals.step2Title')}</h3>
                   <p className="text-sm text-muted-foreground">
-                    {t('userPanel.referrals.step2Desc')}
+                    {t('website.referrals.step2Desc')}
                   </p>
                 </div>
                 <div className="text-center">
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                     <Gift className="h-8 w-8 text-primary" />
                   </div>
-                  <h3 className="font-semibold mb-2">{t('userPanel.referrals.step3Title')}</h3>
+                  <h3 className="font-semibold mb-2">{t('website.referrals.step3Title')}</h3>
                   <p className="text-sm text-muted-foreground">
-                    {t('userPanel.referrals.step3Desc', { reward: rewardText })}
+                    {t('website.referrals.step3Desc', { reward: rewardText })}
                   </p>
                 </div>
               </div>
@@ -545,11 +557,11 @@ export default function Referrals() {
             <TabsList className="grid w-full grid-cols-2 mb-6">
               <TabsTrigger value="referrals" data-testid="tab-referrals">
                 <Users className="h-4 w-4 mr-2" />
-                Referral History
+                {t('website.referrals.referralHistory')}
               </TabsTrigger>
               <TabsTrigger value="giftcards" data-testid="tab-giftcards">
                 <Gift className="h-4 w-4 mr-2" />
-                Redeemed Gift Cards
+                {t('website.referrals.giftCards.title')}
               </TabsTrigger>
             </TabsList>
 
@@ -557,9 +569,9 @@ export default function Referrals() {
             <TabsContent value="referrals">
               <Card>
                 <CardHeader>
-                  <CardTitle>{t('userPanel.referrals.referralHistory')}</CardTitle>
+                  <CardTitle>{t('website.referrals.referralHistory')}</CardTitle>
                   <CardDescription>
-                    {referrals.length} {referrals.length === 1 ? 'referral' : 'referrals'}
+                    {t('website.referrals.count', { count: referrals.length })}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -572,9 +584,9 @@ export default function Referrals() {
                   ) : referrals.length === 0 ? (
                     <div className="text-center py-12">
                       <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                      <h3 className="text-lg font-semibold mb-2">No referrals yet</h3>
+                      <h3 className="text-lg font-semibold mb-2">{t('website.referrals.noReferrals')}</h3>
                       <p className="text-muted-foreground mb-4">
-                        Start sharing your code to earn rewards!
+                        {t('website.referrals.noReferralsDesc')}
                       </p>
                     </div>
                   ) : (
@@ -583,16 +595,16 @@ export default function Referrals() {
                         <thead>
                           <tr className="border-b">
                             <th className="text-left py-3 px-4 font-medium">
-                              {t('userPanel.referrals.referredUser')}
+                              {t('website.referrals.referredUser')}
                             </th>
                             <th className="text-left py-3 px-4 font-medium">
-                              {t('userPanel.referrals.status')}
+                              {t('website.referrals.status')}
                             </th>
                             <th className="text-left py-3 px-4 font-medium">
-                              {t('userPanel.referrals.rewardAmount')}
+                              {t('website.referrals.rewardAmount')}
                             </th>
                             <th className="text-left py-3 px-4 font-medium">
-                              {t('userPanel.referrals.date')}
+                              {t('website.referrals.date')}
                             </th>
                           </tr>
                         </thead>
@@ -624,8 +636,8 @@ export default function Referrals() {
                                   data-testid={`badge-status-${index}`}
                                 >
                                   {referral.status === 'completed'
-                                    ? t('userPanel.referrals.completed')
-                                    : t('userPanel.referrals.pending')}
+                                    ? t('website.referrals.completed')
+                                    : t('website.referrals.pending')}
                                 </Badge>
                               </td>
                               <td
@@ -656,10 +668,9 @@ export default function Referrals() {
             <TabsContent value="giftcards">
               <Card>
                 <CardHeader>
-                  <CardTitle>Redeemed Gift Cards</CardTitle>
+                  <CardTitle>{t('website.referrals.giftCards.title')}</CardTitle>
                   <CardDescription>
-                    {giftCards.length} {giftCards.length === 1 ? 'gift card' : 'gift cards'}{' '}
-                    redeemed
+                    {t('website.referrals.giftCards.count', { count: giftCards.length })}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -672,9 +683,9 @@ export default function Referrals() {
                   ) : giftCards.length === 0 ? (
                     <div className="text-center py-12">
                       <Gift className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                      <h3 className="text-lg font-semibold mb-2">No gift cards yet</h3>
+                      <h3 className="text-lg font-semibold mb-2">{t('website.referrals.giftCards.noGiftCards')}</h3>
                       <p className="text-muted-foreground mb-4">
-                        Convert your referral earnings to gift cards!
+                        {t('website.referrals.giftCards.noGiftCardsDesc')}
                       </p>
                     </div>
                   ) : (
@@ -689,7 +700,7 @@ export default function Referrals() {
                                   {card.code}
                                 </CardTitle>
                                 <CardDescription className="mt-1">
-                                  Theme: {card.theme}
+                                  {t('website.referrals.giftCards.theme', { theme: t(`referrals.giftCards.themes.${card.theme}`) })}
                                 </CardDescription>
                               </div>
                               <Badge variant={card.status === 'active' ? 'default' : 'secondary'}>
@@ -699,14 +710,14 @@ export default function Referrals() {
                           </CardHeader>
                           <CardContent className="space-y-2">
                             <div className="flex justify-between items-center">
-                              <span className="text-sm text-muted-foreground">Amount:</span>
+                              <span className="text-sm text-muted-foreground">{t('website.referrals.giftCards.amount')}</span>
                               <span className="font-semibold text-lg">
                                 {getCurrencySymbol(card.currency, currencies)}
                                 {parseFloat(card.amount).toFixed(2)}
                               </span>
                             </div>
                             <div className="flex justify-between items-center">
-                              <span className="text-sm text-muted-foreground">Balance:</span>
+                              <span className="text-sm text-muted-foreground">{t('website.referrals.giftCards.balance')}</span>
                               <span className="font-semibold">
                                 {getCurrencySymbol(card.currency, currencies)}
                                 {parseFloat(card.balance).toFixed(2)}
@@ -722,12 +733,12 @@ export default function Referrals() {
                             <div className="flex items-center gap-2 text-sm text-muted-foreground pt-2">
                               <Calendar className="h-3 w-3" />
                               <span>
-                                Expires: {format(new Date(card.expiresAt), 'MMM d, yyyy')}
+                                {t('website.referrals.giftCards.expires')} {format(new Date(card.expiresAt), 'MMM d, yyyy')}
                               </span>
                             </div>
                             {card.redeemedAt && (
                               <div className="text-sm text-muted-foreground">
-                                Redeemed: {format(new Date(card.redeemedAt), 'MMM d, yyyy')}
+                                {t('website.referrals.giftCards.redeemedAt')} {format(new Date(card.redeemedAt), 'MMM d, yyyy')}
                               </div>
                             )}
                           </CardContent>
@@ -738,7 +749,7 @@ export default function Referrals() {
                               onClick={() => copyToClipboard(card.code, 'code')}
                             >
                               <Copy className="h-4 w-4 mr-2" />
-                              Copy Code
+                              {t('website.referrals.giftCards.copyCode')}
                             </Button>
                           </CardFooter>
                         </Card>
@@ -757,7 +768,7 @@ export default function Referrals() {
                 <CollapsibleTrigger className="w-full" data-testid="button-toggle-terms">
                   <CardHeader className="flex flex-row items-center justify-between">
                     <CardTitle className="text-left">
-                      {t('userPanel.referrals.termsAndConditions')}
+                      {t('website.referrals.termsAndConditions')}
                     </CardTitle>
                     <ChevronDown
                       className={`h-5 w-5 transition-transform ${termsOpen ? 'rotate-180' : ''}`}
@@ -769,18 +780,11 @@ export default function Referrals() {
                     <div className="prose prose-sm max-w-none dark:prose-invert">
                       {settings && (
                         <div className="whitespace-pre-wrap text-sm text-muted-foreground">
-                          {/* Default terms if none set */}
-                          1. Share your unique referral code with friends and family.{'\n'}
-                          2. When they sign up using your code and make their first purchase,
-                          they'll receive {settings.referredUserDiscount}% off.{'\n'}
-                          3. You'll earn {rewardText} for each successful referral.{'\n'}
-                          4. Minimum order amount: {getCurrencySymbol('USD', currencies)}
-                          {parseFloat(settings.minOrderAmount || '0').toFixed(2)}
-                          {'\n'}
-                          5. Rewards are credited after the referred user completes their first
-                          purchase.{'\n'}
-                          6. Referral codes are valid for 90 days from the date of sharing.{'\n'}
-                          7. This program is subject to change or termination at any time.
+                          {t('website.referrals.termsList', {
+                            discount: settings.referredUserDiscount,
+                            reward: rewardText,
+                            minAmount: `${getCurrencySymbol('USD', currencies)}${parseFloat(settings.minOrderAmount || '0').toFixed(2)}`
+                          })}
                         </div>
                       )}
                     </div>
@@ -794,26 +798,26 @@ export default function Referrals() {
       <Dialog open={isRedeemDialogOpen} onOpenChange={setIsRedeemDialogOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>Convert Balance to Gift Card</DialogTitle>
+            <DialogTitle>{t('website.referrals.giftCards.convertTitle')}</DialogTitle>
             <DialogDescription>
-              Available balance: {getCurrencySymbol('USD', currencies)}
+              {t('website.referrals.giftCards.availableBalance')} {getCurrencySymbol('USD', currencies)}
               {parseFloat(program?.totalEarnings || '0').toFixed(2)}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label>Amount ($)</Label>
+              <Label>{t('website.referrals.giftCards.amountLabel')}</Label>
               <Input
                 type="number"
                 value={formData.amount}
                 onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-                placeholder="Custom amount"
+                placeholder={t('website.referrals.giftCards.amountPlaceholder')}
                 data-testid="input-custom-amount"
                 max={parseFloat(program?.totalEarnings || '0')}
               />
             </div>
             <div className="space-y-2">
-              <Label>Theme</Label>
+              <Label>{t('website.referrals.giftCards.themeLabel')}</Label>
               <Select
                 value={formData.theme}
                 onValueChange={(value) => setFormData({ ...formData, theme: value })}
@@ -824,18 +828,18 @@ export default function Referrals() {
                 <SelectContent>
                   {themes.map((theme) => (
                     <SelectItem key={theme.value} value={theme.value}>
-                      {theme.label}
+                      {t(`referrals.giftCards.themes.${theme.value}`)}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
             <div className="space-y-2">
-              <Label>Personal Message (optional)</Label>
+              <Label>{t('website.referrals.giftCards.messageLabel')}</Label>
               <Textarea
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                placeholder="Add a personal message to your gift card..."
+                placeholder={t('website.referrals.giftCards.messagePlaceholder')}
                 data-testid="input-message"
                 rows={3}
               />
@@ -843,7 +847,7 @@ export default function Referrals() {
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsRedeemDialogOpen(false)}>
-              Cancel
+              {t('common.cancel')}
             </Button>
             <Button
               onClick={handleRedeemSubmit}
@@ -852,7 +856,7 @@ export default function Referrals() {
               }
               data-testid="button-submit-redeem"
             >
-              {redeemMutation.isPending ? 'Creating...' : 'Create Gift Card'}
+              {redeemMutation.isPending ? t('website.referrals.giftCards.creating') : t('website.referrals.giftCards.createButton')}
             </Button>
           </DialogFooter>
         </DialogContent>

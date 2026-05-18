@@ -46,25 +46,25 @@ export default function SecurityFeatures() {
       </Helmet>
 
       <div className="min-h-screen bg-background">
-        <section className="relative overflow-hidden bg-hero-gradient text-white">
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
-            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary-light/10 rounded-full blur-3xl" />
+        <section className="relative pt-24 pb-32 overflow-hidden bg-[#f8fafc]">
+          <div className="absolute top-0 left-0 w-full h-full">
+            <div className="absolute top-0 right-0 w-1/3 h-full bg-[var(--primary)]/5 transform skew-x-12 translate-x-1/2" />
+            <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-blue-500/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
           </div>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
-              <Shield className="w-4 h-4 text-white" />
-              <span className="text-sm font-medium text-white">Security First</span>
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm border border-slate-100 text-[var(--primary)] text-sm font-bold mb-8">
+              <Shield className="w-4 h-4" />
+              Security First
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Travel safely with{' '}
-              <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">enterprise-grade security</span>
+            <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
+              Travel safely with <span className="text-[var(--primary)]">enterprise-grade security</span>
             </h1>
-            <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-10">
               Your privacy matters. {siteName} uses cutting-edge security measures to protect your data, identity, and browsing activity wherever you travel.
             </p>
-            <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors">
-              Get Protected <ArrowRight className="w-5 h-5" />
+            <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[var(--primary)] text-white font-semibold text-lg hover:bg-[#235d2d] transition-all shadow-lg shadow-green-900/10">
+              Get Protected
+              <ArrowRight className="w-5 h-5" />
             </button>
           </div>
         </section>
