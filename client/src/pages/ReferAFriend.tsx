@@ -36,41 +36,40 @@ export default function ReferAFriend() {
       </Helmet>
 
       <div className="min-h-screen bg-background">
-        <section className="relative overflow-hidden bg-hero-gradient text-white">
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
-            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary-light/10 rounded-full blur-3xl" />
+        <section className="relative pt-24 pb-32 overflow-hidden bg-[#f8fafc]">
+          <div className="absolute top-0 left-0 w-full h-full">
+            <div className="absolute top-0 right-0 w-1/3 h-full bg-[var(--primary)]/5 transform skew-x-12 translate-x-1/2" />
+            <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-blue-500/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
           </div>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
-                  <Gift className="w-4 h-4 text-white" />
-                  <span className="text-sm font-medium text-white">Referral Program</span>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm border border-slate-100 text-[var(--primary)] text-sm font-bold mb-8">
+                  <Gift className="w-4 h-4" />
+                  Referral Program
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  Refer a friend, and you'll both get{' '}
-                  <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">$5!</span>
+                <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
+                  Refer a friend, and you'll both get <span className="text-[var(--primary)]">$5!</span>
                 </h1>
-                <p className="text-lg md:text-xl text-white/80 mb-8">
+                <p className="text-xl text-slate-600 leading-relaxed mb-8">
                   Each referral earns you $5 in {siteName} credits while your friends get a $5 discount on their first plan. Sharing pays off — literally.
                 </p>
-                <button onClick={() => navigate('/account/referrals')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors">
+                <button onClick={() => navigate('/account/referrals')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[var(--primary)] text-white font-semibold text-lg hover:bg-[#235d2d] transition-all shadow-lg shadow-green-900/10">
                   Start Referring <ArrowRight className="w-5 h-5" />
                 </button>
               </div>
-              <div className="flex justify-center">
+              <div className="flex justify-center lg:justify-end">
                 <div className="relative">
-                  <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-primary/20 to-primary-light/20 flex items-center justify-center">
-                    <div className="w-48 h-48 md:w-60 md:h-60 rounded-full bg-gradient-to-br from-primary/30 to-primary-light/30 flex items-center justify-center">
-                      <Gift className="w-20 h-20 md:w-28 md:h-28 text-primary-light" />
+                  <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-[var(--primary)]/5 flex items-center justify-center border border-slate-100/50 shadow-inner">
+                    <div className="w-48 h-48 md:w-60 md:h-60 rounded-full bg-blue-500/5 flex items-center justify-center">
+                      <Gift className="w-20 h-20 md:w-28 md:h-28 text-[var(--primary)]" />
                     </div>
                   </div>
-                  <div className="absolute -top-4 -right-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2">
-                    <span className="text-2xl font-bold text-primary-light">+$5</span>
+                  <div className="absolute -top-4 -right-4 bg-white shadow-lg border border-slate-100 rounded-2xl px-5 py-3">
+                    <span className="text-2xl font-extrabold text-[var(--primary)]">+$5</span>
                   </div>
-                  <div className="absolute -bottom-4 -left-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2">
-                    <span className="text-2xl font-bold text-primary-light">+$5</span>
+                  <div className="absolute -bottom-4 -left-4 bg-white shadow-lg border border-slate-100 rounded-2xl px-5 py-3">
+                    <span className="text-2xl font-extrabold text-[var(--primary)]">+$5</span>
                   </div>
                 </div>
               </div>

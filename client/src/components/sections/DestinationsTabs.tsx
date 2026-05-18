@@ -129,12 +129,12 @@ export function DestinationsTabs() {
           <p className="text-muted-foreground text-base md:text-lg mb-4">
             {t('website.home.destinations.subtitle', 'Pick a mobile data plan for your trip.')}
           </p>
-          <Link href="/destinations">
+          {/* <Link href="/destinations">
             <span className="inline-flex items-center gap-1 text-[var(--primary)] dark:text-[var(--primary-light)] font-medium text-sm hover:underline cursor-pointer">
               {t('website.home.destinations.seeAll', 'View All Destinations')}
               <ArrowRight className="h-4 w-4" />
             </span>
-          </Link>
+          </Link> */}
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">

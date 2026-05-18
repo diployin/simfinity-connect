@@ -153,7 +153,7 @@ export function SiteHeader() {
           )}
 
           <nav className="hidden xl:flex items-center gap-0.5" data-testid="nav-main">
-            <div
+            {/* <div
               className="relative"
               onMouseEnter={() => handleMenuEnter('plans')}
               onMouseLeave={handleMenuLeave}
@@ -202,7 +202,7 @@ export function SiteHeader() {
                         </div>
                       </div>
                     </Link>
-                    {/*  <Link href="/destinations?tab=passport" onClick={() => setActiveMenu(null)}>
+                   <Link href="/destinations?tab=passport" onClick={() => setActiveMenu(null)}>
                       <div className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group cursor-pointer">
                         <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-pink-50 dark:bg-pink-900/30 flex items-center justify-center group-hover:bg-pink-100 dark:group-hover:bg-pink-900/50 transition-colors">
                        
@@ -213,7 +213,7 @@ export function SiteHeader() {
                           <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">Exclusive global access</p>
                         </div>
                       </div>
-                    </Link> */}
+                    </Link>
                     <Link href="/destinations?tab=all" onClick={() => setActiveMenu(null)}>
                       <div className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group cursor-pointer">
                         <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-900/30 flex items-center justify-center group-hover:bg-amber-100 dark:group-hover:bg-amber-900/50 transition-colors">
@@ -228,7 +228,7 @@ export function SiteHeader() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div
               className="relative"
@@ -257,13 +257,13 @@ export function SiteHeader() {
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.supportedDevices', 'Supported Devices')}</span>
                     </div>
                   </Link>
-                  <Link href="/data-calculator" onClick={() => setActiveMenu(null)}>
+                  <Link href="/data-usage-calculator" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
                       <Zap className="h-4 w-4 text-amber-500" />
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.dataCalculator', 'Data Usage Calculator')}</span>
                     </div>
                   </Link>
-                  <Link href="/security" onClick={() => setActiveMenu(null)}>
+                  <Link href="/security-features" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
                       <Shield className="h-4 w-4 text-green-500" />
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('website.nav.security', 'Security Features')}</span>
@@ -564,7 +564,7 @@ export function SiteHeader() {
                     </div>
                   )}
 
-                  <div className="space-y-1">
+                  {/* <div className="space-y-1">
                     <button
                       onClick={() => setProductsOpen(!productsOpen)}
                       className="w-full flex items-center justify-between py-2.5 px-3 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all"
@@ -600,7 +600,7 @@ export function SiteHeader() {
                         </Link>
                       </div>
                     )}
-                  </div>
+                  </div> */}
 
                   <div className="space-y-1">
                     <button
@@ -624,13 +624,13 @@ export function SiteHeader() {
                             {t('website.nav.supportedDevices', 'Supported Devices')}
                           </span>
                         </Link>
-                        <Link href="/data-calculator" onClick={closeMobileMenu}>
+                        <Link href="/data-usage-calculator" onClick={closeMobileMenu}>
                           <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                             <Zap className="h-4 w-4 text-amber-500" />
                             {t('website.nav.dataCalculator', 'Data Usage Calculator')}
                           </span>
                         </Link>
-                        <Link href="/security" onClick={closeMobileMenu}>
+                        <Link href="/security-features" onClick={closeMobileMenu}>
                           <span className="flex items-center gap-2 py-2 px-3 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all">
                             <Shield className="h-4 w-4 text-green-500" />
                             {t('website.nav.security', 'Security Features')}
