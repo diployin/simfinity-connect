@@ -12418,16 +12418,17 @@ ${urls
     }
   });
 
-  // Update region (image/icon)
+  // Update region (image/icon/popular)
   app.patch('/api/admin/master-regions/:id', requireAdmin, async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const { image, bannerImage, active } = req.body;
+      const { image, bannerImage, active, isPopular } = req.body;
 
       const updateData: any = { updatedAt: new Date() };
       if (image !== undefined) updateData.image = image;
       if (bannerImage !== undefined) updateData.bannerImage = bannerImage;
       if (active !== undefined) updateData.active = active;
+      if (isPopular !== undefined) updateData.isPopular = isPopular;
 
       const [updated] = await db
         .update(regions)
@@ -12552,19 +12553,20 @@ ${urls
     }
   });
 
-  // Update destination/country (image/icon)
+  // Update destination/country (image/icon/popular)
   app.patch(
     '/api/admin/master-countries/:id',
     requireAdmin,
     async (req: Request, res: Response) => {
       try {
         const { id } = req.params;
-        const { image, bannerImage, active } = req.body;
+        const { image, bannerImage, active, isPopular } = req.body;
 
         const updateData: any = { updatedAt: new Date() };
         if (image !== undefined) updateData.image = image;
         if (bannerImage !== undefined) updateData.bannerImage = bannerImage;
         if (active !== undefined) updateData.active = active;
+        if (isPopular !== undefined) updateData.isPopular = isPopular;
 
         const [updated] = await db
           .update(destinations)

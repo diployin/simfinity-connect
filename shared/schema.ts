@@ -145,6 +145,7 @@ export const destinations = pgTable("destinations", {
   isTerritory: boolean("is_territory").notNull().default(false), // Territories like Canary Islands, Puerto Rico
   parentCountryCode: text("parent_country_code"), // Parent country code for territories (e.g., "ES" for Canary Islands)
   active: boolean("active").notNull().default(true),
+  isPopular: boolean("is_popular").notNull().default(false),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
@@ -159,6 +160,7 @@ export const regions = pgTable("regions", {
   image: text("image"),
   bannerImage: text("banner_image"),
   active: boolean("active").notNull().default(true),
+  isPopular: boolean("is_popular").notNull().default(false),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

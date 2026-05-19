@@ -45,6 +45,7 @@ interface Destination {
   isTerritory: boolean;
   parentCountryCode: string | null;
   active: boolean;
+  isPopular: boolean;
   createdAt: string;
   updatedAt: string;
   packageCounts: {
@@ -239,6 +240,10 @@ export default function MasterCountries() {
     updateMutation.mutate({ id: dest.id, data: { active: !dest.active } });
   };
 
+  const handleTogglePopular = (dest: Destination) => {
+    updateMutation.mutate({ id: dest.id, data: { isPopular: !dest.isPopular } });
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -355,6 +360,7 @@ export default function MasterCountries() {
                     <TableHead>Type</TableHead>
                     <TableHead>Packages</TableHead>
                     <TableHead>Status</TableHead>
+                    <TableHead>Popular</TableHead>
                     <TableHead>Actions</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -429,6 +435,13 @@ export default function MasterCountries() {
                           checked={dest.active}
                           onCheckedChange={() => handleToggleActive(dest)}
                           data-testid={`switch-active-${dest.id}`}
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <Switch
+                          checked={dest.isPopular}
+                          onCheckedChange={() => handleTogglePopular(dest)}
+                          data-testid={`switch-popular-${dest.id}`}
                         />
                       </TableCell>
                       <TableCell>
