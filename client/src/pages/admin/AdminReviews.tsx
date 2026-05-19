@@ -10,6 +10,7 @@ import {
   TrendingUp,
   Clock,
   Plus,
+  Edit,
 } from 'lucide-react';
 import { format } from 'date-fns';
 import { Button } from '@/components/ui/button';
@@ -98,10 +99,11 @@ export default function AdminReviews() {
   const [sortBy, setSortBy] = useState('newest');
   const [page, setPage] = useState(1);
   const [deleteReviewId, setDeleteReviewId] = useState<string | null>(null);
+  const [editReviewId, setEditReviewId] = useState<string | null>(null);
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [reviewForm, setReviewForm] = useState({
-    packageId: '',
-    userId: '',
+    manualPackageName: '',
+    manualCustomerName: '',
     rating: '5',
     title: '',
     comment: '',
@@ -205,8 +207,8 @@ export default function AdminReviews() {
       });
       setCreateDialogOpen(false);
       setReviewForm({
-        packageId: '',
-        userId: '',
+        manualPackageName: '',
+        manualCustomerName: '',
         rating: '5',
         title: '',
         comment: '',
@@ -223,12 +225,59 @@ export default function AdminReviews() {
     },
   });
 
+  // Update review mutation
+  const updateMutation = useMutation({
+    mutationFn: async (data: any) => {
+      return apiRequest('PUT', `/api/admin/reviews/${editReviewId}`, data);
+    },
+    onSuccess: () => {
+      toast({
+        title: 'Review Updated',
+        description: 'Review updated successfully',
+      });
+      setCreateDialogOpen(false);
+      setEditReviewId(null);
+      setReviewForm({
+        manualPackageName: '',
+        manualCustomerName: '',
+        rating: '5',
+        title: '',
+        comment: '',
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/reviews'] });
+    },
+    onError: (error: any) => {
+      toast({
+        title: t('common.error', 'Error'),
+        description: error.message,
+        variant: 'destructive',
+      });
+    },
+  });
+
   const handleCreateReview = () => {
-    createMutation.mutate({
+    const payload = {
       ...reviewForm,
       rating: parseInt(reviewForm.rating),
       isApproved: true,
+    };
+    if (editReviewId) {
+      updateMutation.mutate(payload);
+    } else {
+      createMutation.mutate(payload);
+    }
+  };
+
+  const handleEdit = (review: any) => {
+    setEditReviewId(review.id);
+    setReviewForm({
+      manualPackageName: review.manualPackageName || review.package?.title || '',
+      manualCustomerName: review.manualCustomerName || review.user?.name || '',
+      rating: review.rating.toString(),
+      title: review.title || '',
+      comment: review.comment || '',
     });
+    setCreateDialogOpen(true);
   };
 
   return (
@@ -388,13 +437,11 @@ export default function AdminReviews() {
                   <CardContent className="p-6">
                     <div className="flex flex-col md:flex-row gap-6">
                       {/* Package Thumbnail */}
-                      {review.package && (
-                        <div className="flex-shrink-0">
-                          <div className="w-24 h-24 rounded-md bg-muted flex items-center justify-center text-4xl">
-                            {review.package.destination?.flagEmoji || '🌍'}
-                          </div>
+                      <div className="flex-shrink-0">
+                        <div className="w-24 h-24 rounded-md bg-muted flex items-center justify-center text-4xl">
+                          {review.package?.destination?.flagEmoji || '🌍'}
                         </div>
-                      )}
+                      </div>
 
                       {/* Review Content */}
                       <div className="flex-1">
@@ -404,7 +451,7 @@ export default function AdminReviews() {
                               className="font-semibold text-lg mb-1"
                               data-testid={`text-package-title-${review.id}`}
                             >
-                              {review.package?.title || 'Package'}
+                              {review.manualPackageName || review.package?.title || 'eSIM Package'}
                             </h3>
                             <div className="flex items-center gap-2 mb-2">
                               <div className="flex items-center">
@@ -438,9 +485,9 @@ export default function AdminReviews() {
                             className="font-medium"
                             data-testid={`text-customer-name-${review.id}`}
                           >
-                            {review.user?.name || 'Anonymous'}
+                            {review.manualCustomerName || review.user?.name || 'Anonymous'}
                           </span>{' '}
-                          ({review.user?.email}) •{' '}
+                          {review.user?.email && `(${review.user.email})` } •{' '}
                           {format(new Date(review.createdAt), 'MMM dd, yyyy')}
                         </p>
 
@@ -494,6 +541,15 @@ export default function AdminReviews() {
                               {t('reviews.admin.approve', 'Approve')}
                             </Button>
                           )}
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleEdit(review)}
+                            data-testid={`button-edit-${review.id}`}
+                          >
+                            <Edit className="h-4 w-4 mr-2" />
+                            Edit
+                          </Button>
                           <Button
                             size="sm"
                             variant="destructive"
@@ -552,50 +608,34 @@ export default function AdminReviews() {
         </TabsContent>
       </Tabs>
 
-      {/* Create Review Dialog */}
+      {/* Create / Edit Review Dialog */}
       <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Add New Review</DialogTitle>
-            <DialogDescription>Create a review for a package and customer</DialogDescription>
+            <DialogTitle>{editReviewId ? 'Edit Review' : 'Add New Review'}</DialogTitle>
+            <DialogDescription>
+              {editReviewId ? 'Update review details' : 'Create a review for a package and customer'}
+            </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4">
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label>Package *</Label>
-                <Select
-                  value={reviewForm.packageId}
-                  onValueChange={(value) => setReviewForm({ ...reviewForm, packageId: value })}
-                >
-                  <SelectTrigger data-testid="select-package">
-                    <SelectValue placeholder="Select package" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {packages.slice(0, 50).map((pkg: any) => (
-                      <SelectItem key={pkg.id} value={pkg.id}>
-                        {pkg.title}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Label>Package Name *</Label>
+                <Input
+                  value={reviewForm.manualPackageName}
+                  onChange={(e) => setReviewForm({ ...reviewForm, manualPackageName: e.target.value })}
+                  placeholder="e.g. eSIM France"
+                  data-testid="input-manual-package"
+                />
               </div>
               <div className="space-y-2">
-                <Label>Customer *</Label>
-                <Select
-                  value={reviewForm.userId}
-                  onValueChange={(value) => setReviewForm({ ...reviewForm, userId: value })}
-                >
-                  <SelectTrigger data-testid="select-user">
-                    <SelectValue placeholder="Select customer" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {users?.slice(0, 50).map((user: any) => (
-                      <SelectItem key={user.id} value={user.id}>
-                        {user?.email}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Label>Customer Name *</Label>
+                <Input
+                  value={reviewForm.manualCustomerName}
+                  onChange={(e) => setReviewForm({ ...reviewForm, manualCustomerName: e.target.value })}
+                  placeholder="e.g. John Doe"
+                  data-testid="input-manual-customer"
+                />
               </div>
             </div>
             <div className="space-y-2">
@@ -641,7 +681,7 @@ export default function AdminReviews() {
               Cancel
             </Button>
             <Button onClick={handleCreateReview} data-testid="button-submit-review">
-              Create Review
+              {editReviewId ? 'Update Review' : 'Create Review'}
             </Button>
           </DialogFooter>
         </DialogContent>

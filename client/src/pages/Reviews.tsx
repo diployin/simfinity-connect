@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Helmet } from 'react-helmet-async';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { Link } from 'wouter';
+import { useQuery } from '@tanstack/react-query';
 
 function StarRating({ count = 5 }: { count?: number }) {
   return (
@@ -54,7 +55,14 @@ export function Reviews() {
     },
   ];
 
-  const reviews = [
+  // Fetch approved reviews from backend
+  const { data: publicReviewsResponse } = useQuery<any>({
+    queryKey: ['/api/reviews/public'],
+  });
+
+  const dbReviews = publicReviewsResponse?.reviews || [];
+
+  const staticReviews = [
     {
       quote:
         'An affordable, easy-to-use, and sustainable eSIM service that gives reliable mobile connections from anywhere.',
@@ -98,6 +106,20 @@ export function Reviews() {
       stars: 0,
     },
   ];
+
+  const displayReviews = dbReviews.length > 0
+    ? dbReviews.map((r: any) => {
+        const destName = r.package?.destination?.name;
+        const flag = r.package?.destination?.flagEmoji;
+        const pkgTitle = r.manualPackageName || r.package?.title || 'eSIM User';
+        return {
+          quote: r.comment,
+          reviewer: r.manualCustomerName || r.user?.name || 'Verified Customer',
+          source: destName ? `${pkgTitle} (${destName} ${flag})` : pkgTitle,
+          stars: r.rating,
+        };
+      })
+    : staticReviews;
 
   const comparisonFeatures = [
     { feature: 'One eSIM for all destinations', values: [true, false, false, false] },
@@ -177,13 +199,13 @@ export function Reviews() {
       </section>
 
       {/* What do customers say */}
-      {/* <section className="py-16 md:py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-10">
             What do customers say
           </h2>
           <div className="flex gap-6 overflow-x-auto pb-4 md:pb-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible scrollbar-hide">
-            {reviews.map((review, index) => (
+            {displayReviews.map((review, index) => (
               <div
                 key={index}
                 className="min-w-[300px] md:min-w-0 bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:shadow-md transition-all duration-300 flex flex-col"
@@ -223,7 +245,7 @@ export function Reviews() {
             ))}
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* Comparison Table */}
       <section className="py-16 md:py-24 bg-slate-50">

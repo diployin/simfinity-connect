@@ -7,6 +7,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { useSettingByKey } from '@/hooks/useSettings';
+import { useQuery } from '@tanstack/react-query';
 
 function StarRating({ rating }: { rating: number }) {
   return (
@@ -116,7 +117,14 @@ export function TravelerTestimonials() {
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
 
-  const testimonials: Testimonial[] = [
+  // Fetch approved reviews from backend
+  const { data: publicReviewsResponse } = useQuery<any>({
+    queryKey: ['/api/reviews/public'],
+  });
+
+  const dbReviews = publicReviewsResponse?.reviews || [];
+
+  const staticTestimonials: Testimonial[] = [
     {
       name: 'Marcus W.',
       handle: 'Travel Blog Contributor',
@@ -168,6 +176,28 @@ export function TravelerTestimonials() {
       initials: 'LR',
     },
   ];
+
+  const dbTestimonials: Testimonial[] = dbReviews.map((r: any) => {
+    const userName = r.manualCustomerName || r.user?.name || 'Verified Traveler';
+    const destinationName = r.package?.destination?.name || '';
+    const destinationFlag = r.package?.destination?.flagEmoji || '';
+    const packageName = r.manualPackageName || r.package?.title || 'eSIM Plan';
+
+    return {
+      name: userName,
+      handle: destinationName ? `${packageName} (${destinationName} ${destinationFlag})` : packageName,
+      rating: r.rating,
+      content: r.comment,
+      initials: userName
+        .split(' ')
+        .map((n: string) => n[0])
+        .join('')
+        .toUpperCase()
+        .slice(0, 2) || 'VT',
+    };
+  });
+
+  const displayTestimonials = dbTestimonials.length > 0 ? dbTestimonials : staticTestimonials;
 
   const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
   const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
@@ -229,7 +259,7 @@ export function TravelerTestimonials() {
           </div>
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex gap-4">
-              {testimonials.map((testimonial, index) => (
+              {displayTestimonials.map((testimonial, index) => (
                 <div key={index} className="flex-shrink-0 w-[85%]">
                   <div className="bg-white dark:bg-zinc-800 rounded-2xl p-6 shadow-sm border border-zinc-100 dark:border-zinc-700/50">
                     <div className="flex items-center justify-between mb-3">
@@ -256,16 +286,21 @@ export function TravelerTestimonials() {
         </div>
 
         <div className="hidden md:block columns-1 md:columns-2 lg:columns-4 gap-4">
-          <TestimonialCard testimonial={testimonials[1]} index={1} />
-          <TestimonialCard testimonial={testimonials[2]} index={2} />
+          {displayTestimonials[1] && <TestimonialCard testimonial={displayTestimonials[1]} index={1} />}
+          {displayTestimonials[2] && <TestimonialCard testimonial={displayTestimonials[2]} index={2} />}
 
-          <FeaturedQuoteCard testimonial={testimonials[0]} siteName={siteName} />
+          <FeaturedQuoteCard testimonial={displayTestimonials[0] || staticTestimonials[0]} siteName={siteName} />
 
-          <TestimonialCard testimonial={testimonials[3]} index={3} />
+          {displayTestimonials[3] && <TestimonialCard testimonial={displayTestimonials[3]} index={3} />}
           <PressCard siteName={siteName} />
 
-          <TestimonialCard testimonial={testimonials[4]} index={4} />
-          <TestimonialCard testimonial={testimonials[5]} index={5} />
+          {displayTestimonials[4] && <TestimonialCard testimonial={displayTestimonials[4]} index={4} />}
+          {displayTestimonials[5] && <TestimonialCard testimonial={displayTestimonials[5]} index={5} />}
+
+          {/* Render any additional reviews dynamically */}
+          {displayTestimonials.slice(6).map((testimonial, index) => (
+            <TestimonialCard key={index + 6} testimonial={testimonial} index={index + 6} />
+          ))}
         </div>
 
         <div className="text-center mt-10">
