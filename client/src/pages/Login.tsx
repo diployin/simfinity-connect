@@ -57,7 +57,7 @@ export default function Login() {
   const [referralCode, setReferralCode] = useState<string | null>(null);
   const [showReferralBanner, setShowReferralBanner] = useState(false);
 
-  const logo = useSettingByKey('white_logo');
+  const logo = useSettingByKey('logo');
   const siteName = useSettingByKey('platform_name');
 
   const recaptchaRef = useRef<ReCAPTCHA | null>(null);
@@ -459,11 +459,11 @@ export default function Login() {
   return (
     <div className="min-h-screen flex">
       {/* Left Side - Platform Benefits */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary via-primary-light to-primary-dark p-12 flex-col justify-between relative overflow-hidden">
+      <div className="hidden lg:flex lg:w-1/2 bg-white border-r border-border p-12 flex-col justify-between relative overflow-hidden dark:bg-zinc-950">
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-20 w-72 h-72 rounded-full bg-white blur-3xl" />
-          <div className="absolute bottom-20 right-20 w-96 h-96 rounded-full bg-white blur-3xl" />
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-20 left-20 w-72 h-72 rounded-full bg-primary blur-3xl" />
+          <div className="absolute bottom-20 right-20 w-96 h-96 rounded-full bg-primary blur-3xl" />
         </div>
 
         <div className="relative z-10">
@@ -471,9 +471,9 @@ export default function Login() {
             {logo ? (
               <img className="h-16 rounded-lg" src={logo} />
             ) : (
-              <div className="flex items-center gap-2 text-white cursor-pointer" data-testid="link-logo">
-                <Globe className="h-8 w-8" />
-                <span className="font-bold text-2xl">{siteName || 'Voltey'}</span>
+              <div className="flex items-center gap-2 text-slate-900 dark:text-white cursor-pointer" data-testid="link-logo">
+                <Globe className="h-8 w-8 text-primary" />
+                <span className="font-bold text-2xl text-slate-900 dark:text-white">{siteName || 'Voltey'}</span>
               </div>
             )}
           </Link>
@@ -481,8 +481,8 @@ export default function Login() {
 
         <div className="relative z-10 space-y-8">
           <div>
-            <h1 className="text-4xl font-bold text-white mb-4">Stay Connected Anywhere</h1>
-            <p className="text-xl text-white/80">
+            <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">Stay Connected Anywhere</h1>
+            <p className="text-xl text-slate-600 dark:text-zinc-400">
               Join millions of travelers using eSIM for seamless connectivity
             </p>
           </div>
@@ -490,12 +490,12 @@ export default function Login() {
           <div className="space-y-6">
             {platformBenefits.map((benefit, index) => (
               <div key={index} className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                  <benefit.icon className="h-6 w-6 text-white" />
+                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center dark:bg-primary/20">
+                  <benefit.icon className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-white">{benefit.title}</h3>
-                  <p className="text-white/70 text-sm">{benefit.description}</p>
+                  <h3 className="font-semibold text-slate-900 dark:text-white">{benefit.title}</h3>
+                  <p className="text-slate-600 dark:text-zinc-400 text-sm">{benefit.description}</p>
                 </div>
               </div>
             ))}
@@ -503,7 +503,7 @@ export default function Login() {
         </div>
 
         <div className="relative z-10">
-          <p className="text-white/60 text-sm">Trusted by 2M+ travelers worldwide</p>
+          <p className="text-slate-500 dark:text-zinc-500 text-sm font-medium">Trusted by 2M+ travelers worldwide</p>
         </div>
       </div>
 
@@ -688,7 +688,7 @@ export default function Login() {
 
                       <Button
                         type="submit"
-                        className="w-full bg-primary-gradient hover:bg-primary-gradient "
+                        className="w-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900"
                         disabled={isLoading}
                         data-testid="button-signin"
                       >
@@ -747,7 +747,7 @@ export default function Login() {
                         </div>
                         <Button
                           type="submit"
-                          className="w-full bg-primary-gradient"
+                          className="w-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900"
                           disabled={isLoading}
                           data-testid="button-forgot-submit"
                         >
@@ -854,7 +854,7 @@ export default function Login() {
                         </div>
                         <Button
                           type="submit"
-                          className="w-full bg-primary-gradient"
+                          className="w-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900"
                           disabled={isLoading}
                           data-testid="button-reset-password"
                         >
@@ -915,7 +915,7 @@ export default function Login() {
                       </div>
                       <Button
                         type="submit"
-                        className="w-full bg-primary-gradient"
+                        className="w-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900"
                         disabled={isLoading}
                         data-testid="button-send-signup-otp"
                       >
@@ -959,7 +959,7 @@ export default function Login() {
                       </div>
                       <Button
                         type="submit"
-                        className="w-full bg-primary-gradient"
+                        className="w-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900"
                         disabled={isLoading}
                         data-testid="button-verify-signup-otp"
                       >
@@ -1065,7 +1065,7 @@ export default function Login() {
                       </div>
                       <Button
                         type="submit"
-                        className="w-full bg-primary-gradient"
+                        className="w-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900"
                         disabled={isLoading}
                         data-testid="button-complete-signup"
                       >

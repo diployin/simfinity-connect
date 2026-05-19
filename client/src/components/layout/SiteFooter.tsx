@@ -49,21 +49,22 @@ export function NewFooter() {
     { code: 'AE', label: 'UAE' },
   ];
 
-  const topDestinations = targetDestinations
-    .map((target) => {
-      const found = allDestinations.find(
-        (d: any) =>
-          d.countryCode === target.code ||
-          d.slug === target.code.toLowerCase() ||
-          d.name === target.code ||
-          d.name === target.label ||
-          d.slug === target.label.toLowerCase().replace(/ /g, '-')
-      );
-      return found ? { ...found, name: target.label } : null;
-    })
-    .filter((item) => item !== null);
-
-  console.log(topDestinations)
+  const popularDestinations = allDestinations.filter((d: any) => d.isPopular);
+  const topDestinations = popularDestinations.length > 0
+    ? popularDestinations.slice(0, 6)
+    : targetDestinations
+        .map((target) => {
+          const found = allDestinations.find(
+            (d: any) =>
+              d.countryCode === target.code ||
+              d.slug === target.code.toLowerCase() ||
+              d.name === target.code ||
+              d.name === target.label ||
+              d.slug === target.label.toLowerCase().replace(/ /g, '-')
+          );
+          return found ? { ...found, name: target.label } : null;
+        })
+        .filter((item) => item !== null);
 
   const { theme } = useTheme();
   const siteName = useSettingByKey('platform_name') || 'Voltey';

@@ -26,7 +26,7 @@ import { ThemeToggle } from '@/components/ThemeToggle';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { useCurrency } from '@/contexts/CurrencyContext';
-import { Select, SelectContent, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectContent, SelectTrigger, SelectValue, SelectItem } from '@/components/ui/select';
 import ReactCountryFlag from 'react-country-flag';
 
 import {
@@ -58,11 +58,68 @@ interface UserProfile {
 
 const profileSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
-  phone: z.string().min(10).optional(),
-  address: z.string().min(5).optional(),
+  phone: z.string().optional().or(z.literal('')),
+  address: z.string().optional().or(z.literal('')),
   destination: z.string().optional(),
   currency: z.string().optional(),
 });
+
+const countryCallingCodes = [
+  { code: '+1', country: 'US/CA', flag: 'US' },
+  { code: '+91', country: 'IN', flag: 'IN' },
+  { code: '+44', country: 'GB', flag: 'GB' },
+  { code: '+61', country: 'AU', flag: 'AU' },
+  { code: '+81', country: 'JP', flag: 'JP' },
+  { code: '+49', country: 'DE', flag: 'DE' },
+  { code: '+33', country: 'FR', flag: 'FR' },
+  { code: '+39', country: 'IT', flag: 'IT' },
+  { code: '+34', country: 'ES', flag: 'ES' },
+  { code: '+7', country: 'RU', flag: 'RU' },
+  { code: '+86', country: 'CN', flag: 'CN' },
+  { code: '+55', country: 'BR', flag: 'BR' },
+  { code: '+52', country: 'MX', flag: 'MX' },
+  { code: '+27', country: 'ZA', flag: 'ZA' },
+  { code: '+65', country: 'SG', flag: 'SG' },
+  { code: '+971', country: 'AE', flag: 'AE' },
+  { code: '+966', country: 'SA', flag: 'SA' },
+  { code: '+82', country: 'KR', flag: 'KR' },
+  { code: '+31', country: 'NL', flag: 'NL' },
+  { code: '+41', country: 'CH', flag: 'CH' },
+  { code: '+32', country: 'BE', flag: 'BE' },
+  { code: '+46', country: 'SE', flag: 'SE' },
+  { code: '+47', country: 'NO', flag: 'NO' },
+  { code: '+353', country: 'IE', flag: 'IE' },
+  { code: '+64', country: 'NZ', flag: 'NZ' },
+  { code: '+60', country: 'MY', flag: 'MY' },
+  { code: '+66', country: 'TH', flag: 'TH' },
+  { code: '+62', country: 'ID', flag: 'ID' },
+  { code: '+63', country: 'PH', flag: 'PH' },
+  { code: '+84', country: 'VN', flag: 'VN' },
+  { code: '+90', country: 'TR', flag: 'TR' },
+  { code: '+92', country: 'PK', flag: 'PK' },
+  { code: '+880', country: 'BD', flag: 'BD' },
+  { code: '+351', country: 'PT', flag: 'PT' },
+  { code: '+30', country: 'GR', flag: 'GR' },
+  { code: '+43', country: 'AT', flag: 'AT' },
+  { code: '+45', country: 'DK', flag: 'DK' },
+  { code: '+358', country: 'FI', flag: 'FI' },
+  { code: '+48', country: 'PL', flag: 'PL' },
+  { code: '+40', country: 'RO', flag: 'RO' },
+  { code: '+380', country: 'UA', flag: 'UA' },
+  { code: '+36', country: 'HU', flag: 'HU' },
+  { code: '+420', country: 'CZ', flag: 'CZ' },
+  { code: '+94', country: 'LK', flag: 'LK' },
+  { code: '+977', country: 'NP', flag: 'NP' },
+  { code: '+20', country: 'EG', flag: 'EG' },
+  { code: '+234', country: 'NG', flag: 'NG' },
+  { code: '+254', country: 'KE', flag: 'KE' },
+  { code: '+212', country: 'MA', flag: 'MA' },
+  { code: '+54', country: 'AR', flag: 'AR' },
+  { code: '+56', country: 'CL', flag: 'CL' },
+  { code: '+57', country: 'CO', flag: 'CO' },
+  { code: '+51', country: 'PE', flag: 'PE' },
+  { code: '+58', country: 'VE', flag: 'VE' },
+];
 
 type ProfileFormData = z.infer<typeof profileSchema>;
 
@@ -87,13 +144,51 @@ export default function Profile() {
 
   // console.log(destinations, currencies, loadingDest);
 
-  // Update notification preferences when user data is loaded
+  const [selectedCountryCode, setSelectedCountryCode] = useState('+1');
+  const [phoneNumberVal, setPhoneNumberVal] = useState('');
+
+  // Update notification preferences and parse phone number when user data is loaded
   useEffect(() => {
     if (user) {
       setNotifyLowData(user.notifyLowData);
       setNotifyExpiring(user.notifyExpiring);
+
+      if (user.phone) {
+        const sortedCodes = [...countryCallingCodes].sort((a, b) => b.code.length - a.code.length);
+        const matched = sortedCodes.find((c) => user.phone?.startsWith(c.code));
+        if (matched) {
+          setSelectedCountryCode(matched.code);
+          setPhoneNumberVal(user.phone.slice(matched.code.length));
+        } else {
+          if (user.phone.startsWith('+')) {
+            const spaceIndex = user.phone.indexOf(' ');
+            if (spaceIndex !== -1) {
+              setSelectedCountryCode(user.phone.slice(0, spaceIndex));
+              setPhoneNumberVal(user.phone.slice(spaceIndex + 1));
+            } else {
+              setSelectedCountryCode('+1');
+              setPhoneNumberVal(user.phone);
+            }
+          } else {
+            setSelectedCountryCode('+1');
+            setPhoneNumberVal(user.phone);
+          }
+        }
+      } else {
+        setSelectedCountryCode('+1');
+        setPhoneNumberVal('');
+      }
     }
   }, [user]);
+
+  // Sync phone code/val to form state
+  useEffect(() => {
+    if (phoneNumberVal) {
+      form.setValue('phone', selectedCountryCode + phoneNumberVal);
+    } else {
+      form.setValue('phone', '');
+    }
+  }, [selectedCountryCode, phoneNumberVal]);
 
   const form = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
@@ -259,9 +354,9 @@ export default function Profile() {
                   {/* Avatar */}
                   <label htmlFor="profileImage" className="cursor-pointer">
                     <div className="w-20 h-20 rounded-full overflow-hidden border bg-muted flex items-center justify-center">
-                      {preview || user?.imagePath ? (
+                      {preview || (user?.imagePath && user.imagePath !== 'null') ? (
                         <img
-                          src={preview || `/${user?.imagePath}`}
+                          src={preview || (user.imagePath.startsWith('http') ? user.imagePath : `/${user.imagePath}`)}
                           className="w-full h-full object-cover"
                           alt="Profile"
                         />
@@ -376,21 +471,44 @@ export default function Profile() {
                       <FormItem>
                         <FormLabel>{t('profile.phoneNumber', 'Phone Number')}</FormLabel>
                         <FormControl>
-                          <div className="relative">
-                            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                            <Input
-                              placeholder={t('profile.phonePlaceholder', '+1 234 567 8900')}
-                              className="pl-10"
-                              {...field}
-                              type="tel"
-                              inputMode="numeric"
-                              maxLength={12}
-                              onChange={(e) => {
-                                const value = e.target.value.replace(/\D/g, '');
-                                field.onChange(value);
-                              }}
-                              data-testid="input-phone"
-                            />
+                          <div className="flex gap-2">
+                            <Select
+                              value={selectedCountryCode}
+                              onValueChange={setSelectedCountryCode}
+                            >
+                              <SelectTrigger className="w-[120px] flex-shrink-0">
+                                <SelectValue placeholder="Code" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {countryCallingCodes.map((c) => (
+                                  <SelectItem key={`${c.code}-${c.flag}`} value={c.code}>
+                                    <span className="flex items-center gap-2">
+                                      <ReactCountryFlag
+                                        svg
+                                        countryCode={c.flag}
+                                        style={{ width: '1.2em', height: '1.2em' }}
+                                      />
+                                      <span>{c.code}</span>
+                                    </span>
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <div className="relative flex-1">
+                              <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                              <Input
+                                placeholder={t('profile.phonePlaceholder', '234 567 8900')}
+                                className="pl-10"
+                                value={phoneNumberVal}
+                                type="tel"
+                                inputMode="numeric"
+                                onChange={(e) => {
+                                  const value = e.target.value.replace(/\D/g, '');
+                                  setPhoneNumberVal(value);
+                                }}
+                                data-testid="input-phone"
+                              />
+                            </div>
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -444,7 +562,7 @@ export default function Profile() {
                             </Button>
                           </PopoverTrigger>
 
-                          <PopoverContent className="w-full p-0">
+                          <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
                             <Command>
                               <CommandInput placeholder="Search country..." />
                               <CommandEmpty>No country found.</CommandEmpty>
@@ -504,7 +622,7 @@ export default function Profile() {
                             </Button>
                           </PopoverTrigger>
 
-                          <PopoverContent className="w-full p-0">
+                          <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
                             <Command>
                               <CommandInput placeholder="Search currency..." />
                               <CommandEmpty>No currency found.</CommandEmpty>
