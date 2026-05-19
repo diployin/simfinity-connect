@@ -34,6 +34,7 @@ interface Region {
   image: string | null;
   bannerImage: string | null;
   active: boolean;
+  isPopular: boolean;
   createdAt: string;
   updatedAt: string;
   packageCounts: {
@@ -216,6 +217,10 @@ export default function MasterRegions() {
     updateMutation.mutate({ id: region.id, data: { active: !region.active } });
   };
 
+  const handleTogglePopular = (region: Region) => {
+    updateMutation.mutate({ id: region.id, data: { isPopular: !region.isPopular } });
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -303,6 +308,7 @@ export default function MasterRegions() {
                     <TableHead>Countries</TableHead>
                     <TableHead>Packages</TableHead>
                     <TableHead>Status</TableHead>
+                    <TableHead>Popular</TableHead>
                     <TableHead>Actions</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -360,6 +366,13 @@ export default function MasterRegions() {
                           checked={region.active}
                           onCheckedChange={() => handleToggleActive(region)}
                           data-testid={`switch-active-${region.id}`}
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <Switch
+                          checked={region.isPopular}
+                          onCheckedChange={() => handleTogglePopular(region)}
+                          data-testid={`switch-popular-${region.id}`}
                         />
                       </TableCell>
                       <TableCell>

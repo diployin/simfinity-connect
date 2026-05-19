@@ -17,6 +17,7 @@ interface Destination {
   countryCode: string;
   minPrice?: string;
   currency?: string;
+  isPopular?: boolean;
 }
 
 interface Region {
@@ -27,6 +28,7 @@ interface Region {
   image?: string;
   minPrice?: string;
   currency?: string;
+  isPopular?: boolean;
 }
 
 interface GlobalPackage {
@@ -89,13 +91,17 @@ export function DestinationsTabs() {
     queryKey: ['/api/packages/global'],
   });
 
-  const popularDestinations = allDestinations
-    .filter((d) => popularCountryCodes.includes(d.countryCode))
-    .slice(0, 9);
+  const popularDestinations = allDestinations.filter((d) => d.isPopular);
   const destinations =
-    popularDestinations.length > 0 ? popularDestinations : allDestinations.slice(0, 9);
+    popularDestinations.length > 0
+      ? popularDestinations.slice(0, 9)
+      : allDestinations.filter((d) => popularCountryCodes.includes(d.countryCode)).slice(0, 9);
 
-  const regions = allRegions.filter((r) => r.name?.toLowerCase() !== 'global').slice(0, 9);
+  const popularRegions = allRegions.filter((r) => r.isPopular && r.name?.toLowerCase() !== 'global');
+  const regions =
+    popularRegions.length > 0
+      ? popularRegions.slice(0, 9)
+      : allRegions.filter((r) => r.name?.toLowerCase() !== 'global').slice(0, 9);
 
   const globalPackages = allGlobalPackages.slice(0, 9);
 

@@ -67,7 +67,7 @@
   --secondary-fourth-hex: #3f3f46;
   --secondary-light-hex: #52525b;
 
-  --accent-hex: #fb923c;
+  --accent-hex: #3d9a4d;
   --destructive-hex: #f87171;
 
   /* GRADIENTS */
@@ -91,7 +91,7 @@
   --primary-second: var(--primary-second-hex);
   --primary-light: var(--primary-light-hex);
   --primary-dark: var(--primary-dark-hex);
-  --primary-foreground: #000000;
+  --primary-foreground: #ffffff;
 
   /* Font Variables */
   --font-heading: 'Inter';
@@ -106,10 +106,10 @@
   --secondary-foreground: var(--primary-hex);
 
   /* 💚 ACCENT */
-  --accent: var(--accent-hex);
+  --accent: #e2f0d9;
   --accent-second: var(--accent-second-hex);
   --accent-third: var(--accent-third-hex);
-  --accent-foreground: #000000;
+  --accent-foreground: var(--primary-hex);
 
   /* 🚨 DESTRUCTIVE */
   --destructive: var(--destructive-hex);
@@ -198,7 +198,7 @@
   --primary-second: var(--primary-second-hex);
   --primary-light: var(--primary-light-hex);
   --primary-dark: var(--primary-dark-hex);
-  --primary-foreground: #000000;
+  --primary-foreground: #ffffff;
 
   /* Font Variables */
   --font-heading: 'Inter';
@@ -209,8 +209,8 @@
   --secondary-third: var(--secondary-third-hex);
   --secondary-foreground: var(--primary-hex);
 
-  --accent: var(--accent-hex);
-  --accent-foreground: #000000;
+  --accent: #1e5427;
+  --accent-foreground: #ffffff;
 
   --destructive: var(--destructive-hex);
   --destructive-foreground: #000000;

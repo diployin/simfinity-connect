@@ -8185,10 +8185,51 @@ ${urls
 
   // Public: Get approved reviews for a package
 
+  // Public: Get all approved reviews
+  app.get('/api/reviews/public', async (req: Request, res: Response) => {
+    try {
+      const approvedReviews = await db.query.reviews.findMany({
+        where: eq(reviews.isApproved, true),
+        with: {
+          user: {
+            columns: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+          package: {
+            columns: {
+              id: true,
+              title: true,
+            },
+            with: {
+              destination: {
+                columns: {
+                  name: true,
+                  flagEmoji: true,
+                },
+              },
+            },
+          },
+        },
+        orderBy: [desc(reviews.createdAt)],
+      });
+      res.json({ success: true, reviews: approvedReviews });
+    } catch (error: any) {
+      console.error('[Public Reviews] Error:', error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  });
+
   // Customer: Submit a review
   app.post('/api/reviews', requireAuth, async (req: Request, res: Response) => {
     try {
       const validatedData = insertReviewSchema.parse(req.body);
+
+      if (!validatedData.packageId) {
+        return res.status(400).json({ success: false, message: 'Package ID is required' });
+      }
 
       console.log('validatedData', validatedData, req.userId);
 
@@ -8504,20 +8545,60 @@ ${urls
     try {
       const { insertReviewSchema } = await import('@shared/schema');
 
-      const data = insertReviewSchema.parse({
-        ...req.body,
-        approvedBy: req.admin?.id,
-        approvedAt: new Date(),
-      });
+      const validatedData = insertReviewSchema.parse(req.body);
 
-      const [review] = await db.insert(reviews).values(data).returning();
+      const reviewData = {
+        ...validatedData,
+        isApproved: true,
+        approvedBy: req.session.adminId!,
+        approvedAt: new Date(),
+        isVerifiedPurchase: req.body.isVerifiedPurchase ?? false,
+      };
+
+      const [review] = await db.insert(reviews).values(reviewData).returning();
 
       res.status(201).json(review);
     } catch (error: any) {
+      console.error('[Admin Create Review] Error:', error);
       res.status(500).json({ success: false, message: error.message });
     }
   });
 
+  // Admin: Update review
+  app.put('/api/admin/reviews/:id', requireAdmin, async (req: Request, res: Response) => {
+    try {
+      const { insertReviewSchema } = await import('@shared/schema');
+      const validatedData = insertReviewSchema.parse(req.body);
+
+      const review = await db.query.reviews.findFirst({
+        where: eq(reviews.id, req.params.id),
+      });
+
+      if (!review) {
+        return res.status(404).json({ success: false, message: 'Review not found' });
+      }
+
+      const reviewData = {
+        ...validatedData,
+        isVerifiedPurchase: req.body.isVerifiedPurchase ?? review.isVerifiedPurchase,
+      };
+
+      const [updatedReview] = await db
+        .update(reviews)
+        .set(reviewData)
+        .where(eq(reviews.id, req.params.id))
+        .returning();
+
+      res.json({
+        success: true,
+        message: 'Review updated successfully',
+        data: { review: updatedReview },
+      });
+    } catch (error: any) {
+      console.error('[Admin Update Review] Error:', error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  });
   // Admin: Approve review
   app.post('/api/admin/reviews/:id/approve', requireAdmin, async (req: Request, res: Response) => {
     try {
@@ -12337,16 +12418,17 @@ ${urls
     }
   });
 
-  // Update region (image/icon)
+  // Update region (image/icon/popular)
   app.patch('/api/admin/master-regions/:id', requireAdmin, async (req: Request, res: Response) => {
     try {
       const { id } = req.params;
-      const { image, bannerImage, active } = req.body;
+      const { image, bannerImage, active, isPopular } = req.body;
 
       const updateData: any = { updatedAt: new Date() };
       if (image !== undefined) updateData.image = image;
       if (bannerImage !== undefined) updateData.bannerImage = bannerImage;
       if (active !== undefined) updateData.active = active;
+      if (isPopular !== undefined) updateData.isPopular = isPopular;
 
       const [updated] = await db
         .update(regions)
@@ -12471,19 +12553,20 @@ ${urls
     }
   });
 
-  // Update destination/country (image/icon)
+  // Update destination/country (image/icon/popular)
   app.patch(
     '/api/admin/master-countries/:id',
     requireAdmin,
     async (req: Request, res: Response) => {
       try {
         const { id } = req.params;
-        const { image, bannerImage, active } = req.body;
+        const { image, bannerImage, active, isPopular } = req.body;
 
         const updateData: any = { updatedAt: new Date() };
         if (image !== undefined) updateData.image = image;
         if (bannerImage !== undefined) updateData.bannerImage = bannerImage;
         if (active !== undefined) updateData.active = active;
+        if (isPopular !== undefined) updateData.isPopular = isPopular;
 
         const [updated] = await db
           .update(destinations)

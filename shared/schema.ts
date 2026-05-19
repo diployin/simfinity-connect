@@ -145,6 +145,7 @@ export const destinations = pgTable("destinations", {
   isTerritory: boolean("is_territory").notNull().default(false), // Territories like Canary Islands, Puerto Rico
   parentCountryCode: text("parent_country_code"), // Parent country code for territories (e.g., "ES" for Canary Islands)
   active: boolean("active").notNull().default(true),
+  isPopular: boolean("is_popular").notNull().default(false),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
@@ -159,6 +160,7 @@ export const regions = pgTable("regions", {
   image: text("image"),
   bannerImage: text("banner_image"),
   active: boolean("active").notNull().default(true),
+  isPopular: boolean("is_popular").notNull().default(false),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
@@ -950,8 +952,10 @@ export const customNotifications = pgTable("custom_notifications", {
 // Package Reviews
 export const reviews = pgTable("reviews", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  packageId: varchar("package_id").notNull().references(() => unifiedPackages.id),
-  userId: varchar("user_id").notNull().references(() => users.id),
+  packageId: varchar("package_id").references(() => unifiedPackages.id),
+  userId: varchar("user_id").references(() => users.id),
+  manualCustomerName: text("manual_customer_name"),
+  manualPackageName: text("manual_package_name"),
   orderId: varchar("order_id").references(() => orders.id), // Optional: verify purchase
   rating: integer("rating").notNull(), // 1-5 stars
   title: text("title").notNull(),
@@ -1741,6 +1745,9 @@ export const insertReviewSchema = createInsertSchema(reviews).omit({
   approvedAt: true,
   createdAt: true,
   updatedAt: true
+}).extend({
+  packageId: z.string().optional().nullable(),
+  userId: z.string().optional().nullable(),
 });
 
 export const insertReferralProgramSchema = createInsertSchema(referralProgram).omit({

@@ -103,7 +103,12 @@ export function UserDropdown() {
           data-testid="button-user-dropdown"
         >
           <Avatar className="h-8 w-8">
-            {user.imagePath && <AvatarImage src={user.imagePath} alt={user.name || user.email} />}
+            {user.imagePath && user.imagePath !== 'null' && (
+              <AvatarImage 
+                src={user.imagePath.startsWith('http') ? user.imagePath : `/${user.imagePath}`} 
+                alt={user.name || user.email} 
+              />
+            )}
             <AvatarFallback className="bg-primary text-primary-foreground text-sm">
               {initials}
             </AvatarFallback>

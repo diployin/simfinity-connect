@@ -408,6 +408,7 @@ async function seed() {
   // Seed settings
   const settingsData = [
     { key: "site_name", value: "eSIM Global", category: "general" },
+    { key: "platform_name", value: "eSIM Global", category: "general" },
     { key: "site_description", value: "Affordable eSIM data for international travel", category: "seo" },
     { key: "timezone", value: "UTC", category: "general" },
   ];

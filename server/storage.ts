@@ -487,6 +487,7 @@ export class DatabaseStorage implements IStorage {
         flagEmoji: destinations.flagEmoji,
         image: destinations.image,
         active: destinations.active,
+        isPopular: destinations.isPopular,
         createdAt: destinations.createdAt,
         updatedAt: destinations.updatedAt,
         // Minimum retail price among enabled packages
@@ -570,6 +571,7 @@ export class DatabaseStorage implements IStorage {
         image: regions.image,
         countries: regions.countries,
         active: regions.active,
+        isPopular: regions.isPopular,
         createdAt: regions.createdAt,
         updatedAt: regions.updatedAt,
         // Minimum retail price among ALL regional packages (not just enabled)

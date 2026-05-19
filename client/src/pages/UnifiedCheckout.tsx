@@ -124,7 +124,7 @@ const formatDataAmount = (pkg: any): string => {
 const formatPackageTitle = (pkg: any): string => {
   const data = formatDataAmount(pkg);
   let validity = pkg.validity ?? pkg.validityDays ?? 0;
-  const country = pkg.countryName || pkg.countryCode || '';
+  const country = pkg.destination?.name || pkg.countryName || pkg.destination?.countryCode || pkg.countryCode || '';
 
   if (validity === 0 && pkg.title) {
     const daysMatch = pkg.title.match(/(\d+)\s*Days?/i);
@@ -698,7 +698,7 @@ export default function UnifiedCheckout() {
                           <p className="font-semibold text-sm text-gray-900">{user?.name || 'User'}</p>
                           <p className="text-xs text-gray-600">{user?.email}</p>
                         </div>
-                        <Button variant="ghost" size="sm" onClick={() => apiRequest('POST', '/api/auth/logout').then(() => refetchUser())} className="h-8 text-xs text-red-600 hover:text-red-700 hover:bg-red-50">
+                        <Button variant="ghost" size="sm" onClick={() => apiRequest('POST', '/api/auth/logout').then(() => { queryClient.setQueryData(['/api/auth/me'], null); refetchUser(); })} className="h-8 text-xs text-red-600 hover:text-red-700 hover:bg-red-50">
                           Logout
                         </Button>
                       </div>
@@ -1004,17 +1004,17 @@ export default function UnifiedCheckout() {
                   <h2 className="text-xl font-bold text-gray-900 mb-6">Order summary</h2>
 
                   <div className="bg-gray-50 rounded-xl p-3.5 flex items-center gap-3 mb-6">
-                    {packageData.countryCode && (
+                    {(packageData.destination?.countryCode || packageData.countryCode) && (
                       <div className="w-10 h-7 rounded overflow-hidden shadow-sm flex-shrink-0">
                         <ReactCountryFlag
-                          countryCode={packageData.countryCode}
+                          countryCode={packageData.destination?.countryCode || packageData.countryCode}
                           svg
                           style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         />
                       </div>
                     )}
                     <span className="text-lg font-bold text-gray-900">
-                      {packageData.countryName || packageData.countryCode || 'Global'}
+                      {packageData.destination?.name || packageData.countryName || packageData.destination?.countryCode || packageData.countryCode || 'Global'}
                     </span>
                   </div>
 
