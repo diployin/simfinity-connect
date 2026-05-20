@@ -84,9 +84,35 @@ export function AccountLayout({ children }: AccountLayoutProps) {
     <>
       <main className="flex-1 pt-20 bg-background ">
         <div className="container mx-auto px-4 py-8">
-          <div className="flex flex-col-reverse lg:flex-row gap-8">
+          {/* Mobile Navigation (Horizontal Scrollable) */}
+          <div className="lg:hidden w-full overflow-x-auto pb-4 mb-2 scrollbar-none">
+            <div className="flex gap-2 min-w-max">
+              {accountNavItems.map((item) => {
+                const Icon = item.icon;
+                const active = isActive(item.href);
+
+                return (
+                  <Link key={item.href} href={item.href}>
+                    <div
+                      className={cn(
+                        'flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-all border text-sm font-medium whitespace-nowrap',
+                        active
+                          ? 'bg-[var(--primary)] text-white border-[var(--primary)] shadow-sm'
+                          : 'bg-card text-muted-foreground border-border hover:bg-muted',
+                      )}
+                    >
+                      <Icon className="h-4 w-4" />
+                      <span>{item.label}</span>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="flex flex-col lg:flex-row gap-8">
             {/* Sidebar */}
-            <aside className="lg:w-80 flex-shrink-0">
+            <aside className="hidden lg:block lg:w-80 flex-shrink-0">
               <div className="bg-card rounded-lg border p-4 lg:sticky lg:top-24">
                 <div className="flex items-center gap-2 mb-6">
                   <Settings className="h-5 w-5 text-foreground" />

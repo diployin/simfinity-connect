@@ -117,8 +117,8 @@ export default function ESimLoader() {
 
           <div className="flex flex-col items-center gap-2">
             <div className="flex items-center">
-              <span className="text-lg font-bold text-gray-900 dark:text-white">Sim</span>
-              <span className="text-lg font-bold bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] bg-clip-text text-transparent">finity</span>
+              <span className="text-lg font-bold text-gray-900 dark:text-white">Vol</span>
+              <span className="text-lg font-bold bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] bg-clip-text text-transparent">tey</span>
             </div>
             <div className="flex gap-1">
               <span

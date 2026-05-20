@@ -541,7 +541,7 @@ export function SiteHeader() {
                   </button>
                 </SheetHeader>
 
-                <nav className="flex flex-col p-5 space-y-1">
+                <nav className="flex flex-col p-5 pb-20 space-y-1">
                   {isAuthenticated && (
                     <div className="mb-4 pb-4 border-b border-gray-100 dark:border-gray-800">
                       <div className="flex items-center gap-3 mb-3">

@@ -4,6 +4,20 @@ import { emailTemplates, settings, users } from "@shared/schema";
 import { eq, inArray } from "drizzle-orm";
 
 
+function hexToRgba(hex: string, alpha: number): string {
+  if (!hex) return `rgba(240, 253, 244, ${alpha})`;
+  const cleanHex = hex.replace("#", "");
+  const num = parseInt(cleanHex, 16);
+  const r = (num >> 16) & 255;
+  const g = (num >> 8) & 255;
+  const b = num & 255;
+  
+  if (isNaN(r) || isNaN(g) || isNaN(b)) {
+    return `rgba(240, 253, 244, ${alpha})`;
+  }
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
 async function loadSmtpSettings() {
   const keys = [
     "smtp_host",
@@ -20,7 +34,11 @@ async function loadSmtpSettings() {
     "instagram_url",
     "twitter_url",
     "linkedin_url",
-    "youtube_url"
+    "youtube_url",
+    "theme_primary",
+    "theme_primary_second",
+    "theme_primary_light",
+    "theme_primary_dark"
   ];
 
   const rows = await db
@@ -48,7 +66,11 @@ async function loadSmtpSettings() {
     instagramUrl: config.instagram_url || "#",
     twitterUrl: config.twitter_url || "#",
     linkedinUrl: config.linkedin_url || "#",
-    youtubeUrl: config.youtube_url || "#"
+    youtubeUrl: config.youtube_url || "#",
+    themePrimary: config.theme_primary || "#2c7338",
+    themePrimarySecond: config.theme_primary_second || "#3d9a4d",
+    themePrimaryLight: config.theme_primary_light || "#3d9a4d",
+    themePrimaryDark: config.theme_primary_dark || "#2c7338"
   };
 }
 
@@ -119,13 +141,22 @@ export async function sendEmail({ to, subject, html, text }: EmailOptions) {
     return;
   }
 
+  const primaryColor = smtp.themePrimary || "#2c7338";
+  const secondaryColor = smtp.themePrimarySecond || "#3d9a4d";
+  const lightBgColor = hexToRgba(primaryColor, 0.05);
+
+  const styledHtml = html
+    .replace(/#2c7338/gi, primaryColor)
+    .replace(/#3d9a4d/gi, secondaryColor)
+    .replace(/#f0fdf4/gi, lightBgColor);
+
   try {
     await transporter!.sendMail({
       from: `"${smtp.platformName}" <${smtp.fromEmail}>`,
       to,
       subject,
-      html,
-      text: text || html.replace(/<[^>]*>/g, ""),
+      html: styledHtml,
+      text: text || styledHtml.replace(/<[^>]*>/g, ""),
     });
     console.log(`✅ Email sent to ${to}: ${subject}`);
   } catch (error: any) {
@@ -156,9 +187,19 @@ async function renderTemplate(eventType: string, variables: TemplateVariables): 
     const templateData = template[0];
     let { subject, body } = templateData;
 
+    const smtp = await loadSmtpSettings();
+    const allVariables = {
+      theme_primary: smtp.themePrimary,
+      theme_primary_second: smtp.themePrimarySecond,
+      theme_primary_light: smtp.themePrimaryLight,
+      theme_primary_dark: smtp.themePrimaryDark,
+      platform_name: smtp.platformName,
+      ...variables,
+    };
+
     // Replace all variables in subject and body
     // Variables are in format {{variable_name}}
-    Object.entries(variables).forEach(([key, value]) => {
+    Object.entries(allVariables).forEach(([key, value]) => {
       const placeholder = `{{${key}}}`;
       const replacement = value !== undefined && value !== null ? String(value) : '';
       // Use replaceAll to avoid regex escape issues

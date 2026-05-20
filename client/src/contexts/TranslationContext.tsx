@@ -92,14 +92,20 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
 
 
   const setLanguage = useCallback((code: string) => {
-  console.log("Language changed to:", code);
-  setLanguageCode(code);
-  setTranslations({}); // ✅ CLEAR OLD TRANSLATIONS
-  if (typeof window !== "undefined") {
-    localStorage.setItem(STORAGE_KEY, code);
-  }
-}, []);
+    console.log("Language changed to:", code);
+    setLanguageCode(code);
+    setTranslations({}); // ✅ CLEAR OLD TRANSLATIONS
+    if (typeof window !== "undefined") {
+      localStorage.setItem(STORAGE_KEY, code);
+    }
+  }, []);
 
+
+  const { data: settings } = useQuery<any>({
+    queryKey: ["/api/public/settings"],
+    staleTime: 5 * 60 * 1000,
+  });
+  const platformName = settings?.platform_name || "Voltey";
 
   const t = useCallback(
     (
@@ -123,7 +129,7 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
       const translationKey = keyParts.slice(1).join(".");
 
       let value: string | undefined;
-      
+
       if (translations[namespace] && translationKey) {
         value = translations[namespace][translationKey];
       } else if (!translationKey) {
@@ -135,25 +141,26 @@ export function TranslationProvider({ children }: { children: ReactNode }) {
         }
       }
 
+      const globalParams = {
+        siteName: platformName,
+        year: new Date().getFullYear(),
+      };
+      const mergedParams = actualParams ? { ...globalParams, ...actualParams } : globalParams;
+
+      const replacePlaceholders = (str: string) => {
+        return str.replace(/\{{1,2}(\w+)\}{1,2}/g, (match, paramKey) => {
+          return mergedParams[paramKey] !== undefined ? mergedParams[paramKey].toString() : match;
+        });
+      };
+
       if (!value) {
         const result = fallback || key;
-        if (actualParams) {
-          return result.replace(/\{(\w+)\}/g, (match, paramKey) => {
-            return actualParams[paramKey]?.toString() || match;
-          });
-        }
-        return result;
+        return replacePlaceholders(result);
       }
 
-      if (actualParams) {
-        return value.replace(/\{(\w+)\}/g, (match, paramKey) => {
-          return actualParams[paramKey]?.toString() || match;
-        });
-      }
-
-      return value;
+      return replacePlaceholders(value);
     },
-    [translations, languageCode]
+    [translations, languageCode, platformName]
   );
 
   const isLoading = languagesLoading || translationsLoading;
