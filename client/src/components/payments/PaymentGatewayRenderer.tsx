@@ -90,11 +90,10 @@ export default function PaymentGatewayRenderer({
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          gatewayId: initData.publicKey, // Should be passed via initData
+          gatewayId: initData?.gatewayId || initData.publicKey, // Should be passed via initData
           packageId: initData.packageData?.id,
           quantity: 1,
           currency: initData.packageData?.currency,
-          gatewayId: initData?.gatewayId,
           orderId: initData.orderId,
           email,
           name,
