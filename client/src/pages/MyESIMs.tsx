@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { Smartphone, QrCode, Plus, Loader2, Zap, Copy, Check, Info, Calendar, Signal } from 'lucide-react';
+import { Smartphone, QrCode, Plus, Loader2, Globe } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -48,7 +48,7 @@ function RazorpayTopup({
       key: publicKey,
       amount: amount, // Amount is already in smallest unit from backend init
       currency: currency,
-      name: 'Voltey',
+      name: 'esim-master',
       description: 'Top-up Payment',
       order_id: orderId,
       prefill: { email },
@@ -86,7 +86,7 @@ function RazorpayTopup({
   return (
     <Button
       onClick={handlePayment}
-      className="w-full bg-[#3399cc] hover:bg-[#287aa3] text-white"
+      className="w-full h-11"
       disabled={isProcessing}
     >
       {isProcessing ? (
@@ -106,35 +106,43 @@ function PaypalTopup({
   orderId,
   amount,
   currency,
+  publicKey,
   onSuccess,
   onError,
 }: {
   orderId: string;
-  amount: number; // For display/context
+  amount: number;
   currency: string;
+  publicKey: string;
   onSuccess: () => void;
   onError: (msg: string) => void;
 }) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Check if PayPal SDK is loaded
-    if ((window as any).paypal) {
-      setIsLoaded(true);
-      renderPaypalButtons();
-    } else {
-      // In a real app we might want to ensure SDK is loaded here
-      // But it's usually loaded in index.html
-      const interval = setInterval(() => {
-        if ((window as any).paypal) {
-          setIsLoaded(true);
-          renderPaypalButtons();
-          clearInterval(interval);
-        }
-      }, 500);
-      return () => clearInterval(interval);
+    if (!publicKey) return;
+
+    // Ensure PayPal SDK is injected
+    if (!(window as any).paypal) {
+      const scriptId = 'paypal-js-sdk-topup';
+      if (!document.getElementById(scriptId)) {
+        const s = document.createElement('script');
+        s.id = scriptId;
+        s.src = `https://www.paypal.com/sdk/js?client-id=${publicKey}&currency=USD`;
+        s.async = true;
+        document.head.appendChild(s);
+      }
     }
-  }, [orderId]);
+
+    const interval = setInterval(() => {
+      if ((window as any).paypal) {
+        setIsLoaded(true);
+        renderPaypalButtons();
+        clearInterval(interval);
+      }
+    }, 500);
+    return () => clearInterval(interval);
+  }, [orderId, publicKey]);
 
   const renderPaypalButtons = () => {
     const container = document.getElementById('paypal-button-container-topup');
@@ -187,7 +195,7 @@ function PaystackTopup({
     <div className="text-center space-y-4">
       <Button
         onClick={() => window.location.href = redirectUrl}
-        className="w-full bg-[#0aa5db] hover:bg-[#088ab8] text-white"
+        className="w-full"
       >
         Proceed to Paystack
       </Button>
@@ -303,7 +311,7 @@ function TopupPaymentForm({
       <PaymentElement />
       <Button
         type="submit"
-        className="w-full bg-[var(--primary)] hover:bg-primary-second text-white"
+        className="w-full"
         disabled={!stripe || isProcessing}
       >
         {isProcessing ? (
@@ -351,7 +359,7 @@ export default function MyESIMsPage() {
   });
 
   // Fetch top-up packages
-  const { data: topupPackagesData } = useQuery<{ packages: any[] }>({
+  const { data: topupPackagesData, isLoading: isLoadingPackages } = useQuery<{ packages: any[] }>({
     queryKey: ['/api/esims/' + selectedOrder?.iccid + '/topup-packages'],
     enabled: !!selectedOrder?.iccid && showTopups,
   });
@@ -484,7 +492,7 @@ export default function MyESIMsPage() {
               <p className="text-slate-600 dark:text-slate-400 mb-6">
                 {t('myEsims.noEsimsDesc', 'Purchase a package to get started with your first eSIM')}
               </p>
-              <Button asChild className="bg-[var(--primary)] hover:bg-primary-second text-white">
+              <Button asChild>
                 <a href="/destinations">{t('myEsims.browsePackages', 'Browse Packages')}</a>
               </Button>
             </div>
@@ -540,42 +548,6 @@ export default function MyESIMsPage() {
                 </div>
               )}
 
-              {(instructions?.shortUrl || selectedOrder?.shortUrl) && (
-                <div className="w-full p-4 bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-800 rounded-lg">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="bg-orange-500 p-2 rounded-full">
-                      <Zap className="h-5 w-5 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-orange-900 dark:text-orange-100">{t('myOrders.quickInstallation', 'Quick Installation')}</h4>
-                      <p className="text-xs text-orange-700 dark:text-orange-300">{t('myOrders.quickInstallDesc', 'Click to automatically start setup on your device')}</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <Button 
-                      className="flex-1 bg-orange-500 hover:bg-orange-600 text-white"
-                      onClick={() => window.open(instructions?.shortUrl || selectedOrder?.shortUrl, '_blank')}
-                    >
-                      <Zap className="h-4 w-4 mr-2" />
-                      {t('myOrders.installNow', 'Install eSIM Now')}
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => {
-                        navigator.clipboard.writeText(instructions?.shortUrl || selectedOrder?.shortUrl || "");
-                        toast({
-                          title: t('common.copied', 'Copied!'),
-                          description: t('myOrders.linkCopied', 'Quick setup link copied'),
-                        });
-                      }}
-                    >
-                      <Copy className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              )}
-
               {instructions.steps && instructions.steps.length > 0 && (
                 <div>
                   <h3 className="font-semibold mb-4">
@@ -594,50 +566,14 @@ export default function MyESIMsPage() {
                 </div>
               )}
 
-              {(instructions.manual_code || (instructions.smdpAddress && instructions.activationCode)) && (
-                <div className="space-y-4">
-                  <h3 className="font-semibold">{t('myOrders.manualInstallation', 'Manual Installation')}</h3>
-                  
-                  {instructions.smdpAddress && (
-                    <div className="space-y-1">
-                      <p className="text-xs text-muted-foreground uppercase font-bold tracking-tight">SM-DP+ Address</p>
-                      <div className="flex items-center gap-2">
-                        <code className="flex-1 p-2 bg-muted rounded text-xs font-mono">{instructions.smdpAddress}</code>
-                        <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => {
-                          navigator.clipboard.writeText(instructions.smdpAddress);
-                          toast({ title: t('common.copied', 'Copied!') });
-                        }}>
-                          <Copy className="h-3 w-3" />
-                        </Button>
-                      </div>
-                    </div>
-                  )}
-
-                  {instructions.activationCode && (
-                    <div className="space-y-1">
-                      <p className="text-xs text-muted-foreground uppercase font-bold tracking-tight">Activation Code</p>
-                      <div className="flex items-center gap-2">
-                        <code className="flex-1 p-2 bg-muted rounded text-xs font-mono">{instructions.activationCode}</code>
-                        <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => {
-                          navigator.clipboard.writeText(instructions.activationCode);
-                          toast({ title: t('common.copied', 'Copied!') });
-                        }}>
-                          <Copy className="h-3 w-3" />
-                        </Button>
-                      </div>
-                    </div>
-                  )}
-
-                  {instructions.manual_code && !instructions.smdpAddress && (
-                    <div>
-                      <h3 className="text-xs text-muted-foreground uppercase font-bold tracking-tight mb-1">
-                        {t('myEsims.manualActivationCode', 'Manual Activation Code')}
-                      </h3>
-                      <code className="block p-3 bg-muted rounded-md text-sm font-mono break-all">
-                        {instructions.manual_code}
-                      </code>
-                    </div>
-                  )}
+              {instructions.manual_code && (
+                <div>
+                  <h3 className="font-semibold mb-2">
+                    {t('myEsims.manualActivationCode', 'Manual Activation Code')}
+                  </h3>
+                  <code className="block p-3 bg-muted rounded-md text-sm font-mono break-all">
+                    {instructions.manual_code}
+                  </code>
                 </div>
               )}
             </div>
@@ -765,6 +701,7 @@ export default function MyESIMsPage() {
                         orderId={paymentConfig.orderId}
                         amount={paymentConfig.amount}
                         currency={paymentConfig.currency}
+                        publicKey={paymentConfig.publicKey}
                         onSuccess={handleTopupSuccess}
                         onError={(msg) => toast({ title: "Payment Error", description: msg, variant: "destructive" })}
                       />
@@ -794,7 +731,14 @@ export default function MyESIMsPage() {
               </div>
             ) : (
               <div className="grid grid-cols-1 gap-4">
-                {topupPackages.length > 0 ? (
+                {isLoadingPackages ? (
+                  <div className="flex flex-col items-center justify-center py-12 space-y-4">
+                    <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                    <p className="text-sm text-muted-foreground">
+                      {t('myEsims.loadingPackages', 'Loading available top-up packages...')}
+                    </p>
+                  </div>
+                ) : topupPackages.length > 0 ? (
                   topupPackages.map((pkg: any, index: number) => (
                     <div
                       key={index}
@@ -815,7 +759,6 @@ export default function MyESIMsPage() {
                         <p className="text-lg font-bold text-foreground">${pkg.customer_price || pkg.price}</p>
                         <Button
                           size="sm"
-                          className="bg-[var(--primary)] hover:bg-primary-second text-white"
                           data-testid={`button-select-topup-${index}`}
                         >
                           {t('myEsims.select', 'Select')}
@@ -863,60 +806,61 @@ function ESimCard({
     return `${mb} MB`;
   };
 
+
   const status =
-    usage?.status === 'active'
+    usage?.status === 'active' || (order as any).esimStatus === 'active'
       ? 'active'
-      : usage?.expiresAt && new Date(usage.expiresAt) < new Date()
+      : usage?.status === 'expired' || (usage?.expiresAt && new Date(usage.expiresAt) < new Date()) || (order as any).esimStatus === 'expired'
         ? 'expired'
         : 'inactive';
 
-  return (
-    <Card className="hover-elevate overflow-hidden" data-testid={`card-esim-${order.id}`}>
-      <div className="h-1 bg-orange-500 w-full" />
-      <CardHeader className="pb-3">
-        <div className="flex items-start justify-between">
-          <div className="flex items-center gap-3">
-            <span className="text-2xl">{order.package?.destination?.flagEmoji || "🌍"}</span>
-            <div className="flex-1">
-              <CardTitle className="text-base font-bold flex flex-col">
-                <span>{order.package?.destination?.name || 'eSIM'}</span>
-                <span className="text-xs font-normal text-muted-foreground line-clamp-1">
-                  {order.package?.title || `${order.dataAmount || ''} - ${order.validity || ''} Days`}
-                </span>
-              </CardTitle>
-            </div>
-          </div>
 
-          <Badge
-            variant={
-              status === 'active' ? 'default' : status === 'expired' ? 'destructive' : 'secondary'
-            }
-            className="text-[10px] px-2 py-0 h-5"
-          >
-            {status === 'active'
-              ? t('myEsims.active', 'Active')
-              : status === 'expired'
-                ? t('myEsims.expired', 'Expired')
-                : t('myEsims.inactive', 'Inactive')}
-          </Badge>
+  return (
+    <Card className="hover-elevate h-full" data-testid={`card-esim-${order.id}`}>
+      <CardHeader>
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-full overflow-hidden bg-muted flex items-center justify-center flex-shrink-0 border-2 border-gray-100 dark:border-gray-700">
+            {order.package?.destination?.countryCode ? (
+              <img
+                src={`https://flagcdn.com/${order.package.destination.countryCode.toLowerCase()}.svg`}
+                alt={order.package.destination.name || 'Flag'}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <Globe className="w-6 h-6 text-muted-foreground" />
+            )}
+          </div>
+          <div className="flex-1 min-w-0">
+            <CardTitle className="text-lg font-bold flex flex-col gap-1">
+              <span className="truncate">{order.package?.destination?.name || 'eSIM'}</span>
+              <span className="text-sm font-normal text-muted-foreground truncate">
+                {order.package?.title || `${order.dataAmount || ''} - ${order.validity || ''} Days`}
+              </span>
+            </CardTitle>
+          </div>
+          <div className="flex-shrink-0 self-start">
+            <Badge
+              variant={
+                status === 'active' ? 'default' : status === 'expired' ? 'destructive' : 'secondary'
+              }
+            >
+              {status === 'active'
+                ? t('myEsims.active', 'Active')
+                : status === 'expired'
+                  ? t('myEsims.expired', 'Expired')
+                  : t('myEsims.inactive', 'Inactive')}
+            </Badge>
+          </div>
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-4 pt-0">
-        {/* ICCID and Basic Info */}
-        <div className="grid grid-cols-2 gap-2 p-2 bg-muted/50 rounded-lg">
-          <div>
-            <p className="text-[10px] uppercase text-muted-foreground tracking-wider font-semibold">ICCID</p>
-            <p className="text-xs font-mono mt-0.5 truncate" data-testid="text-iccid">
-              {order.iccid || 'N/A'}
-            </p>
-          </div>
-          <div>
-            <p className="text-[10px] uppercase text-muted-foreground tracking-wider font-semibold">Validity</p>
-            <p className="text-xs font-medium mt-0.5">
-              {order.validity} {t('common.days', 'Days')}
-            </p>
-          </div>
+      <CardContent className="space-y-4">
+        {/* ICCID */}
+        <div>
+          <p className="text-xs text-muted-foreground">ICCID</p>
+          <p className="text-sm font-mono mt-1" data-testid="text-iccid">
+            {order.iccid || 'N/A'}
+          </p>
         </div>
 
         {/* Loading Skeleton */}
@@ -962,41 +906,28 @@ function ESimCard({
         )}
 
         {/* Action Buttons */}
-        <div className="flex flex-col gap-2 pt-2">
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              className="flex-1"
-              onClick={onViewInstructions}
-              data-testid="button-view-instructions"
-            >
-              <QrCode className="mr-2 h-4 w-4" />
-              {t('myEsims.setup', 'Setup')}
-            </Button>
+        <div className="flex gap-2 pt-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className="flex-1"
+            onClick={onViewInstructions}
+            data-testid="button-view-instructions"
+          >
+            <QrCode className="mr-2 h-4 w-4" />
+            {t('myEsims.setup', 'Setup')}
+          </Button>
 
-            <Button
-              size="sm"
-              className="flex-1"
-              onClick={onViewTopups}
-              disabled={usage?.status !== 'active'}
-              data-testid="button-purchase-topup"
-            >
-              <Plus className="mr-2 h-4 w-4" />
-              {t('myEsims.topUp', 'Top Up')}
-            </Button>
-          </div>
-
-          {(order.shortUrl) && (
-            <Button
-              size="sm"
-              className="w-full bg-orange-500 hover:bg-orange-600 text-white"
-              onClick={() => window.open(order.shortUrl, '_blank')}
-            >
-              <Zap className="mr-2 h-4 w-4" />
-              {t('myOrders.quickSetup', 'Quick Setup')}
-            </Button>
-          )}
+          <Button
+            size="sm"
+            className="flex-1"
+            onClick={onViewTopups}
+            disabled={isLoading || status === 'inactive' || status === 'expired'}
+            data-testid="button-purchase-topup"
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            {t('myEsims.topUp', 'Top Up')}
+          </Button>
         </div>
       </CardContent>
     </Card>

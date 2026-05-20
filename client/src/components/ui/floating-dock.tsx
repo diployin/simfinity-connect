@@ -37,7 +37,7 @@ const FloatingDockMobile = ({
   const [location] = useLocation();
   
   return (
-    <div className={cn("fixed inset-x-0 bottom-0 z-[9999] block md:hidden", className)}>
+    <div className={cn("fixed inset-x-0 bottom-0 z-40 block md:hidden", className)}>
       <div 
         className="flex items-center justify-around mx-3 mb-3 rounded-2xl px-2 py-2 gap-0.5 bg-white/95 dark:bg-neutral-900/95 backdrop-blur-xl border border-neutral-200/50 dark:border-neutral-700/50 shadow-lg"
         style={{ paddingBottom: 'max(0.5rem, env(safe-area-inset-bottom))' }}

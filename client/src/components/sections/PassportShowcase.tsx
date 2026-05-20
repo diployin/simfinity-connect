@@ -105,18 +105,18 @@ export function PassportShowcase() {
             </p>
 
             <div
-              className={`flex items-center gap-3 mb-8 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+              className={`flex flex-wrap items-center gap-x-4 gap-y-2 mb-8 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             >
               <div className="flex items-center gap-1.5 text-slate-400 text-sm">
                 <Globe className="w-4 h-4 text-[var(--primary-light)]" />
                 <span>190+ Countries</span>
               </div>
-              <div className="w-1 h-1 rounded-full bg-slate-600" />
+              <div className="hidden sm:block w-1 h-1 rounded-full bg-slate-600" />
               <div className="flex items-center gap-1.5 text-slate-400 text-sm">
                 <Zap className="w-4 h-4 text-amber-400" />
                 <span>5000mAh Battery</span>
               </div>
-              <div className="w-1 h-1 rounded-full bg-slate-600" />
+              <div className="hidden sm:block w-1 h-1 rounded-full bg-slate-600" />
               <div className="flex items-center gap-1.5 text-slate-400 text-sm">
                 <Shield className="w-4 h-4 text-blue-400" />
                 <span>DPN Protected</span>
