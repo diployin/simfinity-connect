@@ -43,7 +43,7 @@ export default function DownloadApp() {
                   <Download className="w-4 h-4 text-white" />
                   <span className="text-sm font-medium text-white">Download App</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
                   Get the {siteName}{' '}
                   <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">app</span>
                 </h1>

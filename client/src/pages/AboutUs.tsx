@@ -71,7 +71,7 @@ export function AboutUs() {
       {/* Hero Section */}
       <section className="py-20 md:py-28 lg:py-36 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
             About <span style={{ color: 'var(--primary)' }}>Us</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-900 font-medium max-w-3xl mx-auto leading-relaxed mb-6">
@@ -344,7 +344,7 @@ export function AboutUs() {
             className="rounded-3xl px-8 py-16 md:px-16 md:py-20 text-center shadow-xl"
             style={{ background: 'linear-gradient(135deg, var(--primary), #3a9c4d, var(--primary))' }}
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
               Travel smarter. Stay connected everywhere.
             </h2>
             <p className="text-green-100 text-lg md:text-xl max-w-2xl mx-auto mb-8 font-medium">

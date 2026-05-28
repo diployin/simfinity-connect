@@ -85,7 +85,7 @@ export default function DataUsageCalculator() {
               <Calculator className="w-4 h-4" />
               Plan Calculator
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
               How much data do you <span className="text-[var(--primary)]">need?</span>
             </h1>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">

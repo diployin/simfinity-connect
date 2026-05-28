@@ -48,7 +48,7 @@ export default function BecomeAffiliate() {
               <TrendingUp className="w-4 h-4 text-white" />
               <span className="text-sm font-medium text-white">Affiliate Program</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
               Earn money promoting{' '}
               <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">travel connectivity</span>
             </h1>

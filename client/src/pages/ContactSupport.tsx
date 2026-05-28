@@ -142,7 +142,7 @@ export function ContactSupport() {
             <Clock className="w-4 h-4" />
             24/7 Human Support
           </div>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
             How can we <span className="text-[var(--primary)]">help you?</span>
           </h1>
           <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
@@ -361,7 +361,7 @@ export function ContactSupport() {
                <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-600 rounded-full blur-[120px] translate-x-1/2 translate-y-1/2" />
              </div>
              <div className="relative z-10">
-               <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Join the global connectivity revolution</h2>
+               <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-6">Join the global connectivity revolution</h2>
                <p className="text-slate-400 text-xl max-w-2xl mx-auto mb-10">Experience the world without roaming fees. Your journey starts with {siteName}.</p>
                <Button 
                 onClick={() => window.location.href='/destinations'}

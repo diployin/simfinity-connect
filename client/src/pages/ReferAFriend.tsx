@@ -48,7 +48,7 @@ export default function ReferAFriend() {
                   <Gift className="w-4 h-4" />
                   Referral Program
                 </div>
-                <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
+                <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
                   Refer a friend, and you'll both get <span className="text-[var(--primary)]">$5!</span>
                 </h1>
                 <p className="text-xl text-slate-600 leading-relaxed mb-8">

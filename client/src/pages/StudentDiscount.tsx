@@ -36,7 +36,7 @@ export default function StudentDiscount() {
                   <GraduationCap className="w-4 h-4 text-white" />
                   <span className="text-sm font-medium text-white">Student Program</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
                   <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">15% off</span>{' '}
                   for students
                 </h1>
@@ -52,7 +52,7 @@ export default function StudentDiscount() {
                   <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center mx-auto mb-6">
                     <Percent className="w-10 h-10 text-white" />
                   </div>
-                  <p className="text-5xl font-bold text-white mb-2">15%</p>
+                  <p className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2">15%</p>
                   <p className="text-xl text-primary-light font-semibold mb-4">Student Discount</p>
                   <p className="text-slate-400 text-sm">Valid on all eSIM plans with a verified student email</p>
                 </div>

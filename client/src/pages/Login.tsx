@@ -483,10 +483,10 @@ export default function Login() {
 
         <div className="relative z-10 max-w-lg">
           <div className="mb-12">
-            <h1 className="text-5xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight leading-[1.1]">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight leading-[1.1]">
               Stay Connected <br /><span className="text-primary">Anywhere</span>
             </h1>
-            <p className="text-xl text-slate-600 dark:text-zinc-400 leading-relaxed font-medium">
+            <p className="text-lg sm:text-xl text-slate-600 dark:text-zinc-400 leading-relaxed font-medium">
               Join millions of travelers using Voltey eSIM for seamless, borderless connectivity.
             </p>
           </div>

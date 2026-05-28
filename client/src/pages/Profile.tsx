@@ -323,10 +323,10 @@ export default function Profile() {
       </Helmet>
 
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-foreground">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-foreground">
           {t('profile.title', 'My Profile')}
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-sm sm:text-base text-muted-foreground">
           {t('profile.description', 'Manage your account information and settings')}
         </p>
       </div>
@@ -349,8 +349,8 @@ export default function Profile() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-center gap-4">
-                <div className="relative w-20 h-20">
+              <div className="flex items-center gap-4 min-w-0">
+                <div className="relative w-20 h-20 flex-shrink-0">
                   {/* Avatar */}
                   <label htmlFor="profileImage" className="cursor-pointer">
                     <div className="w-20 h-20 rounded-full overflow-hidden border bg-muted flex items-center justify-center">
@@ -381,20 +381,20 @@ export default function Profile() {
                   />
                 </div>
 
-                <div className="flex-1">
-                  <div className="font-semibold text-lg">
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-lg truncate">
                     {user?.name || t('profile.noNameSet', 'No name set')}
                   </div>
-                  <div className="text-sm text-muted-foreground flex items-center gap-2">
-                    <Mail className="h-4 w-4" />
-                    {user?.email}
+                  <div className="text-sm text-muted-foreground flex items-center gap-2 min-w-0">
+                    <Mail className="h-4 w-4 flex-shrink-0" />
+                    <span className="truncate">{user?.email}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between p-4 rounded-lg border">
-                <div className="flex items-center gap-3">
-                  <Shield className="h-5 w-5 text-muted-foreground" />
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-lg border gap-4">
+                <div className="flex items-start gap-3">
+                  <Shield className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
                   <div>
                     <div className="font-medium">
                       {t('profile.kycVerification', 'KYC Verification')}
@@ -404,17 +404,17 @@ export default function Profile() {
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
                   <Badge
                     variant={getKycStatusBadge(user?.kycStatus).variant}
-                    className={getKycStatusBadge(user?.kycStatus).className}
+                    className={cn("flex-shrink-0", getKycStatusBadge(user?.kycStatus).className)}
                     data-testid="badge-kyc-status"
                   >
                     {getKycStatusBadge(user?.kycStatus).label}
                   </Badge>
                   {user?.kycStatus !== 'approved' && (
                     <Link href="/account/kyc">
-                      <Button variant="outline" size="sm" data-testid="button-verify-kyc">
+                      <Button variant="outline" size="sm" data-testid="button-verify-kyc" className="flex-shrink-0">
                         {user?.kycStatus === 'pending'
                           ? t('profile.submitKYC', 'Submit KYC')
                           : t('profile.viewStatus', 'View Status')}

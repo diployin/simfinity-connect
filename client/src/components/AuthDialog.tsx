@@ -168,12 +168,12 @@ export function AuthDialog() {
                     disabled={verifyOTP.isPending}
                     data-testid="input-auth-otp"
                   >
-                    <InputOTPGroup className="gap-3 sm:gap-2">
+                    <InputOTPGroup className="gap-1.5 min-[375px]:gap-2 sm:gap-2">
                       {[0, 1, 2, 3, 4, 5].map((i) => (
                         <InputOTPSlot 
                           key={i}
                           index={i} 
-                          className="w-12 h-16 sm:w-10 sm:h-14 text-2xl font-bold rounded-2xl sm:rounded-xl border-2 border-gray-100 focus:border-primary transition-all shadow-sm" 
+                          className="w-8 h-12 min-[360px]:w-9 min-[360px]:h-13 min-[390px]:w-10 min-[390px]:h-14 sm:w-10 sm:h-14 text-lg min-[360px]:text-xl sm:text-2xl font-bold rounded-xl sm:rounded-xl border-2 border-gray-100 focus:border-primary transition-all shadow-sm" 
                         />
                       ))}
                     </InputOTPGroup>

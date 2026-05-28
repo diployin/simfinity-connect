@@ -56,7 +56,7 @@ export default function SecurityFeatures() {
               <Shield className="w-4 h-4" />
               Security First
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
               Travel safely with <span className="text-[var(--primary)]">enterprise-grade security</span>
             </h1>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-10">

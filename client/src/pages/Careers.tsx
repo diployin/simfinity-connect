@@ -55,7 +55,7 @@ export default function Careers() {
               <Sparkles className="w-4 h-4" />
               We're hiring
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
               Build the future of <span className="text-[var(--primary)]">global connectivity</span>
             </h1>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-10">
@@ -121,7 +121,7 @@ export default function Careers() {
                 <div className="absolute top-10 right-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl" />
               </div>
               <div className="relative z-10">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Don't see the right role?</h2>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">Don't see the right role?</h2>
                 <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">We're always looking for talented people. Send us your resume and we'll keep you in mind for future openings.</p>
                 <button className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-bold text-lg hover:bg-slate-100 transition-colors">
                   Send Your Resume <ArrowRight className="w-5 h-5" />

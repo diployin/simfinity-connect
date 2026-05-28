@@ -100,7 +100,7 @@ export function LanguageSwitcher() {
 
       <DropdownMenuContent align="end" className="w-56">
         <div className="px-3 py-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
-          {t?.("common.button.selectLanguage") || "Select Language"}
+          { "Select Language"}
         </div>
 
         {(languages || []).map((lang) => (

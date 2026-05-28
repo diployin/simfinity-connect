@@ -143,7 +143,7 @@ export default function Business() {
               {siteName} for Business
             </div>
 
-            <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
               Manage all your team's eSIM plans from <span className="text-[var(--primary)]">one dashboard</span>
             </h1>
 
@@ -298,7 +298,7 @@ export default function Business() {
               </div>
 
               <div className="relative z-10">
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
                   Ready to get your team connected?
                 </h2>
                 <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">

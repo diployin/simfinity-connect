@@ -97,7 +97,7 @@ export function Troubleshooting() {
               <LifeBuoy className="w-4 h-4" />
               Support Center
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-6">
               Having <span className="text-green-400">Trouble?</span><br />
               Let’s fix it together.
             </h1>

@@ -204,8 +204,8 @@ export default function MyOrders() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-foreground">{t('myOrders.title', 'My Orders')}</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-foreground">{t('myOrders.title', 'My Orders')}</h1>
+        <p className="text-sm sm:text-base text-muted-foreground">
           {t('myOrders.description', 'View and manage your eSIM purchases')}
         </p>
       </div>
@@ -219,7 +219,7 @@ export default function MyOrders() {
           {orders.map((order) => (
             <Card key={order.id} className="hover-elevate" data-testid={`card-order-${order.id}`}>
               <CardHeader>
-                <div className="flex items-start justify-between">
+                <div className="flex items-start justify-between gap-3 flex-wrap sm:flex-nowrap">
                   <div className="flex items-center gap-3">
                     <span className="text-3xl">{order.package.destination?.flagEmoji || "🌍"}</span>
                     <div>
@@ -293,10 +293,11 @@ export default function MyOrders() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex flex-col sm:flex-row gap-2">
                       <Button
                         onClick={() => handleViewDetails(order)}
                         size="sm"
+                        className="w-full sm:w-auto"
                         data-testid={`button-view-details-${order.id}`}
                       >
                         <Smartphone className="h-4 w-4 mr-2" />
@@ -305,6 +306,7 @@ export default function MyOrders() {
                       <Button
                         variant="outline"
                         size="sm"
+                        className="w-full sm:w-auto"
                         onClick={() => order.qrCode && window.open(order.qrCode, '_blank')}
                         disabled={!order.qrCode}
                         data-testid={`button-qr-${order.id}`}
@@ -314,7 +316,7 @@ export default function MyOrders() {
                       </Button>
                       {(order.shortUrl || esim?.shortUrl) && (
                         <Button
-                          className="bg-orange-500 hover:bg-orange-600 text-white"
+                          className="bg-orange-500 hover:bg-orange-600 text-white w-full sm:w-auto"
                           size="sm"
                           onClick={() => window.open(order.shortUrl || esim?.shortUrl, '_blank')}
                           data-testid={`button-quick-setup-${order.id}`}
@@ -552,10 +554,10 @@ export default function MyOrders() {
           </DialogHeader>
 
           <Tabs defaultValue="details" className="mt-4">
-            <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="details" data-testid="tab-details">Details</TabsTrigger>
-              <TabsTrigger value="installation" data-testid="tab-installation">Installation</TabsTrigger>
-              <TabsTrigger value="usage" data-testid="tab-usage">Usage</TabsTrigger>
+            <TabsList className="flex sm:grid w-full sm:grid-cols-3 overflow-x-auto scrollbar-none justify-start whitespace-nowrap">
+              <TabsTrigger value="details" data-testid="tab-details" className="flex-1 sm:flex-none">Details</TabsTrigger>
+              <TabsTrigger value="installation" data-testid="tab-installation" className="flex-1 sm:flex-none">Installation</TabsTrigger>
+              <TabsTrigger value="usage" data-testid="tab-usage" className="flex-1 sm:flex-none">Usage</TabsTrigger>
               {/* <TabsTrigger value="topups" data-testid="tab-topups">Top-Ups</TabsTrigger> */}
             </TabsList>
 
@@ -592,11 +594,11 @@ export default function MyOrders() {
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-3">
-                        <div className="flex justify-between items-center border-b pb-2">
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 border-b pb-2">
                           <span className="text-sm text-muted-foreground">ICCID</span>
-                          <div className="flex items-center gap-2">
-                            <span className="font-mono text-xs font-semibold">{esim.iccid || selectedOrder?.iccid}</span>
-                            <Button variant="ghost" size="icon" className="h-6 w-6" onClick={() => copyToClipboard(esim.iccid || selectedOrder?.iccid, "ICCID")}>
+                          <div className="flex items-center gap-2 max-w-full min-w-0">
+                            <span className="font-mono text-xs font-semibold break-all">{esim.iccid || selectedOrder?.iccid}</span>
+                            <Button variant="ghost" size="icon" className="h-6 w-6 flex-shrink-0" onClick={() => copyToClipboard(esim.iccid || selectedOrder?.iccid, "ICCID")}>
                               <Copy className="h-3 w-3" />
                             </Button>
                           </div>
@@ -722,7 +724,7 @@ export default function MyOrders() {
                           {esim.package.id && (
                             <div className="col-span-2">
                               <p className="text-sm text-muted-foreground">Package ID</p>
-                              <p className="text-xs font-mono">{esim.package.id}</p>
+                              <p className="text-xs font-mono break-all">{esim.package.id}</p>
                             </div>
                           )}
                           {esim.package.data && (
@@ -916,6 +918,7 @@ export default function MyOrders() {
                             <Button
                               variant="outline"
                               size="icon"
+                              className="flex-shrink-0"
                               onClick={() => copyToClipboard(instructions.manual_code, "manual_code")}
                               data-testid="button-copy-code"
                             >
@@ -1029,13 +1032,13 @@ export default function MyOrders() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 pt-4 border-t">
-                      <div className="p-4 rounded-lg border bg-muted/30">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t">
+                      <div className="p-4 rounded-lg border bg-muted/30 min-w-0">
                         <p className="text-xs text-muted-foreground">ICCID</p>
-                        <p className="text-sm font-semibold truncate">{usage.iccid || "N/A"}</p>
+                        <p className="text-sm font-semibold break-all">{usage.iccid || "N/A"}</p>
                       </div>
 
-                      <div className="p-4 rounded-lg border bg-muted/30">
+                      <div className="p-4 rounded-lg border bg-muted/30 min-w-0">
                         <p className="text-xs text-muted-foreground">Validity</p>
                         <p className="text-sm font-semibold">
                           {usage.expiresAt ? new Date(usage.expiresAt).toLocaleDateString() : "N/A"}

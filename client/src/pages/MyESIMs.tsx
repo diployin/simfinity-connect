@@ -461,10 +461,10 @@ export default function MyESIMsPage() {
   return (
     <div data-testid="page-my-esims">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-foreground">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-foreground">
           {t('myEsims.title', 'My eSIMs')}
         </h1>
-        <p className="text-muted-foreground">
+        <p className="text-sm sm:text-base text-muted-foreground">
           {t('myEsims.description', 'Manage your active eSIM packages and data usage')}
         </p>
       </div>
@@ -818,8 +818,8 @@ function ESimCard({
   return (
     <Card className="hover-elevate h-full" data-testid={`card-esim-${order.id}`}>
       <CardHeader>
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full overflow-hidden bg-muted flex items-center justify-center flex-shrink-0 border-2 border-gray-100 dark:border-gray-700">
+        <div className="flex items-center gap-3 sm:gap-4">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-muted flex items-center justify-center flex-shrink-0 border-2 border-gray-100 dark:border-gray-700">
             {order.package?.destination?.countryCode ? (
               <img
                 src={`https://flagcdn.com/${order.package.destination.countryCode.toLowerCase()}.svg`}
@@ -827,7 +827,7 @@ function ESimCard({
                 className="w-full h-full object-cover"
               />
             ) : (
-              <Globe className="w-6 h-6 text-muted-foreground" />
+              <Globe className="w-5 h-5 sm:w-6 sm:h-6 text-muted-foreground" />
             )}
           </div>
           <div className="flex-1 min-w-0">
@@ -858,7 +858,7 @@ function ESimCard({
         {/* ICCID */}
         <div>
           <p className="text-xs text-muted-foreground">ICCID</p>
-          <p className="text-sm font-mono mt-1" data-testid="text-iccid">
+          <p className="text-sm font-mono mt-1 break-all" data-testid="text-iccid">
             {order.iccid || 'N/A'}
           </p>
         </div>
