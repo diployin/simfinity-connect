@@ -98,152 +98,157 @@ export function AuthDialog() {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader className="text-center pb-2">
-          <div className="mx-auto mb-4 w-12 h-12 rounded-full gradient-primary flex items-center justify-center">
-            <Wifi className="h-6 w-6 text-white" />
-          </div>
-          <DialogTitle className="text-2xl font-bold text-center">
-            {step === "success" ? "You're in!" : title}
-          </DialogTitle>
-          <DialogDescription className="text-center">
-            {step === "success"
-              ? "Successfully authenticated"
-              : step === "otp"
-              ? `Enter the 6-digit code sent to ${email}`
-              : subtitle}
-          </DialogDescription>
-        </DialogHeader>
-
-        {step === "email" && (
-          <form onSubmit={handleEmailSubmit} className="space-y-4 pt-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email address</Label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="pl-10"
-                  required
-                  data-testid="input-auth-email"
-                />
-              </div>
+      <DialogContent className="w-full h-full sm:h-auto sm:max-w-md max-h-screen sm:max-h-[90vh] overflow-y-auto p-0 sm:p-10 flex flex-col justify-center sm:justify-start bg-background border-none sm:border sm:rounded-3xl shadow-none sm:shadow-2xl">
+        <div className="w-full h-full p-6 sm:p-0 flex flex-col">
+          <DialogHeader className="text-center pb-2 flex-shrink-0">
+            <div className="mx-auto mb-4 w-12 h-12 rounded-full gradient-primary flex items-center justify-center shadow-lg shadow-primary/20">
+              <Wifi className="h-6 w-6 text-white" />
             </div>
-            <Button
-              type="submit"
-              className="w-full gradient-primary"
-              disabled={requestOTP.isPending}
-              data-testid="button-auth-continue"
-            >
-              {requestOTP.isPending ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Sending code...
-                </>
+            <DialogTitle className="text-2xl sm:text-3xl font-bold text-center tracking-tight">
+              {step === "success" ? "You're in!" : title}
+            </DialogTitle>
+            <DialogDescription className="text-center text-base sm:text-sm text-muted-foreground mt-2">
+              {step === "success"
+                ? "Successfully authenticated"
+                : step === "otp"
+                ? `Enter the 6-digit code sent to ${email}`
+                : subtitle}
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="flex-1 flex flex-col justify-center sm:justify-start py-4 sm:py-0">
+            {step === "email" && (
+              <form onSubmit={handleEmailSubmit} className="space-y-6 sm:space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-sm font-semibold ml-1">Email address</Label>
+                  <div className="relative group">
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="you@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="pl-12 h-14 sm:h-12 text-base sm:text-sm rounded-2xl sm:rounded-xl border-gray-200 focus:ring-primary/20"
+                      required
+                      data-testid="input-auth-email"
+                    />
+                  </div>
+                </div>
+                <Button
+                  type="submit"
+                  className="w-full h-14 sm:h-12 text-base sm:text-sm font-bold gradient-primary rounded-2xl sm:rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/30 active:scale-[0.98] transition-all"
+                  disabled={requestOTP.isPending}
+                  data-testid="button-auth-continue"
+                >
+                  {requestOTP.isPending ? (
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      Sending code...
+                    </>
+                  ) : (
+                    "Continue with Email"
+                  )}
+                </Button>
+              </form>
+            )}
+
+            {step === "otp" && (
+              <div className="space-y-8 sm:space-y-6">
+                <div className="flex justify-center">
+                  <InputOTP
+                    maxLength={6}
+                    value={otp}
+                    onChange={(value) => {
+                      setOtp(value);
+                      if (value.length === 6) {
+                        handleOTPSubmit(value);
+                      }
+                    }}
+                    disabled={verifyOTP.isPending}
+                    data-testid="input-auth-otp"
+                  >
+                    <InputOTPGroup className="gap-3 sm:gap-2">
+                      {[0, 1, 2, 3, 4, 5].map((i) => (
+                        <InputOTPSlot 
+                          key={i}
+                          index={i} 
+                          className="w-12 h-16 sm:w-10 sm:h-14 text-2xl font-bold rounded-2xl sm:rounded-xl border-2 border-gray-100 focus:border-primary transition-all shadow-sm" 
+                        />
+                      ))}
+                    </InputOTPGroup>
+                  </InputOTP>
+                </div>
+
+                {verifyOTP.isPending && (
+                  <div className="flex justify-center">
+                    <Loader2 className="h-10 w-10 animate-spin text-primary" />
+                  </div>
+                )}
+
+                <div className="flex flex-col items-center gap-6 sm:gap-3 text-base sm:text-sm">
+                  <button
+                    type="button"
+                    onClick={() => setStep("email")}
+                    className="text-muted-foreground hover:text-foreground flex items-center gap-2 transition-colors py-3 px-6 rounded-full hover:bg-gray-50"
+                    data-testid="button-auth-back"
+                  >
+                    <ArrowLeft className="h-5 w-5 sm:h-4 sm:w-4" />
+                    Change email
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleEmailSubmit}
+                    disabled={requestOTP.isPending}
+                    className="text-primary hover:text-primary-dark transition-colors font-bold p-3"
+                    data-testid="button-auth-resend"
+                  >
+                    {requestOTP.isPending ? "Sending..." : "Resend code"}
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {step === "success" && (
+              <div className="flex flex-col items-center py-12 sm:py-8">
+                <div className="h-24 w-24 sm:h-20 sm:w-20 rounded-full bg-accent/10 flex items-center justify-center mb-8 sm:mb-6 animate-in zoom-in-50 duration-300">
+                  <CheckCircle2 className="h-12 w-12 sm:h-10 sm:w-10 text-accent" />
+                </div>
+                <p className="text-xl sm:text-base text-muted-foreground font-semibold">Redirecting you now...</p>
+              </div>
+            )}
+          </div>
+
+          {step === "email" && (
+            <div className="text-center pt-8 sm:pt-6 border-t border-gray-100 flex-shrink-0">
+              {isSignUp ? (
+                <p className="text-base sm:text-sm text-muted-foreground">
+                  Already have an account?{" "}
+                  <button
+                    type="button"
+                    onClick={openSignIn}
+                    className="text-primary hover:underline font-bold sm:font-semibold p-3"
+                    data-testid="button-auth-switch-signin"
+                  >
+                    Sign in
+                  </button>
+                </p>
               ) : (
-                "Continue with Email"
+                <p className="text-base sm:text-sm text-muted-foreground">
+                  Don't have an account?{" "}
+                  <button
+                    type="button"
+                    onClick={openSignUp}
+                    className="text-primary hover:underline font-bold sm:font-semibold p-3"
+                    data-testid="button-auth-switch-signup"
+                  >
+                    Sign up
+                  </button>
+                </p>
               )}
-            </Button>
-          </form>
-        )}
-
-        {step === "otp" && (
-          <div className="space-y-4 pt-4">
-            <div className="flex justify-center">
-              <InputOTP
-                maxLength={6}
-                value={otp}
-                onChange={(value) => {
-                  setOtp(value);
-                  if (value.length === 6) {
-                    handleOTPSubmit(value);
-                  }
-                }}
-                disabled={verifyOTP.isPending}
-                data-testid="input-auth-otp"
-              >
-                <InputOTPGroup>
-                  <InputOTPSlot index={0} />
-                  <InputOTPSlot index={1} />
-                  <InputOTPSlot index={2} />
-                  <InputOTPSlot index={3} />
-                  <InputOTPSlot index={4} />
-                  <InputOTPSlot index={5} />
-                </InputOTPGroup>
-              </InputOTP>
             </div>
-
-            {verifyOTP.isPending && (
-              <div className="flex justify-center">
-                <Loader2 className="h-6 w-6 animate-spin text-primary" />
-              </div>
-            )}
-
-            <div className="flex flex-col items-center gap-2 text-sm">
-              <button
-                type="button"
-                onClick={() => setStep("email")}
-                className="text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors"
-                data-testid="button-auth-back"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                Change email
-              </button>
-              <button
-                type="button"
-                onClick={handleEmailSubmit}
-                disabled={requestOTP.isPending}
-                className="text-primary hover:text-primary/80 transition-colors"
-                data-testid="button-auth-resend"
-              >
-                {requestOTP.isPending ? "Sending..." : "Resend code"}
-              </button>
-            </div>
-          </div>
-        )}
-
-        {step === "success" && (
-          <div className="flex flex-col items-center py-6">
-            <div className="h-16 w-16 rounded-full bg-accent/10 flex items-center justify-center mb-4">
-              <CheckCircle2 className="h-8 w-8 text-accent" />
-            </div>
-            <p className="text-sm text-muted-foreground">Redirecting you now...</p>
-          </div>
-        )}
-
-        {step === "email" && (
-          <div className="text-center pt-4 border-t">
-            {isSignUp ? (
-              <p className="text-sm text-muted-foreground">
-                Already have an account?{" "}
-                <button
-                  type="button"
-                  onClick={openSignIn}
-                  className="text-primary hover:underline font-medium"
-                  data-testid="button-auth-switch-signin"
-                >
-                  Sign in
-                </button>
-              </p>
-            ) : (
-              <p className="text-sm text-muted-foreground">
-                Don't have an account?{" "}
-                <button
-                  type="button"
-                  onClick={openSignUp}
-                  className="text-primary hover:underline font-medium"
-                  data-testid="button-auth-switch-signup"
-                >
-                  Sign up
-                </button>
-              </p>
-            )}
-          </div>
-        )}
+          )}
+        </div>
       </DialogContent>
     </Dialog>
   );

@@ -457,128 +457,113 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex bg-background">
       {/* Left Side - Platform Benefits */}
-      <div className="hidden lg:flex lg:w-1/2 bg-white border-r border-border p-12 flex-col justify-between relative overflow-hidden dark:bg-zinc-950">
+      <div className="hidden lg:flex lg:w-1/2 bg-white border-r border-border p-16 flex-col justify-between relative overflow-hidden dark:bg-zinc-950">
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-20 left-20 w-72 h-72 rounded-full bg-primary blur-3xl" />
-          <div className="absolute bottom-20 right-20 w-96 h-96 rounded-full bg-primary blur-3xl" />
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+          <div className="absolute top-20 left-20 w-[500px] h-[500px] rounded-full bg-primary blur-[120px]" />
+          <div className="absolute bottom-20 right-20 w-[600px] h-[600px] rounded-full bg-primary blur-[150px]" />
         </div>
 
         <div className="relative z-10">
           <Link href="/">
             {logo ? (
-              <img className="h-16 rounded-lg" src={logo} />
+              <img className="h-12 rounded-xl shadow-sm hover:scale-105 transition-transform" src={logo} alt={siteName || 'Voltey'} />
             ) : (
-              <div className="flex items-center gap-2 text-slate-900 dark:text-white cursor-pointer" data-testid="link-logo">
-                <Globe className="h-8 w-8 text-primary" />
-                <span className="font-bold text-2xl text-slate-900 dark:text-white">{siteName || 'Voltey'}</span>
+              <div className="flex items-center gap-3 text-slate-900 dark:text-white cursor-pointer group" data-testid="link-logo">
+                <div className="h-10 w-10 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20 group-hover:rotate-12 transition-transform">
+                  <Globe className="h-6 w-6 text-white" />
+                </div>
+                <span className="font-bold text-3xl tracking-tight text-slate-900 dark:text-white">{siteName || 'Voltey'}</span>
               </div>
             )}
           </Link>
         </div>
 
-        <div className="relative z-10 space-y-8">
-          <div>
-            <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">Stay Connected Anywhere</h1>
-            <p className="text-xl text-slate-600 dark:text-zinc-400">
-              Join millions of travelers using eSIM for seamless connectivity
+        <div className="relative z-10 max-w-lg">
+          <div className="mb-12">
+            <h1 className="text-5xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight leading-[1.1]">
+              Stay Connected <br /><span className="text-primary">Anywhere</span>
+            </h1>
+            <p className="text-xl text-slate-600 dark:text-zinc-400 leading-relaxed font-medium">
+              Join millions of travelers using Voltey eSIM for seamless, borderless connectivity.
             </p>
           </div>
 
-          <div className="space-y-6">
+          <div className="grid grid-cols-1 gap-8">
             {platformBenefits.map((benefit, index) => (
-              <div key={index} className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center dark:bg-primary/20">
-                  <benefit.icon className="h-6 w-6 text-primary" />
+              <div key={index} className="flex items-center gap-5 group">
+                <div className="flex-shrink-0 w-14 h-14 rounded-2xl bg-primary/5 flex items-center justify-center dark:bg-primary/10 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                  <benefit.icon className="h-7 w-7 text-primary group-hover:text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-slate-900 dark:text-white">{benefit.title}</h3>
-                  <p className="text-slate-600 dark:text-zinc-400 text-sm">{benefit.description}</p>
+                  <h3 className="font-bold text-lg text-slate-900 dark:text-white">{benefit.title}</h3>
+                  <p className="text-slate-500 dark:text-zinc-400 text-sm leading-relaxed">{benefit.description}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        <div className="relative z-10">
-          <p className="text-slate-500 dark:text-zinc-500 text-sm font-medium">Trusted by 2M+ travelers worldwide</p>
+        <div className="relative z-10 flex items-center gap-3">
+          <div className="flex -space-x-2">
+            {[1, 2, 3, 4].map(i => (
+              <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-200" />
+            ))}
+          </div>
+          <p className="text-slate-500 dark:text-zinc-500 text-sm font-semibold tracking-tight">Trusted by 2M+ travelers worldwide</p>
         </div>
       </div>
 
       {/* Right Side - Auth Forms */}
-      <div className="flex-1 flex items-center justify-center p-6 lg:p-12 bg-background">
-        <div className="w-full max-w-md">
+      <div className="flex-1 flex items-center justify-center p-0 sm:p-12 relative overflow-y-auto">
+        <div className="w-full max-w-md px-6 py-12 sm:p-0">
           {/* Mobile Logo */}
-          <div className="lg:hidden text-center mb-8">
+          <div className="lg:hidden text-center mb-10 scale-110">
             <Link href="/">
-              <div
-                className="inline-flex items-center gap-2 cursor-pointer"
-                data-testid="link-logo-mobile"
-              >
+              <div className="inline-flex items-center gap-3 cursor-pointer" data-testid="link-logo-mobile">
                 {logo ? (
-                  <img src={useSettingByKey('logo')} alt={siteName || 'Voltey'} className="h-10" />
-                ) : (siteName && siteName.toLowerCase() === 'voltey') || !siteName ? (
+                  <img src={logo} alt={siteName || 'Voltey'} className="h-10" />
+                ) : (
                   <>
-                    <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-[var(--primary)] to-primary-second flex items-center justify-center">
-                      <Globe className="h-4 w-4 text-white" />
+                    <div className="h-10 w-10 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
+                      <Globe className="h-6 w-6 text-white" />
                     </div>
-                    <span className="font-bold text-lg text-gray-900 dark:text-white">
-                      Sim
-                      <span className="bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] bg-clip-text text-transparent">
-                        finity
-                      </span>
+                    <span className="font-bold text-2xl tracking-tight text-gray-900 dark:text-white">
+                      Vol<span className="text-primary">tey</span>
                     </span>
                   </>
-                ) : (
-                  <div className="flex items-center gap-2">
-                    <Globe className="h-8 w-8 text-primary" />
-                    <span className="font-bold text-2xl">{siteName}</span>
-                  </div>
                 )}
               </div>
             </Link>
           </div>
 
           <Link href="/">
-            <div
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6 cursor-pointer"
-              data-testid="link-back-home"
-            >
-              <ArrowLeft className="h-4 w-4" />
+            <div className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-primary transition-colors mb-8 cursor-pointer group" data-testid="link-back-home">
+              <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
               {t('checkout.backToHome', 'Back to Home')}
             </div>
           </Link>
 
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold text-foreground">Welcome</h2>
-            <p className="text-muted-foreground mt-1">
+          <div className="mb-10">
+            <h2 className="text-3xl font-extrabold text-foreground tracking-tight">Welcome</h2>
+            <p className="text-lg text-muted-foreground mt-2">
               Sign in to your account or create a new one
             </p>
           </div>
 
           {/* Referral Banner */}
           {showReferralBanner && referralCode && (
-            <Alert
-              className="mb-6 border-primary-light bg-[var(--primary)]/5 relative"
-              data-testid="alert-referral-banner"
-            >
-              <Gift className="h-4 w-4 text-primary" />
-              <AlertDescription className="pr-8">
-                <span className="font-semibold text-primary">
-                  {t('referrals.youveBeenReferred', {
-                    discount: settings?.referredUserDiscount || 0,
-                  })}
-                </span>
+            <Alert className="mb-8 border-none bg-primary/10 relative p-5 rounded-2xl animate-in slide-in-from-top-4 duration-300" data-testid="alert-referral-banner">
+              <Gift className="h-5 w-5 text-primary" />
+              <AlertDescription className="pr-10 text-base font-semibold text-primary">
+                {t('referrals.youveBeenReferred', { discount: settings?.referredUserDiscount || 0 })}
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="absolute right-2 top-2 h-6 w-6 bg-gradient-primary"
-                  onClick={() => {
-                    setShowReferralBanner(false);
-                    localStorage.removeItem('pendingReferralCode');
-                  }}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 h-8 w-8 bg-primary text-white rounded-full hover:bg-primary-dark transition-colors"
+                  onClick={() => { setShowReferralBanner(false); localStorage.removeItem('pendingReferralCode'); }}
                   data-testid="button-dismiss-referral"
                 >
                   <X className="h-4 w-4" />
@@ -587,85 +572,66 @@ export default function Login() {
             </Alert>
           )}
 
-          <Tabs
-            value={authTab}
-            onValueChange={(v) => {
-              setAuthTab(v as any);
-              resetForms();
-            }}
-          >
-            <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="signin" data-testid="tab-signin">
+          <Tabs value={authTab} onValueChange={(v) => { setAuthTab(v as any); resetForms(); }} className="w-full">
+            <TabsList className="grid w-full grid-cols-2 mb-8 h-14 bg-muted/50 p-1.5 rounded-2xl">
+              <TabsTrigger value="signin" className="text-base font-bold rounded-xl data-[state=active]:bg-white data-[state=active]:shadow-sm" data-testid="tab-signin">
                 Sign In
               </TabsTrigger>
-              <TabsTrigger value="signup" data-testid="tab-signup">
+              <TabsTrigger value="signup" className="text-base font-bold rounded-xl data-[state=active]:bg-white data-[state=active]:shadow-sm" data-testid="tab-signup">
                 Sign Up
               </TabsTrigger>
             </TabsList>
 
-            {/* Sign In - Password with Forgot Password Flow */}
-            <TabsContent value="signin">
+            <TabsContent value="signin" className="mt-0">
               {!showForgotPassword ? (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Sign In</CardTitle>
-                    <CardDescription>Enter your email and password</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <form onSubmit={handlePasswordLogin} className="space-y-4">
-                      <div>
-                        <label htmlFor="email-signin" className="text-sm font-medium mb-2 block">
-                          Email
-                        </label>
-                        <div className="relative">
-                          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <div className="space-y-6">
+                  <form onSubmit={handlePasswordLogin} className="space-y-6">
+                    <div className="space-y-4">
+                      <div className="space-y-2">
+                        <label htmlFor="email-signin" className="text-sm font-bold ml-1">Email</label>
+                        <div className="relative group">
+                          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                           <Input
                             id="email-signin"
                             type="email"
                             placeholder="you@example.com"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="pl-10"
+                            className="pl-12 h-14 text-base rounded-2xl border-gray-200 focus:ring-primary/20 transition-all"
                             autoComplete="email"
                             required
                             data-testid="input-email-signin"
                           />
                         </div>
                       </div>
-                      <div>
-                        <label htmlFor="password-signin" className="text-sm font-medium mb-2 block">
-                          Password
-                        </label>
-                        <div className="relative">
-                          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <div className="space-y-2">
+                        <label htmlFor="password-signin" className="text-sm font-bold ml-1">Password</label>
+                        <div className="relative group">
+                          <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
                           <Input
                             id="password-signin"
                             type={showPassword ? 'text' : 'password'}
                             placeholder="Enter your password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="pl-10 pr-10"
+                            className="pl-12 pr-12 h-14 text-base rounded-2xl border-gray-200 focus:ring-primary/20 transition-all"
                             autoComplete="current-password"
                             required
                             data-testid="input-password-signin"
                           />
                           <button
                             type="button"
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                            className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary p-2 transition-colors"
                             onClick={() => setShowPassword(!showPassword)}
                             data-testid="button-toggle-password"
                           >
-                            {showPassword ? (
-                              <EyeOff className="h-4 w-4" />
-                            ) : (
-                              <Eye className="h-4 w-4" />
-                            )}
+                            {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                           </button>
                         </div>
-                        <div className="text-right mt-2">
+                        <div className="text-right">
                           <button
                             type="button"
-                            className="text-sm text-primary-dark hover:underline font-medium"
+                            className="text-sm text-primary font-bold hover:underline py-1"
                             onClick={() => setShowForgotPassword(true)}
                             data-testid="link-forgot-password"
                           >
@@ -673,443 +639,175 @@ export default function Login() {
                           </button>
                         </div>
                       </div>
+                    </div>
 
-                      {isCaptchaEnabled && VITE_RECAPTCHA_SITE_KEY && (
-                        <div className="w-full flex justify-center my-3 overflow-hidden">
-                          <div className="transform scale-90 sm:scale-100 origin-center">
-                            <ReCAPTCHA
-                              ref={recaptchaRef}
-                              sitekey={VITE_RECAPTCHA_SITE_KEY}
-                              onChange={(token) => setCaptchaToken(token)}
-                            />
-                          </div>
-                        </div>
-                      )}
-
-                      <Button
-                        type="submit"
-                        className="w-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900"
-                        disabled={isLoading}
-                        data-testid="button-signin"
-                      >
-                        {isLoading ? 'Signing in...' : 'Sign In'}
-                      </Button>
-                      <p className="text-center text-sm text-muted-foreground">
-                        Don't have an account?{' '}
-                        <button
-                          type="button"
-                          className="text-primary hover:underline font-medium"
-                          onClick={() => {
-                            setAuthTab('signup');
-                            resetForms();
-                          }}
-                          data-testid="link-goto-signup"
-                        >
-                          Sign up
-                        </button>
-                      </p>
-                    </form>
-                  </CardContent>
-                </Card>
-              ) : (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>
-                      {forgotStep === 'email' ? 'Reset Password' : 'Set New Password'}
-                    </CardTitle>
-                    <CardDescription>
-                      {forgotStep === 'email'
-                        ? 'Enter your email to receive a reset code'
-                        : `Enter the code sent to ${email} and your new password`}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    {forgotStep === 'email' ? (
-                      <form onSubmit={handleForgotPassword} className="space-y-4">
-                        <div>
-                          <label htmlFor="email-forgot" className="text-sm font-medium mb-2 block">
-                            Email
-                          </label>
-                          <div className="relative">
-                            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                            <Input
-                              id="email-forgot"
-                              type="email"
-                              placeholder="you@example.com"
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
-                              className="pl-10"
-                              autoComplete="email"
-                              required
-                              data-testid="input-email-forgot"
-                            />
-                          </div>
-                        </div>
-                        <Button
-                          type="submit"
-                          className="w-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900"
-                          disabled={isLoading}
-                          data-testid="button-forgot-submit"
-                        >
-                          {isLoading ? 'Sending...' : 'Send Reset Code'}
-                        </Button>
-                        <p className="text-center text-sm text-muted-foreground">
-                          Remember your password?{' '}
-                          <button
-                            type="button"
-                            className="text-primary hover:underline font-medium"
-                            onClick={() => {
-                              setShowForgotPassword(false);
-                              resetForms();
-                            }}
-                            data-testid="link-back-signin"
-                          >
-                            Sign in
-                          </button>
-                        </p>
-                      </form>
-                    ) : (
-                      <form onSubmit={handleResetPassword} className="space-y-4">
-                        <div>
-                          <label htmlFor="reset-otp" className="text-sm font-medium mb-2 block">
-                            Reset Code
-                          </label>
-                          <Input
-                            id="reset-otp"
-                            type="text"
-                            placeholder="Enter 6-digit code"
-                            value={otp}
-                            onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                            maxLength={6}
-                            className="text-center text-lg tracking-widest"
-                            autoComplete="one-time-code"
-                            required
-                            data-testid="input-reset-otp"
-                          />
-                        </div>
-                        <div>
-                          <label htmlFor="new-password" className="text-sm font-medium mb-2 block">
-                            New Password
-                          </label>
-                          <div className="relative">
-                            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                            <Input
-                              id="new-password"
-                              type={showNewPassword ? 'text' : 'password'}
-                              placeholder="Min 8 characters"
-                              value={newPassword}
-                              onChange={(e) => setNewPassword(e.target.value)}
-                              className="pl-10 pr-10"
-                              autoComplete="new-password"
-                              required
-                              data-testid="input-new-password"
-                            />
-                            <button
-                              type="button"
-                              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                              onClick={() => setShowNewPassword(!showNewPassword)}
-                              data-testid="button-toggle-new-password"
-                            >
-                              {showNewPassword ? (
-                                <EyeOff className="h-4 w-4" />
-                              ) : (
-                                <Eye className="h-4 w-4" />
-                              )}
-                            </button>
-                          </div>
-                        </div>
-                        <div>
-                          <label
-                            htmlFor="confirm-password-reset"
-                            className="text-sm font-medium mb-2 block"
-                          >
-                            Confirm Password
-                          </label>
-                          <div className="relative">
-                            <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                            <Input
-                              id="confirm-password-reset"
-                              type={showConfirmPassword ? 'text' : 'password'}
-                              placeholder="Confirm your new password"
-                              value={confirmPassword}
-                              onChange={(e) => setConfirmPassword(e.target.value)}
-                              className="pl-10 pr-10"
-                              autoComplete="new-password"
-                              required
-                              data-testid="input-confirm-password-reset"
-                            />
-                            <button
-                              type="button"
-                              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                              data-testid="button-toggle-confirm-password-reset"
-                            >
-                              {showConfirmPassword ? (
-                                <EyeOff className="h-4 w-4" />
-                              ) : (
-                                <Eye className="h-4 w-4" />
-                              )}
-                            </button>
-                          </div>
-                        </div>
-                        <Button
-                          type="submit"
-                          className="w-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900"
-                          disabled={isLoading}
-                          data-testid="button-reset-password"
-                        >
-                          {isLoading ? 'Resetting...' : 'Reset Password'}
-                        </Button>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          className="w-full"
-                          onClick={() => setForgotStep('email')}
-                          data-testid="button-back-forgot"
-                        >
-                          Use different email
-                        </Button>
-                      </form>
+                    {isCaptchaEnabled && VITE_RECAPTCHA_SITE_KEY && (
+                      <div className="flex justify-center py-2 overflow-hidden rounded-2xl border border-gray-100 bg-gray-50/50">
+                        <ReCAPTCHA ref={recaptchaRef} sitekey={VITE_RECAPTCHA_SITE_KEY} onChange={(token) => setCaptchaToken(token)} />
+                      </div>
                     )}
-                  </CardContent>
-                </Card>
-              )}
-            </TabsContent>
 
-            {/* Sign Up - OTP then Name/Password */}
-            <TabsContent value="signup">
-              <Card>
-                <CardHeader>
-                  <CardTitle>
-                    {signupStep === 'email' && 'Create Account'}
-                    {signupStep === 'otp' && 'Verify Email'}
-                    {signupStep === 'details' && 'Complete Setup'}
-                  </CardTitle>
-                  <CardDescription>
-                    {signupStep === 'email' && 'Enter your email to get started'}
-                    {signupStep === 'otp' && `Enter the code sent to ${email}`}
-                    {signupStep === 'details' && 'Enter your name and create a password'}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  {signupStep === 'email' && (
-                    <form onSubmit={handleSendSignupOTP} className="space-y-4">
-                      <div>
-                        <label htmlFor="email-signup" className="text-sm font-medium mb-2 block">
-                          Email
-                        </label>
-                        <div className="relative">
-                          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Button
+                      type="submit"
+                      className="w-full h-14 text-lg font-bold gradient-primary rounded-2xl shadow-xl shadow-primary/20 active:scale-[0.98] transition-all"
+                      disabled={isLoading}
+                      data-testid="button-signin"
+                    >
+                      {isLoading ? <Loader2 className="animate-spin h-6 w-6" /> : 'Sign In'}
+                    </Button>
+                  </form>
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  {forgotStep === 'email' ? (
+                    <form onSubmit={handleForgotPassword} className="space-y-6">
+                      <div className="space-y-2">
+                        <label htmlFor="email-forgot" className="text-sm font-bold ml-1">Email</label>
+                        <div className="relative group">
+                          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                           <Input
-                            id="email-signup"
+                            id="email-forgot"
                             type="email"
                             placeholder="you@example.com"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="pl-10"
-                            autoComplete="email"
+                            className="pl-12 h-14 text-base rounded-2xl border-gray-200"
                             required
-                            data-testid="input-email-signup"
+                            data-testid="input-email-forgot"
                           />
                         </div>
                       </div>
-                      <Button
-                        type="submit"
-                        className="w-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900"
-                        disabled={isLoading}
-                        data-testid="button-send-signup-otp"
-                      >
-                        {isLoading ? 'Sending...' : 'Continue'}
+                      <Button type="submit" className="w-full h-14 text-lg font-bold gradient-primary rounded-2xl" disabled={isLoading} data-testid="button-forgot-submit">
+                        {isLoading ? 'Sending...' : 'Send Reset Code'}
                       </Button>
-                      <p className="text-center text-sm text-muted-foreground">
-                        Already have an account?{' '}
-                        <button
-                          type="button"
-                          className="text-primary hover:underline font-medium"
-                          onClick={() => {
-                            setAuthTab('signin');
-                            resetForms();
-                          }}
-                          data-testid="link-goto-signin"
-                        >
-                          Sign in
-                        </button>
-                      </p>
+                      <button type="button" className="w-full text-center text-sm font-bold text-muted-foreground hover:text-primary transition-colors" onClick={() => setShowForgotPassword(false)}>
+                        Back to Login
+                      </button>
+                    </form>
+                  ) : (
+                    <form onSubmit={handleResetPassword} className="space-y-6">
+                      <Input
+                        id="reset-otp"
+                        type="text"
+                        placeholder="6-digit code"
+                        value={otp}
+                        onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                        className="h-14 text-center text-2xl tracking-[0.5em] font-bold rounded-2xl"
+                        required
+                      />
+                      <Button type="submit" className="w-full h-14 text-lg font-bold gradient-primary rounded-2xl" disabled={isLoading}>
+                        Reset Password
+                      </Button>
                     </form>
                   )}
+                </div>
+              )}
+            </TabsContent>
 
-                  {signupStep === 'otp' && (
-                    <form onSubmit={handleVerifySignupOTP} className="space-y-4">
-                      <div>
-                        <label htmlFor="otp-signup" className="text-sm font-medium mb-2 block">
-                          Verification Code
-                        </label>
+            <TabsContent value="signup" className="mt-0">
+              {signupStep === 'email' && (
+                <form onSubmit={handleSendSignupOTP} className="space-y-6">
+                  <div className="space-y-2">
+                    <label htmlFor="email-signup" className="text-sm font-bold ml-1">Email</label>
+                    <div className="relative group">
+                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                      <Input
+                        id="email-signup"
+                        type="email"
+                        placeholder="you@example.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="pl-12 h-14 text-base rounded-2xl border-gray-200"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <Button type="submit" className="w-full h-14 text-lg font-bold gradient-primary rounded-2xl" disabled={isLoading}>
+                    {isLoading ? 'Sending...' : 'Continue'}
+                  </Button>
+                </form>
+              )}
+              {signupStep === 'otp' && (
+                <form onSubmit={handleVerifySignupOTP} className="space-y-6">
+                  <div className="space-y-2">
+                    <label htmlFor="otp-signup" className="text-sm font-bold ml-1">Verification Code</label>
+                    <Input
+                      id="otp-signup"
+                      type="text"
+                      placeholder="6-digit code"
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                      className="h-14 text-center text-2xl tracking-[0.5em] font-bold rounded-2xl"
+                      required
+                    />
+                  </div>
+                  <Button type="submit" className="w-full h-14 text-lg font-bold gradient-primary rounded-2xl" disabled={isLoading}>
+                    {isLoading ? 'Verifying...' : 'Verify Email'}
+                  </Button>
+                </form>
+              )}
+              {signupStep === 'details' && (
+                <form onSubmit={handleCompleteSignup} className="space-y-6">
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <label htmlFor="name-signup" className="text-sm font-bold ml-1">Full Name</label>
+                      <div className="relative group">
+                        <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                         <Input
-                          id="otp-signup"
+                          id="name-signup"
                           type="text"
-                          placeholder="Enter 6-digit code"
-                          value={otp}
-                          onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                          maxLength={6}
-                          className="text-center text-lg tracking-widest"
-                          autoComplete="one-time-code"
+                          placeholder="John Doe"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          className="pl-12 h-14 text-base rounded-2xl border-gray-200"
                           required
-                          data-testid="input-otp-signup"
                         />
                       </div>
-                      <Button
-                        type="submit"
-                        className="w-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900"
-                        disabled={isLoading}
-                        data-testid="button-verify-signup-otp"
-                      >
-                        {isLoading ? 'Verifying...' : 'Verify Email'}
-                      </Button>
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        className="w-full"
-                        onClick={() => setSignupStep('email')}
-                        data-testid="button-back-signup-email"
-                      >
-                        Use different email
-                      </Button>
-                    </form>
-                  )}
-
-                  {signupStep === 'details' && (
-                    <form onSubmit={handleCompleteSignup} className="space-y-4">
-                      <div>
-                        <label htmlFor="name-signup" className="text-sm font-medium mb-2 block">
-                          Full Name
-                        </label>
-                        <div className="relative">
-                          <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            id="name-signup"
-                            type="text"
-                            placeholder="John Doe"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            className="pl-10"
-                            autoComplete="name"
-                            required
-                            data-testid="input-name-signup"
-                          />
-                        </div>
+                    </div>
+                    <div className="space-y-2">
+                      <label htmlFor="password-signup" className="text-sm font-bold ml-1">Password</label>
+                      <div className="relative group">
+                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                        <Input
+                          id="password-signup"
+                          type={showNewPassword ? 'text' : 'password'}
+                          placeholder="Min 8 characters"
+                          value={newPassword}
+                          onChange={(e) => setNewPassword(e.target.value)}
+                          className="pl-12 pr-12 h-14 text-base rounded-2xl border-gray-200"
+                          required
+                        />
                       </div>
-                      <div>
-                        <label htmlFor="password-signup" className="text-sm font-medium mb-2 block">
-                          Password
-                        </label>
-                        <div className="relative">
-                          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            id="password-signup"
-                            type={showNewPassword ? 'text' : 'password'}
-                            placeholder="Min 8 characters"
-                            value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
-                            className="pl-10 pr-10"
-                            autoComplete="new-password"
-                            required
-                            data-testid="input-password-signup"
-                          />
-                          <button
-                            type="button"
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                            onClick={() => setShowNewPassword(!showNewPassword)}
-                            data-testid="button-toggle-password-signup"
-                          >
-                            {showNewPassword ? (
-                              <EyeOff className="h-4 w-4" />
-                            ) : (
-                              <Eye className="h-4 w-4" />
-                            )}
-                          </button>
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          htmlFor="confirm-password-signup"
-                          className="text-sm font-medium mb-2 block"
-                        >
-                          Confirm Password
-                        </label>
-                        <div className="relative">
-                          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                          <Input
-                            id="confirm-password-signup"
-                            type={showConfirmPassword ? 'text' : 'password'}
-                            placeholder="Confirm your password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            className="pl-10 pr-10"
-                            autoComplete="new-password"
-                            required
-                            data-testid="input-confirm-password-signup"
-                          />
-                          <button
-                            type="button"
-                            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                            data-testid="button-toggle-confirm-password"
-                          >
-                            {showConfirmPassword ? (
-                              <EyeOff className="h-4 w-4" />
-                            ) : (
-                              <Eye className="h-4 w-4" />
-                            )}
-                          </button>
-                        </div>
-                      </div>
-                      <Button
-                        type="submit"
-                        className="w-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:hover:bg-slate-100 dark:text-slate-900"
-                        disabled={isLoading}
-                        data-testid="button-complete-signup"
-                      >
-                        {isLoading ? 'Creating Account...' : 'Create Account'}
-                      </Button>
-                    </form>
-                  )}
-                </CardContent>
-              </Card>
+                    </div>
+                  </div>
+                  <Button type="submit" className="w-full h-14 text-lg font-bold gradient-primary rounded-2xl" disabled={isLoading}>
+                    Create Account
+                  </Button>
+                </form>
+              )}
             </TabsContent>
           </Tabs>
 
-          <div className="flex items-center gap-2 my-4">
-            <div className="flex-1 h-px bg-border" />
-            <span className="text-xs text-muted-foreground uppercase">
-              {t('website.login.orContinue', 'OR CONTINUE WITH')}
-            </span>
-            <div className="flex-1 h-px bg-border" />
+          <div className="flex items-center gap-4 my-8">
+            <div className="flex-1 h-px bg-gray-100" />
+            <span className="text-xs text-muted-foreground uppercase font-extrabold tracking-widest">OR</span>
+            <div className="flex-1 h-px bg-gray-100" />
           </div>
 
           <Button
             type="button"
             variant="outline"
-            className="w-full"
+            className="w-full h-14 text-base font-bold rounded-2xl border-2 hover:bg-gray-50 active:scale-[0.98] transition-all"
             onClick={handleGoogleLogin}
             disabled={isLoading}
           >
-            <img
-              src="https://www.svgrepo.com/show/475656/google-color.svg"
-              className="h-5 w-5 mr-2"
-              alt="Google"
-            />
-            {t('website.login.continueGoogle', 'Continue with Google')}
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="h-6 w-6 mr-3" alt="Google" />
+            Continue with Google
           </Button>
 
-          <p className="text-center text-sm text-muted-foreground mt-6">
-            {t('checkout.termsAgreement', 'By continuing, you agree to our')}{' '}
-            <Link href="/pages/terms-and-condition">
-              <span className="text-primary hover:underline cursor-pointer">Terms of Service</span>
-            </Link>{' '}
-            and{' '}
-            <Link href="/pages/privacy-policy">
-              <span className="text-primary hover:underline cursor-pointer">Privacy Policy</span>
-            </Link>
+          <p className="text-center text-sm text-muted-foreground mt-10 leading-relaxed max-w-[280px] mx-auto">
+            By continuing, you agree to our <br />
+            <Link href="/pages/terms-and-condition"><span className="text-primary font-bold hover:underline cursor-pointer">Terms</span></Link> and <Link href="/pages/privacy-policy"><span className="text-primary font-bold hover:underline cursor-pointer">Privacy Policy</span></Link>
           </p>
         </div>
       </div>

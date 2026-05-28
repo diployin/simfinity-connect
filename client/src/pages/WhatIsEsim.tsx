@@ -44,45 +44,45 @@ export default function WhatIsEsim() {
       </Helmet>
 
       <div className="min-h-screen bg-background">
-        <section className="relative pt-24 pb-32 overflow-hidden bg-[#f8fafc]">
-          <div className="absolute top-0 left-0 w-full h-full">
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-[var(--primary)]/5 transform skew-x-12 translate-x-1/2" />
-            <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-blue-500/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
+        <section className="relative pt-20 md:pt-32 pb-24 md:pb-40 overflow-hidden bg-[#f8fafc] dark:bg-slate-950">
+          <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+            <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 transform skew-x-12 translate-x-1/2" />
+            <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-blue-500/5 rounded-full blur-[120px] -translate-x-1/2 translate-y-1/2" />
           </div>
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm border border-slate-100 text-[var(--primary)] text-sm font-bold mb-8">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+              <div className="text-center lg:text-left">
+                <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800 text-primary text-sm font-bold mb-8">
                   <Smartphone className="w-4 h-4" />
                   eSIM Technology
                 </div>
-                <h1 className="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
-                  What is an <span className="text-[var(--primary)]">eSIM?</span>
+                <h1 className="h1-fluid text-slate-900 dark:text-white mb-8 tracking-tight font-extrabold leading-[1.1]">
+                  What is an <br className="hidden md:block" /><span className="text-primary">eSIM?</span>
                 </h1>
-                <p className="text-xl text-slate-600 leading-relaxed mb-8">
+                <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-10 max-w-2xl mx-auto lg:mx-0">
                   An eSIM is a digital SIM embedded in your device. It lets you connect to mobile networks without a physical SIM card — just download a plan and go.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <button onClick={() => navigate('/destinations')} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[var(--primary)] text-white font-semibold text-lg hover:bg-[#235d2d] transition-all shadow-lg shadow-green-900/10">
-                    Browse eSIM Plans <ArrowRight className="w-5 h-5" />
+                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                  <button onClick={() => navigate('/destinations')} className="h-14 px-10 rounded-2xl bg-primary text-white font-bold text-lg hover:bg-primary-dark transition-all shadow-xl shadow-primary/20 active:scale-[0.98]">
+                    Browse Plans
                   </button>
-                  <button onClick={() => navigate('/supported-devices')} className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold text-lg hover:bg-slate-50 transition-colors shadow-sm">
+                  <button onClick={() => navigate('/supported-devices')} className="h-14 px-10 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 text-slate-700 dark:text-slate-200 font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all shadow-sm active:scale-[0.98]">
                     Check Compatibility
                   </button>
                 </div>
               </div>
-              <div className="flex justify-center lg:justify-end">
-                <div className="relative">
-                  <div className="w-64 h-64 md:w-72 md:h-72 bg-white shadow-xl border border-slate-100 rounded-3xl flex items-center justify-center">
-                    <Smartphone className="w-24 h-24 text-[var(--primary)]" />
+              <div className="flex justify-center lg:justify-end relative">
+                <div className="relative group">
+                  <div className="w-64 h-64 md:w-80 md:h-80 bg-white dark:bg-slate-900 shadow-2xl border border-slate-100 dark:border-slate-800 rounded-[3rem] flex items-center justify-center rotate-3 group-hover:rotate-0 transition-transform duration-500">
+                    <Smartphone className="w-24 h-24 md:w-32 md:h-32 text-primary" />
                   </div>
-                  <div className="absolute -top-4 -right-4 bg-white shadow-lg border border-slate-100 rounded-2xl px-4 py-2 flex items-center gap-2">
-                    <Wifi className="w-4 h-4 text-green-500" />
-                    <span className="text-sm font-bold text-slate-700">Connected</span>
+                  <div className="absolute -top-6 -right-6 bg-white dark:bg-slate-800 shadow-xl border border-slate-100 dark:border-slate-700 rounded-2xl px-5 py-3 flex items-center gap-3 animate-bounce">
+                    <Wifi className="w-5 h-5 text-green-500" />
+                    <span className="text-sm font-extrabold text-slate-700 dark:text-slate-200">Connected</span>
                   </div>
-                  <div className="absolute -bottom-4 -left-4 bg-white shadow-lg border border-slate-100 rounded-2xl px-4 py-2 flex items-center gap-2">
-                    <Globe2 className="w-4 h-4 text-[var(--primary)]" />
-                    <span className="text-sm font-bold text-slate-700">200+ Countries</span>
+                  <div className="absolute -bottom-6 -left-6 bg-white dark:bg-slate-800 shadow-xl border border-slate-100 dark:border-slate-700 rounded-2xl px-5 py-3 flex items-center gap-3">
+                    <Globe2 className="w-5 h-5 text-primary" />
+                    <span className="text-sm font-extrabold text-slate-700 dark:text-slate-200">200+ Countries</span>
                   </div>
                 </div>
               </div>
@@ -90,43 +90,45 @@ export default function WhatIsEsim() {
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-background">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">How does an eSIM work?</h2>
-                <div className="space-y-6">
+        <section className="py-20 md:py-32 bg-background">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+              <div className="order-2 lg:order-1">
+                <h2 className="h2-fluid font-bold text-foreground mb-10 tracking-tight">How does an eSIM work?</h2>
+                <div className="space-y-8">
                   {[
-                    { step: '1', text: 'Your device has a tiny chip built in that acts as a SIM card.' },
-                    { step: '2', text: 'Instead of inserting a physical card, you download a carrier profile digitally.' },
-                    { step: '3', text: 'The eSIM profile connects you to local networks in your destination.' },
-                    { step: '4', text: 'You can store multiple profiles and switch between them anytime.' },
+                    { step: '1', title: 'Check Compatibility', text: 'Ensure your device supports eSIM technology (most phones since 2018 do).' },
+                    { step: '2', title: 'Pick Your Plan', text: 'Select a data plan for your destination on the Voltey app or website.' },
+                    { step: '3', title: 'Scan & Install', text: 'Scan the QR code sent to your email to install the profile instantly.' },
+                    { step: '4', title: 'Stay Connected', text: 'Switch on your data roaming and enjoy local rates as soon as you land.' },
                   ].map((item) => (
-                    <div key={item.step} className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary-light flex items-center justify-center flex-shrink-0">
-                        <span className="text-sm font-bold text-white">{item.step}</span>
+                    <div key={item.step} className="flex items-start gap-6 group">
+                      <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center flex-shrink-0 font-bold text-lg group-hover:bg-primary group-hover:text-white transition-all">
+                        {item.step}
                       </div>
-                      <p className="text-foreground text-lg pt-1.5">{item.text}</p>
+                      <div>
+                        <h4 className="text-lg font-bold text-foreground mb-1">{item.title}</h4>
+                        <p className="text-muted-foreground leading-relaxed">{item.text}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="bg-muted/50 rounded-2xl p-8 border border-border overflow-hidden">
-                <h3 className="text-xl font-bold text-foreground mb-6 text-center">eSIM vs Physical SIM</h3>
-                <div className="responsive-table-container border-0 mb-0">
+              <div className="order-1 lg:order-2 bg-slate-50 dark:bg-slate-900/50 rounded-[2.5rem] p-8 md:p-12 border border-slate-100 dark:border-slate-800 shadow-inner">
+                <h3 className="text-2xl font-bold text-foreground mb-8 text-center tracking-tight">eSIM vs Physical SIM</h3>
+                <div className="responsive-table-container border-none bg-transparent">
                   <div className="space-y-4">
                     {[
                       { feature: 'Setup time', esim: 'Minutes', sim: 'Hours/Days' },
                       { feature: 'Store visit', esim: 'Not needed', sim: 'Required' },
-                      { feature: 'Multiple plans', esim: 'Yes, digital', sim: 'Need multiple cards' },
+                      { feature: 'Multiple plans', esim: 'Yes, digital', sim: 'Manual swap' },
                       { feature: 'Can be lost', esim: 'No', sim: 'Yes' },
                       { feature: 'Eco-friendly', esim: 'Yes', sim: 'Plastic waste' },
-                      { feature: 'Dual SIM', esim: 'Built-in', sim: 'Extra slot needed' },
                     ].map((row) => (
-                      <div key={row.feature} className="grid grid-cols-3 gap-4 text-sm py-3 border-b border-border last:border-b-0 min-w-[300px]">
-                        <span className="font-medium text-foreground">{row.feature}</span>
-                        <span className="text-primary font-medium">{row.esim}</span>
-                        <span className="text-muted-foreground">{row.sim}</span>
+                      <div key={row.feature} className="grid grid-cols-3 gap-6 text-sm md:text-base py-4 border-b border-slate-200/60 dark:border-slate-800 last:border-none">
+                        <span className="font-bold text-foreground">{row.feature}</span>
+                        <span className="text-primary font-bold">{row.esim}</span>
+                        <span className="text-muted-foreground font-medium">{row.sim}</span>
                       </div>
                     ))}
                   </div>
@@ -136,19 +138,20 @@ export default function WhatIsEsim() {
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-muted/30">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Benefits of using an eSIM</h2>
+        <section className="py-20 md:py-32 bg-slate-50 dark:bg-slate-900/30">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+            <div className="text-center mb-16 md:mb-24">
+              <h2 className="h2-fluid font-bold text-foreground mb-6 tracking-tight">Benefits of Voltey eSIM</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">Everything you need for a stress-free travel connection.</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {benefits.map((b) => (
-                <div key={b.title} className="bg-card rounded-2xl p-8 border border-border">
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${b.color} flex items-center justify-center mb-5`}>
-                    <b.icon className="w-7 h-7 text-white" />
+                <div key={b.title} className="bg-card dark:bg-slate-900 rounded-[2rem] p-10 border border-border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all group">
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${b.color} flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform`}>
+                    <b.icon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">{b.title}</h3>
-                  <p className="text-muted-foreground">{b.desc}</p>
+                  <h3 className="text-xl font-bold text-foreground mb-4">{b.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{b.desc}</p>
                 </div>
               ))}
             </div>
