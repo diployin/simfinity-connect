@@ -772,16 +772,16 @@ export default function UnifiedCheckout() {
                                           variant="outline"
                                           role="combobox"
                                           aria-expanded={openCountry}
-                                          className="w-[100px] h-11 rounded-lg border-gray-200 justify-between px-3 font-normal"
+                                          className="min-w-[110px] w-fit h-11 rounded-lg border-gray-200 justify-between px-3 font-normal"
                                         >
-                                          <div className="flex items-center gap-2 overflow-hidden">
+                                          <div className="flex items-center gap-2 shrink-0">
                                             <ReactCountryFlag
                                               countryCode={countries.find((c) => c.dialCode === selectedDialCode)?.code || 'IN'}
                                               svg
                                             />
-                                            <span className="text-sm truncate">{selectedDialCode}</span>
+                                            <span className="text-sm whitespace-nowrap">{selectedDialCode}</span>
                                           </div>
-                                          <ChevronsUpDown className="ml-1 h-3 w-3 shrink-0 opacity-50" />
+                                          <ChevronsUpDown className="ml-2 h-3 w-3 shrink-0 opacity-50" />
                                         </Button>
                                       </PopoverTrigger>
                                       <PopoverContent className="w-[300px] p-0" align="start">

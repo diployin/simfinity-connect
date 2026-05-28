@@ -583,7 +583,7 @@ export default function GlobalDetails() {
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                   {/* Choose Plan Section */}
                   <div className="flex-1 w-full sm:w-auto">
-                    <h2 className="text-xl font-bold text-foreground">Choose your data plan</h2>
+                    <h2 className="text-xl font-bold text-foreground"></h2>
                     <div className="flex items-center gap-2 mt-1">
                       <p className="text-sm text-muted-foreground">
                         {packageOptions.length} plan{packageOptions.length !== 1 ? 's' : ''} available

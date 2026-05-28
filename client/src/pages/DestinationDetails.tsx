@@ -557,7 +557,7 @@ export default function DestinationDetails() {
 
                   {/* Choose Plan Section */}
                   <div className="flex-1 w-full sm:w-auto">
-                    <h2 className="text-xl font-bold text-foreground">Choose your data plan</h2>
+                    <h2 className="text-xl font-bold text-foreground tracking-tight leading-tight">Choose your data plan</h2>
                     <div className="flex items-center gap-2 mt-1">
                       <p className="text-sm text-muted-foreground">
                         {packageOptions.length} plan{packageOptions.length !== 1 ? 's' : ''} available
@@ -736,59 +736,68 @@ export default function DestinationDetails() {
               </div>
 
               {/* Package Selection Grid */}
-              <div>
+              <div className="w-full pb-28"> {/* Added large bottom padding so fixed mobile footer doesn't overlap cards */}
                 <div
-                  className={`grid grid-cols-2 md:grid-cols-3 gap-3 ${packageOptions.length > 9 ? 'max-h-[500px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-[var(--primary)]/20 scrollbar-track-transparent hover:scrollbar-thumb-[var(--primary)]/40' : ''}`}
+                  className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ${packageOptions.length > 9
+                      ? 'max-h-[500px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-[var(--primary)]/20 scrollbar-track-transparent hover:scrollbar-thumb-[var(--primary)]/40'
+                      : ''
+                    }`}
                 >
                   {packageOptions.map((pkg, index) => {
                     const isBestChoice = index === bestChoiceIndex;
                     const isSelected = selectedPackage?.id === pkg.id;
                     const hasBadges =
-                      pkg.isPopular || pkg.isRecommended || pkg.isBestValue || isBestChoice;
+                      pkg.isPopular ||
+                      pkg.isRecommended ||
+                      pkg.isBestValue ||
+                      isBestChoice;
 
                     return (
                       <button
                         key={pkg.id}
                         onClick={() => setSelectedPackage(pkg)}
-                        className={`relative p-4 rounded-xl border-2 transition-all text-left overflow-visible group ${isSelected
-                          ? 'border-[var(--primary)] bg-gradient-to-br from-primary/5/50 to-primary/10/30 dark:from-[var(--primary)]/10 dark:to-[var(--primary)]/20 shadow-lg shadow-[var(--primary)]/20 scale-[1.02]'
-                          : 'border-border bg-card hover:border-[var(--primary)]/30 hover:shadow-md hover:scale-[1.01]'
+                        className={`relative w-full flex flex-col justify-between p-4 sm:p-5 rounded-2xl border-2 transition-all text-left overflow-visible group ${isSelected
+                            ? 'border-[var(--primary)] bg-gradient-to-br from-primary/5/50 to-primary/10/30 dark:from-[var(--primary)]/10 dark:to-[var(--primary)]/20 shadow-lg shadow-[var(--primary)]/20 scale-[1.01]'
+                            : 'border-border bg-card hover:border-[var(--primary)]/30 hover:shadow-md hover:scale-[1.01]'
                           }`}
                         data-testid={`button-package-${pkg.dataAmount}`}
                       >
                         {/* Badge row */}
                         {hasBadges && (
-                          <div className="absolute -top-2.5 left-2 right-2 flex flex-wrap gap-1 justify-center z-10">
+                          <div className="absolute -top-3 left-2 right-2 flex flex-wrap gap-1 justify-center z-10">
                             {pkg.isPopular && (
                               <span
-                                className="bg-gradient-to-r from-green-500 to-green-600 text-white text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-md"
+                                className="bg-gradient-to-r from-green-500 to-green-600 text-white text-[10px] sm:text-xs font-semibold px-2 py-1 rounded-full shadow-md text-center"
                                 data-testid={`badge-popular-${pkg.id}`}
                               >
                                 🔥 Popular
                               </span>
                             )}
+
                             {pkg.isRecommended && (
                               <span
-                                className="bg-gradient-to-r from-[var(--primary)] to-primary-second text-white text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-md"
+                                className="bg-gradient-to-r from-[var(--primary)] to-primary-second text-white text-[10px] sm:text-xs font-semibold px-2 py-1 rounded-full shadow-md text-center"
                                 data-testid={`badge-recommended-${pkg.id}`}
                               >
                                 ⭐ Recommended
                               </span>
                             )}
+
                             {pkg.isBestValue && (
                               <span
-                                className="bg-gradient-to-r from-green-500 to-green-600 text-white text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-md"
+                                className="bg-gradient-to-r from-green-500 to-green-600 text-white text-[10px] sm:text-xs font-semibold px-2 py-1 rounded-full shadow-md text-center"
                                 data-testid={`badge-best-value-${pkg.id}`}
                               >
                                 💎 Best Value
                               </span>
                             )}
+
                             {isBestChoice &&
                               !pkg.isPopular &&
                               !pkg.isRecommended &&
                               !pkg.isBestValue && (
                                 <span
-                                  className="bg-gradient-to-r from-green-500 to-green-600 text-white text-xs font-semibold px-2.5 py-0.5 rounded-full shadow-md"
+                                  className="bg-gradient-to-r from-green-500 to-green-600 text-white text-[10px] sm:text-xs font-semibold px-2 py-1 rounded-full shadow-md text-center"
                                   data-testid={`badge-best-choice-${pkg.id}`}
                                 >
                                   ✨ Best Choice
@@ -797,77 +806,82 @@ export default function DestinationDetails() {
                           </div>
                         )}
 
-                        {/* Data Amount with icon */}
-                        <div className="flex items-center gap-2 mb-2 mt-1">
-                          <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${isSelected
-                            ? 'bg-[var(--primary)] text-white'
-                            : 'bg-gradient-to-br from-primary/10 to-primary/5 dark:from-[var(--primary)]/20 dark:to-[var(--primary)]/10 text-primary-second dark:text-[var(--primary-light)]'
-                            }`}>
-                            <Wifi className="w-4 h-4" />
-                          </div>
-                          <p className="text-xl font-bold text-foreground">
-                            {formatDataAmount(pkg)}
-                          </p>
-                        </div>
-
-                        {/* Validity with clock icon */}
-                        <div className="flex items-center gap-1.5 mb-3">
-                          <Clock className="w-3.5 h-3.5 text-muted-foreground" />
-                          <p className="text-sm font-medium text-muted-foreground">
-                            {pkg.validity} Days
-                          </p>
-                        </div>
-
-                        {/* Voice & SMS info */}
-                        {((pkg.voiceMinutes !== null && pkg.voiceMinutes > 0) ||
-                          (pkg.smsCount !== null && pkg.smsCount > 0)) && (
-                            <div className="flex flex-wrap gap-2 mb-3 p-2 bg-accent/50 rounded-lg">
-                              {pkg.voiceMinutes !== null && pkg.voiceMinutes > 0 && (
-                                <span
-                                  className="flex items-center gap-1 text-xs font-medium text-foreground"
-                                  data-testid={`voice-${pkg.id}`}
-                                >
-                                  <Phone className="w-3.5 h-3.5 text-green-600 dark:text-green-400" />
-                                  {pkg.voiceMinutes === -1 ? 'Unlimited' : `${pkg.voiceMinutes}m`}
-                                </span>
-                              )}
-                              {pkg.smsCount !== null && pkg.smsCount > 0 && (
-                                <span
-                                  className="flex items-center gap-1 text-xs font-medium text-foreground"
-                                  data-testid={`sms-${pkg.id}`}
-                                >
-                                  <MessageCircle className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-                                  {pkg.smsCount === -1 ? 'Unlimited' : `${pkg.smsCount} SMS`}
-                                </span>
-                              )}
+                        {/* Top Section: Data Icon, Amount, and Validity */}
+                        <div className="w-full mb-4">
+                          <div className="flex items-center gap-3 mt-2 mb-2">
+                            <div
+                              className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${isSelected
+                                  ? 'bg-[var(--primary)] text-white'
+                                  : 'bg-gradient-to-br from-primary/10 to-primary/5 dark:from-[var(--primary)]/20 dark:to-[var(--primary)]/10 text-primary-second dark:text-[var(--primary-light)]'
+                                }`}
+                            >
+                              <Wifi className="w-4 h-4 sm:w-5 sm:h-5" />
                             </div>
-                          )}
 
-                        {/* Price and Radio */}
-                        <div className="flex items-center justify-between pt-3 border-t border-border">
-                          <div>
-                            <div className="flex items-baseline gap-1">
-                              <span className="text-xl font-bold text-foreground">
-                                {getCurrencySymbol(pkg.currency)}
-                                {pkg.price}
+                            {/* Stacked Data Amount and Validity nicely inside a vertical block */}
+                            <div>
+                              <p className="text-base sm:text-lg font-bold text-foreground leading-tight">
+                                {formatDataAmount(pkg)}
+                              </p>
+                              <div className="flex items-center gap-1 mt-0.5">
+                                <Clock className="w-3 h-3 text-muted-foreground flex-shrink-0" />
+                                <p className="text-xs font-medium text-muted-foreground">
+                                  {pkg.validity} Days
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Voice & SMS Panel */}
+                          {((pkg.voiceMinutes !== null && pkg.voiceMinutes > 0) ||
+                            (pkg.smsCount !== null && pkg.smsCount > 0)) && (
+                              <div className="flex flex-wrap gap-2 mt-2 p-2 rounded-xl bg-accent/50 w-full">
+                                {pkg.voiceMinutes !== null && pkg.voiceMinutes > 0 && (
+                                  <span
+                                    className="flex items-center gap-1 text-[11px] sm:text-xs font-medium text-foreground"
+                                    data-testid={`voice-${pkg.id}`}
+                                  >
+                                    <Phone className="w-3.5 h-3.5 text-green-600 dark:text-green-400" />
+                                    {pkg.voiceMinutes === -1 ? 'Unlimited' : `${pkg.voiceMinutes}m`}
+                                  </span>
+                                )}
+
+                                {pkg.smsCount !== null && pkg.smsCount > 0 && (
+                                  <span
+                                    className="flex items-center gap-1 text-[11px] sm:text-xs font-medium text-foreground"
+                                    data-testid={`sms-${pkg.id}`}
+                                  >
+                                    <MessageCircle className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                                    {pkg.smsCount === -1 ? 'Unlimited' : `${pkg.smsCount} SMS`}
+                                  </span>
+                                )}
+                              </div>
+                            )}
+                        </div>
+
+                        {/* Bottom Section: Separated line with Price on left and Radio on right */}
+                        <div className="flex items-center justify-between pt-3 border-t border-border mt-auto w-full gap-2">
+                          <div className="min-w-0">
+                            <div className="flex items-baseline gap-1 whitespace-nowrap">
+                              <span className="text-base sm:text-lg font-bold text-foreground">
+                                {getCurrencySymbol(pkg.currency)}{pkg.price}
                               </span>
-                              <span className="text-xs text-muted-foreground font-medium">
+                              <span className="text-[10px] sm:text-xs text-muted-foreground font-semibold uppercase tracking-wider">
                                 {pkg.currency}
                               </span>
                             </div>
-                            {/* <p className="text-xs text-muted-foreground mt-0.5">
-                              {pkg.providerName}
-                            </p> */}
                           </div>
 
-                          {/* Radio indicator with checkmark */}
+                          {/* Radio Action Button Wrapper */}
                           <div
-                            className={`w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all ${isSelected
-                              ? 'border-[var(--primary)] bg-[var(--primary)] scale-110'
-                              : 'border-muted-foreground/30 group-hover:border-[var(--primary)]/50'
+                            className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 flex items-center justify-center transition-all flex-shrink-0 ${isSelected
+                                ? 'border-[var(--primary)] bg-[var(--primary)] scale-105'
+                                : 'border-muted-foreground/30 group-hover:border-[var(--primary)]/50'
                               }`}
                           >
-                            {isSelected && <Check className="h-4 w-4 text-white font-bold" />}
+                            {isSelected && (
+                              <Check className="h-3 w-3 text-white stroke-[3px]" />
+                            )}
                           </div>
                         </div>
                       </button>
