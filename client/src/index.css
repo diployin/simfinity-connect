@@ -942,6 +942,71 @@
     font-size: 0.875rem;
   }
 
+  /* ============================================
+     📐 RESPONSIVE UTILITIES
+     =========================================== */
+
+  .responsive-table-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1.5rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+  }
+
+  .responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; /* Force scroll on small screens */
+  }
+
+  /* Touch Targets */
+  .touch-target {
+    min-width: 48px;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Interactive elements optimization */
+  button, 
+  a.btn,
+  input[type="button"],
+  input[type="submit"] {
+    @apply touch-target md:min-w-0 md:min-h-0;
+  }
+
+  /* Form fields optimization for mobile */
+  input, select, textarea {
+    @apply text-base; /* Prevent auto-zoom on iOS */
+    min-height: 44px;
+  }
+
+  /* Legal & Legal Text Blocks */
+  .legal-text-block {
+    @apply text-sm leading-relaxed text-muted-foreground;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+
+  /* Multi-column to single-column stack */
+  .responsive-grid-stack {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6;
+  }
+
+  .responsive-flex-stack {
+    @apply flex flex-col md:flex-row gap-4;
+  }
+
+  /* Fluid Typography Application */
+  .h1-fluid { @apply text-fluid-h1 font-bold tracking-tight; }
+  .h2-fluid { @apply text-fluid-h2 font-bold tracking-tight; }
+  .h3-fluid { @apply text-fluid-h3 font-semibold; }
+  .body-fluid { @apply text-fluid-body; }
+
   /* Dark mode support */
   @media (prefers-color-scheme: dark) {
     .color-picker-container {

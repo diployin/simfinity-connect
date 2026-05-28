@@ -19,7 +19,7 @@ export default function TermsOfService() {
             <h1 className="text-4xl font-bold mb-8">Terms of Service</h1>
             <p className="text-muted-foreground mb-8">Last updated: December 2024</p>
 
-            <div className="prose prose-lg dark:prose-invert max-w-none">
+            <div className="prose prose-lg dark:prose-invert max-w-none legal-text-block">
               <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">1. Acceptance of Terms</h2>
                 <p className="text-muted-foreground">

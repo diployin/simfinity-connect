@@ -165,7 +165,7 @@ export function HeroSection() {
           >
             <motion.h1
               variants={itemVariants}
-              className="text-[2rem] sm:text-[2.5rem] md:text-[2.75rem] lg:text-[3.25rem] font-bold text-gray-900 dark:text-white leading-[1.12] tracking-[-0.02em] mb-6"
+              className="h1-fluid text-gray-900 dark:text-white mb-6"
               data-testid="text-hero-headline"
             >
               {t('website.home.hero.global', 'Affordable eSIM data')}{' '}

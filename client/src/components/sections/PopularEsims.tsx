@@ -118,17 +118,17 @@ export function PopularEsims() {
             </Button>
           </Link>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="responsive-grid-stack">
           {isLoading
             ? Array(4)
               .fill(0)
               .map((_, i) => (
-                <div key={`skeleton-${i}`} className="w-full sm:w-80 max-w-[300px]">
+                <div key={`skeleton-${i}`} className="w-full">
                   <SkeletonCard />
                 </div>
               ))
             : popularPackages.map((pkg) => (
-              <PlanCommonCard {...transformPackageToCardProps(pkg)} />
+              <PlanCommonCard key={pkg.id} {...transformPackageToCardProps(pkg)} />
             ))}
         </div>
       </div>

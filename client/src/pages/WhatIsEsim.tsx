@@ -111,23 +111,25 @@ export default function WhatIsEsim() {
                   ))}
                 </div>
               </div>
-              <div className="bg-muted/50 rounded-2xl p-8 border border-border">
+              <div className="bg-muted/50 rounded-2xl p-8 border border-border overflow-hidden">
                 <h3 className="text-xl font-bold text-foreground mb-6 text-center">eSIM vs Physical SIM</h3>
-                <div className="space-y-4">
-                  {[
-                    { feature: 'Setup time', esim: 'Minutes', sim: 'Hours/Days' },
-                    { feature: 'Store visit', esim: 'Not needed', sim: 'Required' },
-                    { feature: 'Multiple plans', esim: 'Yes, digital', sim: 'Need multiple cards' },
-                    { feature: 'Can be lost', esim: 'No', sim: 'Yes' },
-                    { feature: 'Eco-friendly', esim: 'Yes', sim: 'Plastic waste' },
-                    { feature: 'Dual SIM', esim: 'Built-in', sim: 'Extra slot needed' },
-                  ].map((row) => (
-                    <div key={row.feature} className="grid grid-cols-3 gap-4 text-sm py-3 border-b border-border last:border-b-0">
-                      <span className="font-medium text-foreground">{row.feature}</span>
-                      <span className="text-primary font-medium">{row.esim}</span>
-                      <span className="text-muted-foreground">{row.sim}</span>
-                    </div>
-                  ))}
+                <div className="responsive-table-container border-0 mb-0">
+                  <div className="space-y-4">
+                    {[
+                      { feature: 'Setup time', esim: 'Minutes', sim: 'Hours/Days' },
+                      { feature: 'Store visit', esim: 'Not needed', sim: 'Required' },
+                      { feature: 'Multiple plans', esim: 'Yes, digital', sim: 'Need multiple cards' },
+                      { feature: 'Can be lost', esim: 'No', sim: 'Yes' },
+                      { feature: 'Eco-friendly', esim: 'Yes', sim: 'Plastic waste' },
+                      { feature: 'Dual SIM', esim: 'Built-in', sim: 'Extra slot needed' },
+                    ].map((row) => (
+                      <div key={row.feature} className="grid grid-cols-3 gap-4 text-sm py-3 border-b border-border last:border-b-0 min-w-[300px]">
+                        <span className="font-medium text-foreground">{row.feature}</span>
+                        <span className="text-primary font-medium">{row.esim}</span>
+                        <span className="text-muted-foreground">{row.sim}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

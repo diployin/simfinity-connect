@@ -4,7 +4,23 @@ export default {
   darkMode: ['class'],
   content: ['./client/index.html', './client/src/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    screens: {
+      'xs': '320px',
+      'sm-alt': '375px',
+      'md-alt': '425px',
+      'sm': '640px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
+      '2xl': '1536px',
+    },
     extend: {
+      fontSize: {
+        'fluid-h1': ['clamp(2rem, 8vw, 4.5rem)', { lineHeight: '1.1' }],
+        'fluid-h2': ['clamp(1.75rem, 6vw, 3.5rem)', { lineHeight: '1.2' }],
+        'fluid-h3': ['clamp(1.5rem, 5vw, 2.5rem)', { lineHeight: '1.3' }],
+        'fluid-body': ['clamp(1rem, 2vw, 1.125rem)', { lineHeight: '1.6' }],
+      },
       /* ============================================
          📐 BORDER RADIUS
          ============================================ */
