@@ -13347,13 +13347,16 @@ ${urls
         for (const [namespace, keys] of Object.entries(translations)) {
           if (typeof keys !== 'object' || keys === null) continue;
 
+          // Fetch all existing keys for this namespace once
+          const allKeys = await storage.getTranslationKeysByNamespace(namespace);
+          const keyMap = new Map(allKeys.map((k) => [k.key, k]));
+
           for (const [key, value] of Object.entries(keys as Record<string, string>)) {
-            // Find or create key
-            const allKeys = await storage.getTranslationKeysByNamespace(namespace);
-            let keyRecord = allKeys.find((k) => k.key === key);
+            let keyRecord = keyMap.get(key);
 
             if (!keyRecord) {
               keyRecord = await storage.createTranslationKey({ namespace, key });
+              keyMap.set(key, keyRecord);
             }
 
             // Upsert the value

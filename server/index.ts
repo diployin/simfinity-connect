@@ -24,14 +24,13 @@ declare module 'http' {
   }
 }
 app.use(express.json({
+  limit: '50mb',
   verify: (req, _res, buf) => {
     req.rawBody = buf;
   }
 }));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ limit: '20mb', extended: true }));
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
-app.use(express.json({ limit: "20mb" }));
-app.use(express.urlencoded({ limit: "20mb", extended: true }));
 
 startLowDataUsageCron();
 
@@ -51,11 +50,16 @@ app.use((req, res, next) => {
     if (path.startsWith("/api")) {
       let logLine = `${req.method} ${path} ${res.statusCode} in ${duration}ms`;
       if (capturedJsonResponse) {
-        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
+        const stringified = JSON.stringify(capturedJsonResponse);
+        if (stringified.length > 200) {
+          logLine += ` :: [Large Response: ${stringified.length} bytes]`;
+        } else {
+          logLine += ` :: ${stringified}`;
+        }
       }
 
-      if (logLine.length > 80) {
-        logLine = logLine.slice(0, 79) + "…";
+      if (logLine.length > 120) {
+        logLine = logLine.slice(0, 119) + "…";
       }
 
       log(logLine);
