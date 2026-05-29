@@ -55,7 +55,7 @@ export default function Home() {
           <WhatIsEsim />
           <DestinationsTabs />
           <InstantConnection />
-          <PassportShowcase />
+          {/* <PassportShowcase /> */}
           <BenefitsSection />
           <HowItWorksSteps />
           <TravelerTestimonials />
