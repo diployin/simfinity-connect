@@ -218,7 +218,7 @@ export default function Destinations() {
                     <Globe className="h-3.5 w-3.5 shrink-0" />
                     {t('destinations.globalEsims', 'Global eSIMs')}
                   </button>
-                  <button
+                  {/* <button
                     onClick={() => handleTabChange('passport')}
                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${activeTab === 'passport'
                       ? 'bg-primary-second text-white'
@@ -228,7 +228,7 @@ export default function Destinations() {
                   >
                     <Ticket className="h-3.5 w-3.5 shrink-0" />
                     Voltey Passport
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
