@@ -132,7 +132,7 @@ export default function Destinations() {
       <Helmet>
         <title>
           {String(
-            t('destinations.title', 'Browse eSIM Destinations - 190+ Countries | Voltey'),
+            t('destinations.title', 'Browse eSIM Destinations - 190+ Countries | Simfinity'),
           )}
         </title>
         <meta
@@ -534,7 +534,7 @@ export default function Destinations() {
                     <Search className="w-8 h-8 text-muted-foreground" />
                   </div>
                   <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {t('destinations.noResultsTitle', 'No regions found')}
+                    {t('destinations.noResultsTitle', 'No destinations found')}
                   </h3>
                   <p className="text-muted-foreground">
                     {t('destinations.noResults', 'Try adjusting your search query')}
@@ -630,13 +630,11 @@ export default function Destinations() {
                   <div className="flex flex-col justify-center">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--primary)]/20 border border-[var(--primary)]/30 mb-6 w-fit">
                       <Sparkles className="w-4 h-4 text-[var(--primary-light)]" />
-                      <span className="text-sm font-medium text-[var(--primary-light)]">Limited First Batch — Pre-Book Now</span>
+                      <span className="text-sm font-medium text-[var(--primary-light)]">{t('destinations.passport.badge', 'Limited First Batch — Pre-Book Now')}</span>
                     </div>
                     <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
                       Voltey{' '}
-                      <span className="bg-gradient-to-r from-[var(--primary-light)] to-[var(--primary)] bg-clip-text text-transparent">
-                        Passport
-                      </span>
+                      <span className="bg-gradient-to-r from-[var(--primary-light)] to-[var(--primary)] bg-clip-text text-transparent">{t('destinations.passport.title', 'Passport')}</span>
                     </h2>
                     <p className="text-lg text-slate-300 leading-relaxed mb-6">
                       The world's first AI-powered global travel connectivity device. Secure browsing, built-in power bank, and a personal AI concierge — everything you need to travel smarter.
@@ -644,20 +642,18 @@ export default function Destinations() {
                     <div className="flex flex-wrap items-center gap-4 mb-8">
                       <div className="flex items-center gap-2 text-slate-300 text-sm">
                         <Globe className="w-4 h-4 text-[var(--primary-light)]" />
-                        <span>190+ Countries</span>
+                        <span>{t('destinations.passport.countries', '190+ Countries')}</span>
                       </div>
                       <div className="flex items-center gap-2 text-slate-300 text-sm">
                         <Zap className="w-4 h-4 text-amber-400" />
-                        <span>5000mAh Battery</span>
+                        <span>{t('destinations.passport.battery', '5000mAh Battery')}</span>
                       </div>
                       <div className="flex items-center gap-2 text-slate-300 text-sm">
                         <Shield className="w-4 h-4 text-blue-400" />
-                        <span>DPN Protected</span>
+                        <span>{t('destinations.passport.dpn', 'DPN Protected')}</span>
                       </div>
                     </div>
-                    <a href="#passport-prebook" className="btn-passport-cta inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] text-white font-semibold text-lg shadow-lg shadow-[var(--primary)]/25 hover:shadow-xl transition-all hover:scale-[1.02] w-fit">
-                      Reserve Your Device
-                      <ChevronRight className="w-5 h-5" />
+                    <a href="#passport-prebook" className="btn-passport-cta inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] text-white font-semibold text-lg shadow-lg shadow-[var(--primary)]/25 hover:shadow-xl transition-all hover:scale-[1.02] w-fit">{t('destinations.passport.reserve', 'Reserve Your Device')}<ChevronRight className="w-5 h-5" />
                     </a>
                   </div>
                   <div className="flex items-center justify-center">
@@ -676,7 +672,7 @@ export default function Destinations() {
               {/* Why Pre-Book */}
               <div className="px-4 sm:px-6 lg:px-8 mb-12">
                 <div className="text-center mb-8">
-                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Why Pre-Book?</h3>
+                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">{t('destinations.passport.whyTitle', 'Why Pre-Book?')}</h3>
                   <p className="text-muted-foreground max-w-2xl mx-auto">Early users don't follow trends — they lead them. Secure your priority access today.</p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -701,8 +697,8 @@ export default function Destinations() {
               {/* Core Features */}
               <div className="px-4 sm:px-6 lg:px-8 mb-12">
                 <div className="text-center mb-8">
-                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Built for the Modern Traveler</h3>
-                  <p className="text-muted-foreground max-w-2xl mx-auto">One device. Every feature you need across borders.</p>
+                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">{t('destinations.passport.modernTraveler.title', 'Built for the Modern Traveler')}</h3>
+                  <p className="text-muted-foreground max-w-2xl mx-auto">{t('destinations.passport.modernTraveler.subtitle', 'One device. Every feature you need across borders.')}</p>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {/* Security Card */}
@@ -710,7 +706,7 @@ export default function Destinations() {
                     <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mb-5">
                       <Shield className="w-7 h-7 text-white" />
                     </div>
-                    <h4 className="text-xl font-bold text-foreground mb-3">Travel Without Fear</h4>
+                    <h4 className="text-xl font-bold text-foreground mb-3">{t('destinations.passport.security.title', 'Travel Without Fear')}</h4>
                     <ul className="space-y-2.5">
                       {[
                         'Built-in DPN (Decentralized Private Network)',
@@ -732,8 +728,8 @@ export default function Destinations() {
                     <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mb-5">
                       <Bot className="w-7 h-7 text-white" />
                     </div>
-                    <h4 className="text-xl font-bold text-foreground mb-3">AI Travel Concierge</h4>
-                    <p className="text-sm text-muted-foreground mb-4">Your personal AI assistant can arrange everything from one ecosystem:</p>
+                    <h4 className="text-xl font-bold text-foreground mb-3">{t('destinations.passport.aiConcierge.title', 'AI Travel Concierge')}</h4>
+                    <p className="text-sm text-muted-foreground mb-4">{t('destinations.passport.aiConcierge.subtitle', 'Your personal AI assistant can arrange everything from one ecosystem:')}</p>
                     <div className="grid grid-cols-2 gap-2">
                       {[
                         { icon: Plane, label: 'Flights' },
@@ -754,11 +750,11 @@ export default function Destinations() {
                     <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center mb-5">
                       <TreePine className="w-7 h-7 text-white" />
                     </div>
-                    <h4 className="text-xl font-bold text-foreground mb-3">Travel That Gives Back</h4>
-                    <p className="text-sm text-muted-foreground mb-4">Every eSIM activated plants one tree. Your connectivity creates real environmental impact.</p>
+                    <h4 className="text-xl font-bold text-foreground mb-3">{t('destinations.passport.sustainability.title', 'Travel That Gives Back')}</h4>
+                    <p className="text-sm text-muted-foreground mb-4">{t('destinations.passport.sustainability.description', 'Every eSIM activated plants one tree. Your connectivity creates real environmental impact.')}</p>
                     <div className="bg-white/60 dark:bg-white/5 rounded-xl p-4 text-center">
-                      <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent mb-1">1 eSIM = 1 Tree</div>
-                      <p className="text-xs text-muted-foreground">Join the movement from day one</p>
+                      <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent mb-1">{t('destinations.passport.sustainability.math', '1 eSIM = 1 Tree')}</div>
+                      <p className="text-xs text-muted-foreground">{t('destinations.passport.sustainability.mathdesc', 'Join the movement from day one')}</p>
                     </div>
                   </div>
                 </div>
@@ -802,8 +798,8 @@ export default function Destinations() {
               {/* Who It's For */}
               <div className="px-4 sm:px-6 lg:px-8 mb-12">
                 <div className="text-center mb-8">
-                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">Designed for Global Explorers</h3>
-                  <p className="text-muted-foreground">If you move across borders — this is for you.</p>
+                  <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-3">{t('destinations.passport.explorers.title', 'Designed for Global Explorers')}</h3>
+                  <p className="text-muted-foreground">{t('destinations.passport.explorers.subtitle', 'If you move across borders — this is for you.')}</p>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                   {[
@@ -834,8 +830,8 @@ export default function Destinations() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-950/40 to-transparent flex items-center">
                     <div className="p-8 md:p-12 max-w-lg">
-                      <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">The Future of Travel Is Here</h3>
-                      <p className="text-slate-200 text-sm md:text-base">Before it goes global. Before it sells out. Before everyone has it. You get first access.</p>
+                      <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">{t('destinations.passport.futureTitle', 'The Future of Travel Is Here')}</h3>
+                      <p className="text-slate-200 text-sm md:text-base">{t('destinations.passport.futureSubtitle', 'Before it goes global. Before it sells out. Before everyone has it. You get first access.')}</p>
                     </div>
                   </div>
                 </div>
@@ -850,26 +846,20 @@ export default function Destinations() {
                   </div>
                   <div className="relative z-10">
                     <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4">Pre-Book Your Voltey Passport</h3>
-                    <p className="text-green-100 text-lg mb-2 max-w-2xl mx-auto">
-                      Be first. Travel smarter. Stay protected.
-                    </p>
-                    <p className="text-green-200/70 text-sm mb-8 max-w-xl mx-auto">
-                      The first production run is limited. Pre-booking secures your place in the first wave with priority activation and exclusive early benefits.
-                    </p>
+                    <p className="text-green-100 text-lg mb-2 max-w-2xl mx-auto">{t('destinations.passport.ctaSubtitle', 'Be first. Travel smarter. Stay protected.')}</p>
+                    <p className="text-green-200/70 text-sm mb-8 max-w-xl mx-auto">{t('destinations.passport.ctaDescription', 'The first production run is limited. Pre-booking secures your place in the first wave with priority activation and exclusive early benefits.')}</p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                      <button className="btn-passport-cta inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-second font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]">
-                        Reserve Your Device Now
-                        <ChevronRight className="w-5 h-5" />
+                      <button className="btn-passport-cta inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-second font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]">{t('destinations.passport.ctaButton', 'Reserve Your Device Now')}<ChevronRight className="w-5 h-5" />
                       </button>
                     </div>
                     <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-green-100 text-sm">
                       <div className="flex items-center gap-2">
                         <CheckCircle2 className="w-4 h-4" />
-                        <span>Priority Shipping</span>
+                        <span>{t('destinations.passport.features.shipping.label', 'Priority Shipping')}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle2 className="w-4 h-4" />
-                        <span>Exclusive Launch Pricing</span>
+                        <span>{t('destinations.passport.ctaPricing', 'Exclusive Launch Pricing')}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle2 className="w-4 h-4" />

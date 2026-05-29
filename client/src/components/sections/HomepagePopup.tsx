@@ -5,12 +5,15 @@ import { Copy, Check, X } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { useToast } from '@/hooks/use-toast';
+import { useTranslation } from '@/contexts/TranslationContext';
+
 
 export function HomepagePopup() {
     const [open, setOpen] = useState(false);
     const [dontShowToday, setDontShowToday] = useState(false);
     const [copied, setCopied] = useState(false);
     const { toast } = useToast();
+    const { t } = useTranslation();
 
     const enabledStr = useSettingByKey('homepage_popup_enabled');
     const imageUrl = useSettingByKey('homepage_popup_image');
@@ -53,8 +56,8 @@ export function HomepagePopup() {
         }}>
             <DialogContent className="sm:max-w-[420px] p-0 overflow-hidden border-0 bg-transparent shadow-[0_20px_50px_-12px_rgba(0,0,0,0.5)]" aria-describedby={undefined}>
                 <DialogHeader className="sr-only">
-                    <DialogTitle>Promotion</DialogTitle>
-                    <DialogDescription>Special offer popup</DialogDescription>
+                    <DialogTitle>{t('website.home.popup.title', 'Promotion')}</DialogTitle>
+                    <DialogDescription>{t('website.home.popup.description', 'Special offer popup')}</DialogDescription>
                 </DialogHeader>
                 <div className="relative bg-background sm:rounded-2xl overflow-hidden flex flex-col">
                     
@@ -92,9 +95,7 @@ export function HomepagePopup() {
                             {code && (
                                 <div className="w-full bg-primary/5 rounded-xl p-4 border border-primary/20 relative overflow-hidden group">
                                     <div className="absolute inset-0 bg-gradient-to-r from-primary/10 via-transparent to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-                                    <p className="text-[10px] font-bold text-primary uppercase tracking-widest text-center mb-2.5 opacity-80">
-                                        Your Exclusive Promo Code
-                                    </p>
+                                    <p className="text-[10px] font-bold text-primary uppercase tracking-widest text-center mb-2.5 opacity-80">{t('website.home.popup.promoLabel', 'Your Exclusive Promo Code')}</p>
                                     <div className="flex items-center justify-between gap-3 bg-background rounded-lg p-2  border-border/50 shadow-sm">
                                         <code className="text-xl font-extrabold text-foreground px-3 tracking-wider select-all">
                                             {code}
@@ -106,9 +107,9 @@ export function HomepagePopup() {
                                             className="shrink-0 transition-all duration-300 w-24 font-medium shadow-sm"
                                         >
                                             {copied ? (
-                                                <div className="flex items-center text-primary-foreground"><Check className="h-4 w-4 mr-2" /> Copied</div>
+                                                <div className="flex items-center text-primary-foreground"><Check className="h-4 w-4 mr-2" />{t('website.home.popup.copied', 'Copied')}</div>
                                             ) : (
-                                                <div className="flex items-center"><Copy className="h-4 w-4 mr-2" /> Copy</div>
+                                                <div className="flex items-center"><Copy className="h-4 w-4 mr-2" />{t('website.home.popup.copy', 'Copy')}</div>
                                             )}
                                         </Button>
                                     </div>

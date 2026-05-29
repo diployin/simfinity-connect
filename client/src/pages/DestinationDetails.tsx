@@ -366,7 +366,7 @@ export default function DestinationDetails() {
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
             <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[var(--primary)] border-r-transparent"></div>
-            <p className="mt-4 text-muted-foreground">Loading...</p>
+            <p className="mt-4 text-muted-foreground">{t('destination.loading', 'Loading...')}</p>
           </div>
         </div>
       </div>
@@ -377,7 +377,7 @@ export default function DestinationDetails() {
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <div className="flex-1 flex items-center justify-center pt-20">
-          <p>Destination not found</p>
+          <p>{t('destination.notFound', 'Destination not found')}</p>
         </div>
       </div>
     );
@@ -407,9 +407,7 @@ export default function DestinationDetails() {
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbLink href="/destinations" data-testid="breadcrumb-destinations">
-                  Destinations
-                </BreadcrumbLink>
+                <BreadcrumbLink href="/destinations" data-testid="breadcrumb-destinations">{t('destination.breadcrumb', 'Destinations')}</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
@@ -557,7 +555,7 @@ export default function DestinationDetails() {
 
                   {/* Choose Plan Section */}
                   <div className="flex-1 w-full sm:w-auto">
-                    <h2 className="text-xl font-bold text-foreground tracking-tight leading-tight">Choose your data plan</h2>
+                    <h2 className="text-xl font-bold text-foreground tracking-tight leading-tight">{t('destination.choosePlan', 'Choose your data plan')}</h2>
                     <div className="flex items-center gap-2 mt-1">
                       <p className="text-sm text-muted-foreground">
                         {packageOptions.length} plan{packageOptions.length !== 1 ? 's' : ''} available
@@ -569,9 +567,7 @@ export default function DestinationDetails() {
                           onClick={clearAllFilters}
                           className="text-xs h-6 px-2 text-muted-foreground hover:text-foreground"
                         >
-                          <X className="w-3 h-3 mr-1" />
-                          Clear filters
-                        </Button>
+                          <X className="w-3 h-3 mr-1" />{t('destination.clearFilters', 'Clear filters')}</Button>
                       )}
                     </div>
                   </div>
@@ -586,7 +582,7 @@ export default function DestinationDetails() {
                     </div>
                     <div className="text-left flex-1">
                       <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-foreground">Filters & Sorting</h3>
+                        <h3 className="font-semibold text-foreground">{t('destination.filtersAndSorting', 'Filters & Sorting')}</h3>
                         {activeFiltersCount > 0 && (
                           <span className="px-2 py-0.5 text-xs font-medium bg-[var(--primary)] text-white rounded-full">
                             {activeFiltersCount}
@@ -631,9 +627,7 @@ export default function DestinationDetails() {
                             setPage(1);
                           }}
                           className="w-full text-xs h-9 font-medium"
-                        >
-                          💰 Low to High
-                        </Button>
+                        >{t('destination.lowToHigh', '💰 Low to High')}</Button>
                         <Button
                           variant={sortBy === 'priceHighToLow' ? 'default' : 'outline'}
                           size="sm"
@@ -642,9 +636,7 @@ export default function DestinationDetails() {
                             setPage(1);
                           }}
                           className="w-full text-xs h-9 font-medium"
-                        >
-                          💎 High to Low
-                        </Button>
+                        >{t('destination.highToLow', '💎 High to Low')}</Button>
                       </div>
                     </div>
 
@@ -653,9 +645,7 @@ export default function DestinationDetails() {
                       <label className="text-sm font-medium text-foreground mb-3 flex items-center gap-2">
                         <div className="w-6 h-6 rounded-md bg-gradient-to-br from-primary/10 to-primary/5 dark:from-[var(--primary)]/20 dark:to-[var(--primary)]/10 flex items-center justify-center">
                           <Filter className="w-3.5 h-3.5 text-primary-second dark:text-[var(--primary-light)]" />
-                        </div>
-                        Filter By
-                      </label>
+                        </div>{t('destination.filterBy', 'Filter By')}</label>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                         <Button
                           variant={filterUnlimited ? 'default' : 'outline'}
@@ -666,9 +656,7 @@ export default function DestinationDetails() {
                           }}
                           className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
                         >
-                          <Sparkles className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
-                          Unlimited
-                        </Button>
+                          <Sparkles className="w-3.5 h-3.5 mr-2 flex-shrink-0" />{t('destination.unlimited', 'Unlimited')}</Button>
                         <Button
                           variant={filterBestPrice ? 'default' : 'outline'}
                           size="sm"
@@ -678,9 +666,7 @@ export default function DestinationDetails() {
                           }}
                           className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
                         >
-                          <Award className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
-                          Best Price
-                        </Button>
+                          <Award className="w-3.5 h-3.5 mr-2 flex-shrink-0" />{t('destination.bestPrice', 'Best Price')}</Button>
                         <Button
                           variant={filterPopular ? 'default' : 'outline'}
                           size="sm"
@@ -690,9 +676,7 @@ export default function DestinationDetails() {
                           }}
                           className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
                         >
-                          <Star className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
-                          Popular
-                        </Button>
+                          <Star className="w-3.5 h-3.5 mr-2 flex-shrink-0" />{t('destination.popular', 'Popular')}</Button>
                         <Button
                           variant={filterDataPack ? 'default' : 'outline'}
                           size="sm"
@@ -702,9 +686,7 @@ export default function DestinationDetails() {
                           }}
                           className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
                         >
-                          <Wifi className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
-                          Data Only
-                        </Button>
+                          <Wifi className="w-3.5 h-3.5 mr-2 flex-shrink-0" />{t('destination.dataOnly', 'Data Only')}</Button>
                         <Button
                           variant={filterDataAndVoice ? 'default' : 'outline'}
                           size="sm"
@@ -714,9 +696,7 @@ export default function DestinationDetails() {
                           }}
                           className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
                         >
-                          <Wifi className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
-                          Data + Voice
-                        </Button>
+                          <Wifi className="w-3.5 h-3.5 mr-2 flex-shrink-0" />{t('destination.dataVoice', 'Data + Voice')}</Button>
                         <Button
                           variant={filterVoiceAndDataAndSmsPack ? 'default' : 'outline'}
                           size="sm"
@@ -726,9 +706,7 @@ export default function DestinationDetails() {
                           }}
                           className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium whitespace-normal text-left leading-tight"
                         >
-                          <Wifi className="w-3.5 h-3.5 mr-2 flex-shrink-0" />
-                          Data + Voice + SMS
-                        </Button>
+                          <Wifi className="w-3.5 h-3.5 mr-2 flex-shrink-0" />{t('destination.dataVoiceSms', 'Data + Voice + SMS')}</Button>
                       </div>
                     </div>
                   </div>
@@ -769,27 +747,21 @@ export default function DestinationDetails() {
                               <span
                                 className="bg-gradient-to-r from-green-500 to-green-600 text-white text-[10px] sm:text-xs font-semibold px-2 py-1 rounded-full shadow-md text-center"
                                 data-testid={`badge-popular-${pkg.id}`}
-                              >
-                                🔥 Popular
-                              </span>
+                              >{t('destination.badges.popular', '🔥 Popular')}</span>
                             )}
 
                             {pkg.isRecommended && (
                               <span
                                 className="bg-gradient-to-r from-[var(--primary)] to-primary-second text-white text-[10px] sm:text-xs font-semibold px-2 py-1 rounded-full shadow-md text-center"
                                 data-testid={`badge-recommended-${pkg.id}`}
-                              >
-                                ⭐ Recommended
-                              </span>
+                              >{t('destination.badges.recommended', '⭐ Recommended')}</span>
                             )}
 
                             {pkg.isBestValue && (
                               <span
                                 className="bg-gradient-to-r from-green-500 to-green-600 text-white text-[10px] sm:text-xs font-semibold px-2 py-1 rounded-full shadow-md text-center"
                                 data-testid={`badge-best-value-${pkg.id}`}
-                              >
-                                💎 Best Value
-                              </span>
+                              >{t('destination.badges.bestValue', '💎 Best Value')}</span>
                             )}
 
                             {isBestChoice &&
@@ -799,9 +771,7 @@ export default function DestinationDetails() {
                                 <span
                                   className="bg-gradient-to-r from-green-500 to-green-600 text-white text-[10px] sm:text-xs font-semibold px-2 py-1 rounded-full shadow-md text-center"
                                   data-testid={`badge-best-choice-${pkg.id}`}
-                                >
-                                  ✨ Best Choice
-                                </span>
+                                >{t('destination.badges.bestChoice', '✨ Best Choice')}</span>
                               )}
                           </div>
                         )}

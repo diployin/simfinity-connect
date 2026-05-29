@@ -10,10 +10,12 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Search, Calendar, Clock, BookOpen, ArrowRight, TrendingUp } from 'lucide-react';
 import { calculateReadingTime } from '@/lib/imageOptimization';
 import type { BlogPost } from '@shared/schema';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function Blog() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
+  const { t, languageCode } = useTranslation();
 
   const { data, isLoading } = useQuery<{
     posts: BlogPost[];
@@ -32,18 +34,20 @@ export default function Blog() {
     setPage(1);
   };
 
+  const dateLocale = languageCode === 'fr' ? 'fr-FR' : 'en-US';
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-background">
       <Helmet>
-        <title>eSIM Travel Blog - Tips, Guides & Destination Insights | eSIM Marketplace</title>
+        <title>{t('website.blog.pageTitle', 'eSIM Travel Blog - Tips, Guides & Destination Insights | Simfinity')}</title>
         <meta
           name="description"
-          content="Explore our travel blog for eSIM guides, destination tips, and digital nomad resources. Learn how to stay connected while traveling globally."
+          content={t('website.blog.pageMeta', 'Explore our travel blog for eSIM guides, destination tips, and digital nomad resources. Learn how to stay connected while traveling globally.')}
         />
-        <meta property="og:title" content="eSIM Travel Blog - Tips & Guides" />
+        <meta property="og:title" content={t('website.blog.pageTitle', 'eSIM Travel Blog - Tips & Guides')} />
         <meta
           property="og:description"
-          content="Travel tips, eSIM guides, and destination insights for digital nomads and travelers."
+          content={t('website.blog.pageMeta', 'Travel tips, eSIM guides, and destination insights for digital nomads and travelers.')}
         />
         <meta property="og:type" content="website" />
       </Helmet>
@@ -76,13 +80,13 @@ export default function Blog() {
               <div className="inline-flex items-center gap-2 bg-primary/10 dark:bg-primary/20 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full mb-4 sm:mb-6">
                 <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                 <span className="text-xs sm:text-sm font-semibold text-primary">
-                  Travel Insights & Guides
+                  {t('website.blog.heroBadge', 'Travel Insights & Guides')}
                 </span>
               </div>
 
               {/* Title */}
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 leading-tight text-gray-900 dark:text-foreground">
-                eSIM Travel{' '}
+                {t('website.blog.heroTitle', 'eSIM Travel')}{' '}
                 <span className="bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent">
                   Blog
                 </span>
@@ -90,15 +94,14 @@ export default function Blog() {
 
               {/* Description */}
               <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-muted-foreground mb-6 sm:mb-8 leading-relaxed">
-                Discover travel tips, destination guides, and expert advice on staying connected
-                worldwide with eSIMs. Your ultimate resource for smart travel connectivity.
+                {t('website.blog.heroDescription', 'Discover travel tips, destination guides, and expert advice on staying connected worldwide with eSIMs. Your ultimate resource for smart travel connectivity.')}
               </p>
 
               {/* Search Bar with Enhanced Design */}
               <div className="relative max-w-xl">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <Input
-                  placeholder="Search articles, destinations, guides..."
+                  placeholder={String(t('website.blog.searchPlaceholder', 'Search articles, destinations, guides...'))}
                   value={search}
                   onChange={(e) => handleSearch(e.target.value)}
                   className="pl-12 pr-4 py-6 text-base border-2 dark:border-primary/30 border-gray-300 focus:border-primary dark:focus:border-primary rounded-xl shadow-sm dark:shadow-primary/10"
@@ -221,7 +224,7 @@ export default function Blog() {
                                 <Calendar className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary flex-shrink-0" />
                                 <span className="whitespace-nowrap">
                                   {post.publishedAt
-                                    ? new Date(post.publishedAt).toLocaleDateString('en-US', {
+                                    ? new Date(post.publishedAt).toLocaleDateString(dateLocale, {
                                       month: 'short',
                                       day: 'numeric',
                                       year: 'numeric',
@@ -232,7 +235,7 @@ export default function Blog() {
                               <div className="flex items-center gap-1.5">
                                 <Clock className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary flex-shrink-0" />
                                 <span className="whitespace-nowrap">
-                                  {calculateReadingTime(post.content)} min
+                                  {t('website.blog.readingTime', { count: calculateReadingTime(post.content) })}
                                 </span>
                               </div>
                             </div>
@@ -258,14 +261,14 @@ export default function Blog() {
                       data-testid="button-blog-prev-page"
                       className="w-full sm:w-auto border-2 dark:border-primary/30 border-gray-300 hover:border-primary dark:hover:border-primary hover:bg-primary/5 dark:hover:bg-primary/10 px-6 py-2.5 rounded-lg transition-all"
                     >
-                      Previous
+                      {t('website.blog.previous', 'Previous')}
                     </Button>
 
                     <div className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-card rounded-lg border-2 dark:border-primary/30 border-gray-200 shadow-sm">
                       <span className="text-sm font-semibold text-gray-900 dark:text-foreground">
-                        Page {page}
+                        {t('website.blog.page', 'Page')} {page}
                       </span>
-                      <span className="text-sm text-gray-500 dark:text-muted-foreground">of</span>
+                      <span className="text-sm text-gray-500 dark:text-muted-foreground">{t('website.blog.of', 'of')}</span>
                       <span className="text-sm font-semibold text-primary">
                         {data.pagination.totalPages}
                       </span>
@@ -278,7 +281,7 @@ export default function Blog() {
                       data-testid="button-blog-next-page"
                       className="w-full sm:w-auto border-2 dark:border-primary/30 border-gray-300 hover:border-primary dark:hover:border-primary hover:bg-primary/5 dark:hover:bg-primary/10 px-6 py-2.5 rounded-lg transition-all"
                     >
-                      Next
+                      {t('website.blog.next', 'Next')}
                     </Button>
                   </motion.div>
                 )}
@@ -294,10 +297,10 @@ export default function Blog() {
                   <Search className="w-8 h-8 sm:w-10 sm:h-10 text-primary" />
                 </div>
                 <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-foreground mb-3">
-                  No Articles Found
+                  {t('website.blog.noResults', 'No Articles Found')}
                 </h3>
                 <p className="text-base sm:text-lg text-gray-600 dark:text-muted-foreground mb-6">
-                  Try adjusting your search or browse all articles
+                  {t('website.blog.noResultsDesc', 'Try adjusting your search or browse all articles')}
                 </p>
                 <Button
                   onClick={() => {
@@ -306,7 +309,7 @@ export default function Blog() {
                   }}
                   className="bg-primary-gradient text-white px-6 py-2.5 rounded-lg shadow-lg hover:shadow-xl transition-all"
                 >
-                  Clear Search
+                  {t('website.blog.clearSearch', 'Clear Search')}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </motion.div>

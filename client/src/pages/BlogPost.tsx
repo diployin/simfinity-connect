@@ -81,17 +81,13 @@ export default function BlogPost() {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
             <Card className="max-w-2xl mx-auto">
               <CardContent className="text-center py-12 sm:py-16 px-4">
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-4 sm:mb-6">
-                  Blog post not found
-                </h2>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold mb-4 sm:mb-6">{t('website.blog.postNotFound', 'Blog post not found')}</h2>
                 <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8">
                   The blog post you're looking for doesn't exist or has been removed.
                 </p>
                 <Link href="/blog">
                   <Button className="w-full sm:w-auto">
-                    <ArrowLeft className="h-4 w-4 mr-2" />
-                    Back to Blog
-                  </Button>
+                    <ArrowLeft className="h-4 w-4 mr-2" />{t('website.blog.backToBlog', 'Back to Blog')}</Button>
                 </Link>
               </CardContent>
             </Card>
@@ -143,9 +139,7 @@ export default function BlogPost() {
               className="mb-6 sm:mb-8 text-sm sm:text-base -ml-2 sm:-ml-3"
               data-testid="button-back-to-blog"
             >
-              <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-              Back to Blog
-            </Button>
+              <ArrowLeft className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />{t('website.blog.backToBlog', 'Back to Blog')}</Button>
           </Link>
 
           {/* Article Header - Enhanced Responsive Typography */}
@@ -246,9 +240,7 @@ export default function BlogPost() {
                   data-testid="button-share"
                   className="w-full sm:w-auto text-sm"
                 >
-                  <Share2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-2" />
-                  Share Article
-                </Button>
+                  <Share2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 mr-2" />{t('website.blog.shareArticle', 'Share Article')}</Button>
               )}
             </div>
           </footer>

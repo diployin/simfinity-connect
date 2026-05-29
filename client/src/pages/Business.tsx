@@ -16,56 +16,58 @@ import {
 import { Helmet } from 'react-helmet-async';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { useLocation } from 'wouter';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function Business() {
-  const siteName = useSettingByKey('platform_name') || 'Voltey';
+  const siteName = useSettingByKey('platform_name') || 'Simfinity';
   const [, navigate] = useLocation();
+  const { t } = useTranslation();
 
   const features = [
     {
       icon: Globe2,
-      title: 'Global Coverage',
-      desc: 'Get fast, reliable data in more than 200+ destinations worldwide.',
+      title: t('business.featGlobal.title', 'Global Coverage'),
+      desc: t('business.featGlobal.desc', 'Get fast, reliable data in more than 200+ destinations worldwide.'),
       color: 'from-primary to-primary-dark',
       bgLight: 'from-primary/5 to-primary/10',
       bgDark: 'dark:from-primary/20 dark:to-primary/10',
     },
     {
       icon: Zap,
-      title: 'Automatic Activation',
-      desc: 'eSIMs activate as soon as your team reaches their destination — zero setup needed.',
+      title: t('business.featAuto.title', 'Automatic Activation'),
+      desc: t('business.featAuto.desc', 'eSIMs activate as soon as your team reaches their destination — zero setup needed.'),
       color: 'from-amber-500 to-amber-600',
       bgLight: 'from-amber-50 to-amber-100',
       bgDark: 'dark:from-amber-950/30 dark:to-amber-900/20',
     },
     {
       icon: CreditCard,
-      title: 'Predictable Pricing',
-      desc: 'Budgeting is easier with transparent plan costs for teams of any size.',
+      title: t('business.featPricing.title', 'Predictable Pricing'),
+      desc: t('business.featPricing.desc', 'Budgeting is easier with transparent plan costs for teams of any size.'),
       color: 'from-emerald-500 to-emerald-600',
       bgLight: 'from-emerald-50 to-emerald-100',
       bgDark: 'dark:from-emerald-950/30 dark:to-emerald-900/20',
     },
     {
       icon: BarChart3,
-      title: 'Usage Analytics',
-      desc: 'Track data use, optimize spending, and make sure your team stays online.',
+      title: t('business.featAnalytics.title', 'Usage Analytics'),
+      desc: t('business.featAnalytics.desc', 'Track data use, optimize spending, and make sure your team stays online.'),
       color: 'from-purple-500 to-purple-600',
       bgLight: 'from-purple-50 to-purple-100',
       bgDark: 'dark:from-purple-950/30 dark:to-purple-900/20',
     },
     {
       icon: QrCode,
-      title: 'QR Code Activation',
-      desc: 'Team members get online using just a QR code — no app required!',
+      title: t('business.featQr.title', 'QR Code Activation'),
+      desc: t('business.featQr.desc', 'Team members get online using just a QR code — no app required!'),
       color: 'from-rose-500 to-rose-600',
       bgLight: 'from-rose-50 to-rose-100',
       bgDark: 'dark:from-rose-950/30 dark:to-rose-900/20',
     },
     {
       icon: Shield,
-      title: 'Easy Payment',
-      desc: 'Buy multiple plans with one purchase and view invoices through the dashboard.',
+      title: t('business.featPayment.title', 'Easy Payment'),
+      desc: t('business.featPayment.desc', 'Buy multiple plans with one purchase and view invoices through the dashboard.'),
       color: 'from-cyan-500 to-cyan-600',
       bgLight: 'from-cyan-50 to-cyan-100',
       bgDark: 'dark:from-cyan-950/30 dark:to-cyan-900/20',
@@ -75,22 +77,22 @@ export default function Business() {
   const steps = [
     {
       num: '1',
-      title: 'Add Team Members',
-      desc: 'Start by adding team members to your organization and assigning plans.',
+      title: t('business.step1.title', 'Add Team Members'),
+      desc: t('business.step1.desc', 'Start by adding team members to your organization and assigning plans.'),
       icon: Users,
       color: 'from-primary to-primary-dark',
     },
     {
       num: '2',
-      title: 'Purchase Plans Quickly',
-      desc: 'Choose country, regional, or global plans and buy instantly.',
+      title: t('business.step2.title', 'Purchase Plans Quickly'),
+      desc: t('business.step2.desc', 'Choose country, regional, or global plans and buy instantly.'),
       icon: CreditCard,
       color: 'from-purple-500 to-purple-600',
     },
     {
       num: '3',
-      title: 'Monitor Data Usage',
-      desc: 'Once a user has activated an eSIM, you can track usage and renew plans remotely.',
+      title: t('business.step3.title', 'Monitor Data Usage'),
+      desc: t('business.step3.desc', 'Once a user has activated an eSIM, you can track usage and renew plans remotely.'),
       icon: BarChart3,
       color: 'from-amber-500 to-amber-600',
     },
@@ -98,70 +100,74 @@ export default function Business() {
 
   const faqs = [
     {
-      q: 'What is the difference between an eSIM and a SIM card for business?',
-      a: 'For business users, eSIMs are easier to set up and manage. They allow business travelers to stay connected while retaining their original phone number and avoiding roaming fees. Unlike physical SIM cards, eSIMs are impossible to break, steal, or lose.',
+      q: t('business.faq1.q', 'What is the difference between an eSIM and a SIM card for business?'),
+      a: t('business.faq1.a', 'For business users, eSIMs are easier to set up and manage. They allow business travelers to stay connected while retaining their original phone number and avoiding roaming fees. Unlike physical SIM cards, eSIMs are impossible to break, steal, or lose.'),
     },
     {
-      q: `What countries does ${siteName} business eSIM cover?`,
-      a: `${siteName} offers mobile data plans in 200+ destinations for both individual clients and business users. You can see all destinations on our website or the ${siteName} app.`,
+      q: t('business.faq2.q', 'What countries does {{siteName}} business eSIM cover?', { siteName }),
+      a: t('business.faq2.a', '{{siteName}} offers mobile data plans in 200+ destinations for both individual clients and business users. You can see all destinations on our website or the {{siteName}} app.', { siteName }),
     },
     {
-      q: 'How do I use an eSIM for business?',
-      a: `After you register, your team members install the eSIM profile on their phones and add the data plan they need. It will activate automatically when they reach their destination. You can assign multiple data plans whenever needed.`,
+      q: t('business.faq3.q', 'How do I use an eSIM for business?'),
+      a: t('business.faq3.a', 'After you register, your team members install the eSIM profile on their phones and add the data plan they need. It will activate automatically when they reach their destination. You can assign multiple data plans whenever needed.'),
     },
     {
-      q: 'How can I add more data to my business eSIM plan?',
-      a: 'You can easily top up data directly from the business dashboard, or contact your dedicated account manager for bulk upgrades.',
+      q: t('business.faq4.q', 'How can I add more data to my business eSIM plan?'),
+      a: t('business.faq4.a', 'You can easily top up data directly from the business dashboard, or contact your dedicated account manager for bulk upgrades.'),
     },
     {
-      q: 'Can I share data through a hotspot?',
-      a: 'Yes! You can create a hotspot on your smartphone and connect your laptop to it. You can also set up an eSIM on laptops that support eSIMs for direct internet access.',
+      q: t('business.faq5.q', 'Can I share data through a hotspot?'),
+      a: t('business.faq5.a', 'Yes! You can create a hotspot on your smartphone and connect your laptop to it. You can also set up an eSIM on laptops that support eSIMs for direct internet access.'),
     },
     {
-      q: 'Can I use SIM and eSIM cards simultaneously?',
-      a: 'Yes. Phones that support eSIM technology allow you to keep your physical SIM card and use an eSIM profile simultaneously. You can switch between the two or have both active.',
+      q: t('business.faq6.q', 'Can I use SIM and eSIM cards simultaneously?'),
+      a: t('business.faq6.a', 'Yes. Phones that support eSIM technology allow you to keep your physical SIM card and use an eSIM profile simultaneously. You can switch between the two or have both active.'),
     },
   ];
 
   return (
     <>
       <Helmet>
-        <title>eSIM for Business — {siteName}</title>
-        <meta name="description" content={`Manage all your team's eSIM plans from one dashboard. ${siteName} for Business offers global coverage, usage analytics, and predictable pricing.`} />
+        <title>{t('business.pageTitle', 'eSIM for Business — {{siteName}}', { siteName })}</title>
+        <meta name="description" content={t('business.pageMeta', 'Manage all your team\'s eSIM plans from one dashboard. {{siteName}} for Business offers global coverage, usage analytics, and predictable pricing.', { siteName })} />
       </Helmet>
 
       <div className="min-h-screen bg-background">
-        <section className="relative pt-24 pb-32 overflow-hidden bg-[#f8fafc]">
-          <div className="absolute top-0 left-0 w-full h-full">
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-[var(--primary)]/5 transform skew-x-12 translate-x-1/2" />
-            <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-blue-500/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
+        {/* Hero */}
+        <section className="relative overflow-hidden bg-hero-gradient text-white">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary-light/10 rounded-full blur-3xl" />
           </div>
 
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm border border-slate-100 text-[var(--primary)] text-sm font-bold mb-8">
-              <Building2 className="w-4 h-4" />
-              {siteName} for Business
-            </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10">
+            <div className="max-w-3xl">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
+                <Building2 className="w-4 h-4 text-white" />
+                <span className="text-sm font-medium text-white">{t('business.heroLabel', '{{siteName}} for Business', { siteName })}</span>
+              </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
-              Manage all your team's eSIM plans from <span className="text-[var(--primary)]">one dashboard</span>
-            </h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                {t('business.heroTitlePrefix', 'Manage all your team\'s eSIM plans from')}{' '}
+                <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">{t('business.heroTitleHighlight', 'one dashboard')}</span>
+              </h1>
 
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-10">
-              Buy and monitor eSIM plans from an easy-to-use dashboard. Assign plans, track usage, and add data as needed, so your team stays connected wherever they go.
-            </p>
+              <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl">
+                {t('business.heroSubtitle', 'Buy and monitor eSIM plans from an easy-to-use dashboard. Assign plans, track usage, and add data as needed, so your team stays connected wherever they go.')}
+              </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                onClick={() => navigate('/destinations')}
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-[var(--primary)] text-white font-semibold text-lg hover:bg-[#235d2d] transition-all shadow-lg shadow-green-900/10"
-              >
-                Get Started
-                <ArrowRight className="w-5 h-5" />
-              </button>
-              <button className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white border border-slate-200 text-slate-700 font-semibold text-lg hover:bg-slate-50 transition-colors shadow-sm">
-                Contact Sales
-              </button>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button
+                  onClick={() => navigate('/destinations')}
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors"
+                >
+                  {t('business.getStarted', 'Get Started')}
+                  <ArrowRight className="w-5 h-5" />
+                </button>
+                <button className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-white/20 text-white font-semibold text-lg hover:bg-white/10 transition-colors">
+                  {t('business.contactSales', 'Contact Sales')}
+                </button>
+              </div>
             </div>
           </div>
         </section>
@@ -171,10 +177,10 @@ export default function Business() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Why businesses choose {siteName}
+                {t('business.whyChoose', 'Why businesses choose {{siteName}}', { siteName })}
               </h2>
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                Everything your team needs to stay connected, managed from one place.
+                {t('business.whyChooseSub', 'Everything your team needs to stay connected, managed from one place.')}
               </p>
             </div>
 
@@ -197,10 +203,10 @@ export default function Business() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Get started with your {siteName} business dashboard
+                {t('business.howStarted', 'Get started with your {{siteName}} business dashboard', { siteName })}
               </h2>
               <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-                The business dashboard gives your company full control over team connectivity — from adding team members to assigning and managing eSIMs across the workforce.
+                {t('business.howStartedSub', 'The business dashboard gives your company full control over team connectivity — from adding team members to assigning and managing eSIMs across the workforce.')}
               </p>
             </div>
 
@@ -224,18 +230,18 @@ export default function Business() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
                 <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-                  Built for teams that travel
+                  {t('business.builtForTeams', 'Built for teams that travel')}
                 </h2>
                 <p className="text-muted-foreground text-lg mb-8">
-                  Whether your team is flying to a conference, visiting remote offices, or working from anywhere — {siteName} Business keeps everyone connected without the hassle of local SIM cards or expensive roaming.
+                  {t('business.builtForTeamsSub', 'Whether your team is flying to a conference, visiting remote offices, or working from anywhere — {{siteName}} Business keeps everyone connected without the hassle of local SIM cards or expensive roaming.', { siteName })}
                 </p>
                 <ul className="space-y-4">
                   {[
-                    'No contracts or hidden fees — pay only for what you use',
-                    'Centralized billing with downloadable invoices',
-                    'Instant provisioning — no waiting for physical cards',
-                    'Dedicated account manager for enterprise plans',
-                    'Bulk discounts for large teams',
+                    t('business.builtItem1', 'No contracts or hidden fees — pay only for what you use'),
+                    t('business.builtItem2', 'Centralized billing with downloadable invoices'),
+                    t('business.builtItem3', 'Instant provisioning — no waiting for physical cards'),
+                    t('business.builtItem4', 'Dedicated account manager for enterprise plans'),
+                    t('business.builtItem5', 'Bulk discounts for large teams'),
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
@@ -247,10 +253,10 @@ export default function Business() {
 
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { icon: Briefcase, label: 'Corporate Travel', value: '500+ Teams', color: 'from-primary to-primary-dark' },
-                  { icon: Globe2, label: 'Destinations', value: '200+', color: 'from-purple-500 to-purple-600' },
-                  { icon: Plane, label: 'Trips Powered', value: '50K+', color: 'from-amber-500 to-amber-600' },
-                  { icon: Users, label: 'Business Users', value: '10K+', color: 'from-rose-500 to-rose-600' },
+                  { icon: Briefcase, label: t('business.statTraveL', 'Corporate Travel'), value: '500+ Teams', color: 'from-primary to-primary-dark' },
+                  { icon: Globe2, label: t('business.statDest', 'Destinations'), value: '200+', color: 'from-purple-500 to-purple-600' },
+                  { icon: Plane, label: t('business.statTrips', 'Trips Powered'), value: '50K+', color: 'from-amber-500 to-amber-600' },
+                  { icon: Users, label: t('business.statUsers', 'Business Users'), value: '10K+', color: 'from-rose-500 to-rose-600' },
                 ].map((stat) => (
                   <div key={stat.label} className="bg-card rounded-2xl p-6 border border-border text-center">
                     <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center mx-auto mb-3`}>
@@ -269,7 +275,7 @@ export default function Business() {
         <section className="py-16 md:py-24 bg-muted/30">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-12">
-              Frequently asked questions
+              {t('business.faqTitle', 'Frequently asked questions')}
             </h2>
 
             <div className="space-y-4">
@@ -298,22 +304,22 @@ export default function Business() {
               </div>
 
               <div className="relative z-10">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-                  Ready to get your team connected?
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+                  {t('business.ctaTitle', 'Ready to get your team connected?')}
                 </h2>
                 <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-                  Explore the {siteName} business dashboard, or chat with our sales team to get the right quote for your business.
+                  {t('business.ctaDesc', 'Explore the {{siteName}} business dashboard, or chat with our sales team to get the right quote for your business.', { siteName })}
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <button
                     onClick={() => navigate('/destinations')}
                     className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]"
                   >
-                    Get Started
+                    {t('business.getStarted', 'Get Started')}
                     <ArrowRight className="w-5 h-5" />
                   </button>
                   <button className="inline-flex items-center gap-2 px-8 py-4 rounded-xl border border-white/20 text-white font-semibold text-lg hover:bg-white/10 transition-colors">
-                    Contact Sales
+                    {t('business.contactSales', 'Contact Sales')}
                   </button>
                 </div>
               </div>

@@ -20,14 +20,14 @@ export function InstantConnection() {
           className="text-center mb-10"
         >
           <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-gray-900 dark:text-white leading-tight mb-4">
-            {t('website.home.instant.title', 'Instant connection and safer browsing')}
+            {t('website.home.instant.title', 'Instant Connection. No Waiting. No Hassle.')}
             <br className="hidden sm:block" />
-            {' '}{t('website.home.instant.titleSuffix', 'with Voltey')}
+            {' '}{t('website.home.instant.titleSuffix', 'with Simfinity')}
           </h2>
           <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto mb-6">
             {t(
               'website.home.instant.subtitle',
-              'Do you travel often, live abroad, or simply need reliable mobile data on the go? Voltey makes it simple to stay connected, wherever life takes you.'
+              'Whether you\'re traveling, working remotely, or exploring new places — stay online instantly without delays, queues, or complications.'
             )}
           </p>
           <Link href="/destinations">
@@ -47,7 +47,7 @@ export function InstantConnection() {
           >
             <div className="relative z-10">
               <h3 className="text-2xl md:text-[1.7rem] font-bold text-gray-900 dark:text-white mb-3">
-                {t('website.home.instant.connect.title', 'Connect instantly')}
+                {t('website.home.instant.connect.title', 'Connect Instantly')}
               </h3>
               <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-sm mb-6">
                 {t(
@@ -62,7 +62,7 @@ export function InstantConnection() {
                     <path d="M12 12h.01" />
                   </svg>
                 </div>
-                <span className="text-sm font-semibold text-gray-900 dark:text-white">eSIM #1</span>
+                <span className="text-sm font-semibold text-gray-900 dark:text-white">{t('website.home.instant.connect.esimNum', 'eSIM #1')}</span>
                 <span className="text-xs text-[var(--primary)] dark:text-[var(--primary-light)] font-medium bg-primary/5 dark:bg-[var(--primary-dark)]/30 px-2 py-0.5 rounded-full">
                   {t('website.home.instant.connect.installed', 'Installed')}
                 </span>
@@ -87,12 +87,12 @@ export function InstantConnection() {
           >
             <div className="relative z-10">
               <h3 className="text-2xl md:text-[1.7rem] font-bold text-gray-900 dark:text-white mb-3">
-                {t('website.home.instant.avoid.title', 'Avoid waiting in line')}
+                {t('website.home.instant.avoid.title', 'No More Waiting in Line')}
               </h3>
               <p className="text-sm md:text-base text-gray-500 dark:text-gray-400 leading-relaxed max-w-sm mb-6">
                 {t(
                   'website.home.instant.avoid.description',
-                  'Getting a local SIM at the airport or train station can be a hassle. With an eSIM, you won\'t have to wait in line or deal with sketchy sellers offering SIM cards that might not even work.'
+                  'Forget airport kiosks and unreliable local SIM vendors. With eSIM, everything is digital — no queues, no paperwork, no uncertainty. Just seamless connectivity from the moment you land.'
                 )}
               </p>
               <div className="flex flex-col gap-2.5">
@@ -106,7 +106,7 @@ export function InstantConnection() {
                   >
                     <div>
                       <span className="text-sm font-semibold text-gray-900 dark:text-white">{plan}</span>
-                      <span className="text-xs text-gray-400 ml-2">30 days</span>
+                      <span className="text-xs text-gray-400 ml-2">{t('website.home.instant.avoid.daysValidity', '30 days')}</span>
                     </div>
                     {i === 0 && (
                       <div className="w-6 h-6 bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] rounded-full flex items-center justify-center">

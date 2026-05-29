@@ -116,7 +116,7 @@ export function AccountLayout({ children }: AccountLayoutProps) {
               <div className="bg-card rounded-lg border p-4 lg:sticky lg:top-24">
                 <div className="flex items-center gap-2 mb-6">
                   <Settings className="h-5 w-5 text-foreground" />
-                  <h2 className="font-semibold text-lg text-foreground">Account Settings</h2>
+                  <h2 className="font-semibold text-lg text-foreground">{t('website.account.sidebar.accountSettings', 'Account Settings')}</h2>
                 </div>
 
                 <nav className="space-y-1">
@@ -174,9 +174,7 @@ export function AccountLayout({ children }: AccountLayoutProps) {
               <div className="flex items-center gap-2 mb-6 text-sm">
                 <Link href="/">
                   <Button variant="ghost" size="sm" className="gap-1 text-muted-foreground">
-                    <Home className="h-4 w-4" />
-                    Home
-                  </Button>
+                    <Home className="h-4 w-4" />{t('website.account.sidebar.home', 'Home')}</Button>
                 </Link>
 
                 <ChevronRight className="h-4 w-4 text-muted-foreground" />
@@ -193,7 +191,7 @@ export function AccountLayout({ children }: AccountLayoutProps) {
                     <span className="font-medium text-muted-foreground ">{getCurrentPageName()}</span>
                   </>
                 ) : (
-                  <span className="font-medium">Account</span>
+                  <span className="font-medium">{t('website.account.sidebar.account', 'Account')}</span>
                 )}
               </div>
 

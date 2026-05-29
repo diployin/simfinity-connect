@@ -7,13 +7,14 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { CheckCircle, MailX } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function Unsubscribe() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const [unsubscribed, setUnsubscribed] = useState(false);
   const [reason, setReason] = useState("");
-
+ const { t } = useTranslation();
   // Get token from URL
   const searchParams = new URLSearchParams(window.location.search);
   const token = searchParams.get('token');
@@ -57,26 +58,22 @@ export default function Unsubscribe() {
         <CardContent className="space-y-6">
           {!unsubscribed ? (
             <>
-              <p className="text-center text-muted-foreground">
-                You will no longer receive marketing emails from us.
-              </p>
+              <p className="text-center text-muted-foreground">{t('website.unsubscribe.unsubscribeDesc', 'You will no longer receive marketing emails from us.')}</p>
               <Button
                 className="w-full"
                 onClick={() => setUnsubscribed(true)}
                 data-testid="button-confirm-unsubscribe"
-              >
-                Confirm Unsubscribe
-              </Button>
+              >{t('website.unsubscribe.confirmBtn', 'Confirm Unsubscribe')}</Button>
             </>
           ) : (
             <>
               <div className="text-center text-muted-foreground">
-                <p className="mb-4">You have successfully unsubscribed from our mailing list.</p>
-                <p className="text-sm">You can resubscribe at any time from your account settings.</p>
+                <p className="mb-4">{t('website.unsubscribe.unsubscribedDesc', 'You have successfully unsubscribed from our mailing list.')}</p>
+                <p className="text-sm">{t('website.unsubscribe.resubscribeNote', 'You can resubscribe at any time from your account settings.')}</p>
               </div>
 
               <div className="space-y-4 pt-4 border-t">
-                <Label htmlFor="reason">Help us improve (optional)</Label>
+                <Label htmlFor="reason">{t('website.unsubscribe.helpImprove', 'Help us improve (optional)')}</Label>
                 <Textarea
                   id="reason"
                   placeholder="Tell us why you're unsubscribing..."
@@ -91,17 +88,13 @@ export default function Unsubscribe() {
                     onClick={() => setLocation("/")}
                     className="flex-1"
                     data-testid="button-go-home"
-                  >
-                    Go to Homepage
-                  </Button>
+                  >{t('website.unsubscribe.goHome', 'Go to Homepage')}</Button>
                   <Button
                     onClick={handleSubmitFeedback}
                     className="flex-1"
                     disabled={!reason.trim()}
                     data-testid="button-submit-feedback"
-                  >
-                    Submit Feedback
-                  </Button>
+                  >{t('website.unsubscribe.submitFeedback', 'Submit Feedback')}</Button>
                 </div>
               </div>
             </>

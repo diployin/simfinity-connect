@@ -423,7 +423,7 @@ export default function KYCSubmission() {
           <Dialog open={kycBlockedModal} onOpenChange={setKycBlockedModal}>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>KYC Already Submitted</DialogTitle>
+                <DialogTitle>{t('website.kyc.kycAlreadySubmitted', 'KYC Already Submitted')}</DialogTitle>
                 <DialogDescription>
                   {user?.kycStatus === 'submitted' &&
                     'Your documents are currently under review. Please wait for verification.'}

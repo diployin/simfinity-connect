@@ -796,7 +796,7 @@ export default function Checkout() {
               {isAuthenticated && (
                 <Card>
                   <CardHeader>
-                    <CardTitle>Payment Method</CardTitle>
+                    <CardTitle>{t('checkout.paymentMethod', 'Payment Method')}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <RadioGroup value={paymentMethod} onValueChange={(value) => setPaymentMethod(value as PaymentMethodType)} data-testid="radiogroup-payment-method">
@@ -806,8 +806,8 @@ export default function Checkout() {
                           <Label htmlFor="payment-card" className="flex items-center gap-3 cursor-pointer flex-1">
                             <CreditCard className="h-5 w-5 text-muted-foreground" />
                             <div>
-                              <div className="font-medium">Credit/Debit Card</div>
-                              <div className="text-xs text-muted-foreground">Pay securely with your card</div>
+                              <div className="font-medium">{t('checkout.creditCard', 'Credit/Debit Card')}</div>
+                              <div className="text-xs text-muted-foreground">{t('checkout.creditCardDesc', 'Pay securely with your card')}</div>
                             </div>
                           </Label>
                         </div>
@@ -817,8 +817,8 @@ export default function Checkout() {
                           <Label htmlFor="payment-paypal" className="flex items-center gap-3 cursor-pointer flex-1">
                             <SiPaypal className="h-5 w-5 text-[#00457C]" />
                             <div>
-                              <div className="font-medium">PayPal</div>
-                              <div className="text-xs text-muted-foreground">Pay with your PayPal account</div>
+                              <div className="font-medium">{t('checkout.paypal', 'PayPal')}</div>
+                              <div className="text-xs text-muted-foreground">{t('checkout.paypalDesc', 'Pay with your PayPal account')}</div>
                             </div>
                           </Label>
                         </div>
@@ -829,8 +829,8 @@ export default function Checkout() {
                             <Label htmlFor="payment-apple" className="flex items-center gap-3 cursor-pointer flex-1">
                               <SiApplepay className="h-5 w-5 text-muted-foreground" />
                               <div>
-                                <div className="font-medium">Apple Pay</div>
-                                <div className="text-xs text-muted-foreground">Quick and secure payment</div>
+                                <div className="font-medium">{t('checkout.applePay', 'Apple Pay')}</div>
+                                <div className="text-xs text-muted-foreground">{t('checkout.applePayDesc', 'Quick and secure payment')}</div>
                               </div>
                             </Label>
                           </div>
@@ -842,8 +842,8 @@ export default function Checkout() {
                             <Label htmlFor="payment-google" className="flex items-center gap-3 cursor-pointer flex-1">
                               <SiGooglepay className="h-5 w-5 text-muted-foreground" />
                               <div>
-                                <div className="font-medium">Google Pay</div>
-                                <div className="text-xs text-muted-foreground">Fast checkout with Google</div>
+                                <div className="font-medium">{t('checkout.googlePay', 'Google Pay')}</div>
+                                <div className="text-xs text-muted-foreground">{t('checkout.googlePayDesc', 'Fast checkout with Google')}</div>
                               </div>
                             </Label>
                           </div>

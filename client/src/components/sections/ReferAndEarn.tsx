@@ -30,7 +30,7 @@ export function ReferAndEarn() {
               <div>
                 <Link href="/account/referral">
                   <button className="inline-flex items-center px-6 py-3 rounded-full border-2 border-foreground text-foreground text-sm font-semibold hover:bg-foreground hover:text-background transition-all duration-200">
-                    {t('website.home.referral.cta', 'Learn More')}
+                    {t('website.home.referral.cta', 'Start Referring')}
                   </button>
                 </Link>
               </div>

@@ -11,10 +11,12 @@ import {
 import { Helmet } from 'react-helmet-async';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { useLocation } from 'wouter';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function StudentDiscount() {
   const siteName = useSettingByKey('platform_name') || 'Voltey';
   const [, navigate] = useLocation();
+    const { t } = useTranslation();
 
   return (
     <>
@@ -34,17 +36,16 @@ export default function StudentDiscount() {
               <div>
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
                   <GraduationCap className="w-4 h-4 text-white" />
-                  <span className="text-sm font-medium text-white">Student Program</span>
+                  <span className="text-sm font-medium text-white">{t('student.heroLabel', 'Student Program')}</span>
                 </div>
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                  <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">15% off</span>{' '}
+                  <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">{t('student.heroDiscount', '15% off')}</span>{' '}
                   for students
                 </h1>
                 <p className="text-lg md:text-xl text-white/80 mb-8">
                   Whether you're studying abroad, backpacking between semesters, or heading home for the holidays — stay connected for less with our student discount.
                 </p>
-                <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors">
-                  Verify Student Status <ArrowRight className="w-5 h-5" />
+                <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors">{t('student.verifyBtn', 'Verify Student Status')}<ArrowRight className="w-5 h-5" />
                 </button>
               </div>
               <div className="flex justify-center">
@@ -53,8 +54,8 @@ export default function StudentDiscount() {
                     <Percent className="w-10 h-10 text-white" />
                   </div>
                   <p className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2">15%</p>
-                  <p className="text-xl text-primary-light font-semibold mb-4">Student Discount</p>
-                  <p className="text-slate-400 text-sm">Valid on all eSIM plans with a verified student email</p>
+                  <p className="text-xl text-primary-light font-semibold mb-4">{t('student.cardTitle', 'Student Discount')}</p>
+                  <p className="text-slate-400 text-sm">{t('student.cardDesc', 'Valid on all eSIM plans with a verified student email')}</p>
                 </div>
               </div>
             </div>
@@ -64,8 +65,8 @@ export default function StudentDiscount() {
         <section className="py-16 md:py-24 bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Perfect for student travelers</h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Stay connected wherever your studies take you.</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('student.perfectTitle', 'Perfect for student travelers')}</h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t('student.perfectDesc', 'Stay connected wherever your studies take you.')}</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
@@ -89,7 +90,7 @@ export default function StudentDiscount() {
         <section className="py-16 md:py-24 bg-muted/30">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">How to get your discount</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('student.howItWorksTitle', 'How to get your discount')}</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {[
@@ -116,10 +117,9 @@ export default function StudentDiscount() {
                 <div className="absolute top-10 right-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl" />
               </div>
               <div className="relative z-10">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Ready to save on your next trip?</h2>
-                <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">Sign up with your student email and get 15% off every eSIM plan — no code needed.</p>
-                <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-bold text-lg hover:bg-slate-100 transition-colors">
-                  Browse Plans <ArrowRight className="w-5 h-5" />
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{t('student.ctaTitle', 'Ready to save on your next trip?')}</h2>
+                <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">{t('student.ctaDesc', 'Sign up with your student email and get 15% off every eSIM plan — no code needed.')}</p>
+                <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-bold text-lg hover:bg-slate-100 transition-colors">{t('student.browsePlansBtn', 'Browse Plans')}<ArrowRight className="w-5 h-5" />
                 </button>
               </div>
             </div>

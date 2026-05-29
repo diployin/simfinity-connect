@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { Link, useLocation } from 'wouter';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 interface Faq {
   id: string;
@@ -87,6 +88,7 @@ export default function HelpCenter() {
   const siteName = useSettingByKey('platform_name');
   const email = useSettingByKey('email');
   const [location] = useLocation();
+  const { t } = useTranslation();
 
   const { data: apiCategories, isLoading } = useQuery({
     queryKey: ['/api/faqs/public'],
@@ -109,7 +111,7 @@ export default function HelpCenter() {
       return {
         id: cat.id,
         title: cat.name,
-        description: `Everything you need to know about ${cat.name}`,
+        description: t('website.help.categoryDesc', 'Everything you need to know about {{name}}', { name: cat.name }),
         icon: <Icon className="h-6 w-6" />,
         accentColor: style.accentColor,
         borderColor: style.borderColor,
@@ -168,7 +170,7 @@ export default function HelpCenter() {
     return (
       <div className="min-h-screen bg-background flex flex-col">
         <Helmet>
-          <title>Help Center | {siteName || 'Voltey'}</title>
+          <title>{t('website.help.pageTitle', 'Help Center | {{name}}', { name: siteName || 'Simfinity' })}</title>
         </Helmet>
         <div className="flex-1 flex items-center justify-center">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
@@ -180,10 +182,10 @@ export default function HelpCenter() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>Help Center | {siteName || 'Voltey'}</title>
+        <title>{t('website.help.pageTitle', 'Help Center | {{name}}', { name: siteName || 'Simfinity' })}</title>
         <meta
           name="description"
-          content="Get help with your eSIM. Find answers about installation, plans, payments, troubleshooting, and more."
+          content={t('website.help.pageMeta', 'Get help with your eSIM. Find answers about installation, plans, payments, troubleshooting, and more.')}
         />
       </Helmet>
 
@@ -196,17 +198,17 @@ export default function HelpCenter() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
-              How can we help you?
+              {t('website.help.heading', 'How can we help you?')}
             </h1>
             <p className="text-lg text-gray-500 mb-8">
-              Search our knowledge base or browse categories below
+              {t('website.help.subheading', 'Search our knowledge base or browse categories below')}
             </p>
             <div className="max-w-xl mx-auto">
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
                   type="search"
-                  placeholder="Search for answers..."
+                  placeholder={String(t('website.help.searchPlaceholder', 'Search for answers...'))}
                   className="w-full pl-12 pr-4 h-14 text-base rounded-xl border border-gray-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/30 focus:border-[var(--primary)] transition-all"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -249,11 +251,11 @@ export default function HelpCenter() {
                           <span className="inline-flex items-center gap-1 mt-2 text-sm font-medium text-[var(--primary)]">
                             {selectedCategory === category.id ? (
                               <>
-                                Hide articles <ChevronUp className="h-4 w-4" />
+                                {t('website.help.hideArticles', 'Hide articles')} <ChevronUp className="h-4 w-4" />
                               </>
                             ) : (
                               <>
-                                View articles <ChevronDown className="h-4 w-4" />
+                                {t('website.help.viewArticles', 'View articles')} <ChevronDown className="h-4 w-4" />
                               </>
                             )}
                           </span>
@@ -281,7 +283,7 @@ export default function HelpCenter() {
                   </div>
                   <h2 className="text-xl font-semibold text-gray-900">{category.title}</h2>
                   <span className="text-sm text-gray-400">
-                    {category.articles.length} articles
+                    {t('website.help.articlesCount', '{{count}} articles', { count: category.articles.length })}
                   </span>
                 </div>
                 <div className="space-y-2">
@@ -321,10 +323,10 @@ export default function HelpCenter() {
               <div className="text-center py-12">
                 <HelpCircle className="h-12 w-12 text-gray-300 mx-auto mb-4" />
                 <p className="text-lg text-gray-500">
-                  No articles found matching "{searchQuery}"
+                  {t('website.help.noArticlesFound', 'No articles found matching "{{query}}"', { query: searchQuery })}
                 </p>
                 <p className="text-sm text-gray-400 mt-2">
-                  Try different keywords or browse the categories above
+                  {t('website.help.tryDifferentKeywords', 'Try different keywords or browse the categories above')}
                 </p>
               </div>
             )}
@@ -336,30 +338,30 @@ export default function HelpCenter() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-              Still need help?
+              {t('website.help.stillNeedHelp', 'Still need help?')}
             </h2>
             <p className="text-gray-500 mb-8">
-              Our support team is ready to assist you with any questions
+              {t('website.help.supportTeamDesc', 'Our support team is ready to assist you with any questions')}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
               <div className="p-6 rounded-xl border border-gray-100 bg-slate-50 hover:shadow-md transition-shadow">
                 <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
                   <Mail className="h-6 w-6 text-[var(--primary)]" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-1">Email Support</h3>
+                <h3 className="font-semibold text-gray-900 mb-1">{t('website.help.emailSupport', 'Email Support')}</h3>
                 <a
-                  href={`mailto:${email || 'support@voltey.com'}`}
+                  href={`mailto:${email || 'support@simfinity.tel'}`}
                   className="text-[var(--primary)] hover:underline text-sm"
                 >
-                  {email || 'support@voltey.com'}
+                  {email || 'support@simfinity.tel'}
                 </a>
               </div>
               <div className="p-6 rounded-xl border border-gray-100 bg-slate-50 hover:shadow-md transition-shadow">
                 <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
                   <MessageSquare className="h-6 w-6 text-[var(--primary)]" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-1">Live Chat</h3>
-                <p className="text-sm text-gray-500">Available 24/7</p>
+                <h3 className="font-semibold text-gray-900 mb-1">{t('contact.liveChat', 'Live Chat')}</h3>
+                <p className="text-sm text-gray-500">{t('website.help.available247', 'Available 24/7')}</p>
               </div>
             </div>
           </div>

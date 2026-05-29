@@ -13,58 +13,60 @@ import {
 import { Helmet } from 'react-helmet-async';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { useLocation } from 'wouter';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function SecurityFeatures() {
-  const siteName = useSettingByKey('platform_name') || 'Voltey';
+  const siteName = useSettingByKey('platform_name') || 'Simfinity';
   const [, navigate] = useLocation();
+  const { t } = useTranslation();
 
   const features = [
-    { icon: Lock, title: 'End-to-End Encryption', desc: 'All data transmitted through your eSIM connection is encrypted using industry-standard protocols.', color: 'from-blue-500 to-blue-600' },
-    { icon: Shield, title: 'DPN Protection', desc: 'Built-in Decentralized Private Network keeps your browsing private on any network.', color: 'from-purple-500 to-purple-600' },
-    { icon: Fingerprint, title: 'Biometric Authentication', desc: 'Secure your account with fingerprint or face recognition on supported devices.', color: 'from-rose-500 to-rose-600' },
-    { icon: Eye, title: 'No-Log Policy', desc: 'We never track, store, or share your browsing activity or personal data.', color: 'from-amber-500 to-amber-600' },
-    { icon: Server, title: 'Secure Infrastructure', desc: 'Our servers are hosted in Tier-4 data centers with 24/7 monitoring and redundancy.', color: 'from-cyan-500 to-cyan-600' },
-    { icon: Key, title: 'Secure eSIM Profiles', desc: 'eSIM profiles are cryptographically protected and can\'t be cloned or intercepted.', color: 'from-emerald-500 to-emerald-600' },
+    { icon: Lock, title: t('security.featEncryptionTitle', 'End-to-End Encryption'), desc: t('security.featEncryptionDesc', 'All data transmitted through your eSIM connection is encrypted using industry-standard protocols.'), color: 'from-blue-500 to-blue-600' },
+    { icon: Shield, title: t('security.featDpnTitle', 'DPN Protection'), desc: t('security.featDpnDesc', 'Built-in Decentralized Private Network keeps your browsing private on any network.'), color: 'from-purple-500 to-purple-600' },
+    { icon: Fingerprint, title: t('security.featBiometricTitle', 'Biometric Authentication'), desc: t('security.featBiometricDesc', 'Secure your account with fingerprint or face recognition on supported devices.'), color: 'from-rose-500 to-rose-600' },
+    { icon: Eye, title: t('security.featNoLogTitle', 'No-Log Policy'), desc: t('security.featNoLogDesc', 'We never track, store, or share your browsing activity or personal data.'), color: 'from-amber-500 to-amber-600' },
+    { icon: Server, title: t('security.featInfraTitle', 'Secure Infrastructure'), desc: t('security.featInfraDesc', 'Our servers are hosted in Tier-4 data centers with 24/7 monitoring and redundancy.'), color: 'from-cyan-500 to-cyan-600' },
+    { icon: Key, title: t('security.featEsimTitle', 'Secure eSIM Profiles'), desc: t('security.featEsimDesc', 'eSIM profiles are cryptographically protected and can\'t be cloned or intercepted.'), color: 'from-emerald-500 to-emerald-600' },
   ];
 
   const protections = [
-    'Protection on public WiFi networks',
-    'DNS leak prevention',
-    'Automatic kill switch for data protection',
-    'Remote device lock and wipe capability',
-    'Fraud detection and prevention',
-    'PCI DSS compliant payment processing',
-    'GDPR compliant data handling',
-    'Regular third-party security audits',
+    t('security.protect1', 'Protection on public WiFi networks'),
+    t('security.protect2', 'DNS leak prevention'),
+    t('security.protect3', 'Automatic kill switch for data protection'),
+    t('security.protect4', 'Remote device lock and wipe capability'),
+    t('security.protect5', 'Fraud detection and prevention'),
+    t('security.protect6', 'PCI DSS compliant payment processing'),
+    t('security.protect7', 'GDPR compliant data handling'),
+    t('security.protect8', 'Regular third-party security audits'),
   ];
 
   return (
     <>
       <Helmet>
-        <title>Security Features — {siteName}</title>
-        <meta name="description" content={`${siteName} keeps your data safe with end-to-end encryption, DPN protection, and enterprise-grade security.`} />
+        <title>{t('security.pageTitle', 'Security Features — {{siteName}}', { siteName })}</title>
+        <meta name="description" content={t('security.pageMeta', '{{siteName}} keeps your data safe with end-to-end encryption, DPN protection, and enterprise-grade security.', { siteName })} />
       </Helmet>
 
       <div className="min-h-screen bg-background">
-        <section className="relative pt-24 pb-32 overflow-hidden bg-[#f8fafc]">
-          <div className="absolute top-0 left-0 w-full h-full">
-            <div className="absolute top-0 right-0 w-1/3 h-full bg-[var(--primary)]/5 transform skew-x-12 translate-x-1/2" />
-            <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-blue-500/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
+        <section className="relative overflow-hidden bg-hero-gradient text-white">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary-light/10 rounded-full blur-3xl" />
           </div>
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm border border-slate-100 text-[var(--primary)] text-sm font-bold mb-8">
-              <Shield className="w-4 h-4" />
-              Security First
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
+              <Shield className="w-4 h-4 text-white" />
+              <span className="text-sm font-medium text-white">{t('security.heroLabel', 'Security First')}</span>
             </div>
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
-              Travel safely with <span className="text-[var(--primary)]">enterprise-grade security</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+              {t('security.heroTitlePrefix', 'Travel safely with')}{' '}
+              <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">{t('security.heroTitleHighlight', 'enterprise-grade security')}</span>
             </h1>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed mb-10">
-              Your privacy matters. {siteName} uses cutting-edge security measures to protect your data, identity, and browsing activity wherever you travel.
+            <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+              {t('security.heroSubtitle', 'Your privacy matters. {{siteName}} uses cutting-edge security measures to protect your data, identity, and browsing activity wherever you travel.', { siteName })}
             </p>
-            <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[var(--primary)] text-white font-semibold text-lg hover:bg-[#235d2d] transition-all shadow-lg shadow-green-900/10">
-              Get Protected
-              <ArrowRight className="w-5 h-5" />
+            <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors">
+              {t('security.getProtectedBtn', 'Get Protected')} <ArrowRight className="w-5 h-5" />
             </button>
           </div>
         </section>
@@ -72,8 +74,8 @@ export default function SecurityFeatures() {
         <section className="py-16 md:py-24 bg-background">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Security built in, not bolted on</h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">Every layer of {siteName} is designed with your security in mind.</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('security.builtInTitle', 'Security built in, not bolted on')}</h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t('security.builtInSubtitle', 'Every layer of {{siteName}} is designed with your security in mind.', { siteName })}</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {features.map((f) => (
@@ -93,9 +95,9 @@ export default function SecurityFeatures() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">Complete protection checklist</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">{t('security.checklistTitle', 'Complete protection checklist')}</h2>
                 <p className="text-muted-foreground text-lg mb-8">
-                  From the moment you activate your eSIM, multiple layers of security protect your connection.
+                  {t('security.checklistSubtitle', 'From the moment you activate your eSIM, multiple layers of security protect your connection.')}
                 </p>
               </div>
               <div className="bg-card rounded-2xl p-8 border border-border">
@@ -119,10 +121,10 @@ export default function SecurityFeatures() {
                 <div className="absolute top-10 right-10 w-64 h-64 bg-primary/20 rounded-full blur-3xl" />
               </div>
               <div className="relative z-10">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Browse with confidence</h2>
-                <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">Stay protected on any network, in any country. Your security is our priority.</p>
+                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">{t('security.ctaTitle', 'Browse with confidence')}</h2>
+                <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">{t('security.ctaSubtitle', 'Stay protected on any network, in any country. Your security is our priority.')}</p>
                 <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-bold text-lg hover:bg-slate-100 transition-colors">
-                  Browse Plans <ArrowRight className="w-5 h-5" />
+                  {t('security.browsePlansBtn', 'Browse Plans')} <ArrowRight className="w-5 h-5" />
                 </button>
               </div>
             </div>

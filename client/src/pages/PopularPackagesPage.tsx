@@ -111,15 +111,15 @@ const PopularPackagesPage = () => {
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <Check className="h-5 w-5 text-green-600 dark:text-green-400" />
-                <span className="text-sm">Instant Activation</span>
+                <span className="text-sm">{t('website.home.popular.instantActivation', 'Instant Activation')}</span>
               </div>
               <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <Check className="h-5 w-5 text-green-600 dark:text-green-400" />
-                <span className="text-sm">24/7 Support</span>
+                <span className="text-sm">{t('website.home.popular.support247', '24/7 Support')}</span>
               </div>
               <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <Check className="h-5 w-5 text-green-600 dark:text-green-400" />
-                <span className="text-sm">No Hidden Fees</span>
+                <span className="text-sm">{t('website.home.popular.noHiddenFees', 'No Hidden Fees')}</span>
               </div>
             </div>
 
@@ -164,16 +164,12 @@ const PopularPackagesPage = () => {
               <div className="mb-4">
                 <Wifi className="h-16 w-16 text-gray-400 dark:text-gray-600 mx-auto" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
-                No packages available
-              </h3>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">{t('website.home.popular.noPackages', 'No packages available')}</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-6">
                 We're currently updating our package offerings. Please check back soon!
               </p>
               <Link href="/destinations">
-                <Button className="bg-button-gradient text-white rounded-full px-6">
-                  Browse All Destinations
-                </Button>
+                <Button className="bg-button-gradient text-white rounded-full px-6">{t('website.home.popular.browseAll', 'Browse All Destinations')}</Button>
               </Link>
             </div>
           )}
@@ -186,9 +182,7 @@ const PopularPackagesPage = () => {
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
             Can't find what you're looking for?
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
-            Explore all destinations or contact our support team for personalized recommendations.
-          </p>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">{t('website.home.popular.exploreAll', 'Explore all destinations or contact our support team for personalized recommendations.')}</p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/destinations">
               <Button className="bg-button-gradient text-white rounded-full px-6">
@@ -200,9 +194,7 @@ const PopularPackagesPage = () => {
                 variant="outline"
                 className="rounded-full px-6 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800"
               >
-                <MessageSquare className="h-4 w-4 mr-2" />
-                Contact Support
-              </Button>
+                <MessageSquare className="h-4 w-4 mr-2" />{t('website.home.popular.contactSupport', 'Contact Support')}</Button>
             </Link>
           </div>
         </div>

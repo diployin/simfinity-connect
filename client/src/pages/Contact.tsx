@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Mail, MessageSquare, Clock, MapPin, Send, Loader2 } from 'lucide-react';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 const contactInfo = [
   {
@@ -40,6 +41,7 @@ export default function Contact() {
     message: '',
   });
   const { toast } = useToast();
+  const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,9 +75,7 @@ export default function Contact() {
         <div className="absolute inset-0  opacity-95" />
         <div className="relative containers mx-auto px-4 sm:px-6 lg:px-8    ">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-extrabold  text-foreground mb-4">
-              Get in Touch
-            </h1>
+            <h1 className="text-4xl md:text-5xl font-extrabold  text-foreground mb-4">{t('website.contact.heroTitle', 'Get in Touch')}</h1>
             <p className="text-lg  text-muted-foreground">
               Have a question? We're here to help 24/7.
             </p>
@@ -103,11 +103,11 @@ export default function Contact() {
             {/* Contact Form */}
             <div className="max-w-2xl mx-auto">
               <Card className="p-8">
-                <h2 className="text-2xl font-bold mb-6">Send us a message</h2>
+                <h2 className="text-2xl font-bold mb-6">{t('website.contact.formTitle', 'Send us a message')}</h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="name">Name</Label>
+                      <Label htmlFor="name">{t('website.contact.name', 'Name')}</Label>
                       <Input
                         id="name"
                         placeholder="Your name"
@@ -118,7 +118,7 @@ export default function Contact() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
+                      <Label htmlFor="email">{t('website.contact.email', 'Email')}</Label>
                       <Input
                         id="email"
                         type="email"
@@ -131,7 +131,7 @@ export default function Contact() {
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="subject">Subject</Label>
+                    <Label htmlFor="subject">{t('website.contact.subject', 'Subject')}</Label>
                     <Input
                       id="subject"
                       placeholder="How can we help?"
@@ -142,7 +142,7 @@ export default function Contact() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
+                    <Label htmlFor="message">{t('website.contact.message', 'Message')}</Label>
                     <Textarea
                       id="message"
                       placeholder="Tell us more about your question or issue..."
@@ -161,14 +161,10 @@ export default function Contact() {
                   >
                     {isSubmitting ? (
                       <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Sending...
-                      </>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />{t('website.contact.sending', 'Sending...')}</>
                     ) : (
                       <>
-                        <Send className="mr-2 h-4 w-4" />
-                        Send Message
-                      </>
+                        <Send className="mr-2 h-4 w-4" />{t('website.contact.sendBtn', 'Send Message')}</>
                     )}
                   </Button>
                 </form>

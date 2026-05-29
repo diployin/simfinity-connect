@@ -168,15 +168,15 @@ export function HeroSection() {
               className="h1-fluid text-gray-900 dark:text-white mb-6"
               data-testid="text-hero-headline"
             >
-              {t('website.home.hero.global', 'Affordable eSIM data')}{' '}
-              {t('website.home.hero.forLifetime', 'for international travel')}
+              {t('website.home.hero.global', 'Your Journey Starts Here.')}{' '}
+              {t('website.home.hero.forLifetime', 'Stay Connected Everywhere.')}
             </motion.h1>
 
             <motion.p
               variants={itemVariants}
               className="text-base sm:text-lg text-gray-500 dark:text-gray-400 mb-7 leading-relaxed"
             >
-              {t('website.home.hero.subtitle', 'Where do you need mobile data?')}
+              {t('website.home.hero.subtitle', 'Instant global data with eSIM — no SIM swaps, no roaming surprises. Just connect and explore freely.')}
             </motion.p>
 
             <motion.div variants={itemVariants} className="w-full max-w-[420px] mb-8">
@@ -185,7 +185,7 @@ export function HeroSection() {
                 className="w-full flex items-center gap-3 pl-5 pr-2 py-2.5 rounded-full border border-gray-200/80 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-[var(--primary-light)] dark:hover:border-[var(--primary)] transition-all shadow-sm hover:shadow-md group cursor-pointer text-left"
               >
                 <span className="text-sm text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-300 transition-colors flex-1">
-                  {t('website.home.hero.search', 'Search for destination')}
+                  {t('website.home.hero.search', 'Where are you going next?')}
                 </span>
                 <div className="p-2.5 rounded-full bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] text-white flex-shrink-0 transition-colors">
                   <Search className="h-4 w-4" />
@@ -255,7 +255,7 @@ export function HeroSection() {
                 <CheckCircle className="h-4 w-4 text-[var(--primary)] dark:text-[var(--primary-light)]" />
               </div>
               <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
-                {t('website.home.hero.statDownloads', 'Over 50K+ Users')}
+                {t('website.home.hero.statDownloads', 'Trusted by 10,000+ Travelers')}
               </span>
             </div>
             <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3 text-center sm:text-left">
@@ -263,7 +263,7 @@ export function HeroSection() {
                 <Signal className="h-4 w-4 text-[var(--primary)] dark:text-[var(--primary-light)]" />
               </div>
               <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
-                {t('website.home.hero.statCoverage', 'Coverage for 200+ destinations')}
+                {t('website.home.hero.statCoverage', 'Coverage in 200+ Destinations')}
               </span>
             </div>
             <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3 text-center sm:text-left">
@@ -271,7 +271,7 @@ export function HeroSection() {
                 <Database className="h-4 w-4 text-[var(--primary)] dark:text-[var(--primary-light)]" />
               </div>
               <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
-                {t('website.home.hero.statPlans', 'Plans from 1 GB to unlimited data')}
+                {t('website.home.hero.statPlans', 'Flexible Plans from 1GB to Unlimited')}
               </span>
             </div>
             <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3 text-center sm:text-left">
@@ -279,7 +279,7 @@ export function HeroSection() {
                 <Star className="h-4 w-4 text-[var(--primary)] dark:text-[var(--primary-light)]" />
               </div>
               <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300">
-                {t('website.home.hero.statRatings', '10K 5 Star Rating')}
+                {t('website.home.hero.statRatings', 'Rated 5 Stars by Thousands')}
               </span>
             </div>
           </div>

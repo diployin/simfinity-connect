@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 import { Helmet } from 'react-helmet-async';
 import { useSettingByKey } from '@/hooks/useSettings';
 import { Link } from 'wouter';
-import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 function StarRating({ count = 5 }: { count?: number }) {
   return (
@@ -26,119 +26,94 @@ function StarRating({ count = 5 }: { count?: number }) {
 }
 
 export function Reviews() {
-  const siteName = useSettingByKey('platform_name') || 'Voltey';
+  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const { t } = useTranslation();
 
   const reasons = [
     {
       icon: DollarSign,
-      title: 'Affordable plans',
+      title: t('website.reviews.reason1Title', 'Affordable plans'),
       description:
-        'Choose from hundreds of plans in over 200 countries — all at the best prices. Save every time, wherever you travel.',
+        t('website.reviews.reason1Desc', 'Choose from hundreds of plans in over 200 countries — all at the best prices. Save every time, wherever you travel.'),
     },
     {
       icon: RefreshCw,
-      title: 'eSIM top-ups',
+      title: t('website.reviews.reason2Title', 'eSIM top-ups'),
       description:
-        'If your eSIM expires, top up your account and use the same eSIM. Data added automatically once current plan expires.',
+        t('website.reviews.reason2Desc', 'If your eSIM expires, top up your account and use the same eSIM. Data added automatically once current plan expires.'),
     },
     {
       icon: Globe,
-      title: 'One eSIM for all countries',
+      title: t('website.reviews.reason3Title', 'One eSIM for all countries'),
       description:
-        'Instead of getting a new eSIM every time you travel, use the same eSIM for any country.',
+        t('website.reviews.reason3Desc', 'Instead of getting a new eSIM every time you travel, use the same eSIM for any country.'),
     },
     {
       icon: MessageCircle,
-      title: '24/7 chat support',
+      title: t('website.reviews.reason4Title', '24/7 chat support'),
       description:
-        'Check out the FAQ and Help Center, or contact support via email or live chat for help.',
+        t('website.reviews.reason4Desc', 'Check out the FAQ and Help Center, or contact support via email or live chat for help.'),
     },
   ];
 
-  // Fetch approved reviews from backend
-  const { data: publicReviewsResponse } = useQuery<any>({
-    queryKey: ['/api/reviews/public'],
-  });
-
-  const dbReviews = publicReviewsResponse?.reviews || [];
-
-  const staticReviews = [
+  const reviews = [
     {
-      quote:
-        'An affordable, easy-to-use, and sustainable eSIM service that gives reliable mobile connections from anywhere.',
-      reviewer: 'Travel Magazine',
-      source: 'Press',
+      quote: t('website.reviews.review1Quote', 'An affordable, easy-to-use, and sustainable eSIM service that gives reliable mobile connections from anywhere.'),
+      reviewer: t('website.reviews.review1Author', 'Travel Magazine'),
+      source: t('website.reviews.review1Source', 'Press'),
       stars: 0,
     },
     {
-      quote:
-        'Easy, cheap and fast. Easy setup, super fast speed. Cheap, great coverage and helpful assistance.',
-      reviewer: 'Jorge A.',
-      source: 'Trustpilot',
+      quote: t('website.reviews.review2Quote', 'Easy, cheap and fast. Easy setup, super fast speed. Cheap, great coverage and helpful assistance.'),
+      reviewer: t('website.reviews.review2Author', 'Jorge A.'),
+      source: t('website.reviews.review2Source', 'Trustpilot'),
       stars: 5,
     },
     {
-      quote:
-        'I can set it up at home, activate when ready, and boom! Internet on my phone when traveling. A must!',
-      reviewer: 'Travel Blogger',
-      source: 'User',
+      quote: t('website.reviews.review3Quote', 'I can set it up at home, activate when ready, and boom! Internet on my phone when traveling. A must!'),
+      reviewer: t('website.reviews.review3Author', 'Travel Blogger'),
+      source: t('website.reviews.review3Source', 'User'),
       stars: 0,
     },
     {
-      quote:
-        'Simple to buy and easy to install. Takes care of everything abroad. I love it.',
-      reviewer: 'Sarah K.',
-      source: 'User',
+      quote: t('website.reviews.review4Quote', 'Simple to buy and easy to install. Takes care of everything abroad. I love it.'),
+      reviewer: t('website.reviews.review4Author', 'Sarah K.'),
+      source: t('website.reviews.review4Source', 'User'),
       stars: 0,
     },
     {
-      quote:
-        'Used across 3 countries already. Took 1 min to buy and activate. Way better than roaming.',
-      reviewer: 'Domas R.',
-      source: 'Trustpilot',
+      quote: t('website.reviews.review5Quote', 'Used across 3 countries already. Took 1 min to buy and activate. Way better than roaming.'),
+      reviewer: t('website.reviews.review5Author', 'Domas R.'),
+      source: t('website.reviews.review5Source', 'Trustpilot'),
       stars: 5,
     },
     {
-      quote:
-        'Comprehensive coverage and affordable prices. Activating is straightforward — download, choose plan, surf.',
-      reviewer: 'Tech Review Site',
-      source: 'Tech Press',
+      quote: t('website.reviews.review6Quote', 'Comprehensive coverage and affordable prices. Activating is straightforward — download, choose plan, surf.'),
+      reviewer: t('website.reviews.review6Author', 'Tech Review Site'),
+      source: t('website.reviews.review6Source', 'Tech Press'),
       stars: 0,
     },
   ];
-
-  const displayReviews = dbReviews.length > 0
-    ? dbReviews.map((r: any) => {
-        const destName = r.package?.destination?.name;
-        const flag = r.package?.destination?.flagEmoji;
-        const pkgTitle = r.manualPackageName || r.package?.title || 'eSIM User';
-        return {
-          quote: r.comment,
-          reviewer: r.manualCustomerName || r.user?.name || 'Verified Customer',
-          source: destName ? `${pkgTitle} (${destName} ${flag})` : pkgTitle,
-          stars: r.rating,
-        };
-      })
-    : staticReviews;
 
   const comparisonFeatures = [
-    { feature: 'One eSIM for all destinations', values: [true, false, false, false] },
-    { feature: '24/7 live chat support', values: [true, true, true, false] },
-    { feature: 'Refunds', values: [true, true, true, true] },
-    { feature: 'Security features', values: [true, false, false, false] },
-    { feature: 'Data usage alerts', values: [true, false, false, false] },
-    { feature: 'Global & regional plans', values: [true, true, true, false] },
+    { feature: t('website.reviews.compFeat1', 'One eSIM for all destinations'), values: [true, false, false, false] },
+    { feature: t('website.reviews.compFeat2', '24/7 live chat support'), values: [true, true, true, false] },
+    { feature: t('website.reviews.compFeat3', 'Refunds'), values: [true, true, true, true] },
+    { feature: t('website.reviews.compFeat4', 'Security features'), values: [true, false, false, false] },
+    { feature: t('website.reviews.compFeat5', 'Data usage alerts'), values: [true, false, false, false] },
+    { feature: t('website.reviews.compFeat6', 'Global & regional plans'), values: [true, true, true, false] },
   ];
 
-  const providers = [siteName, 'Provider A', 'Provider B', 'Provider C'];
+  const providersList = [siteName, t('website.reviews.providerA', 'Provider A'), t('website.reviews.providerB', 'Provider B'), t('website.reviews.providerC', 'Provider C')];
+
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <Helmet>
-        <title>{`${siteName} Review and Rating — Should You Get It?`}</title>
+        <title>{t('website.reviews.pageTitle', '{{siteName}} Review and Rating — Should You Get It?', { siteName })}</title>
         <meta
           name="description"
-          content={`Read reviews and ratings for ${siteName}. An affordable eSIM service for global travelers with coverage in 200+ countries.`}
+          content={t('website.reviews.pageMeta', 'Read reviews and ratings for {{siteName}}. An affordable eSIM service for global travelers with coverage in 200+ countries.', { siteName })}
         />
       </Helmet>
 
@@ -148,14 +123,14 @@ export function Reviews() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-4">
-                {siteName} review and rating: Should you get it?
+                {t('website.reviews.heroTitle', '{{siteName}} review and rating: Should you get it?', { siteName })}
               </h1>
               <p className="text-lg md:text-xl text-gray-500 mb-8">
-                An affordable eSIM service for global travelers
+                {t('website.reviews.heroSubtitle', 'An affordable eSIM service for global travelers')}
               </p>
               <Link href="/destinations">
                 <span className="inline-flex items-center gap-2 text-[var(--primary)] font-semibold text-lg hover:underline cursor-pointer">
-                  View All Plans
+                  {t('website.reviews.viewAllPlans', 'View All Plans')}
                   <ArrowRight className="w-5 h-5" />
                 </span>
               </Link>
@@ -166,7 +141,7 @@ export function Reviews() {
                   <Star key={i} className="w-10 h-10 md:w-12 md:h-12 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <span className="text-gray-400 font-medium text-lg">4.8 / 5 Rating</span>
+              <span className="text-gray-400 font-medium text-lg">{t('website.reviews.ratingLabel', '4.8 / 5 Rating')}</span>
             </div>
           </div>
         </div>
@@ -176,7 +151,7 @@ export function Reviews() {
       <section className="py-16 md:py-24 bg-slate-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-10">
-            Reasons to buy
+            {t('website.reviews.reasonsToBuy', 'Reasons to buy')}
           </h2>
           <div className="flex gap-6 overflow-x-auto pb-4 md:pb-0 md:grid md:grid-cols-2 md:overflow-visible scrollbar-hide">
             {reasons.map((reason, index) => (
@@ -199,13 +174,13 @@ export function Reviews() {
       </section>
 
       {/* What do customers say */}
-      <section className="py-16 md:py-24 bg-white">
+      {/* <section className="py-16 md:py-24 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-10">
             What do customers say
           </h2>
           <div className="flex gap-6 overflow-x-auto pb-4 md:pb-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible scrollbar-hide">
-            {displayReviews.map((review, index) => (
+            {reviews.map((review, index) => (
               <div
                 key={index}
                 className="min-w-[300px] md:min-w-0 bg-slate-50 rounded-2xl p-8 border border-gray-100 hover:shadow-md transition-all duration-300 flex flex-col"
@@ -245,27 +220,27 @@ export function Reviews() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Comparison Table */}
       <section className="py-16 md:py-24 bg-slate-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-10">
-            How does {siteName} compare with other eSIM providers?
+            {t('website.reviews.comparisonTitle', 'How does {{siteName}} compare with other eSIM providers?', { siteName })}
           </h2>
           <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white">
             <table className="w-full min-w-[600px]">
               <thead>
                 <tr className="border-b border-gray-200">
                   <th className="text-left text-sm font-semibold text-gray-500 px-6 py-4">
-                    Feature
+                    {t('website.reviews.featureColumn', 'Feature')}
                   </th>
-                  {providers.map((provider, index) => (
+                  {providersList.map((provider, index) => (
                     <th
-                      key={provider}
+                      key={provider + index}
                       className={`text-center text-sm font-semibold px-6 py-4 ${index === 0
-                          ? 'text-[var(--primary)] bg-green-50'
-                          : 'text-gray-500'
+                        ? 'text-[var(--primary)] bg-green-50'
+                        : 'text-gray-500'
                         }`}
                     >
                       {provider}
@@ -311,17 +286,17 @@ export function Reviews() {
             style={{ background: 'linear-gradient(135deg, var(--primary), #3a9c4d, var(--primary))' }}
           >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-              Choose the best eSIM plan for your stay
+              {t('website.reviews.ctaTitle', 'Choose the best eSIM plan for your stay')}
             </h2>
             <p className="text-green-100 text-lg md:text-xl max-w-2xl mx-auto mb-8">
-              Browse plans for 200+ destinations and stay connected wherever you go.
+              {t('website.reviews.ctaDesc', 'Browse plans for 200+ destinations and stay connected wherever you go.')}
             </p>
             <Link href="/destinations">
               <Button
                 size="lg"
                 className="bg-white hover:bg-gray-100 text-gray-900 font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
               >
-                View All Destinations
+                {t('website.reviews.viewAllDestinations', 'View All Destinations')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>

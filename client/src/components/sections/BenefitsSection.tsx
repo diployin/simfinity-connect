@@ -91,7 +91,7 @@ export function BenefitsSection() {
             {t('website.home.benefits.label', `Why choose ${siteName}?`)}
           </p>
           <h2 className="text-3xl md:text-4xl lg:text-[42px] font-bold text-foreground leading-tight">
-            {t('website.home.benefits.title', 'Stay connected while traveling')}
+            {t('website.home.benefits.title', 'Travel Smart. Stay Online. Go Anywhere.')}
           </h2>
         </div>
 

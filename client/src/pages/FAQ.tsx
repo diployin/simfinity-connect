@@ -5,9 +5,11 @@ import { FAQSection, CTABanner } from '@/components/marketing';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import { useState } from 'react';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function FAQ() {
   const [searchQuery, setSearchQuery] = useState('');
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -26,7 +28,7 @@ export default function FAQ() {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5" />
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Frequently Asked Questions</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">{t('website.faq.heroTitle', 'Frequently Asked Questions')}</h1>
             <p className="text-lg text-muted-foreground mb-8">
               Find answers to common questions about Voltey
             </p>
@@ -55,17 +57,13 @@ export default function FAQ() {
       {/* CTA */}
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl font-bold mb-4">Still have questions?</h2>
-          <p className="text-muted-foreground mb-6">
-            Our support team is available 24/7 to help you.
-          </p>
+          <h2 className="text-2xl font-bold mb-4">{t('website.faq.stillHaveQuestions', 'Still have questions?')}</h2>
+          <p className="text-muted-foreground mb-6">{t('website.faq.supportText', 'Our support team is available 24/7 to help you.')}</p>
           <a href="/contact">
             <button
               className="gradient-primary text-white px-8 py-3 rounded-lg font-semibold"
               data-testid="button-contact-support"
-            >
-              Contact Support
-            </button>
+            >{t('website.faq.contactSupport', 'Contact Support')}</button>
           </a>
         </div>
       </section>

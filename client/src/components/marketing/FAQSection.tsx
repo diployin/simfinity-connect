@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 const faqs = [
   {
@@ -38,6 +39,7 @@ interface FAQSectionProps {
 }
 
 export function FAQSection({ limit, showTitle = true }: FAQSectionProps) {
+  const { t } = useTranslation();
   const displayFaqs = limit ? faqs.slice(0, limit) : faqs;
 
   return (
@@ -45,9 +47,7 @@ export function FAQSection({ limit, showTitle = true }: FAQSectionProps) {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {showTitle && (
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Frequently Asked Questions
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('website.faq.sectionTitle', 'Frequently Asked Questions')}</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Everything you need to know about Voltey
             </p>

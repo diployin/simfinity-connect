@@ -39,7 +39,7 @@ export function WhatIsEsim() {
                   </svg>
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-900 dark:text-white">eSIM #1</p>
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white">{t('website.home.whatIsEsim.esimNum', 'eSIM #1')}</p>
                   <p className="text-xs text-green-500 font-medium">{t('website.home.whatIsEsim.active', 'Active')}</p>
                 </div>
                 <div className="w-2.5 h-2.5 bg-green-500 rounded-full ml-1"></div>
@@ -60,7 +60,7 @@ export function WhatIsEsim() {
             <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 leading-relaxed max-w-lg">
               {t(
                 'website.home.whatIsEsim.description',
-                'An eSIM is a digital SIM that lets you switch carriers and use multiple mobile plans without swapping cards. Most new phones support eSIMs, and setting them up takes just a few taps.'
+                'An eSIM is a digital SIM built into your phone that lets you activate mobile data instantly — without inserting a physical card. Simply purchase a plan, scan a QR code, and you’re connected in minutes, wherever you are in the world.'
               )}
             </p>
           </motion.div>

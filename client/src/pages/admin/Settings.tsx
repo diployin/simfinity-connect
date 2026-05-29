@@ -458,12 +458,12 @@ export default function Settings() {
               >
                 <DollarSign className="h-4 w-4 shrink-0" />
                 <span className="hidden sm:inline">{t('adminPanel.admin.settings.currencyTab', 'Currency')}</span>
-                <span className="sm:hidden">Currency</span>
+                <span className="sm:hidden">{t('admin.settings.currencyTab', 'Currency')}</span>
               </TabsTrigger> */}
               <TabsTrigger value="smtp" className="gap-1 whitespace-nowrap" data-testid="tab-smtp">
                 <Mail className="h-4 w-4 shrink-0" />
                 <span className="hidden sm:inline">{t('adminPanel.admin.settings.smtpTab', 'SMTP')}</span>
-                <span className="sm:hidden">SMTP</span>
+                <span className="sm:hidden">{t('admin.settings.smtpTab', 'SMTP')}</span>
               </TabsTrigger>
               <TabsTrigger
                 value="firebase"

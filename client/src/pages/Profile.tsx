@@ -497,7 +497,7 @@ export default function Profile() {
                             <div className="relative flex-1">
                               <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                               <Input
-                                placeholder={t('profile.phonePlaceholder', '234 567 8900')}
+                                placeholder={t('profile.phonePlaceholder', '+1 234 567 8900')}
                                 className="pl-10"
                                 value={phoneNumberVal}
                                 type="tel"
@@ -565,7 +565,7 @@ export default function Profile() {
                           <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
                             <Command>
                               <CommandInput placeholder="Search country..." />
-                              <CommandEmpty>No country found.</CommandEmpty>
+                              <CommandEmpty>{t('profile.noCountryFound', 'No country found.')}</CommandEmpty>
                               <CommandList>
                                 {destinations?.map((country: any) => (
                                   <CommandItem
@@ -625,7 +625,7 @@ export default function Profile() {
                           <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
                             <Command>
                               <CommandInput placeholder="Search currency..." />
-                              <CommandEmpty>No currency found.</CommandEmpty>
+                              <CommandEmpty>{t('profile.noCurrencyFound', 'No currency found.')}</CommandEmpty>
                               <CommandList>
                                 {currencies?.map((currency: any) => (
                                   <CommandItem

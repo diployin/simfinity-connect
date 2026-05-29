@@ -29,6 +29,7 @@ import { useCurrency } from '@/contexts/CurrencyContext';
 // import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import ReactCountryFlag from 'react-country-flag';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 type OrderDetails = {
   id: string;
@@ -74,6 +75,7 @@ export default function OrderConfirmation() {
   const { toast } = useToast();
   const { currencies } = useCurrency();
   const [showInstallSteps, setShowInstallSteps] = useState(true);
+  const { t } = useTranslation();
 
   const getCurrencySymbol = (currencyCode: string) => {
     return currencies.find((c) => c.code === currencyCode)?.symbol || '$';
@@ -109,7 +111,7 @@ export default function OrderConfirmation() {
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
             <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[var(--primary)] border-r-transparent"></div>
-            <p className="mt-4 text-muted-foreground">Loading your order...</p>
+            <p className="mt-4 text-muted-foreground">{t('order.loading', 'Loading your order...')}</p>
           </div>
         </div>
         {/* <SiteFooter /> */}
@@ -124,15 +126,13 @@ export default function OrderConfirmation() {
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center max-w-md mx-auto px-4">
             <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-foreground mb-2">Order Not Found</h1>
+            <h1 className="text-2xl font-bold text-foreground mb-2">{t('order.notFoundTitle', 'Order Not Found')}</h1>
             <p className="text-muted-foreground mb-6">
               We couldn't find this order. Please check your email for the correct link.
             </p>
             <Link href="/">
               <Button data-testid="button-home">
-                <Home className="w-4 h-4 mr-2" />
-                Go Home
-              </Button>
+                <Home className="w-4 h-4 mr-2" />{t('order.goHome', 'Go Home')}</Button>
             </Link>
           </div>
         </div>
@@ -185,9 +185,7 @@ export default function OrderConfirmation() {
                         />
                       </div>
                       <div className="flex-1 text-center md:text-left">
-                        <h3 className="font-semibold text-foreground text-lg mb-2">
-                          Scan to Install
-                        </h3>
+                        <h3 className="font-semibold text-foreground text-lg mb-2">{t('order.scanToInstall', 'Scan to Install')}</h3>
                         <p className="text-sm text-muted-foreground mb-4">
                           Open your phone's camera and scan this QR code to install your eSIM
                           automatically.
@@ -204,9 +202,7 @@ export default function OrderConfirmation() {
                             }}
                             data-testid="button-download-qr"
                           >
-                            <Download className="w-4 h-4 mr-2" />
-                            Download QR
-                          </Button>
+                            <Download className="w-4 h-4 mr-2" />{t('order.downloadQr', 'Download QR')}</Button>
                           {order.lpaCode && (
                             <Button
                               variant="outline"
@@ -214,9 +210,7 @@ export default function OrderConfirmation() {
                               onClick={() => copyToClipboard(order.lpaCode!, 'LPA code')}
                               data-testid="button-copy-lpa"
                             >
-                              <Copy className="w-4 h-4 mr-2" />
-                              Copy LPA Code
-                            </Button>
+                              <Copy className="w-4 h-4 mr-2" />{t('order.copyLpa', 'Copy LPA Code')}</Button>
                           )}
                           {order.shortUrl && (
                             <Button
@@ -244,9 +238,7 @@ export default function OrderConfirmation() {
                         <Loader2 className="w-8 h-8 text-[var(--primary)] animate-spin" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-foreground mb-2">
-                          Your eSIM is Being Prepared
-                        </h3>
+                        <h3 className="font-semibold text-foreground mb-2">{t('order.preparingEsim', 'Your eSIM is Being Prepared')}</h3>
                         <p className="text-sm text-muted-foreground">
                           This usually takes less than a minute. This page will automatically update
                           when your eSIM is ready.
@@ -261,14 +253,12 @@ export default function OrderConfirmation() {
                 <Card className="border-0 shadow-lg">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Wifi className="w-5 h-5" />
-                      Data Usage
-                    </CardTitle>
+                      <Wifi className="w-5 h-5" />{t('order.dataUsage', 'Data Usage')}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
                       <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Used</span>
+                        <span className="text-muted-foreground">{t('order.used', 'Used')}</span>
                         <span className="font-medium">
                           {order.usageData.used} / {order.usageData.total}
                         </span>
@@ -289,9 +279,7 @@ export default function OrderConfirmation() {
                 >
                   <div className="flex items-center justify-between">
                     <CardTitle className="flex items-center gap-2">
-                      <Smartphone className="w-5 h-5" />
-                      Installation Guide
-                    </CardTitle>
+                      <Smartphone className="w-5 h-5" />{t('order.installGuide', 'Installation Guide')}</CardTitle>
                     {showInstallSteps ? (
                       <ChevronUp className="w-5 h-5" />
                     ) : (
@@ -307,7 +295,7 @@ export default function OrderConfirmation() {
                           1
                         </div>
                         <div>
-                          <p className="font-medium text-foreground">Open Camera or Settings</p>
+                          <p className="font-medium text-foreground">{t('order.step1Title', 'Open Camera or Settings')}</p>
                           <p className="text-sm text-muted-foreground">
                             Go to Settings &gt; Cellular &gt; Add eSIM, or simply open your camera.
                           </p>
@@ -318,10 +306,8 @@ export default function OrderConfirmation() {
                           2
                         </div>
                         <div>
-                          <p className="font-medium text-foreground">Scan QR Code</p>
-                          <p className="text-sm text-muted-foreground">
-                            Point your camera at the QR code above to start the installation.
-                          </p>
+                          <p className="font-medium text-foreground">{t('order.step2Title', 'Scan QR Code')}</p>
+                          <p className="text-sm text-muted-foreground">{t('order.step2Desc', 'Point your camera at the QR code above to start the installation.')}</p>
                         </div>
                       </div>
                       <div className="flex gap-4">
@@ -329,7 +315,7 @@ export default function OrderConfirmation() {
                           3
                         </div>
                         <div>
-                          <p className="font-medium text-foreground">Activate When Ready</p>
+                          <p className="font-medium text-foreground">{t('order.step3Title', 'Activate When Ready')}</p>
                           <p className="text-sm text-muted-foreground">
                             Turn on the eSIM when you arrive at your destination. Data starts
                             counting from first use.
@@ -345,7 +331,7 @@ export default function OrderConfirmation() {
             <div className="space-y-6">
               <Card className="border-0 shadow-lg">
                 <CardHeader>
-                  <CardTitle>Order Details</CardTitle>
+                  <CardTitle>{t('order.orderDetails', 'Order Details')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center gap-3 pb-4 border-b border-border">
@@ -362,33 +348,33 @@ export default function OrderConfirmation() {
                       <p className="font-medium text-foreground">
                         {order.package?.countryName || order.package?.title}
                       </p>
-                      <p className="text-sm text-muted-foreground">eSIM Data Plan</p>
+                      <p className="text-sm text-muted-foreground">{t('order.esimDataPlan', 'eSIM Data Plan')}</p>
                     </div>
                   </div>
 
                   <div className="space-y-3">
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Data</span>
+                      <span className="text-muted-foreground">{t('checkout.data', 'Data')}</span>
                       <span className="font-medium text-foreground">{order.dataAmount}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Validity</span>
+                      <span className="text-muted-foreground">{t('checkout.validity', 'Validity')}</span>
                       <span className="font-medium text-foreground">{order.validity} Days</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Status</span>
+                      <span className="text-muted-foreground">{t('order.status', 'Status')}</span>
                       <Badge className={`${status.color} text-white`}>{status.label}</Badge>
                     </div>
                     {order.iccid && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">ICCID</span>
+                        <span className="text-muted-foreground">{t('order.iccid', 'ICCID')}</span>
                         <span className="font-mono text-xs text-foreground">
                           {order.iccid.slice(0, 10)}...
                         </span>
                       </div>
                     )}
                     <div className="flex justify-between text-sm pt-3 border-t border-border">
-                      <span className="font-semibold text-foreground">Total Paid</span>
+                      <span className="font-semibold text-foreground">{t('order.totalPaid', 'Total Paid')}</span>
                       <span className="font-bold text-foreground">
                         {getCurrencySymbol(order.currency)}
                         {order.price}
@@ -401,7 +387,7 @@ export default function OrderConfirmation() {
               {(order.guestEmail || order.guestPhone) && (
                 <Card className="border-0 shadow-lg">
                   <CardHeader>
-                    <CardTitle className="text-base">Contact Info</CardTitle>
+                    <CardTitle className="text-base">{t('order.contactInfo', 'Contact Info')}</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
                     {order.guestEmail && (
@@ -425,19 +411,15 @@ export default function OrderConfirmation() {
                   <div className="flex items-start gap-3">
                     <HelpCircle className="w-5 h-5 text-muted-foreground flex-shrink-0 mt-0.5" />
                     <div>
-                      <p className="font-medium text-foreground text-sm mb-1">Need Help?</p>
-                      <p className="text-xs text-muted-foreground mb-2">
-                        Save this page URL to access your eSIM details anytime.
-                      </p>
+                      <p className="font-medium text-foreground text-sm mb-1">{t('order.needHelp', 'Need Help?')}</p>
+                      <p className="text-xs text-muted-foreground mb-2">{t('order.saveUrlDesc', 'Save this page URL to access your eSIM details anytime.')}</p>
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => copyToClipboard(window.location.href, 'Page URL')}
                         data-testid="button-copy-url"
                       >
-                        <Copy className="w-3 h-3 mr-2" />
-                        Copy Page URL
-                      </Button>
+                        <Copy className="w-3 h-3 mr-2" />{t('order.copyUrl', 'Copy Page URL')}</Button>
                     </div>
                   </div>
                 </CardContent>

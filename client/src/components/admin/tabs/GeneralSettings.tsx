@@ -669,7 +669,7 @@ export function GeneralSettings() {
                   <Input
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder={t('admin.settings.general.emailPlaceholder', 'info@voltey.fr')}
+                    placeholder={t('admin.settings.general.emailPlaceholder', 'info@simfinity.fr')}
                     className="h-12 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
                     data-testid="input-platform-email"
                   />

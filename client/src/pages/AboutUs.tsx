@@ -1,368 +1,372 @@
-import {
-  ArrowRight,
-  Globe2,
-  Shield,
-  Zap,
-  CheckCircle2,
-  Smartphone,
-  Wifi,
-  CreditCard,
-  Layers,
-  Lock,
-  Headphones,
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useState, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useQuery } from '@tanstack/react-query';
+import {
+  Search,
+  ChevronDown,
+  ChevronUp,
+  PlayCircle,
+  CreditCard,
+  Wrench,
+  HelpCircle,
+  Mail,
+  MessageSquare,
+  Plus,
+  Minus,
+} from 'lucide-react';
 import { useSettingByKey } from '@/hooks/useSettings';
-import { useLocation } from 'wouter';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Link, useLocation } from 'wouter';
+import { useTranslation } from '@/contexts/TranslationContext';
 
-export function AboutUs() {
+interface Faq {
+  id: string;
+  question: string;
+  answer: string;
+  categoryId: string;
+  position: number;
+}
+
+interface FaqCategory {
+  id: string;
+  name: string;
+  slug: string;
+  faqs: Faq[];
+}
+
+interface Article {
+  id: string;
+  title: string;
+  content: string;
+}
+
+interface UICategory {
+  id: string;
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  accentColor: string;
+  borderColor: string;
+  bgColor: string;
+  articles: Article[];
+}
+
+const CATEGORY_STYLES = [
+  {
+    icon: PlayCircle,
+    accentColor: 'text-green-600',
+    borderColor: 'border-l-green-500',
+    bgColor: 'bg-green-50',
+    hoverRing: 'ring-[var(--primary)]/20',
+  },
+  {
+    icon: CreditCard,
+    accentColor: 'text-blue-600',
+    borderColor: 'border-l-blue-500',
+    bgColor: 'bg-blue-50',
+    hoverRing: 'ring-blue-600/20',
+  },
+  {
+    icon: Wrench,
+    accentColor: 'text-orange-600',
+    borderColor: 'border-l-orange-500',
+    bgColor: 'bg-orange-50',
+    hoverRing: 'ring-orange-600/20',
+  },
+  {
+    icon: HelpCircle,
+    accentColor: 'text-purple-600',
+    borderColor: 'border-l-purple-500',
+    bgColor: 'bg-purple-50',
+    hoverRing: 'ring-purple-600/20',
+  },
+];
+
+export default function HelpCenter() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [expandedArticles, setExpandedArticles] = useState<Set<string>>(new Set());
   const siteName = useSettingByKey('platform_name');
-  const [, navigate] = useLocation();
+  const email = useSettingByKey('email');
+  const [location] = useLocation();
+  const { t } = useTranslation();
 
-  const whatWeOffer = [
-    {
-      icon: Globe2,
-      title: 'Global Coverage',
-      description: "Global eSIM data plans across multiple countries and regions.",
+  const { data: apiCategories, isLoading } = useQuery({
+    queryKey: ['/api/faqs/public'],
+    queryFn: async () => {
+      const response = await fetch('/api/faqs/public');
+      if (!response.ok) throw new Error('Failed to fetch FAQs');
+      const result = await response.json();
+      return result.data as FaqCategory[];
     },
-    {
-      icon: Zap,
-      title: 'Instant Delivery',
-      description: "Instant eSIM delivery directly after purchase.",
-    },
-    {
-      icon: Wifi,
-      title: 'Easy Activation',
-      description: "Fast and easy QR-based activation.",
-    },
-    {
-      icon: Lock,
-      title: 'Secure Payments',
-      description: "Secure and encrypted payment systems.",
-    },
-    {
-      icon: Headphones,
-      title: '24/7 Support',
-      description: "Reliable customer support whenever you need it.",
-    },
-  ];
+  });
 
-  const whyVoltey = [
-    { text: "100% digital experience", icon: Smartphone },
-    { text: "Transparent pricing", icon: CreditCard },
-    { text: "Quick activation process", icon: Zap },
-    { text: "Flexible data options", icon: Layers },
-    { text: "Strong network partnerships", icon: Globe2 },
-    { text: "Secure and trusted platform", icon: Shield },
-  ];
+  const categories: UICategory[] = useMemo(() => {
+    if (!apiCategories) return [];
+
+    return apiCategories.map((cat, index) => {
+      const styleIndex = index % CATEGORY_STYLES.length;
+      const style = CATEGORY_STYLES[styleIndex];
+      const Icon = style.icon;
+
+      return {
+        id: cat.id,
+        title: cat.name,
+        description: t('website.help.categoryDesc', 'Everything you need to know about {{name}}', { name: cat.name }),
+        icon: <Icon className="h-6 w-6" />,
+        accentColor: style.accentColor,
+        borderColor: style.borderColor,
+        bgColor: style.bgColor,
+        articles: cat.faqs.map((f) => ({
+          id: f.id,
+          title: f.question,
+          content: f.answer,
+        })),
+      };
+    });
+  }, [apiCategories]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const cat = params.get('category');
+    if (cat && categories.some((c) => c.id === cat)) {
+      setSelectedCategory(cat);
+    }
+  }, [location, categories]);
+
+  const toggleArticle = (articleKey: string) => {
+    setExpandedArticles((prev) => {
+      const next = new Set(prev);
+      if (next.has(articleKey)) {
+        next.delete(articleKey);
+      } else {
+        next.add(articleKey);
+      }
+      return next;
+    });
+  };
+
+  const handleCategoryClick = (categoryId: string) => {
+    setSelectedCategory((prev) => (prev === categoryId ? null : categoryId));
+  };
+
+  const filteredCategories = categories
+    .map((category) => ({
+      ...category,
+      articles: category.articles.filter(
+        (article) =>
+          article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          article.content.toLowerCase().includes(searchQuery.toLowerCase())
+      ),
+    }))
+    .filter((category) => category.articles.length > 0);
+
+  const displayedCategories = searchQuery
+    ? filteredCategories
+    : selectedCategory
+      ? categories.filter((c) => c.id === selectedCategory)
+      : categories;
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col">
+        <Helmet>
+          <title>{t('website.help.pageTitle', 'Help Center | {{name}}', { name: siteName || 'Simfinity' })}</title>
+        </Helmet>
+        <div className="flex-1 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>{`About Us - ${siteName} | Your Travel Connectivity Partner`}</title>
+        <title>{t('website.help.pageTitle', 'Help Center | {{name}}', { name: siteName || 'Simfinity' })}</title>
         <meta
           name="description"
-          content={`Learn about ${siteName} — redefining global connectivity with seamless, digital-first eSIM solutions.`}
+          content={t('website.help.pageMeta', 'Get help with your eSIM. Find answers about installation, plans, payments, troubleshooting, and more.')}
         />
       </Helmet>
 
-      {/* Hero Section */}
-      <section className="py-20 md:py-28 lg:py-36 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-6">
-            About <span style={{ color: 'var(--primary)' }}>Us</span>
-          </h1>
-          <p className="text-lg md:text-xl text-gray-900 font-medium max-w-3xl mx-auto leading-relaxed mb-6">
-            At Voltey, we make staying connected worldwide simple with smart and reliable eSIM technology.
-          </p>
-          <p className="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
-            At Voltey, we make global connectivity simple through fast and reliable eSIM solutions. Since 2020, we’ve helped travelers, professionals, and global users stay connected without the hassle of roaming or physical SIM cards. Our platform is built for speed, ease, and reliability across multiple countries.
-          </p>
+      <section
+        className="relative overflow-hidden"
+        style={{
+          background: 'linear-gradient(180deg, #f0f9f1 0%, #ffffff 100%)',
+        }}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+              {t('website.help.heading', 'How can we help you?')}
+            </h1>
+            <p className="text-lg text-gray-500 mb-8">
+              {t('website.help.subheading', 'Search our knowledge base or browse categories below')}
+            </p>
+            <div className="max-w-xl mx-auto">
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <input
+                  type="search"
+                  placeholder={String(t('website.help.searchPlaceholder', 'Search for answers...'))}
+                  className="w-full pl-12 pr-4 h-14 text-base rounded-xl border border-gray-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/30 focus:border-[var(--primary)] transition-all"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Who We Are Section (replaces Why we built) */}
-      <section className="py-16 md:py-24 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Who We Are?
-              </h2>
-              <div className="space-y-4 text-gray-600 leading-relaxed">
-                <p>
-                  Voltey is a global eSIM brand focused on delivering simple, reliable, and seamless mobile connectivity for modern travelers and digital users. Since 2020, we’ve been helping people stay connected across multiple countries through fast activation, dependable network coverage, and fully digital eSIM solutions.
+      {!searchQuery && (
+        <section className="py-12 md:py-16 bg-white">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                {categories.map((category, index) => {
+                  const styleIndex = index % CATEGORY_STYLES.length;
+                  const hoverStyle = CATEGORY_STYLES[styleIndex].hoverRing;
 
+                  return (
+                    <button
+                      key={category.id}
+                      onClick={() => handleCategoryClick(category.id)}
+                      className={`group text-left p-6 rounded-xl border-l-4 ${category.borderColor} bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 ${selectedCategory === category.id
+                        ? `ring-2 ${hoverStyle} shadow-md`
+                        : ''
+                        }`}
+                    >
+                      <div className="flex items-start gap-4">
+                        <div
+                          className={`flex-shrink-0 w-12 h-12 rounded-lg ${category.bgColor} flex items-center justify-center ${category.accentColor}`}
+                        >
+                          {category.icon}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-[var(--primary)] transition-colors">
+                            {category.title}
+                          </h3>
+                          <p className="text-sm text-gray-500">{category.description}</p>
+                          <span className="inline-flex items-center gap-1 mt-2 text-sm font-medium text-[var(--primary)]">
+                            {selectedCategory === category.id ? (
+                              <>
+                                {t('website.help.hideArticles', 'Hide articles')} <ChevronUp className="h-4 w-4" />
+                              </>
+                            ) : (
+                              <>
+                                {t('website.help.viewArticles', 'View articles')} <ChevronDown className="h-4 w-4" />
+                              </>
+                            )}
+                          </span>
+                        </div>
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <section className="py-12 md:py-16 bg-slate-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto space-y-8">
+            {displayedCategories.map((category) => (
+              <div key={category.id}>
+                <div className="flex items-center gap-3 mb-4">
+                  <div
+                    className={`w-8 h-8 rounded-lg ${category.bgColor} flex items-center justify-center ${category.accentColor}`}
+                  >
+                    {category.icon}
+                  </div>
+                  <h2 className="text-xl font-semibold text-gray-900">{category.title}</h2>
+                  <span className="text-sm text-gray-400">
+                    {t('website.help.articlesCount', '{{count}} articles', { count: category.articles.length })}
+                  </span>
+                </div>
+                <div className="space-y-2">
+                  {category.articles.map((article, idx) => {
+                    const articleKey = `${category.id}-${article.id}`;
+                    const isExpanded = expandedArticles.has(articleKey);
+                    return (
+                      <div
+                        key={articleKey}
+                        className="bg-white rounded-lg border border-gray-100 overflow-hidden"
+                      >
+                        <button
+                          onClick={() => toggleArticle(articleKey)}
+                          className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors"
+                        >
+                          <span className="font-medium text-gray-900 pr-4">
+                            {article.title}
+                          </span>
+                          {isExpanded ? (
+                            <Minus className="h-5 w-5 text-[var(--primary)] flex-shrink-0" />
+                          ) : (
+                            <Plus className="h-5 w-5 text-gray-400 flex-shrink-0" />
+                          )}
+                        </button>
+                        {isExpanded && (
+                          <div className="px-6 pb-4 text-gray-600 leading-relaxed border-t border-gray-50">
+                            <p className="pt-3">{article.content}</p>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+            {searchQuery && displayedCategories.length === 0 && (
+              <div className="text-center py-12">
+                <HelpCircle className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+                <p className="text-lg text-gray-500">
+                  {t('website.help.noArticlesFound', 'No articles found matching "{{query}}"', { query: searchQuery })}
                 </p>
-                <p>
-                  Built with a customer-first approach, Voltey combines advanced telecom technology with a smooth user experience to make global connectivity easier, more accessible, and hassle-free for everyone.                </p>
+                <p className="text-sm text-gray-400 mt-2">
+                  {t('website.help.tryDifferentKeywords', 'Try different keywords or browse the categories above')}
+                </p>
               </div>
-            </div>
-            <div className="bg-slate-100 rounded-2xl aspect-[4/3] flex items-center justify-center overflow-hidden shadow-lg border border-gray-100">
-              <img
-                src="/images/about/Voices_crew1.png"
-                alt="Voltey Team"
-                className="w-full h-full object-cover"
-              />
-            </div>
+            )}
           </div>
         </div>
       </section>
 
-      {/* How to Set Up an eSIM (New Section) */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              How to Set Up an eSIM
+      <section className="py-16 md:py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+              {t('website.help.stillNeedHelp', 'Still need help?')}
             </h2>
-            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-              Get connected in minutes with our simple setup process.
+            <p className="text-gray-500 mb-8">
+              {t('website.help.supportTeamDesc', 'Our support team is ready to assist you with any questions')}
             </p>
-          </div>
-
-          <Tabs defaultValue="iphone" className="w-full">
-            <div className="flex justify-center mb-12">
-              <TabsList className="grid w-full max-w-md grid-cols-1 h-auto p-1 bg-slate-100 rounded-full">
-                <TabsTrigger
-                  value="iphone"
-                  className="rounded-full py-3 text-base font-medium data-[state=active]:bg-[var(--primary)] data-[state=active]:text-white transition-all"
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
+              <div className="p-6 rounded-xl border border-gray-100 bg-slate-50 hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
+                  <Mail className="h-6 w-6 text-[var(--primary)]" />
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-1">{t('website.help.emailSupport', 'Email Support')}</h3>
+                <a
+                  href={`mailto:${email || 'support@simfinity.tel'}`}
+                  className="text-[var(--primary)] hover:underline text-sm"
                 >
-                  On iPhone
-                </TabsTrigger>
-              </TabsList>
-            </div>
-
-            <TabsContent value="iphone" className="mt-8">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-                {/* Step 1 */}
-                <div className="group bg-white rounded-[2.5rem] border border-slate-200 overflow-hidden hover:shadow-xl hover:border-green-200 transition-all duration-300 flex flex-col h-full">
-                  <div className="w-full bg-slate-50 flex items-center justify-center">
-                    <img
-                      src="/images/about/1.png"
-                      alt="Scan QR Code"
-                      className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="p-8 text-center flex flex-col items-center flex-grow">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[var(--primary)] transition-colors">Scan QR Code</h3>
-                    <p className="text-gray-500 leading-relaxed max-w-xs mx-auto text-lg">
-                      Go to Settings &gt; Cellular &gt; Add eSIM and scan the QR code provided in your email.
-                    </p>
-                  </div>
+                  {email || 'support@simfinity.tel'}
+                </a>
+              </div>
+              <div className="p-6 rounded-xl border border-gray-100 bg-slate-50 hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
+                  <MessageSquare className="h-6 w-6 text-[var(--primary)]" />
                 </div>
-
-                {/* Step 2 */}
-                <div className="group bg-white rounded-[2.5rem] border border-slate-200 overflow-hidden hover:shadow-xl hover:border-green-200 transition-all duration-300 flex flex-col h-full">
-                  <div className="w-full bg-slate-50 flex items-center justify-center">
-                    <img
-                      src="/images/about/2.png"
-                      alt="Activate eSIM"
-                      className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="p-8 text-center flex flex-col items-center flex-grow">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[var(--primary)] transition-colors">Activate eSIM</h3>
-                    <p className="text-gray-500 leading-relaxed max-w-xs mx-auto text-lg">
-                      Follow the on-screen prompts to label your new plan (e.g., "Travel") and continue.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Step 3 */}
-                <div className="group bg-white rounded-[2.5rem] border border-slate-200 overflow-hidden hover:shadow-xl hover:border-green-200 transition-all duration-300 flex flex-col h-full">
-                  <div className="w-full bg-slate-50 flex items-center justify-center">
-                    <img
-                      src="/images/about/3.png"
-                      alt="Connect"
-                      className="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="p-8 text-center flex flex-col items-center flex-grow">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[var(--primary)] transition-colors">Connect</h3>
-                    <p className="text-gray-500 leading-relaxed max-w-xs mx-auto text-lg">
-                      Turn on "Data Roaming" for your new eSIM line to start browsing instantly.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </TabsContent>
-          </Tabs>
-        </div>
-      </section>
-
-      {/* What We Offer (replaces Values) */}
-      <section className="py-16 md:py-24 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              What We Offer
-            </h2>
-            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-              We focus on making connectivity effortless — no physical SIM cards, no shipping delays, no roaming complications.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {whatWeOffer.map((item, index) => (
-              <div
-                key={index}
-                className="group bg-white rounded-2xl p-8 border border-gray-100 hover:border-green-200 hover:shadow-md transition-all duration-300"
-              >
-                <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                  style={{ backgroundColor: 'rgba(44, 115, 56, 0.1)' }}
-                >
-                  <item.icon className="w-6 h-6" style={{ color: 'var(--primary)' }} />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{item.title}</h3>
-                <p className="text-gray-500 leading-relaxed">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Mission & Vision (New Grid Section) */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Mission */}
-            <div className="bg-slate-50 rounded-2xl p-10 border border-gray-100 hover:shadow-md transition-all duration-300">
-              <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-6">
-                <CheckCircle2 className="w-8 h-8 text-[var(--primary)]" />
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Our Mission</h2>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                Our mission is to simplify global mobile connectivity by offering secure, affordable, and instantly accessible eSIM solutions that empower individuals and businesses to stay connected anywhere in the world.
-              </p>
-            </div>
-
-            {/* Vision */}
-            <div className="bg-slate-50 rounded-2xl p-10 border border-gray-100 hover:shadow-md transition-all duration-300">
-              <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center mb-6">
-                <Globe2 className="w-8 h-8 text-[var(--primary)]" />
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Our Vision</h2>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                We envision a future where global communication has no limits. A world where travelers never worry about roaming fees, professionals work without disruption, and digital connectivity is accessible to everyone instantly and effortlessly.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Why Voltey (Grid of small cards) */}
-      <section className="py-16 md:py-24 bg-slate-50">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Why Voltey?
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {whyVoltey.map((item, index) => (
-              <div
-                key={index}
-                className="group bg-white rounded-xl p-6 border border-gray-200 hover:border-green-200 hover:shadow-sm transition-all duration-300 flex items-center gap-4"
-              >
-                <div
-                  className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
-                  style={{ backgroundColor: 'rgba(44, 115, 56, 0.1)' }}
-                >
-                  <item.icon className="w-5 h-5" style={{ color: 'var(--primary)' }} />
-                </div>
-                <span className="text-lg font-bold text-gray-900">{item.text}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Visual Gallery */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Voltey in Action
-            </h2>
-            <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-              Connecting people, places, and experiences around the globe.
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="group overflow-hidden rounded-2xl shadow-lg border border-gray-100 aspect-[16/9] md:aspect-auto md:h-80">
-                <img
-                  src="/images/about/promotion-1.jpeg"
-                  alt="Global Connectivity"
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="group overflow-hidden rounded-2xl shadow-lg border border-gray-100 aspect-[16/9] md:aspect-auto md:h-80">
-                <img
-                  src="/images/about/promotion-2.jpeg"
-                  alt="Seamless Experience"
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-                />
+                <h3 className="font-semibold text-gray-900 mb-1">{t('contact.liveChat', 'Live Chat')}</h3>
+                <p className="text-sm text-gray-500">{t('website.help.available247', 'Available 24/7')}</p>
               </div>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="group overflow-hidden rounded-2xl shadow-lg border border-gray-100 aspect-[4/3] md:aspect-auto md:h-64">
-                <img
-                  src="/images/about/promotion-3.jpeg"
-                  alt="Travel Smart"
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="group overflow-hidden rounded-2xl shadow-lg border border-gray-100 aspect-[4/3] md:aspect-auto md:h-64">
-                <img
-                  src="/images/about/promotion-4.jpeg"
-                  alt="Digital Freedom"
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="group overflow-hidden rounded-2xl shadow-lg border border-gray-100 aspect-[4/3] md:aspect-auto md:h-64">
-                <img
-                  src="/images/about/promotion-5.jpeg"
-                  alt="Stay Connected"
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 md:py-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div
-            className="rounded-3xl px-8 py-16 md:px-16 md:py-20 text-center shadow-xl"
-            style={{ background: 'linear-gradient(135deg, var(--primary), #3a9c4d, var(--primary))' }}
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
-              Travel smarter. Stay connected everywhere.
-            </h2>
-            <p className="text-green-100 text-lg md:text-xl max-w-2xl mx-auto mb-8 font-medium">
-              With Voltey, instant global connectivity is always within reach. Activate your eSIM in minutes and enjoy seamless internet access wherever your journey takes you.
-            </p>
-            <Button
-              onClick={() => navigate('/destinations')}
-              size="lg"
-              className="bg-white hover:bg-gray-100 text-gray-900 font-semibold px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-            >
-              Get Started
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
           </div>
         </div>
       </section>
     </div>
   );
 }
-
-export default AboutUs;

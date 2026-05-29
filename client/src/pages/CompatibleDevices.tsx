@@ -109,7 +109,7 @@ export default function CompatibleDevices() {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">Loading compatible devices…</p>
+        <p className="text-muted-foreground">{t('website.compatibleDevices.loading', 'Loading compatible devices…')}</p>
       </div>
     );
   }
@@ -117,7 +117,7 @@ export default function CompatibleDevices() {
   if (isError || !data) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-destructive">Failed to load devices</p>
+        <p className="text-destructive">{t('website.compatibleDevices.error', 'Failed to load devices')}</p>
       </div>
     );
   }

@@ -67,6 +67,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useSettingByKey } from '@/hooks/useSettings';
+import {useTranslation} from '@/contexts/TranslationContext';
 // import { PaymentGatewayRenderer } from '@/components/payments/PaymentGatewayRenderer';
 
 
@@ -175,6 +176,8 @@ export default function UnifiedCheckout() {
   const [initResponse, setInitResponse] = useState(null);
   const [customerInfo, setCustomerInfo] = useState(null);
   const [quantity, setQuantity] = useState(1);
+
+   const { t } = useTranslation();
 
   // Promo states
   const [promoCode, setPromoCode] = useState('');
@@ -638,7 +641,7 @@ export default function UnifiedCheckout() {
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
             <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[var(--primary)] border-r-transparent"></div>
-            <p className="mt-4 text-muted-foreground">Loading...</p>
+            <p className="mt-4 text-muted-foreground">{t('common.loading', 'Loading...')}</p>
           </div>
         </div>
         {/* <SiteFooter /> */}
@@ -652,10 +655,8 @@ export default function UnifiedCheckout() {
         {/* <SiteHeader /> */}
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
-            <p className="text-muted-foreground">Package not found</p>
-            <Button onClick={() => setLocation('/')} className="mt-4">
-              Go Home
-            </Button>
+            <p className="text-muted-foreground">{t('checkout.packageNotFound', 'Package not found')}</p>
+            <Button onClick={() => setLocation('/')} className="mt-4">{t('common.goHome', 'Go Home')}</Button>
           </div>
         </div>
         {/* <SiteFooter /> */}
@@ -676,7 +677,7 @@ export default function UnifiedCheckout() {
           <div className="flex items-center gap-2 mb-6">
             <Button variant="ghost" onClick={() => window.history.back()} className="p-0 h-auto hover:bg-transparent text-gray-600">
               <ArrowLeft className="w-4 h-4 mr-1" />
-              <span className="text-base font-medium">Back to plans</span>
+              <span className="text-base font-medium">{t('checkout.backToPlans', 'Back to plans')}</span>
             </Button>
           </div>
 
@@ -689,7 +690,7 @@ export default function UnifiedCheckout() {
                 <CardContent className="p-6">
                   {isAuthenticated ? (
                     <div className="space-y-4">
-                      <h2 className="text-xl font-bold text-gray-900">Your Account</h2>
+                      <h2 className="text-xl font-bold text-gray-900">{t('checkout.yourAccount', 'Your Account')}</h2>
                       <div className="flex items-center gap-3 bg-primary/5 p-3 rounded-lg border border-primary/10">
                         <div className="w-10 h-10 rounded-full bg-primary-second flex items-center justify-center text-white font-bold text-lg">
                           {user?.name?.charAt(0) || user?.email?.charAt(0).toUpperCase()}
@@ -698,16 +699,14 @@ export default function UnifiedCheckout() {
                           <p className="font-semibold text-sm text-gray-900">{user?.name || 'User'}</p>
                           <p className="text-xs text-gray-600">{user?.email}</p>
                         </div>
-                        <Button variant="ghost" size="sm" onClick={() => apiRequest('POST', '/api/auth/logout').then(() => { queryClient.setQueryData(['/api/auth/me'], null); refetchUser(); })} className="h-8 text-xs text-red-600 hover:text-red-700 hover:bg-red-50">
-                          Logout
-                        </Button>
+                        <Button variant="ghost" size="sm" onClick={() => apiRequest('POST', '/api/auth/logout').then(() => { queryClient.setQueryData(['/api/auth/me'], null); refetchUser(); })} className="h-8 text-xs text-red-600 hover:text-red-700 hover:bg-red-50">{t('checkout.logout', 'Logout')}</Button>
                       </div>
-                      <p className="text-xs text-gray-400">Your eSIM details will be sent to this email address.</p>
+                      <p className="text-xs text-gray-400">{t('checkout.emailNote', 'Your eSIM details will be sent to this email address.')}</p>
                     </div>
                   ) : (
                     <div className="space-y-6">
                       <div>
-                        <h2 className="text-xl font-bold text-gray-900 mb-4">Sign up or log in</h2>
+                        <h2 className="text-xl font-bold text-gray-900 mb-4">{t('checkout.signUpOrLogin', 'Sign up or log in')}</h2>
                         <div className="flex flex-col sm:flex-row gap-3">
                           <Button
                             variant="outline"
@@ -719,9 +718,7 @@ export default function UnifiedCheckout() {
                               <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
                               <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05" />
                               <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
-                            </svg>
-                            Continue with Google
-                          </Button>
+                            </svg>{t('checkout.continueWithGoogle', 'Continue with Google')}</Button>
                         </div>
                       </div>
 
@@ -730,7 +727,7 @@ export default function UnifiedCheckout() {
                           <span className="w-full border-t border-gray-100"></span>
                         </div>
                         <div className="relative flex justify-center text-xs uppercase">
-                          <span className="bg-white px-2 text-gray-400">Or continue as guest</span>
+                          <span className="bg-white px-2 text-gray-400">{t('checkout.continueAsGuest', 'Or continue as guest')}</span>
                         </div>
                       </div>
 
@@ -742,7 +739,7 @@ export default function UnifiedCheckout() {
                               name="email"
                               render={({ field }) => (
                                 <FormItem className="space-y-1.5">
-                                  <FormLabel className="text-xs font-semibold text-gray-700">Email</FormLabel>
+                                  <FormLabel className="text-xs font-semibold text-gray-700">{t('checkout.emailLabel', 'Email')}</FormLabel>
                                   <FormControl>
                                     <div className="relative">
                                       <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -764,7 +761,7 @@ export default function UnifiedCheckout() {
                               name="phone"
                               render={({ field }) => (
                                 <FormItem className="space-y-1.5">
-                                  <FormLabel className="text-xs font-semibold text-gray-700">Phone number</FormLabel>
+                                  <FormLabel className="text-xs font-semibold text-gray-700">{t('checkout.phone', 'Phone number')}</FormLabel>
                                   <div className="flex gap-2">
                                     <Popover open={openCountry} onOpenChange={setOpenCountry}>
                                       <PopoverTrigger asChild>
@@ -788,7 +785,7 @@ export default function UnifiedCheckout() {
                                         <Command>
                                           <CommandInput placeholder="Search country or code..." />
                                           <CommandList>
-                                            <CommandEmpty>No country found.</CommandEmpty>
+                                            <CommandEmpty>{t('checkout.noCountryFound', 'No country found.')}</CommandEmpty>
                                             <CommandGroup className="max-h-[300px] overflow-auto">
                                               {countries.map((c) => (
                                                 <CommandItem
@@ -850,13 +847,9 @@ export default function UnifiedCheckout() {
                                   <div className="leading-tight">
                                     <FormLabel className="text-xs font-normal text-gray-600 cursor-pointer">
                                       I agree to the{' '}
-                                      <Link href="/terms-and-condition" className="text-primary-second font-medium hover:underline">
-                                        Terms of Service
-                                      </Link>{' '}
+                                      <Link href="/terms-and-condition" className="text-primary-second font-medium hover:underline">{t('checkout.termsOfService', 'Terms of Service')}</Link>{' '}
                                       and{' '}
-                                      <Link href="/privacy-policy" className="text-primary-second font-medium hover:underline">
-                                        Privacy Policy
-                                      </Link>
+                                      <Link href="/privacy-policy" className="text-primary-second font-medium hover:underline">{t('checkout.privacyPolicy', 'Privacy Policy')}</Link>
                                     </FormLabel>
                                     <FormMessage className="text-xs" />
                                   </div>
@@ -874,7 +867,7 @@ export default function UnifiedCheckout() {
               {/* PAYMENT SECTION */}
               <Card className="border-0 shadow-sm rounded-xl bg-white overflow-hidden">
                 <CardContent className="p-6">
-                  <h2 className="text-xl font-bold text-gray-900 mb-4">Select a payment method</h2>
+                  <h2 className="text-xl font-bold text-gray-900 mb-4">{t('checkout.selectPaymentMethod', 'Select a payment method')}</h2>
 
                   {!initResponse ? (
                     <div className="space-y-4">
@@ -929,7 +922,7 @@ export default function UnifiedCheckout() {
                         </div>
                       ) : (
                         <div className="p-6 text-center border border-dashed border-gray-100 rounded-lg">
-                          <p className="text-sm text-gray-400">No payment methods available for this currency.</p>
+                          <p className="text-sm text-gray-400">{t('checkout.noGateways', 'No payment methods available for this currency.')}</p>
                         </div>
                       )}
 
@@ -937,9 +930,7 @@ export default function UnifiedCheckout() {
                       {selectedGateway?.provider === 'powertranz' && (
                         <div className="mt-4 p-4 bg-gray-50 rounded-xl space-y-3 border border-gray-100">
                           <h4 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
-                            <CreditCard className="w-4 h-4 text-gray-400" />
-                            Card Details
-                          </h4>
+                            <CreditCard className="w-4 h-4 text-gray-400" />{t('checkout.cardDetails', 'Card Details')}</h4>
                           <Input
                             placeholder="Card Number"
                             className="h-10 text-sm rounded-md border-gray-200"
@@ -966,7 +957,7 @@ export default function UnifiedCheckout() {
                         className="w-full h-12 mt-2 bg-primary-second hover:bg-primary-dark text-white text-base font-bold rounded-lg transition-all"
                       >
                         {isSubmitting ? (
-                          <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Processing...</>
+                          <><Loader2 className="w-4 h-4 mr-2 animate-spin" />{t('checkout.processing', 'Processing...')}</>
                         ) : (
                           isFreeOrder ? 'Confirm Order' : 'Complete Purchase'
                         )}
@@ -984,15 +975,15 @@ export default function UnifiedCheckout() {
               <div className="flex items-center gap-4 justify-center py-2">
                 <div className="flex items-center gap-1.5 text-xs text-gray-400">
                   <Shield className="w-3.5 h-3.5" />
-                  <span>Secure Checkout</span>
+                  <span>{t('checkout.secureCheckout', 'Secure Checkout')}</span>
                 </div>
                 <div className="flex items-center gap-1.5 text-xs text-gray-400">
                   <Lock className="w-3.5 h-3.5" />
-                  <span>Encrypted</span>
+                  <span>{t('checkout.encrypted', 'Encrypted')}</span>
                 </div>
                 <div className="flex items-center gap-1.5 text-xs text-gray-400">
                   <Zap className="w-3.5 h-3.5" />
-                  <span>Instant Delivery</span>
+                  <span>{t('checkout.instantDelivery', 'Instant Delivery')}</span>
                 </div>
               </div>
             </div>
@@ -1001,7 +992,7 @@ export default function UnifiedCheckout() {
             <div className="lg:col-span-5">
               <Card className="border-0 shadow-sm rounded-xl bg-white sticky top-8">
                 <CardContent className="p-6">
-                  <h2 className="text-xl font-bold text-gray-900 mb-6">Order summary</h2>
+                  <h2 className="text-xl font-bold text-gray-900 mb-6">{t('checkout.orderSummary', 'Order summary')}</h2>
 
                   <div className="bg-gray-50 rounded-xl p-3.5 flex items-center gap-3 mb-6">
                     {(packageData.destination?.countryCode || packageData.countryCode) && (
@@ -1020,15 +1011,15 @@ export default function UnifiedCheckout() {
 
                   <div className="space-y-4 pb-6 border-b border-gray-100">
                     <div className="flex justify-between items-center text-sm">
-                      <span className="text-gray-500">Plan</span>
+                      <span className="text-gray-500">{t('checkout.plan', 'Plan')}</span>
                       <span className="font-bold text-gray-900">{formatDataAmount(packageData)}</span>
                     </div>
                     <div className="flex justify-between items-center text-sm">
-                      <span className="text-gray-500">Type</span>
-                      <span className="font-bold text-gray-900">Data only</span>
+                      <span className="text-gray-500">{t('checkout.type', 'Type')}</span>
+                      <span className="font-bold text-gray-900">{t('checkout.dataOnly', 'Data only')}</span>
                     </div>
                     <div className="flex justify-between items-center text-sm">
-                      <span className="text-gray-500">Duration</span>
+                      <span className="text-gray-500">{t('checkout.duration', 'Duration')}</span>
                       <span className="font-bold text-gray-900">{packageData.validity} days</span>
                     </div>
                   </div>
@@ -1036,7 +1027,7 @@ export default function UnifiedCheckout() {
                   {/* PRICE & PROMOS */}
                   <div className="py-6 space-y-3.5">
                     <div className="flex justify-between items-center">
-                      <span className="text-lg font-bold text-gray-900">Total</span>
+                      <span className="text-lg font-bold text-gray-900">{t('checkout.total', 'Total')}</span>
                       <span className="text-2xl font-black text-gray-900">
                         {getCurrencySymbol(packageData.currency)}{calculateTotal()}
                       </span>
@@ -1061,7 +1052,7 @@ export default function UnifiedCheckout() {
                       <div className="flex justify-between items-center bg-amber-50 p-2.5 rounded-lg border border-amber-100">
                         <div className="flex items-center gap-2">
                           <Coins className="w-3.5 h-3.5 text-amber-600" />
-                          <span className="text-xs font-semibold text-amber-700">Credits used</span>
+                          <span className="text-xs font-semibold text-amber-700">{t('checkout.creditsUsed', 'Credits used')}</span>
                         </div>
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-bold text-amber-700">-{getCurrencySymbol(packageData.currency)}{appliedReferralCredits.toFixed(2)}</span>
@@ -1078,9 +1069,7 @@ export default function UnifiedCheckout() {
                     <div className="space-y-4">
                       <Collapsible open={isPromoOpen} onOpenChange={setIsPromoOpen}>
                         <CollapsibleTrigger asChild>
-                          <Button variant="ghost" className="w-full h-10 rounded-lg text-primary-second hover:text-[#1a4a22] hover:bg-green-50 text-sm font-bold border border-green-100">
-                            Got a coupon?
-                          </Button>
+                          <Button variant="ghost" className="w-full h-10 rounded-lg text-primary-second hover:text-[#1a4a22] hover:bg-green-50 text-sm font-bold border border-green-100">{t('checkout.gotCoupon', 'Got a coupon?')}</Button>
                         </CollapsibleTrigger>
                         <CollapsibleContent className="pt-3 space-y-3 animate-in slide-in-from-top-2 duration-200">
                           {/* Restore Promo Type Selection */}
@@ -1095,9 +1084,7 @@ export default function UnifiedCheckout() {
                                     : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
                                   }`}
                                 onClick={() => setPromoCodeType('voucher')}
-                              >
-                                Voucher
-                              </Button>
+                              >{t('checkout.voucher', 'Voucher')}</Button>
                               <Button
                                 type="button"
                                 variant="ghost"
@@ -1107,9 +1094,7 @@ export default function UnifiedCheckout() {
                                     : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
                                   }`}
                                 onClick={() => setPromoCodeType('giftcard')}
-                              >
-                                Gift Card
-                              </Button>
+                              >{t('checkout.giftCard', 'Gift Card')}</Button>
                               <Button
                                 type="button"
                                 variant="ghost"
@@ -1119,9 +1104,7 @@ export default function UnifiedCheckout() {
                                     : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
                                   }`}
                                 onClick={() => setPromoCodeType('referral')}
-                              >
-                                Referral
-                              </Button>
+                              >{t('checkout.referral', 'Referral')}</Button>
                             </div>
                           )}
 
@@ -1142,9 +1125,7 @@ export default function UnifiedCheckout() {
                       {availableCredits > 0 && !appliedReferralCredits && (
                         <div className="p-3 bg-amber-50 rounded-lg border border-amber-100">
                           <p className="text-xs font-semibold text-amber-800 mb-2">Available Credits: ${availableCredits.toFixed(2)}</p>
-                          <Button size="sm" onClick={() => handleApplyCredits(availableCredits)} className="w-full h-8 bg-amber-600 hover:bg-amber-700 text-xs font-bold rounded-md">
-                            Apply Referral Credits
-                          </Button>
+                          <Button size="sm" onClick={() => handleApplyCredits(availableCredits)} className="w-full h-8 bg-amber-600 hover:bg-amber-700 text-xs font-bold rounded-md">{t('checkout.applyReferralCredits', 'Apply Referral Credits')}</Button>
                         </div>
                       )}
                     </div>

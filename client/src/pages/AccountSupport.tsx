@@ -342,7 +342,7 @@ export default function AccountSupport() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Open</p>
+                <p className="text-sm font-medium text-muted-foreground">{t('support.open', 'Open')}</p>
                 <h3 className="text-2xl font-bold mt-1" data-testid="text-count-open">
                   {tickets?.filter((t) => t.status === 'open').length || 0}
                 </h3>
@@ -358,7 +358,7 @@ export default function AccountSupport() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">In Progress</p>
+                <p className="text-sm font-medium text-muted-foreground">{t('support.inProgress', 'In Progress')}</p>
                 <h3 className="text-2xl font-bold mt-1" data-testid="text-count-in-progress">
                   {tickets?.filter((t) => t.status === 'in_progress').length || 0}
                 </h3>
@@ -374,7 +374,7 @@ export default function AccountSupport() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Resolved</p>
+                <p className="text-sm font-medium text-muted-foreground">{t('support.resolved', 'Resolved')}</p>
                 <h3 className="text-2xl font-bold mt-1" data-testid="text-count-resolved">
                   {tickets?.filter((t) => t.status === 'resolved').length || 0}
                 </h3>
@@ -390,7 +390,7 @@ export default function AccountSupport() {
           <CardContent className="p-6">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">Total</p>
+                <p className="text-sm font-medium text-muted-foreground">{t('support.total', 'Total')}</p>
                 <h3 className="text-2xl font-bold mt-1" data-testid="text-count-total">
                   {tickets?.length || 0}
                 </h3>
@@ -415,10 +415,10 @@ export default function AccountSupport() {
               className="flex-1 px-3 py-2 border rounded-lg bg-background text-sm"
             >
               <option value="all">All</option>
-              <option value="open">Open</option>
-              <option value="in_progress">In Progress</option>
-              <option value="resolved">Resolved</option>
-              <option value="closed">Closed</option>
+              <option value="open">{t('support.open', 'Open')}</option>
+              <option value="in_progress">{t('support.inProgress', 'In Progress')}</option>
+              <option value="resolved">{t('support.resolved', 'Resolved')}</option>
+              <option value="closed">{t('support.closed', 'Closed')}</option>
             </select>
 
             <select
@@ -491,7 +491,7 @@ export default function AccountSupport() {
                 <Card>
                   <CardContent className="p-8 text-center">
                     <Headphones className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                    <h3 className="text-lg font-medium mb-2">No tickets found</h3>
+                    <h3 className="text-lg font-medium mb-2">{t('support.noTicketsFound', 'No tickets found')}</h3>
                     <p className="text-muted-foreground mb-4">
                       {statusFilter !== 'all'
                         ? 'Try adjusting your filter'
@@ -502,9 +502,7 @@ export default function AccountSupport() {
                       className="gap-2 bg-[var(--primary)] hover:bg-primary-second text-white"
                       data-testid="button-create-first-ticket"
                     >
-                      <Plus className="w-4 h-4" />
-                      Create Ticket
-                    </Button>
+                      <Plus className="w-4 h-4" />{t('support.createTicket', 'Create Ticket')}</Button>
                   </CardContent>
                 </Card>
               )}
@@ -516,9 +514,7 @@ export default function AccountSupport() {
               variant="outline"
               disabled={page === 1}
               onClick={() => setPage((p) => p - 1)}
-            >
-              Previous
-            </Button>
+            >{t('support.previous', 'Previous')}</Button>
 
             <span className="text-sm text-muted-foreground">
               Page <span className="font-medium">{page}</span> of {totalPages}
@@ -529,9 +525,7 @@ export default function AccountSupport() {
               variant="outline"
               disabled={page >= totalPages}
               onClick={() => setPage((p) => p + 1)}
-            >
-              Next
-            </Button>
+            >{t('support.next', 'Next')}</Button>
           </div>
         </div>
 
@@ -556,9 +550,7 @@ export default function AccountSupport() {
                     className="gap-2"
                     data-testid="button-refresh-ticket"
                   >
-                    <RefreshCw className="w-4 h-4" />
-                    Refresh
-                  </Button>
+                    <RefreshCw className="w-4 h-4" />{t('support.refresh', 'Refresh')}</Button>
                 </div>
               </CardHeader>
 
@@ -585,9 +577,7 @@ export default function AccountSupport() {
 
                 {/* Description */}
                 <div className="rounded-lg border bg-muted/30 p-4">
-                  <span className="text-xs text-muted-foreground uppercase tracking-wide">
-                    Description
-                  </span>
+                  <span className="text-xs text-muted-foreground uppercase tracking-wide">{t('support.description', 'Description')}</span>
                   <p className="mt-2 text-sm whitespace-pre-wrap leading-relaxed">
                     {selectedTicket.description}
                   </p>
@@ -595,13 +585,11 @@ export default function AccountSupport() {
 
                 {/* Conversation */}
                 <div className="border-t pt-6 flex flex-col h-[500px]">
-                  <h3 className="font-medium mb-3">Conversation</h3>
+                  <h3 className="font-medium mb-3">{t('support.conversation', 'Conversation')}</h3>
 
                   <div className="flex-1 space-y-4 overflow-y-auto px-1 pr-2 mb-4">
                     {!liveMessages || liveMessages.length === 0 ? (
-                      <p className="text-sm text-muted-foreground text-center py-12">
-                        No messages yet. Start the conversation!
-                      </p>
+                      <p className="text-sm text-muted-foreground text-center py-12">{t('support.noMessages', 'No messages yet. Start the conversation!')}</p>
                     ) : (
                       liveMessages.map((msg: Message) => {
                         const isUser = msg.senderType === 'user';
@@ -624,9 +612,7 @@ export default function AccountSupport() {
                                 </span>
 
                                 {!isUser && (
-                                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-500">
-                                    Support
-                                  </span>
+                                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-500">{t('support.supportLabel', 'Support')}</span>
                                 )}
                               </div>
 
@@ -674,10 +660,8 @@ export default function AccountSupport() {
             <Card>
               <CardContent className="p-12 text-center">
                 <Headphones className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-medium mb-2">No ticket selected</h3>
-                <p className="text-muted-foreground mb-4">
-                  Select a ticket from the list to view details and conversation
-                </p>
+                <h3 className="text-lg font-medium mb-2">{t('support.noTicketSelected', 'No ticket selected')}</h3>
+                <p className="text-muted-foreground mb-4">{t('support.selectTicketHint', 'Select a ticket from the list to view details and conversation')}</p>
               </CardContent>
             </Card>
           )}
@@ -691,7 +675,7 @@ export default function AccountSupport() {
             <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-primary/10 dark:bg-[var(--primary-dark)]/30 flex items-center justify-center">
               <Mail className="w-6 h-6 text-primary-second dark:text-[var(--primary-light)]" />
             </div>
-            <div className="font-medium mb-1">Email Support</div>
+            <div className="font-medium mb-1">{t('support.emailSupport', 'Email Support')}</div>
             <div className="text-sm text-muted-foreground">{email || 'support@esim-global.com'}</div>
           </CardContent>
         </Card>
@@ -700,8 +684,8 @@ export default function AccountSupport() {
             <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-primary/10 dark:bg-[var(--primary-dark)]/30 flex items-center justify-center">
               <MessageCircle className="w-6 h-6 text-primary-second dark:text-[var(--primary-light)]" />
             </div>
-            <div className="font-medium mb-1">Live Chat</div>
-            <div className="text-sm text-muted-foreground">Available 24/7</div>
+            <div className="font-medium mb-1">{t('support.liveChat', 'Live Chat')}</div>
+            <div className="text-sm text-muted-foreground">{t('support.available247', 'Available 24/7')}</div>
           </CardContent>
         </Card>
         <Card data-testid="card-help-center">
@@ -709,8 +693,8 @@ export default function AccountSupport() {
             <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-primary/10 dark:bg-[var(--primary-dark)]/30 flex items-center justify-center">
               <BookOpen className="w-6 h-6 text-primary-second dark:text-[var(--primary-light)]" />
             </div>
-            <div className="font-medium mb-1">Help Center</div>
-            <div className="text-sm text-muted-foreground">Browse FAQs & Guides</div>
+            <div className="font-medium mb-1">{t('support.helpCenter', 'Help Center')}</div>
+            <div className="text-sm text-muted-foreground">{t('support.browseFaqs', 'Browse FAQs & Guides')}</div>
           </CardContent>
         </Card>
       </div>
@@ -719,14 +703,14 @@ export default function AccountSupport() {
       <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>Create New Support Ticket</DialogTitle>
+            <DialogTitle>{t('support.createNewTicket', 'Create New Support Ticket')}</DialogTitle>
             <DialogDescription>
               Describe your issue and we'll get back to you as soon as possible.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label htmlFor="title">Title *</Label>
+              <Label htmlFor="title">{t('support.titleLabel', 'Title *')}</Label>
               <Input
                 id="title"
                 value={createFormData.title}
@@ -737,7 +721,7 @@ export default function AccountSupport() {
               />
             </div>
             <div>
-              <Label htmlFor="description">Description *</Label>
+              <Label htmlFor="description">{t('support.descriptionLabel', 'Description *')}</Label>
               <Textarea
                 id="description"
                 value={createFormData.description}
@@ -751,7 +735,7 @@ export default function AccountSupport() {
               />
             </div>
             <div>
-              <Label htmlFor="priority">Priority</Label>
+              <Label htmlFor="priority">{t('support.priority', 'Priority')}</Label>
               <select
                 id="priority"
                 value={createFormData.priority}
@@ -765,9 +749,9 @@ export default function AccountSupport() {
                 data-testid="select-ticket-priority"
               >
                 <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-                <option value="urgent">Urgent</option>
+                <option value="medium">{t('support.priorities.medium', 'Medium')}</option>
+                <option value="high">{t('support.priorities.high', 'High')}</option>
+                <option value="urgent">{t('support.priorities.urgent', 'Urgent')}</option>
               </select>
             </div>
           </div>
@@ -776,9 +760,7 @@ export default function AccountSupport() {
               variant="outline"
               onClick={() => setShowCreateDialog(false)}
               data-testid="button-cancel-ticket"
-            >
-              Cancel
-            </Button>
+            >{t('support.cancel', 'Cancel')}</Button>
             <Button
               onClick={handleCreateTicket}
               disabled={createTicketMutation.isPending}

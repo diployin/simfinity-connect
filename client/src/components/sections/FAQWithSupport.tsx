@@ -69,7 +69,7 @@ export function FAQWithSupport() {
             {t('website.home.faq.title', 'Frequently Asked Questions')}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            {t('website.home.faq.subtitle', 'Find answers to common questions about eSIMs and how we can help you stay connected while traveling')}
+            {t('website.home.faq.subtitle', 'Everything you need to know about using eSIM while traveling.')}
           </p>
         </div>
 
@@ -100,13 +100,13 @@ export function FAQWithSupport() {
           ))}
 
           {(!categories || categories.length === 0) && (
-            <p className="text-center text-muted-foreground">No FAQs available at the moment.</p>
+            <p className="text-center text-muted-foreground">{t('website.home.faq.noFaqs', 'No FAQs available at the moment.')}</p>
           )}
         </div>
 
         <div className="max-w-3xl mx-auto text-center">
           <h3 className="text-xl font-semibold text-foreground mb-2">
-            {t('website.home.faq.support.title', 'Still have questions?')}
+            {t('website.home.faq.support.title', 'Need help?')}
           </h3>
           <p className="text-muted-foreground mb-6">
             {t(
@@ -120,7 +120,7 @@ export function FAQWithSupport() {
               className="rounded-full border-[var(--primary-light)] dark:border-primary-second text-foreground hover:bg-zinc-100 dark:hover:bg-zinc-800"
               data-testid="button-help-center"
             >
-              {t('website.home.faq.support.button', 'Visit Help Center')}
+              {t('website.home.faq.support.button', 'Go to Help Center')}
             </Button>
           </Link>
         </div>

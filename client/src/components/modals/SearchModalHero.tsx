@@ -14,6 +14,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { useTranslation } from '@/contexts/TranslationContext';
 
 // Types
 interface DestinationWithPricing {
@@ -45,6 +46,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
   const [searchType, setSearchType] = useState<"country" | "region">("country");
   const [, setLocation] = useLocation();
   const { currency } = useCurrency();
+    const { t } = useTranslation();
 
   const { data: destinationsWithPricing, isLoading: destinationsLoading } =
     useQuery<DestinationWithPricing[]>({
@@ -133,12 +135,8 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
           {/* Header */}
           <DialogHeader className="px-6 pt-6 pb-4 border-b">
             <DialogTitle className="text-xl font-bold flex items-center gap-2">
-              <Sparkles className="h-5 w-5 text-primary" />
-              Search Destinations
-            </DialogTitle>
-            <DialogDescription className="text-sm">
-              200+ countries & regions available
-            </DialogDescription>
+              <Sparkles className="h-5 w-5 text-primary" />{t('website.home.searchModal.title', 'Search Destinations')}</DialogTitle>
+            <DialogDescription className="text-sm">{t('website.home.searchModal.subtitle', '200+ countries & regions available')}</DialogDescription>
           </DialogHeader>
 
           {/* Content */}
@@ -165,9 +163,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                     {searchType === "country" && (
                       <Check className="h-2 w-2 text-primary" />
                     )}
-                  </div>
-                  Countries
-                </button>
+                  </div>{t('website.home.searchModal.countries', 'Countries')}</button>
                 <button
                   onClick={() => {
                     setSearchType("region");
@@ -187,9 +183,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                     {searchType === "region" && (
                       <Check className="h-2 w-2 text-primary" />
                     )}
-                  </div>
-                  Regions
-                </button>
+                  </div>{t('website.home.searchModal.regions', 'Regions')}</button>
               </div>
 
               {/* Search Input */}
@@ -222,9 +216,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
               {searchQuery.length > 0 ? (
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide">
-                      Results
-                    </h3>
+                    <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide">{t('website.home.searchModal.results', 'Results')}</h3>
                     <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
                       {getFilteredResults().length}
                     </span>
@@ -234,9 +226,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                       <div className="inline-block h-6 w-6 animate-spin rounded-full border-3 border-solid border-primary border-r-transparent"></div>
                     </div>
                   ) : getFilteredResults().length === 0 ? (
-                    <div className="py-8 text-center text-sm text-muted-foreground">
-                      No results found
-                    </div>
+                    <div className="py-8 text-center text-sm text-muted-foreground">{t('website.home.searchModal.noResults', 'No results found')}</div>
                   ) : (
                     <div className="space-y-1.5">
                       {getFilteredResults().map((item, idx) => (
