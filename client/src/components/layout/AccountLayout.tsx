@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 interface AccountLayoutProps {
   children: React.ReactNode;
@@ -66,6 +67,7 @@ const accountNavItems: NavItem[] = [
 
 export function AccountLayout({ children }: AccountLayoutProps) {
   const [location] = useLocation();
+  const { t } = useTranslation();
 
   const isActive = (href: string) => {
     if (href === '/account') return location === '/account';
