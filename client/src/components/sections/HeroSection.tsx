@@ -179,7 +179,7 @@ export function HeroSection() {
               data-testid="text-hero-headline"
             >
               {t('website.home.hero.global', 'Your Journey Starts Here.')}{' '}
-              {t('website.home.hero.forLifetime', 'Stay Connected Everywhere.')}
+              {/* {t('website.home.hero.forLifetime', 'Stay Connected Everywhere.')} */}
             </motion.h1>
 
             <motion.p
