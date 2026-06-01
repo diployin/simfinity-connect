@@ -179,7 +179,7 @@ export function HeroSection() {
               data-testid="text-hero-headline"
             >
               {t('website.home.hero.global', 'Your Journey Starts Here.')}{' '}
-              {/* {t('website.home.hero.forLifetime', 'Stay Connected Everywhere.')} */}
+              {t('website.home.hero.forLifetime', 'Stay Connected Everywhere.')}
             </motion.h1>
 
             <motion.p
@@ -203,66 +203,42 @@ export function HeroSection() {
               </button>
             </motion.div>
 
-            <motion.div variants={itemVariants} className="w-full max-w-[420px] relative group">
-              <Carousel className="w-full" opts={{ align: "start", dragFree: true }}>
-                <div className="flex items-center justify-between mb-3 px-1">
-                  <p className="text-[11px] font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-[0.1em]">
-                    {t('website.home.hero.popularDestinations', 'Popular destinations')}
-                  </p>
-                  {/* Mobile/Small Screen Navigation Arrows */}
-                  <div className="flex md:hidden gap-1.5">
-                    <CarouselPrevious className="static translate-y-0 h-6 w-6 rounded-full bg-white/80 dark:bg-gray-800/80 border-gray-200 dark:border-gray-700" />
-                    <CarouselNext className="static translate-y-0 h-6 w-6 rounded-full bg-white/80 dark:bg-gray-800/80 border-gray-200 dark:border-gray-700" />
-                  </div>
-                </div>
-
-                <CarouselContent className="-ml-2">
-                  {displayPopular.map((dest) => (
-                    <CarouselItem key={dest.slug} className="pl-2 basis-auto">
-                      <Link href={`/destination/${dest.slug}`}>
-                        <motion.div
-                          whileHover={{ scale: 1.04 }}
-                          whileTap={{ scale: 0.97 }}
-                          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700 hover:border-[var(--primary-light)] dark:hover:border-[var(--primary)] transition-all cursor-pointer shadow-sm hover:shadow"
-                        >
-                          <img
-                            src={`https://flagcdn.com/16x12/${dest.countryCode.toLowerCase()}.png`}
-                            srcSet={`https://flagcdn.com/32x24/${dest.countryCode.toLowerCase()}.png 2x`}
-                            alt={dest.name}
-                            className="w-4 h-3 rounded-[2px] object-cover"
-                          />
-                          <div className="flex flex-col items-start leading-none">
-                            <span className="text-xs font-medium text-gray-700 dark:text-gray-300">{dest.name}</span>
-                            {parseFloat(dest.minPrice) > 0 && (
-                              <span className="text-[9px] text-primary dark:text-primary-light font-bold mt-0.5">
-                                {t('website.home.hero.from', 'From')} {currencySymbol}{convertPrice(parseFloat(dest.minPrice), 'USD', currency, currencies).toFixed(2)}
-                              </span>
-                            )}
-                          </div>
-                          <ChevronRight className="h-3 w-3 text-gray-400" />
-                        </motion.div>
-                      </Link>
-                    </CarouselItem>
-                  ))}
-                  <CarouselItem className="pl-2 basis-auto">
-                    <Link href="/destinations">
-                      <motion.div
-                        whileHover={{ scale: 1.04 }}
-                        whileTap={{ scale: 0.97 }}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/5 dark:bg-[var(--primary-dark)]/30 border border-primary/10 dark:border-primary-second hover:bg-primary/10 dark:hover:bg-[var(--primary-dark)]/50 transition-all cursor-pointer"
-                      >
-                        <Globe className="h-3 w-3 text-[var(--primary)] dark:text-[var(--primary-light)]" />
-                        <span className="text-xs font-medium text-[var(--primary)] dark:text-[var(--primary-light)]">
-                          {t('website.home.hero.viewAll', 'View all')}
-                        </span>
-                      </motion.div>
-                    </Link>
-                  </CarouselItem>
-                </CarouselContent>
-                {/* Desktop Navigation Arrows - Visible on hover */}
-                <CarouselPrevious className="hidden md:flex -left-10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                <CarouselNext className="hidden md:flex -right-10 opacity-0 group-hover:opacity-100 transition-opacity" />
-              </Carousel>
+            <motion.div variants={itemVariants} className="w-full max-w-[420px]">
+              <p className="text-[11px] font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-[0.1em] mb-3">
+                {t('website.home.hero.popularDestinations', 'Popular destinations')}
+              </p>
+              <div className="flex flex-wrap items-start gap-2">
+                {displayPopular.map((dest) => (
+                  <Link key={dest.slug} href={`/destination/${dest.slug}`}>
+                    <motion.div
+                      whileHover={{ scale: 1.04 }}
+                      whileTap={{ scale: 0.97 }}
+                      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white dark:bg-gray-800 border border-gray-200/80 dark:border-gray-700 hover:border-[var(--primary-light)] dark:hover:border-[var(--primary)] transition-all cursor-pointer shadow-sm hover:shadow"
+                    >
+                      <img
+                        src={`https://flagcdn.com/16x12/${dest.countryCode.toLowerCase()}.png`}
+                        srcSet={`https://flagcdn.com/32x24/${dest.countryCode.toLowerCase()}.png 2x`}
+                        alt={dest.name}
+                        className="w-4 h-3 rounded-[2px] object-cover"
+                      />
+                      <span className="text-xs font-medium text-gray-700 dark:text-gray-300">{dest.name}</span>
+                      <ChevronRight className="h-3 w-3 text-gray-400" />
+                    </motion.div>
+                  </Link>
+                ))}
+                <Link href="/destinations">
+                  <motion.div
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary/5 dark:bg-[var(--primary-dark)]/30 border border-primary/10 dark:border-primary-second hover:bg-primary/10 dark:hover:bg-[var(--primary-dark)]/50 transition-all cursor-pointer"
+                  >
+                    <Globe className="h-3 w-3 text-[var(--primary)] dark:text-[var(--primary-light)]" />
+                    <span className="text-xs font-medium text-[var(--primary)] dark:text-[var(--primary-light)]">
+                      {t('website.home.hero.viewAll', 'View all')}
+                    </span>
+                  </motion.div>
+                </Link>
+              </div>
             </motion.div>
           </motion.div>
 
