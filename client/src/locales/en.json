@@ -1698,6 +1698,51 @@
         "kyc": "[object Object]",
         "reviews.heroTitle": "{{siteName}} review and rating: Should you get it?"
     },
+    "gettingStarted": {
+        "title": "Getting Started",
+        "heroTitle": "Ready to get connected?",
+        "heroSubtitle": "New to {{siteName}}? Learn how to set up your eSIM in 4 simple steps and stay connected globally.",
+        "findPlan": "Find a Plan",
+        "checkCompatibility": "Check Device Compatibility",
+        "stepLabel": "STEP",
+        "steps": {
+            "step1": {
+                "title": "Choose your destination",
+                "description": "Search for your destination country or region and find the perfect data plan for your trip."
+            },
+            "step2": {
+                "title": "Purchase your plan",
+                "description": "Select your data package, checkout securely, and receive your eSIM instantly via email."
+            },
+            "step3": {
+                "title": "Install the eSIM",
+                "description": "Scan the QR code provided in your email or on the {{siteName}} dashboard to easily install your eSIM."
+            },
+            "step4": {
+                "title": "Activate and connect",
+                "description": "Turn on data roaming for your new eSIM when you arrive at your destination and get connected instantly."
+            }
+        },
+        "features": {
+            "digitalDelivery": "Instant digital delivery",
+            "noSwapping": "No physical SIM swapping required"
+        },
+        "activationGuide": {
+            "title": "Quick Activation Guide",
+            "subtitle": "Activating your eSIM is incredibly quick and easy. Follow the standard steps for your specific device.",
+            "ios": "iOS Devices",
+            "iosSteps": "Go to Settings > Cellular > Add eSIM > Scan QR Code.",
+            "android": "Android Devices",
+            "androidSteps": "Go to Settings > Network & Internet > SIMs > Add SIM > Download an eSIM instead.",
+            "wifiRequired": "Wi-Fi connection required for initial setup",
+            "roamingOn": "Ensure Data Roaming is turned ON for the eSIM"
+        },
+        "cta": {
+            "title": "Ready for your next adventure?",
+            "subtitle": "Get a {{siteName}} eSIM and stay connected wherever you go.",
+            "action": "Browse Destinations"
+        }
+    },
     "userPanel": {
         "dashboard.title": "Dashboard",
         "dashboard.welcome": "Welcome back!",

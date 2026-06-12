@@ -119,22 +119,31 @@ export default function WhatIsEsim() {
               </div>
               <div className="order-1 lg:order-2 bg-slate-50 dark:bg-slate-900/50 rounded-[2.5rem] p-8 md:p-12 border border-slate-100 dark:border-slate-800 shadow-inner">
                 <h3 className="text-2xl font-bold text-foreground mb-8 text-center tracking-tight">{t('website.whatIsEsim.vsTitle', 'eSIM vs Physical SIM')}</h3>
-                <div className="responsive-table-container border-none bg-transparent">
-                  <div className="space-y-4">
-                  {[
-                    { feature: t('website.whatIsEsim.vsSetupTime', 'Setup time'), esim: t('website.whatIsEsim.valMinutes', 'Minutes'), sim: t('website.whatIsEsim.valHoursDays', 'Hours/Days') },
-                    { feature: t('website.whatIsEsim.vsStoreVisit', 'Store visit'), esim: t('website.whatIsEsim.valNotNeeded', 'Not needed'), sim: t('website.whatIsEsim.valRequired', 'Required') },
-                    { feature: t('website.whatIsEsim.vsMultiplePlans', 'Multiple plans'), esim: t('website.whatIsEsim.valDigital', 'Yes, digital'), sim: t('website.whatIsEsim.valMultipleCards', 'Need multiple cards') },
-                    { feature: t('website.whatIsEsim.vsLost', 'Can be lost'), esim: t('website.whatIsEsim.valNo', 'No'), sim: t('website.whatIsEsim.valYes', 'Yes') },
-                    { feature: t('website.whatIsEsim.vsEcoFriendly', 'Eco-friendly'), esim: t('website.whatIsEsim.valYes', 'Yes'), sim: t('website.whatIsEsim.valPlasticWaste', 'Plastic waste') },
-                    { feature: t('website.whatIsEsim.vsDualSim', 'Dual SIM'), esim: t('website.whatIsEsim.valBuiltIn', 'Built-in'), sim: t('website.whatIsEsim.valExtraSlot', 'Extra slot needed') },
-                  ].map((row) => (
-                      <div key={row.feature} className="grid grid-cols-3 gap-6 text-sm md:text-base py-4 border-b border-slate-200/60 dark:border-slate-800 last:border-none">
-                        <span className="font-bold text-foreground">{row.feature}</span>
-                        <span className="text-primary font-bold">{row.esim}</span>
-                        <span className="text-muted-foreground font-medium">{row.sim}</span>
-                      </div>
-                    ))}
+                <div className="responsive-table-container border-none bg-transparent overflow-x-auto">
+                  <div className="min-w-[320px]">
+                    {/* Header Row */}
+                    <div className="grid grid-cols-3 gap-2 md:gap-6 text-[10px] sm:text-sm md:text-base py-3 border-b-2 border-slate-200 dark:border-slate-700 mb-2 px-1">
+                      <span className="font-extrabold text-foreground uppercase tracking-wider">{t('website.whatIsEsim.feature', 'Feature')}</span>
+                      <span className="font-extrabold text-primary uppercase tracking-wider">eSIM</span>
+                      <span className="font-extrabold text-muted-foreground uppercase tracking-wider">Physical SIM</span>
+                    </div>
+                    {/* Data Rows */}
+                    <div className="space-y-1">
+                    {[
+                      { feature: t('website.whatIsEsim.vsSetupTime', 'Setup time'), esim: t('website.whatIsEsim.valMinutes', 'Minutes'), sim: t('website.whatIsEsim.valHoursDays', 'Hours/Days') },
+                      { feature: t('website.whatIsEsim.vsStoreVisit', 'Store visit'), esim: t('website.whatIsEsim.valNotNeeded', 'Not needed'), sim: t('website.whatIsEsim.valRequired', 'Required') },
+                      { feature: t('website.whatIsEsim.vsMultiplePlans', 'Multiple plans'), esim: t('website.whatIsEsim.valDigital', 'Yes, digital'), sim: t('website.whatIsEsim.valMultipleCards', 'Need multiple cards') },
+                      { feature: t('website.whatIsEsim.vsLost', 'Can be lost'), esim: t('website.whatIsEsim.valNo', 'No'), sim: t('website.whatIsEsim.valYes', 'Yes') },
+                      { feature: t('website.whatIsEsim.vsEcoFriendly', 'Eco-friendly'), esim: t('website.whatIsEsim.valYes', 'Yes'), sim: t('website.whatIsEsim.valPlasticWaste', 'Plastic waste') },
+                      { feature: t('website.whatIsEsim.vsDualSim', 'Dual SIM'), esim: t('website.whatIsEsim.valBuiltIn', 'Built-in'), sim: t('website.whatIsEsim.valExtraSlot', 'Extra slot needed') },
+                    ].map((row) => (
+                        <div key={row.feature} className="grid grid-cols-3 gap-2 md:gap-6 text-xs sm:text-sm md:text-base py-3 border-b border-slate-200/60 dark:border-slate-800 last:border-none hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-colors rounded-lg px-1">
+                          <span className="font-bold text-foreground flex items-center pr-2">{row.feature}</span>
+                          <span className="text-primary font-bold flex items-center pr-2">{row.esim}</span>
+                          <span className="text-muted-foreground font-medium flex items-center">{row.sim}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

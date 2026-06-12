@@ -141,7 +141,7 @@ export function DestinationsTabs() {
           {/* Outer flex container to handle horizontal alignment on page */}
           <div className="flex justify-center mb-8">
             {/* !w-auto and !inline-flex override hidden internal components presets */}
-           <TabsList className="!w-max !flex-initial bg-zinc-100 dark:bg-zinc-800/60 rounded-full p-1 gap-0.5 mx-auto">
+            <TabsList className="!w-max !flex-initial bg-zinc-100 dark:bg-zinc-800/60 rounded-full p-1 gap-0.5 mx-auto">
               <TabsTrigger
                 value="countries"
                 className="rounded-full px-5 py-2 text-sm font-medium transition-all data-[state=active]:bg-emerald-600 data-[state=active]:text-white data-[state=active]:shadow-sm text-zinc-600 dark:text-zinc-400 data-[state=inactive]:hover:text-zinc-900 dark:data-[state=inactive]:hover:text-zinc-200"
@@ -193,7 +193,7 @@ export function DestinationsTabs() {
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
                         {destination.minPrice && (
-                          <span className="text-sm text-emerald-600 dark:text-emerald-400 font-semibold">
+                          <span className="text-sm text-black dark:text-white font-semibold group-hover:underline group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                             {t('website.home.destinations.from', 'From')} {currencySymbol}
                             {convertPrice(
                               parseFloat(destination.minPrice),
@@ -250,7 +250,7 @@ export function DestinationsTabs() {
                         </div>
                         <div className="flex items-center gap-2 flex-shrink-0">
                           {region.minPrice && (
-                            <span className="text-sm text-emerald-600 dark:text-emerald-400 font-semibold">
+                            <span className="text-sm text-black dark:text-white font-semibold group-hover:underline group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                               {t('website.home.destinations.from', 'From')} {currencySymbol}
                               {convertPrice(
                                 parseFloat(region.minPrice),
@@ -293,14 +293,14 @@ export function DestinationsTabs() {
                         </p>
                       </div>
                       <div className="flex items-center gap-2 flex-shrink-0">
-                        <span className="text-sm text-emerald-600 dark:text-emerald-400 font-semibold">
+                        <span className="text-sm text-black dark:text-white font-semibold group-hover:underline group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                           {currencySymbol}
                           {convertPrice(
                             parseFloat(pkg.retailPrice),
                             'USD',
                             currency,
                             currencies,
-                              ).toFixed(2)}
+                          ).toFixed(2)}
                         </span>
                         <ChevronRight className="h-4 w-4 text-zinc-400 dark:text-zinc-500 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors" />
                       </div>

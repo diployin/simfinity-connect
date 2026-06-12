@@ -53,30 +53,30 @@ interface UICategory {
 const CATEGORY_STYLES = [
   {
     icon: PlayCircle,
-    accentColor: 'text-green-600',
+    accentColor: 'text-green-600 dark:text-green-400',
     borderColor: 'border-l-green-500',
-    bgColor: 'bg-green-50',
+    bgColor: 'bg-green-50 dark:bg-green-900/20',
     hoverRing: 'ring-[var(--primary)]/20',
   },
   {
     icon: CreditCard,
-    accentColor: 'text-blue-600',
+    accentColor: 'text-blue-600 dark:text-blue-400',
     borderColor: 'border-l-blue-500',
-    bgColor: 'bg-blue-50',
+    bgColor: 'bg-blue-50 dark:bg-blue-900/20',
     hoverRing: 'ring-blue-600/20',
   },
   {
     icon: Wrench,
-    accentColor: 'text-orange-600',
+    accentColor: 'text-orange-600 dark:text-orange-400',
     borderColor: 'border-l-orange-500',
-    bgColor: 'bg-orange-50',
+    bgColor: 'bg-orange-50 dark:bg-orange-900/20',
     hoverRing: 'ring-orange-600/20',
   },
   {
     icon: HelpCircle,
-    accentColor: 'text-purple-600',
+    accentColor: 'text-purple-600 dark:text-purple-400',
     borderColor: 'border-l-purple-500',
-    bgColor: 'bg-purple-50',
+    bgColor: 'bg-purple-50 dark:bg-purple-900/20',
     hoverRing: 'ring-purple-600/20',
   },
 ];
@@ -190,26 +190,23 @@ export default function HelpCenter() {
       </Helmet>
 
       <section
-        className="relative overflow-hidden"
-        style={{
-          background: 'linear-gradient(180deg, #f0f9f1 0%, #ffffff 100%)',
-        }}
+        className="relative overflow-hidden bg-gradient-to-b from-[#f0f9f1] to-white dark:from-green-950/20 dark:to-background"
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-gray-100">
               {t('website.help.heading', 'How can we help you?')}
             </h1>
-            <p className="text-lg text-gray-500 mb-8">
+            <p className="text-lg text-gray-500 dark:text-gray-400 mb-8">
               {t('website.help.subheading', 'Search our knowledge base or browse categories below')}
             </p>
             <div className="max-w-xl mx-auto">
               <div className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-gray-500" />
                 <input
                   type="search"
                   placeholder={String(t('website.help.searchPlaceholder', 'Search for answers...'))}
-                  className="w-full pl-12 pr-4 h-14 text-base rounded-xl border border-gray-200 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/30 focus:border-[var(--primary)] transition-all"
+                  className="w-full pl-12 pr-4 h-14 text-base rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-card shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/30 focus:border-[var(--primary)] transition-all text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
@@ -220,10 +217,10 @@ export default function HelpCenter() {
       </section>
 
       {!searchQuery && (
-        <section className="py-12 md:py-16 bg-white">
+        <section className="py-12 md:py-16 bg-white dark:bg-background">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
                 {categories.map((category, index) => {
                   const styleIndex = index % CATEGORY_STYLES.length;
                   const hoverStyle = CATEGORY_STYLES[styleIndex].hoverRing;
@@ -232,7 +229,7 @@ export default function HelpCenter() {
                     <button
                       key={category.id}
                       onClick={() => handleCategoryClick(category.id)}
-                      className={`group text-left p-6 rounded-xl border-l-4 ${category.borderColor} bg-white border border-gray-100 shadow-sm hover:shadow-md transition-all duration-200 ${selectedCategory === category.id
+                      className={`group text-left p-6 rounded-xl border-l-4 ${category.borderColor} bg-white dark:bg-card border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-all duration-200 ${selectedCategory === category.id
                         ? `ring-2 ${hoverStyle} shadow-md`
                         : ''
                         }`}
@@ -244,10 +241,10 @@ export default function HelpCenter() {
                           {category.icon}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-[var(--primary)] transition-colors">
+                          <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1 group-hover:text-[var(--primary)] transition-colors">
                             {category.title}
                           </h3>
-                          <p className="text-sm text-gray-500">{category.description}</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">{category.description}</p>
                           <span className="inline-flex items-center gap-1 mt-2 text-sm font-medium text-[var(--primary)]">
                             {selectedCategory === category.id ? (
                               <>
@@ -270,7 +267,7 @@ export default function HelpCenter() {
         </section>
       )}
 
-      <section className="py-12 md:py-16 bg-slate-50">
+      <section className="py-12 md:py-16 bg-slate-50 dark:bg-slate-900/30">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto space-y-8">
             {displayedCategories.map((category) => (
@@ -281,8 +278,8 @@ export default function HelpCenter() {
                   >
                     {category.icon}
                   </div>
-                  <h2 className="text-xl font-semibold text-gray-900">{category.title}</h2>
-                  <span className="text-sm text-gray-400">
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{category.title}</h2>
+                  <span className="text-sm text-gray-400 dark:text-gray-500">
                     {t('website.help.articlesCount', '{{count}} articles', { count: category.articles.length })}
                   </span>
                 </div>
@@ -293,23 +290,23 @@ export default function HelpCenter() {
                     return (
                       <div
                         key={articleKey}
-                        className="bg-white rounded-lg border border-gray-100 overflow-hidden"
+                        className="bg-white dark:bg-card rounded-lg border border-gray-100 dark:border-gray-800 overflow-hidden"
                       >
                         <button
                           onClick={() => toggleArticle(articleKey)}
-                          className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 transition-colors"
+                          className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors"
                         >
-                          <span className="font-medium text-gray-900 pr-4">
+                          <span className="font-medium text-gray-900 dark:text-gray-100 pr-4">
                             {article.title}
                           </span>
                           {isExpanded ? (
                             <Minus className="h-5 w-5 text-[var(--primary)] flex-shrink-0" />
                           ) : (
-                            <Plus className="h-5 w-5 text-gray-400 flex-shrink-0" />
+                            <Plus className="h-5 w-5 text-gray-400 dark:text-gray-500 flex-shrink-0" />
                           )}
                         </button>
                         {isExpanded && (
-                          <div className="px-6 pb-4 text-gray-600 leading-relaxed border-t border-gray-50">
+                          <div className="px-6 pb-4 text-gray-600 dark:text-gray-300 leading-relaxed border-t border-gray-50 dark:border-gray-800">
                             <p className="pt-3">{article.content}</p>
                           </div>
                         )}
@@ -334,21 +331,21 @@ export default function HelpCenter() {
         </div>
       </section>
 
-      <section className="py-16 md:py-20 bg-white">
+      <section className="py-16 md:py-20 bg-white dark:bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">
               {t('website.help.stillNeedHelp', 'Still need help?')}
             </h2>
-            <p className="text-gray-500 mb-8">
+            <p className="text-gray-500 dark:text-gray-400 mb-8">
               {t('website.help.supportTeamDesc', 'Our support team is ready to assist you with any questions')}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-              <div className="p-6 rounded-xl border border-gray-100 bg-slate-50 hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
+              <div className="p-6 rounded-xl border border-gray-100 dark:border-gray-800 bg-slate-50 dark:bg-card hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-green-50 dark:bg-green-900/20 flex items-center justify-center mx-auto mb-4">
                   <Mail className="h-6 w-6 text-[var(--primary)]" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-1">{t('website.help.emailSupport', 'Email Support')}</h3>
+                <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">{t('website.help.emailSupport', 'Email Support')}</h3>
                 <a
                   href={`mailto:${email || 'support@simfinity.tel'}`}
                   className="text-[var(--primary)] hover:underline text-sm"
@@ -356,12 +353,12 @@ export default function HelpCenter() {
                   {email || 'support@simfinity.tel'}
                 </a>
               </div>
-              <div className="p-6 rounded-xl border border-gray-100 bg-slate-50 hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
+              <div className="p-6 rounded-xl border border-gray-100 dark:border-gray-800 bg-slate-50 dark:bg-card hover:shadow-md transition-shadow">
+                <div className="w-12 h-12 rounded-full bg-green-50 dark:bg-green-900/20 flex items-center justify-center mx-auto mb-4">
                   <MessageSquare className="h-6 w-6 text-[var(--primary)]" />
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-1">{t('contact.liveChat', 'Live Chat')}</h3>
-                <p className="text-sm text-gray-500">{t('website.help.available247', 'Available 24/7')}</p>
+                <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">{t('contact.liveChat', 'Live Chat')}</h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{t('website.help.available247', 'Available 24/7')}</p>
               </div>
             </div>
           </div>

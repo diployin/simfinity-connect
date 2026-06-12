@@ -312,7 +312,7 @@ export default function Destinations() {
                           </h3>
                           <p className="text-sm text-muted-foreground">
                             {t('destinations.startingFrom', 'Starting from')}{' '}
-                            <span className="text-green-500 font-semibold">
+                            <span className="text-sm text-black dark:text-white font-semibold group-hover:underline group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                               {getCurrencySymbol(dest.currency || 'USD')}
                               {dest.minPrice}
                             </span>
@@ -346,7 +346,7 @@ export default function Destinations() {
                           </h3>
                           <p className="text-sm text-muted-foreground">
                             {t('destinations.startingFrom', 'Starting from')}{' '}
-                            <span className="text-green-500 font-semibold">
+                            <span className="text-sm text-black dark:text-white font-semibold group-hover:underline group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                               {getCurrencySymbol(region.currency || 'USD')}
                               {region.minPrice}
                             </span>
@@ -433,7 +433,7 @@ export default function Destinations() {
                           </h3>
                           <p className="text-sm text-muted-foreground">
                             {t('destinations.startingFrom', 'Starting from')}{' '}
-                            <span className="text-green-500 font-semibold">
+                            <span className="text-sm text-black dark:text-white font-semibold group-hover:underline group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                               {getCurrencySymbol(dest.currency || 'USD')}
                               {dest.minPrice}
                             </span>
@@ -512,7 +512,7 @@ export default function Destinations() {
                           </h3>
                           <p className="text-sm text-muted-foreground">
                             {t('destinations.startingFrom', 'Starting from')}{' '}
-                            <span className="text-green-500 font-semibold">
+                            <span className="text-sm text-black dark:text-white font-semibold group-hover:underline group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                               {getCurrencySymbol(region.currency || 'USD')}
                               {region.minPrice}
                             </span>
@@ -588,7 +588,7 @@ export default function Destinations() {
 
                         {/* Price */}
                         <div className="text-right flex-shrink-0">
-                          <span className="text-green-500 font-semibold">
+                          <span className="text-sm text-black dark:text-white font-semibold group-hover:underline group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                             {getCurrencySymbol(currency)}
                             {parseFloat(pkg.retailPrice).toFixed(2)}
                           </span>
