@@ -29,6 +29,8 @@ import ReCAPTCHA from 'react-google-recaptcha';
 import React, { useRef } from 'react';
 import { signInWithGoogle } from '@/lib/firebase';
 import { SettingsState } from '@/redux/slice/settingsSlice';
+import { useUser } from '@/hooks/use-user';
+
 
 interface ReferralSettings {
   enabled: boolean;
@@ -39,6 +41,13 @@ export default function Login() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const { t } = useTranslation();
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (user) {
+      setLocation('/account/profile');
+    }
+  }, [user, setLocation]);
 
   const [authTab, setAuthTab] = useState<'signin' | 'signup'>('signin');
   const [showForgotPassword, setShowForgotPassword] = useState(false);
@@ -376,14 +385,16 @@ export default function Login() {
         }
       }
 
-      queryClient.invalidateQueries({ queryKey: ['/api/auth/me'] });
+      await queryClient.refetchQueries({ queryKey: ['/api/auth/me'] });
 
       toast({
         title: 'Account Created',
-        description: 'Your account is ready!',
+        description: 'Your account is ready! Redirecting...',
       });
 
-      setLocation('/account/profile');
+      setTimeout(() => {
+        window.location.href = '/account/profile';
+      }, 1200);
     } catch (error: any) {
       toast({
         title: 'Error',
@@ -711,19 +722,21 @@ export default function Login() {
                          RECAPTCHA
                       ---------------------------------- */}
                       {recaptchaEnabled && recaptchaSiteKey && (
-                        <div className="flex justify-center my-4 overflow-hidden rounded-lg border border-border/50">
-                          <ReCAPTCHA
-                            ref={recaptchaRef}
-                            sitekey={recaptchaSiteKey}
-                            onChange={(token) => setCaptchaToken(token)}
-                            theme={theme === 'dark' ? 'dark' : 'light'}
-                          />
+                        <div className="flex justify-center my-4 w-full">
+                          <div style={{ width: '304px', height: '78px' }}>
+                            <ReCAPTCHA
+                              ref={recaptchaRef}
+                              sitekey={recaptchaSiteKey}
+                              onChange={(token) => setCaptchaToken(token)}
+                              theme={theme === 'dark' ? 'dark' : 'light'}
+                            />
+                          </div>
                         </div>
                       )}
 
                       <Button
                         type="submit"
-                        className="w-full bg-primary-gradient hover:bg-primary-gradient "
+                        className="w-full bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] hover:from-[var(--primary-dark)] hover:to-[var(--primary)] text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 transform active:scale-[0.98]"
                         disabled={isLoading || (recaptchaEnabled && !captchaToken)}
                         data-testid="button-signin"
                       >
@@ -764,11 +777,11 @@ export default function Login() {
                           </span>
                         </div>
                       </Button>
-                      <p className="text-center text-sm text-muted-foreground">
-                        {t('website.auth.noAccount', "Don't have an account?")}{' '}
+                      <p className="text-center text-sm text-muted-foreground flex items-center justify-center gap-1">
+                        <span>{t('website.auth.noAccount', "Don't have an account?")}</span>
                         <button
                           type="button"
-                          className="text-primary hover:underline font-medium"
+                          className="text-primary hover:underline font-semibold transition-colors"
                           onClick={() => {
                             setAuthTab('signup');
                             resetForms();
@@ -819,7 +832,7 @@ export default function Login() {
                         </div>
                         <Button
                           type="submit"
-                          className="w-full bg-primary-gradient"
+                          className="w-full bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] hover:from-[var(--primary-dark)] hover:to-[var(--primary)] text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 transform active:scale-[0.98]"
                           disabled={isLoading}
                           data-testid="button-forgot-submit"
                         >
@@ -928,7 +941,7 @@ export default function Login() {
                         </div>
                         <Button
                           type="submit"
-                          className="w-full bg-primary-gradient"
+                          className="w-full bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] hover:from-[var(--primary-dark)] hover:to-[var(--primary)] text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 transform active:scale-[0.98]"
                           disabled={isLoading}
                           data-testid="button-reset-password"
                         >
@@ -991,7 +1004,7 @@ export default function Login() {
                       </div>
                       <Button
                         type="submit"
-                        className="w-full bg-primary-gradient"
+                        className="w-full bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] hover:from-[var(--primary-dark)] hover:to-[var(--primary)] text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 transform active:scale-[0.98]"
                         disabled={isLoading}
                         data-testid="button-send-signup-otp"
                       >
@@ -1030,11 +1043,11 @@ export default function Login() {
                         </div>
                       </Button>
 
-                      <p className="text-center text-sm text-muted-foreground">
-                        {t('website.auth.alreadyHaveAccount', 'Already have an account?')}{' '}
+                      <p className="text-center text-sm text-muted-foreground flex items-center justify-center gap-1">
+                        <span>{t('website.auth.alreadyHaveAccount', 'Already have an account?')}</span>
                         <button
                           type="button"
-                          className="text-primary hover:underline font-medium"
+                          className="text-primary hover:underline font-semibold transition-colors"
                           onClick={() => {
                             setAuthTab('signin');
                             resetForms();
@@ -1068,7 +1081,7 @@ export default function Login() {
                       </div>
                       <Button
                         type="submit"
-                        className="w-full bg-primary-gradient"
+                        className="w-full bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] hover:from-[var(--primary-dark)] hover:to-[var(--primary)] text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 transform active:scale-[0.98]"
                         disabled={isLoading}
                         data-testid="button-verify-signup-otp"
                       >
@@ -1176,7 +1189,7 @@ export default function Login() {
                       </div>
                       <Button
                         type="submit"
-                        className="w-full bg-primary-gradient"
+                        className="w-full bg-gradient-to-r from-[var(--primary)] to-[var(--primary-light)] hover:from-[var(--primary-dark)] hover:to-[var(--primary)] text-white font-semibold shadow-md hover:shadow-lg transition-all duration-300 transform active:scale-[0.98]"
                         disabled={isLoading}
                         data-testid="button-complete-signup"
                       >
