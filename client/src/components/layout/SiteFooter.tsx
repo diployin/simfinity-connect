@@ -6,6 +6,7 @@ import { apiRequest } from '@/lib/queryClient';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'wouter';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { useState, useEffect } from 'react';
 import {
   SiApplepay,
   SiGooglepay,
@@ -14,10 +15,35 @@ import {
   SiAmericanexpress,
   SiDiscover
 } from 'react-icons/si';
-import { Globe } from 'lucide-react';
+import { Globe, ChevronDown, ChevronUp } from 'lucide-react';
 
 export function NewFooter() {
   const { t } = useTranslation();
+  const [isMobile, setIsMobile] = useState(false);
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>({
+    popularDestinations: false,
+    esimGlobal: false,
+    esim: false,
+    help: false,
+    contactUs: false
+  });
+
+  // Check if mobile view
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const toggleSection = (section: string) => {
+    setOpenSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }));
+  };
 
   const { data: settings } = useQuery<SettingsState>({
     queryKey: ['/api/public/settings'],
@@ -49,8 +75,6 @@ export function NewFooter() {
     { code: 'AE', label: t('website.destinations.uae', 'UAE') },
   ];
 
-
-
   const topDestinations = targetDestinations
     .map((target) => {
       const found = allDestinations.find(
@@ -65,8 +89,6 @@ export function NewFooter() {
     })
     .filter((item) => item !== null);
 
-  // console.log(topDestinations)
-
   const { theme } = useTheme();
   const siteName = useSettingByKey('platform_name') || 'Simfinity';
   const logo = useSettingByKey('logo');
@@ -74,6 +96,166 @@ export function NewFooter() {
   const currentLogo = theme === 'dark' ? (whiteLogo || logo) : logo;
   const androidLink = useSettingByKey('social_android') || '#';
   const iosLink = useSettingByKey('social_ios') || '#';
+
+  // Section data for mapping
+  const sections = [
+    {
+      id: 'popularDestinations',
+      title: 'Popular Destinations',
+      content: (
+        <ul className="space-y-2.5">
+          {topDestinations.length > 0 ? (
+            topDestinations.map((dest: any) => (
+              <li key={dest.id}>
+                <Link href={`/destination/${dest.slug}`}>
+                  <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+                    {dest.name}
+                  </span>
+                </Link>
+              </li>
+            ))
+          ) : (
+            <>
+              {['Mexico', 'Switzerland', 'India', 'United States', 'Costa Rica', 'Austria', 'Saudi Arabia', 'Thailand', 'South Africa', 'Vietnam'].map((name) => (
+                <li key={name}>
+                  <Link href="/destinations">
+                    <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">{name}</span>
+                  </Link>
+                </li>
+              ))}
+            </>
+          )}
+        </ul>
+      )
+    },
+    {
+      id: 'esimGlobal',
+      title: siteName,
+      content: (
+        <ul className="space-y-2.5">
+          {[
+            { label: 'Business', href: '/business' },
+            { label: 'About Us', href: '/about-us' },
+            { label: 'Careers', href: '/careers' },
+            { label: 'Refer a Friend', href: '/refer-a-friend' },
+            { label: 'Become an Affiliate', href: '/become-an-affiliate' },
+            { label: 'Student Discount', href: '/student-discount' },
+          ].map((link) => (
+            <li key={link.label}>
+              <Link href={link.href}>
+                <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">{link.label}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )
+    },
+    {
+      id: 'esim',
+      title: 'eSIM',
+      content: (
+        <ul className="space-y-2.5">
+          {[
+            { label: 'What is an eSIM', href: '/what-is-esim' },
+            { label: 'Supported Devices', href: '/supported-devices' },
+            { label: 'Download App', href: '/download-app' },
+            { label: 'Security Features', href: '/security-features' },
+            { label: 'Data Usage Calculator', href: '/data-usage-calculator' },
+            { label: 'Blog', href: '/blog' },
+          ].map((link) => (
+            <li key={link.label}>
+              <Link href={link.href}>
+                <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">{link.label}</span>
+              </Link>
+            </li>
+          ))}
+          {pages?.data?.map((page) => (
+            <li key={page.id}>
+              <Link href={`/pages/${page.slug}`}>
+                <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+                  {page.title?.charAt(0).toUpperCase() + page.title?.slice(1)}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )
+    },
+    {
+      id: 'help',
+      title: 'Help',
+      content: (
+        <ul className="space-y-2.5">
+          {[
+            { label: 'Help Center', href: '/help-center' },
+            { label: 'Getting Started', href: '/getting-started' },
+            { label: 'Troubleshooting', href: '/troubleshooting' },
+            { label: 'Contact Support', href: '/contact-support' },
+            { label: 'FAQ', href: '/faq' },
+            { label: 'Reviews', href: '/reviews' },
+          ].map((link) => (
+            <li key={link.label}>
+              <Link href={link.href}>
+                <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">{link.label}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )
+    },
+    {
+      id: 'contactUs',
+      title: 'Contact Us',
+      content: (
+        <>
+          <ul className="space-y-2.5 mb-6">
+            <li className="text-sm text-muted-foreground">
+              <span className="block font-medium text-foreground">Email:</span>
+              <a href={`mailto:${settings?.email || 'info@voltey.com'}`} className="hover:text-foreground transition-colors">
+                {settings?.email || 'info@voltey.com'}
+              </a>
+            </li>
+            <li className="text-sm text-muted-foreground">
+              <span className="block font-medium text-foreground">Phone:</span>
+              <a href={`tel:${settings?.phone?.replace(/\s/g, "") || "+330745574376"}`} className="hover:text-foreground transition-colors">
+                {settings?.phone || '+33 0745574376'}
+              </a>
+            </li>
+            <li className="text-sm text-muted-foreground">
+              <span className="block font-medium text-foreground">Support:</span>
+              {settings?.support_info || '24/7 Customer Support Available'}
+            </li>
+            <li className="text-sm text-muted-foreground">
+              <span className="block font-medium text-foreground">Location:</span>
+              {settings?.location || 'France'}
+            </li>
+          </ul>
+
+          <h3 className="text-sm font-bold text-foreground mb-4">Follow Us</h3>
+          <div className="flex flex-wrap gap-3">
+            {[
+              { label: 'Facebook', icon: 'facebook', href: getSocialUrl(settings?.social_facebook), active: settings?.social_facebook_active !== 'false' },
+              { label: 'Twitter', icon: 'twitter', href: getSocialUrl(settings?.social_twitter), active: settings?.social_twitter_active !== 'false' },
+              { label: 'LinkedIn', icon: 'linkedin', href: getSocialUrl(settings?.social_linkedin), active: settings?.social_linkedin_active !== 'false' },
+              { label: 'YouTube', icon: 'youtube', href: getSocialUrl(settings?.social_youtube), active: settings?.social_youtube_active !== 'false' },
+              { label: 'Instagram', icon: 'instagram', href: getSocialUrl(settings?.social_instagram), active: settings?.social_instagram_active !== 'false' }
+            ].filter(social => social.active).map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.label}
+              >
+                <SocialIcon name={social.icon} />
+              </a>
+            ))}
+          </div>
+        </>
+      )
+    }
+  ];
 
   return (
     <footer className="bg-background border-t border-border dark:bg-gray-900">
@@ -131,150 +313,38 @@ export function NewFooter() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 mb-12">
-          <div>
-            <h3 className="text-sm font-bold text-foreground mb-4">Popular Destinations</h3>
-            <ul className="space-y-2.5">
-              {topDestinations.length > 0 ? (
-                topDestinations.map((dest: any) => (
-                  <li key={dest.id}>
-                    <Link href={`/destination/${dest.slug}`}>
-                      <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
-                        {dest.name}
-                      </span>
-                    </Link>
-                  </li>
-                ))
-              ) : (
-                <>
-                  {['Mexico', 'Switzerland', 'India', 'United States', 'Costa Rica', 'Austria', 'Saudi Arabia', 'Thailand', 'South Africa', 'Vietnam'].map((name) => (
-                    <li key={name}>
-                      <Link href="/destinations">
-                        <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">{name}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </>
-              )}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-bold text-foreground mb-4">{siteName}</h3>
-            <ul className="space-y-2.5">
-              {[
-                { label: 'Business', href: '/business' },
-                { label: 'About Us', href: '/about-us' },
-                { label: 'Careers', href: '/careers' },
-                { label: 'Refer a Friend', href: '/refer-a-friend' },
-                { label: 'Become an Affiliate', href: '/become-an-affiliate' },
-                { label: 'Student Discount', href: '/student-discount' },
-              ].map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href}>
-                    <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">{link.label}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-bold text-foreground mb-4">eSIM</h3>
-            <ul className="space-y-2.5">
-              {[
-                { label: 'What is an eSIM', href: '/what-is-esim' },
-                { label: 'Supported Devices', href: '/supported-devices' },
-                { label: 'Download App', href: '/download-app' },
-                { label: 'Security Features', href: '/security-features' },
-                { label: 'Data Usage Calculator', href: '/data-usage-calculator' },
-                { label: 'Blog', href: '/blog' },
-              ].map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href}>
-                    <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">{link.label}</span>
-                  </Link>
-                </li>
-              ))}
-              {pages?.data?.map((page) => (
-                <li key={page.id}>
-                  <Link href={`/pages/${page.slug}`}>
-                    <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
-                      {page.title?.charAt(0).toUpperCase() + page.title?.slice(1)}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-bold text-foreground mb-4">Help</h3>
-            <ul className="space-y-2.5">
-              {[
-                { label: 'Help Center', href: '/help-center' },
-                { label: 'Getting Started', href: '/getting-started' },
-                { label: 'Troubleshooting', href: '/troubleshooting' },
-                { label: 'Contact Support', href: '/contact-support' },
-                { label: 'FAQ', href: '/faq' },
-                { label: 'Reviews', href: '/reviews' },
-              ].map((link) => (
-                <li key={link.label}>
-                  <Link href={link.href}>
-                    <span className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">{link.label}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-bold text-foreground mb-4">Contact Us</h3>
-            <ul className="space-y-2.5 mb-6">
-              <li className="text-sm text-muted-foreground">
-                <span className="block font-medium text-foreground">Email:</span>
-                <a href={`mailto:${settings?.email || 'info@voltey.com'}`} className="hover:text-foreground transition-colors">
-                  {settings?.email || 'info@voltey.com'}
-                </a>
-              </li>
-              <li className="text-sm text-muted-foreground">
-                <span className="block font-medium text-foreground">Phone:</span>
-                <a href={`tel:${settings?.phone?.replace(/\s/g, "") || "+330745574376"}`} className="hover:text-foreground transition-colors">
-                  {settings?.phone || '+33 0745574376'}
-                </a>
-              </li>
-              <li className="text-sm text-muted-foreground">
-                <span className="block font-medium text-foreground">Support:</span>
-                {settings?.support_info || '24/7 Customer Support Available'}
-              </li>
-              <li className="text-sm text-muted-foreground">
-                <span className="block font-medium text-foreground">Location:</span>
-                {settings?.location || 'France'}
-              </li>
-            </ul>
-
-            <h3 className="text-sm font-bold text-foreground mb-4">Follow Us</h3>
-            <div className="flex flex-wrap gap-3">
-              {[
-                { label: 'Facebook', icon: 'facebook', href: getSocialUrl(settings?.social_facebook), active: settings?.social_facebook_active !== 'false' },
-                { label: 'Twitter', icon: 'twitter', href: getSocialUrl(settings?.social_twitter), active: settings?.social_twitter_active !== 'false' },
-                { label: 'LinkedIn', icon: 'linkedin', href: getSocialUrl(settings?.social_linkedin), active: settings?.social_linkedin_active !== 'false' },
-                { label: 'YouTube', icon: 'youtube', href: getSocialUrl(settings?.social_youtube), active: settings?.social_youtube_active !== 'false' },
-                { label: 'Instagram', icon: 'instagram', href: getSocialUrl(settings?.social_instagram), active: settings?.social_instagram_active !== 'false' }
-              ].filter(social => social.active).map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  className="text-sm text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                >
-                  <SocialIcon name={social.icon} />
-                </a>
-              ))}
+        {/* Desktop view - grid layout */}
+        <div className="hidden md:grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 mb-12">
+          {sections.map((section) => (
+            <div key={section.id}>
+              <h3 className="text-sm font-bold text-foreground mb-4">{section.title}</h3>
+              {section.content}
             </div>
-          </div>
+          ))}
+        </div>
+
+        {/* Mobile view - accordion layout */}
+        <div className="md:hidden space-y-4 mb-12">
+          {sections.map((section) => (
+            <div key={section.id} className="border-b border-border">
+              <button
+                onClick={() => toggleSection(section.id)}
+                className="w-full flex items-center justify-between py-4 text-left"
+              >
+                <h3 className="text-sm font-bold text-foreground">{section.title}</h3>
+                {openSections[section.id] ? (
+                  <ChevronUp className="h-4 w-4 text-muted-foreground" />
+                ) : (
+                  <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                )}
+              </button>
+              {openSections[section.id] && (
+                <div className="pb-4">
+                  {section.content}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
 
         <div className="border-t border-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -326,8 +396,6 @@ function PaymentIcon({ name }: { name: string }) {
       return <SiAmericanexpress className={`${iconClass} text-[#006FCF]`} />;
     case 'Discover':
       return <SiDiscover className={`${iconClass} text-[#FF6000]`} />;
-    // case 'UnionPay':
-    //   return <SiUnionpay className={`${iconClass} text-[#005862]`} />;
     default:
       return null;
   }
