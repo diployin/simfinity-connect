@@ -671,31 +671,54 @@ export default function AccountSupport() {
 
       {/* Contact Support Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Card data-testid="card-email-support">
+        <Card
+          data-testid="card-email-support"
+          className="dark:bg-gray-900 dark:border-gray-800 hover:shadow-lg transition-all duration-300 group"
+        >
           <CardContent className="pt-6 text-center">
-            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-primary/10 dark:bg-[var(--primary-dark)]/30 flex items-center justify-center">
-              <Mail className="w-6 h-6 text-primary-second dark:text-[var(--primary-light)]" />
+            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-primary/10 dark:bg-green-900/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <Mail className="w-6 h-6 text-primary-second dark:text-green-400" />
             </div>
-            <div className="font-medium mb-1">{t('support.emailSupport', 'Email Support')}</div>
-            <div className="text-sm text-muted-foreground">{email || 'support@esim-global.com'}</div>
+            <div className="font-medium mb-1 text-gray-900 dark:text-white">
+              {t('support.emailSupport', 'Email Support')}
+            </div>
+            <div className="text-sm text-gray-500 dark:text-gray-400 break-all">
+              {email || 'support@esim-global.com'}
+            </div>
           </CardContent>
         </Card>
-        <Card data-testid="card-live-chat">
+
+        <Card
+          data-testid="card-live-chat"
+          className="dark:bg-gray-900 dark:border-gray-800 hover:shadow-lg transition-all duration-300 group"
+        >
           <CardContent className="pt-6 text-center">
-            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-primary/10 dark:bg-[var(--primary-dark)]/30 flex items-center justify-center">
-              <MessageCircle className="w-6 h-6 text-primary-second dark:text-[var(--primary-light)]" />
+            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-primary/10 dark:bg-green-900/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <MessageCircle className="w-6 h-6 text-primary-second dark:text-green-400" />
             </div>
-            <div className="font-medium mb-1">{t('support.liveChat', 'Live Chat')}</div>
-            <div className="text-sm text-muted-foreground">{t('support.available247', 'Available 24/7')}</div>
+            <div className="font-medium mb-1 text-gray-900 dark:text-white">
+              {t('support.liveChat', 'Live Chat')}
+            </div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">
+              {t('support.available247', 'Available 24/7')}
+            </div>
           </CardContent>
         </Card>
-        <Card data-testid="card-help-center">
+
+        <Card
+          data-testid="card-help-center"
+          className="dark:bg-gray-900 dark:border-gray-800 hover:shadow-lg transition-all duration-300 group"
+        >
           <CardContent className="pt-6 text-center">
-            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-primary/10 dark:bg-[var(--primary-dark)]/30 flex items-center justify-center">
-              <BookOpen className="w-6 h-6 text-primary-second dark:text-[var(--primary-light)]" />
+            <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-primary/10 dark:bg-green-900/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <BookOpen className="w-6 h-6 text-primary-second dark:text-green-400" />
             </div>
-            <div className="font-medium mb-1">{t('support.helpCenter', 'Help Center')}</div>
-            <div className="text-sm text-muted-foreground">{t('support.browseFaqs', 'Browse FAQs & Guides')}</div>
+            <div className="font-medium mb-1 text-gray-900 dark:text-white">
+              {t('support.helpCenter', 'Help Center')}
+            </div>
+            <div className="text-sm text-gray-500 dark:text-gray-400">
+              {t('support.browseFaqs', 'Browse FAQs & Guides')}
+            </div>
           </CardContent>
         </Card>
       </div>

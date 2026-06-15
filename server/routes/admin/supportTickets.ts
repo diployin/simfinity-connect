@@ -152,9 +152,9 @@ router.put("/:id", requireAdmin, async (req, res) => {
     const { status, priority, assignedToId, assignedToName } = req.body;
     const user = (req as any).user;
 
-    if (user.role !== "admin" && user.role !== "super_admin") {
-      return ApiResponse.forbidden(res, "Only admin can update tickets");
-    }
+    // if (user.role !== "admin" && user.role !== "super_admin") {
+    //   return ApiResponse.forbidden(res, "Only admin can update tickets");
+    // }
 
     const updateData: any = { updatedAt: new Date() };
 
@@ -165,7 +165,7 @@ router.put("/:id", requireAdmin, async (req, res) => {
     }
 
     if (priority !== undefined) updateData.priority = priority;
-    
+
     if (assignedToId !== undefined) updateData.assignedToId = assignedToId;
     if (assignedToName !== undefined) updateData.assignedToName = assignedToName;
 
@@ -351,9 +351,9 @@ router.delete("/:id", requireAdmin, async (req, res) => {
   try {
     const user = (req as any).user;
 
-    if (user.role !== "admin" && user.role !== "super_admin") {
-      return ApiResponse.forbidden(res, "Only admin can delete tickets");
-    }
+    // if (user.role !== "admin" && user.role !== "super_admin") {
+    //   return ApiResponse.forbidden(res, "Only admin can delete tickets");
+    // }
 
     const deleted = await db
       .delete(tickets)

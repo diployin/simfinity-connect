@@ -104,40 +104,40 @@ export default function SupportTicketsSystem() {
   };
 
 
-const { data: ticketsData, isLoading } = useQuery({
-  queryKey: [
-    "/api/admin/support-tickets",
-    currentPage,
-    searchQuery,
-    statusFilter,
-    priorityFilter,
-  ],
-  queryFn: async () => {
-    const params = new URLSearchParams();
-    params.append("page", currentPage.toString());
-    params.append("limit", itemsPerPage.toString());
-    if (statusFilter !== "all") params.append("status", statusFilter);
-    if (priorityFilter !== "all") params.append("priority", priorityFilter);
-    if (searchQuery) params.append("search", searchQuery);
+  const { data: ticketsData, isLoading } = useQuery({
+    queryKey: [
+      "/api/admin/support-tickets",
+      currentPage,
+      searchQuery,
+      statusFilter,
+      priorityFilter,
+    ],
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      params.append("page", currentPage.toString());
+      params.append("limit", itemsPerPage.toString());
+      if (statusFilter !== "all") params.append("status", statusFilter);
+      if (priorityFilter !== "all") params.append("priority", priorityFilter);
+      if (searchQuery) params.append("search", searchQuery);
 
-    const res = await apiRequest(
-      "GET",
-      `/api/admin/support-tickets?${params.toString()}`
-    );
+      const res = await apiRequest(
+        "GET",
+        `/api/admin/support-tickets?${params.toString()}`
+      );
 
-    return res.json();
-  },
-});
-
-
-
-// const tickets: Ticket[] = ticketsData?.data?.tickets || [];
-const tickets: Ticket[] = ticketsData?.data?.tickets || [];
+      return res.json();
+    },
+  });
 
 
-const totalPages = Math.ceil(
-  (ticketsData?.pagination?.total || 0) / itemsPerPage
-);
+
+  // const tickets: Ticket[] = ticketsData?.data?.tickets || [];
+  const tickets: Ticket[] = ticketsData?.data?.tickets || [];
+
+
+  const totalPages = Math.ceil(
+    (ticketsData?.pagination?.total || 0) / itemsPerPage
+  );
 
 
 
@@ -149,7 +149,7 @@ const totalPages = Math.ceil(
       const res = await apiRequest("GET", `/api/admin/support-tickets/${selectedTicketId}`);
       const json = await res.json();
       return json.data;
-     
+
     },
     enabled: !!selectedTicketId,
   });
@@ -157,57 +157,57 @@ const totalPages = Math.ceil(
 
 
   useEffect(() => {
-  if (ticketDetails?.messages) {
-    setLiveMessages(ticketDetails.messages);
-  }
-}, [ticketDetails?.messages]);
+    if (ticketDetails?.messages) {
+      setLiveMessages(ticketDetails.messages);
+    }
+  }, [ticketDetails?.messages]);
 
 
-useEffect(() => {
-  if (!selectedTicketId) return;
+  useEffect(() => {
+    if (!selectedTicketId) return;
 
-  const socket = connectSocket();
+    const socket = connectSocket();
 
-  // 🔌 join ticket room
-  socket.emit("join_ticket", { ticketId: selectedTicketId });
+    // 🔌 join ticket room
+    socket.emit("join_ticket", { ticketId: selectedTicketId });
 
-  // 📩 receive realtime messages
-  socket.on("ticket_message", (data) => {
-    /*
-      {
-        ticketId,
-        replyId,
-        senderType: "user" | "admin",
-        message,
-        createdAt
-      }
-    */
-
-    setLiveMessages((prev) => {
-      const exists = prev.some((m) => m.id === data.replyId);
-      if (exists) return prev;
-
-      return [
-        ...prev,
+    // 📩 receive realtime messages
+    socket.on("ticket_message", (data) => {
+      /*
         {
-          id: data.replyId,
-          ticketId: data.ticketId,
-          senderId: "",
-          senderType: data.senderType,
-          senderName: data.senderType === "user" ? "User" : "You",
-          message: data.message,
-          isInternal: false,
-          createdAt: data.createdAt,
-        },
-      ];
-    });
-  });
+          ticketId,
+          replyId,
+          senderType: "user" | "admin",
+          message,
+          createdAt
+        }
+      */
 
-  return () => {
-    socket.emit("leave_ticket", { ticketId: selectedTicketId });
-    socket.off("ticket_message");
-  };
-}, [selectedTicketId]);
+      setLiveMessages((prev) => {
+        const exists = prev.some((m) => m.id === data.replyId);
+        if (exists) return prev;
+
+        return [
+          ...prev,
+          {
+            id: data.replyId,
+            ticketId: data.ticketId,
+            senderId: "",
+            senderType: data.senderType,
+            senderName: data.senderType === "user" ? "User" : "You",
+            message: data.message,
+            isInternal: false,
+            createdAt: data.createdAt,
+          },
+        ];
+      });
+    });
+
+    return () => {
+      socket.emit("leave_ticket", { ticketId: selectedTicketId });
+      socket.off("ticket_message");
+    };
+  }, [selectedTicketId]);
 
   // Fetch all admins for assignment (admin only)
   const { data: adminsData } = useQuery({
@@ -244,10 +244,10 @@ useEffect(() => {
   // Update ticket mutation (admin only)
   const updateTicketMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: any }) => {
-      return await apiRequest("PUT", `/api/tickets/${id}`, data);
+      return await apiRequest("PUT", `/api/admin/support-tickets/${id}`, data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/tickets"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/support-tickets"] });
       refetchTicketDetails();
       toast({ title: "Success", description: "Ticket updated successfully" });
     },
@@ -294,10 +294,10 @@ useEffect(() => {
   // Delete ticket mutation (admin only)
   const deleteTicketMutation = useMutation({
     mutationFn: async (id: string) => {
-      return await apiRequest("DELETE", `/api/tickets/${id}`);
+      return await apiRequest("DELETE", `/api/admin/support-tickets/${id}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/tickets"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/support-tickets"] });
       setSelectedTicketId(null);
       toast({ title: "Success", description: "Ticket deleted successfully" });
     },
@@ -483,69 +483,68 @@ useEffect(() => {
             </div>
 
             {/* Tickets */}
-          {isLoading ? (
-                <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 text-center">
-                  <div className="text-gray-500">Loading tickets...</div>
-                </div>
-              ) : (
-                <div className="flex-1 max-h-[500px] overflow-y-auto pr-2">
-                  <div className="space-y-3">
-                    {tickets.map((ticket) => (
-                      <div
-                        key={ticket.id}
-                        onClick={() => setSelectedTicketId(ticket.id)}
-                        className={`bg-white p-4 rounded-xl shadow-sm border ${
-                          selectedTicketId === ticket.id
-                            ? "border-green-500 ring-2 ring-green-200"
-                            : "border-gray-200"
+            {isLoading ? (
+              <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 text-center">
+                <div className="text-gray-500">Loading tickets...</div>
+              </div>
+            ) : (
+              <div className="flex-1 max-h-[500px] overflow-y-auto pr-2">
+                <div className="space-y-3">
+                  {tickets.map((ticket) => (
+                    <div
+                      key={ticket.id}
+                      onClick={() => setSelectedTicketId(ticket.id)}
+                      className={`bg-white p-4 rounded-xl shadow-sm border ${selectedTicketId === ticket.id
+                          ? "border-green-500 ring-2 ring-green-200"
+                          : "border-gray-200"
                         } hover:border-green-500 transition-all cursor-pointer`}
-                      >
-                        <div className="flex items-start justify-between mb-3">
-                          <div className="flex items-center space-x-2 flex-wrap">
-                            {getStatusIcon(ticket.status)}
-                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(ticket.status)}`}>
-                              {ticket.status.replace("_", " ")}
-                            </span>
-                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPriorityColor(ticket.priority)}`}>
-                              {ticket.priority}
-                            </span>
-                          </div>
-                          <span className="text-xs text-gray-500">
-                            {new Date(ticket.createdAt).toLocaleDateString()}
+                    >
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex items-center space-x-2 flex-wrap">
+                          {getStatusIcon(ticket.status)}
+                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(ticket.status)}`}>
+                            {ticket.status.replace("_", " ")}
+                          </span>
+                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getPriorityColor(ticket.priority)}`}>
+                            {ticket.priority}
                           </span>
                         </div>
-
-                        <h3 className="font-medium text-gray-900 mb-2">{ticket.title}</h3>
-
-                        <div className="flex items-center space-x-2 mb-3">
-                          <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-xs font-semibold">
-                            {ticket.userName.charAt(0).toUpperCase()}
-                          </div>
-                          <span className="text-sm text-gray-600">{ticket.userName}</span>
-                        </div>
-
-                        <div className="flex items-center justify-between text-xs text-gray-500">
-                          <span>Updated {new Date(ticket.updatedAt).toLocaleTimeString()}</span>
-                          {isAdmin && ticket.assignedToName && (
-                            <span className="text-green-600 font-medium">→ {ticket.assignedToName}</span>
-                          )}
-                        </div>
+                        <span className="text-xs text-gray-500">
+                          {new Date(ticket.createdAt).toLocaleDateString()}
+                        </span>
                       </div>
-                    ))}
 
-                    {tickets.length === 0 && (
-                      <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 text-center">
-                        <Headphones className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                        <h3 className="text-lg font-medium text-gray-900 mb-2">No tickets found</h3>
-                        <p className="text-gray-500">
-                          {searchQuery || statusFilter !== "all" || priorityFilter !== "all"
-                            ? "Try adjusting your search or filter criteria"
-                            : "All support tickets have been resolved!"}
-                        </p>
+                      <h3 className="font-medium text-gray-900 mb-2">{ticket.title}</h3>
+
+                      <div className="flex items-center space-x-2 mb-3">
+                        <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-xs font-semibold">
+                          {ticket.userName.charAt(0).toUpperCase()}
+                        </div>
+                        <span className="text-sm text-gray-600">{ticket.userName}</span>
                       </div>
-                    )}
-                  </div>
+
+                      <div className="flex items-center justify-between text-xs text-gray-500">
+                        <span>Updated {new Date(ticket.updatedAt).toLocaleTimeString()}</span>
+                        {isAdmin && ticket.assignedToName && (
+                          <span className="text-green-600 font-medium">→ {ticket.assignedToName}</span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+
+                  {tickets.length === 0 && (
+                    <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 text-center">
+                      <Headphones className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+                      <h3 className="text-lg font-medium text-gray-900 mb-2">No tickets found</h3>
+                      <p className="text-gray-500">
+                        {searchQuery || statusFilter !== "all" || priorityFilter !== "all"
+                          ? "Try adjusting your search or filter criteria"
+                          : "All support tickets have been resolved!"}
+                      </p>
+                    </div>
+                  )}
                 </div>
+              </div>
             )}
 
             {totalPages > 1 && (
@@ -591,14 +590,14 @@ useEffect(() => {
                       >
                         🔄 Refresh
                       </button>
-                      {isAdmin && (
+                      {/* {isAdmin && (
                         <button
                           onClick={() => handleDeleteTicket(selectedTicket.id, selectedTicket.title)}
                           className="p-2 text-red-400 hover:text-red-600 rounded-lg hover:bg-red-50"
                         >
                           <Trash className="w-5 h-5" />
                         </button>
-                      )}
+                      )} */}
                     </div>
                   </div>
 
@@ -695,13 +694,12 @@ useEffect(() => {
                           className={`flex ${msg.senderId === user?.id ? "justify-end" : "justify-start"}`}
                         >
                           <div
-                            className={`max-w-md ${
-                              msg.isInternal
+                            className={`max-w-md ${msg.isInternal
                                 ? "bg-amber-50 border border-amber-200"
                                 : msg.senderId === user?.id
-                                ? "bg-green-500 text-white"
-                                : "bg-white border border-gray-200"
-                            } px-4 py-3 rounded-lg shadow-sm`}
+                                  ? "bg-green-500 text-white"
+                                  : "bg-white border border-gray-200"
+                              } px-4 py-3 rounded-lg shadow-sm`}
                           >
                             <div className="flex items-center gap-2 mb-1">
                               <span className={`text-xs font-semibold ${msg.senderId === user?.id && !msg.isInternal ? "text-green-100" : "text-gray-700"}`}>
