@@ -286,7 +286,7 @@ export function TravelerTestimonials() {
             <div className="flex gap-4">
               {displayTestimonials.map((testimonial, index) => (
                 <div key={index} className="flex-shrink-0 w-[85%]">
-                   <TestimonialCard testimonial={testimonial} index={index} />
+                  <TestimonialCard testimonial={testimonial} index={index} />
                 </div>
               ))}
             </div>

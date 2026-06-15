@@ -9,7 +9,7 @@ export function DownloadApp() {
   const iosLink = useSettingByKey('social_ios') || '#';
 
   return (
-    <section id="download" className="py-16 md:py-24 bg-background">
+    <section id="download" className="py-10 md:py-16 bg-background dark:bg-gray-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
           <div>

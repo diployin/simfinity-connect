@@ -270,7 +270,7 @@ export function HeroSection() {
 
       <div className="relative bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-6 sm:py-7 relative group/stats">
-          <Carousel setApi={setCarouselApi} className="w-full" opts={{ align: "start" }}>
+          <Carousel setApi={setCarouselApi} className="w-full" opts={{ align: "start", loop: true }}>
             <CarouselContent className="-ml-4 md:grid md:grid-cols-4 md:ml-0 md:gap-4">
               <CarouselItem className="pl-4 md:pl-0 basis-[80%] sm:basis-[50%] md:basis-auto flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3 text-center sm:text-left">
                 <div className="flex-shrink-0 w-9 h-9 rounded-full bg-primary/5 dark:bg-[var(--primary-dark)]/30 flex items-center justify-center">
@@ -311,8 +311,8 @@ export function HeroSection() {
 
             {/* Mobile Arrows for Stats */}
             <div className="flex md:hidden justify-center gap-4 mt-4">
-              <CarouselPrevious className="static translate-y-0 h-8 w-8 rounded-full bg-white dark:bg-gray-800 shadow-sm" />
-              <CarouselNext className="static translate-y-0 h-8 w-8 rounded-full bg-white dark:bg-gray-800 shadow-sm" />
+              <CarouselPrevious className="static translate-y-0 h-9 w-9 rounded-full bg-white dark:bg-gray-800 shadow-sm border border-zinc-200 dark:border-zinc-700" />
+              <CarouselNext className="static translate-y-0 h-9 w-9 rounded-full bg-white dark:bg-gray-800 shadow-sm border border-zinc-200 dark:border-zinc-700" />
             </div>
 
             {/* Desktop Arrows for Stats (Optional, usually static grid) */}
