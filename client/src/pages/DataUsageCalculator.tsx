@@ -76,14 +76,14 @@ export default function DataUsageCalculator() {
         <meta name="description" content={t('calculator.pageMeta', 'Calculate how much eSIM data you need for your trip. Estimate usage based on your daily activities.')} />
       </Helmet>
 
-      <div className="min-h-screen bg-white dark:bg-background">
-        <section className="relative pt-24 pb-32 overflow-hidden bg-slate-50 dark:bg-background">
+      <div className="min-h-screen bg-white dark:bg-gray-950">
+        <section className="relative pt-24 pb-32 overflow-hidden bg-slate-50 dark:bg-gray-950">
           <div className="absolute top-0 left-0 w-full h-full">
             <div className="absolute top-0 right-0 w-1/3 h-full bg-[var(--primary)]/5 transform skew-x-12 translate-x-1/2" />
             <div className="absolute bottom-0 left-0 w-1/4 h-1/2 bg-blue-500/5 dark:bg-blue-900/20 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
           </div>
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-card shadow-sm border border-slate-100 dark:border-border mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-card shadow-sm border border-slate-100 dark:bg-gray-950 mb-8">
               <Calculator className="w-4 h-4 text-[var(--primary)]" />
               <span className="text-sm font-medium text-[var(--primary)] dark:text-primary-foreground">{t('calculator.heroLabel', 'Plan Calculator')}</span>
             </div>
@@ -97,10 +97,10 @@ export default function DataUsageCalculator() {
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-white dark:bg-background">
+        <section className="py-16 md:py-24 bg-white dark:bg-gray-950">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-2 bg-white dark:bg-card rounded-2xl border border-gray-100 dark:border-border shadow-sm p-8">
+              <div className="lg:col-span-2 bg-white dark:bg-card rounded-2xl border border-gray-100 dark:bg-gray-800 shadow-sm p-8">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-foreground mb-6">{t('calculator.dailyUsageTitle', 'Your daily usage')}</h2>
 
                 <div className="mb-8">
@@ -155,7 +155,7 @@ export default function DataUsageCalculator() {
                   </div>
                 </div>
 
-                <div className="bg-white dark:bg-card rounded-2xl border border-gray-100 dark:border-border shadow-sm p-6 text-center">
+                <div className="bg-white dark:bg-card rounded-2xl border border-gray-100 dark:bg-gray-800 shadow-sm p-6 text-center">
                   <p className="text-sm text-gray-500 dark:text-muted-foreground mb-1">{t('calculator.dailyAvg', 'Daily average')}</p>
                   <p className="text-2xl font-bold text-gray-900 dark:text-foreground">{totalDaily.toFixed(2)} {t('calculator.gbDayUnit', 'GB/day')}</p>
                 </div>
@@ -185,7 +185,7 @@ export default function DataUsageCalculator() {
                 { activity: t('calculator.refVideoCalls', '1 hour of video calls'), data: '~1 GB' },
                 { activity: t('calculator.refEmails', '100 emails (no attachments)'), data: '~10 MB' },
               ].map((item) => (
-                <div key={item.activity} className="bg-white dark:bg-card rounded-xl border border-gray-100 dark:border-border p-4 flex items-center justify-between shadow-sm">
+                <div key={item.activity} className="bg-white dark:bg-card rounded-xl border border-gray-100 dark:bg-gray-950 p-4 flex items-center justify-between shadow-sm">
                   <span className="text-gray-700 dark:text-foreground text-sm">{item.activity}</span>
                   <span className="font-semibold text-gray-900 dark:text-foreground text-sm">{item.data}</span>
                 </div>

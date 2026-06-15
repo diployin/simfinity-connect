@@ -130,7 +130,7 @@ export function SiteHeader() {
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
         isScrolled
           ? 'bg-white/95 dark:bg-gray-950/95 backdrop-blur-md shadow-sm border-b border-gray-100 dark:border-gray-800'
-          : 'bg-primary/5 dark:bg-gray-900/80 backdrop-blur-sm'
+          : 'bg-primary/5 dark:bg-gray-950/80 backdrop-blur-sm'
       )}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
@@ -167,7 +167,7 @@ export function SiteHeader() {
                 'absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-200',
                 activeMenu === 'plans' ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
               )}>
-                <div className="w-[520px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-5">
+                <div className="w-[520px] bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-5">
                   <div className="grid grid-cols-2 gap-3">
                     <Link href="/destinations?tab=countries" onClick={() => setActiveMenu(null)}>
                       <div className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group cursor-pointer">
@@ -244,7 +244,7 @@ export function SiteHeader() {
                 'absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-200',
                 activeMenu === 'how-it-works' ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
               )}>
-                <div className="w-[280px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
+                <div className="w-[280px] bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
                   <Link href="/what-is-esim" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
                       <Smartphone className="h-4 w-4 text-primary" />
@@ -287,7 +287,7 @@ export function SiteHeader() {
                 'absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-200',
                 activeMenu === 'resources' ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
               )}>
-                <div className="w-[240px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
+                <div className="w-[240px] bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
                   <Link href="/blog" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
                       <BookOpen className="h-4 w-4 text-blue-500" />
@@ -330,7 +330,7 @@ export function SiteHeader() {
                 'absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-200',
                 activeMenu === 'company' ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
               )}>
-                <div className="w-[240px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
+                <div className="w-[240px] bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
                   <Link href="/about-us" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
                       <Star className="h-4 w-4 text-amber-500" />
@@ -373,7 +373,7 @@ export function SiteHeader() {
                 'absolute top-full left-1/2 -translate-x-1/2 pt-2 transition-all duration-200',
                 activeMenu === 'help' ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
               )}>
-                <div className="w-[280px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
+                <div className="w-[280px] bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
                   <Link href="/help-center" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer">
                       <HelpCircle className="h-4 w-4 text-primary" />
@@ -414,7 +414,7 @@ export function SiteHeader() {
               </DropdownMenuTrigger>
               <DropdownMenuContent
                 align="end"
-                className="w-56 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-lg rounded-xl p-1"
+                className="w-56 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 shadow-lg rounded-xl p-1"
               >
                 <div className="px-3 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
                   {t('common.button.selectLanguage', 'Select Language')}
@@ -487,7 +487,7 @@ export function SiteHeader() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
                   align="end"
-                  className="w-56 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-lg rounded-xl p-1"
+                  className="w-56 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 shadow-lg rounded-xl p-1"
                 >
                   <div className="px-3 py-2.5 border-b border-gray-100 dark:border-gray-800">
                     <p className="text-sm font-medium text-gray-900 dark:text-gray-100">

@@ -18,9 +18,9 @@ import { useTranslation } from '@/contexts/TranslationContext';
 export default function WhatIsEsim() {
   const siteName = useSettingByKey('platform_name') || 'Voltey';
   const [, navigate] = useLocation();
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
- const benefits = [
+  const benefits = [
     { icon: Zap, title: t('website.whatIsEsim.benefitSetupTitle', 'Instant Setup'), desc: t('website.whatIsEsim.benefitSetupDesc', 'No need to visit a store or wait for delivery. Download and activate in minutes.'), color: 'from-amber-500 to-amber-600' },
     { icon: Globe2, title: t('website.whatIsEsim.benefitGlobalTitle', 'Global Coverage'), desc: t('website.whatIsEsim.benefitGlobalDesc', 'Connect in 200+ destinations worldwide without swapping SIM cards.'), color: 'from-blue-500 to-blue-600' },
     { icon: Layers, title: t('website.whatIsEsim.benefitProfilesTitle', 'Multiple Profiles'), desc: t('website.whatIsEsim.benefitProfilesDesc', 'Store several eSIM profiles on one device — perfect for frequent travelers.'), color: 'from-purple-500 to-purple-600' },
@@ -41,11 +41,11 @@ export default function WhatIsEsim() {
   return (
     <>
       <Helmet>
-               <title>{t('website.whatIsEsim.pageTitle', 'What is an eSIM? — {{siteName}}', { siteName })}</title>
+        <title>{t('website.whatIsEsim.pageTitle', 'What is an eSIM? — {{siteName}}', { siteName })}</title>
         <meta name="description" content={t('website.whatIsEsim.pageMeta', 'Learn what an eSIM is, how it works, and why it\'s the future of mobile connectivity for travelers.')} />
       </Helmet>
 
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background dark:bg-gray-950 text-black dark:text-white">
         <section className="relative pt-20 md:pt-32 pb-24 md:pb-40 overflow-hidden bg-[#f8fafc] dark:bg-slate-950">
           <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
             <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 transform skew-x-12 translate-x-1/2" />
@@ -63,14 +63,14 @@ export default function WhatIsEsim() {
                   <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">{t('website.whatIsEsim.heroTitleHighlight', 'eSIM?')}</span>
                 </h1>
                 <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-10 max-w-2xl mx-auto lg:mx-0">
-                 {t('website.whatIsEsim.heroSubtitle', 'An eSIM is a digital SIM embedded in your device. It lets you connect to mobile networks without a physical SIM card — just download a plan and go.')}
+                  {t('website.whatIsEsim.heroSubtitle', 'An eSIM is a digital SIM embedded in your device. It lets you connect to mobile networks without a physical SIM card — just download a plan and go.')}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                   <button onClick={() => navigate('/destinations')} className="h-14 px-10 rounded-2xl bg-primary text-white font-bold text-lg hover:bg-primary-dark transition-all shadow-xl shadow-primary/20 active:scale-[0.98]">
-                   {t('website.whatIsEsim.browsePlansBtn', 'Browse eSIM Plans')} <ArrowRight className="w-5 h-5" />
+                    {t('website.whatIsEsim.browsePlansBtn', 'Browse eSIM Plans')} <ArrowRight className="w-5 h-5" />
                   </button>
                   <button onClick={() => navigate('/supported-devices')} className="h-14 px-10 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 text-slate-700 dark:text-slate-200 font-bold text-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all shadow-sm active:scale-[0.98]">
-                     {t('website.whatIsEsim.checkCompatBtn', 'Check Compatibility')}
+                    {t('website.whatIsEsim.checkCompatBtn', 'Check Compatibility')}
                   </button>
                 </div>
               </div>
@@ -85,7 +85,7 @@ export default function WhatIsEsim() {
                   </div>
                   <div className="absolute -bottom-6 -left-6 bg-white dark:bg-slate-800 shadow-xl border border-slate-100 dark:border-slate-700 rounded-2xl px-5 py-3 flex items-center gap-3">
                     <Globe2 className="w-5 h-5 text-primary" />
-                  <span className="text-sm font-medium text-white">{t('website.whatIsEsim.badgeCountries', '200+ countries')}</span>
+                    <span className="text-sm font-medium text-white">{t('website.whatIsEsim.badgeCountries', '200+ countries')}</span>
                   </div>
                 </div>
               </div>
@@ -93,13 +93,13 @@ export default function WhatIsEsim() {
           </div>
         </section>
 
-        <section className="py-20 md:py-32 bg-background">
+        <section className="py-20 md:py-32 bg-background dark:bg-gray-950 ">
           <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
               <div className="order-2 lg:order-1">
-               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">{t('website.whatIsEsim.howWorksTitle', 'How does an eSIM work?')}</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">{t('website.whatIsEsim.howWorksTitle', 'How does an eSIM work?')}</h2>
                 <div className="space-y-8">
-                     {[
+                  {[
                     { step: '1', text: t('website.whatIsEsim.howWorksStep1', 'Your device has a tiny chip built in that acts as a SIM card.') },
                     { step: '2', text: t('website.whatIsEsim.howWorksStep2', 'Instead of inserting a physical card, you download a carrier profile digitally.') },
                     { step: '3', text: t('website.whatIsEsim.howWorksStep3', 'The eSIM profile connects you to local networks in your destination.') },
@@ -129,14 +129,14 @@ export default function WhatIsEsim() {
                     </div>
                     {/* Data Rows */}
                     <div className="space-y-1">
-                    {[
-                      { feature: t('website.whatIsEsim.vsSetupTime', 'Setup time'), esim: t('website.whatIsEsim.valMinutes', 'Minutes'), sim: t('website.whatIsEsim.valHoursDays', 'Hours/Days') },
-                      { feature: t('website.whatIsEsim.vsStoreVisit', 'Store visit'), esim: t('website.whatIsEsim.valNotNeeded', 'Not needed'), sim: t('website.whatIsEsim.valRequired', 'Required') },
-                      { feature: t('website.whatIsEsim.vsMultiplePlans', 'Multiple plans'), esim: t('website.whatIsEsim.valDigital', 'Yes, digital'), sim: t('website.whatIsEsim.valMultipleCards', 'Need multiple cards') },
-                      { feature: t('website.whatIsEsim.vsLost', 'Can be lost'), esim: t('website.whatIsEsim.valNo', 'No'), sim: t('website.whatIsEsim.valYes', 'Yes') },
-                      { feature: t('website.whatIsEsim.vsEcoFriendly', 'Eco-friendly'), esim: t('website.whatIsEsim.valYes', 'Yes'), sim: t('website.whatIsEsim.valPlasticWaste', 'Plastic waste') },
-                      { feature: t('website.whatIsEsim.vsDualSim', 'Dual SIM'), esim: t('website.whatIsEsim.valBuiltIn', 'Built-in'), sim: t('website.whatIsEsim.valExtraSlot', 'Extra slot needed') },
-                    ].map((row) => (
+                      {[
+                        { feature: t('website.whatIsEsim.vsSetupTime', 'Setup time'), esim: t('website.whatIsEsim.valMinutes', 'Minutes'), sim: t('website.whatIsEsim.valHoursDays', 'Hours/Days') },
+                        { feature: t('website.whatIsEsim.vsStoreVisit', 'Store visit'), esim: t('website.whatIsEsim.valNotNeeded', 'Not needed'), sim: t('website.whatIsEsim.valRequired', 'Required') },
+                        { feature: t('website.whatIsEsim.vsMultiplePlans', 'Multiple plans'), esim: t('website.whatIsEsim.valDigital', 'Yes, digital'), sim: t('website.whatIsEsim.valMultipleCards', 'Need multiple cards') },
+                        { feature: t('website.whatIsEsim.vsLost', 'Can be lost'), esim: t('website.whatIsEsim.valNo', 'No'), sim: t('website.whatIsEsim.valYes', 'Yes') },
+                        { feature: t('website.whatIsEsim.vsEcoFriendly', 'Eco-friendly'), esim: t('website.whatIsEsim.valYes', 'Yes'), sim: t('website.whatIsEsim.valPlasticWaste', 'Plastic waste') },
+                        { feature: t('website.whatIsEsim.vsDualSim', 'Dual SIM'), esim: t('website.whatIsEsim.valBuiltIn', 'Built-in'), sim: t('website.whatIsEsim.valExtraSlot', 'Extra slot needed') },
+                      ].map((row) => (
                         <div key={row.feature} className="grid grid-cols-3 gap-2 md:gap-6 text-xs sm:text-sm md:text-base py-3 border-b border-slate-200/60 dark:border-slate-800 last:border-none hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-colors rounded-lg px-1">
                           <span className="font-bold text-foreground flex items-center pr-2">{row.feature}</span>
                           <span className="text-primary font-bold flex items-center pr-2">{row.esim}</span>
@@ -171,12 +171,12 @@ export default function WhatIsEsim() {
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-background">
+        <section className="py-16 md:py-24 bg-background dark:bg-gray-950 ">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-12">{t('website.whatIsEsim.faqTitle', 'Frequently asked questions')}</h2>
-            <div className="space-y-4">
+            <div className="space-y-4 dark:bg-slate-900 ">
               {faqs.map((faq, i) => (
-                <details key={i} className="group bg-card rounded-xl border border-border overflow-hidden">
+                <details key={i} className="group bg-card rounded-xl border border-border overflow-hidden dark:bg-gray-800">
                   <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
                     <h3 className="font-semibold text-foreground pr-4">{faq.q}</h3>
                     <ArrowRight className="w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform group-open:rotate-90" />
@@ -190,7 +190,7 @@ export default function WhatIsEsim() {
           </div>
         </section>
 
-          <section className="py-16 md:py-24 bg-muted/30">
+        <section className="py-16 md:py-24 bg-muted/30 ">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="rounded-3xl bg-hero-gradient p-8 md:p-16 text-center relative overflow-hidden">
               <div className="absolute inset-0 pointer-events-none">

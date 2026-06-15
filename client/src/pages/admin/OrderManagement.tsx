@@ -81,7 +81,7 @@ const statusStyles: Record<string, string> = {
   processing: 'bg-primary/10 text-[var(--primary-dark)] dark:bg-[var(--primary-dark)]/30 dark:text-[var(--primary-light)]',
   completed: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400',
   failed: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400',
-  cancelled: 'bg-gray-100 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400',
+  cancelled: 'bg-gray-100 text-gray-800 dark:bg-gray-950/30 dark:text-gray-400',
 };
 
 export default function OrderManagement() {

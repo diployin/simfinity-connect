@@ -245,7 +245,7 @@ export function TravelerTestimonials() {
   }, [emblaApi, onSelect]);
 
   return (
-    <section className="py-16 md:py-24 bg-zinc-50 dark:bg-gray-900">
+    <section className="py-16 md:py-24 bg-zinc-50 dark:bg-gray-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 md:mb-14">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-zinc-900 dark:text-zinc-100 mb-3">

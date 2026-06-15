@@ -113,7 +113,7 @@ export default function CompatibleDevices() {
 
   if (isError || !data) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
+      <div className="min-h-screen flex items-center justify-center bg-background text-foreground dark:bg-gray-950 dark:text-gray-100">
         <p className="text-destructive">{t('website.compatibleDevices.error', 'Failed to load devices')}</p>
       </div>
     );
@@ -123,20 +123,20 @@ export default function CompatibleDevices() {
   const androidDevices = filterDevices(groupDevices(data, 'android'), search);
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground dark:bg-gray-950 dark:text-gray-100 transition-colors">
       <div className="container mx-auto px-4 pt-[150px] max-w-5xl">
         {/* Header */}
         <div className="text-center mb-12">
           <Smartphone className="h-16 w-16 text-primary mx-auto mb-4" />
           <h1 className="text-4xl font-bold mb-4">{t('website.compatibleDevices.title', 'Compatible Devices')}</h1>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-lg text-muted-foreground dark:text-gray-400">
             {t('website.compatibleDevices.description', 'Check if your device supports eSIM technology')}
           </p>
         </div>
 
-        <Card className="mb-8">
+        <Card className="mb-8 dark:bg-gray-950 dark:border-gray-800">
           <CardHeader>
-            <CardTitle>{t('website.compatibleDevices.howToCheck', '	How to Check eSIM Support')}</CardTitle>
+            <CardTitle className="dark:text-white">{t('website.compatibleDevices.howToCheck', '	How to Check eSIM Support')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-start gap-3">
@@ -144,8 +144,8 @@ export default function CompatibleDevices() {
                 1
               </div>
               <div>
-                <h3 className="font-medium mb-1">{t('website.compatibleDevices.iphoneUsers', '	iPhone Users')}</h3>
-                <p className="text-sm text-muted-foreground">
+                <h3 className="font-medium mb-1 dark:text-gray-200">{t('website.compatibleDevices.iphoneUsers', '	iPhone Users')}</h3>
+                <p className="text-sm text-muted-foreground dark:text-gray-400">
                   {t('website.compatibleDevices.iphoneInstructions', 'Go to Settings > Cellular/Mobile Data > Add Cellular Plan. If you see this option, your iPhone supports eSIM.')}
                 </p>
               </div>
@@ -155,10 +155,10 @@ export default function CompatibleDevices() {
                 2
               </div>
               <div>
-                <h3 className="font-medium mb-1">
+                <h3 className="font-medium mb-1 dark:text-gray-200">
                   {t('website.compatibleDevices.androidUsers', 'Android Users')}
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground dark:text-gray-400">
                   {t('website.compatibleDevices.androidInstructions', 'Dial *#06# to see your IMEI. If you see an EID number, your device supports eSIM.')}
                 </p>
               </div>
@@ -169,12 +169,12 @@ export default function CompatibleDevices() {
         {/* Search */}
         <div className="max-w-xl mx-auto mb-12">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground dark:text-gray-500" />
             <Input
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Search by brand or model (e.g. iPhone, Galaxy S24)"
-              className="pl-9"
+              className="pl-9 dark:bg-gray-950 dark:border-gray-800 dark:text-white dark:placeholder:text-gray-500"
             />
           </div>
         </div>
@@ -191,14 +191,14 @@ export default function CompatibleDevices() {
 
         {/* Empty State */}
         {iosDevices.length === 0 && androidDevices.length === 0 && (
-          <p className="text-center text-muted-foreground mt-10">
+          <p className="text-center text-muted-foreground dark:text-gray-500 mt-10">
             No devices found for "{search}"
           </p>
         )}
 
         {/* Footer */}
-        <Card className="my-12 bg-primary/5 border-primary/20">
-          <CardContent className="pt-6 text-center text-sm">
+        <Card className="my-12 bg-primary/5 border-primary/20 dark:bg-primary/10 dark:border-primary/30">
+          <CardContent className="pt-6 text-center text-sm dark:text-gray-300">
             {t(
               'website.compatibleDevices.notListed',
               "Don't see your device? Contact our support team to verify eSIM compatibility.",
@@ -222,13 +222,13 @@ function Section({
 }) {
   return (
     <>
-      <h2 className="text-2xl font-semibold mb-6">{title}</h2>
+      <h2 className="text-2xl font-semibold mb-6 dark:text-white">{title}</h2>
 
       <div className="space-y-6 mb-12">
         {devices.map(category => (
-          <Card key={category.brand}>
+          <Card key={category.brand} className="dark:bg-gray-950 dark:border-gray-800">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 dark:text-white">
                 <Check className="h-5 w-5 text-primary" />
                 {category.brand}
               </CardTitle>
@@ -239,7 +239,7 @@ function Section({
                 {category.models.map(model => (
                   <div
                     key={model}
-                    className="text-sm p-2 rounded-md bg-muted/50"
+                    className="text-sm p-2 rounded-md bg-muted/50 dark:bg-gray-800 dark:text-gray-300"
                   >
                     {model}
                   </div>

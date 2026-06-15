@@ -45,7 +45,7 @@ export function AboutUsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="bg-white dark:bg-gray-900 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-lg"
+          className="bg-white dark:bg-gray-950 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-lg"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-0">
             {/* Left - Content */}
@@ -110,7 +110,7 @@ export function AboutUsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-white dark:bg-gray-900 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-lg"
+          className="bg-white dark:bg-gray-950 rounded-[2rem] md:rounded-[2.5rem] overflow-hidden shadow-lg"
         >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Left - Image */}

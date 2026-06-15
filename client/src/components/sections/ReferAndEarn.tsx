@@ -8,7 +8,7 @@ export function ReferAndEarn() {
   const siteName = useSettingByKey('platform_name') || 'Voltey';
 
   return (
-    <section className="py-10 md:py-12 bg-background dark:bg-gray-900">
+    <section className="py-10 md:py-12 bg-background dark:bg-gray-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative rounded-2xl overflow-hidden bg-gradient-to-r from-blue-50 via-blue-100/50 to-blue-50 dark:from-gray-900/85 dark:to-gray-950">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0">

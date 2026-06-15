@@ -108,7 +108,7 @@ export function Reviews() {
 
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-background dark:bg-gray-950 dark:text-gray-100 flex flex-col">
       <Helmet>
         <title>{t('website.reviews.pageTitle', '{{siteName}} Review and Rating — Should You Get It?', { siteName })}</title>
         <meta

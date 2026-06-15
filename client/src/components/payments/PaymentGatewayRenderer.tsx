@@ -414,7 +414,7 @@ export default function PaymentGatewayRenderer({
               }}
             />
 
-            <div className="bg-gray-50 dark:bg-gray-900/50 p-3 border-t text-xs text-muted-foreground">
+            <div className="bg-gray-50 dark:bg-gray-950/50 p-3 border-t text-xs text-muted-foreground">
               <p>🔐 Do not refresh or close this page while authenticating.</p>
             </div>
           </div>

@@ -167,7 +167,7 @@ export function HeroSection() {
 
   return (
     <section className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-primary/5 to-primary/10 dark:bg-none dark:bg-gray-900" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-primary/5 to-primary/10 dark:bg-none dark:bg-gray-950" />
 
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <svg className="absolute -top-20 right-0 w-[65%] h-[120%]" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">

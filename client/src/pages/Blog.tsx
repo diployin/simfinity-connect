@@ -37,7 +37,7 @@ export default function Blog() {
   const dateLocale = languageCode === 'fr' ? 'fr-FR' : 'en-US';
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-background">
+    <div className="min-h-screen flex flex-col bg-background dark:bg-gray-950 dark:text-gray-100">
       <Helmet>
         <title>{t('website.blog.pageTitle', 'eSIM Travel Blog - Tips, Guides & Destination Insights | Simfinity')}</title>
         <meta
@@ -52,9 +52,9 @@ export default function Blog() {
         <meta property="og:type" content="website" />
       </Helmet>
 
-      <main className="flex-1">
+      <main className="flex-1 dark:bg-gray-950 dark:text-gray-100">
         {/* Hero Section - With Max Width Container */}
-        <section className="relative pb-10 pt-20 md:pt-28 lg:pt-36 bg-white dark:bg-background overflow-hidden">
+        <section className="relative pb-10 pt-20 md:pt-28 lg:pt-36 bg-background dark:bg-gray-950 dark:text-gray-100  overflow-hidden">
           {/* Background gradient */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 dark:from-primary/10 dark:via-transparent dark:to-primary/5"></div>
 
@@ -104,7 +104,7 @@ export default function Blog() {
                   placeholder={String(t('website.blog.searchPlaceholder', 'Search articles, destinations, guides...'))}
                   value={search}
                   onChange={(e) => handleSearch(e.target.value)}
-                  className="pl-12 pr-4 py-6 text-base border-2 dark:border-primary/30 border-gray-300 focus:border-primary dark:focus:border-primary rounded-xl shadow-sm dark:shadow-primary/10"
+                  className="pl-12 pr-4 py-6 text-base border-2 dark:border-primary/30 border-gray-300 focus:border-primary bg-background dark:bg-gray-950 dark:text-gray-100"
                   data-testid="input-blog-search"
                 />
               </div>
@@ -149,7 +149,7 @@ export default function Blog() {
         )} */}
 
         {/* Content Section - With Max Width Container */}
-        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50 dark:bg-background">
+        <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-background dark:bg-gray-950 dark:text-gray-100">
           <div className="containers">
             {isLoading ? (
               /* Loading Skeletons */

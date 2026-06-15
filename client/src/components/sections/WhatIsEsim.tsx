@@ -17,7 +17,7 @@ export function WhatIsEsim() {
             transition={{ duration: 0.6 }}
             className="relative flex justify-center"
           >
-            <div className="relative bg-gray-50 dark:bg-gray-900 rounded-3xl p-8 md:p-12 w-full max-w-md">
+            <div className="relative bg-gray-50 dark:bg-gray-950 rounded-3xl p-8 md:p-12 w-full max-w-md">
               <div className="absolute top-6 left-6 w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M12 18v-6" />

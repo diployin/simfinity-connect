@@ -173,7 +173,7 @@ export function DestinationsTabs() {
               ) : destinations.length > 0 ? (
                 destinations.map((destination) => (
                   <Link key={destination.id} href={`/destination/${destination.slug}`}>
-                    <div className="flex items-center gap-4 bg-white dark:bg-gray-900 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4 cursor-pointer hover:border-emerald-600/20 dark:hover:border-emerald-500/30 hover:shadow-sm transition-all group">
+                    <div className="flex items-center gap-4 bg-white dark:bg-gray-950 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4 cursor-pointer hover:border-emerald-600/20 dark:hover:border-emerald-500/30 hover:shadow-sm transition-all group">
                       <div className="h-10 w-10 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0 border border-zinc-100 dark:border-zinc-700">
                         <ReactCountryFlag
                           countryCode={destination.countryCode}
@@ -225,7 +225,7 @@ export function DestinationsTabs() {
 
                   return (
                     <Link key={region.id} href={`/region/${region.slug}`}>
-                      <div className="flex items-center gap-4 bg-white dark:bg-gray-900 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4 cursor-pointer hover:border-emerald-600/20 dark:hover:border-emerald-500/30 hover:shadow-sm transition-all group">
+                      <div className="flex items-center gap-4 bg-white dark:bg-gray-950 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4 cursor-pointer hover:border-emerald-600/20 dark:hover:border-emerald-500/30 hover:shadow-sm transition-all group">
                         <div className="h-10 w-10 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0 border border-zinc-100 dark:border-zinc-700">
                           <ReactCountryFlag
                             countryCode={iconCode}
@@ -279,7 +279,7 @@ export function DestinationsTabs() {
               ) : globalPackages.length > 0 ? (
                 globalPackages.map((pkg) => (
                   <Link key={pkg.id} href="/global">
-                    <div className="flex items-center gap-4 bg-white dark:bg-gray-900 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4 cursor-pointer hover:border-emerald-600/20 dark:hover:border-emerald-500/30 hover:shadow-sm transition-all group">
+                    <div className="flex items-center gap-4 bg-white dark:bg-gray-950 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4 cursor-pointer hover:border-emerald-600/20 dark:hover:border-emerald-500/30 hover:shadow-sm transition-all group">
                       <div className="h-10 w-10 rounded-full flex items-center justify-center flex-shrink-0 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/50">
                         <Globe className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
                       </div>

@@ -71,7 +71,7 @@ export function PassportShowcase() {
   return (
     <section
       ref={sectionRef}
-      className="py-16 md:py-24 bg-white dark:bg-gray-900 text-black dark:text-white relative overflow-hidden"
+      className="py-16 md:py-24 bg-white dark:bg-gray-950 text-black dark:text-white relative overflow-hidden"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-[var(--primary)]/10 rounded-full blur-3xl" />

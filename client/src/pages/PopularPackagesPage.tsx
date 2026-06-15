@@ -60,7 +60,7 @@ const PopularPackagesPage = () => {
   };
 
   const SkeletonCard = () => (
-    <Card className="border border-gray-200 dark:border-gray-800 overflow-hidden bg-white dark:bg-gray-900">
+    <Card className="border border-gray-200 dark:border-gray-800 overflow-hidden bg-white dark:bg-gray-950">
       <CardContent className="p-0">
         <div className="p-5">
           <div className="h-6 w-32 bg-gray-200 dark:bg-gray-800 animate-pulse rounded mb-4" />
@@ -151,11 +151,11 @@ const PopularPackagesPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {isLoading
               ? Array(8)
-                  .fill(0)
-                  .map((_, i) => <SkeletonCard key={`skeleton-${i}`} />)
+                .fill(0)
+                .map((_, i) => <SkeletonCard key={`skeleton-${i}`} />)
               : packages.map((pkg) => (
-                  <PlanCommonCard key={pkg.id} {...transformPackageToCardProps(pkg)} />
-                ))}
+                <PlanCommonCard key={pkg.id} {...transformPackageToCardProps(pkg)} />
+              ))}
           </div>
 
           {/* Empty State */}

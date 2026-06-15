@@ -71,7 +71,7 @@ export default function SecurityFeatures() {
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-background">
+        <section className="py-16 md:py-24 bg-background dark:bg-gray-950 dark:text-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('security.builtInTitle', 'Security built in, not bolted on')}</h2>
@@ -79,7 +79,7 @@ export default function SecurityFeatures() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {features.map((f) => (
-                <div key={f.title} className="bg-card rounded-2xl p-8 border border-border">
+                <div key={f.title} className="bg-card rounded-2xl p-8 border border-border dark:bg-gray-800 dark:text-gray-100">
                   <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${f.color} flex items-center justify-center mb-5`}>
                     <f.icon className="w-7 h-7 text-white" />
                   </div>
@@ -91,7 +91,7 @@ export default function SecurityFeatures() {
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-slate-50">
+        <section className="py-16 md:py-24 bg-background dark:bg-gray-950 dark:text-gray-100">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
@@ -100,7 +100,7 @@ export default function SecurityFeatures() {
                   {t('security.checklistSubtitle', 'From the moment you activate your eSIM, multiple layers of security protect your connection.')}
                 </p>
               </div>
-              <div className="bg-card rounded-2xl p-8 border border-border">
+              <div className="bg-card rounded-2xl p-8 border border-border dark:bg-gray-800 dark:text-gray-100">
                 <ul className="space-y-4">
                   {protections.map((item) => (
                     <li key={item} className="flex items-start gap-3">
@@ -114,7 +114,7 @@ export default function SecurityFeatures() {
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-background">
+        <section className="py-16 md:py-24 bg-background dark:bg-gray-950 dark:text-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="rounded-3xl bg-hero-gradient p-8 md:p-16 text-center relative overflow-hidden">
               <div className="absolute inset-0 pointer-events-none">
