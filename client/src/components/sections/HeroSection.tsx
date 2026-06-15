@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
@@ -48,6 +48,17 @@ interface RegionWithPricing {
 export function HeroSection() {
   const [phoneSearchQuery, setPhoneSearchQuery] = useState('');
   const [searchType, setSearchType] = useState<'country' | 'region'>('country');
+  const [carouselApi, setCarouselApi] = useState<any>();
+
+  useEffect(() => {
+    if (!carouselApi) return;
+
+    const interval = setInterval(() => {
+      carouselApi.scrollNext();
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [carouselApi]);
   const [, setLocation] = useLocation();
   const { currency, currencies } = useCurrency();
   const currencySymbol = getCurrencySymbol(currency, currencies);
@@ -259,7 +270,7 @@ export function HeroSection() {
 
       <div className="relative bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-6 sm:py-7 relative group/stats">
-          <Carousel className="w-full" opts={{ align: "start" }}>
+          <Carousel setApi={setCarouselApi} className="w-full" opts={{ align: "start" }}>
             <CarouselContent className="-ml-4 md:grid md:grid-cols-4 md:ml-0 md:gap-4">
               <CarouselItem className="pl-4 md:pl-0 basis-[80%] sm:basis-[50%] md:basis-auto flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3 text-center sm:text-left">
                 <div className="flex-shrink-0 w-9 h-9 rounded-full bg-primary/5 dark:bg-[var(--primary-dark)]/30 flex items-center justify-center">

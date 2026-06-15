@@ -274,7 +274,7 @@ export default function PaymentProcessing() {
 
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background text-foreground flex flex-col">
       <Helmet>
         <title>Processing Payment | Voltey</title>
       </Helmet>

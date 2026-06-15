@@ -5,6 +5,7 @@ import { Smartphone, Check, Search } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { useTranslation } from '@/contexts/TranslationContext';
+import ESimLoader from '@/components/ESimLoader';
 
 /* =========================
    TYPES
@@ -107,16 +108,12 @@ export default function CompatibleDevices() {
   });
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted-foreground">{t('website.compatibleDevices.loading', 'Loading compatible devices…')}</p>
-      </div>
-    );
+    return <ESimLoader />;
   }
 
   if (isError || !data) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
         <p className="text-destructive">{t('website.compatibleDevices.error', 'Failed to load devices')}</p>
       </div>
     );
@@ -126,7 +123,7 @@ export default function CompatibleDevices() {
   const androidDevices = filterDevices(groupDevices(data, 'android'), search);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       <div className="container mx-auto px-4 pt-[150px] max-w-5xl">
         {/* Header */}
         <div className="text-center mb-12">
