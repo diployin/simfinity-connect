@@ -592,10 +592,10 @@ export default function Login() {
           </Link>
 
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-foreground">
+            <h2 className="text-2xl font-bold text-foreground dark:text-white">
               {t('website.auth.loginTitle', 'Welcome')}
             </h2>
-            <p className="text-muted-foreground mt-1">
+            <p className="text-muted-foreground mt-1 dark:text-gray-400">
               {t('website.auth.loginSubtitle', 'Sign in to your account or create a new one')}
             </p>
           </div>
@@ -603,29 +603,37 @@ export default function Login() {
           {/* Referral Banner */}
           {showReferralBanner && referralCode && (
             <Alert
-              className="mb-6 border-primary-light bg-[var(--primary)]/5 relative"
+              className="mb-6 border-primary-light bg-[var(--primary)]/5 relative overflow-hidden"
               data-testid="alert-referral-banner"
             >
-              <Gift className="h-4 w-4 text-primary" />
-              <AlertDescription className="pr-8">
-                <span className="font-semibold text-primary">
-                  {t('referrals.youveBeenReferred', {
-                    discount: settings?.referredUserDiscount || 0,
-                  })}
-                </span>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div className="flex items-start gap-3 flex-1 min-w-0">
+                  <div className="flex-shrink-0 mt-0.5">
+                    <Gift className="h-4 w-4 text-primary sm:h-5 sm:w-5" />
+                  </div>
+                  <AlertDescription className="flex-1 min-w-0 pr-6 sm:pr-0">
+                    <span className="font-semibold text-primary dark:text-primary-light text-sm sm:text-base block">
+                      {t('referrals.youveBeenReferred', 'You have been referred! Enjoy a {discount}% discount on your first order.', {
+                        discount: settings?.referredUserDiscount || 0,
+                      })}
+                    </span>
+                  </AlertDescription>
+                </div>
+
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="absolute right-2 top-2 h-6 w-6 bg-gradient-primary"
+                  className="absolute right-2 top-2 sm:relative sm:right-0 sm:top-0 h-7 w-7 sm:h-8 sm:w-8 rounded-full hover:bg-primary/10 flex-shrink-0"
                   onClick={() => {
                     setShowReferralBanner(false);
                     localStorage.removeItem('pendingReferralCode');
                   }}
                   data-testid="button-dismiss-referral"
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                  <span className="sr-only">Close</span>
                 </Button>
-              </AlertDescription>
+              </div>
             </Alert>
           )}
 
@@ -648,10 +656,10 @@ export default function Login() {
             {/* Sign In - Password with Forgot Password Flow */}
             <TabsContent value="signin">
               {!showForgotPassword ? (
-                <Card>
+                <Card className="dark:bg-gray-900 dark:border-gray-800">
                   <CardHeader>
-                    <CardTitle>{t('website.auth.signIn', 'Sign In')}</CardTitle>
-                    <CardDescription>
+                    <CardTitle className="dark:text-white">{t('website.auth.signIn', 'Sign In')}</CardTitle>
+                    <CardDescription className="dark:text-gray-400">
                       {t('website.auth.enterEmailPassword', 'Enter your email and password')}
                     </CardDescription>
                   </CardHeader>
