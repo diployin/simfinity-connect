@@ -679,6 +679,7 @@ export default function Profile() {
           </Card>
 
           {/* Notification Preferences */}
+
           <Card className="dark:bg-gray-900 dark:border-gray-800">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 dark:text-white">
@@ -693,62 +694,62 @@ export default function Profile() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-
               {/* Low Data Alerts */}
-              <div className="flex items-center justify-between p-4 rounded-xl border dark:border-gray-800 bg-slate-50/50 dark:bg-gray-950/50 transition-colors gap-4">
-                <div className="flex-1 min-w-0 pr-2">
-                  <Label htmlFor="notify-low-data" className="font-bold dark:text-white cursor-pointer block mb-1">
-                    {t('profile.lowDataAlerts', 'Low Data Alerts')}
-                  </Label>
-                  <p className="text-sm text-muted-foreground dark:text-gray-400 leading-relaxed">
-                    {t(
-                      'profile.lowDataAlertsDesc',
-                      'Receive email notifications when your eSIM reaches 75% or 90% data usage',
-                    )}
-                  </p>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 rounded-xl border dark:border-gray-800 bg-slate-50/50 dark:bg-gray-950/50 transition-colors gap-4">
+                <div className="flex-1 min-w-0">
+                  <div className="space-y-1">
+                    <Label
+                      htmlFor="notify-low-data"
+                      className="font-bold dark:text-white cursor-pointer block text-base sm:text-lg"
+                    >
+                      {t('profile.lowDataAlerts', 'Low Data Alerts')}
+                    </Label>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400 leading-relaxed">
+                      {t(
+                        'profile.lowDataAlertsDesc',
+                        'Receive email notifications when your eSIM reaches 75% or 90% data usage',
+                      )}
+                    </p>
+                  </div>
                 </div>
-
-                {/* FORCE ALIGNMENT WRAPPER */}
-                <div className="flex-shrink-0 flex items-center justify-center">
+                <div className="flex-shrink-0 self-start sm:self-center">
                   <Switch
                     id="notify-low-data"
                     checked={notifyLowData}
                     onCheckedChange={(value) => handleNotificationChange('notifyLowData', value)}
                     disabled={updateNotificationsMutation.isPending}
                     data-testid="switch-notify-low-data"
-                    /* CRITICAL FIXES ADDED BELOW:
-                      - p-0 / border-0: Wipes out global button overrides
-                      - box-content: Stabilizes dimension engine calculations
-                      - [&_span]: Forces the nested inner circle thumb to stay centered
-                    */
-                    className="p-0 border-0 box-content relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input [&_span]:block [&_span]:h-5 [&_span]:w-5 [&_span]:rounded-full [&_span]:bg-white [&_span]:shadow-lg [&_span]:ring-0 [&_span]:transition-transform data-[state=checked]:[&_span]:translate-x-5 data-[state=unchecked]:[&_span]:translate-x-0.5"
+                    className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-300 dark:data-[state=unchecked]:bg-gray-600"
                   />
                 </div>
               </div>
 
               {/* Expiry Alerts */}
-              <div className="flex items-center justify-between p-4 rounded-xl border dark:border-gray-800 bg-slate-50/50 dark:bg-gray-950/50 transition-colors gap-4">
-                <div className="flex-1 min-w-0 pr-2">
-                  <Label htmlFor="notify-expiring" className="font-bold dark:text-white cursor-pointer block mb-1">
-                    {t('profile.expiryAlerts', 'Expiry Alerts')}
-                  </Label>
-                  <p className="text-sm text-muted-foreground dark:text-gray-400 leading-relaxed">
-                    {t(
-                      'profile.expiryAlertsDesc',
-                      'Get notified when your eSIM is about to expire (3 days and 1 day before expiration)',
-                    )}
-                  </p>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 rounded-xl border dark:border-gray-800 bg-slate-50/50 dark:bg-gray-950/50 transition-colors gap-4">
+                <div className="flex-1 min-w-0">
+                  <div className="space-y-1">
+                    <Label
+                      htmlFor="notify-expiring"
+                      className="font-bold dark:text-white cursor-pointer block text-base sm:text-lg"
+                    >
+                      {t('profile.expiryAlerts', 'Expiry Alerts')}
+                    </Label>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400 leading-relaxed">
+                      {t(
+                        'profile.expiryAlertsDesc',
+                        'Get notified when your eSIM is about to expire (3 days and 1 day before expiration)',
+                      )}
+                    </p>
+                  </div>
                 </div>
-
-                {/* FORCE ALIGNMENT WRAPPER */}
-                <div className="flex-shrink-0 flex items-center justify-center">
+                <div className="flex-shrink-0 self-start sm:self-center">
                   <Switch
                     id="notify-expiring"
                     checked={notifyExpiring}
                     onCheckedChange={(value) => handleNotificationChange('notifyExpiring', value)}
                     disabled={updateNotificationsMutation.isPending}
                     data-testid="switch-notify-expiring"
-                    className="p-0 border-0 box-content relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input [&_span]:block [&_span]:h-5 [&_span]:w-5 [&_span]:rounded-full [&_span]:bg-white [&_span]:shadow-lg [&_span]:ring-0 [&_span]:transition-transform data-[state=checked]:[&_span]:translate-x-5 data-[state=unchecked]:[&_span]:translate-x-0.5"
+                    className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-300 dark:data-[state=unchecked]:bg-gray-600"
                   />
                 </div>
               </div>

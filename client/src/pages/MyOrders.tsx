@@ -204,8 +204,8 @@ export default function MyOrders() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-foreground">{t('myOrders.title', 'My Orders')}</h1>
-        <p className="text-sm sm:text-base text-muted-foreground">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-foreground dark:text-white">{t('myOrders.title', 'My Orders')}</h1>
+        <p className="text-sm sm:text-base text-muted-foreground dark:text-gray-400">
           {t('myOrders.description', 'View and manage your eSIM purchases')}
         </p>
       </div>
@@ -217,19 +217,19 @@ export default function MyOrders() {
       ) : orders && orders.length > 0 ? (
         <div className="space-y-6">
           {orders.map((order) => (
-            <Card key={order.id} className="hover-elevate" data-testid={`card-order-${order.id}`}>
+            <Card key={order.id} className="hover-elevate dark:bg-gray-900 dark:border-gray-800" data-testid={`card-order-${order.id}`}>
               <CardHeader>
                 <div className="flex items-start justify-between gap-3 flex-wrap sm:flex-nowrap">
                   <div className="flex items-center gap-3">
                     <span className="text-3xl">{order.package.destination?.flagEmoji || "🌍"}</span>
                     <div>
-                      <CardTitle className="text-lg">
+                      <CardTitle className="text-lg dark:text-white">
                         {order.package.destination?.name}
-                        <span className="block text-sm font-normal text-muted-foreground mt-1">
+                        <span className="block text-sm font-normal text-muted-foreground dark:text-gray-400 mt-1">
                           {order.package?.title || `${order.dataAmount} - ${order.validity} Days`}
                         </span>
                       </CardTitle>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-muted-foreground dark:text-gray-400">
                         {order.dataAmount} • {order.validity} {t('common.days', 'days')}
                       </p>
                     </div>
@@ -242,13 +242,13 @@ export default function MyOrders() {
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                   <div>
-                    <div className="text-sm text-muted-foreground mb-1">{t('myOrders.orderId', 'Order ID')}</div>
-                    <div className="font-mono text-sm">{order.displayOrderId}</div>
+                    <div className="text-sm text-muted-foreground dark:text-gray-400 mb-1">{t('myOrders.orderId', 'Order ID')}</div>
+                    <div className="font-mono text-sm dark:text-gray-200">{order.displayOrderId}</div>
                   </div>
                   <div>
-                    <div className="text-sm text-muted-foreground mb-1">{t('myOrders.amountPaid', 'Amount Paid')}</div>
+                    <div className="text-sm text-muted-foreground dark:text-gray-400 mb-1">{t('myOrders.amountPaid', 'Amount Paid')}</div>
                     {/* <div className="font-medium">${order.price}</div> */}
-                    <div className="font-medium">
+                    <div className="font-medium dark:text-gray-200">
                       {(order.giftCardTransactions?.length > 0 || order.voucherUsage?.length > 0 || order.referralTransactions?.length > 0) ? (
                         <div className="flex flex-col">
                           <span className="line-through text-muted-foreground text-xs font-normal">
@@ -272,8 +272,8 @@ export default function MyOrders() {
                     </div>
                   </div>
                   <div>
-                    <div className="text-sm text-muted-foreground mb-1">{t('myOrders.purchaseDate', 'Purchase Date')}</div>
-                    <div className="text-sm">{new Date(order.createdAt).toLocaleDateString()}</div>
+                    <div className="text-sm text-muted-foreground dark:text-gray-400 mb-1">{t('myOrders.purchaseDate', 'Purchase Date')}</div>
+                    <div className="text-sm dark:text-gray-200">{new Date(order.createdAt).toLocaleDateString()}</div>
                   </div>
                 </div>
 
@@ -306,7 +306,7 @@ export default function MyOrders() {
                       <Button
                         variant="outline"
                         size="sm"
-                        className="w-full sm:w-auto"
+                        className="w-full sm:w-auto dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-300"
                         onClick={() => order.qrCode && window.open(order.qrCode, '_blank')}
                         disabled={!order.qrCode}
                         data-testid={`button-qr-${order.id}`}
@@ -372,11 +372,11 @@ export default function MyOrders() {
           ))}
         </div>
       ) : (
-        <Card>
+        <Card className="dark:bg-gray-900 dark:border-gray-800">
           <CardContent className="text-center py-12">
             <Package className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">{t('myOrders.noOrders', 'No orders yet')}</h3>
-            <p className="text-muted-foreground mb-6">{t('myOrders.noOrdersDesc', 'Start exploring our destinations and get your first eSIM')}</p>
+            <h3 className="text-lg font-semibold mb-2 dark:text-white">{t('myOrders.noOrders', 'No orders yet')}</h3>
+            <p className="text-muted-foreground dark:text-gray-400 mb-6">{t('myOrders.noOrdersDesc', 'Start exploring our destinations and get your first eSIM')}</p>
             <Link href="/destinations">
               <Button className="bg-[var(--primary)] hover:bg-primary-second text-white" data-testid="button-browse-destinations">{t('myOrders.browseDestinations', 'Browse Destinations')}</Button>
             </Link>

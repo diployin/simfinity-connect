@@ -179,8 +179,8 @@ export default function KYCSubmission() {
       </Helmet>
 
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2 text-foreground">{t('kyc.title', 'KYC Verification')}</h1>
-        <p className="text-muted-foreground">
+        <h1 className="text-3xl font-bold mb-2 text-foreground dark:text-white">{t('kyc.title', 'KYC Verification')}</h1>
+        <p className="text-muted-foreground dark:text-gray-400">
           {t('kyc.description', 'Complete your identity verification to ensure account security')}
         </p>
       </div>
@@ -194,15 +194,15 @@ export default function KYCSubmission() {
         </div>
       ) : (
         <div className="grid gap-6">
-          <Card>
+          <Card className="dark:bg-gray-900 dark:border-gray-800">
             <CardHeader>
-              <CardTitle>{t('kyc.verificationStatus', 'Verification Status')}</CardTitle>
-              <CardDescription>
+              <CardTitle className="dark:text-white">{t('kyc.verificationStatus', 'Verification Status')}</CardTitle>
+              <CardDescription className="dark:text-gray-400">
                 {t('kyc.verificationStatusDesc', 'Current status of your KYC verification')}
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="flex items-center gap-4 p-4 rounded-lg border">
+              <div className="flex items-center gap-4 p-4 rounded-lg border dark:border-gray-800">
                 <div className="w-12 h-12 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
                   {user?.kycStatus === 'approved' ? (
                     <CheckCircle className="h-6 w-6 text-green-500" />
@@ -217,7 +217,7 @@ export default function KYCSubmission() {
                   )}
                 </div>
                 <div className="flex-1">
-                  <div className="font-semibold">
+                  <div className="font-semibold dark:text-white">
                     {user?.kycStatus === 'approved' &&
                       t('kyc.verificationApproved', 'Verification Approved')}
                     {user?.kycStatus === 'verified' &&
@@ -228,7 +228,7 @@ export default function KYCSubmission() {
                     {(user?.kycStatus === 'pending' || !user?.kycStatus) &&
                       t('kyc.verificationPending', 'Verification Pending')}
                   </div>
-                  <div className="text-sm text-muted-foreground">
+                  <div className="text-sm text-muted-foreground dark:text-gray-400">
                     {user?.kycStatus === 'approved' &&
                       t('kyc.approvedDesc', 'Your identity has been verified successfully')}
                     {user?.kycStatus === 'verified' &&
@@ -250,21 +250,21 @@ export default function KYCSubmission() {
               </div>
 
               {user?.kycStatus === 'rejected' && user?.kycRejectionReason && (
-                <div className="mt-4 p-4 rounded-lg bg-destructive/10 border border-destructive/20">
-                  <div className="font-medium text-destructive mb-1">
+                <div className="mt-4 p-4 rounded-lg bg-destructive/10 border border-destructive/20 dark:bg-red-950/20 dark:border-red-900/30">
+                  <div className="font-medium text-destructive dark:text-red-400 mb-1">
                     {t('kyc.rejectionReason', 'Rejection Reason')}
                   </div>
-                  <div className="text-sm">{user.kycRejectionReason}</div>
+                  <div className="text-sm text-destructive/90 dark:text-red-300/80">{user.kycRejectionReason}</div>
                 </div>
               )}
             </CardContent>
           </Card>
 
           {canResubmitKyc && (
-            <Card>
+            <Card className="dark:bg-gray-900 dark:border-gray-800">
               <CardHeader>
-                <CardTitle>{t('kyc.uploadDocuments', 'Upload Documents')}</CardTitle>
-                <CardDescription>
+                <CardTitle className="dark:text-white">{t('kyc.uploadDocuments', 'Upload Documents')}</CardTitle>
+                <CardDescription className="dark:text-gray-400">
                   {t(
                     'kyc.uploadDocumentsDesc',
                     'Upload a clear photo or scan of your government-issued ID',
@@ -274,22 +274,22 @@ export default function KYCSubmission() {
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
-                    <Label htmlFor="documentType">{t('kyc.documentType', 'Document Type')}</Label>
+                    <Label htmlFor="documentType" className="dark:text-gray-300">{t('kyc.documentType', 'Document Type')}</Label>
                     <Select value={documentType} onValueChange={setDocumentType}>
-                      <SelectTrigger data-testid="select-document-type">
+                      <SelectTrigger data-testid="select-document-type" className="dark:bg-gray-950 dark:border-gray-800 dark:text-white">
                         <SelectValue
                           placeholder={t('kyc.selectDocumentType', 'Select document type')}
                         />
                       </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="passport">{t('kyc.passport', 'Passport')}</SelectItem>
-                        <SelectItem value="national_id">
+                      <SelectContent className="dark:bg-gray-900 dark:border-gray-800">
+                        <SelectItem value="passport" className="dark:text-gray-300">{t('kyc.passport', 'Passport')}</SelectItem>
+                        <SelectItem value="national_id" className="dark:text-gray-300">
                           {t('kyc.nationalId', 'National ID Card')}
                         </SelectItem>
-                        <SelectItem value="drivers_license">
+                        <SelectItem value="drivers_license" className="dark:text-gray-300">
                           {t('kyc.driversLicense', "Driver's License")}
                         </SelectItem>
-                        <SelectItem value="proof_of_address">
+                        <SelectItem value="proof_of_address" className="dark:text-gray-300">
                           {t('kyc.proofOfAddress', 'Proof of Address')}
                         </SelectItem>
                       </SelectContent>
@@ -297,14 +297,14 @@ export default function KYCSubmission() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="document">{t('kyc.uploadFile', 'Upload File')}</Label>
-                    <div className="border-2 border-dashed rounded-lg p-8 text-center">
+                    <Label htmlFor="document" className="dark:text-gray-300">{t('kyc.uploadFile', 'Upload File')}</Label>
+                    <div className="border-2 border-dashed rounded-lg p-8 text-center dark:border-gray-700">
                       {selectedFile ? (
                         <div className="space-y-3">
                           <FileText className="h-12 w-12 mx-auto text-[var(--primary)]" />
                           <div>
-                            <div className="font-medium">{selectedFile.name}</div>
-                            <div className="text-sm text-muted-foreground">
+                            <div className="font-medium dark:text-white">{selectedFile.name}</div>
+                            <div className="text-sm text-muted-foreground dark:text-gray-400">
                               {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
                             </div>
                           </div>
@@ -314,6 +314,7 @@ export default function KYCSubmission() {
                             size="sm"
                             onClick={() => setSelectedFile(null)}
                             data-testid="button-remove-file"
+                            className="dark:border-gray-700 dark:text-gray-300"
                           >
                             {t('kyc.removeFile', 'Remove File')}
                           </Button>
@@ -328,7 +329,7 @@ export default function KYCSubmission() {
                               </span>
                               {' ' + t('kyc.orDragAndDrop', 'or drag and drop')}
                             </Label>
-                            <div className="text-sm text-muted-foreground mt-1">
+                            <div className="text-sm text-muted-foreground dark:text-gray-400 mt-1">
                               {t('kyc.fileFormat', 'PNG, JPG, PDF up to 10MB')}
                             </div>
                           </div>
@@ -380,10 +381,10 @@ export default function KYCSubmission() {
           )}
 
           {documents && documents.length > 0 && (
-            <Card>
+            <Card className="dark:bg-gray-900 dark:border-gray-800">
               <CardHeader>
-                <CardTitle>{t('kyc.submittedDocuments', 'Submitted Documents')}</CardTitle>
-                <CardDescription>
+                <CardTitle className="dark:text-white">{t('kyc.submittedDocuments', 'Submitted Documents')}</CardTitle>
+                <CardDescription className="dark:text-gray-400">
                   {t('kyc.submittedDocumentsDesc', "Documents you've uploaded for verification")}
                 </CardDescription>
               </CardHeader>
@@ -392,25 +393,21 @@ export default function KYCSubmission() {
                   {documents.map((doc: any) => (
                     <div
                       key={doc.id}
-                      className="flex items-center justify-between p-4 rounded-lg border"
+                      className="flex items-center justify-between p-4 rounded-lg border dark:border-gray-700"
                     >
                       <div className="flex items-center gap-3">
                         {getStatusIcon(doc.status)}
 
                         <div>
-                          <div className="font-medium capitalize">
+                          <div className="font-medium capitalize dark:text-white">
                             {doc.documentType.replace(/_/g, ' ')}
                           </div>
-                          <div className="text-sm text-muted-foreground">
+                          <div className="text-sm text-muted-foreground dark:text-gray-400">
                             {t('kyc.uploaded', 'Uploaded')}{' '}
                             {new Date(doc.createdAt).toLocaleDateString()}
                           </div>
                         </div>
                       </div>
-                      {/* <Badge variant={getStatusBadge(doc.status).variant}>
-                        {getStatusBadge(doc.status).label}
-                      </Badge> */}
-
                       <Badge variant={getDocumentStatusBadge(doc.status).variant}>
                         {getDocumentStatusBadge(doc.status).label}
                       </Badge>

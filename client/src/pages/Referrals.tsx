@@ -342,33 +342,32 @@ export default function Referrals() {
           content={String(t('website.referrals.subtitle', 'Refer friends and earn rewards'))}
         />
       </Helmet>
-
-      <div className="min-h-screen bg-gradient-to-br from-background to-accent/5">
+      <div className="min-h-screen bg-gradient-to-br from-background to-accent/5 dark:from-gray-950 dark:to-gray-900">
         <div className="container mx-auto px-4 py-8 max-w-6xl">
           {/* Header */}
           <div className="mb-8">
             <div className="flex items-center gap-3 mb-2">
               <Gift className="h-8 w-8 text-primary" />
-              <h1 className="text-4xl font-bold text-foreground">{t('website.referrals.title', 'Referral Program')}</h1>
+              <h1 className="text-4xl font-bold text-foreground dark:text-white">{t('website.referrals.title', 'Referral Program')}</h1>
             </div>
-            <p className="text-muted-foreground text-lg">{t('website.referrals.subtitle', 'Refer friends and earn rewards')}</p>
+            <p className="text-muted-foreground text-lg dark:text-gray-400">{t('website.referrals.subtitle', 'Refer friends and earn rewards')}</p>
           </div>
 
           {/* Referral Code Section */}
-          <Card className="mb-8 border-primary/20">
+          <Card className="mb-8 border-primary/20 dark:bg-gray-900 dark:border-gray-800">
             <CardHeader>
-              <CardTitle>{t('website.referrals.yourCode', 'Your Referral Code')}</CardTitle>
-              <CardDescription>{t('website.referrals.shareVia', 'Share via')}</CardDescription>
+              <CardTitle className="dark:text-white">{t('website.referrals.yourCode', 'Your Referral Code')}</CardTitle>
+              <CardDescription className="dark:text-gray-400">{t('website.referrals.shareVia', 'Share via')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Code Display */}
-              <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-xl p-4 md:p-6 border border-primary/20">
+              <div className="bg-gradient-to-r from-primary/10 to-accent/10 dark:from-primary/5 dark:to-accent/5 rounded-xl p-4 md:p-6 border border-primary/20 dark:border-gray-800">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8">
                   <div className="text-center md:text-left w-full md:w-auto">
-                    <p className="text-sm text-muted-foreground mb-2">{t('website.referrals.yourCode', 'Your Referral Code')}</p>
-                    <div className="bg-background/50 rounded-lg px-4 py-2 inline-block md:block w-full md:w-auto">
+                    <p className="text-sm text-muted-foreground dark:text-gray-400 mb-2">{t('website.referrals.yourCode', 'Your Referral Code')}</p>
+                    <div className="bg-background/50 dark:bg-gray-950 rounded-lg px-4 py-2 inline-block md:block w-full md:w-auto">
                       <p
-                        className="text-3xl md:text-5xl font-bold tracking-wider break-all"
+                        className="text-3xl md:text-5xl font-bold tracking-wider break-all dark:text-white"
                         data-testid="text-referral-code"
                       >
                         {program?.referralCode}
@@ -379,7 +378,7 @@ export default function Referrals() {
                     <Button
                       variant="outline"
                       size="lg"
-                      className="w-full sm:w-auto flex-1"
+                      className="w-full sm:w-auto flex-1 dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-300"
                       onClick={() => copyToClipboard(program?.referralCode || '', 'code')}
                       data-testid="button-copy-code"
                     >
@@ -402,175 +401,118 @@ export default function Referrals() {
 
               {/* Share Buttons */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <Button
-                  variant="outline"
-                  onClick={shareEmail}
-                  className="h-auto py-4"
-                  data-testid="button-share-email"
-                >
-                  <Mail className="h-5 w-5 mr-2" />
-                  {t('website.referrals.email', 'Email')}
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={shareWhatsApp}
-                  className="h-auto py-4"
-                  data-testid="button-share-whatsapp"
-                >
-                  <SiWhatsapp className="h-5 w-5 mr-2" />
-                  {t('website.referrals.whatsapp', 'WhatsApp')}
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={shareTwitter}
-                  className="h-auto py-4"
-                  data-testid="button-share-twitter"
-                >
-                  <SiX className="h-5 w-5 mr-2" />
-                  {t('website.referrals.twitter', 'X (Twitter)')}
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={shareFacebook}
-                  className="h-auto py-4"
-                  data-testid="button-share-facebook"
-                >
-                  <SiFacebook className="h-5 w-5 mr-2" />
-                  {t('website.referrals.facebook', 'Facebook')}
-                </Button>
+                {[
+                  { icon: Mail, label: 'Email', action: shareEmail, id: 'button-share-email' },
+                  { icon: SiWhatsapp, label: 'WhatsApp', action: shareWhatsApp, id: 'button-share-whatsapp' },
+                  { icon: SiX, label: 'X (Twitter)', action: shareTwitter, id: 'button-share-twitter' },
+                  { icon: SiFacebook, label: 'Facebook', action: shareFacebook, id: 'button-share-facebook' },
+                ].map((btn, i) => (
+                  <Button
+                    key={i}
+                    variant="outline"
+                    onClick={btn.action}
+                    className="h-auto py-4 dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-300"
+                    data-testid={btn.id}
+                  >
+                    <btn.icon className="h-5 w-5 mr-2" />
+                    {t(`website.referrals.${btn.label.toLowerCase().replace(' (twitter)', '')}`, btn.label)}
+                  </Button>
+                ))}
               </div>
             </CardContent>
           </Card>
 
           {/* Statistics */}
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  {t('website.referrals.totalReferrals', 'Total Referrals')}
-                </CardTitle>
-                <Users className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-bold" data-testid="text-total-referrals">
-                  {program?.totalReferrals || 0}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  {t('website.referrals.successfulReferrals', 'Successful Referrals')}
-                </CardTitle>
-                <CheckCircle className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-bold" data-testid="text-successful-referrals">
-                  {successfulReferrals}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  {t('website.referrals.totalEarnings', 'Total Earnings')}
-                </CardTitle>
-                <DollarSign className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-bold" data-testid="text-total-earnings">
-                  {getCurrencySymbol('USD', currencies)}
-                  {parseFloat(program?.totalEarnings || '0').toFixed(2)}
-                </div>
-              </CardContent>
-              <CardFooter>
-                <Button
-                  variant="outline"
-                  className="w-full truncate"
-                  onClick={() => setIsRedeemDialogOpen(true)}
-                // disabled={parseFloat(program?.totalEarnings || "0") <= 0}
-                >
-                  <CreditCard className="h-4 w-4 mr-2 shrink-0" />
-                  <span className="truncate">{t('website.referrals.convertToGiftCard', 'Convert to Gift Card')}</span>
-                </Button>
-              </CardFooter>
-            </Card>
-
-            <Card>
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">
-                  {t('website.referrals.pendingRewards', 'Pending Rewards')}
-                </CardTitle>
-                <Clock className="h-4 w-4 text-muted-foreground" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-bold" data-testid="text-pending-rewards">
-                  {getCurrencySymbol('USD', currencies)}
-                  {pendingRewards.toFixed(2)}
-                </div>
-              </CardContent>
-            </Card>
+            {[
+              { title: 'Total Referrals', val: program?.totalReferrals || 0, icon: Users, id: 'text-total-referrals' },
+              { title: 'Successful Referrals', val: successfulReferrals, icon: CheckCircle, id: 'text-successful-referrals' },
+              { title: 'Total Earnings', val: `${getCurrencySymbol('USD', currencies)}${parseFloat(program?.totalEarnings || '0').toFixed(2)}`, icon: DollarSign, id: 'text-total-earnings', action: true },
+              { title: 'Pending Rewards', val: `${getCurrencySymbol('USD', currencies)}${pendingRewards.toFixed(2)}`, icon: Clock, id: 'text-pending-rewards' },
+            ].map((stat, i) => (
+              <Card key={i} className="dark:bg-gray-900 dark:border-gray-800">
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium dark:text-gray-400">
+                    {t(`website.referrals.${stat.title.toLowerCase().replace(' ', '')}`, stat.title)}
+                  </CardTitle>
+                  <stat.icon className="h-4 w-4 text-muted-foreground" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-3xl font-bold dark:text-white" data-testid={stat.id}>
+                    {stat.val}
+                  </div>
+                </CardContent>
+                {stat.action && (
+                  <CardFooter>
+                    <Button
+                      variant="outline"
+                      className="w-full truncate dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-300"
+                      onClick={() => setIsRedeemDialogOpen(true)}
+                    >
+                      <CreditCard className="h-4 w-4 mr-2 shrink-0" />
+                      <span className="truncate">{t('website.referrals.convertToGiftCard', 'Convert to Gift Card')}</span>
+                    </Button>
+                  </CardFooter>
+                )}
+              </Card>
+            ))}
           </div>
 
           {/* How It Works */}
-          <Card className="mb-8">
+          <Card className="mb-8 dark:bg-gray-900 dark:border-gray-800">
             <CardHeader>
-              <CardTitle>{t('website.referrals.howItWorks', 'How It Works')}</CardTitle>
+              <CardTitle className="dark:text-white">{t('website.referrals.howItWorks', 'How It Works')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-3 gap-6">
-                <div className="text-center">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <Share2 className="h-8 w-8 text-primary" />
+                {[
+                  { icon: Share2, title: 'Share Your Code', desc: 'Share your unique referral code with friends' },
+                  { icon: Users, title: 'They Sign Up', desc: 'Your friend signs up and makes their first purchase' },
+                  { icon: Gift, title: 'You Earn Rewards', desc: `Get ${rewardText} reward for each successful referral` },
+                ].map((step, i) => (
+                  <div key={i} className="text-center">
+                    <div className="w-16 h-16 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center mx-auto mb-4">
+                      <step.icon className="h-8 w-8 text-primary" />
+                    </div>
+                    <h3 className="font-semibold mb-2 dark:text-white">{t(`website.referrals.step${i + 1}Title`, step.title)}</h3>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400">
+                      {t(`website.referrals.step${i + 1}Desc`, step.desc)}
+                    </p>
                   </div>
-                  <h3 className="font-semibold mb-2">{t('website.referrals.step1Title', 'Share Your Code')}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {t('website.referrals.step1Desc', 'Share your unique referral code with friends')}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <Users className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="font-semibold mb-2">{t('website.referrals.step2Title', 'They Sign Up')}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {t('website.referrals.step2Desc', 'Your friend signs up and makes their first purchase')}
-                  </p>
-                </div>
-                <div className="text-center">
-                  <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <Gift className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="font-semibold mb-2">{t('website.referrals.step3Title', 'You Earn Rewards')}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {t('website.referrals.step3Desc', 'Get {reward} reward for each successful referral', { reward: rewardText })}
-                  </p>
-                </div>
+                ))}
               </div>
             </CardContent>
           </Card>
 
           {/* Tabs for History */}
-          <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="referrals" data-testid="tab-referrals">
-                <Users className="h-4 w-4 mr-2" />
-                {t('website.referrals.referralHistory', 'Referral History')}
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="flex w-full mb-6 bg-gray-100 dark:bg-gray-800 p-1 rounded-lg overflow-x-auto scrollbar-hide">
+              <TabsTrigger
+                value="referrals"
+                data-testid="tab-referrals"
+                className="flex-1 min-w-[140px] px-4 py-2.5 dark:data-[state=active]:bg-gray-700 dark:data-[state=active]:text-white data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm transition-all duration-200 whitespace-nowrap"
+              >
+                <Users className="h-4 w-4 mr-2 flex-shrink-0" />
+                <span className="truncate">{t('website.referrals.referralHistory', 'Referral History')}</span>
               </TabsTrigger>
-              <TabsTrigger value="giftcards" data-testid="tab-giftcards">
-                <Gift className="h-4 w-4 mr-2" />
-                {t('website.referrals.giftCards.title', 'My Gift Cards')}
+              <TabsTrigger
+                value="giftcards"
+                data-testid="tab-giftcards"
+                className="flex-1 min-w-[140px] px-4 py-2.5 dark:data-[state=active]:bg-gray-700 dark:data-[state=active]:text-white data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm transition-all duration-200 whitespace-nowrap"
+              >
+                <Gift className="h-4 w-4 mr-2 flex-shrink-0" />
+                <span className="truncate">{t('website.referrals.giftCards.title', 'My Gift Cards')}</span>
               </TabsTrigger>
             </TabsList>
 
             {/* Referral History Tab */}
-            <TabsContent value="referrals">
-              <Card>
-                <CardHeader>
-                  <CardTitle>{t('website.referrals.referralHistory', 'Referral History')}</CardTitle>
-                  <CardDescription>
+            <TabsContent value="referrals" className="mt-0">
+              <Card className="dark:bg-gray-900 dark:border-gray-800">
+                <CardHeader className="pb-3">
+                  <CardTitle className="dark:text-white text-base sm:text-lg">
+                    {t('website.referrals.referralHistory', 'Referral History')}
+                  </CardTitle>
+                  <CardDescription className="dark:text-gray-400 text-sm">
                     {t('website.referrals.count', 'You have {count} referral(s)', { count: referrals.length })}
                   </CardDescription>
                 </CardHeader>
@@ -578,98 +520,153 @@ export default function Referrals() {
                   {referralsLoading ? (
                     <div className="space-y-3">
                       {[1, 2, 3].map((i) => (
-                        <Skeleton key={i} className="h-16" />
+                        <Skeleton key={i} className="h-16 dark:bg-gray-800" />
                       ))}
                     </div>
                   ) : referrals.length === 0 ? (
-                    <div className="text-center py-12">
-                      <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                      <h3 className="text-lg font-semibold mb-2">{t('website.referrals.noReferrals', 'No referrals yet')}</h3>
-                      <p className="text-muted-foreground mb-4">
+                    <div className="text-center py-8 sm:py-12">
+                      <Users className="h-10 w-10 sm:h-12 sm:w-12 mx-auto text-gray-400 dark:text-gray-600 mb-4" />
+                      <h3 className="text-base sm:text-lg font-semibold mb-2 text-gray-900 dark:text-white">
+                        {t('website.referrals.noReferrals', 'No referrals yet')}
+                      </h3>
+                      <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 mb-4 px-4">
                         {t('website.referrals.noReferralsDesc', 'Share your code to start earning rewards!')}
                       </p>
                     </div>
                   ) : (
-                    <div className="overflow-x-auto">
-                      <table className="w-full">
-                        <thead>
-                          <tr className="border-b">
-                            <th className="text-left py-3 px-4 font-medium">
-                              {t('website.referrals.referredUser', 'Referred User')}
-                            </th>
-                            <th className="text-left py-3 px-4 font-medium">
-                              {t('website.referrals.status', 'Status')}
-                            </th>
-                            <th className="text-left py-3 px-4 font-medium">
-                              {t('website.referrals.rewardAmount', 'Reward')}
-                            </th>
-                            <th className="text-left py-3 px-4 font-medium">
-                              {t('website.referrals.date', 'Date')}
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {referrals.map((referral, index) => (
-                            <tr
-                              key={referral.id}
-                              className="border-b"
-                              data-testid={`row-referral-${index}`}
-                            >
-                              <td
-                                className="py-4 px-4"
-                                data-testid={`text-referred-email-${index}`}
-                              >
-                                {referral.referredUserEmail
-                                  ? maskEmail(referral.referredUserEmail)
-                                  : '**p@***.com'}
-                              </td>
-                              <td className="py-4 px-4">
+                    <>
+                      {/* Mobile Card View */}
+                      <div className="block md:hidden space-y-4">
+                        {referrals.map((referral, index) => (
+                          <div
+                            key={referral.id}
+                            className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4 border border-gray-200 dark:border-gray-700"
+                            data-testid={`mobile-card-referral-${index}`}
+                          >
+                            <div className="space-y-3">
+                              <div className="flex justify-between items-start">
+                                <div className="flex-1">
+                                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                                    {t('website.referrals.referredUser', 'Referred User')}
+                                  </p>
+                                  <p className="font-medium text-gray-900 dark:text-white break-all">
+                                    {referral.referredUserEmail
+                                      ? maskEmail(referral.referredUserEmail)
+                                      : '**p@***.com'}
+                                  </p>
+                                </div>
                                 <Badge
-                                  variant={
-                                    referral.status === 'completed' ? 'default' : 'secondary'
-                                  }
+                                  variant={referral.status === 'completed' ? 'default' : 'secondary'}
                                   className={
                                     referral.status === 'completed'
-                                      ? 'bg-green-500'
-                                      : 'bg-yellow-500'
+                                      ? 'bg-green-500 hover:bg-green-600 dark:bg-green-600 text-white text-xs px-2 py-1'
+                                      : 'bg-yellow-500 hover:bg-yellow-600 dark:bg-yellow-600 text-white text-xs px-2 py-1'
                                   }
-                                  data-testid={`badge-status-${index}`}
                                 >
                                   {referral.status === 'completed'
                                     ? t('website.referrals.completed', 'Completed')
                                     : t('website.referrals.pending', 'Pending')}
                                 </Badge>
-                              </td>
-                              <td
-                                className="py-4 px-4 font-semibold"
-                                data-testid={`text-reward-${index}`}
-                              >
-                                {referral.rewardAmount
-                                  ? `${getCurrencySymbol('USD', currencies)}${parseFloat(referral.rewardAmount).toFixed(2)}`
-                                  : '-'}
-                              </td>
-                              <td
-                                className="py-4 px-4 text-muted-foreground"
-                                data-testid={`text-date-${index}`}
-                              >
-                                {format(new Date(referral.createdAt), 'MMM d, yyyy')}
-                              </td>
+                              </div>
+
+                              <div className="grid grid-cols-2 gap-3 pt-2">
+                                <div>
+                                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                                    {t('website.referrals.rewardAmount', 'Reward')}
+                                  </p>
+                                  <p className="font-semibold text-gray-900 dark:text-white">
+                                    {referral.rewardAmount
+                                      ? `${getCurrencySymbol('USD', currencies)}${parseFloat(referral.rewardAmount).toFixed(2)}`
+                                      : '-'}
+                                  </p>
+                                </div>
+                                <div>
+                                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                                    {t('website.referrals.date', 'Date')}
+                                  </p>
+                                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                                    {format(new Date(referral.createdAt), 'MMM d, yyyy')}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+
+                      {/* Desktop Table View */}
+                      <div className="hidden md:block overflow-x-auto">
+                        <table className="w-full">
+                          <thead>
+                            <tr className="border-b border-gray-200 dark:border-gray-800">
+                              <th className="text-left py-3 px-4 font-medium text-gray-600 dark:text-gray-400 text-sm">
+                                {t('website.referrals.referredUser', 'Referred User')}
+                              </th>
+                              <th className="text-left py-3 px-4 font-medium text-gray-600 dark:text-gray-400 text-sm">
+                                {t('website.referrals.status', 'Status')}
+                              </th>
+                              <th className="text-left py-3 px-4 font-medium text-gray-600 dark:text-gray-400 text-sm">
+                                {t('website.referrals.rewardAmount', 'Reward')}
+                              </th>
+                              <th className="text-left py-3 px-4 font-medium text-gray-600 dark:text-gray-400 text-sm">
+                                {t('website.referrals.date', 'Date')}
+                              </th>
                             </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
+                          </thead>
+                          <tbody>
+                            {referrals.map((referral, index) => (
+                              <tr
+                                key={referral.id}
+                                className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors"
+                                data-testid={`row-referral-${index}`}
+                              >
+                                <td className="py-4 px-4 text-gray-900 dark:text-gray-300" data-testid={`text-referred-email-${index}`}>
+                                  {referral.referredUserEmail
+                                    ? maskEmail(referral.referredUserEmail)
+                                    : '**p@***.com'}
+                                </td>
+                                <td className="py-4 px-4">
+                                  <Badge
+                                    variant={referral.status === 'completed' ? 'default' : 'secondary'}
+                                    className={
+                                      referral.status === 'completed'
+                                        ? 'bg-green-500 hover:bg-green-600 dark:bg-green-600 text-white'
+                                        : 'bg-yellow-500 hover:bg-yellow-600 dark:bg-yellow-600 text-white'
+                                    }
+                                    data-testid={`badge-status-${index}`}
+                                  >
+                                    {referral.status === 'completed'
+                                      ? t('website.referrals.completed', 'Completed')
+                                      : t('website.referrals.pending', 'Pending')}
+                                  </Badge>
+                                </td>
+                                <td className="py-4 px-4 font-semibold text-gray-900 dark:text-white" data-testid={`text-reward-${index}`}>
+                                  {referral.rewardAmount
+                                    ? `${getCurrencySymbol('USD', currencies)}${parseFloat(referral.rewardAmount).toFixed(2)}`
+                                    : '-'}
+                                </td>
+                                <td className="py-4 px-4 text-gray-500 dark:text-gray-400" data-testid={`text-date-${index}`}>
+                                  {format(new Date(referral.createdAt), 'MMM d, yyyy')}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </>
                   )}
                 </CardContent>
               </Card>
             </TabsContent>
 
             {/* Gift Cards History Tab */}
-            <TabsContent value="giftcards">
-              <Card>
-                <CardHeader>
-                  <CardTitle>{t('website.referrals.giftCards.title', 'My Gift Cards')}</CardTitle>
-                  <CardDescription>
+            <TabsContent value="giftcards" className="mt-0">
+              <Card className="dark:bg-gray-900 dark:border-gray-800">
+                <CardHeader className="pb-3">
+                  <CardTitle className="dark:text-white text-base sm:text-lg">
+                    {t('website.referrals.giftCards.title', 'My Gift Cards')}
+                  </CardTitle>
+                  <CardDescription className="dark:text-gray-400 text-sm">
                     {t('website.referrals.giftCards.count', 'You have {count} gift card(s)', { count: giftCards.length })}
                   </CardDescription>
                 </CardHeader>
@@ -677,75 +674,96 @@ export default function Referrals() {
                   {giftCardsLoading ? (
                     <div className="space-y-3">
                       {[1, 2, 3].map((i) => (
-                        <Skeleton key={i} className="h-24" />
+                        <Skeleton key={i} className="h-24 dark:bg-gray-800" />
                       ))}
                     </div>
                   ) : giftCards.length === 0 ? (
-                    <div className="text-center py-12">
-                      <Gift className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                      <h3 className="text-lg font-semibold mb-2">{t('website.referrals.giftCards.noGiftCards', 'No gift cards created yet')}</h3>
-                      <p className="text-muted-foreground mb-4">
+                    <div className="text-center py-8 sm:py-12">
+                      <Gift className="h-10 w-10 sm:h-12 sm:w-12 mx-auto text-gray-400 dark:text-gray-600 mb-4" />
+                      <h3 className="text-base sm:text-lg font-semibold mb-2 text-gray-900 dark:text-white">
+                        {t('website.referrals.giftCards.noGiftCards', 'No gift cards created yet')}
+                      </h3>
+                      <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 mb-4 px-4">
                         {t('website.referrals.giftCards.noGiftCardsDesc', 'Convert your referral earnings to gift cards and use them at checkout.')}
                       </p>
                     </div>
                   ) : (
-                    <div className="grid gap-4 md:grid-cols-2">
+                    <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2">
                       {giftCards.map((card, index) => (
-                        <Card key={card.id} className="border-2" data-testid={`card-gift-${index}`}>
-                          <CardHeader>
-                            <div className="flex items-start justify-between">
-                              <div>
-                                <CardTitle className="text-lg flex items-center gap-2">
-                                  <Tag className="h-4 w-4" />
-                                  {card.code}
+                        <Card
+                          key={card.id}
+                          className="border-2 border-gray-200 dark:border-gray-800 dark:bg-gray-900/50 hover:shadow-lg transition-all duration-300"
+                          data-testid={`card-gift-${index}`}
+                        >
+                          <CardHeader className="pb-2">
+                            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                              <div className="flex-1 min-w-0">
+                                <CardTitle className="text-base sm:text-lg flex items-center gap-2 text-gray-900 dark:text-white">
+                                  <Tag className="h-4 w-4 text-primary dark:text-primary-light flex-shrink-0" />
+                                  <span className="font-mono text-sm sm:text-base truncate">{card.code}</span>
                                 </CardTitle>
-                                <CardDescription className="mt-1">
+                                <CardDescription className="mt-1 dark:text-gray-400 text-xs sm:text-sm truncate">
                                   {t('website.referrals.giftCards.theme', 'Theme: {theme}', { theme: t(`referrals.giftCards.themes.${card.theme}`, card.theme) })}
                                 </CardDescription>
                               </div>
-                              <Badge variant={card.status === 'active' ? 'default' : 'secondary'}>
+                              <Badge
+                                variant={card.status === 'active' ? 'default' : 'secondary'}
+                                className={
+                                  card.status === 'active'
+                                    ? 'bg-green-500 hover:bg-green-600 dark:bg-green-600 text-white text-xs sm:text-sm self-start'
+                                    : 'bg-gray-500 hover:bg-gray-600 dark:bg-gray-600 text-white text-xs sm:text-sm self-start'
+                                }
+                              >
                                 {card.status}
                               </Badge>
                             </div>
                           </CardHeader>
-                          <CardContent className="space-y-2">
+                          <CardContent className="space-y-2 pt-2">
                             <div className="flex justify-between items-center">
-                              <span className="text-sm text-muted-foreground">{t('website.referrals.giftCards.amount', 'Amount:')}</span>
-                              <span className="font-semibold text-lg">
+                              <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+                                {t('website.referrals.giftCards.amount', 'Amount:')}
+                              </span>
+                              <span className="font-semibold text-sm sm:text-lg text-gray-900 dark:text-white">
                                 {getCurrencySymbol(card.currency, currencies)}
                                 {parseFloat(card.amount).toFixed(2)}
                               </span>
                             </div>
                             <div className="flex justify-between items-center">
-                              <span className="text-sm text-muted-foreground">{t('website.referrals.giftCards.balance', 'Balance:')}</span>
-                              <span className="font-semibold">
+                              <span className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+                                {t('website.referrals.giftCards.balance', 'Balance:')}
+                              </span>
+                              <span className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white">
                                 {getCurrencySymbol(card.currency, currencies)}
                                 {parseFloat(card.balance).toFixed(2)}
                               </span>
                             </div>
                             {card.message && (
-                              <div className="pt-2 border-t">
-                                <p className="text-sm italic text-muted-foreground">
+                              <div className="pt-2 border-t border-gray-100 dark:border-gray-800">
+                                <p className="text-xs sm:text-sm italic text-gray-600 dark:text-gray-400 break-words">
                                   "{card.message}"
                                 </p>
                               </div>
                             )}
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground pt-2">
-                              <Calendar className="h-3 w-3" />
-                              <span>
-                                {t('website.referrals.giftCards.expires', 'Expires:')} {format(new Date(card.expiresAt), 'MMM d, yyyy')}
-                              </span>
-                            </div>
-                            {card.redeemedAt && (
-                              <div className="text-sm text-muted-foreground">
-                                {t('website.referrals.giftCards.redeemedAt', 'Redeemed:')} {format(new Date(card.redeemedAt), 'MMM d, yyyy')}
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400 pt-2">
+                              <div className="flex items-center gap-2">
+                                <Calendar className="h-3 w-3 flex-shrink-0" />
+                                <span className="truncate">
+                                  {t('website.referrals.giftCards.expires', 'Expires:')} {format(new Date(card.expiresAt), 'MMM d, yyyy')}
+                                </span>
                               </div>
-                            )}
+                              {card.redeemedAt && (
+                                <div className="flex items-center gap-2">
+                                  <span>{t('website.referrals.giftCards.redeemedAt', 'Redeemed:')}</span>
+                                  <span>{format(new Date(card.redeemedAt), 'MMM d, yyyy')}</span>
+                                </div>
+                              )}
+                            </div>
                           </CardContent>
-                          <CardFooter>
+                          <CardFooter className="pt-2">
                             <Button
                               variant="outline"
-                              className="w-full"
+                              size="sm"
+                              className="w-full dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white transition-colors text-sm"
                               onClick={() => copyToClipboard(card.code, 'code')}
                             >
                               <Copy className="h-4 w-4 mr-2" />
@@ -762,29 +780,74 @@ export default function Referrals() {
           </Tabs>
 
           {/* Terms & Conditions */}
+          {/* Terms & Conditions */}
           {settings && (
             <Collapsible open={termsOpen} onOpenChange={setTermsOpen} className="mt-8">
-              <Card>
-                <CollapsibleTrigger className="w-full" data-testid="button-toggle-terms">
-                  <CardHeader className="flex flex-row items-center justify-between">
-                    <CardTitle className="text-left">
+              <Card className="dark:bg-gray-900 dark:border-gray-800 overflow-hidden">
+                <CollapsibleTrigger
+                  className="w-full group"
+                  data-testid="button-toggle-terms"
+                >
+                  <CardHeader className="flex flex-row items-center justify-between p-4 sm:p-6 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors duration-200">
+                    <CardTitle className="text-left text-base sm:text-lg dark:text-white">
                       {t('website.referrals.termsAndConditions', 'Terms & Conditions')}
                     </CardTitle>
                     <ChevronDown
-                      className={`h-5 w-5 transition-transform ${termsOpen ? 'rotate-180' : ''}`}
+                      className={`h-5 w-5 text-gray-500 dark:text-gray-400 transition-all duration-300 flex-shrink-0 ml-4 ${termsOpen ? 'rotate-180' : 'rotate-0'
+                        } group-hover:text-gray-700 dark:group-hover:text-gray-300`}
                     />
                   </CardHeader>
                 </CollapsibleTrigger>
+
                 <CollapsibleContent>
-                  <CardContent>
+                  <CardContent className="pt-0 pb-6 px-4 sm:px-6">
                     <div className="prose prose-sm max-w-none dark:prose-invert">
                       {settings && (
-                        <div className="whitespace-pre-wrap text-sm text-muted-foreground">
-                          {t('website.referrals.termsList', '• Referrers will receive a {reward} reward for each successful referral.\n• Referred users will receive a {discount}% discount on their first purchase.\n• The minimum order amount for a referral to be considered successful is {minAmount}.', {
-                            discount: settings.referredUserDiscount || 0,
-                            reward: rewardText,
-                            minAmount: `${getCurrencySymbol('USD', currencies)}${parseFloat(settings.minOrderAmount || '0').toFixed(2)}`
-                          })}
+                        <div className="space-y-3">
+                          {/* Desktop View */}
+                          <div className="hidden sm:block">
+                            <div className="whitespace-pre-wrap text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                              {t('website.referrals.termsList', '• Referrers will receive a {reward} reward for each successful referral.\n• Referred users will receive a {discount}% discount on their first purchase.\n• The minimum order amount for a referral to be considered successful is {minAmount}.', {
+                                discount: settings.referredUserDiscount || 0,
+                                reward: rewardText,
+                                minAmount: `${getCurrencySymbol('USD', currencies)}${parseFloat(settings.minOrderAmount || '0').toFixed(2)}`
+                              })}
+                            </div>
+                          </div>
+
+                          {/* Mobile View - Better formatted */}
+                          <div className="block sm:hidden space-y-3">
+                            <div className="bg-gray-50 dark:bg-gray-800/50 rounded-lg p-4">
+                              <div className="space-y-3 text-sm text-gray-700 dark:text-gray-300">
+                                <div className="flex items-start gap-3">
+                                  <div className="w-1.5 h-1.5 rounded-full bg-green-500 dark:bg-green-400 mt-2 flex-shrink-0" />
+                                  <p className="flex-1">
+                                    {t('website.referrals.terms.mobile.referrerReward', 'Referrers will receive a {reward} reward for each successful referral', {
+                                      reward: rewardText
+                                    })}
+                                  </p>
+                                </div>
+                                <div className="flex items-start gap-3">
+                                  <div className="w-1.5 h-1.5 rounded-full bg-green-500 dark:bg-green-400 mt-2 flex-shrink-0" />
+                                  <p className="flex-1">
+                                    {t('website.referrals.terms.mobile.referredDiscount', 'Referred users will receive a {discount}% discount on their first purchase', {
+                                      discount: settings.referredUserDiscount || 0
+                                    })}
+                                  </p>
+                                </div>
+                                <div className="flex items-start gap-3">
+                                  <div className="w-1.5 h-1.5 rounded-full bg-green-500 dark:bg-green-400 mt-2 flex-shrink-0" />
+                                  <p className="flex-1">
+                                    {t('website.referrals.terms.mobile.minAmount', 'The minimum order amount for a referral to be considered successful is {minAmount}', {
+                                      minAmount: `${getCurrencySymbol('USD', currencies)}${parseFloat(settings.minOrderAmount || '0').toFixed(2)}`
+                                    })}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+
                         </div>
                       )}
                     </div>

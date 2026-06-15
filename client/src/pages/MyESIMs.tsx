@@ -461,10 +461,10 @@ export default function MyESIMsPage() {
   return (
     <div data-testid="page-my-esims">
       <div className="mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-foreground">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-foreground dark:text-white">
           {t('myEsims.title', 'My eSIMs')}
         </h1>
-        <p className="text-sm sm:text-base text-muted-foreground">
+        <p className="text-sm sm:text-base text-muted-foreground dark:text-gray-400">
           {t('myEsims.description', 'Manage your active eSIM packages and data usage')}
         </p>
       </div>
@@ -480,10 +480,10 @@ export default function MyESIMsPage() {
           </div>
         </div>
       ) : !esimOrders || esimOrders.length === 0 ? (
-        <Card className="text-center py-16">
+        <Card className="text-center py-16 dark:bg-gray-900 dark:border-gray-800">
           <CardContent className="space-y-4">
             <div className="flex h-20 w-20 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 mx-auto">
-              <Smartphone className="h-10 w-10 text-slate-400" />
+              <Smartphone className="h-10 w-10 text-slate-400 dark:text-slate-500" />
             </div>
             <div>
               <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
@@ -816,10 +816,10 @@ function ESimCard({
 
 
   return (
-    <Card className="hover-elevate h-full" data-testid={`card-esim-${order.id}`}>
+    <Card className="hover-elevate h-full dark:bg-gray-900 dark:border-gray-800" data-testid={`card-esim-${order.id}`}>
       <CardHeader>
         <div className="flex items-center gap-3 sm:gap-4">
-          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-muted flex items-center justify-center flex-shrink-0 border-2 border-gray-100 dark:border-gray-700">
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden bg-muted dark:bg-gray-800 flex items-center justify-center flex-shrink-0 border-2 border-gray-100 dark:border-gray-700">
             {order.package?.destination?.countryCode ? (
               <img
                 src={`https://flagcdn.com/${order.package.destination.countryCode.toLowerCase()}.svg`}
@@ -831,9 +831,9 @@ function ESimCard({
             )}
           </div>
           <div className="flex-1 min-w-0">
-            <CardTitle className="text-lg font-bold flex flex-col gap-1">
+            <CardTitle className="text-lg font-bold flex flex-col gap-1 dark:text-white">
               <span className="truncate">{order.package?.destination?.name || 'eSIM'}</span>
-              <span className="text-sm font-normal text-muted-foreground truncate">
+              <span className="text-sm font-normal text-muted-foreground dark:text-gray-400 truncate">
                 {order.package?.title || `${order.dataAmount || ''} - ${order.validity || ''} Days`}
               </span>
             </CardTitle>
@@ -857,8 +857,8 @@ function ESimCard({
       <CardContent className="space-y-4">
         {/* ICCID */}
         <div>
-          <p className="text-xs text-muted-foreground">ICCID</p>
-          <p className="text-sm font-mono mt-1 break-all" data-testid="text-iccid">
+          <p className="text-xs text-muted-foreground dark:text-gray-400">ICCID</p>
+          <p className="text-sm font-mono mt-1 break-all dark:text-gray-200" data-testid="text-iccid">
             {order.iccid || 'N/A'}
           </p>
         </div>
@@ -866,8 +866,8 @@ function ESimCard({
         {/* Loading Skeleton */}
         {isLoading && (
           <div className="space-y-2">
-            <div className="h-4 bg-muted rounded animate-pulse" />
-            <div className="h-2 bg-muted rounded animate-pulse" />
+            <div className="h-4 bg-muted dark:bg-gray-800 rounded animate-pulse" />
+            <div className="h-2 bg-muted dark:bg-gray-800 rounded animate-pulse" />
           </div>
         )}
 
@@ -875,16 +875,16 @@ function ESimCard({
         {!isLoading && usage && (
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">{t('myEsims.dataUsed', 'Data Used')}</span>
+              <span className="text-muted-foreground dark:text-gray-400">{t('myEsims.dataUsed', 'Data Used')}</span>
 
-              <span className="font-medium" data-testid="text-data-usage">
+              <span className="font-medium dark:text-gray-200" data-testid="text-data-usage">
                 {formatData(usage.dataUsed)} / {formatData(usage.dataTotal)}
               </span>
             </div>
 
             <Progress value={usage.percentageUsed ?? 0} />
 
-            <div className="flex justify-between text-xs text-muted-foreground">
+            <div className="flex justify-between text-xs text-muted-foreground dark:text-gray-400">
               <span>
                 {(usage.percentageUsed ?? 0).toFixed(1)}% {t('myEsims.used', 'used')}
               </span>
@@ -895,9 +895,9 @@ function ESimCard({
             </div>
 
             {usage.expiresAt && (
-              <p className="text-xs text-right text-muted-foreground">
+              <p className="text-xs text-right text-muted-foreground dark:text-gray-400">
                 {t('myEsims.validUntil', 'Valid until')}{' '}
-                <span className="font-medium">
+                <span className="font-medium dark:text-gray-200">
                   {new Date(usage.expiresAt).toLocaleDateString()}
                 </span>
               </p>
@@ -910,7 +910,7 @@ function ESimCard({
           <Button
             variant="outline"
             size="sm"
-            className="flex-1"
+            className="flex-1 dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-300"
             onClick={onViewInstructions}
             data-testid="button-view-instructions"
           >

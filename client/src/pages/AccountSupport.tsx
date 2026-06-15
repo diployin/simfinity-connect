@@ -338,12 +338,12 @@ export default function AccountSupport() {
 
       {/* Stats Cards */}
       <div className="grid gap-4 md:grid-cols-4">
-        <Card data-testid="card-stat-open">
+        <Card data-testid="card-stat-open" className="dark:bg-gray-900 dark:border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">{t('support.open', 'Open')}</p>
-                <h3 className="text-2xl font-bold mt-1" data-testid="text-count-open">
+                <p className="text-sm font-medium text-muted-foreground dark:text-gray-400">{t('support.open', 'Open')}</p>
+                <h3 className="text-2xl font-bold mt-1 dark:text-white" data-testid="text-count-open">
                   {tickets?.filter((t) => t.status === 'open').length || 0}
                 </h3>
               </div>
@@ -354,12 +354,12 @@ export default function AccountSupport() {
           </CardContent>
         </Card>
 
-        <Card data-testid="card-stat-in-progress">
+        <Card data-testid="card-stat-in-progress" className="dark:bg-gray-900 dark:border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">{t('support.inProgress', 'In Progress')}</p>
-                <h3 className="text-2xl font-bold mt-1" data-testid="text-count-in-progress">
+                <p className="text-sm font-medium text-muted-foreground dark:text-gray-400">{t('support.inProgress', 'In Progress')}</p>
+                <h3 className="text-2xl font-bold mt-1 dark:text-white" data-testid="text-count-in-progress">
                   {tickets?.filter((t) => t.status === 'in_progress').length || 0}
                 </h3>
               </div>
@@ -370,12 +370,12 @@ export default function AccountSupport() {
           </CardContent>
         </Card>
 
-        <Card data-testid="card-stat-resolved">
+        <Card data-testid="card-stat-resolved" className="dark:bg-gray-900 dark:border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">{t('support.resolved', 'Resolved')}</p>
-                <h3 className="text-2xl font-bold mt-1" data-testid="text-count-resolved">
+                <p className="text-sm font-medium text-muted-foreground dark:text-gray-400">{t('support.resolved', 'Resolved')}</p>
+                <h3 className="text-2xl font-bold mt-1 dark:text-white" data-testid="text-count-resolved">
                   {tickets?.filter((t) => t.status === 'resolved').length || 0}
                 </h3>
               </div>
@@ -386,12 +386,12 @@ export default function AccountSupport() {
           </CardContent>
         </Card>
 
-        <Card data-testid="card-stat-total">
+        <Card data-testid="card-stat-total" className="dark:bg-gray-900 dark:border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-muted-foreground">{t('support.total', 'Total')}</p>
-                <h3 className="text-2xl font-bold mt-1" data-testid="text-count-total">
+                <p className="text-sm font-medium text-muted-foreground dark:text-gray-400">{t('support.total', 'Total')}</p>
+                <h3 className="text-2xl font-bold mt-1 dark:text-white" data-testid="text-count-total">
                   {tickets?.length || 0}
                 </h3>
               </div>
@@ -407,12 +407,11 @@ export default function AccountSupport() {
         {/* Tickets List */}
         <div className="lg:col-span-1 space-y-4">
           {/* Status Filter */}
-
           <div className="flex items-center gap-3 mb-4">
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="flex-1 px-3 py-2 border rounded-lg bg-background text-sm"
+              className="flex-1 px-3 py-2 border rounded-lg bg-background dark:bg-gray-900 dark:border-gray-700 text-sm dark:text-white"
             >
               <option value="all">All</option>
               <option value="open">{t('support.open', 'Open')}</option>
@@ -424,7 +423,7 @@ export default function AccountSupport() {
             <select
               value={limit}
               onChange={(e) => setLimit(Number(e.target.value))}
-              className="px-2 py-2 border rounded-lg text-sm bg-background"
+              className="px-2 py-2 border rounded-lg text-sm bg-background dark:bg-gray-900 dark:border-gray-700 dark:text-white"
             >
               <option value={5}>5</option>
               <option value={10}>10</option>
@@ -435,9 +434,9 @@ export default function AccountSupport() {
 
           {/* Tickets */}
           {isLoading ? (
-            <Card>
+            <Card className="dark:bg-gray-900 dark:border-gray-800">
               <CardContent className="p-8 text-center">
-                <div className="text-muted-foreground">Loading tickets...</div>
+                <div className="text-muted-foreground dark:text-gray-400">Loading tickets...</div>
               </CardContent>
             </Card>
           ) : (
@@ -446,7 +445,7 @@ export default function AccountSupport() {
                 <Card
                   key={ticket.id}
                   onClick={() => setSelectedTicketId(ticket.id)}
-                  className={`cursor-pointer transition-all border hover:border-orange-400 ${selectedTicketId === ticket.id ? 'ring-2 ring-orange-500 bg-orange-50/30' : ''
+                  className={`cursor-pointer transition-all border hover:border-orange-400 dark:bg-gray-900 dark:border-gray-800 ${selectedTicketId === ticket.id ? 'ring-2 ring-orange-500 bg-orange-50/30 dark:bg-gray-800' : ''
                     }`}
                   data-testid={`card-ticket-${ticket.id}`}
                 >
@@ -467,20 +466,20 @@ export default function AccountSupport() {
                         </span>
                       </div>
 
-                      <span className="text-xs text-muted-foreground">
+                      <span className="text-xs text-muted-foreground dark:text-gray-400">
                         {new Date(ticket.createdAt).toLocaleDateString()}
                       </span>
                     </div>
 
                     {/* Title */}
-                    <h3 className="font-medium text-sm line-clamp-2">{ticket.title}</h3>
+                    <h3 className="font-medium text-sm line-clamp-2 dark:text-white">{ticket.title}</h3>
 
                     {/* Footer */}
-                    <div className="flex justify-between text-xs text-muted-foreground">
+                    <div className="flex justify-between text-xs text-muted-foreground dark:text-gray-400">
                       <span>Updated {new Date(ticket.updatedAt).toLocaleTimeString()}</span>
 
                       {ticket.assignedToName && (
-                        <span className="text-orange-600 font-medium">{ticket.assignedToName}</span>
+                        <span className="text-orange-600 dark:text-orange-400 font-medium">{ticket.assignedToName}</span>
                       )}
                     </div>
                   </CardContent>
@@ -488,11 +487,11 @@ export default function AccountSupport() {
               ))}
 
               {tickets.length === 0 && (
-                <Card>
+                <Card className="dark:bg-gray-900 dark:border-gray-800">
                   <CardContent className="p-8 text-center">
                     <Headphones className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-                    <h3 className="text-lg font-medium mb-2">{t('support.noTicketsFound', 'No tickets found')}</h3>
-                    <p className="text-muted-foreground mb-4">
+                    <h3 className="text-lg font-medium mb-2 dark:text-white">{t('support.noTicketsFound', 'No tickets found')}</h3>
+                    <p className="text-muted-foreground mb-4 dark:text-gray-400">
                       {statusFilter !== 'all'
                         ? 'Try adjusting your filter'
                         : 'Create your first support ticket'}
@@ -508,15 +507,16 @@ export default function AccountSupport() {
               )}
             </div>
           )}
-          <div className="flex items-center justify-between mt-4 pt-3 border-t">
+          <div className="flex items-center justify-between mt-4 pt-3 border-t dark:border-gray-800">
             <Button
               size="sm"
               variant="outline"
               disabled={page === 1}
               onClick={() => setPage((p) => p - 1)}
+              className="dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-300"
             >{t('support.previous', 'Previous')}</Button>
 
-            <span className="text-sm text-muted-foreground">
+            <span className="text-sm text-muted-foreground dark:text-gray-400">
               Page <span className="font-medium">{page}</span> of {totalPages}
             </span>
 
@@ -525,6 +525,7 @@ export default function AccountSupport() {
               variant="outline"
               disabled={page >= totalPages}
               onClick={() => setPage((p) => p + 1)}
+              className="dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-300"
             >{t('support.next', 'Next')}</Button>
           </div>
         </div>
@@ -532,11 +533,11 @@ export default function AccountSupport() {
         {/* Ticket Details */}
         <div className="lg:col-span-2">
           {selectedTicketId && selectedTicket ? (
-            <Card className="sticky top-6">
-              <CardHeader className="border-b">
+            <Card className="sticky top-6 dark:bg-gray-900 dark:border-gray-800">
+              <CardHeader className="border-b dark:border-gray-800">
                 <div className="flex items-center justify-between gap-4 flex-wrap">
                   <div className="flex items-center gap-3 flex-wrap">
-                    <CardTitle>{selectedTicket.title}</CardTitle>
+                    <CardTitle className="dark:text-white">{selectedTicket.title}</CardTitle>
                     <span
                       className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(selectedTicket.status)}`}
                     >
@@ -547,7 +548,7 @@ export default function AccountSupport() {
                     variant="outline"
                     size="sm"
                     onClick={() => refetchTicketDetails()}
-                    className="gap-2"
+                    className="gap-2 dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-300"
                     data-testid="button-refresh-ticket"
                   >
                     <RefreshCw className="w-4 h-4" />{t('support.refresh', 'Refresh')}</Button>
@@ -558,13 +559,13 @@ export default function AccountSupport() {
                 {/* Ticket Info */}
                 <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
                   <div>
-                    <span className="text-muted-foreground">Created:</span>
-                    <div className="font-medium mt-1">
+                    <span className="text-muted-foreground dark:text-gray-400">Created:</span>
+                    <div className="font-medium mt-1 dark:text-gray-200">
                       {new Date(selectedTicket.createdAt).toLocaleString()}
                     </div>
                   </div>
                   <div>
-                    <span className="text-muted-foreground">Priority:</span>
+                    <span className="text-muted-foreground dark:text-gray-400">Priority:</span>
                     <div className="mt-1">
                       <span
                         className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${getPriorityColor(selectedTicket.priority)}`}
@@ -576,20 +577,20 @@ export default function AccountSupport() {
                 </div>
 
                 {/* Description */}
-                <div className="rounded-lg border bg-muted/30 p-4">
-                  <span className="text-xs text-muted-foreground uppercase tracking-wide">{t('support.description', 'Description')}</span>
-                  <p className="mt-2 text-sm whitespace-pre-wrap leading-relaxed">
+                <div className="rounded-lg border dark:border-gray-700 bg-muted/30 dark:bg-gray-800/50 p-4">
+                  <span className="text-xs text-muted-foreground dark:text-gray-400 uppercase tracking-wide">{t('support.description', 'Description')}</span>
+                  <p className="mt-2 text-sm whitespace-pre-wrap leading-relaxed dark:text-gray-200">
                     {selectedTicket.description}
                   </p>
                 </div>
 
                 {/* Conversation */}
-                <div className="border-t pt-6 flex flex-col h-[500px]">
-                  <h3 className="font-medium mb-3">{t('support.conversation', 'Conversation')}</h3>
+                <div className="border-t dark:border-gray-800 pt-6 flex flex-col h-[500px]">
+                  <h3 className="font-medium mb-3 dark:text-white">{t('support.conversation', 'Conversation')}</h3>
 
                   <div className="flex-1 space-y-4 overflow-y-auto px-1 pr-2 mb-4">
                     {!liveMessages || liveMessages.length === 0 ? (
-                      <p className="text-sm text-muted-foreground text-center py-12">{t('support.noMessages', 'No messages yet. Start the conversation!')}</p>
+                      <p className="text-sm text-muted-foreground dark:text-gray-400 text-center py-12">{t('support.noMessages', 'No messages yet. Start the conversation!')}</p>
                     ) : (
                       liveMessages.map((msg: Message) => {
                         const isUser = msg.senderType === 'user';
@@ -602,7 +603,7 @@ export default function AccountSupport() {
                             <div
                               className={`max-w-[75%] rounded-2xl px-4 py-3 shadow-sm ${isUser
                                 ? 'bg-orange-500 text-white rounded-br-sm'
-                                : 'bg-muted text-foreground rounded-bl-sm'
+                                : 'bg-muted dark:bg-gray-800 text-foreground dark:text-gray-200 rounded-bl-sm'
                                 }`}
                             >
                               {/* Header */}
@@ -636,12 +637,12 @@ export default function AccountSupport() {
                   </div>
 
                   {/* Reply Box */}
-                  <div className="border-t pt-3 flex items-end gap-2">
+                  <div className="border-t dark:border-gray-800 pt-3 flex items-end gap-2">
                     <Textarea
                       placeholder="Type your reply..."
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
-                      className="flex-1 resize-none rounded-xl"
+                      className="flex-1 resize-none rounded-xl dark:bg-gray-900 dark:border-gray-700 dark:text-white"
                       rows={2}
                     />
 
@@ -657,11 +658,11 @@ export default function AccountSupport() {
               </CardContent>
             </Card>
           ) : (
-            <Card>
+            <Card className="dark:bg-gray-900 dark:border-gray-800">
               <CardContent className="p-12 text-center">
-                <Headphones className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-medium mb-2">{t('support.noTicketSelected', 'No ticket selected')}</h3>
-                <p className="text-muted-foreground mb-4">{t('support.selectTicketHint', 'Select a ticket from the list to view details and conversation')}</p>
+                <Headphones className="w-16 h-16 text-muted-foreground dark:text-gray-500 mx-auto mb-4" />
+                <h3 className="text-lg font-medium mb-2 dark:text-white">{t('support.noTicketSelected', 'No ticket selected')}</h3>
+                <p className="text-muted-foreground dark:text-gray-400 mb-4">{t('support.selectTicketHint', 'Select a ticket from the list to view details and conversation')}</p>
               </CardContent>
             </Card>
           )}
@@ -701,27 +702,27 @@ export default function AccountSupport() {
 
       {/* Create Ticket Dialog */}
       <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
-        <DialogContent className="sm:max-w-[500px]">
+        <DialogContent className="sm:max-w-[500px] dark:bg-gray-950 dark:border-gray-800">
           <DialogHeader>
-            <DialogTitle>{t('support.createNewTicket', 'Create New Support Ticket')}</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="dark:text-white">{t('support.createNewTicket', 'Create New Support Ticket')}</DialogTitle>
+            <DialogDescription className="dark:text-gray-400">
               Describe your issue and we'll get back to you as soon as possible.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label htmlFor="title">{t('support.titleLabel', 'Title *')}</Label>
+              <Label htmlFor="title" className="dark:text-gray-300">{t('support.titleLabel', 'Title *')}</Label>
               <Input
                 id="title"
                 value={createFormData.title}
                 onChange={(e) => setCreateFormData({ ...createFormData, title: e.target.value })}
                 placeholder="Brief description of your issue"
-                className="mt-1"
+                className="mt-1 dark:bg-gray-900 dark:border-gray-700 dark:text-white"
                 data-testid="input-ticket-title"
               />
             </div>
             <div>
-              <Label htmlFor="description">{t('support.descriptionLabel', 'Description *')}</Label>
+              <Label htmlFor="description" className="dark:text-gray-300">{t('support.descriptionLabel', 'Description *')}</Label>
               <Textarea
                 id="description"
                 value={createFormData.description}
@@ -730,12 +731,12 @@ export default function AccountSupport() {
                 }
                 placeholder="Please provide detailed information about your issue"
                 rows={5}
-                className="mt-1"
+                className="mt-1 dark:bg-gray-900 dark:border-gray-700 dark:text-white"
                 data-testid="input-ticket-description"
               />
             </div>
             <div>
-              <Label htmlFor="priority">{t('support.priority', 'Priority')}</Label>
+              <Label htmlFor="priority" className="dark:text-gray-300">{t('support.priority', 'Priority')}</Label>
               <select
                 id="priority"
                 value={createFormData.priority}
@@ -745,7 +746,7 @@ export default function AccountSupport() {
                     priority: e.target.value as 'low' | 'medium' | 'high' | 'urgent',
                   })
                 }
-                className="w-full px-4 py-2 mt-1 border rounded-md bg-background"
+                className="w-full px-4 py-2 mt-1 border rounded-md bg-background dark:bg-gray-900 dark:border-gray-700 dark:text-white"
                 data-testid="select-ticket-priority"
               >
                 <option value="low">Low</option>
@@ -759,6 +760,7 @@ export default function AccountSupport() {
             <Button
               variant="outline"
               onClick={() => setShowCreateDialog(false)}
+              className="dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-300"
               data-testid="button-cancel-ticket"
             >{t('support.cancel', 'Cancel')}</Button>
             <Button
