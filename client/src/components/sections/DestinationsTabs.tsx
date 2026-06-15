@@ -110,15 +110,15 @@ export function DestinationsTabs() {
       {Array.from({ length: 9 }).map((_, i) => (
         <div
           key={i}
-          className="flex items-center gap-4 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4"
+          className="flex items-center gap-4 bg-white dark:bg-gray-950 border border-zinc-100 dark:border-gray-800 rounded-xl px-5 py-4"
         >
-          <div className="h-10 w-10 rounded-full bg-zinc-100 dark:bg-zinc-800 animate-pulse flex-shrink-0" />
+          <div className="h-10 w-10 rounded-full bg-zinc-100 dark:bg-gray-950 animate-pulse flex-shrink-0" />
           <div className="flex-1 min-w-0">
-            <div className="h-4 w-28 bg-zinc-100 dark:bg-zinc-800 animate-pulse rounded" />
+            <div className="h-4 w-28 bg-zinc-100 dark:bg-gray-950 animate-pulse rounded" />
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
-            <div className="h-4 w-16 bg-zinc-100 dark:bg-zinc-800 animate-pulse rounded" />
-            <div className="h-4 w-4 bg-zinc-100 dark:bg-zinc-800 animate-pulse rounded" />
+            <div className="h-4 w-16 bg-zinc-100 dark:bg-gray-950 animate-pulse rounded" />
+            <div className="h-4 w-4 bg-zinc-100 dark:bg-gray-950 animate-pulse rounded" />
           </div>
         </div>
       ))}
@@ -126,7 +126,7 @@ export function DestinationsTabs() {
   );
 
   return (
-    <section className="py-16 md:py-24 bg-zinc-50/50 dark:bg-zinc-950">
+    <section className="py-16 md:py-24 bg-zinc-50/50 dark:bg-gray-950">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
@@ -141,7 +141,7 @@ export function DestinationsTabs() {
           {/* Outer flex container to handle horizontal alignment on page */}
           <div className="flex justify-center mb-8">
             {/* !w-auto and !inline-flex override hidden internal components presets */}
-            <TabsList className="!w-max !flex-initial bg-zinc-100 dark:bg-zinc-800/60 rounded-full p-1 gap-0.5 mx-auto">
+            <TabsList className="!w-max !flex-initial bg-zinc-100 dark:bg-zinc-900 rounded-full p-1 gap-0.5 mx-auto">
               <TabsTrigger
                 value="countries"
                 className="rounded-full px-5 py-2 text-sm font-medium transition-all data-[state=active]:bg-emerald-600 data-[state=active]:text-white data-[state=active]:shadow-sm text-zinc-600 dark:text-zinc-400 data-[state=inactive]:hover:text-zinc-900 dark:data-[state=inactive]:hover:text-zinc-200"
@@ -173,7 +173,7 @@ export function DestinationsTabs() {
               ) : destinations.length > 0 ? (
                 destinations.map((destination) => (
                   <Link key={destination.id} href={`/destination/${destination.slug}`}>
-                    <div className="flex items-center gap-4 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4 cursor-pointer hover:border-emerald-600/20 dark:hover:border-emerald-500/30 hover:shadow-sm transition-all group">
+                    <div className="flex items-center gap-4 bg-white dark:bg-gray-900 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4 cursor-pointer hover:border-emerald-600/20 dark:hover:border-emerald-500/30 hover:shadow-sm transition-all group">
                       <div className="h-10 w-10 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0 border border-zinc-100 dark:border-zinc-700">
                         <ReactCountryFlag
                           countryCode={destination.countryCode}
@@ -225,7 +225,7 @@ export function DestinationsTabs() {
 
                   return (
                     <Link key={region.id} href={`/region/${region.slug}`}>
-                      <div className="flex items-center gap-4 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4 cursor-pointer hover:border-emerald-600/20 dark:hover:border-emerald-500/30 hover:shadow-sm transition-all group">
+                      <div className="flex items-center gap-4 bg-white dark:bg-gray-900 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4 cursor-pointer hover:border-emerald-600/20 dark:hover:border-emerald-500/30 hover:shadow-sm transition-all group">
                         <div className="h-10 w-10 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0 border border-zinc-100 dark:border-zinc-700">
                           <ReactCountryFlag
                             countryCode={iconCode}
@@ -279,7 +279,7 @@ export function DestinationsTabs() {
               ) : globalPackages.length > 0 ? (
                 globalPackages.map((pkg) => (
                   <Link key={pkg.id} href="/global">
-                    <div className="flex items-center gap-4 bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4 cursor-pointer hover:border-emerald-600/20 dark:hover:border-emerald-500/30 hover:shadow-sm transition-all group">
+                    <div className="flex items-center gap-4 bg-white dark:bg-gray-900 border border-zinc-100 dark:border-zinc-800 rounded-xl px-5 py-4 cursor-pointer hover:border-emerald-600/20 dark:hover:border-emerald-500/30 hover:shadow-sm transition-all group">
                       <div className="h-10 w-10 rounded-full flex items-center justify-center flex-shrink-0 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/50">
                         <Globe className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
                       </div>
@@ -326,6 +326,7 @@ export function DestinationsTabs() {
             </div>
           </TabsContent>
         </Tabs>
+
 
         <div className="text-center mt-10">
           <Link href="/destinations">

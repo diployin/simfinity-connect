@@ -10,7 +10,7 @@ export function InstantConnection() {
   const { t } = useTranslation();
 
   return (
-    <section className="py-16 md:py-24 bg-white dark:bg-gray-950">
+    <section className="py-16 md:py-24 bg-white dark:bg-slate-950">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -43,7 +43,7 @@ export function InstantConnection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-gray-50 dark:bg-gray-900 rounded-3xl p-8 flex flex-col justify-between min-h-[420px] overflow-hidden relative"
+            className="bg-gray-50 dark:bg-slate-900 rounded-3xl p-8 flex flex-col justify-between min-h-[420px] overflow-hidden relative"
           >
             <div className="relative z-10">
               <h3 className="text-2xl md:text-[1.7rem] font-bold text-gray-900 dark:text-white mb-3">
@@ -55,7 +55,7 @@ export function InstantConnection() {
                   'Voltey is a hassle-free solution — just choose your data plan and get ready to travel! When you arrive at your destination, you can go online right away.'
                 )}
               </p>
-              <div className="inline-flex items-center gap-3 bg-white dark:bg-gray-800 rounded-xl shadow-sm px-4 py-3">
+              <div className="inline-flex items-center gap-3 bg-white dark:bg-slate-800 rounded-xl shadow-sm px-4 py-3">
                 <div className="w-8 h-8 bg-primary/5 dark:bg-[var(--primary-dark)]/30 rounded-lg flex items-center justify-center">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="2" y="6" width="20" height="12" rx="2" />
@@ -83,7 +83,7 @@ export function InstantConnection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-blue-50 dark:bg-blue-950/30 rounded-3xl p-8 flex flex-col justify-between min-h-[420px] overflow-hidden relative"
+            className="bg-gray-50 dark:bg-slate-900 rounded-3xl p-8 flex flex-col justify-between min-h-[420px] overflow-hidden relative"
           >
             <div className="relative z-10">
               <h3 className="text-2xl md:text-[1.7rem] font-bold text-gray-900 dark:text-white mb-3">
@@ -100,8 +100,8 @@ export function InstantConnection() {
                   <div
                     key={plan}
                     className={`inline-flex items-center justify-between px-4 py-2.5 rounded-xl max-w-[200px] ${i === 0
-                        ? 'bg-white dark:bg-gray-800 shadow-sm'
-                        : 'bg-white/60 dark:bg-gray-800/40'
+                        ? 'bg-white dark:bg-slate-800 shadow-sm'
+                        : 'bg-white/60 dark:bg-slate-800/40'
                       }`}
                   >
                     <div>
@@ -138,7 +138,7 @@ export function InstantConnection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="bg-gray-50 dark:bg-gray-900 rounded-3xl p-8 md:p-10"
+          className="bg-gray-50 dark:bg-slate-900 rounded-3xl p-8 md:p-10"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div>
