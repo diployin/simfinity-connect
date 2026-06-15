@@ -84,7 +84,7 @@ export function AccountLayout({ children }: AccountLayoutProps) {
 
   return (
     <>
-      <main className="flex-1 pt-20 bg-background ">
+      <main className="flex-1 pt-20 bg-background dark:bg-gray-950 transition-colors duration-300">
         <div className="container mx-auto px-4 py-8">
           {/* Mobile Navigation (Horizontal Scrollable) */}
           <div className="lg:hidden w-full overflow-x-auto pb-4 mb-2 scrollbar-none">
@@ -99,8 +99,8 @@ export function AccountLayout({ children }: AccountLayoutProps) {
                       className={cn(
                         'flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-all border text-sm font-medium whitespace-nowrap',
                         active
-                          ? 'bg-[var(--primary)] text-white border-[var(--primary)] shadow-sm'
-                          : 'bg-card text-muted-foreground border-border hover:bg-muted',
+                          ? 'bg-primary text-white border-primary shadow-sm'
+                          : 'bg-card dark:bg-gray-900 text-muted-foreground dark:text-gray-400 border-border dark:border-gray-800 hover:bg-muted dark:hover:bg-gray-800',
                       )}
                     >
                       <Icon className="h-4 w-4" />
@@ -115,10 +115,10 @@ export function AccountLayout({ children }: AccountLayoutProps) {
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Sidebar */}
             <aside className="hidden lg:block lg:w-80 flex-shrink-0">
-              <div className="bg-card rounded-lg border p-4 lg:sticky lg:top-24">
+              <div className="bg-card dark:bg-gray-900 rounded-lg border border-border dark:border-gray-800 p-4 lg:sticky lg:top-24">
                 <div className="flex items-center gap-2 mb-6">
-                  <Settings className="h-5 w-5 text-foreground" />
-                  <h2 className="font-semibold text-lg text-foreground">{t('website.account.sidebar.accountSettings', 'Account Settings')}</h2>
+                  <Settings className="h-5 w-5 text-foreground dark:text-white" />
+                  <h2 className="font-semibold text-lg text-foreground dark:text-white">{t('website.account.sidebar.accountSettings', 'Account Settings')}</h2>
                 </div>
 
                 <nav className="space-y-1">
@@ -131,19 +131,21 @@ export function AccountLayout({ children }: AccountLayoutProps) {
                         <div
                           className={cn(
                             'flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors',
-                            active ? 'bg-[var(--primary)]/10 border border-[var(--primary)]/20' : 'hover-elevate',
+                            active 
+                              ? 'bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/30' 
+                              : 'hover:bg-muted dark:hover:bg-gray-800',
                           )}
                         >
                           <div
                             className={cn(
                               'w-10 h-10 rounded-lg flex items-center justify-center',
-                              active ? 'bg-[var(--primary)]/20' : 'bg-muted',
+                              active ? 'bg-primary/20 dark:bg-primary/30' : 'bg-muted dark:bg-gray-800',
                             )}
                           >
                             <Icon
                               className={cn(
                                 'h-5 w-5',
-                                active ? 'text-[var(--primary)]' : 'text-muted-foreground',
+                                active ? 'text-primary dark:text-primary-light' : 'text-muted-foreground dark:text-gray-400',
                               )}
                             />
                           </div>
@@ -152,17 +154,17 @@ export function AccountLayout({ children }: AccountLayoutProps) {
                             <div
                               className={cn(
                                 'font-medium text-sm',
-                                active ? 'text-[var(--primary)]' : 'text-foreground',
+                                active ? 'text-primary dark:text-primary-light' : 'text-foreground dark:text-gray-200',
                               )}
                             >
                               {item.label}
                             </div>
-                            <div className="text-xs text-muted-foreground truncate">
+                            <div className="text-xs text-muted-foreground dark:text-gray-500 truncate">
                               {item.description}
                             </div>
                           </div>
 
-                          <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                          <ChevronRight className={cn("h-4 w-4", active ? "text-primary dark:text-primary-light" : "text-muted-foreground")} />
                         </div>
                       </Link>
                     );
@@ -175,25 +177,24 @@ export function AccountLayout({ children }: AccountLayoutProps) {
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-6 text-sm">
                 <Link href="/">
-                  <Button variant="ghost" size="sm" className="gap-1 text-muted-foreground">
+                  <Button variant="ghost" size="sm" className="gap-1 text-muted-foreground dark:text-gray-400 dark:hover:text-white">
                     <Home className="h-4 w-4" />{t('website.account.sidebar.home', 'Home')}</Button>
                 </Link>
 
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                <ChevronRight className="h-4 w-4 text-muted-foreground dark:text-gray-600" />
 
                 {isSubPage ? (
                   <>
                     <Link href="/account/profile">
-                      <Button variant="ghost" size="sm" className="gap-1 text-muted-foreground">
-                        {/* <ArrowLeft className="h-4 w-4" /> */}
+                      <Button variant="ghost" size="sm" className="gap-1 text-muted-foreground dark:text-gray-400 dark:hover:text-white">
                         Profile
                       </Button>
                     </Link>
-                    <ChevronRight className="h-4 w-4 text-muted-foreground" />
-                    <span className="font-medium text-muted-foreground ">{getCurrentPageName()}</span>
+                    <ChevronRight className="h-4 w-4 text-muted-foreground dark:text-gray-600" />
+                    <span className="font-medium text-foreground dark:text-gray-300">{getCurrentPageName()}</span>
                   </>
                 ) : (
-                  <span className="font-medium">{t('website.account.sidebar.account', 'Account')}</span>
+                  <span className="font-medium text-foreground dark:text-gray-300">{t('website.account.sidebar.account', 'Account')}</span>
                 )}
               </div>
 

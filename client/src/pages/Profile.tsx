@@ -316,17 +316,17 @@ export default function Profile() {
     code.toUpperCase().replace(/./g, (char) => String.fromCodePoint(127397 + char.charCodeAt(0)));
 
   return (
-    <div className="flex-1">
+    <div className="flex-1 min-h-screen bg-background dark:bg-gray-950 transition-colors duration-300">
       <Helmet>
         <title>My Profile | eSIM Global</title>
         <meta name="description" content="Manage your profile information and account settings" />
       </Helmet>
 
       <div className="mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-foreground">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-foreground dark:text-white">
           {t('profile.title', 'My Profile')}
         </h1>
-        <p className="text-sm sm:text-base text-muted-foreground">
+        <p className="text-sm sm:text-base text-muted-foreground dark:text-gray-400">
           {t('profile.description', 'Manage your account information and settings')}
         </p>
       </div>
@@ -336,12 +336,12 @@ export default function Profile() {
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mx-auto"></div>
         </div>
       ) : (
-        <div className="grid gap-6">
+        <div className="grid gap-6 pb-12">
           {/* Account Overview */}
-          <Card>
+          <Card className="dark:bg-gray-900 dark:border-gray-800">
             <CardHeader>
-              <CardTitle>{t('profile.accountOverview', 'Account Overview')}</CardTitle>
-              <CardDescription>
+              <CardTitle className="dark:text-white">{t('profile.accountOverview', 'Account Overview')}</CardTitle>
+              <CardDescription className="dark:text-gray-400">
                 {t(
                   'profile.accountOverviewDesc',
                   'Your account status and verification information',
@@ -353,7 +353,7 @@ export default function Profile() {
                 <div className="relative w-20 h-20 flex-shrink-0">
                   {/* Avatar */}
                   <label htmlFor="profileImage" className="cursor-pointer">
-                    <div className="w-20 h-20 rounded-full overflow-hidden border bg-muted flex items-center justify-center">
+                    <div className="w-20 h-20 rounded-full overflow-hidden border dark:border-gray-800 bg-muted dark:bg-gray-800 flex items-center justify-center shadow-inner">
                       {preview || (user?.imagePath && user.imagePath !== 'null') ? (
                         <img
                           src={preview || (user.imagePath.startsWith('http') ? user.imagePath : `/${user.imagePath}`)}
@@ -361,12 +361,12 @@ export default function Profile() {
                           alt="Profile"
                         />
                       ) : (
-                        <User className="h-8 w-8 text-muted-foreground" />
+                        <User className="h-8 w-8 text-muted-foreground dark:text-gray-500" />
                       )}
                     </div>
 
                     {/* Camera Icon Overlay */}
-                    <div className="absolute bottom-0 right-0 bg-[var(--primary)] hover:bg-primary-second text-white rounded-full p-1.5 shadow cursor-pointer">
+                    <div className="absolute bottom-0 right-0 bg-[var(--primary)] hover:bg-primary-second text-white rounded-full p-1.5 shadow-lg cursor-pointer transition-transform hover:scale-110 active:scale-95">
                       <Camera className="h-4 w-4" />
                     </div>
                   </label>
@@ -382,24 +382,24 @@ export default function Profile() {
                 </div>
 
                 <div className="flex-1 min-w-0">
-                  <div className="font-semibold text-lg truncate">
+                  <div className="font-bold text-lg truncate dark:text-white">
                     {user?.name || t('profile.noNameSet', 'No name set')}
                   </div>
-                  <div className="text-sm text-muted-foreground flex items-center gap-2 min-w-0">
-                    <Mail className="h-4 w-4 flex-shrink-0" />
+                  <div className="text-sm text-muted-foreground dark:text-gray-400 flex items-center gap-2 min-w-0">
+                    <Mail className="h-4 w-4 flex-shrink-0 text-primary-second dark:text-primary-light" />
                     <span className="truncate">{user?.email}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-lg border gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border dark:border-gray-800 bg-slate-50/50 dark:bg-gray-950/50 gap-4">
                 <div className="flex items-start gap-3">
-                  <Shield className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
+                  <Shield className="h-5 w-5 text-primary-second dark:text-primary-light flex-shrink-0 mt-0.5" />
                   <div>
-                    <div className="font-medium">
+                    <div className="font-semibold dark:text-white">
                       {t('profile.kycVerification', 'KYC Verification')}
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-sm text-muted-foreground dark:text-gray-400">
                       {t('profile.kycVerificationDesc', 'Identity verification status')}
                     </div>
                   </div>
@@ -407,14 +407,14 @@ export default function Profile() {
                 <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
                   <Badge
                     variant={getKycStatusBadge(user?.kycStatus).variant}
-                    className={cn("flex-shrink-0", getKycStatusBadge(user?.kycStatus).className)}
+                    className={cn("flex-shrink-0 shadow-sm font-semibold", getKycStatusBadge(user?.kycStatus).className)}
                     data-testid="badge-kyc-status"
                   >
                     {getKycStatusBadge(user?.kycStatus).label}
                   </Badge>
                   {user?.kycStatus !== 'approved' && (
                     <Link href="/account/kyc">
-                      <Button variant="outline" size="sm" data-testid="button-verify-kyc" className="flex-shrink-0">
+                      <Button variant="outline" size="sm" data-testid="button-verify-kyc" className="flex-shrink-0 dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-300">
                         {user?.kycStatus === 'pending'
                           ? t('profile.submitKYC', 'Submit KYC')
                           : t('profile.viewStatus', 'View Status')}
@@ -425,21 +425,22 @@ export default function Profile() {
               </div>
 
               {user?.kycStatus === 'rejected' && user?.kycRejectionReason && (
-                <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/20">
-                  <div className="font-medium text-destructive mb-1">
+                <div className="p-4 rounded-xl bg-destructive/10 border border-destructive/20 dark:bg-red-950/20 dark:border-red-900/30">
+                  <div className="font-bold text-destructive dark:text-red-400 mb-1 flex items-center gap-2">
+                    <AlertCircle className="w-4 h-4" />
                     {t('profile.kycRejectionReason', 'KYC Rejection Reason')}
                   </div>
-                  <div className="text-sm">{user.kycRejectionReason}</div>
+                  <div className="text-sm text-destructive/90 dark:text-red-300/80 leading-relaxed font-medium">{user.kycRejectionReason}</div>
                 </div>
               )}
             </CardContent>
           </Card>
 
           {/* Profile Information Form */}
-          <Card>
+          <Card className="dark:bg-gray-900 dark:border-gray-800">
             <CardHeader>
-              <CardTitle>{t('profile.profileInfo', 'Profile Information')}</CardTitle>
-              <CardDescription>
+              <CardTitle className="dark:text-white">{t('profile.profileInfo', 'Profile Information')}</CardTitle>
+              <CardDescription className="dark:text-gray-400">
                 {t('profile.profileInfoDesc', 'Update your personal details')}
               </CardDescription>
             </CardHeader>
@@ -451,15 +452,16 @@ export default function Profile() {
                     name="name"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('profile.fullName', 'Full Name')}</FormLabel>
+                        <FormLabel className="dark:text-gray-300 font-semibold">{t('profile.fullName', 'Full Name')}</FormLabel>
                         <FormControl>
                           <Input
                             placeholder={t('profile.namePlaceholder', 'John Doe')}
                             {...field}
                             data-testid="input-name"
+                            className="dark:bg-gray-950 dark:border-gray-800 dark:text-white dark:placeholder:text-gray-600"
                           />
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="dark:text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -469,19 +471,19 @@ export default function Profile() {
                     name="phone"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('profile.phoneNumber', 'Phone Number')}</FormLabel>
+                        <FormLabel className="dark:text-gray-300 font-semibold">{t('profile.phoneNumber', 'Phone Number')}</FormLabel>
                         <FormControl>
                           <div className="flex gap-2">
                             <Select
                               value={selectedCountryCode}
                               onValueChange={setSelectedCountryCode}
                             >
-                              <SelectTrigger className="w-[120px] flex-shrink-0">
+                              <SelectTrigger className="w-[120px] flex-shrink-0 dark:bg-gray-950 dark:border-gray-800 dark:text-white">
                                 <SelectValue placeholder="Code" />
                               </SelectTrigger>
-                              <SelectContent>
+                              <SelectContent className="dark:bg-gray-900 dark:border-gray-800">
                                 {countryCallingCodes.map((c) => (
-                                  <SelectItem key={`${c.code}-${c.flag}`} value={c.code}>
+                                  <SelectItem key={`${c.code}-${c.flag}`} value={c.code} className="dark:text-gray-300 dark:focus:bg-gray-800">
                                     <span className="flex items-center gap-2">
                                       <ReactCountryFlag
                                         svg
@@ -495,10 +497,10 @@ export default function Profile() {
                               </SelectContent>
                             </Select>
                             <div className="relative flex-1">
-                              <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                              <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground dark:text-gray-500" />
                               <Input
                                 placeholder={t('profile.phonePlaceholder', '+1 234 567 8900')}
-                                className="pl-10"
+                                className="pl-10 dark:bg-gray-950 dark:border-gray-800 dark:text-white dark:placeholder:text-gray-600"
                                 value={phoneNumberVal}
                                 type="tel"
                                 inputMode="numeric"
@@ -511,7 +513,7 @@ export default function Profile() {
                             </div>
                           </div>
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="dark:text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -521,22 +523,22 @@ export default function Profile() {
                     name="address"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('profile.address', 'Address')}</FormLabel>
+                        <FormLabel className="dark:text-gray-300 font-semibold">{t('profile.address', 'Address')}</FormLabel>
                         <FormControl>
                           <div className="relative">
-                            <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                            <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground dark:text-gray-500" />
                             <Textarea
                               placeholder={t(
                                 'profile.addressPlaceholder',
                                 '123 Main St, City, Country',
                               )}
-                              className="pl-10 min-h-20"
+                              className="pl-10 min-h-20 dark:bg-gray-950 dark:border-gray-800 dark:text-white dark:placeholder:text-gray-600"
                               {...field}
                               data-testid="input-address"
                             />
                           </div>
                         </FormControl>
-                        <FormMessage />
+                        <FormMessage className="dark:text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -546,31 +548,32 @@ export default function Profile() {
                     name="destination"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('profile.country', 'Country')}</FormLabel>
+                        <FormLabel className="dark:text-gray-300 font-semibold">{t('profile.country', 'Country')}</FormLabel>
 
                         <Popover open={countryOpen} onOpenChange={setCountryOpen}>
                           <PopoverTrigger asChild>
                             <Button
                               variant="outline"
                               role="combobox"
-                              className="w-full justify-between"
+                              className="w-full justify-between dark:bg-gray-950 dark:border-gray-800 dark:text-white dark:hover:bg-gray-900"
                             >
                               {field.value
                                 ? destinations?.find((d: any) => d.id === field.value)?.name
                                 : t('profile.selectCountry', 'Select country')}
-                              <ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />
+                              <ChevronsUpDown className="ml-2 h-4 w-4 opacity-50 text-muted-foreground" />
                             </Button>
                           </PopoverTrigger>
 
-                          <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
-                            <Command>
-                              <CommandInput placeholder="Search country..." />
-                              <CommandEmpty>{t('profile.noCountryFound', 'No country found.')}</CommandEmpty>
-                              <CommandList>
+                          <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0 dark:bg-gray-900 dark:border-gray-800">
+                            <Command className="dark:bg-gray-900">
+                              <CommandInput placeholder="Search country..." className="dark:text-white" />
+                              <CommandEmpty className="dark:text-gray-400">{t('profile.noCountryFound', 'No country found.')}</CommandEmpty>
+                              <CommandList className="dark:bg-gray-900">
                                 {destinations?.map((country: any) => (
                                   <CommandItem
                                     key={country.id}
                                     value={country.name}
+                                    className="dark:text-gray-300 dark:aria-selected:bg-gray-800"
                                     onSelect={() => {
                                       field.onChange(country.id);
                                       setCountryOpen(false); // ✅ auto close
@@ -579,7 +582,7 @@ export default function Profile() {
                                     <Check
                                       className={cn(
                                         'mr-2 h-4 w-4',
-                                        field.value === country.id ? 'opacity-100' : 'opacity-0',
+                                        field.value === country.id ? 'opacity-100 text-primary' : 'opacity-0',
                                       )}
                                     />
                                     <ReactCountryFlag
@@ -596,7 +599,7 @@ export default function Profile() {
                           </PopoverContent>
                         </Popover>
 
-                        <FormMessage />
+                        <FormMessage className="dark:text-red-400" />
                       </FormItem>
                     )}
                   />
@@ -606,37 +609,38 @@ export default function Profile() {
                     name="currency"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>{t('profile.currency', 'Currency')}</FormLabel>
+                        <FormLabel className="dark:text-gray-300 font-semibold">{t('profile.currency', 'Currency')}</FormLabel>
 
                         <Popover>
                           <PopoverTrigger asChild>
                             <Button
                               variant="outline"
                               role="combobox"
-                              className="w-full justify-between"
+                              className="w-full justify-between dark:bg-gray-950 dark:border-gray-800 dark:text-white dark:hover:bg-gray-900"
                             >
                               {field.value
                                 ? currencies?.find((c: any) => c.id === field.value)?.code
                                 : t('profile.selectCurrency', 'Select currency')}
-                              <ChevronsUpDown className="ml-2 h-4 w-4 opacity-50" />
+                              <ChevronsUpDown className="ml-2 h-4 w-4 opacity-50 text-muted-foreground" />
                             </Button>
                           </PopoverTrigger>
 
-                          <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
-                            <Command>
-                              <CommandInput placeholder="Search currency..." />
-                              <CommandEmpty>{t('profile.noCurrencyFound', 'No currency found.')}</CommandEmpty>
-                              <CommandList>
+                          <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0 dark:bg-gray-900 dark:border-gray-800">
+                            <Command className="dark:bg-gray-900">
+                              <CommandInput placeholder="Search currency..." className="dark:text-white" />
+                              <CommandEmpty className="dark:text-gray-400">{t('profile.noCurrencyFound', 'No currency found.')}</CommandEmpty>
+                              <CommandList className="dark:bg-gray-900">
                                 {currencies?.map((currency: any) => (
                                   <CommandItem
                                     key={currency.id}
                                     value={currency.code}
+                                    className="dark:text-gray-300 dark:aria-selected:bg-gray-800"
                                     onSelect={() => field.onChange(currency.id)}
                                   >
                                     <Check
                                       className={cn(
                                         'mr-2 h-4 w-4',
-                                        field.value === currency.id ? 'opacity-100' : 'opacity-0',
+                                        field.value === currency.id ? 'opacity-100 text-primary' : 'opacity-0',
                                       )}
                                     />
                                     {currency.symbol} {currency.code} — {currency.name}
@@ -647,16 +651,16 @@ export default function Profile() {
                           </PopoverContent>
                         </Popover>
 
-                        <FormMessage />
+                        <FormMessage className="dark:text-red-400" />
                       </FormItem>
                     )}
                   />
 
-                  <div className="flex gap-3">
+                  <div className="flex gap-3 pt-2">
                     <Button
                       type="submit"
                       disabled={updateProfileMutation.isPending}
-                      className="bg-[var(--primary)] hover:bg-primary-second text-white"
+                      className="bg-[var(--primary)] hover:bg-primary-second text-white font-bold px-8 shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
                       data-testid="button-save-profile"
                     >
                       {updateProfileMutation.isPending
@@ -664,7 +668,7 @@ export default function Profile() {
                         : t('profile.saveChanges', 'Save Changes')}
                     </Button>
                     <Link href="/my-orders">
-                      <Button type="button" variant="outline" data-testid="button-cancel">
+                      <Button type="button" variant="outline" data-testid="button-cancel" className="dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-300">
                         {t('common.cancel', 'Cancel')}
                       </Button>
                     </Link>
@@ -675,13 +679,13 @@ export default function Profile() {
           </Card>
 
           {/* Notification Preferences */}
-          <Card>
+          <Card className="dark:bg-gray-900 dark:border-gray-800">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Bell className="h-5 w-5" />
+              <CardTitle className="flex items-center gap-2 dark:text-white">
+                <Bell className="h-5 w-5 text-primary-second dark:text-primary-light" />
                 {t('profile.notificationPreferences', 'Notification Preferences')}
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="dark:text-gray-400">
                 {t(
                   'profile.notificationPreferencesDesc',
                   'Manage how you receive alerts about your eSIMs',
@@ -689,53 +693,71 @@ export default function Profile() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="flex items-center justify-between p-4 rounded-lg border">
-                <div className="flex-1 pr-4">
-                  <Label htmlFor="notify-low-data" className="font-medium cursor-pointer">
+
+              {/* Low Data Alerts */}
+              <div className="flex items-center justify-between p-4 rounded-xl border dark:border-gray-800 bg-slate-50/50 dark:bg-gray-950/50 transition-colors gap-4">
+                <div className="flex-1 min-w-0 pr-2">
+                  <Label htmlFor="notify-low-data" className="font-bold dark:text-white cursor-pointer block mb-1">
                     {t('profile.lowDataAlerts', 'Low Data Alerts')}
                   </Label>
-                  <p className="text-sm text-muted-foreground mt-1">
+                  <p className="text-sm text-muted-foreground dark:text-gray-400 leading-relaxed">
                     {t(
                       'profile.lowDataAlertsDesc',
                       'Receive email notifications when your eSIM reaches 75% or 90% data usage',
                     )}
                   </p>
                 </div>
-                <Switch
-                  id="notify-low-data"
-                  checked={notifyLowData}
-                  onCheckedChange={(value) => handleNotificationChange('notifyLowData', value)}
-                  disabled={updateNotificationsMutation.isPending}
-                  data-testid="switch-notify-low-data"
-                />
+
+                {/* FORCE ALIGNMENT WRAPPER */}
+                <div className="flex-shrink-0 flex items-center justify-center">
+                  <Switch
+                    id="notify-low-data"
+                    checked={notifyLowData}
+                    onCheckedChange={(value) => handleNotificationChange('notifyLowData', value)}
+                    disabled={updateNotificationsMutation.isPending}
+                    data-testid="switch-notify-low-data"
+                    /* CRITICAL FIXES ADDED BELOW:
+                      - p-0 / border-0: Wipes out global button overrides
+                      - box-content: Stabilizes dimension engine calculations
+                      - [&_span]: Forces the nested inner circle thumb to stay centered
+                    */
+                    className="p-0 border-0 box-content relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input [&_span]:block [&_span]:h-5 [&_span]:w-5 [&_span]:rounded-full [&_span]:bg-white [&_span]:shadow-lg [&_span]:ring-0 [&_span]:transition-transform data-[state=checked]:[&_span]:translate-x-5 data-[state=unchecked]:[&_span]:translate-x-0.5"
+                  />
+                </div>
               </div>
 
-              <div className="flex items-center justify-between p-4 rounded-lg border">
-                <div className="flex-1 pr-4">
-                  <Label htmlFor="notify-expiring" className="font-medium cursor-pointer">
+              {/* Expiry Alerts */}
+              <div className="flex items-center justify-between p-4 rounded-xl border dark:border-gray-800 bg-slate-50/50 dark:bg-gray-950/50 transition-colors gap-4">
+                <div className="flex-1 min-w-0 pr-2">
+                  <Label htmlFor="notify-expiring" className="font-bold dark:text-white cursor-pointer block mb-1">
                     {t('profile.expiryAlerts', 'Expiry Alerts')}
                   </Label>
-                  <p className="text-sm text-muted-foreground mt-1">
+                  <p className="text-sm text-muted-foreground dark:text-gray-400 leading-relaxed">
                     {t(
                       'profile.expiryAlertsDesc',
                       'Get notified when your eSIM is about to expire (3 days and 1 day before expiration)',
                     )}
                   </p>
                 </div>
-                <Switch
-                  id="notify-expiring"
-                  checked={notifyExpiring}
-                  onCheckedChange={(value) => handleNotificationChange('notifyExpiring', value)}
-                  disabled={updateNotificationsMutation.isPending}
-                  data-testid="switch-notify-expiring"
-                />
+
+                {/* FORCE ALIGNMENT WRAPPER */}
+                <div className="flex-shrink-0 flex items-center justify-center">
+                  <Switch
+                    id="notify-expiring"
+                    checked={notifyExpiring}
+                    onCheckedChange={(value) => handleNotificationChange('notifyExpiring', value)}
+                    disabled={updateNotificationsMutation.isPending}
+                    data-testid="switch-notify-expiring"
+                    className="p-0 border-0 box-content relative inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input [&_span]:block [&_span]:h-5 [&_span]:w-5 [&_span]:rounded-full [&_span]:bg-white [&_span]:shadow-lg [&_span]:ring-0 [&_span]:transition-transform data-[state=checked]:[&_span]:translate-x-5 data-[state=unchecked]:[&_span]:translate-x-0.5"
+                  />
+                </div>
               </div>
 
-              {/* Info */}
-              <div className="flex gap-3 p-4 rounded-lg bg-primary/5 dark:bg-[#0a2e14]/30">
-                <AlertCircle className="h-5 w-5 text-primary-second dark:text-[var(--primary-light)] flex-shrink-0 mt-0.5" />
+              {/* Info Box */}
+              <div className="flex gap-3 p-4 rounded-xl bg-primary/5 dark:bg-primary/10 border border-primary/10 dark:border-primary/20">
+                <AlertCircle className="h-5 w-5 text-primary-second dark:text-primary-light flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground dark:text-gray-300 leading-relaxed font-medium">
                     {t(
                       'profile.notificationInfo',
                       'These notifications help you manage your data usage and avoid service interruptions. You can change these preferences at any time.',
@@ -747,28 +769,28 @@ export default function Profile() {
           </Card>
 
           {/* Quick Actions */}
-          <Card>
+          <Card className="dark:bg-gray-900 dark:border-gray-800 shadow-lg">
             <CardHeader>
-              <CardTitle>{t('profile.quickActions', 'Quick Actions')}</CardTitle>
+              <CardTitle className="dark:text-white">{t('profile.quickActions', 'Quick Actions')}</CardTitle>
             </CardHeader>
             <CardContent className="grid gap-3">
               <Link href="/account/orders">
                 <Button
                   variant="outline"
-                  className="w-full justify-start"
+                  className="w-full justify-start h-12 font-bold dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-200 transition-all hover:pl-5"
                   data-testid="link-orders"
                 >
-                  <User className="h-4 w-4 mr-2" />
+                  <User className="h-4 w-4 mr-2 text-primary-second dark:text-primary-light" />
                   {t('profile.viewMyOrders', 'View My Orders')}
                 </Button>
               </Link>
               <a target="_blank" rel="noopener noreferrer" href="/account/support">
                 <Button
                   variant="outline"
-                  className="w-full justify-start"
+                  className="w-full justify-start h-12 font-bold dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-200 transition-all hover:pl-5"
                   data-testid="link-support"
                 >
-                  <Shield className="h-4 w-4 mr-2" />
+                  <Shield className="h-4 w-4 mr-2 text-primary-second dark:text-primary-light" />
                   {t('profile.contactSupport', 'Contact Support')}
                 </Button>
               </a>

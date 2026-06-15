@@ -49,7 +49,7 @@ export function GettingStarted() {
     ];
 
     return (
-        <div className="min-h-screen bg-white dark:bg-background flex flex-col">
+        <div className="min-h-screen bg-background dark:bg-gray-950 flex flex-col dark:text-gray-100">
             <Helmet>
                 <title>{`${t('gettingStarted.title', 'Getting Started')} - ${siteName} | Seamless Global Connectivity`}</title>
                 <meta
@@ -59,7 +59,7 @@ export function GettingStarted() {
             </Helmet>
 
             {/* Hero Section */}
-            <section className="relative py-20 md:py-32 overflow-hidden bg-slate-50 dark:bg-background">
+            <section className="relative py-20 md:py-32 overflow-hidden dark:bg-gray-950 bg-background">
                 <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-green-100 dark:bg-green-900/20 rounded-full blur-3xl opacity-50" />
                 <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-96 h-96 bg-blue-100 dark:bg-blue-900/20 rounded-full blur-3xl opacity-50" />
 
@@ -94,7 +94,7 @@ export function GettingStarted() {
             </section>
 
             {/* Steps Section */}
-            <section className="py-24 bg-white dark:bg-background">
+            <section className="py-24 dark:bg-gray-950 bg-background">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="space-y-32">
                         {steps.map((step, index) => (
@@ -146,9 +146,9 @@ export function GettingStarted() {
             </section>
 
             {/* Activation Guide Mini Section */}
-            <section className="py-24 bg-slate-50 dark:bg-background">
+            <section className="py-24 dark:bg-gray-950 bg-background">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-card rounded-[3rem] p-8 md:p-16 shadow-xl shadow-green-900/5 dark:shadow-none border border-gray-100 dark:border-gray-800">
+                    <div className="bg-background dark:bg-gray-800 rounded-[3rem] p-8 md:p-16 shadow-xl shadow-green-900/5 dark:shadow-none border border-gray-100 dark:border-gray-800">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                             <div>
                                 <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">{t('gettingStarted.activationGuide.title', 'Quick Activation Guide')}</h2>
@@ -206,7 +206,7 @@ export function GettingStarted() {
             </section>
 
             {/* CTA Section */}
-            <section className="py-24 dark:bg-background">
+            <section className="py-24 bg-background dark:bg-gray-950 dark:text-gray-100">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-6">{t('gettingStarted.cta.title', 'Ready for your next adventure?')}</h2>
                     <p className="text-xl text-gray-500 dark:text-gray-400 mb-10">{t('gettingStarted.cta.subtitle', 'Get a {{siteName}} eSIM and stay connected wherever you go.', { siteName })}</p>

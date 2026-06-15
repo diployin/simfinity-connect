@@ -132,7 +132,7 @@ export default function Business() {
         <meta name="description" content={t('business.pageMeta', 'Manage all your team\'s eSIM plans from one dashboard. {{siteName}} for Business offers global coverage, usage analytics, and predictable pricing.', { siteName })} />
       </Helmet>
 
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background dark:bg-gray-950 dark:text-gray-100 transition-colors duration-300">
         {/* Hero */}
         <section className="relative overflow-hidden bg-hero-gradient text-white">
           <div className="absolute inset-0 pointer-events-none">
@@ -173,25 +173,25 @@ export default function Business() {
         </section>
 
         {/* Why businesses choose us */}
-        <section className="py-16 md:py-24 bg-background">
+        <section className="py-16 md:py-24 bg-background dark:bg-gray-950">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground dark:text-white mb-4">
                 {t('business.whyChoose', 'Why businesses choose {{siteName}}', { siteName })}
               </h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              <p className="text-muted-foreground dark:text-gray-400 text-lg max-w-2xl mx-auto">
                 {t('business.whyChooseSub', 'Everything your team needs to stay connected, managed from one place.')}
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {features.map((f) => (
-                <div key={f.title} className={`rounded-2xl bg-gradient-to-br ${f.bgLight} ${f.bgDark} p-8 border border-border/50`}>
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${f.color} flex items-center justify-center mb-5`}>
+                <div key={f.title} className={`rounded-2xl bg-gradient-to-br ${f.bgLight} ${f.bgDark} p-8 border border-border/50 dark:border-gray-800 shadow-sm`}>
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${f.color} flex items-center justify-center mb-5 shadow-lg shadow-primary/5`}>
                     <f.icon className="w-7 h-7 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">{f.title}</h3>
-                  <p className="text-muted-foreground">{f.desc}</p>
+                  <h3 className="text-xl font-bold text-foreground dark:text-white mb-2">{f.title}</h3>
+                  <p className="text-muted-foreground dark:text-gray-400">{f.desc}</p>
                 </div>
               ))}
             </div>
@@ -199,25 +199,25 @@ export default function Business() {
         </section>
 
         {/* How it works */}
-        <section className="py-16 md:py-24 bg-slate-50">
+        <section className="py-16 md:py-24 bg-slate-50 dark:bg-gray-900/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground dark:text-white mb-4">
                 {t('business.howStarted', 'Get started with your {{siteName}} business dashboard', { siteName })}
               </h2>
-              <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
+              <p className="text-muted-foreground dark:text-gray-400 text-lg max-w-3xl mx-auto">
                 {t('business.howStartedSub', 'The business dashboard gives your company full control over team connectivity — from adding team members to assigning and managing eSIMs across the workforce.')}
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {steps.map((step) => (
-                <div key={step.num} className="relative bg-card rounded-2xl p-8 border border-border text-center">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center mx-auto mb-6`}>
+                <div key={step.num} className="relative bg-white dark:bg-gray-900 rounded-2xl p-8 border border-border dark:border-gray-800 text-center shadow-sm">
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary/10`}>
                     <span className="text-2xl font-bold text-white">{step.num}</span>
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-3">{step.title}</h3>
-                  <p className="text-muted-foreground">{step.desc}</p>
+                  <h3 className="text-xl font-bold text-foreground dark:text-white mb-3">{step.title}</h3>
+                  <p className="text-muted-foreground dark:text-gray-400">{step.desc}</p>
                 </div>
               ))}
             </div>
@@ -225,14 +225,14 @@ export default function Business() {
         </section>
 
         {/* Benefits strip */}
-        <section className="py-16 md:py-20 bg-background">
+        <section className="py-16 md:py-20 bg-background dark:bg-gray-950">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground dark:text-white mb-6">
                   {t('business.builtForTeams', 'Built for teams that travel')}
                 </h2>
-                <p className="text-muted-foreground text-lg mb-8">
+                <p className="text-muted-foreground dark:text-gray-400 text-lg mb-8 leading-relaxed">
                   {t('business.builtForTeamsSub', 'Whether your team is flying to a conference, visiting remote offices, or working from anywhere — {{siteName}} Business keeps everyone connected without the hassle of local SIM cards or expensive roaming.', { siteName })}
                 </p>
                 <ul className="space-y-4">
@@ -245,7 +245,7 @@ export default function Business() {
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-foreground">{item}</span>
+                      <span className="text-foreground dark:text-gray-300">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -258,12 +258,12 @@ export default function Business() {
                   { icon: Plane, label: t('business.statTrips', 'Trips Powered'), value: '50K+', color: 'from-amber-500 to-amber-600' },
                   { icon: Users, label: t('business.statUsers', 'Business Users'), value: '10K+', color: 'from-rose-500 to-rose-600' },
                 ].map((stat) => (
-                  <div key={stat.label} className="bg-card rounded-2xl p-6 border border-border text-center">
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center mx-auto mb-3`}>
+                  <div key={stat.label} className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-border dark:border-gray-800 text-center shadow-md">
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center mx-auto mb-3 shadow-lg shadow-primary/5`}>
                       <stat.icon className="w-6 h-6 text-white" />
                     </div>
-                    <p className="text-2xl font-bold text-foreground">{stat.value}</p>
-                    <p className="text-sm text-muted-foreground">{stat.label}</p>
+                    <p className="text-2xl font-bold text-foreground dark:text-white">{stat.value}</p>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400">{stat.label}</p>
                   </div>
                 ))}
               </div>
@@ -272,21 +272,21 @@ export default function Business() {
         </section>
 
         {/* FAQ */}
-        <section className="py-16 md:py-24 bg-slate-50">
+        <section className="py-16 md:py-24 bg-slate-50 dark:bg-gray-900/50">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground dark:text-white text-center mb-12">
               {t('business.faqTitle', 'Frequently asked questions')}
             </h2>
 
             <div className="space-y-4">
               {faqs.map((faq, i) => (
-                <details key={i} className="group bg-card rounded-xl border border-border overflow-hidden">
+                <details key={i} className="group bg-white dark:bg-gray-900 rounded-xl border border-border dark:border-gray-800 overflow-hidden shadow-sm">
                   <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                    <h3 className="font-semibold text-foreground pr-4">{faq.q}</h3>
-                    <ChevronRight className="w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform group-open:rotate-90" />
+                    <h3 className="font-semibold text-foreground dark:text-white pr-4">{faq.q}</h3>
+                    <ChevronRight className="w-5 h-5 text-muted-foreground dark:text-gray-500 flex-shrink-0 transition-transform group-open:rotate-90" />
                   </summary>
                   <div className="px-6 pb-6 pt-0">
-                    <p className="text-muted-foreground">{faq.a}</p>
+                    <p className="text-muted-foreground dark:text-gray-400 leading-relaxed">{faq.a}</p>
                   </div>
                 </details>
               ))}

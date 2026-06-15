@@ -362,11 +362,11 @@ export default function DestinationDetails() {
 
   if (isLoadingPackages) {
     return (
-      <div className="min-h-screen bg-background flex flex-col">
+      <div className="min-h-screen bg-background dark:bg-gray-950 flex flex-col">
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
             <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[var(--primary)] border-r-transparent"></div>
-            <p className="mt-4 text-muted-foreground">{t('destination.loading', 'Loading...')}</p>
+            <p className="mt-4 text-muted-foreground dark:text-gray-400">{t('destination.loading', 'Loading...')}</p>
           </div>
         </div>
       </div>
@@ -375,16 +375,16 @@ export default function DestinationDetails() {
 
   if (!destination) {
     return (
-      <div className="min-h-screen bg-background flex flex-col">
+      <div className="min-h-screen bg-background dark:bg-gray-950 flex flex-col">
         <div className="flex-1 flex items-center justify-center pt-20">
-          <p>{t('destination.notFound', 'Destination not found')}</p>
+          <p className="dark:text-white">{t('destination.notFound', 'Destination not found')}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background dark:bg-gray-950 flex flex-col transition-colors duration-300">
       <Helmet>
         <title>
           eSIM for {destination.name} - Data Plans | {siteName}
@@ -401,17 +401,17 @@ export default function DestinationDetails() {
           <Breadcrumb className="mb-6">
             <BreadcrumbList>
               <BreadcrumbItem>
-                <BreadcrumbLink href="/" data-testid="breadcrumb-home">
+                <BreadcrumbLink href="/" data-testid="breadcrumb-home" className="dark:text-gray-400 dark:hover:text-white">
                   <Home className="h-4 w-4" />
                 </BreadcrumbLink>
               </BreadcrumbItem>
-              <BreadcrumbSeparator />
+              <BreadcrumbSeparator className="dark:text-gray-600" />
               <BreadcrumbItem>
-                <BreadcrumbLink href="/destinations" data-testid="breadcrumb-destinations">{t('destination.breadcrumb', 'Destinations')}</BreadcrumbLink>
+                <BreadcrumbLink href="/destinations" data-testid="breadcrumb-destinations" className="dark:text-gray-400 dark:hover:text-white">{t('destination.breadcrumb', 'Destinations')}</BreadcrumbLink>
               </BreadcrumbItem>
-              <BreadcrumbSeparator />
+              <BreadcrumbSeparator className="dark:text-gray-600" />
               <BreadcrumbItem>
-                <BreadcrumbPage data-testid="breadcrumb-current">{destination.name}</BreadcrumbPage>
+                <BreadcrumbPage data-testid="breadcrumb-current" className="dark:text-white">{destination.name}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -420,7 +420,7 @@ export default function DestinationDetails() {
           <div className="grid lg:grid-cols-[2fr_3fr] gap-8 mb-16">
             {/* Left Column */}
             <div className="space-y-0">
-              <div className="aspect-[4/3] rounded-t-2xl lg:rounded-2xl overflow-hidden">
+              <div className="aspect-[4/3] rounded-t-2xl lg:rounded-2xl overflow-hidden shadow-lg border border-border dark:border-gray-800">
                 <img
                   src={heroImage}
                   alt={`Best ${destination.name} eSIM for Travelers`}
@@ -428,13 +428,13 @@ export default function DestinationDetails() {
                 />
               </div>
 
-              <div className="bg-card rounded-b-2xl lg:rounded-2xl lg:mt-4 border border-border">
-                <div className="flex border-b border-border">
+              <div className="bg-card dark:bg-gray-900 rounded-b-2xl lg:rounded-2xl lg:mt-4 border border-border dark:border-gray-800 shadow-md">
+                <div className="flex border-b border-border dark:border-gray-800">
                   <button
                     onClick={() => setActiveTab('details')}
                     className={`flex-1 py-4 text-sm font-medium text-center transition-colors ${activeTab === 'details'
                       ? 'text-green-500 border-b-2 border-green-500 -mb-px bg-green-50 dark:bg-green-500/10'
-                      : 'text-muted-foreground hover:text-foreground'
+                      : 'text-muted-foreground dark:text-gray-400 hover:text-foreground dark:hover:text-white'
                       }`}
                     data-testid="tab-esim-details"
                   >
@@ -444,7 +444,7 @@ export default function DestinationDetails() {
                     onClick={() => setActiveTab('coverage')}
                     className={`flex-1 py-4 text-sm font-medium text-center transition-colors ${activeTab === 'coverage'
                       ? 'text-green-500 border-b-2 border-green-500 -mb-px bg-green-50 dark:bg-green-500/10'
-                      : 'text-muted-foreground hover:text-foreground'
+                      : 'text-muted-foreground dark:text-gray-400 hover:text-foreground dark:hover:text-white'
                       }`}
                     data-testid="tab-coverage"
                   >
@@ -456,26 +456,26 @@ export default function DestinationDetails() {
                   {activeTab === 'details' && (
                     <div className="space-y-4">
                       <div>
-                        <p className="text-sm font-semibold text-foreground mb-1">
+                        <p className="text-sm font-semibold text-foreground dark:text-white mb-1">
                           Selected Data Plan:
                         </p>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground dark:text-gray-400 leading-relaxed">
                           {selectedPackage
                             ? `${destination.name} ${formatDataAmount(selectedPackage)} ${selectedPackage.validity} Days`
                             : `Select a plan from the right`}
                         </p>
                       </div>
                       <div>
-                        <p className="text-sm font-semibold text-foreground mb-1">Compatibility:</p>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm font-semibold text-foreground dark:text-white mb-1">Compatibility:</p>
+                        <p className="text-sm text-muted-foreground dark:text-gray-400 leading-relaxed">
                           All eSIM-compatible devices are supported.
                         </p>
                       </div>
                       <div>
-                        <p className="text-sm font-semibold text-foreground mb-1">
+                        <p className="text-sm font-semibold text-foreground dark:text-white mb-1">
                           Instant Delivery:
                         </p>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm text-muted-foreground dark:text-gray-400 leading-relaxed">
                           Get your eSIM plan ready instantly. Scan the QR code or follow the
                           instructions on the confirmation page to install.
                         </p>
@@ -488,8 +488,8 @@ export default function DestinationDetails() {
                       <div className="flex items-center gap-3 text-sm">
                         <Signal className="w-5 h-5 text-green-500" />
                         <div>
-                          <span className="font-medium text-foreground">Speed:</span>
-                          <span className="text-muted-foreground ml-2">
+                          <span className="font-medium text-foreground dark:text-white">Speed:</span>
+                          <span className="text-muted-foreground dark:text-gray-400 ml-2">
                             4G LTE & 5G where available
                           </span>
                         </div>
@@ -497,8 +497,8 @@ export default function DestinationDetails() {
                       <div className="flex items-center gap-3 text-sm">
                         <Globe className="w-5 h-5 text-green-500" />
                         <div>
-                          <span className="font-medium text-foreground">Coverage:</span>
-                          <span className="text-muted-foreground ml-2">
+                          <span className="font-medium text-foreground dark:text-white">Coverage:</span>
+                          <span className="text-muted-foreground dark:text-gray-400 ml-2">
                             Strong in cities; may vary in remote areas
                           </span>
                         </div>
@@ -506,8 +506,8 @@ export default function DestinationDetails() {
                       <div className="flex items-center gap-3 text-sm">
                         <Wifi className="w-5 h-5 text-green-500" />
                         <div>
-                          <span className="font-medium text-foreground">Networks:</span>
-                          <span className="text-muted-foreground ml-2">
+                          <span className="font-medium text-foreground dark:text-white">Networks:</span>
+                          <span className="text-muted-foreground dark:text-gray-400 ml-2">
                             Multiple network operators in {destination.name}
                           </span>
                         </div>
@@ -522,7 +522,7 @@ export default function DestinationDetails() {
             <div className="space-y-6">
               <div>
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded overflow-hidden border border-border flex-shrink-0 bg-white dark:bg-slate-800 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded overflow-hidden border border-border dark:border-gray-700 flex-shrink-0 bg-white dark:bg-gray-800 flex items-center justify-center shadow-sm">
                     {destination.image ? (
                       <img
                         src={destination.image}
@@ -537,11 +537,11 @@ export default function DestinationDetails() {
                       />
                     )}
                   </div>
-                  <h1 className="text-2xl md:text-3xl font-bold text-foreground">
+                  <h1 className="text-2xl md:text-3xl font-bold text-foreground dark:text-white tracking-tight">
                     eSIM for {destination.name}
                   </h1>
                 </div>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground dark:text-gray-400 leading-relaxed">
                   Buy prepaid eSIM for {destination.name}. Enjoy reliable and fast connections when
                   traveling to {destination.name}.
                 </p>
@@ -555,9 +555,9 @@ export default function DestinationDetails() {
 
                   {/* Choose Plan Section */}
                   <div className="flex-1 w-full sm:w-auto">
-                    <h2 className="text-xl font-bold text-foreground tracking-tight leading-tight">{t('destination.choosePlan', 'Choose your data plan')}</h2>
+                    <h2 className="text-xl font-bold text-foreground dark:text-white tracking-tight leading-tight">{t('destination.choosePlan', 'Choose your data plan')}</h2>
                     <div className="flex items-center gap-2 mt-1">
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-sm text-muted-foreground dark:text-gray-400 font-medium">
                         {packageOptions.length} plan{packageOptions.length !== 1 ? 's' : ''} available
                       </p>
                       {activeFiltersCount > 0 && (
@@ -565,7 +565,7 @@ export default function DestinationDetails() {
                           variant="ghost"
                           size="sm"
                           onClick={clearAllFilters}
-                          className="text-xs h-6 px-2 text-muted-foreground hover:text-foreground"
+                          className="text-xs h-6 px-2 text-muted-foreground dark:text-gray-500 hover:text-foreground dark:hover:text-white"
                         >
                           <X className="w-3 h-3 mr-1" />{t('destination.clearFilters', 'Clear filters')}</Button>
                       )}
@@ -575,21 +575,21 @@ export default function DestinationDetails() {
                   {/* Filter Toggle Button */}
                   <button
                     onClick={() => setShowFilters(!showFilters)}
-                    className="flex items-center gap-3 px-4 py-3 bg-card border border-border rounded-xl hover:bg-accent/50 hover:border-[var(--primary)]/50 transition-all cursor-pointer group w-full sm:w-auto"
+                    className="flex items-center gap-3 px-4 py-3 bg-card dark:bg-gray-900 border border-border dark:border-gray-800 rounded-xl hover:bg-accent/50 dark:hover:bg-gray-800 hover:border-[var(--primary)]/50 transition-all cursor-pointer group w-full sm:w-auto shadow-sm"
                   >
                     <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary/10 to-primary/5 dark:from-[var(--primary)]/20 dark:to-[var(--primary)]/10 flex items-center justify-center group-hover:scale-105 transition-transform">
                       <Filter className="w-5 h-5 text-primary-second dark:text-[var(--primary-light)]" />
                     </div>
                     <div className="text-left flex-1">
                       <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-foreground">{t('destination.filtersAndSorting', 'Filters & Sorting')}</h3>
+                        <h3 className="font-semibold text-foreground dark:text-white">{t('destination.filtersAndSorting', 'Filters & Sorting')}</h3>
                         {activeFiltersCount > 0 && (
                           <span className="px-2 py-0.5 text-xs font-medium bg-[var(--primary)] text-white rounded-full">
                             {activeFiltersCount}
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-xs text-muted-foreground dark:text-gray-500 font-medium">
                         {activeFiltersCount > 0
                           ? `${activeFiltersCount} filter${activeFiltersCount !== 1 ? 's' : ''} active`
                           : 'Click to filter plans'
@@ -597,7 +597,7 @@ export default function DestinationDetails() {
                       </p>
                     </div>
                     <div className={`transition-transform duration-200 ${showFilters ? 'rotate-180' : ''}`}>
-                      <ChevronDown className="w-5 h-5 text-muted-foreground" />
+                      <ChevronDown className="w-5 h-5 text-muted-foreground dark:text-gray-500" />
                     </div>
                   </button>
 
@@ -606,13 +606,13 @@ export default function DestinationDetails() {
 
                 {/* Collapsible Filter Panel */}
                 <div
-                  className={`transition-all duration-300 ease-in-out overflow-hidden ${showFilters ? 'max-h-96 opacity-100 mb-4' : 'max-h-0 opacity-0'
+                  className={`transition-all duration-300 ease-in-out overflow-hidden ${showFilters ? 'max-h-[600px] opacity-100 mb-4' : 'max-h-0 opacity-0'
                     }`}
                 >
-                  <div className="bg-gradient-to-br from-card to-card/50 border border-border rounded-xl p-4 space-y-4 shadow-sm">
+                  <div className="bg-gradient-to-br from-card to-card/50 dark:from-gray-900 dark:to-gray-950 border border-border dark:border-gray-800 rounded-xl p-4 space-y-4 shadow-md">
                     {/* Sort By */}
                     <div>
-                      <label className="text-sm font-medium text-foreground mb-3 flex items-center gap-2">
+                      <label className="text-sm font-medium text-foreground dark:text-white mb-3 flex items-center gap-2">
                         <div className="w-6 h-6 rounded-md bg-gradient-to-br from-green-100 to-green-50 dark:from-green-500/20 dark:to-green-500/10 flex items-center justify-center">
                           <TrendingUp className="w-3.5 h-3.5 text-green-600 dark:text-green-400" />
                         </div>
@@ -626,7 +626,7 @@ export default function DestinationDetails() {
                             setSortBy(sortBy === 'priceLowToHigh' ? '' : 'priceLowToHigh');
                             setPage(1);
                           }}
-                          className="w-full text-xs h-9 font-medium"
+                          className="w-full text-xs h-9 font-medium dark:border-gray-700 dark:hover:bg-gray-800"
                         >{t('destination.lowToHigh', '💰 Low to High')}</Button>
                         <Button
                           variant={sortBy === 'priceHighToLow' ? 'default' : 'outline'}
@@ -635,14 +635,14 @@ export default function DestinationDetails() {
                             setSortBy(sortBy === 'priceHighToLow' ? '' : 'priceHighToLow');
                             setPage(1);
                           }}
-                          className="w-full text-xs h-9 font-medium"
+                          className="w-full text-xs h-9 font-medium dark:border-gray-700 dark:hover:bg-gray-800"
                         >{t('destination.highToLow', '💎 High to Low')}</Button>
                       </div>
                     </div>
 
                     {/* Filter Options */}
                     <div>
-                      <label className="text-sm font-medium text-foreground mb-3 flex items-center gap-2">
+                      <label className="text-sm font-medium text-foreground dark:text-white mb-3 flex items-center gap-2">
                         <div className="w-6 h-6 rounded-md bg-gradient-to-br from-primary/10 to-primary/5 dark:from-[var(--primary)]/20 dark:to-[var(--primary)]/10 flex items-center justify-center">
                           <Filter className="w-3.5 h-3.5 text-primary-second dark:text-[var(--primary-light)]" />
                         </div>{t('destination.filterBy', 'Filter By')}</label>
@@ -654,7 +654,7 @@ export default function DestinationDetails() {
                             setFilterUnlimited(!filterUnlimited);
                             setPage(1);
                           }}
-                          className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
+                          className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium dark:border-gray-700 dark:hover:bg-gray-800"
                         >
                           <Sparkles className="w-3.5 h-3.5 mr-2 flex-shrink-0" />{t('destination.unlimited', 'Unlimited')}</Button>
                         <Button
@@ -664,7 +664,7 @@ export default function DestinationDetails() {
                             setFilterBestPrice(!filterBestPrice);
                             setPage(1);
                           }}
-                          className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
+                          className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium dark:border-gray-700 dark:hover:bg-gray-800"
                         >
                           <Award className="w-3.5 h-3.5 mr-2 flex-shrink-0" />{t('destination.bestPrice', 'Best Price')}</Button>
                         <Button
@@ -674,7 +674,7 @@ export default function DestinationDetails() {
                             setFilterPopular(!filterPopular);
                             setPage(1);
                           }}
-                          className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
+                          className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium dark:border-gray-700 dark:hover:bg-gray-800"
                         >
                           <Star className="w-3.5 h-3.5 mr-2 flex-shrink-0" />{t('destination.popular', 'Popular')}</Button>
                         <Button
@@ -684,7 +684,7 @@ export default function DestinationDetails() {
                             setFilterDataPack(!filterDataPack);
                             setPage(1);
                           }}
-                          className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
+                          className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium dark:border-gray-700 dark:hover:bg-gray-800"
                         >
                           <Wifi className="w-3.5 h-3.5 mr-2 flex-shrink-0" />{t('destination.dataOnly', 'Data Only')}</Button>
                         <Button
@@ -694,7 +694,7 @@ export default function DestinationDetails() {
                             setFilterDataAndVoice(!filterDataAndVoice);
                             setPage(1);
                           }}
-                          className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium"
+                          className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium dark:border-gray-700 dark:hover:bg-gray-800"
                         >
                           <Wifi className="w-3.5 h-3.5 mr-2 flex-shrink-0" />{t('destination.dataVoice', 'Data + Voice')}</Button>
                         <Button
@@ -704,7 +704,7 @@ export default function DestinationDetails() {
                             setFilterVoiceAndDataAndSmsPack(!filterVoiceAndDataAndSmsPack);
                             setPage(1);
                           }}
-                          className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium whitespace-normal text-left leading-tight"
+                          className="w-full justify-start text-xs h-auto min-h-9 py-2 font-medium whitespace-normal text-left leading-tight dark:border-gray-700 dark:hover:bg-gray-800"
                         >
                           <Wifi className="w-3.5 h-3.5 mr-2 flex-shrink-0" />{t('destination.dataVoiceSms', 'Data + Voice + SMS')}</Button>
                       </div>
@@ -717,8 +717,8 @@ export default function DestinationDetails() {
               <div className="w-full pb-28"> {/* Added large bottom padding so fixed mobile footer doesn't overlap cards */}
                 <div
                   className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ${packageOptions.length > 9
-                      ? 'max-h-[500px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-[var(--primary)]/20 scrollbar-track-transparent hover:scrollbar-thumb-[var(--primary)]/40'
-                      : ''
+                    ? 'max-h-[500px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-[var(--primary)]/20 dark:scrollbar-thumb-primary/20 scrollbar-track-transparent hover:scrollbar-thumb-[var(--primary)]/40 dark:hover:scrollbar-thumb-primary/40'
+                    : ''
                     }`}
                 >
                   {packageOptions.map((pkg, index) => {
@@ -735,8 +735,8 @@ export default function DestinationDetails() {
                         key={pkg.id}
                         onClick={() => setSelectedPackage(pkg)}
                         className={`relative w-full flex flex-col justify-between p-4 sm:p-5 rounded-2xl border-2 transition-all text-left overflow-visible group ${isSelected
-                            ? 'border-[var(--primary)] bg-gradient-to-br from-primary/5/50 to-primary/10/30 dark:from-[var(--primary)]/10 dark:to-[var(--primary)]/20 shadow-lg shadow-[var(--primary)]/20 scale-[1.01]'
-                            : 'border-border bg-card hover:border-[var(--primary)]/30 hover:shadow-md hover:scale-[1.01]'
+                          ? 'border-[var(--primary)] bg-gradient-to-br from-primary/5/50 to-primary/10/30 dark:from-primary/20 dark:to-primary/10 shadow-lg shadow-[var(--primary)]/20 dark:shadow-primary/10 scale-[1.01]'
+                          : 'border-border dark:border-gray-800 bg-card dark:bg-gray-900 hover:border-[var(--primary)]/30 dark:hover:border-primary/40 hover:shadow-md dark:hover:shadow-primary/5 hover:scale-[1.01]'
                           }`}
                         data-testid={`button-package-${pkg.dataAmount}`}
                       >
@@ -781,8 +781,8 @@ export default function DestinationDetails() {
                           <div className="flex items-center gap-3 mt-2 mb-2">
                             <div
                               className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${isSelected
-                                  ? 'bg-[var(--primary)] text-white'
-                                  : 'bg-gradient-to-br from-primary/10 to-primary/5 dark:from-[var(--primary)]/20 dark:to-[var(--primary)]/10 text-primary-second dark:text-[var(--primary-light)]'
+                                ? 'bg-[var(--primary)] text-white shadow-sm'
+                                : 'bg-gradient-to-br from-primary/10 to-primary/5 dark:from-primary/20 dark:to-primary/10 text-primary-second dark:text-primary-light'
                                 }`}
                             >
                               <Wifi className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -790,12 +790,12 @@ export default function DestinationDetails() {
 
                             {/* Stacked Data Amount and Validity nicely inside a vertical block */}
                             <div>
-                              <p className="text-base sm:text-lg font-bold text-foreground leading-tight">
+                              <p className="text-base sm:text-lg font-bold text-foreground dark:text-white leading-tight">
                                 {formatDataAmount(pkg)}
                               </p>
                               <div className="flex items-center gap-1 mt-0.5">
-                                <Clock className="w-3 h-3 text-muted-foreground flex-shrink-0" />
-                                <p className="text-xs font-medium text-muted-foreground">
+                                <Clock className="w-3 h-3 text-muted-foreground dark:text-gray-500 flex-shrink-0" />
+                                <p className="text-xs font-medium text-muted-foreground dark:text-gray-400">
                                   {pkg.validity} Days
                                 </p>
                               </div>
@@ -805,10 +805,10 @@ export default function DestinationDetails() {
                           {/* Voice & SMS Panel */}
                           {((pkg.voiceMinutes !== null && pkg.voiceMinutes > 0) ||
                             (pkg.smsCount !== null && pkg.smsCount > 0)) && (
-                              <div className="flex flex-wrap gap-2 mt-2 p-2 rounded-xl bg-accent/50 w-full">
+                              <div className="flex flex-wrap gap-2 mt-2 p-2 rounded-xl bg-accent/50 dark:bg-white/5 w-full border border-black/5 dark:border-white/5">
                                 {pkg.voiceMinutes !== null && pkg.voiceMinutes > 0 && (
                                   <span
-                                    className="flex items-center gap-1 text-[11px] sm:text-xs font-medium text-foreground"
+                                    className="flex items-center gap-1 text-[11px] sm:text-xs font-medium text-foreground dark:text-gray-200"
                                     data-testid={`voice-${pkg.id}`}
                                   >
                                     <Phone className="w-3.5 h-3.5 text-green-600 dark:text-green-400" />
@@ -818,7 +818,7 @@ export default function DestinationDetails() {
 
                                 {pkg.smsCount !== null && pkg.smsCount > 0 && (
                                   <span
-                                    className="flex items-center gap-1 text-[11px] sm:text-xs font-medium text-foreground"
+                                    className="flex items-center gap-1 text-[11px] sm:text-xs font-medium text-foreground dark:text-gray-200"
                                     data-testid={`sms-${pkg.id}`}
                                   >
                                     <MessageCircle className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
@@ -830,13 +830,13 @@ export default function DestinationDetails() {
                         </div>
 
                         {/* Bottom Section: Separated line with Price on left and Radio on right */}
-                        <div className="flex items-center justify-between pt-3 border-t border-border mt-auto w-full gap-2">
+                        <div className="flex items-center justify-between pt-3 border-t border-border dark:border-gray-800 mt-auto w-full gap-2">
                           <div className="min-w-0">
                             <div className="flex items-baseline gap-1 whitespace-nowrap">
-                              <span className="text-base sm:text-lg font-bold text-foreground">
+                              <span className="text-base sm:text-lg font-bold text-foreground dark:text-white">
                                 {getCurrencySymbol(pkg.currency)}{pkg.price}
                               </span>
-                              <span className="text-[10px] sm:text-xs text-muted-foreground font-semibold uppercase tracking-wider">
+                              <span className="text-[10px] sm:text-xs text-muted-foreground dark:text-gray-500 font-semibold uppercase tracking-wider">
                                 {pkg.currency}
                               </span>
                             </div>
@@ -845,8 +845,8 @@ export default function DestinationDetails() {
                           {/* Radio Action Button Wrapper */}
                           <div
                             className={`w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 flex items-center justify-center transition-all flex-shrink-0 ${isSelected
-                                ? 'border-[var(--primary)] bg-[var(--primary)] scale-105'
-                                : 'border-muted-foreground/30 group-hover:border-[var(--primary)]/50'
+                              ? 'border-[var(--primary)] bg-[var(--primary)] scale-105 shadow-sm'
+                              : 'border-muted-foreground/30 dark:border-gray-700 group-hover:border-[var(--primary)]/50'
                               }`}
                           >
                             {isSelected && (
@@ -862,7 +862,7 @@ export default function DestinationDetails() {
 
               {/* Pagination */}
               {pagination && pagination.totalPages > 1 && (
-                <Card className="border shadow-sm">
+                <Card className="border dark:border-gray-800 shadow-sm dark:bg-gray-900">
                   <CardContent className="p-4">
                     <div className="flex justify-between items-center">
                       <Button
@@ -870,15 +870,15 @@ export default function DestinationDetails() {
                         size="sm"
                         disabled={!pagination.hasPrevPage}
                         onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-                        className="gap-2"
+                        className="gap-2 dark:border-gray-700 dark:hover:bg-gray-800"
                       >
                         <ChevronUp className="w-4 h-4 rotate-[-90deg]" />
                         Previous
                       </Button>
 
                       <div className="flex items-center gap-2">
-                        <span className="text-sm text-muted-foreground">
-                          Page {pagination.page} of {pagination.totalPages}
+                        <span className="text-sm text-muted-foreground dark:text-gray-400">
+                          Page <span className="text-foreground dark:text-white font-medium">{pagination.page}</span> of <span className="text-foreground dark:text-white font-medium">{pagination.totalPages}</span>
                         </span>
                       </div>
 
@@ -887,7 +887,7 @@ export default function DestinationDetails() {
                         size="sm"
                         disabled={!pagination.hasNextPage}
                         onClick={() => setPage((prev) => prev + 1)}
-                        className="gap-2"
+                        className="gap-2 dark:border-gray-700 dark:hover:bg-gray-800"
                       >
                         Next
                         <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
@@ -899,51 +899,53 @@ export default function DestinationDetails() {
 
               {/* Checkout Card */}
               <div className="lg:sticky lg:top-24">
-                <Card className="shadow-lg border-0 bg-gradient-to-br from-primary/5 to-primary/5 dark:from-[var(--primary)]/10 dark:to-[var(--primary)]/10">
-                  <CardContent className="p-4">
+                <Card className="shadow-lg border-0 bg-gradient-to-br from-primary/5 to-primary/5 dark:from-primary/20 dark:to-primary/10 overflow-hidden relative">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
+                  <CardContent className="p-5 relative z-10">
                     {selectedPackage ? (
                       <>
-                        <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center justify-between mb-5">
                           <div>
-                            <p className="text-sm text-muted-foreground">Selected Plan</p>
-                            <p className="font-semibold text-foreground">
+                            <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground dark:text-gray-500 mb-1">Selected Plan</p>
+                            <p className="font-bold text-foreground dark:text-white text-lg">
                               {formatDataAmount(selectedPackage)} - {selectedPackage.validity} Days
                             </p>
                           </div>
                           <div className="text-right">
-                            <p className="text-2xl font-bold text-foreground">
+                            <p className="text-2xl font-black text-foreground dark:text-white">
                               {getCurrencySymbol(selectedPackage.currency)}
                               {selectedPackage.price}
                             </p>
-                            <p className="text-xs text-muted-foreground">
+                            <p className="text-xs font-bold text-muted-foreground dark:text-gray-500 uppercase">
                               {selectedPackage.currency}
                             </p>
                           </div>
                         </div>
                         <Button
                           onClick={(e) => handleGetPlanClick(e, selectedPackage)}
-                          className="w-full bg-primary-gradient hover:bg-primary-gradient-hover text-white"
+                          className="w-full bg-primary-gradient hover:bg-primary-gradient-hover text-white font-bold h-12 rounded-xl shadow-lg shadow-primary/20 transition-all hover:scale-[1.01] active:scale-[0.99]"
                           data-testid="button-checkout"
                         >
                           Buy Now
                         </Button>
-                        <div className="mt-3 flex items-center justify-center gap-4 text-xs text-muted-foreground">
-                          <div className="flex items-center gap-1">
-                            <Smartphone className="w-3 h-3" />
-                            <span>Check compatibility</span>
+                        <div className="mt-4 grid grid-cols-2 gap-4">
+                          <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-medium text-muted-foreground dark:text-gray-500">
+                            <Smartphone className="w-3.5 h-3.5 text-primary-second dark:text-primary-light" />
+                            <span>eSIM Compatible</span>
                           </div>
-                        </div>
-
-                        <div className="mt-3 flex items-center justify-center gap-2 text-xs text-muted-foreground">
-                          <Shield className="w-4 h-4 text-green-500" />
-                          <span>Secure payment guaranteed</span>
+                          <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-medium text-muted-foreground dark:text-gray-500">
+                            <Shield className="w-3.5 h-3.5 text-green-500" />
+                            <span>Secure Payment</span>
+                          </div>
                         </div>
                       </>
                     ) : (
-                      <div className="text-center py-4">
-                        <Smartphone className="w-10 h-10 text-muted-foreground mx-auto mb-3" />
-                        <p className="font-medium text-foreground">Select a data plan above</p>
-                        <p className="text-sm text-muted-foreground">
+                      <div className="text-center py-6">
+                        <div className="w-12 h-12 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center mx-auto mb-3">
+                          <Smartphone className="w-6 h-6 text-primary-second dark:text-primary-light" />
+                        </div>
+                        <p className="font-bold text-foreground dark:text-white">Select a data plan above</p>
+                        <p className="text-sm text-muted-foreground dark:text-gray-400 mt-1">
                           Choose the best option for your trip
                         </p>
                       </div>
@@ -955,70 +957,70 @@ export default function DestinationDetails() {
           </div>
 
           {/* How to Setup Section */}
-          <section className="mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-4">
+          <section className="mb-20">
+            <h2 className="text-2xl md:text-4xl font-black text-center text-foreground dark:text-white mb-4 tracking-tight">
               How to setup your {destination.name} eSIM
             </h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            <p className="text-center text-muted-foreground dark:text-gray-400 mb-12 max-w-2xl mx-auto font-medium">
               Get connected in just 3 simple steps
             </p>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <Card className="text-center border-0 shadow-lg">
-                <CardContent className="p-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-primary/10 dark:from-[var(--primary)]/20 dark:to-[var(--primary)]/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <CreditCard className="w-8 h-8 text-primary-second dark:text-[var(--primary-light)]" />
+              <Card className="text-center border-0 shadow-xl dark:bg-gray-900 overflow-hidden group">
+                <CardContent className="p-8">
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary/10 to-primary/10 dark:from-primary/20 dark:to-primary/20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-inner group-hover:scale-110 transition-transform">
+                    <CreditCard className="w-8 h-8 text-primary-second dark:text-primary-light" />
                   </div>
-                  <Badge variant="outline" className="mb-3">
+                  <Badge variant="outline" className="mb-4 bg-primary/5 dark:bg-primary/20 dark:text-primary-light dark:border-primary/30">
                     Step 1
                   </Badge>
-                  <h3 className="font-semibold text-foreground mb-2">
-                    Choose a data plan for your trip
+                  <h3 className="font-bold text-foreground dark:text-white text-lg mb-3">
+                    Choose a data plan
                   </h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground dark:text-gray-400 leading-relaxed">
                     Find the best eSIM plan tailored to your destination.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="text-center border-0 shadow-lg">
-                <CardContent className="p-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-amber-100 dark:from-green-500/20 dark:to-amber-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <Card className="text-center border-0 shadow-xl dark:bg-gray-900 overflow-hidden group">
+                <CardContent className="p-8">
+                  <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-amber-100 dark:from-green-500/20 dark:to-amber-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-inner group-hover:scale-110 transition-transform">
                     <ScanLine className="w-8 h-8 text-green-600 dark:text-green-400" />
                   </div>
-                  <Badge variant="outline" className="mb-3">
+                  <Badge variant="outline" className="mb-4 bg-green-50 dark:bg-green-500/20 dark:text-green-400 dark:border-green-500/30">
                     Step 2
                   </Badge>
-                  <h3 className="font-semibold text-foreground mb-2">
-                    Scan the QR code to activate
+                  <h3 className="font-bold text-foreground dark:text-white text-lg mb-3">
+                    Scan the QR code
                   </h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground dark:text-gray-400 leading-relaxed">
                     Instantly install and set up your eSIM in seconds.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="text-center border-0 shadow-lg">
-                <CardContent className="p-6">
-                  <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-500/20 dark:to-emerald-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <Card className="text-center border-0 shadow-xl dark:bg-gray-900 overflow-hidden group">
+                <CardContent className="p-8">
+                  <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-500/20 dark:to-emerald-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-inner group-hover:scale-110 transition-transform">
                     <Signal className="w-8 h-8 text-green-600 dark:text-green-400" />
                   </div>
-                  <Badge variant="outline" className="mb-3">
+                  <Badge variant="outline" className="mb-4 bg-emerald-50 dark:bg-emerald-500/20 dark:text-emerald-400 dark:border-emerald-500/30">
                     Step 3
                   </Badge>
-                  <h3 className="font-semibold text-foreground mb-2">
-                    Enjoy fast 4G/5G data abroad
+                  <h3 className="font-bold text-foreground dark:text-white text-lg mb-3">
+                    Enjoy fast data abroad
                   </h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-muted-foreground dark:text-gray-400 leading-relaxed">
                     Stay connected anywhere with reliable high-speed internet.
                   </p>
                 </CardContent>
               </Card>
             </div>
 
-            <div className="text-center mt-8">
+            <div className="text-center mt-10">
               <Button
-                className="bg-primary-gradient text-white px-8"
+                className="bg-primary-gradient text-white px-10 h-12 rounded-full font-bold shadow-lg shadow-primary/20 transition-all hover:scale-[1.02]"
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               >
                 Get started now
@@ -1027,95 +1029,66 @@ export default function DestinationDetails() {
           </section>
 
           {/* Why Choose Us Section */}
-          <section className="mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-4">
+          <section className="mb-20">
+            <h2 className="text-2xl md:text-4xl font-black text-center text-foreground dark:text-white mb-4 tracking-tight">
               Why choose {siteName} for your
               <br />
               {destination.name} trip
             </h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            <p className="text-center text-muted-foreground dark:text-gray-400 mb-12 max-w-2xl mx-auto font-medium">
               Experience hassle-free connectivity with our premium eSIM service
             </p>
 
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <Card className="border-0 shadow-lg text-center">
-                <CardContent className="p-6">
-                  <div className="w-14 h-14 bg-primary/10 dark:bg-[var(--primary)]/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <Wifi className="w-7 h-7 text-primary-second dark:text-[var(--primary-light)]" />
-                  </div>
-                  <h3 className="font-semibold text-foreground mb-2">Unlimited data plans</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Stay connected with fast data worldwide.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-0 shadow-lg text-center">
-                <CardContent className="p-6">
-                  <div className="w-14 h-14 bg-green-100 dark:bg-green-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <Globe className="w-7 h-7 text-green-600 dark:text-green-400" />
-                  </div>
-                  <h3 className="font-semibold text-foreground mb-2">No roaming charges</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Travel freely without extra charges.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-0 shadow-lg text-center">
-                <CardContent className="p-6">
-                  <div className="w-14 h-14 bg-green-100 dark:bg-green-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <Phone className="w-7 h-7 text-green-600 dark:text-green-400" />
-                  </div>
-                  <h3 className="font-semibold text-foreground mb-2">Keep physical SIM</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Keep your local SIM for calls and texts.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-0 shadow-lg text-center">
-                <CardContent className="p-6">
-                  <div className="w-14 h-14 bg-primary/10 dark:bg-[var(--primary)]/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <Zap className="w-7 h-7 text-primary-second dark:text-[var(--primary-light)]" />
-                  </div>
-                  <h3 className="font-semibold text-foreground mb-2">Quick eSIM setup</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Activate online and connect in minutes.
-                  </p>
-                </CardContent>
-              </Card>
+              {[
+                { icon: Wifi, title: 'Unlimited data plans', desc: 'Stay connected with fast data worldwide.', color: 'primary' },
+                { icon: Globe, title: 'No roaming charges', desc: 'Travel freely without extra charges.', color: 'green' },
+                { icon: Phone, title: 'Keep physical SIM', desc: 'Keep your local SIM for calls and texts.', color: 'green' },
+                { icon: Zap, title: 'Quick eSIM setup', desc: 'Activate online and connect in minutes.', color: 'primary' }
+              ].map((item, i) => (
+                <Card key={i} className="border-0 shadow-lg text-center dark:bg-gray-900 group hover:-translate-y-1 transition-all">
+                  <CardContent className="p-8">
+                    <div className={`w-14 h-14 bg-${item.color === 'primary' ? 'primary/10' : 'green-100'} dark:bg-${item.color === 'primary' ? 'primary/20' : 'green-500/20'} rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-inner`}>
+                      <item.icon className={`w-7 h-7 text-${item.color === 'primary' ? 'primary-second' : 'green-600'} dark:text-${item.color === 'primary' ? 'primary-light' : 'green-400'}`} />
+                    </div>
+                    <h3 className="font-bold text-foreground dark:text-white mb-2 text-lg">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400 leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </section>
 
           {/* FAQ Section */}
-          <section className="mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-4">
+          <section className="mb-20">
+            <h2 className="text-2xl md:text-4xl font-black text-center text-foreground dark:text-white mb-4 tracking-tight">
               FAQs about eSIM {destination.name}
             </h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            <p className="text-center text-muted-foreground dark:text-gray-400 mb-12 max-w-2xl mx-auto font-medium">
               Everything you need to know about using eSIM in {destination.name}
             </p>
 
             <div className="grid lg:grid-cols-3 gap-8">
-              <div className="lg:col-span-2 space-y-3">
+              <div className="lg:col-span-2 space-y-4">
                 {faqs.map((faq, index) => (
-                  <Card key={index} className="border shadow-sm overflow-hidden">
+                  <Card key={index} className="border dark:border-gray-800 shadow-sm overflow-hidden dark:bg-gray-900 transition-all hover:border-primary/30">
                     <button
                       onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                      className="w-full p-4 flex items-center justify-between text-left"
+                      className="w-full p-5 flex items-center justify-between text-left"
                       data-testid={`faq-toggle-${index}`}
                     >
-                      <span className="font-medium text-foreground pr-4">{faq.question}</span>
+                      <span className="font-bold text-foreground dark:text-white pr-4">{faq.question}</span>
                       {openFaq === index ? (
-                        <ChevronUp className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+                        <ChevronUp className="h-5 w-5 text-primary flex-shrink-0" />
                       ) : (
-                        <ChevronDown className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+                        <ChevronDown className="h-5 w-5 text-muted-foreground dark:text-gray-500 flex-shrink-0" />
                       )}
                     </button>
                     {openFaq === index && (
-                      <div className="px-4 pb-4">
-                        <p className="text-sm text-muted-foreground">{faq.answer}</p>
+                      <div className="px-5 pb-5 border-t border-border dark:border-gray-800 pt-4 bg-muted/30 dark:bg-black/10">
+                        <p className="text-sm text-muted-foreground dark:text-gray-400 leading-relaxed font-medium">{faq.answer}</p>
                       </div>
                     )}
                   </Card>
@@ -1123,21 +1096,22 @@ export default function DestinationDetails() {
               </div>
 
               <div>
-                <Card className="border-0 shadow-lg bg-gradient-to-br from-primary/5 to-primary/5 dark:from-[var(--primary)]/10 dark:to-[var(--primary)]/10">
-                  <CardContent className="p-6 text-center">
-                    <div className="w-16 h-16 bg-white dark:bg-card rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
-                      <Headphones className="w-8 h-8 text-primary-second dark:text-[var(--primary-light)]" />
+                <Card className="border-0 shadow-2xl bg-gradient-to-br from-primary/5 to-primary/5 dark:from-gray-700/20 dark:to-gray-700/10 overflow-hidden relative">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
+                  <CardContent className="p-8 text-center relative z-10">
+                    <div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                      <Headphones className="w-8 h-8 text-primary-second dark:text-primary-light" />
                     </div>
-                    <Badge variant="outline" className="mb-3 bg-white dark:bg-card">
+                    <Badge variant="outline" className="mb-4 bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 font-bold uppercase tracking-widest text-[10px]">
                       support
                     </Badge>
-                    <h3 className="font-semibold text-foreground mb-2">Need more help?</h3>
-                    <p className="text-sm text-muted-foreground mb-4">
+                    <h3 className="font-black text-foreground dark:text-white text-xl mb-3">Need more help?</h3>
+                    <p className="text-sm text-muted-foreground dark:text-gray-400 mb-6 leading-relaxed">
                       Can't find what you're looking for? Our support team is available 24/7 by
                       email or chat.
                     </p>
                     <Link href="/help-center">
-                      <Button variant="outline" className="w-full">
+                      <Button variant="default" className="w-full h-11 font-bold rounded-xl shadow-md">
                         Visit Help Center
                       </Button>
                     </Link>
@@ -1149,45 +1123,45 @@ export default function DestinationDetails() {
 
           {/* Testimonials Section */}
           <section className="mb-16">
-            <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-4">
+            <h2 className="text-2xl md:text-4xl font-black text-center text-foreground dark:text-white mb-4 tracking-tight">
               What travelers say about {siteName}
             </h2>
-            <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            <p className="text-center text-muted-foreground dark:text-gray-400 mb-12 max-w-2xl mx-auto font-medium">
               Join thousands of happy travelers who stay connected with us
             </p>
 
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-3 gap-8">
               {testimonials.map((testimonial, index) => (
-                <Card key={index} className="border-0 shadow-lg">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 bg-gradient-to-br from-[var(--primary-light)] to-[var(--primary)] rounded-full flex items-center justify-center text-white font-semibold">
+                <Card key={index} className="border-0 shadow-xl dark:bg-gray-900 transition-all hover:scale-[1.02]">
+                  <CardContent className="p-8">
+                    <div className="flex items-center gap-4 mb-6">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[var(--primary-light)] to-[var(--primary)] rounded-full flex items-center justify-center text-white font-black text-lg shadow-lg">
                         {testimonial.name.charAt(0)}
                       </div>
                       <div>
-                        <p className="font-medium text-foreground text-sm">{testimonial.name}</p>
-                        <p className="text-xs text-muted-foreground">{testimonial.handle}</p>
+                        <p className="font-bold text-foreground dark:text-white">{testimonial.name}</p>
+                        <p className="text-xs font-medium text-muted-foreground dark:text-gray-500 uppercase tracking-wider">{testimonial.handle}</p>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-1 mb-3">
+                    <div className="flex items-center gap-1 mb-4">
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className={`w-4 h-4 ${i < testimonial.rating ? 'text-amber-400 fill-amber-400' : 'text-muted-foreground/30'}`}
+                          className={`w-4 h-4 ${i < testimonial.rating ? 'text-amber-400 fill-amber-400' : 'text-muted-foreground/30 dark:text-gray-700'}`}
                         />
                       ))}
                     </div>
 
-                    <p className="text-sm text-muted-foreground">{testimonial.review}</p>
+                    <p className="text-sm text-muted-foreground dark:text-gray-300 leading-relaxed font-medium italic">"{testimonial.review}"</p>
                   </CardContent>
                 </Card>
               ))}
             </div>
 
-            <div className="text-center mt-8">
+            <div className="text-center mt-12">
               <Link href="/destinations">
-                <Button variant="outline" className="px-8">
+                <Button variant="outline" className="px-10 h-12 rounded-full font-bold dark:border-gray-700 dark:hover:bg-gray-800 transition-all">
                   View all destinations
                 </Button>
               </Link>

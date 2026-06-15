@@ -37,7 +37,7 @@ export default function ReferAFriend() {
         <meta name="description" content={t('referral.pageMeta', 'Refer a friend to {{siteName}} and you\'ll both get $5! Share your referral code and earn credits.', { siteName })} />
       </Helmet>
 
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background dark:bg-gray-950 dark:text-gray-100 transition-colors duration-300">
         <section className="relative overflow-hidden bg-hero-gradient text-white">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
@@ -80,32 +80,32 @@ export default function ReferAFriend() {
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-background">
+        <section className="py-16 md:py-24 bg-background dark:bg-gray-950">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('referral.howItWorksTitle', 'How it works')}</h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t('referral.howItWorksDesc', 'Earn credits in three simple steps.')}</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground dark:text-white mb-4">{t('referral.howItWorksTitle', 'How it works')}</h2>
+              <p className="text-muted-foreground dark:text-gray-400 text-lg max-w-2xl mx-auto">{t('referral.howItWorksDesc', 'Earn credits in three simple steps.')}</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {steps.map((step) => (
-                <div key={step.num} className="bg-card rounded-2xl p-8 border border-border text-center">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center mx-auto mb-6`}>
+                <div key={step.num} className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-border dark:border-gray-800 text-center shadow-sm">
+                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary/20`}>
                     <step.icon className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-3">{step.title}</h3>
-                  <p className="text-muted-foreground">{step.desc}</p>
+                  <h3 className="text-xl font-bold text-foreground dark:text-white mb-3">{step.title}</h3>
+                  <p className="text-muted-foreground dark:text-gray-400">{step.desc}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-slate-50">
+        <section className="py-16 md:py-24 bg-slate-50 dark:bg-gray-900/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">{t('referral.whyTitle', 'Why {{siteName}}?', { siteName })}</h2>
-                <p className="text-muted-foreground text-lg mb-8">
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground dark:text-white mb-6">{t('referral.whyTitle', 'Why {{siteName}}?', { siteName })}</h2>
+                <p className="text-muted-foreground dark:text-gray-400 text-lg mb-8 leading-relaxed">
                   {t('referral.whyDesc', '{{siteName}} is a global eSIM service that offers affordable, reliable connectivity in 200+ destinations. Now you and your friends can earn credits — simply join our referral program.', { siteName })}
                 </p>
                 <ul className="space-y-4">
@@ -118,16 +118,16 @@ export default function ReferAFriend() {
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-foreground">{item}</span>
+                      <span className="text-foreground dark:text-gray-300">{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="bg-card rounded-2xl border border-border p-8 text-center">
+              <div className="bg-white dark:bg-gray-900 rounded-2xl border border-border dark:border-gray-800 p-8 text-center shadow-lg">
                 <Sparkles className="w-12 h-12 text-primary mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-foreground mb-2">{t('referral.startEarningTitle', 'Start earning today')}</h3>
-                <p className="text-muted-foreground mb-6">{t('referral.startEarningDesc', 'Sign up and share your code to start getting rewards.')}</p>
-                <button onClick={() => navigate('/account/referrals')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-primary-dark text-white font-semibold text-lg hover:opacity-90 transition-opacity w-full justify-center">
+                <h3 className="text-2xl font-bold text-foreground dark:text-white mb-2">{t('referral.startEarningTitle', 'Start earning today')}</h3>
+                <p className="text-muted-foreground dark:text-gray-400 mb-6">{t('referral.startEarningDesc', 'Sign up and share your code to start getting rewards.')}</p>
+                <button onClick={() => navigate('/account/referrals')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-primary to-primary-dark text-white font-semibold text-lg hover:opacity-90 transition-opacity w-full justify-center shadow-lg shadow-primary/25">
                   {t('referral.getCodeBtn', 'Get Your Referral Code')} <ArrowRight className="w-5 h-5" />
                 </button>
               </div>
@@ -135,18 +135,18 @@ export default function ReferAFriend() {
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-background">
+        <section className="py-16 md:py-24 bg-background dark:bg-gray-950">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-12">{t('referral.faqTitle', 'Frequently asked questions')}</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground dark:text-white text-center mb-12">{t('referral.faqTitle', 'Frequently asked questions')}</h2>
             <div className="space-y-4">
               {faqs.map((faq, i) => (
-                <details key={i} className="group bg-card rounded-xl border border-border overflow-hidden">
+                <details key={i} className="group bg-white dark:bg-gray-900 rounded-xl border border-border dark:border-gray-800 overflow-hidden shadow-sm">
                   <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
-                    <h3 className="font-semibold text-foreground pr-4">{faq.q}</h3>
-                    <ArrowRight className="w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform group-open:rotate-90" />
+                    <h3 className="font-semibold text-foreground dark:text-white pr-4">{faq.q}</h3>
+                    <ArrowRight className="w-5 h-5 text-muted-foreground dark:text-gray-500 flex-shrink-0 transition-transform group-open:rotate-90" />
                   </summary>
                   <div className="px-6 pb-6 pt-0">
-                    <p className="text-muted-foreground">{faq.a}</p>
+                    <p className="text-muted-foreground dark:text-gray-400 leading-relaxed">{faq.a}</p>
                   </div>
                 </details>
               ))}

@@ -108,7 +108,7 @@ export function Reviews() {
 
 
   return (
-    <div className="min-h-screen bg-background dark:bg-gray-950 dark:text-gray-100 flex flex-col">
+    <div className="min-h-screen bg-background dark:bg-gray-950 dark:text-gray-100 flex flex-col transition-colors duration-300">
       <Helmet>
         <title>{t('website.reviews.pageTitle', '{{siteName}} Review and Rating — Should You Get It?', { siteName })}</title>
         <meta
@@ -118,14 +118,14 @@ export function Reviews() {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="py-16 md:py-24 lg:py-32 bg-white">
+      <section className="py-16 md:py-24 lg:py-32 bg-white dark:bg-gray-950">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight mb-4">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white leading-tight mb-4">
                 {t('website.reviews.heroTitle', '{{siteName}} review and rating: Should you get it?', { siteName })}
               </h1>
-              <p className="text-lg md:text-xl text-gray-500 mb-8">
+              <p className="text-lg md:text-xl text-gray-500 dark:text-gray-400 mb-8">
                 {t('website.reviews.heroSubtitle', 'An affordable eSIM service for global travelers')}
               </p>
               <Link href="/destinations">
@@ -135,38 +135,37 @@ export function Reviews() {
                 </span>
               </Link>
             </div>
-            <div className="bg-slate-100 rounded-2xl aspect-[4/3] flex flex-col items-center justify-center gap-4">
+            <div className="bg-slate-100 dark:bg-gray-900 rounded-2xl aspect-[4/3] flex flex-col items-center justify-center gap-4 border border-slate-200 dark:border-gray-800">
               <div className="flex gap-1">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star key={i} className="w-10 h-10 md:w-12 md:h-12 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <span className="text-gray-400 font-medium text-lg">{t('website.reviews.ratingLabel', '4.8 / 5 Rating')}</span>
+              <span className="text-gray-500 dark:text-gray-400 font-medium text-lg">{t('website.reviews.ratingLabel', '4.8 / 5 Rating')}</span>
             </div>
           </div>
         </div>
       </section>
 
       {/* Reasons to buy */}
-      <section className="py-16 md:py-24 bg-slate-50">
+      <section className="py-16 md:py-24 bg-background dark:bg-gray-950">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold mb-10 text-gray-900 dark:text-white">
             {t('website.reviews.reasonsToBuy', 'Reasons to buy')}
           </h2>
           <div className="flex gap-6 overflow-x-auto pb-4 md:pb-0 md:grid md:grid-cols-2 md:overflow-visible scrollbar-hide">
             {reasons.map((reason, index) => (
               <div
                 key={index}
-                className="min-w-[280px] md:min-w-0 bg-white rounded-2xl p-8 border border-gray-100 hover:border-green-200 hover:shadow-md transition-all duration-300"
+                className="min-w-[280px] md:min-w-0 bg-white dark:bg-gray-900 rounded-2xl p-8 border border-gray-100 dark:border-gray-800 hover:border-green-200 dark:hover:border-primary/30 hover:shadow-md transition-all duration-300"
               >
                 <div
-                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                  style={{ backgroundColor: 'rgba(44, 115, 56, 0.1)' }}
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 bg-primary/10 dark:bg-primary/20"
                 >
                   <reason.icon className="w-6 h-6 text-[var(--primary)]" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{reason.title}</h3>
-                <p className="text-gray-500 leading-relaxed">{reason.description}</p>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{reason.title}</h3>
+                <p className="text-gray-500 dark:text-gray-400 leading-relaxed">{reason.description}</p>
               </div>
             ))}
           </div>
@@ -223,24 +222,24 @@ export function Reviews() {
       </section> */}
 
       {/* Comparison Table */}
-      <section className="py-16 md:py-24 bg-slate-50">
+      <section className="py-16 md:py-24 bg-slate-50 dark:bg-gray-900/50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-10">
             {t('website.reviews.comparisonTitle', 'How does {{siteName}} compare with other eSIM providers?', { siteName })}
           </h2>
-          <div className="overflow-x-auto rounded-2xl border border-gray-200 bg-white">
+          <div className="overflow-x-auto rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
             <table className="w-full min-w-[600px]">
               <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left text-sm font-semibold text-gray-500 px-6 py-4">
+                <tr className="border-b border-gray-200 dark:border-gray-800">
+                  <th className="text-left text-sm font-semibold text-gray-500 dark:text-gray-400 px-6 py-4">
                     {t('website.reviews.featureColumn', 'Feature')}
                   </th>
                   {providersList.map((provider, index) => (
                     <th
                       key={provider + index}
                       className={`text-center text-sm font-semibold px-6 py-4 ${index === 0
-                        ? 'text-[var(--primary)] bg-green-50'
-                        : 'text-gray-500'
+                        ? 'text-[var(--primary)] bg-green-50 dark:bg-gray-900'
+                        : 'text-gray-500 dark:text-gray-400'
                         }`}
                     >
                       {provider}
@@ -252,15 +251,15 @@ export function Reviews() {
                 {comparisonFeatures.map((row, rowIndex) => (
                   <tr
                     key={rowIndex}
-                    className={rowIndex < comparisonFeatures.length - 1 ? 'border-b border-gray-100' : ''}
+                    className={rowIndex < comparisonFeatures.length - 1 ? 'border-b border-gray-100 dark:border-gray-800' : ''}
                   >
-                    <td className="text-sm text-gray-700 font-medium px-6 py-4">
+                    <td className="text-sm text-gray-700 dark:text-gray-300 font-medium px-6 py-4">
                       {row.feature}
                     </td>
                     {row.values.map((value, colIndex) => (
                       <td
                         key={colIndex}
-                        className={`text-center px-6 py-4 ${colIndex === 0 ? 'bg-green-50' : ''
+                        className={`text-center px-6 py-4 ${colIndex === 0 ? 'bg-green-50 dark:bg-gray-900' : ''
                           }`}
                       >
                         {value ? (

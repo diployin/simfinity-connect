@@ -46,7 +46,7 @@ export default function Careers() {
         <meta name="description" content={t('careers.pageMeta', 'Join {{siteName}} and help connect the world. Explore open positions and build the future of travel connectivity.', { siteName })} />
       </Helmet>
 
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background dark:bg-gray-950 dark:text-gray-100 transition-colors duration-300">
         <section className="relative overflow-hidden bg-hero-gradient text-white">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
@@ -71,44 +71,44 @@ export default function Careers() {
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-background">
+        <section className="py-16 md:py-24 bg-background dark:bg-gray-950">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('careers.whyWorkHere', 'Why work at {{siteName}}?', { siteName })}</h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t('careers.whySubtitle', 'We believe happy teams build great products. Here\'s what we offer.')}</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground dark:text-white mb-4">{t('careers.whyWorkHere', 'Why work at {{siteName}}?', { siteName })}</h2>
+              <p className="text-muted-foreground dark:text-gray-400 text-lg max-w-2xl mx-auto">{t('careers.whySubtitle', 'We believe happy teams build great products. Here\'s what we offer.')}</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {perks.map((perk) => (
-                <div key={perk.title} className="bg-card rounded-2xl p-8 border border-border">
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${perk.color} flex items-center justify-center mb-5`}>
+                <div key={perk.title} className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-border dark:border-gray-800 shadow-sm">
+                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${perk.color} flex items-center justify-center mb-5 shadow-lg shadow-primary/10`}>
                     <perk.icon className="w-7 h-7 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-2">{perk.title}</h3>
-                  <p className="text-muted-foreground">{perk.desc}</p>
+                  <h3 className="text-xl font-bold text-foreground dark:text-white mb-2">{perk.title}</h3>
+                  <p className="text-muted-foreground dark:text-gray-400">{perk.desc}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        <section id="openings" className="py-16 md:py-24 bg-slate-50">
+        <section id="openings" className="py-16 md:py-24 bg-slate-50 dark:bg-gray-900/50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{t('careers.openingsTitle', 'Open Positions')}</h2>
-              <p className="text-muted-foreground text-lg">{t('careers.openingsSubtitle', 'Find your place on our team. All roles are remote-friendly.')}</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground dark:text-white mb-4">{t('careers.openingsTitle', 'Open Positions')}</h2>
+              <p className="text-muted-foreground dark:text-gray-400 text-lg">{t('careers.openingsSubtitle', 'Find your place on our team. All roles are remote-friendly.')}</p>
             </div>
             <div className="space-y-4">
               {openings.map((job) => (
-                <div key={job.title} className="bg-card rounded-xl border border-border p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-primary dark:hover:border-primary transition-colors">
+                <div key={job.title} className="bg-white dark:bg-gray-900 rounded-xl border border-border dark:border-gray-800 p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-primary dark:hover:border-primary transition-all duration-300 shadow-sm hover:shadow-md">
                   <div>
-                    <h3 className="text-lg font-semibold text-foreground">{job.title}</h3>
-                    <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-muted-foreground">
+                    <h3 className="text-lg font-semibold text-foreground dark:text-white">{job.title}</h3>
+                    <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-muted-foreground dark:text-gray-400">
                       <span className="flex items-center gap-1"><Briefcase className="w-4 h-4" />{job.department}</span>
                       <span className="flex items-center gap-1"><MapPin className="w-4 h-4" />{job.location}</span>
                       <span className="flex items-center gap-1"><Clock className="w-4 h-4" />{job.type}</span>
                     </div>
                   </div>
-                  <button className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-gradient-to-r from-primary to-primary-dark text-white font-medium text-sm hover:opacity-90 transition-opacity whitespace-nowrap">
+                  <button className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-gradient-to-r from-primary to-primary-dark text-white font-medium text-sm hover:opacity-90 transition-opacity whitespace-nowrap shadow-md">
                     {t('careers.applyNow', 'Apply Now')} <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
@@ -117,7 +117,7 @@ export default function Careers() {
           </div>
         </section>
 
-        <section className="py-16 md:py-24 bg-background">
+        <section className="py-16 md:py-24 bg-background dark:bg-gray-950">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="rounded-3xl bg-hero-gradient p-8 md:p-16 text-center relative overflow-hidden">
               <div className="absolute inset-0 pointer-events-none">

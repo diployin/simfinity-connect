@@ -6,7 +6,7 @@ import { useTranslation } from '@/contexts/TranslationContext';
 export default function PrivacyPolicy() {
   const { t } = useTranslation();
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background dark:bg-gray-950 flex flex-col transition-colors duration-300">
       <Helmet>
         <title>Privacy Policy - Voltey</title>
         <meta
@@ -17,17 +17,17 @@ export default function PrivacyPolicy() {
 
       {/* <SiteHeader /> */}
 
-      <main className="flex-1 py-16 md:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+      <main className="flex-1 py-16 md:py-24 pt-28">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl mx-auto">
-            <h1 className="text-4xl font-bold mb-8">{t('privacy.title', 'Privacy Policy')}</h1>
-            <p className="text-muted-foreground mb-8">{t('privacy.lastUpdated', 'Last updated: December 2024')}</p>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-white">{t('privacy.title', 'Privacy Policy')}</h1>
+            <p className="text-muted-foreground dark:text-gray-400 mb-10">{t('privacy.lastUpdated', 'Last updated: December 2024')}</p>
 
             <div className="prose prose-lg dark:prose-invert max-w-none legal-text-block">
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">{t('privacy.sec1Title', '1. Information We Collect')}</h2>
-                <p className="text-muted-foreground mb-4">{t('privacy.sec1Desc', 'We collect information you provide directly to us, including:')}</p>
-                <ul className="list-disc pl-6 text-muted-foreground space-y-2">
+              <section className="mb-10">
+                <h2 className="text-xl md:text-2xl font-bold mb-4 text-gray-900 dark:text-white">{t('privacy.sec1Title', '1. Information We Collect')}</h2>
+                <p className="text-muted-foreground dark:text-gray-400 mb-4">{t('privacy.sec1Desc', 'We collect information you provide directly to us, including:')}</p>
+                <ul className="list-disc pl-6 text-muted-foreground dark:text-gray-400 space-y-3">
                   <li>{t('privacy.sec1Item1', 'Account information (email address, name)')}</li>
                   <li>{t('privacy.sec1Item2', 'Payment information (processed securely through our payment providers)')}</li>
                   <li>{t('privacy.sec1Item3', 'Device information for eSIM compatibility verification')}</li>
@@ -35,10 +35,10 @@ export default function PrivacyPolicy() {
                 </ul>
               </section>
 
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">{t('privacy.sec2Title', '2. How We Use Your Information')}</h2>
-                <p className="text-muted-foreground mb-4">{t('privacy.sec2Desc', 'We use the information we collect to:')}</p>
-                <ul className="list-disc pl-6 text-muted-foreground space-y-2">
+              <section className="mb-10">
+                <h2 className="text-xl md:text-2xl font-bold mb-4 text-gray-900 dark:text-white">{t('privacy.sec2Title', '2. How We Use Your Information')}</h2>
+                <p className="text-muted-foreground dark:text-gray-400 mb-4">{t('privacy.sec2Desc', 'We use the information we collect to:')}</p>
+                <ul className="list-disc pl-6 text-muted-foreground dark:text-gray-400 space-y-3">
                   <li>{t('privacy.sec2Item1', 'Process and fulfill your eSIM orders')}</li>
                   <li>{t('privacy.sec2Item2', 'Send you order confirmations and eSIM installation instructions')}</li>
                   <li>{t('privacy.sec2Item3', 'Provide customer support')}</li>
@@ -47,10 +47,10 @@ export default function PrivacyPolicy() {
                 </ul>
               </section>
 
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">{t('privacy.sec3Title', '3. Information Sharing')}</h2>
-                <p className="text-muted-foreground">{t('privacy.sec3Desc', 'We do not sell your personal information. We may share your information with:')}</p>
-                <ul className="list-disc pl-6 text-muted-foreground space-y-2 mt-4">
+              <section className="mb-10">
+                <h2 className="text-xl md:text-2xl font-bold mb-4 text-gray-900 dark:text-white">{t('privacy.sec3Title', '3. Information Sharing')}</h2>
+                <p className="text-muted-foreground dark:text-gray-400">{t('privacy.sec3Desc', 'We do not sell your personal information. We may share your information with:')}</p>
+                <ul className="list-disc pl-6 text-muted-foreground dark:text-gray-400 space-y-3 mt-4">
                   <li>{t('privacy.sec3Item1', 'eSIM providers to fulfill your orders')}</li>
                   <li>{t('privacy.sec3Item2', 'Payment processors to handle transactions')}</li>
                   <li>{t('privacy.sec3Item3', 'Service providers who assist our operations')}</li>
@@ -58,19 +58,19 @@ export default function PrivacyPolicy() {
                 </ul>
               </section>
 
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">{t('privacy.sec4Title', '4. Data Security')}</h2>
-                <p className="text-muted-foreground">
+              <section className="mb-10">
+                <h2 className="text-xl md:text-2xl font-bold mb-4 text-gray-900 dark:text-white">{t('privacy.sec4Title', '4. Data Security')}</h2>
+                <p className="text-muted-foreground dark:text-gray-400 leading-relaxed">
                   We implement appropriate technical and organizational measures to protect your
                   personal information against unauthorized access, alteration, disclosure, or
                   destruction.
                 </p>
               </section>
 
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">{t('privacy.sec5Title', '5. Your Rights')}</h2>
-                <p className="text-muted-foreground mb-4">{t('privacy.sec5Desc', 'You have the right to:')}</p>
-                <ul className="list-disc pl-6 text-muted-foreground space-y-2">
+              <section className="mb-10">
+                <h2 className="text-xl md:text-2xl font-bold mb-4 text-gray-900 dark:text-white">{t('privacy.sec5Title', '5. Your Rights')}</h2>
+                <p className="text-muted-foreground dark:text-gray-400 mb-4">{t('privacy.sec5Desc', 'You have the right to:')}</p>
+                <ul className="list-disc pl-6 text-muted-foreground dark:text-gray-400 space-y-3">
                   <li>{t('privacy.sec5Item1', 'Access your personal information')}</li>
                   <li>{t('privacy.sec5Item2', 'Correct inaccurate data')}</li>
                   <li>{t('privacy.sec5Item3', 'Request deletion of your data')}</li>
@@ -79,11 +79,11 @@ export default function PrivacyPolicy() {
                 </ul>
               </section>
 
-              <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">{t('privacy.sec6Title', '6. Contact Us')}</h2>
-                <p className="text-muted-foreground">{t('privacy.sec6Desc', 'If you have questions about this Privacy Policy, please contact us at:')}<br />
-                  <a href="mailto:privacy@esim.com" className="text-primary hover:underline">
-                    privacy@esim.com
+              <section className="mb-10">
+                <h2 className="text-xl md:text-2xl font-bold mb-4 text-gray-900 dark:text-white">{t('privacy.sec6Title', '6. Contact Us')}</h2>
+                <p className="text-muted-foreground dark:text-gray-400 leading-relaxed">{t('privacy.sec6Desc', 'If you have questions about this Privacy Policy, please contact us at:')}<br />
+                  <a href="mailto:support@simfinity.tel" className="text-primary hover:underline font-semibold mt-2 inline-block">
+                    support@simfinity.tel
                   </a>
                 </p>
               </section>

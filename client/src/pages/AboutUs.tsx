@@ -1,364 +1,240 @@
-import { useState, useEffect, useMemo } from 'react';
+import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import { useQuery } from '@tanstack/react-query';
 import {
-  Search,
-  ChevronDown,
-  ChevronUp,
-  PlayCircle,
-  CreditCard,
-  Wrench,
-  HelpCircle,
-  Mail,
-  MessageSquare,
-  Plus,
-  Minus,
+  Users,
+  Target,
+  Globe,
+  ShieldCheck,
+  Award,
+  TrendingUp,
+  Zap,
+  CheckCircle2,
+  LucideIcon
 } from 'lucide-react';
-import { useSettingByKey } from '@/hooks/useSettings';
-import { Link, useLocation } from 'wouter';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { useSettingByKey } from '@/hooks/useSettings';
+import { Link } from 'wouter'
 
-interface Faq {
-  id: string;
-  question: string;
-  answer: string;
-  categoryId: string;
-  position: number;
-}
-
-interface FaqCategory {
-  id: string;
-  name: string;
-  slug: string;
-  faqs: Faq[];
-}
-
-interface Article {
-  id: string;
-  title: string;
-  content: string;
-}
-
-interface UICategory {
-  id: string;
+interface ValueProp {
+  icon: LucideIcon;
   title: string;
   description: string;
-  icon: React.ReactNode;
-  accentColor: string;
-  borderColor: string;
-  bgColor: string;
-  articles: Article[];
+  color: string;
 }
 
-const CATEGORY_STYLES = [
-  {
-    icon: PlayCircle,
-    accentColor: 'text-green-600 dark:text-green-400',
-    borderColor: 'border-l-green-500',
-    bgColor: 'bg-green-50 dark:bg-green-900/20',
-    hoverRing: 'ring-[var(--primary)]/20',
-  },
-  {
-    icon: CreditCard,
-    accentColor: 'text-blue-600 dark:text-blue-400',
-    borderColor: 'border-l-blue-500',
-    bgColor: 'bg-blue-50 dark:bg-blue-900/20',
-    hoverRing: 'ring-blue-600/20',
-  },
-  {
-    icon: Wrench,
-    accentColor: 'text-orange-600 dark:text-orange-400',
-    borderColor: 'border-l-orange-500',
-    bgColor: 'bg-orange-50 dark:bg-orange-900/20',
-    hoverRing: 'ring-orange-600/20',
-  },
-  {
-    icon: HelpCircle,
-    accentColor: 'text-purple-600 dark:text-purple-400',
-    borderColor: 'border-l-purple-500',
-    bgColor: 'bg-purple-50 dark:bg-purple-900/20',
-    hoverRing: 'ring-purple-600/20',
-  },
-];
+interface StatProp {
+  label: string;
+  value: string;
+  suffix?: string;
+}
 
-export default function HelpCenter() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [expandedArticles, setExpandedArticles] = useState<Set<string>>(new Set());
-  const siteName = useSettingByKey('platform_name');
-  const email = useSettingByKey('email');
-  const [location] = useLocation();
+export default function AboutUs() {
   const { t } = useTranslation();
+  const siteName = useSettingByKey('platform_name') || 'Simfinity';
 
-  const { data: apiCategories, isLoading } = useQuery({
-    queryKey: ['/api/faqs/public'],
-    queryFn: async () => {
-      const response = await fetch('/api/faqs/public');
-      if (!response.ok) throw new Error('Failed to fetch FAQs');
-      const result = await response.json();
-      return result.data as FaqCategory[];
+  const stats: StatProp[] = [
+    { label: t('about.stats.countries', 'Countries Covered'), value: '200', suffix: '+' },
+    { label: t('about.stats.users', 'Happy Travelers'), value: '1', suffix: 'M+' },
+    { label: t('about.stats.support', 'Support Response'), value: '2', suffix: 'min' },
+    { label: t('about.stats.availability', 'Service Uptime'), value: '99.9', suffix: '%' },
+  ];
+
+  const values: ValueProp[] = [
+    {
+      icon: Globe,
+      title: t('about.values.connectivity', 'Universal Connectivity'),
+      description: t('about.values.connectivityDesc', 'We believe everyone deserves seamless, affordable access to the internet, no matter where their journey takes them.'),
+      color: 'bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400',
     },
-  });
-
-  const categories: UICategory[] = useMemo(() => {
-    if (!apiCategories) return [];
-
-    return apiCategories.map((cat, index) => {
-      const styleIndex = index % CATEGORY_STYLES.length;
-      const style = CATEGORY_STYLES[styleIndex];
-      const Icon = style.icon;
-
-      return {
-        id: cat.id,
-        title: cat.name,
-        description: t('website.help.categoryDesc', 'Everything you need to know about {{name}}', { name: cat.name }),
-        icon: <Icon className="h-6 w-6" />,
-        accentColor: style.accentColor,
-        borderColor: style.borderColor,
-        bgColor: style.bgColor,
-        articles: cat.faqs.map((f) => ({
-          id: f.id,
-          title: f.question,
-          content: f.answer,
-        })),
-      };
-    });
-  }, [apiCategories]);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const cat = params.get('category');
-    if (cat && categories.some((c) => c.id === cat)) {
-      setSelectedCategory(cat);
-    }
-  }, [location, categories]);
-
-  const toggleArticle = (articleKey: string) => {
-    setExpandedArticles((prev) => {
-      const next = new Set(prev);
-      if (next.has(articleKey)) {
-        next.delete(articleKey);
-      } else {
-        next.add(articleKey);
-      }
-      return next;
-    });
-  };
-
-  const handleCategoryClick = (categoryId: string) => {
-    setSelectedCategory((prev) => (prev === categoryId ? null : categoryId));
-  };
-
-  const filteredCategories = categories
-    .map((category) => ({
-      ...category,
-      articles: category.articles.filter(
-        (article) =>
-          article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          article.content.toLowerCase().includes(searchQuery.toLowerCase())
-      ),
-    }))
-    .filter((category) => category.articles.length > 0);
-
-  const displayedCategories = searchQuery
-    ? filteredCategories
-    : selectedCategory
-      ? categories.filter((c) => c.id === selectedCategory)
-      : categories;
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background flex flex-col">
-        <Helmet>
-          <title>{t('website.help.pageTitle', 'Help Center | {{name}}', { name: siteName || 'Simfinity' })}</title>
-        </Helmet>
-        <div className="flex-1 flex items-center justify-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-500"></div>
-        </div>
-      </div>
-    );
-  }
+    {
+      icon: ShieldCheck,
+      title: t('about.values.security', 'Security First'),
+      description: t('about.values.securityDesc', 'Your data and privacy are paramount. We use enterprise-grade encryption to ensure your digital footprint stays yours.'),
+      color: 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400',
+    },
+    {
+      icon: Zap,
+      title: t('about.values.simplicity', 'Radical Simplicity'),
+      description: t('about.values.simplicityDesc', 'Technology should work for you, not the other way around. Our 1-minute setup process defines everything we do.'),
+      color: 'bg-amber-50 text-amber-600 dark:bg-amber-900/20 dark:text-amber-400',
+    },
+    {
+      icon: Award,
+      title: t('about.values.quality', 'Premium Quality'),
+      description: t('about.values.qualityDesc', 'We partner with the world\'s leading carriers to guarantee high-speed 5G/4G connectivity in every corner of the globe.'),
+      color: 'bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400',
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-white dark:bg-gray-950 transition-colors duration-300">
       <Helmet>
-        <title>{t('website.help.pageTitle', 'Help Center | {{name}}', { name: siteName || 'Simfinity' })}</title>
-        <meta
-          name="description"
-          content={t('website.help.pageMeta', 'Get help with your eSIM. Find answers about installation, plans, payments, troubleshooting, and more.')}
-        />
+        <title>{t('about.pageTitle', 'About Us | {{name}}', { name: siteName })}</title>
+        <meta name="description" content={t('about.metaDesc', 'Learn about our mission to revolutionize global connectivity through innovative eSIM technology.')} />
       </Helmet>
 
-      <section
-        className="relative overflow-hidden bg-gradient-to-b from-[#f0f9f1] to-white dark:from-green-950/20 dark:to-background"
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-gray-100">
-              {t('website.help.heading', 'How can we help you?')}
+      {/* Hero Section */}
+      <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden bg-slate-50 dark:bg-gray-900/50">
+        <div className="absolute inset-0 z-0 opacity-30 dark:opacity-20 pointer-events-none">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl" />
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider mb-6">
+              <Target className="w-3.5 h-3.5" />
+              {t('about.hero.badge', 'Our Mission')}
+            </span>
+            <h1 className="text-4xl md:text-6xl font-black text-gray-900 dark:text-white mb-6 leading-[1.1]">
+              {t('about.hero.title', 'Connecting the World,')} <br />
+              <span className="text-primary">{t('about.hero.titleAccent', 'One eSIM at a Time')}</span>
             </h1>
-            <p className="text-lg text-gray-500 dark:text-gray-400 mb-8">
-              {t('website.help.subheading', 'Search our knowledge base or browse categories below')}
+            <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+              {t('about.hero.description', 'Born from a passion for travel and technology, we\'re on a mission to eliminate roaming fees and make global connectivity accessible to everyone, everywhere.')}
             </p>
-            <div className="max-w-xl mx-auto">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-gray-500" />
-                <input
-                  type="search"
-                  placeholder={String(t('website.help.searchPlaceholder', 'Search for answers...'))}
-                  className="w-full pl-12 pr-4 h-14 text-base rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-card shadow-sm focus:outline-none focus:ring-2 focus:ring-[var(--primary)]/30 focus:border-[var(--primary)] transition-all text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-12 border-y border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                className="text-center"
+              >
+                <div className="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-1">
+                  {stat.value}{stat.suffix}
+                </div>
+                <div className="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Story Section */}
+      <section className="py-20 md:py-32 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl">
+                <img
+                  src="/images/about-story.webp"
+                  alt="Our Story"
+                  className="w-full h-full object-cover"
+                  onError={(e) => { (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80' }}
                 />
               </div>
-            </div>
+              <div className="absolute -bottom-8 -right-8 w-48 h-48 bg-primary rounded-3xl -z-10 hidden md:block" />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-8"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-tight">
+                {t('about.story.title', 'The Story Behind Simfinity')}
+              </h2>
+              <div className="space-y-6 text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
+                <p>
+                  {t('about.story.p1', 'It started with a frustrating trip to Tokyo. Our founders spent three hours in a queue just to get a local SIM card that didn\'t even work the next day. We knew there had to be a better way.')}
+                </p>
+                <p>
+                  {t('about.story.p2', 'We built this platform to be the service we wish we had: instant, reliable, and completely transparent. Today, we power connectivity for digital nomads, business travelers, and families across seven continents.')}
+                </p>
+                <ul className="space-y-4 pt-4">
+                  {[
+                    t('about.story.point1', '100% Digital infrastructure'),
+                    t('about.story.point2', 'No hidden fees or physical hardware'),
+                    t('about.story.point3', 'Carbon-neutral operations goal by 2027')
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                      <span className="font-medium text-gray-900 dark:text-gray-200">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {!searchQuery && (
-        <section className="py-12 md:py-16 bg-white dark:bg-background">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-4xl mx-auto">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                {categories.map((category, index) => {
-                  const styleIndex = index % CATEGORY_STYLES.length;
-                  const hoverStyle = CATEGORY_STYLES[styleIndex].hoverRing;
-
-                  return (
-                    <button
-                      key={category.id}
-                      onClick={() => handleCategoryClick(category.id)}
-                      className={`group text-left p-6 rounded-xl border-l-4 ${category.borderColor} bg-white dark:bg-card border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-all duration-200 ${selectedCategory === category.id
-                        ? `ring-2 ${hoverStyle} shadow-md`
-                        : ''
-                        }`}
-                    >
-                      <div className="flex items-start gap-4">
-                        <div
-                          className={`flex-shrink-0 w-12 h-12 rounded-lg ${category.bgColor} flex items-center justify-center ${category.accentColor}`}
-                        >
-                          {category.icon}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1 group-hover:text-[var(--primary)] transition-colors">
-                            {category.title}
-                          </h3>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">{category.description}</p>
-                          <span className="inline-flex items-center gap-1 mt-2 text-sm font-medium text-[var(--primary)]">
-                            {selectedCategory === category.id ? (
-                              <>
-                                {t('website.help.hideArticles', 'Hide articles')} <ChevronUp className="h-4 w-4" />
-                              </>
-                            ) : (
-                              <>
-                                {t('website.help.viewArticles', 'View articles')} <ChevronDown className="h-4 w-4" />
-                              </>
-                            )}
-                          </span>
-                        </div>
-                      </div>
-                    </button>
-                  )
-                })}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      <section className="py-12 md:py-16 bg-slate-50 dark:bg-slate-900/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto space-y-8">
-            {displayedCategories.map((category) => (
-              <div key={category.id}>
-                <div className="flex items-center gap-3 mb-4">
-                  <div
-                    className={`w-8 h-8 rounded-lg ${category.bgColor} flex items-center justify-center ${category.accentColor}`}
-                  >
-                    {category.icon}
-                  </div>
-                  <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{category.title}</h2>
-                  <span className="text-sm text-gray-400 dark:text-gray-500">
-                    {t('website.help.articlesCount', '{{count}} articles', { count: category.articles.length })}
-                  </span>
-                </div>
-                <div className="space-y-2">
-                  {category.articles.map((article, idx) => {
-                    const articleKey = `${category.id}-${article.id}`;
-                    const isExpanded = expandedArticles.has(articleKey);
-                    return (
-                      <div
-                        key={articleKey}
-                        className="bg-white dark:bg-card rounded-lg border border-gray-100 dark:border-gray-800 overflow-hidden"
-                      >
-                        <button
-                          onClick={() => toggleArticle(articleKey)}
-                          className="w-full flex items-center justify-between px-6 py-4 text-left hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors"
-                        >
-                          <span className="font-medium text-gray-900 dark:text-gray-100 pr-4">
-                            {article.title}
-                          </span>
-                          {isExpanded ? (
-                            <Minus className="h-5 w-5 text-[var(--primary)] flex-shrink-0" />
-                          ) : (
-                            <Plus className="h-5 w-5 text-gray-400 dark:text-gray-500 flex-shrink-0" />
-                          )}
-                        </button>
-                        {isExpanded && (
-                          <div className="px-6 pb-4 text-gray-600 dark:text-gray-300 leading-relaxed border-t border-gray-50 dark:border-gray-800">
-                            <p className="pt-3">{article.content}</p>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-            {searchQuery && displayedCategories.length === 0 && (
-              <div className="text-center py-12">
-                <HelpCircle className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                <p className="text-lg text-gray-500">
-                  {t('website.help.noArticlesFound', 'No articles found matching "{{query}}"', { query: searchQuery })}
-                </p>
-                <p className="text-sm text-gray-400 mt-2">
-                  {t('website.help.tryDifferentKeywords', 'Try different keywords or browse the categories above')}
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-20 bg-white dark:bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-              {t('website.help.stillNeedHelp', 'Still need help?')}
+      {/* Values Section */}
+      <section className="py-20 md:py-32 bg-slate-50 dark:bg-gray-900/30">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              {t('about.values.title', 'Our Core Values')}
             </h2>
-            <p className="text-gray-500 dark:text-gray-400 mb-8">
-              {t('website.help.supportTeamDesc', 'Our support team is ready to assist you with any questions')}
+            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              {t('about.values.subtitle', 'The principles that guide our product development and customer relationships every single day.')}
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-              <div className="p-6 rounded-xl border border-gray-100 dark:border-gray-800 bg-slate-50 dark:bg-card hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 rounded-full bg-green-50 dark:bg-green-900/20 flex items-center justify-center mx-auto mb-4">
-                  <Mail className="h-6 w-6 text-[var(--primary)]" />
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {values.map((value, idx) => (
+              <motion.div
+                key={idx}
+                whileHover={{ y: -5 }}
+                className="bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 transition-all"
+              >
+                <div className={`w-14 h-14 rounded-2xl ${value.color} flex items-center justify-center mb-6`}>
+                  <value.icon className="w-7 h-7" />
                 </div>
-                <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">{t('website.help.emailSupport', 'Email Support')}</h3>
-                <a
-                  href={`mailto:${email || 'support@simfinity.tel'}`}
-                  className="text-[var(--primary)] hover:underline text-sm"
-                >
-                  {email || 'support@simfinity.tel'}
-                </a>
-              </div>
-              <div className="p-6 rounded-xl border border-gray-100 dark:border-gray-800 bg-slate-50 dark:bg-card hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 rounded-full bg-green-50 dark:bg-green-900/20 flex items-center justify-center mx-auto mb-4">
-                  <MessageSquare className="h-6 w-6 text-[var(--primary)]" />
-                </div>
-                <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">{t('contact.liveChat', 'Live Chat')}</h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{t('website.help.available247', 'Available 24/7')}</p>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+                  {value.title}
+                </h3>
+                <p className="text-gray-500 dark:text-gray-400 leading-relaxed">
+                  {value.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Join Mission */}
+      <section className="py-20 md:py-32 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6 text-center">
+          <div className="max-w-4xl mx-auto bg-primary rounded-[3rem] p-10 md:p-20 text-white relative overflow-hidden shadow-2xl shadow-primary/20">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl" />
+            <div className="relative z-10">
+              <h2 className="text-3xl md:text-5xl font-black mb-8 leading-tight">
+                {t('about.cta.title', 'Ready to Join the Wireless Revolution?')}
+              </h2>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link href="/destinations" className="w-full sm:w-auto">
+                  <button className="w-full sm:w-auto px-10 py-4 bg-white text-primary font-bold rounded-full hover:bg-gray-100 transition-colors shadow-xl">
+                    {t('about.cta.primary', 'Explore Destinations')}
+                  </button>
+                </Link>
+                <Link href="/careers" className="w-full sm:w-auto">
+                  <button className="w-full sm:w-auto px-10 py-4 bg-transparent border-2 border-white/30 text-white font-bold rounded-full hover:bg-white/10 transition-colors">
+                    {t('about.cta.secondary', 'View Careers')}
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
