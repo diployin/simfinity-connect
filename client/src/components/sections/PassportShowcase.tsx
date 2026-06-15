@@ -71,7 +71,7 @@ export function PassportShowcase() {
   return (
     <section
       ref={sectionRef}
-      className="py-16 md:py-24 bg-gradient-to-b from-slate-950 to-slate-900 relative overflow-hidden"
+      className="py-16 md:py-24 bg-white dark:bg-gray-900 text-black dark:text-white relative overflow-hidden"
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-[var(--primary)]/10 rounded-full blur-3xl" />
@@ -99,7 +99,7 @@ export function PassportShowcase() {
             </h2>
 
             <p
-              className={`text-lg md:text-xl text-slate-300 leading-relaxed mb-6 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+              className={`text-lg md:text-xl text-black-300 leading-relaxed mb-6 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             >
               Voltey Passport is an AI-powered global travel connectivity device. Secure browsing, built-in power, and an intelligent concierge, all in one refined design.
             </p>
@@ -107,17 +107,17 @@ export function PassportShowcase() {
             <div
               className={`flex flex-wrap items-center gap-x-4 gap-y-2 mb-8 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             >
-              <div className="flex items-center gap-1.5 text-slate-400 text-sm">
+              <div className="flex items-center gap-1.5 text-black-400 text-sm">
                 <Globe className="w-4 h-4 text-[var(--primary-light)]" />
                 <span>190+ Countries</span>
               </div>
               <div className="hidden sm:block w-1 h-1 rounded-full bg-slate-600" />
-              <div className="flex items-center gap-1.5 text-slate-400 text-sm">
+              <div className="flex items-center gap-1.5 text-black-400 text-sm">
                 <Zap className="w-4 h-4 text-amber-400" />
                 <span>5000mAh Battery</span>
               </div>
               <div className="hidden sm:block w-1 h-1 rounded-full bg-slate-600" />
-              <div className="flex items-center gap-1.5 text-slate-400 text-sm">
+              <div className="flex items-center gap-1.5 text-black-400 text-sm">
                 <Shield className="w-4 h-4 text-blue-400" />
                 <span>DPN Protected</span>
               </div>
@@ -168,16 +168,16 @@ export function PassportShowcase() {
 
             <div className="absolute top-8 right-4 md:right-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-3 animate-float">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-sm font-medium text-white">Connected</span>
+                <div className="w-2 h-2 rounded-full bg-black-400 animate-pulse" />
+                <span className="text-sm font-medium text-black-400">Connected</span>
               </div>
-              <p className="text-xs text-slate-300 mt-0.5">190+ countries ready</p>
+              <p className="text-xs text-black-400 mt-0.5">190+ countries ready</p>
             </div>
 
-            <div className="absolute bottom-8 left-4 md:left-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-3 animate-float-delayed">
+            <div className="absolute bottom-8 left-4 md:left-8 bg-black/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-3 animate-float-delayed">
               <div className="flex items-center gap-2">
                 <TreePine className="w-4 h-4 text-green-400" />
-                <span className="text-sm font-medium text-white">1 eSIM = 1 Tree</span>
+                <span className="text-sm font-medium text-black-400">1 eSIM = 1 Tree</span>
               </div>
             </div>
           </div>
