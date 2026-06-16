@@ -30,7 +30,7 @@ interface StatProp {
 
 export default function AboutUs() {
   const { t } = useTranslation();
-  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
 
   const stats: StatProp[] = [
     { label: t('about.stats.countries', 'Countries Covered'), value: '200', suffix: '+' },
@@ -154,7 +154,7 @@ export default function AboutUs() {
               className="space-y-8"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white leading-tight">
-                {t('about.story.title', 'The Story Behind Simfinity')}
+                {t('about.story.title', 'The Story Behind Voltey')}
               </h2>
               <div className="space-y-6 text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
                 <p>

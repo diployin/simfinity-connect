@@ -90,7 +90,7 @@ export function NewFooter() {
     .filter((item) => item !== null);
 
   const { theme } = useTheme();
-  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
   const logo = useSettingByKey('logo');
   const whiteLogo = useSettingByKey('white_logo');
   const currentLogo = theme === 'dark' ? (whiteLogo || logo) : logo;

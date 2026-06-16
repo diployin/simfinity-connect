@@ -102,8 +102,8 @@ export default function TermsOfService() {
               <section className="mb-10">
                 <h2 className="text-xl md:text-2xl font-bold mb-4 text-gray-900 dark:text-white">{t('terms.sec9Title', '9. Contact Information')}</h2>
                 <p className="text-muted-foreground dark:text-gray-400 leading-relaxed">{t('terms.sec9Desc', 'For questions about these Terms of Service, please contact us at:')}<br />
-                  <a href="mailto:support@simfinity.tel" className="text-primary hover:underline font-semibold mt-2 inline-block">
-                    support@simfinity.tel
+                  <a href="mailto:support@voltey.com" className="text-primary hover:underline font-semibold mt-2 inline-block">
+                    support@voltey.com
                   </a>
                 </p>
               </section>

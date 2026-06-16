@@ -39,7 +39,7 @@ export default function Blog() {
   return (
     <div className="min-h-screen flex flex-col bg-background dark:bg-gray-950 dark:text-gray-100">
       <Helmet>
-        <title>{t('website.blog.pageTitle', 'eSIM Travel Blog - Tips, Guides & Destination Insights | Simfinity')}</title>
+        <title>{t('website.blog.pageTitle', 'eSIM Travel Blog - Tips, Guides & Destination Insights | Voltey')}</title>
         <meta
           name="description"
           content={t('website.blog.pageMeta', 'Explore our travel blog for eSIM guides, destination tips, and digital nomad resources. Learn how to stay connected while traveling globally.')}

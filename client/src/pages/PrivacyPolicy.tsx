@@ -82,8 +82,8 @@ export default function PrivacyPolicy() {
               <section className="mb-10">
                 <h2 className="text-xl md:text-2xl font-bold mb-4 text-gray-900 dark:text-white">{t('privacy.sec6Title', '6. Contact Us')}</h2>
                 <p className="text-muted-foreground dark:text-gray-400 leading-relaxed">{t('privacy.sec6Desc', 'If you have questions about this Privacy Policy, please contact us at:')}<br />
-                  <a href="mailto:support@simfinity.tel" className="text-primary hover:underline font-semibold mt-2 inline-block">
-                    support@simfinity.tel
+                  <a href="mailto:support@voltey.com" className="text-primary hover:underline font-semibold mt-2 inline-block">
+                    support@voltey.com
                   </a>
                 </p>
               </section>

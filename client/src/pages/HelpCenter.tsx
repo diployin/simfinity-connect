@@ -195,7 +195,7 @@ export default function HelpCenter() {
   return (
     <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors">
       <Helmet>
-        <title>{t('website.help.pageTitle', 'Help Center | {{name}}', { name: siteName || 'Simfinity' })}</title>
+        <title>{t('website.help.pageTitle', 'Help Center | {{name}}', { name: siteName || 'Voltey' })}</title>
       </Helmet>
 
       {/* Hero Section */}

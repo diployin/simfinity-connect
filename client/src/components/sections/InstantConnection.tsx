@@ -22,7 +22,7 @@ export function InstantConnection() {
           <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold text-gray-900 dark:text-white leading-tight mb-4">
             {t('website.home.instant.title', 'Instant Connection. No Waiting. No Hassle.')}
             <br className="hidden sm:block" />
-            {' '}{t('website.home.instant.titleSuffix', 'with Simfinity')}
+            {' '}{t('website.home.instant.titleSuffix', 'with Voltey')}
           </h2>
           <p className="text-base md:text-lg text-gray-500 dark:text-gray-400 max-w-2xl mx-auto mb-6">
             {t(
@@ -100,8 +100,8 @@ export function InstantConnection() {
                   <div
                     key={plan}
                     className={`inline-flex items-center justify-between px-4 py-2.5 rounded-xl max-w-[200px] ${i === 0
-                        ? 'bg-white dark:bg-slate-800 shadow-sm'
-                        : 'bg-white/60 dark:bg-slate-800/40'
+                      ? 'bg-white dark:bg-slate-800 shadow-sm'
+                      : 'bg-white/60 dark:bg-slate-800/40'
                       }`}
                   >
                     <div>

@@ -13,7 +13,7 @@ import { useLocation } from 'wouter';
 import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function ReferAFriend() {
-  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
   const [, navigate] = useLocation();
   const { t } = useTranslation();
 

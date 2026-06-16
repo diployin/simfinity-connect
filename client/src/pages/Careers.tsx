@@ -16,7 +16,7 @@ import { useSettingByKey } from '@/hooks/useSettings';
 import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function Careers() {
-  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
   const { t } = useTranslation();
 
   const perks = [

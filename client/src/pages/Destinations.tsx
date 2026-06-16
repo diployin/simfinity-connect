@@ -132,7 +132,7 @@ export default function Destinations() {
       <Helmet>
         <title>
           {String(
-            t('destinations.title', 'Browse eSIM Destinations - 190+ Countries | Simfinity'),
+            t('destinations.title', 'Browse eSIM Destinations - 190+ Countries | Voltey'),
           )}
         </title>
         <meta

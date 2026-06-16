@@ -26,7 +26,7 @@ function StarRating({ count = 5 }: { count?: number }) {
 }
 
 export function Reviews() {
-  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
   const { t } = useTranslation();
 
   const reasons = [

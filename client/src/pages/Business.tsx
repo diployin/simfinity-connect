@@ -19,7 +19,7 @@ import { useLocation } from 'wouter';
 import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function Business() {
-  const siteName = useSettingByKey('platform_name') || 'Simfinity';
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
   const [, navigate] = useLocation();
   const { t } = useTranslation();
 
