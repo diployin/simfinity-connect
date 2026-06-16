@@ -88,7 +88,7 @@ const Careers = lazy(() => import('@/pages/Careers'));
 const ReferAFriend = lazy(() => import('@/pages/ReferAFriend'));
 const BecomeAffiliate = lazy(() => import('@/pages/BecomeAffiliate'));
 const StudentDiscount = lazy(() => import('@/pages/StudentDiscount'));
-const WhatIsEsim = lazy(() => import('@/pages/WhatIsEsim'));
+
 const DownloadApp = lazy(() => import('@/pages/DownloadApp'));
 const SecurityFeatures = lazy(() => import('@/pages/SecurityFeatures'));
 const DataUsageCalculator = lazy(() => import('@/pages/DataUsageCalculator'));
@@ -123,7 +123,7 @@ import PaymentPage from './pages/payment/PaymentPage';
 import { Provider } from 'react-redux';
 import { persistor, store, useAppDispatch } from './redux/store/store';
 import { PersistGate } from 'redux-persist/integration/react';
-import WhatIsESIM from './pages/WhatIsESIM';
+
 import { ScrollToTop } from './components/ScrollToTop';
 import { setSettings, SettingsState } from './redux/slice/settingsSlice';
 import {
@@ -158,7 +158,7 @@ const PUBLIC_ROUTES = [
   { path: '/refer-a-friend', component: ReferAFriend },
   { path: '/become-an-affiliate', component: BecomeAffiliate },
   { path: '/student-discount', component: StudentDiscount },
-  { path: '/what-is-esim', component: WhatIsEsim },
+  { path: '/what-is-esim', component: WhatIsEsimNew },
   { path: '/download-app', component: DownloadApp },
   { path: '/security-features', component: SecurityFeatures },
   { path: '/data-usage-calculator', component: DataUsageCalculator },
@@ -175,7 +175,7 @@ const PUBLIC_ROUTES = [
   { path: '/order/:token', component: OrderConfirmation },
   { path: '/pages/:slug', component: DynamicPage },
   { path: '/faq', component: FaqPage },
-  { path: '/what-is-esim', component: WhatIsESIM },
+  { path: '/what-is-esim', component: WhatIsEsimNew },
   { path: '/notifications', component: NotificationsPage },
   { path: '/populer-packages', component: PopularPackagesPage },
   { path: '/getting-started', component: GettingStarted },
@@ -546,6 +546,8 @@ function Router() {
 }
 
 import ESimLoader from './components/ESimLoader';
+import WhatIsEsimNew from './pages/WhatIsEsim';
+
 
 function LoadingFallback() {
   return <ESimLoader />;

@@ -15,7 +15,7 @@ import { useSettingByKey } from '@/hooks/useSettings';
 import { useLocation } from 'wouter';
 import { useTranslation } from '@/contexts/TranslationContext';
 
-export default function WhatIsEsim() {
+export default function WhatIsEsimNew() {
   const siteName = useSettingByKey('platform_name') || 'Voltey';
   const [, navigate] = useLocation();
   const { t } = useTranslation();

@@ -644,11 +644,19 @@ export default function Login() {
               resetForms();
             }}
           >
-            <TabsList className="grid w-full grid-cols-2 mb-6">
-              <TabsTrigger value="signin" data-testid="tab-signin">
+            <TabsList className="grid w-full grid-cols-2 mb-4 sm:mb-6 p-1 gap-1 bg-gray-100 dark:bg-gray-800/50 rounded-xl shadow-sm min-h-[44px] sm:min-h-[48px]">
+              <TabsTrigger
+                value="signin"
+                data-testid="tab-signin"
+                className="!text-[11px] sm:!text-sm md:!text-base !px-1.5 sm:!px-4 !py-1.5 sm:!py-2.5 rounded-lg font-medium transition-all data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-md dark:data-[state=active]:shadow-gray-900/30 data-[state=active]:text-primary dark:data-[state=active]:text-white hover:bg-white/50 dark:hover:bg-gray-700/50 active:scale-95 whitespace-nowrap"
+              >
                 {t('website.auth.signIn', 'Sign In')}
               </TabsTrigger>
-              <TabsTrigger value="signup" data-testid="tab-signup">
+              <TabsTrigger
+                value="signup"
+                data-testid="tab-signup"
+                className="!text-[11px] sm:!text-sm md:!text-base !px-1.5 sm:!px-4 !py-1.5 sm:!py-2.5 rounded-lg font-medium transition-all data-[state=active]:bg-white dark:data-[state=active]:bg-gray-700 data-[state=active]:shadow-md dark:data-[state=active]:shadow-gray-900/30 data-[state=active]:text-primary dark:data-[state=active]:text-white hover:bg-white/50 dark:hover:bg-gray-700/50 active:scale-95 whitespace-nowrap"
+              >
                 {t('website.auth.signUp', 'Sign Up')}
               </TabsTrigger>
             </TabsList>
