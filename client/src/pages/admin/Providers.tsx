@@ -171,194 +171,195 @@ export default function Providers() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-96">
-        <div className="text-center">
-          <RefreshCw className="h-8 w-8 animate-spin mx-auto mb-4" />
-          <p>{t('admin.providers.loading', 'Loading providers...')}</p>
-        </div>
+      <div className="flex flex-col items-center justify-center min-h-[400px] p-6 text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-second mb-4"></div>
+        <p className="text-slate-500 dark:text-slate-400 font-medium">{t('admin.providers.loading', 'Loading providers...')}</p>
       </div>
     );
   }
 
   return (
-    <div className="p-6 space-y-6">
-      <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+    <div className="space-y-6 p-4 md:p-6 lg:p-8">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
             {t('admin.providers.title', 'Provider Management')}
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-sm md:text-base text-slate-500 dark:text-slate-400 mt-1">
             {t(
               'admin.providers.subtitle',
               'Manage eSIM providers, sync packages, and configure integrations',
             )}
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
           <Button
             variant="outline"
+            className="w-full sm:w-auto h-10 gap-2 bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 shadow-sm"
             onClick={() => runPriceComparisonMutation.mutate()}
             disabled={runPriceComparisonMutation.isPending}
             data-testid="button-run-price-comparison"
           >
-            {runPriceComparisonMutation.isPending ? (
-              <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-            ) : (
-              <RefreshCw className="h-4 w-4 mr-2" />
-            )}
-            {t('admin.providers.runPriceComparison', 'Run Price Comparison')}
+            <RefreshCw className={`h-4 w-4 ${runPriceComparisonMutation.isPending ? 'animate-spin' : ''}`} />
+            <span className="whitespace-nowrap">{t('admin.providers.runPriceComparison', 'Run Price Comparison')}</span>
           </Button>
         </div>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>{t('admin.providers.cardTitle', 'Providers')}</CardTitle>
-          <CardDescription>
+      <Card className="border-slate-200 dark:border-slate-800 shadow-sm dark:bg-slate-950">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-xl font-bold text-slate-900 dark:text-slate-50">
+            {t('admin.providers.cardTitle', 'Providers')}
+          </CardTitle>
+          <CardDescription className="text-slate-500 dark:text-slate-400">
             {t('admin.providers.cardDescription', 'View and manage all eSIM provider integrations')}
           </CardDescription>
         </CardHeader>
         <CardContent>
           {!providers || providers.length === 0 ? (
-            <div className="text-center py-12 text-muted-foreground">
-              <Server className="h-12 w-12 mx-auto mb-4 opacity-50" />
-              <p>{t('admin.providers.noProviders', 'No providers configured')}</p>
+            <div className="py-12 flex flex-col items-center justify-center gap-4 text-center">
+              <div className="h-16 w-16 rounded-full bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
+                <Server className="h-8 w-8 text-slate-300 dark:text-slate-700" />
+              </div>
+              <p className="text-slate-500 dark:text-slate-400 font-medium">{t('admin.providers.noProviders', 'No providers configured')}</p>
             </div>
           ) : (
-            <Table data-testid="table-providers">
-              <TableHeader>
-                <TableRow>
-                  <TableHead>{t('admin.providers.table.provider', 'Provider')}</TableHead>
-                  <TableHead>{t('admin.providers.table.status', 'Status')}</TableHead>
-                  <TableHead>{t('admin.providers.table.apiHealth', 'API Health')}</TableHead>
-                  <TableHead>{t('admin.providers.table.lastSync', 'Last Sync')}</TableHead>
-                  <TableHead>{t('admin.providers.table.packages', 'Packages')}</TableHead>
-                  <TableHead>{t('admin.providers.table.syncInterval', 'Sync Interval')}</TableHead>
-                  <TableHead>{t('admin.providers.table.margin', 'Margin')}</TableHead>
-                  <TableHead className="text-right">
-                    {t('admin.providers.table.actions', 'Actions')}
-                  </TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {providers.map((provider) => {
-                  const healthStatus = getApiHealthStatus(provider);
-                  const HealthIcon = healthStatus.icon;
+            <div className="overflow-x-auto -mx-6 px-6">
+              <Table data-testid="table-providers">
+                <TableHeader>
+                  <TableRow className="border-slate-200 dark:border-slate-800 hover:bg-transparent">
+                    <TableHead className="font-semibold text-slate-900 dark:text-slate-50">{t('admin.providers.table.provider', 'Provider')}</TableHead>
+                    <TableHead className="font-semibold text-slate-900 dark:text-slate-50">{t('admin.providers.table.status', 'Status')}</TableHead>
+                    <TableHead className="font-semibold text-slate-900 dark:text-slate-50">{t('admin.providers.table.apiHealth', 'API Health')}</TableHead>
+                    <TableHead className="font-semibold text-slate-900 dark:text-slate-50">{t('admin.providers.table.lastSync', 'Last Sync')}</TableHead>
+                    <TableHead className="font-semibold text-slate-900 dark:text-slate-50">{t('admin.providers.table.packages', 'Packages')}</TableHead>
+                    <TableHead className="font-semibold text-slate-900 dark:text-slate-50">{t('admin.providers.table.syncInterval', 'Interval')}</TableHead>
+                    <TableHead className="font-semibold text-slate-900 dark:text-slate-50">{t('admin.providers.table.margin', 'Margin')}</TableHead>
+                    <TableHead className="font-semibold text-slate-900 dark:text-slate-50 text-right">
+                      {t('admin.providers.table.actions', 'Actions')}
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {providers.map((provider) => {
+                    const healthStatus = getApiHealthStatus(provider);
+                    const HealthIcon = healthStatus.icon;
 
-                  return (
-                    <TableRow
-                      key={provider.id}
-                      data-testid={`row-provider-${provider.id}`}
-                      className="odd:bg-muted/40 hover:bg-muted transition-colors"
-                    >
-                      <TableCell>
-                        <div className="flex items-center gap-2">
-                          <div>
-                            <div className="font-medium flex items-center gap-2">
+                    return (
+                      <TableRow
+                        key={provider.id}
+                        data-testid={`row-provider-${provider.id}`}
+                        className="border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors"
+                      >
+                        <TableCell>
+                          <div className="min-w-[160px]">
+                            <div className="font-bold text-slate-900 dark:text-slate-50 flex items-center gap-2">
                               {provider.name}
                               {provider.isPreferred && (
                                 <Badge
-                                  variant="default"
-                                  className="gap-1"
+                                  className="bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 border-none px-1.5 py-0 text-[10px] uppercase font-bold"
                                   data-testid={`badge-preferred-${provider.id}`}
                                 >
-                                  <Star className="h-3 w-3" />
+                                  <Star className="h-2.5 w-2.5 mr-1 fill-current" />
                                   {t('admin.providers.preferred', 'Preferred')}
                                 </Badge>
                               )}
                             </div>
-                            <div className="text-sm text-muted-foreground">{provider.slug}</div>
+                            <div className="text-xs font-mono text-slate-400 dark:text-slate-500 uppercase tracking-tight">{provider.slug}</div>
                           </div>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <Badge
-                          variant="outline"
-                          className={
-                            provider.enabled
-                              ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-600'
-                              : 'border-muted-foreground/30 text-muted-foreground'
-                          }
-                          data-testid={`badge-status-${provider.id}`}
-                        >
-                          {provider.enabled
-                            ? t('admin.providers.enabled', 'Enabled')
-                            : t('admin.providers.disabled', 'Disabled')}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>
-                        <Badge
-                          variant={healthStatus.variant}
-                          className={`gap-1.5 ${healthStatus.className || ''}`}
-                          data-testid={`badge-health-${provider.id}`}
-                        >
-                          <HealthIcon className="h-3 w-3" />
-                          {healthStatus.label}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>
-                        <div className="text-sm" data-testid={`text-last-sync-${provider.id}`}>
-                          {formatLastSync(provider.lastSyncAt)}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div
-                          className="text-sm flex items-center gap-1"
-                          data-testid={`text-total-packages-${provider.id}`}
-                        >
-                          <Package className="h-3 w-3" />
-                          {provider.totalPackages?.toLocaleString()}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="text-sm flex items-center gap-1">
-                          <Clock className="h-3 w-3" />
-                          {provider.syncIntervalMinutes < 60
-                            ? `${provider.syncIntervalMinutes}m`
-                            : `${(provider.syncIntervalMinutes / 60).toFixed(0)}h`}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="text-sm">
-                          {parseFloat(provider.pricingMargin).toFixed(1)}%
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <div className="flex items-center justify-end gap-2">
-                          <Button
+                        </TableCell>
+                        <TableCell>
+                          <Badge
                             variant="outline"
-                            size="sm"
-                            onClick={() => handleSyncProvider(provider.id)}
-                            disabled={!provider.enabled || syncingProvider === provider.id}
-                            data-testid={`button-sync-${provider.id}`}
+                            className={`border-none text-[10px] md:text-xs px-2 py-0.5 capitalize ${
+                              provider.enabled
+                                ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-400'
+                                : 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-400'
+                            }`}
+                            data-testid={`badge-status-${provider.id}`}
                           >
-                            {syncingProvider === provider.id ? (
-                              <RefreshCw className="h-4 w-4 animate-spin" />
-                            ) : (
-                              <>
-                                <RefreshCw className="h-4 w-4 mr-1" />
-                                {t('admin.providers.sync', 'Sync')}
-                              </>
-                            )}
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => {
-                              setSelectedProvider(provider);
-                              setConfigModalOpen(true);
-                            }}
-                            data-testid={`button-configure-${provider.id}`}
+                            {provider.enabled
+                              ? t('admin.providers.enabled', 'Enabled')
+                              : t('admin.providers.disabled', 'Disabled')}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <Badge
+                            variant="outline"
+                            className={`gap-1.5 border-none text-[10px] md:text-xs px-2 py-0.5 capitalize ${healthStatus.className || ''}`}
+                            data-testid={`badge-health-${provider.id}`}
                           >
-                            <SettingsIcon className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
+                            <HealthIcon className="h-3 w-3" />
+                            {healthStatus.label}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <div className="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 font-medium whitespace-nowrap" data-testid={`text-last-sync-${provider.id}`}>
+                            {formatLastSync(provider.lastSyncAt)}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div
+                            className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5"
+                            data-testid={`text-total-packages-${provider.id}`}
+                          >
+                            <Package className="h-3.5 w-3.5 text-slate-400" />
+                            {provider.totalPackages?.toLocaleString()}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
+                            <Clock className="h-3.5 w-3.5 opacity-50" />
+                            {provider.syncIntervalMinutes < 60
+                              ? `${provider.syncIntervalMinutes}m`
+                              : `${(provider.syncIntervalMinutes / 60).toFixed(0)}h`}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
+                            {parseFloat(provider.pricingMargin).toFixed(1)}%
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <div className="flex items-center justify-end gap-2">
+                            <Button
+                              variant="secondary"
+                              size="sm"
+                              className="h-8 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700/80"
+                              onClick={() => handleSyncProvider(provider.id)}
+                              disabled={!provider.enabled || syncingProvider === provider.id}
+                              data-testid={`button-sync-${provider.id}`}
+                            >
+                              {syncingProvider === provider.id ? (
+                                <RefreshCw className="h-3.5 w-3.5 animate-spin" />
+                              ) : (
+                                <>
+                                  <RefreshCw className="h-3.5 w-3.5 mr-1.5" />
+                                  {t('admin.providers.sync', 'Sync')}
+                                </>
+                              )}
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-8 w-8 text-slate-400 hover:text-slate-900 dark:hover:text-slate-50"
+                              onClick={() => {
+                                setSelectedProvider(provider);
+                                setConfigModalOpen(true);
+                              }}
+                              data-testid={`button-configure-${provider.id}`}
+                            >
+                              <SettingsIcon className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </div>
           )}
         </CardContent>
       </Card>

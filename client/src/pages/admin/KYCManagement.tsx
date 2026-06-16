@@ -133,63 +133,82 @@ export default function KYCManagement() {
 
 
   return (
-    <div className="p-6 lg:p-8 space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
-          {t('admin.kyc.title', 'KYC Verification Queue')}
-        </h1>
-        <p className="text-slate-600 dark:text-slate-400 mt-2">
-          {t('admin.kyc.subtitle', 'Review and approve customer identity documents')}
-        </p>
+    <div className="space-y-6 p-4 md:p-6 lg:p-8">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
+            {t('admin.kyc.title', 'KYC Verification Queue')}
+          </h1>
+          <p className="text-sm md:text-base text-slate-500 dark:text-slate-400 mt-1">
+            {t('admin.kyc.subtitle', 'Review and approve customer identity documents')}
+          </p>
+        </div>
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-3">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">{t('admin.kyc.stats.pendingReviews', 'Pending Reviews')}</CardTitle>
-            <FileText className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold" data-testid="text-pending-count">
-              {requests?.length || 0}
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-3">
+        <Card className="border-slate-200 dark:border-slate-800 shadow-sm p-5 bg-white dark:bg-slate-950">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs md:text-sm font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
+                {t('admin.kyc.stats.pendingReviews', 'Pending Reviews')}
+              </p>
+              <h3
+                className="text-2xl font-bold text-slate-900 dark:text-slate-50 mt-1"
+                data-testid="text-pending-count"
+              >
+                {requests?.length || 0}
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                {t('admin.kyc.stats.documentsAwaiting', 'Documents awaiting review')}
+              </p>
             </div>
-            <p className="text-xs text-muted-foreground">
-              {t('admin.kyc.stats.documentsAwaiting', 'Documents awaiting review')}
-            </p>
-          </CardContent>
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+              <FileText className="h-6 w-6 text-primary-second" />
+            </div>
+          </div>
         </Card>
       </div>
 
       {/* KYC Requests */}
-      <Card>
-        <CardHeader>
-          <CardTitle>{t('admin.kyc.cardTitle', 'Pending Requests')}</CardTitle>
-          <CardDescription>{t('admin.kyc.cardDescription', 'Review and process KYC documents')}</CardDescription>
+      <Card className="border-slate-200 dark:border-slate-800 shadow-sm dark:bg-slate-950">
+        <CardHeader className="pb-4">
+          <CardTitle className="text-xl font-bold text-slate-900 dark:text-slate-50">
+            {t('admin.kyc.cardTitle', 'Pending Requests')}
+          </CardTitle>
+          <CardDescription className="text-slate-500 dark:text-slate-400">
+            {t('admin.kyc.cardDescription', 'Review and process KYC documents')}
+          </CardDescription>
         </CardHeader>
         <CardContent>
           {isLoading ? (
-            <div className="text-center py-8">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
+            <div className="h-64 flex flex-col items-center justify-center gap-3">
+              <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary-second"></div>
+              <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">{t('admin.kyc.loading', 'Loading requests...')}</p>
             </div>
           ) : requests && requests.length > 0 ? (
             <div className="space-y-4">
               {requests.map((request) => (
                 <div
                   key={request.id}
-                  className="flex items-center justify-between p-4 border rounded-lg hover-elevate"
+                  className="flex flex-col sm:flex-row sm:items-center justify-between p-4 border border-slate-100 dark:border-slate-800 rounded-xl bg-slate-50/50 dark:bg-slate-900/50 gap-4 hover:border-primary/20 transition-all"
                   data-testid={`kyc-request-${request.id}`}
                 >
                   <div className="flex items-center gap-4 flex-1">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                      <User className="h-6 w-6 text-primary" />
+                    <div className="h-12 w-12 shrink-0 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
+                      <User className="h-6 w-6 text-primary-second" />
                     </div>
-                    <div className="flex-1">
-                      <div className="font-semibold">{request.user.name || request.user.email}</div>
-                      <div className="text-sm text-muted-foreground flex items-center gap-4 mt-1">
-                        <span className="capitalize">{request.documentType.replace(/_/g, ' ')}</span>
-                        <span className="flex items-center gap-1">
-                          <Calendar className="h-3 w-3" />
+                    <div className="flex-1 min-w-0">
+                      <div className="font-bold text-slate-900 dark:text-slate-50 truncate">
+                        {request.user.name || request.user.email}
+                      </div>
+                      <div className="text-sm flex flex-wrap items-center gap-x-4 gap-y-1 mt-1">
+                        <Badge variant="secondary" className="bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-none text-[10px] uppercase font-bold px-2 py-0">
+                          {request.documentType.replace(/_/g, ' ')}
+                        </Badge>
+                        <span className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400 text-xs font-medium">
+                          <Calendar className="h-3.5 w-3.5" />
                           {new Date(request.createdAt).toLocaleDateString()}
                         </span>
                       </div>
@@ -199,25 +218,28 @@ export default function KYCManagement() {
                     <Button
                       variant="outline"
                       size="sm"
+                      className="flex-1 sm:flex-none h-9 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800"
                       onClick={() => handleView(request)}
                       data-testid={`button-view-${request.id}`}
                     >
-                      <Eye className="h-4 w-4 mr-1" />
+                      <Eye className="h-4 w-4 mr-1.5" />
                       {t('admin.kyc.review', 'Review')}
                     </Button>
                     <Button
                       variant="default"
                       size="sm"
+                      className="flex-1 sm:flex-none h-9"
                       onClick={() => handleApprove(request)}
                       disabled={approveMutation.isPending}
                       data-testid={`button-approve-${request.id}`}
                     >
-                      <CheckCircle className="h-4 w-4 mr-1" />
+                      <CheckCircle className="h-4 w-4 mr-1.5" />
                       {t('admin.kyc.approve', 'Approve')}
                     </Button>
                     <Button
                       variant="destructive"
                       size="sm"
+                      className="flex-1 sm:flex-none h-9"
                       onClick={() => {
                         setSelectedRequest(request);
                         setRejectDialogOpen(true);
@@ -225,7 +247,7 @@ export default function KYCManagement() {
                       disabled={rejectMutation.isPending}
                       data-testid={`button-reject-${request.id}`}
                     >
-                      <XCircle className="h-4 w-4 mr-1" />
+                      <XCircle className="h-4 w-4 mr-1.5" />
                       {t('admin.kyc.reject', 'Reject')}
                     </Button>
                   </div>
@@ -233,8 +255,14 @@ export default function KYCManagement() {
               ))}
             </div>
           ) : (
-            <div className="text-center py-8 text-muted-foreground">
-              {t('admin.kyc.noPending', 'No pending KYC requests')}
+            <div className="py-12 flex flex-col items-center justify-center gap-4 text-center">
+              <div className="h-16 w-16 rounded-full bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
+                <CheckCircle className="h-8 w-8 text-slate-300 dark:text-slate-700" />
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50">{t('admin.kyc.noPending', 'No pending KYC requests')}</h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400">{t('admin.kyc.allCaughtUp', 'You are all caught up with identity verifications.')}</p>
+              </div>
             </div>
           )}
         </CardContent>
@@ -242,73 +270,84 @@ export default function KYCManagement() {
 
       {/* View Document Dialog */}
       <Dialog open={viewDialogOpen} onOpenChange={setViewDialogOpen}>
-        <DialogContent className="max-w-4xl">
-          <DialogHeader>
-            <DialogTitle>{t('admin.kyc.dialog.title', 'Review KYC Document')}</DialogTitle>
-            <DialogDescription>
+        <DialogContent className="max-w-4xl p-0 overflow-hidden border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
+          <DialogHeader className="p-6 pb-0">
+            <DialogTitle className="text-xl font-bold text-slate-900 dark:text-slate-50">{t('admin.kyc.dialog.title', 'Review KYC Document')}</DialogTitle>
+            <DialogDescription className="text-slate-500 dark:text-slate-400">
               {t('admin.kyc.dialog.description', 'Review the submitted document and customer information')}
             </DialogDescription>
           </DialogHeader>
+          
           {selectedRequest && (
-            <div className="space-y-6">
-              <div className="grid gap-4 md:grid-cols-2">
-                <div>
-                  <Label className="text-sm text-muted-foreground">{t('admin.kyc.dialog.customerName', 'Customer Name')}</Label>
-                  <div className="font-medium">{selectedRequest.user.name || t('admin.kyc.dialog.notProvided', 'Not provided')}</div>
+            <div className="p-6 space-y-6">
+              <div className="grid gap-6 md:grid-cols-2 bg-slate-50 dark:bg-slate-900/50 p-5 rounded-2xl border border-slate-100 dark:border-slate-800">
+                <div className="space-y-1">
+                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">{t('admin.kyc.dialog.customerName', 'Customer Name')}</p>
+                  <p className="text-sm font-bold text-slate-900 dark:text-slate-50">{selectedRequest.user.name || t('admin.kyc.dialog.notProvided', 'Not provided')}</p>
                 </div>
-                <div>
-                  <Label className="text-sm text-muted-foreground">{t('admin.kyc.dialog.email', 'Email')}</Label>
-                  <div className="font-medium">{selectedRequest.user.email}</div>
+                <div className="space-y-1">
+                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">{t('admin.kyc.dialog.email', 'Email')}</p>
+                  <p className="text-sm font-medium text-slate-700 dark:text-slate-300">{selectedRequest.user.email}</p>
                 </div>
-                <div>
-                  <Label className="text-sm text-muted-foreground">{t('admin.kyc.dialog.phone', 'Phone')}</Label>
-                  <div className="font-medium">{selectedRequest.user.phone || t('admin.kyc.dialog.notProvided', 'Not provided')}</div>
+                <div className="space-y-1">
+                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">{t('admin.kyc.dialog.phone', 'Phone')}</p>
+                  <p className="text-sm font-medium text-slate-700 dark:text-slate-300">{selectedRequest.user.phone || t('admin.kyc.dialog.notProvided', 'Not provided')}</p>
                 </div>
-                <div>
-                  <Label className="text-sm text-muted-foreground">{t('admin.kyc.dialog.documentType', 'Document Type')}</Label>
-                  <div className="font-medium capitalize">
+                <div className="space-y-1">
+                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">{t('admin.kyc.dialog.documentType', 'Document Type')}</p>
+                  <Badge variant="outline" className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-[10px] uppercase font-bold px-2 py-0 capitalize">
                     {selectedRequest.documentType.replace(/_/g, ' ')}
-                  </div>
+                  </Badge>
                 </div>
-                <div>
-                  <Label className="text-sm text-muted-foreground">{t('admin.kyc.dialog.submitted', 'Submitted')}</Label>
-                  <div className="font-medium">
+                <div className="space-y-1">
+                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">{t('admin.kyc.dialog.submitted', 'Submitted')}</p>
+                  <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
                     {new Date(selectedRequest.createdAt).toLocaleString()}
-                  </div>
+                  </p>
                 </div>
-                <div>
-                  <Label className="text-sm text-muted-foreground">{t('admin.kyc.dialog.fileName', 'File Name')}</Label>
-                  <div className="font-medium">{selectedRequest.fileName}</div>
+                <div className="space-y-1">
+                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">{t('admin.kyc.dialog.fileName', 'File Name')}</p>
+                  <p className="text-sm font-mono text-slate-700 dark:text-slate-300 truncate">{selectedRequest.fileName}</p>
                 </div>
               </div>
 
-              <div className="border rounded-lg p-4 bg-muted/50">
-                <Label className="text-sm text-muted-foreground mb-2 block">
+              <div className="border border-slate-200 dark:border-slate-800 rounded-2xl p-6 bg-white dark:bg-slate-900 shadow-sm text-center">
+                <Label className="text-sm font-bold text-slate-900 dark:text-slate-50 mb-4 block">
                   {t('admin.kyc.dialog.documentPreview', 'Document Preview')}
                 </Label>
 
-                <div className="text-center">
+                <div className="flex flex-col items-center gap-4 py-8">
+                  <div className="h-20 w-20 rounded-full bg-primary/5 flex items-center justify-center border-2 border-dashed border-primary/20">
+                    <FileText className="h-10 w-10 text-primary-second opacity-60" />
+                  </div>
                   {docUrl ? (
-                    <a
-                      href={docUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:underline"
-                    >
-                      {t('admin.kyc.dialog.viewDocument', 'Click to view document in new tab')}
-                    </a>
+                    <div className="space-y-4">
+                      <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xs mx-auto">
+                        {t('admin.kyc.dialog.previewSecurityMsg', 'For security, documents are opened in a secure new tab.')}
+                      </p>
+                      <a
+                        href={docUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center px-6 py-2 rounded-full bg-primary text-white font-bold text-sm shadow-md shadow-primary/20 hover:bg-primary-dark transition-all"
+                      >
+                        <Eye className="h-4 w-4 mr-2" />
+                        {t('admin.kyc.dialog.viewDocument', 'View Identity Document')}
+                      </a>
+                    </div>
                   ) : (
-                    <span className="text-red-500 text-sm">
-                      Document not available
+                    <span className="text-red-500 font-bold text-sm bg-red-50 dark:bg-red-950/30 px-4 py-2 rounded-lg border border-red-100 dark:border-red-900/50">
+                      {t('admin.kyc.dialog.docUnavailable', 'Document not available or expired')}
                     </span>
                   )}
                 </div>
               </div>
             </div>
           )}
-          <DialogFooter className="gap-2">
+          <DialogFooter className="p-6 bg-slate-50/50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row gap-3">
             <Button
               variant="outline"
+              className="w-full sm:flex-1 h-11 bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800"
               onClick={() => setViewDialogOpen(false)}
               data-testid="button-close-dialog"
             >
@@ -316,22 +355,24 @@ export default function KYCManagement() {
             </Button>
             <Button
               variant="destructive"
+              className="w-full sm:flex-1 h-11"
               onClick={() => {
                 setViewDialogOpen(false);
                 setRejectDialogOpen(true);
               }}
               data-testid="button-reject-dialog"
             >
-              <XCircle className="h-4 w-4 mr-1" />
+              <XCircle className="h-4 w-4 mr-2" />
               {t('admin.kyc.reject', 'Reject')}
             </Button>
             <Button
               variant="default"
+              className="w-full sm:flex-1 h-11 shadow-md shadow-primary/20"
               onClick={() => selectedRequest && handleApprove(selectedRequest)}
               disabled={approveMutation.isPending}
               data-testid="button-approve-dialog"
             >
-              <CheckCircle className="h-4 w-4 mr-1" />
+              <CheckCircle className="h-4 w-4 mr-2" />
               {t('admin.kyc.approve', 'Approve')}
             </Button>
           </DialogFooter>
@@ -340,30 +381,32 @@ export default function KYCManagement() {
 
       {/* Reject Dialog */}
       <Dialog open={rejectDialogOpen} onOpenChange={setRejectDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{t('admin.kyc.rejectDialog.title', 'Reject KYC Document')}</DialogTitle>
-            <DialogDescription>
+        <DialogContent className="sm:max-w-md border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 p-0 overflow-hidden">
+          <DialogHeader className="p-6 pb-0">
+            <DialogTitle className="text-xl font-bold text-slate-900 dark:text-slate-50">{t('admin.kyc.rejectDialog.title', 'Reject KYC Document')}</DialogTitle>
+            <DialogDescription className="text-slate-500 dark:text-slate-400">
               {t('admin.kyc.rejectDialog.description', 'Please provide a reason for rejection. The customer will be notified.')}
             </DialogDescription>
           </DialogHeader>
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="reason">{t('admin.kyc.rejectDialog.rejectionReason', 'Rejection Reason')}</Label>
+          <div className="p-6 space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="reason" className="text-sm font-semibold text-slate-900 dark:text-slate-50 ml-1">
+                {t('admin.kyc.rejectDialog.rejectionReason', 'Rejection Reason')}
+              </Label>
               <Textarea
                 id="reason"
                 placeholder={t('admin.kyc.rejectDialog.placeholder', 'e.g., Document is unclear, expired, or does not match requirements...')}
                 value={rejectionReason}
                 onChange={(e) => setRejectionReason(e.target.value)}
-                className="mt-2"
-                rows={4}
+                className="bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800 focus:ring-red-500 min-h-[120px]"
                 data-testid="textarea-rejection-reason"
               />
             </div>
           </div>
-          <DialogFooter>
+          <DialogFooter className="p-6 bg-slate-50/50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800 flex flex-row gap-3">
             <Button
               variant="outline"
+              className="flex-1 h-11 bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800"
               onClick={() => {
                 setRejectDialogOpen(false);
                 setRejectionReason("");
@@ -374,11 +417,19 @@ export default function KYCManagement() {
             </Button>
             <Button
               variant="destructive"
+              className="flex-1 h-11 shadow-md shadow-red-500/20"
               onClick={handleReject}
               disabled={rejectMutation.isPending || !rejectionReason.trim()}
               data-testid="button-confirm-reject"
             >
-              {rejectMutation.isPending ? t('admin.kyc.rejectDialog.rejecting', 'Rejecting...') : t('admin.kyc.rejectDialog.confirmRejection', 'Confirm Rejection')}
+              {rejectMutation.isPending ? (
+                <div className="flex items-center gap-2">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                  <span>{t('admin.kyc.rejectDialog.rejecting', 'Rejecting...')}</span>
+                </div>
+              ) : (
+                t('admin.kyc.rejectDialog.confirmRejection', 'Confirm Rejection')
+              )}
             </Button>
           </DialogFooter>
         </DialogContent>

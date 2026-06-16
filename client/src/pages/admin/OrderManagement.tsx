@@ -22,7 +22,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'wouter';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import {
   Table,
   TableBody,
@@ -363,21 +363,21 @@ export default function OrderManagement() {
   };
 
   return (
-    <div className="p-6 lg:p-8 space-y-6 ">
+    <div className="space-y-6 p-4 md:p-6 lg:p-8">
       {/* Header */}
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-foreground dark:to-slate-300 bg-clip-text text-transparent">
+          <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-slate-900 dark:text-slate-50">
             {t('admin.orders.title', 'Order Management')}
           </h1>
-          <p className="text-slate-600 dark:text-slate-400 mt-1">
+          <p className="text-sm md:text-base text-slate-500 dark:text-slate-400 mt-1">
             {t('admin.orders.description', 'Manage and track all eSIM orders')}
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
           <Button
             variant="outline"
-            className="gap-2"
+            className="w-full sm:w-auto gap-2 bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 h-10"
             onClick={() => fetchPendingOrdersMutation.mutate()}
             disabled={fetchPendingOrdersMutation.isPending}
             data-testid="button-fetch-pending"
@@ -385,31 +385,31 @@ export default function OrderManagement() {
             <RefreshCw
               className={`h-4 w-4 ${fetchPendingOrdersMutation.isPending ? 'animate-spin' : ''}`}
             />
-            {t('admin.orders.fetchPending', 'Fetch Pending')}
+            <span className="whitespace-nowrap">{t('admin.orders.fetchPending', 'Fetch Pending')}</span>
           </Button>
-          <Link href="/admin/orders/purchase">
-            <Button data-testid="button-order-esim">
+          <Link href="/admin/orders/purchase" className="w-full sm:w-auto">
+            <Button className="w-full h-10" data-testid="button-order-esim">
               <ShoppingCart className="h-4 w-4 mr-2" />
-              {t('admin.orders.orderEsims', 'Order eSIMs')}
+              <span className="whitespace-nowrap">{t('admin.orders.orderEsims', 'Order eSIMs')}</span>
             </Button>
           </Link>
           <Button
             variant="outline"
-            className="gap-2"
+            className="w-full sm:w-auto gap-2 bg-white dark:bg-slate-950 border-slate-200 dark:border-slate-800 h-10"
             onClick={exportToCSV}
             data-testid="button-export-orders"
           >
             <Download className="h-4 w-4" />
-            {t('admin.orders.exportOrders', 'Export Orders')}
+            <span className="whitespace-nowrap">{t('admin.orders.exportOrders', 'Export Orders')}</span>
           </Button>
         </div>
       </div>
 
       {/* Filters */}
-      <Card className="border-0 shadow-lg dark:bg-gray-900 dark:border-gray-700 dark:text-white">
-        <div className="p-6">
-          <div className="grid gap-4 md:grid-cols-4">
-            <div className="md:col-span-2">
+      <Card className="border-slate-200 dark:border-slate-800 shadow-sm dark:bg-slate-950">
+        <div className="p-4 md:p-6">
+          <div className="grid gap-4 md:grid-cols-4 lg:grid-cols-5 items-end">
+            <div className="md:col-span-2 lg:col-span-2">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                 <Input
@@ -422,45 +422,47 @@ export default function OrderManagement() {
                     setSearchQuery(e.target.value);
                     setCurrentPage(1);
                   }}
-                  className="pl-9 bg-slate-50 dark:bg-slate-900"
+                  className="pl-9 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800"
                   data-testid="input-search-orders"
                 />
               </div>
             </div>
-            <Select
-              value={statusFilter}
-              onValueChange={(value) => {
-                setStatusFilter(value);
-                setCurrentPage(1);
-              }}
-            >
-              <SelectTrigger
-                className="bg-slate-50 dark:bg-slate-900"
-                data-testid="select-status-filter"
+            <div className="md:col-span-1">
+              <Select
+                value={statusFilter}
+                onValueChange={(value) => {
+                  setStatusFilter(value);
+                  setCurrentPage(1);
+                }}
               >
-                <SelectValue placeholder={t('admin.orders.filterByStatus', 'Filter by status')} />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem className=" " value="all">
-                  {t('admin.orders.allStatuses', 'All Statuses')}
-                </SelectItem>
-                <SelectItem className="bg-" value="pending">
-                  {t('common.pending', 'Pending')}
-                </SelectItem>
-                <SelectItem value="processing">
-                  {t('admin.orders.processing', 'Processing')}
-                </SelectItem>
-                <SelectItem value="completed">
-                  {t('admin.orders.completed', 'Completed')}
-                </SelectItem>
-                <SelectItem value="failed">{t('admin.orders.failed', 'Failed')}</SelectItem>
-                <SelectItem value="cancelled">
-                  {t('admin.orders.cancelled', 'Cancelled')}
-                </SelectItem>
-              </SelectContent>
-            </Select>
-            <div className="flex items-center gap-2">
-              <Badge variant="outline" className="text-slate-600 dark:text-slate-400">
+                <SelectTrigger
+                  className="bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800"
+                  data-testid="select-status-filter"
+                >
+                  <SelectValue placeholder={t('admin.orders.filterByStatus', 'Filter by status')} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">
+                    {t('admin.orders.allStatuses', 'All Statuses')}
+                  </SelectItem>
+                  <SelectItem value="pending">
+                    {t('common.pending', 'Pending')}
+                  </SelectItem>
+                  <SelectItem value="processing">
+                    {t('admin.orders.processing', 'Processing')}
+                  </SelectItem>
+                  <SelectItem value="completed">
+                    {t('admin.orders.completed', 'Completed')}
+                  </SelectItem>
+                  <SelectItem value="failed">{t('admin.orders.failed', 'Failed')}</SelectItem>
+                  <SelectItem value="cancelled">
+                    {t('admin.orders.cancelled', 'Cancelled')}
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex items-center gap-2 md:col-span-1 lg:col-span-2">
+              <Badge variant="secondary" className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-none px-3 py-1">
                 {filteredOrders?.length || 0} {t('admin.orders.orders', 'orders')}
               </Badge>
             </div>
@@ -469,400 +471,394 @@ export default function OrderManagement() {
       </Card>
 
       {/* Orders Table */}
-      <Card className="border-0 shadow-lg dark:bg-gray-900 dark:border-gray-700 dark:text-white">
-        <div className="overflow-x-auto">
-          <Table>
-            <TableHeader>
-              <TableRow className="border-slate-200 dark:border-slate-800">
-                <TableHead className="font-semibold">
-                  {t('admin.orders.orderId', 'Order ID')}
-                </TableHead>
-                <TableHead className="font-semibold">
-                  {t('admin.orders.customer', 'Customer')}
-                </TableHead>
-                <TableHead className="font-semibold">
-                  {t('admin.orders.destination', 'Destination')}
-                </TableHead>
-                <TableHead className="font-semibold">
-                  {t('admin.orders.package', 'Package')}
-                </TableHead>
-                <TableHead className="font-semibold">
-                  {t('admin.orders.amount', 'Amount')}
-                </TableHead>
-                <TableHead className="font-semibold">
-                  {t('admin.orders.status', 'Status')}
-                </TableHead>
-                <TableHead className="font-semibold">{t('common.date', 'Date')}</TableHead>
-                <TableHead className="font-semibold text-right">
-                  {t('common.actions', 'Actions')}
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {isLoading ? (
-                <TableRow>
-                  <TableCell colSpan={8} className="h-64 text-center">
-                    <div className="flex flex-col items-center justify-center gap-2">
-                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-second"></div>
-                      <p className="text-sm text-slate-600 dark:text-slate-400">
-                        {t('admin.orders.loadingOrders', 'Loading orders...')}
-                      </p>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ) : !paginatedOrders || paginatedOrders.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={8} className="h-64 text-center">
-                    <div className="flex flex-col items-center justify-center gap-2">
-                      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800">
-                        <Search className="h-8 w-8 text-slate-400" />
-                      </div>
-                      <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-                        {t('admin.orders.noOrdersFound', 'No orders found')}
-                      </h3>
-                      <p className="text-sm text-slate-600 dark:text-slate-400">
-                        {searchQuery || statusFilter !== 'all'
-                          ? t('common.tryAdjustingFilters', 'Try adjusting your filters')
-                          : t(
-                            'admin.orders.ordersWillAppear',
-                            'Orders will appear here once customers start purchasing',
-                          )}
-                      </p>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ) : (
-                paginatedOrders.map((order) => (
-                  <TableRow
-                    key={order.id}
-                    className="border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900/50"
-                    data-testid={`row-order-${order.id}`}
-                  >
-                    <TableCell className="font-mono text-xs font-medium">
-                      {formatDisplayOrderId(order.displayOrderId)}
-                    </TableCell>
-                    <TableCell>
-                      <div>
-                        <p className="font-medium text-slate-900 dark:text-white">
-                          {order.user?.name || t('common.unassigned', 'Unassigned')}
-                        </p>
-                        <p className="text-xs text-slate-600 dark:text-slate-400">
-                          {order.user?.email ||
-                            t('admin.orders.notAssignedToCustomer', 'Not assigned to customer')}
-                        </p>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        {order.package?.destination?.image ? (
-                          <img
-                            src={order.package.destination.image}
-                            alt={order.package.destination.name}
-                            className="w-5 h-5 rounded-full object-cover border"
-                          />
-                        ) : order.package?.destination?.countryCode ? (
-                          <ReactCountryFlag
-                            countryCode={order.package.destination.countryCode}
-                            svg
-                            style={{ width: '20px', height: '15px' }}
-                            title={order.package.destination.name}
-                          />
-                        ) : (
-                          <span className="text-xl">
-                            {order.package?.destination?.flagEmoji ?? '🌍'}
-                          </span>
-                        )}
-                        <span className="font-medium">
-                          {order.package?.destination?.name ?? t('common.global', 'Global')}
-                        </span>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="text-sm">
-                        <div className="font-medium text-slate-900 dark:text-white">
-                          {order.dataAmount}
-                        </div>
-                        <div className="text-xs text-slate-600 dark:text-slate-400">
-                          {order.validity} {t('common.days', 'days')}
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell className="font-semibold text-emerald-600 dark:text-emerald-400">
-                      {(order.giftCardTransactions?.length > 0 || order.voucherUsage?.length > 0 || order.referralTransactions?.length > 0) ? (
-                        <div className="flex flex-col">
-                          <span className="line-through text-muted-foreground text-xs font-normal">
-                            {formatPrice(order.price, order.currency || order.orderCurrency)}
-                          </span>
-                          <span className="text-green-600 dark:text-green-400">
-                            {formatPrice(
-                              Math.max(0,
-                                Number(order.price) -
-                                (order.giftCardTransactions?.reduce((acc: number, t: any) => acc + Number(t.amountUsed), 0) || 0) -
-                                (order.voucherUsage?.reduce((acc: number, v: any) => acc + Number(v.discountAmount), 0) || 0) -
-                                (order.referralTransactions?.reduce((acc: number, r: any) => acc + Number(r.amount), 0) || 0)
-                              ),
-                              order.currency || order.orderCurrency
-                            )}
-                          </span>
-                        </div>
-                      ) : (
-                        formatPrice(order.price, order.currency || order.orderCurrency)
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      <Badge className={statusStyles[order.status]} variant="outline">
-                        {order.status}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="text-sm text-slate-600 dark:text-slate-400">
-                      {new Date(order.createdAt).toLocaleDateString()}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            data-testid={`button-actions-${order.id}`}
-                          >
-                            <MoreVertical className="h-4 w-4" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          {/* View Details - Always available */}
-                          <DropdownMenuItem onClick={() => setSelectedOrder(order)}>
-                            <Eye className="mr-2 h-4 w-4" />
-                            {t('common.viewDetails', 'View Details')}
-                          </DropdownMenuItem>
-
-                          {/* Refresh Status - Always available */}
-                          <DropdownMenuItem
-                            onClick={() => refreshStatusMutation.mutate({ orderId: order.id })}
-                            disabled={
-                              refreshStatusMutation.isPending || order.status === 'refunded'
-                            }
-                            data-testid="button-refresh-status"
-                          >
-                            <RefreshCw
-                              className={`h-4 w-4 mr-2 ${refreshStatusMutation.isPending ? 'animate-spin' : ''}`}
-                            />
-                            Refresh Status
-                          </DropdownMenuItem>
-
-                          {/* Refund - Only for completed orders */}
-                          {order.status === 'completed' && (
-                            <DropdownMenuItem
-                              onClick={() => refundOrderMutation.mutate({ orderId: order.id })}
-                              disabled={refundOrderMutation.isPending}
-                              data-testid={`button-refund-${order.id}`}
-                            >
-                              <RefreshCw
-                                className={`h-4 w-4 mr-2 ${refundOrderMutation.isPending ? 'animate-spin' : ''}`}
-                              />
-                              Refund
-                            </DropdownMenuItem>
-                          )}
-
-                          {/* View eSIM - Only for completed orders with ICCID */}
-                          {order.iccid && order.status === 'completed' && (
-                            <DropdownMenuItem
-                              onClick={() => setEsimDetailsOrderId(order.id)}
-                              data-testid={`button-view-esim-${order.id}`}
-                            >
-                              <Smartphone className="mr-2 h-4 w-4" />
-                              {t('admin.orders.viewEsim', 'View eSIM')}
-                            </DropdownMenuItem>
-                          )}
-
-                          {/* Send Instructions - Only for completed orders with ICCID */}
-                          {order.iccid && order.status === 'completed' && (
-                            <>
-                              <DropdownMenuSeparator />
-                              <DropdownMenuItem
-                                onClick={() => sendInstructionsMutation.mutate(order.id)}
-                                disabled={sendInstructionsMutation.isPending}
-                              >
-                                <Mail className="mr-2 h-4 w-4" />
-                                {t('admin.orders.sendInstructions', 'Send Instructions')}
-                              </DropdownMenuItem>
-                            </>
-                          )}
-
-                          {/* Mark as Completed - Only for pending, processing, or failed orders */}
-                          {['pending', 'processing', 'failed'].includes(order.status) && (
-                            <DropdownMenuItem
-                              onClick={() =>
-                                updateOrderStatusMutation.mutate({
-                                  orderId: order.id,
-                                  status: 'completed',
-                                })
-                              }
-                              disabled={updateOrderStatusMutation.isPending}
-                              data-testid={`button-mark-complete-${order.id}`}
-                            >
-                              {t('admin.orders.markAsCompleted', 'Mark as Completed')}
-                            </DropdownMenuItem>
-                          )}
-
-                          {/* Delete Order - Only for non-terminal states */}
-                          {['pending', 'processing', 'failed'].includes(order.status) && (
-                            <DropdownMenuItem
-                              className="text-red-600"
-                              onClick={() => {
-                                if (
-                                  confirm(
-                                    t(
-                                      'admin.orders.deleteConfirm',
-                                      'Are you sure you want to delete this order?',
-                                    ),
-                                  )
-                                ) {
-                                  deleteOrderMutation.mutate(order.id);
-                                }
-                              }}
-                              disabled={deleteOrderMutation.isPending}
-                              data-testid={`button-delete-order-${order.id}`}
-                            >
-                              {t('admin.orders.deleteOrder', 'Delete Order')}
-                            </DropdownMenuItem>
-                          )}
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
-        </div>
-
-        {/* Pagination */}
-        {filteredOrders && filteredOrders.length > itemsPerPage && (
-          <div className="flex items-center justify-between border-t border-slate-200 dark:border-slate-800 px-6 py-4">
-            <div className="text-sm text-slate-600 dark:text-slate-400">
-              {t('common.showing', 'Showing')} {(currentPage - 1) * itemsPerPage + 1}{' '}
-              {t('common.to', 'to')} {Math.min(currentPage * itemsPerPage, filteredOrders.length)}{' '}
-              {t('common.of', 'of')} {filteredOrders.length} {t('admin.orders.orders', 'orders')}
+      <Card className="border-slate-200 dark:border-slate-800 shadow-sm dark:bg-slate-950">
+        <CardContent className="p-0">
+          {isLoading ? (
+            <div className="h-64 flex flex-col items-center justify-center gap-3">
+              <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary-second"></div>
+              <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">{t('admin.orders.loadingOrders', 'Loading orders...')}</p>
             </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                disabled={currentPage === 1}
-                data-testid="button-prev-page"
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
-              <div className="flex items-center gap-1">
-                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                  const pageNum = i + 1;
-                  return (
-                    <Button
-                      key={pageNum}
-                      variant={currentPage === pageNum ? 'default' : 'outline'}
-                      size="sm"
-                      onClick={() => setCurrentPage(pageNum)}
-                      className="w-8"
-                    >
-                      {pageNum}
-                    </Button>
-                  );
-                })}
+          ) : !paginatedOrders || paginatedOrders.length === 0 ? (
+            <div className="py-12 flex flex-col items-center justify-center gap-4">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-slate-50 dark:bg-slate-900">
+                <Search className="h-8 w-8 text-slate-300 dark:text-slate-700" />
               </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                disabled={currentPage === totalPages}
-                data-testid="button-next-page"
-              >
-                <ChevronRight className="h-4 w-4" />
-              </Button>
+              <div className="space-y-1 text-center">
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-slate-50">{t('admin.orders.noOrdersFound', 'No orders found')}</h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400 px-4 max-w-sm">
+                  {searchQuery || statusFilter !== 'all'
+                    ? t('common.tryAdjustingFilters', 'Try adjusting your filters')
+                    : t(
+                      'admin.orders.ordersWillAppear',
+                      'Orders will appear here once customers start purchasing',
+                    )}
+                </p>
+              </div>
             </div>
-          </div>
-        )}
+          ) : (
+            <>
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="border-slate-200 dark:border-slate-800 hover:bg-transparent">
+                      <TableHead className="font-semibold text-slate-900 dark:text-slate-50">{t('admin.orders.orderId', 'Order ID')}</TableHead>
+                      <TableHead className="font-semibold text-slate-900 dark:text-slate-50">{t('admin.orders.customer', 'Customer')}</TableHead>
+                      <TableHead className="font-semibold text-slate-900 dark:text-slate-50">{t('admin.orders.destination', 'Destination')}</TableHead>
+                      <TableHead className="font-semibold text-slate-900 dark:text-slate-50">{t('admin.orders.package', 'Package')}</TableHead>
+                      <TableHead className="font-semibold text-slate-900 dark:text-slate-50">{t('admin.orders.amount', 'Amount')}</TableHead>
+                      <TableHead className="font-semibold text-slate-900 dark:text-slate-50">{t('admin.orders.status', 'Status')}</TableHead>
+                      <TableHead className="font-semibold text-slate-900 dark:text-slate-50">{t('common.date', 'Date')}</TableHead>
+                      <TableHead className="font-semibold text-slate-900 dark:text-slate-50 text-right">{t('common.actions', 'Actions')}</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {paginatedOrders.map((order) => (
+                      <TableRow
+                        key={order.id}
+                        className="border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors"
+                        data-testid={`row-order-${order.id}`}
+                      >
+                        <TableCell className="font-mono text-[10px] md:text-xs text-slate-500 dark:text-slate-400">
+                          {formatDisplayOrderId(order.displayOrderId)}
+                        </TableCell>
+                        <TableCell>
+                          <div className="min-w-[150px]">
+                            <p className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+                              {order.user?.name || t('common.unassigned', 'Unassigned')}
+                            </p>
+                            <p className="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 truncate max-w-[180px]">
+                              {order.user?.email ||
+                                t('admin.orders.notAssignedToCustomer', 'Not assigned to customer')}
+                            </p>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-2 min-w-[130px]">
+                            {order.package?.destination?.image ? (
+                              <img
+                                src={order.package.destination.image}
+                                alt={order.package.destination.name}
+                                className="w-5 h-5 rounded-full object-cover border border-slate-200 dark:border-slate-700 shadow-sm"
+                              />
+                            ) : order.package?.destination?.countryCode ? (
+                              <ReactCountryFlag
+                                countryCode={order.package.destination.countryCode}
+                                svg
+                                style={{ width: '20px', height: '15px' }}
+                                title={order.package.destination.name}
+                                className="shadow-sm rounded-[2px]"
+                              />
+                            ) : (
+                              <span className="text-lg">
+                                {order.package?.destination?.flagEmoji ?? '🌍'}
+                              </span>
+                            )}
+                            <span className="text-sm font-medium text-slate-900 dark:text-slate-50">
+                              {order.package?.destination?.name ?? t('common.global', 'Global')}
+                            </span>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex flex-col gap-0.5 min-w-[100px]">
+                            <span className="text-sm font-semibold text-slate-900 dark:text-slate-50">{order.dataAmount}</span>
+                            <span className="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 uppercase tracking-tight">{order.validity} {t('common.days', 'days')}</span>
+                          </div>
+                        </TableCell>
+                        <TableCell className="font-semibold min-w-[90px]">
+                          {(order.giftCardTransactions?.length > 0 || order.voucherUsage?.length > 0 || order.referralTransactions?.length > 0) ? (
+                            <div className="flex flex-col">
+                              <span className="line-through text-slate-400 dark:text-slate-500 text-[10px] font-normal">
+                                {formatPrice(order.price, order.currency || order.orderCurrency)}
+                              </span>
+                              <span className="text-emerald-600 dark:text-emerald-400 text-sm">
+                                {formatPrice(
+                                  Math.max(0,
+                                    Number(order.price) -
+                                    (order.giftCardTransactions?.reduce((acc: number, t: any) => acc + Number(t.amountUsed), 0) || 0) -
+                                    (order.voucherUsage?.reduce((acc: number, v: any) => acc + Number(v.discountAmount), 0) || 0) -
+                                    (order.referralTransactions?.reduce((acc: number, r: any) => acc + Number(r.amount), 0) || 0)
+                                  ),
+                                  order.currency || order.orderCurrency
+                                )}
+                              </span>
+                            </div>
+                          ) : (
+                            <span className="text-emerald-600 dark:text-emerald-400 text-sm">
+                              {formatPrice(order.price, order.currency || order.orderCurrency)}
+                            </span>
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="outline" className={`${statusStyles[order.status]} border-none text-[10px] md:text-xs px-2 py-0.5 capitalize`}>
+                            {order.status}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="text-[10px] md:text-xs text-slate-500 dark:text-slate-400 whitespace-nowrap font-medium">
+                          {new Date(order.createdAt).toLocaleDateString()}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-8 w-8 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-50"
+                                data-testid={`button-actions-${order.id}`}
+                              >
+                                <MoreVertical className="h-4 w-4" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end" className="w-48 dark:bg-slate-950 border-slate-200 dark:border-slate-800">
+                              {/* View Details - Always available */}
+                              <DropdownMenuItem className="cursor-pointer" onClick={() => setSelectedOrder(order)}>
+                                <Eye className="mr-2 h-4 w-4" />
+                                {t('common.viewDetails', 'View Details')}
+                              </DropdownMenuItem>
+
+                              {/* Refresh Status - Always available */}
+                              <DropdownMenuItem
+                                className="cursor-pointer"
+                                onClick={() => refreshStatusMutation.mutate({ orderId: order.id })}
+                                disabled={
+                                  refreshStatusMutation.isPending || order.status === 'refunded'
+                                }
+                                data-testid="button-refresh-status"
+                              >
+                                <RefreshCw
+                                  className={`h-4 w-4 mr-2 ${refreshStatusMutation.isPending ? 'animate-spin' : ''}`}
+                                />
+                                Refresh Status
+                              </DropdownMenuItem>
+
+                              {/* Refund - Only for completed orders */}
+                              {order.status === 'completed' && (
+                                <DropdownMenuItem
+                                  className="cursor-pointer"
+                                  onClick={() => refundOrderMutation.mutate({ orderId: order.id })}
+                                  disabled={refundOrderMutation.isPending}
+                                  data-testid={`button-refund-${order.id}`}
+                                >
+                                  <RefreshCw
+                                    className={`h-4 w-4 mr-2 ${refundOrderMutation.isPending ? 'animate-spin' : ''}`}
+                                  />
+                                  Refund
+                                </DropdownMenuItem>
+                              )}
+
+                              {/* View eSIM - Only for completed orders with ICCID */}
+                              {order.iccid && order.status === 'completed' && (
+                                <DropdownMenuItem
+                                  className="cursor-pointer"
+                                  onClick={() => setEsimDetailsOrderId(order.id)}
+                                  data-testid={`button-view-esim-${order.id}`}
+                                >
+                                  <Smartphone className="mr-2 h-4 w-4" />
+                                  {t('admin.orders.viewEsim', 'View eSIM')}
+                                </DropdownMenuItem>
+                              )}
+
+                              {/* Send Instructions - Only for completed orders with ICCID */}
+                              {order.iccid && order.status === 'completed' && (
+                                <>
+                                  <DropdownMenuSeparator className="dark:bg-slate-800" />
+                                  <DropdownMenuItem
+                                    className="cursor-pointer"
+                                    onClick={() => sendInstructionsMutation.mutate(order.id)}
+                                    disabled={sendInstructionsMutation.isPending}
+                                  >
+                                    <Mail className="mr-2 h-4 w-4" />
+                                    {t('admin.orders.sendInstructions', 'Send Instructions')}
+                                  </DropdownMenuItem>
+                                </>
+                              )}
+
+                              {/* Mark as Completed - Only for pending, processing, or failed orders */}
+                              {['pending', 'processing', 'failed'].includes(order.status) && (
+                                <DropdownMenuItem
+                                  className="cursor-pointer"
+                                  onClick={() =>
+                                    updateOrderStatusMutation.mutate({
+                                      orderId: order.id,
+                                      status: 'completed',
+                                    })
+                                  }
+                                  disabled={updateOrderStatusMutation.isPending}
+                                  data-testid={`button-mark-complete-${order.id}`}
+                                >
+                                  {t('admin.orders.markAsCompleted', 'Mark as Completed')}
+                                </DropdownMenuItem>
+                              )}
+
+                              {/* Delete Order - Only for non-terminal states */}
+                              {['pending', 'processing', 'failed'].includes(order.status) && (
+                                <DropdownMenuItem
+                                  className="text-red-600 cursor-pointer hover:text-red-700 dark:hover:text-red-400 focus:text-red-700 dark:focus:text-red-400"
+                                  onClick={() => {
+                                    if (
+                                      confirm(
+                                        t(
+                                          'admin.orders.deleteConfirm',
+                                          'Are you sure you want to delete this order?',
+                                        ),
+                                      )
+                                    ) {
+                                      deleteOrderMutation.mutate(order.id);
+                                    }
+                                  }}
+                                  disabled={deleteOrderMutation.isPending}
+                                  data-testid={`button-delete-order-${order.id}`}
+                                >
+                                  {t('admin.orders.deleteOrder', 'Delete Order')}
+                                </DropdownMenuItem>
+                              )}
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+
+              {/* Pagination */}
+              {filteredOrders && filteredOrders.length > itemsPerPage && (
+                <div className="flex flex-col sm:flex-row items-center justify-between border-t border-slate-100 dark:border-slate-800 px-6 py-4 gap-4">
+                  <div className="text-xs md:text-sm text-slate-500 dark:text-slate-400 font-medium order-2 sm:order-1">
+                    {t('common.showing', 'Showing')} {(currentPage - 1) * itemsPerPage + 1}{' '}
+                    {t('common.to', 'to')} {Math.min(currentPage * itemsPerPage, filteredOrders.length)}{' '}
+                    {t('common.of', 'of')} {filteredOrders.length} {t('admin.orders.orders', 'orders')}
+                  </div>
+                  <div className="flex items-center gap-2 order-1 sm:order-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-8 w-8 p-0 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800"
+                      onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                      disabled={currentPage === 1}
+                      data-testid="button-prev-page"
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                    </Button>
+                    <div className="flex items-center gap-1">
+                      {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                        const pageNum = i + 1;
+                        return (
+                          <Button
+                            key={pageNum}
+                            variant={currentPage === pageNum ? 'default' : 'outline'}
+                            size="sm"
+                            onClick={() => setCurrentPage(pageNum)}
+                            className={`h-8 w-8 p-0 ${currentPage === pageNum ? '' : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800'}`}
+                          >
+                            {pageNum}
+                          </Button>
+                        );
+                      })}
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="h-8 w-8 p-0 bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800"
+                      onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                      disabled={currentPage === totalPages}
+                      data-testid="button-next-page"
+                    >
+                      <ChevronRight className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+        </CardContent>
       </Card>
 
       {/* Order Details Dialog */}
       <Dialog open={!!selectedOrder} onOpenChange={() => setSelectedOrder(null)}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle>{t('admin.orders.orderDetails', 'Order Details')}</DialogTitle>
-            <DialogDescription>
+        <DialogContent className="max-w-2xl p-0 overflow-hidden border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
+          <DialogHeader className="p-6 pb-0">
+            <DialogTitle className="text-xl font-bold text-slate-900 dark:text-slate-50">{t('admin.orders.orderDetails', 'Order Details')}</DialogTitle>
+            <DialogDescription className="text-slate-500 dark:text-slate-400">
               {t('admin.orders.completeInformation', 'Complete information about this order')}
             </DialogDescription>
           </DialogHeader>
+
           {selectedOrder && (
-            <div className="space-y-4 dark:bg-gray-900 dark:border-gray-700 dark:text-white">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
+            <div className="p-6 space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800">
+                <div className="space-y-1">
+                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                     {t('admin.orders.orderId', 'Order ID')}
                   </p>
-                  <p className="text-sm font-mono mt-1 text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
+                  <p className="text-sm font-mono text-slate-700 dark:text-slate-300">
                     {formatDisplayOrderId(selectedOrder.displayOrderId)}
                   </p>
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
+                <div className="space-y-1">
+                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                     {t('admin.orders.status', 'Status')}
                   </p>
-                  <Badge className={`${statusStyles[selectedOrder.status]} mt-1`} variant="outline">
+                  <Badge className={`${statusStyles[selectedOrder.status]} border-none px-2 py-0.5`} variant="outline">
                     {selectedOrder.status}
                   </Badge>
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
+                <div className="space-y-1">
+                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                     {t('admin.orders.customer', 'Customer')}
                   </p>
-                  <p className="text-sm mt-1 text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
+                  <p className="text-sm font-medium text-slate-700 dark:text-slate-300 truncate">
                     {selectedOrder.user?.email || t('common.unassigned', 'Unassigned')}
                   </p>
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
+                <div className="space-y-1">
+                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                     {t('admin.orders.amount', 'Amount')}
                   </p>
-                  <p className="text-sm font-semibold text-emerald-600 dark:text-emerald-400 mt-1">
-                    ${selectedOrder.price}
+                  <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400">
+                    {formatPrice(selectedOrder.price, selectedOrder.currency || selectedOrder.orderCurrency)}
                   </p>
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
+                <div className="space-y-1">
+                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                     {t('admin.orders.package', 'Package')}
                   </p>
-                  <p className="text-sm mt-1 text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
+                  <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
                     {selectedOrder.dataAmount} • {selectedOrder.validity} {t('common.days', 'days')}
                   </p>
                 </div>
-                <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
+                <div className="space-y-1">
+                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
                     {t('common.date', 'Date')}
                   </p>
-                  <p className="text-sm mt-1 text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
+                  <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
                     {new Date(selectedOrder.createdAt).toLocaleString()}
                   </p>
                 </div>
               </div>
+
               {selectedOrder.iccid && (
-                <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
+                <div className="space-y-2">
+                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider ml-1">
                     {t('admin.orders.iccid', 'ICCID')}
                   </p>
-                  <p className="text-sm font-mono mt-1 text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">{selectedOrder.iccid}</p>
+                  <div className="p-3 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-lg">
+                    <p className="text-sm font-mono text-slate-700 dark:text-slate-300 break-all">{selectedOrder.iccid}</p>
+                  </div>
                 </div>
               )}
+
               {selectedOrder.qrCodeUrl && (
-                <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-2 dark:bg-gray-900 ">
+                <div className="space-y-3">
+                  <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider ml-1">
                     QR Code
                   </p>
-                  <img
-                    src={selectedOrder.qrCodeUrl}
-                    alt="QR Code"
-                    className="w-48 h-48 border rounded-lg"
-                  />
+                  <div className="flex justify-center p-6 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl shadow-sm">
+                    <img
+                      src={selectedOrder.qrCodeUrl}
+                      alt="QR Code"
+                      className="w-48 h-48 sm:w-64 sm:h-64 rounded-lg"
+                    />
+                  </div>
                 </div>
               )}
 
@@ -879,32 +875,32 @@ export default function OrderManagement() {
                 if (!showFailoverSection) return null;
 
                 return (
-                  <div className="border-t pt-4 mt-4 dark:bg-gray-900 dark:border-gray-700 dark:text-white">
-                    <div className="flex items-center gap-2 mb-3 dark:bg-gray-900 dark:border-gray-700 dark:text-white">
+                  <div className="space-y-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                    <div className="flex items-center gap-2 mb-1">
                       <AlertTriangle className="h-4 w-4 text-amber-500" />
-                      <p className="text-sm font-medium">
+                      <p className="text-sm font-bold text-slate-900 dark:text-slate-50">
                         {t('admin.orders.providerInfo', 'Provider Information')}
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 mb-4 dark:bg-gray-900 dark:border-gray-700 dark:text-white">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {selectedOrder.originalProviderId && (
-                        <div>
-                          <p className="text-sm text-slate-500 dark:text-slate-400 dark:bg-gray-900 ">
+                        <div className="p-3 bg-slate-50 dark:bg-slate-900/30 rounded-lg">
+                          <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">
                             {t('admin.orders.originalProvider', 'Original Provider')}
                           </p>
-                          <p className="text-sm font-medium mt-1 dark:bg-gray-900 dark:border-gray-700 dark:text-white">
+                          <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">
                             {selectedOrder.originalProviderName || selectedOrder.originalProviderId}
                           </p>
                         </div>
                       )}
                       {selectedOrder.finalProviderId && (
-                        <div>
-                          <p className="text-sm text-slate-500 dark:text-slate-400 dark:bg-gray-900 ">
+                        <div className="p-3 bg-slate-50 dark:bg-slate-900/30 rounded-lg">
+                          <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1">
                             {t('admin.orders.finalProvider', 'Final Provider')}
                           </p>
-                          <div className="flex items-center gap-2 mt-1 dark:bg-gray-900 dark:border-gray-700 dark:text-white">
-                            <p className="text-sm font-medium dark:bg-gray-900 dark:border-gray-700 dark:text-white">
+                          <div className="flex items-center gap-2">
+                            <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">
                               {selectedOrder.finalProviderName || selectedOrder.finalProviderId}
                             </p>
                             {selectedOrder.originalProviderId &&
@@ -912,7 +908,7 @@ export default function OrderManagement() {
                               selectedOrder.finalProviderId && (
                                 <Badge
                                   variant="outline"
-                                  className="bg-amber-50 text-amber-700 dark:bg-amber-900/20 dark:text-amber-400 text-xs"
+                                  className="bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-400 border-none text-[10px] px-1.5 py-0"
                                 >
                                   {t('admin.orders.failover', 'Failover')}
                                 </Badge>
@@ -924,36 +920,40 @@ export default function OrderManagement() {
 
                     {/* Failover Attempts History */}
                     {failoverAttempts.length > 0 && (
-                      <div>
-                        <p className="text-sm font-medium mb-2 ">
+                      <div className="space-y-2">
+                        <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider ml-1">
                           {t('admin.orders.failoverHistory', 'Failover History')}
                         </p>
                         <div className="space-y-2">
                           {failoverAttempts.map((attempt, index) => (
                             <div
                               key={index}
-                              className="flex items-center gap-2 p-2 dark:bg-gray-900 dark:border-gray-700 dark:text-white rounded-md text-sm"
+                              className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-lg text-sm transition-colors hover:bg-slate-100 dark:hover:bg-slate-800/50"
                             >
                               {attempt.success ? (
                                 <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
                               ) : (
                                 <XCircle className="h-4 w-4 text-red-500 flex-shrink-0" />
                               )}
-                              <span className="font-medium">
-                                {attempt.providerName || attempt.providerId}
-                              </span>
-                              {attempt.margin !== undefined && (
-                                <Badge variant="outline" className="text-xs">
-                                  {attempt.margin.toFixed(1)}% margin
-                                </Badge>
-                              )}
-                              {attempt.error && (
-                                <span className="text-red-500 text-xs truncate flex-1">
-                                  {attempt.error}
-                                </span>
-                              )}
-                              <span className="text-slate-400 text-xs ml-auto">
-                                {new Date(attempt.timestamp).toLocaleTimeString()}
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 flex-wrap">
+                                  <span className="font-bold text-slate-900 dark:text-slate-50">
+                                    {attempt.providerName || attempt.providerId}
+                                  </span>
+                                  {attempt.margin !== undefined && (
+                                    <Badge variant="secondary" className="text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 px-1.5 py-0">
+                                      {attempt.margin.toFixed(1)}% margin
+                                    </Badge>
+                                  )}
+                                </div>
+                                {attempt.error && (
+                                  <p className="text-red-500 text-[10px] mt-0.5 truncate italic">
+                                    {attempt.error}
+                                  </p>
+                                )}
+                              </div>
+                              <span className="text-slate-400 dark:text-slate-500 text-[10px] font-mono shrink-0">
+                                {new Date(attempt.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                               </span>
                             </div>
                           ))}
@@ -965,6 +965,15 @@ export default function OrderManagement() {
               })()}
             </div>
           )}
+          <div className="p-6 bg-slate-50/50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800">
+            <Button
+              className="w-full sm:w-auto"
+              variant="outline"
+              onClick={() => setSelectedOrder(null)}
+            >
+              {t('common.close', 'Close')}
+            </Button>
+          </div>
         </DialogContent>
       </Dialog>
 
