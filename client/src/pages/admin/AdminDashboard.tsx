@@ -136,242 +136,155 @@ export default function AdminDashboard() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         {/* Total Revenue */}
         <Card
-          className="relative overflow-hidden border-0 bg-gradient-to-br from-primary/5 to-indigo-50 dark:from-[#0a2e14]/30 dark:to-indigo-950/30 shadow-lg shadow-primary/10/50 dark:shadow-[var(--primary-dark)]/10"
+          className="relative overflow-hidden border-0 bg-white dark:bg-gray-900 shadow-sm border border-slate-100 dark:border-slate-800"
           data-testid="card-total-revenue"
         >
           <div className="p-6">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm font-medium text-primary-second dark:text-[var(--primary-light)]">
+                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
                   {t('admin.dashboard.totalRevenue', 'Total Revenue')}
                 </p>
                 <h3
-                  className="text-3xl font-bold text-slate-900 dark:text-white mt-2"
+                  className="text-2xl font-bold text-slate-900 dark:text-white mt-1"
                   data-testid="text-total-revenue"
                 >
                   ${stats?.totalRevenue.toFixed(2) || '0.00'}
                 </h3>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary-second to-indigo-600 shadow-lg shadow-[var(--primary)]/50">
-                <DollarSign className="h-6 w-6 text-white" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 dark:bg-primary/20 text-primary">
+                <DollarSign className="h-5 w-5" />
               </div>
             </div>
-            {stats && stats.trends.revenue !== 0 && (
-              <div className="mt-4 flex items-center gap-2" data-testid="text-revenue-trend">
-                {stats.trends.revenue >= 0 ? (
-                  <TrendingUp className="h-4 w-4 text-green-600" />
-                ) : (
-                  <TrendingDown className="h-4 w-4 text-red-600" />
-                )}
-                <span
-                  className={`text-sm font-medium ${stats.trends.revenue >= 0 ? 'text-green-600' : 'text-red-600'}`}
-                >
-                  {Math.abs(stats.trends.revenue).toFixed(1)}%
-                </span>
-                <span className="text-sm text-slate-600 dark:text-slate-400">
-                  {t('admin.dashboard.vsLastMonth', 'vs last month')}
-                </span>
-              </div>
-            )}
           </div>
-          <div className="absolute -bottom-6 -right-6 h-24 w-24 rounded-full bg-gradient-to-br from-[var(--primary-light)]/20 to-indigo-400/20 blur-2xl"></div>
         </Card>
 
         {/* Total Cost */}
         <Card
-          className="relative overflow-hidden border-0 bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-950/30 dark:to-rose-950/30 shadow-lg shadow-red-100/50 dark:shadow-red-900/10"
+          className="relative overflow-hidden border-0 bg-white dark:bg-gray-900 shadow-sm border border-slate-100 dark:border-slate-800"
           data-testid="card-total-cost"
         >
           <div className="p-6">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm font-medium text-red-600 dark:text-red-400">
+                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
                   {t('admin.dashboard.totalCost', 'Total Cost')}
                 </p>
                 <h3
-                  className="text-3xl font-bold text-slate-900 dark:text-white mt-2"
+                  className="text-2xl font-bold text-slate-900 dark:text-white mt-1"
                   data-testid="text-total-cost"
                 >
                   ${stats?.totalCost.toFixed(2) || '0.00'}
                 </h3>
-                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
-                  {t('admin.dashboard.costToProviders', 'Cost to Providers')}
-                </p>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-red-600 to-rose-600 shadow-lg shadow-red-500/50">
-                <TrendingDown className="h-6 w-6 text-white" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400">
+                <TrendingDown className="h-5 w-5" />
               </div>
             </div>
-            {stats && stats.totalRevenue > 0 && stats.totalCost > 0 && (
-              <div className="mt-4 flex items-center gap-2">
-                <Badge
-                  variant="secondary"
-                  className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400"
-                >
-                  ${(stats.totalRevenue - stats.totalCost).toFixed(2)}{' '}
-                  {t('admin.dashboard.profit', 'profit')}
-                </Badge>
-              </div>
-            )}
           </div>
-          <div className="absolute -bottom-6 -right-6 h-24 w-24 rounded-full bg-gradient-to-br from-red-400/20 to-rose-400/20 blur-2xl"></div>
         </Card>
 
-        {/* Total Orders + eSIMs */}
+        {/* Total Orders */}
         <Card
-          className="relative overflow-hidden border-0 bg-gradient-to-br from-emerald-50 to-primary/5 dark:from-emerald-950/30 dark:to-[#0a2e14]/30 shadow-lg shadow-emerald-100/50 dark:shadow-emerald-900/10"
+          className="relative overflow-hidden border-0 bg-white dark:bg-gray-900 shadow-sm border border-slate-100 dark:border-slate-800"
           data-testid="card-total-orders"
         >
           <div className="p-6">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm font-medium text-emerald-600 dark:text-emerald-400">
+                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
                   {t('admin.dashboard.totalOrders', 'Total Orders')}
                 </p>
                 <h3
-                  className="text-3xl font-bold text-slate-900 dark:text-white mt-2"
+                  className="text-2xl font-bold text-slate-900 dark:text-white mt-1"
                   data-testid="text-total-orders"
                 >
                   {stats?.totalOrders.toLocaleString() || 0}
                 </h3>
-                <p
-                  className="text-sm text-slate-600 dark:text-slate-400 mt-1"
-                  data-testid="text-total-esims"
-                >
-                  {stats?.totalEsims.toLocaleString() || 0}{' '}
-                  {t('admin.dashboard.totalEsims', 'eSIMs sold')}
-                </p>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-600 to-primary-second shadow-lg shadow-emerald-500/50">
-                <ShoppingCart className="h-6 w-6 text-white" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400">
+                <ShoppingCart className="h-5 w-5" />
               </div>
             </div>
-            {stats && stats.trends.orders !== 0 && (
-              <div className="mt-4 flex items-center gap-2">
-                {stats.trends.orders >= 0 ? (
-                  <TrendingUp className="h-4 w-4 text-green-600" />
-                ) : (
-                  <TrendingDown className="h-4 w-4 text-red-600" />
-                )}
-                <span
-                  className={`text-sm font-medium ${stats.trends.orders >= 0 ? 'text-green-600' : 'text-red-600'}`}
-                >
-                  {Math.abs(stats.trends.orders).toFixed(1)}%
-                </span>
-                <span className="text-sm text-slate-600 dark:text-slate-400">
-                  {t('admin.dashboard.vsLastMonth', 'vs last month')}
-                </span>
-              </div>
-            )}
           </div>
-          <div className="absolute -bottom-6 -right-6 h-24 w-24 rounded-full bg-gradient-to-br from-emerald-400/20 to-[var(--primary-light)]/20 blur-2xl"></div>
         </Card>
 
         {/* Total Customers */}
         <Card
-          className="relative overflow-hidden border-0 bg-gradient-to-br from-primary/5 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 shadow-lg shadow-primary/10/50 dark:shadow-[var(--primary-dark)]/10"
+          className="relative overflow-hidden border-0 bg-white dark:bg-gray-900 shadow-sm border border-slate-100 dark:border-slate-800"
           data-testid="card-total-customers"
         >
           <div className="p-6">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm font-medium text-primary-second dark:text-[var(--primary-light)]">
+                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
                   {t('admin.dashboard.customers', 'Customers')}
                 </p>
                 <h3
-                  className="text-3xl font-bold text-slate-900 dark:text-white mt-2"
+                  className="text-2xl font-bold text-slate-900 dark:text-white mt-1"
                   data-testid="text-total-customers"
                 >
                   {stats?.totalCustomers.toLocaleString() || 0}
                 </h3>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary-second to-pink-600 shadow-lg shadow-[var(--primary)]/50">
-                <Users className="h-6 w-6 text-white" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
+                <Users className="h-5 w-5" />
               </div>
             </div>
-            {stats && stats.trends.customers > 0 && (
-              <div className="mt-4 flex items-center gap-2">
-                <Badge
-                  variant="secondary"
-                  className="bg-primary/10 dark:bg-[var(--primary-dark)]/30 text-primary-second dark:text-[var(--primary-light)]"
-                >
-                  +{stats.trends.customers} {t('admin.dashboard.thisMonth', 'this month')}
-                </Badge>
-              </div>
-            )}
           </div>
-          <div className="absolute -bottom-6 -right-6 h-24 w-24 rounded-full bg-gradient-to-br from-[var(--primary-light)]/20 to-pink-400/20 blur-2xl"></div>
         </Card>
 
         {/* Active Packages */}
         <Card
-          className="relative overflow-hidden border-0 bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/30 dark:to-amber-950/30 shadow-lg shadow-orange-100/50 dark:shadow-orange-900/10"
+          className="relative overflow-hidden border-0 bg-white dark:bg-gray-900 shadow-sm border border-slate-100 dark:border-slate-800"
           data-testid="card-active-packages"
         >
           <div className="p-6">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm font-medium text-orange-600 dark:text-orange-400">
+                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
                   {t('admin.dashboard.activePackages', 'Active Packages')}
                 </p>
                 <h3
-                  className="text-3xl font-bold text-slate-900 dark:text-white mt-2"
+                  className="text-2xl font-bold text-slate-900 dark:text-white mt-1"
                   data-testid="text-active-packages"
                 >
                   {stats?.activePackages.toLocaleString() || 0}
                 </h3>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-orange-600 to-amber-600 shadow-lg shadow-orange-500/50">
-                <PackageIcon className="h-6 w-6 text-white" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-100 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400">
+                <PackageIcon className="h-5 w-5" />
               </div>
             </div>
-            {stats && stats.totalPackages > 0 && (
-              <div className="mt-4 flex items-center gap-2">
-                <Badge variant="destructive" className="gap-1">
-                  <AlertCircle className="h-3 w-3" />
-                  {stats.totalPackages} {t('admin.dashboard.packages', 'packages')}
-                </Badge>
-              </div>
-            )}
           </div>
-          <div className="absolute -bottom-6 -right-6 h-24 w-24 rounded-full bg-gradient-to-br from-orange-400/20 to-amber-400/20 blur-2xl"></div>
         </Card>
 
         {/* Total Tickets */}
         <Card
-          className="relative overflow-hidden border-0 bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-950/30 dark:to-amber-950/30 shadow-lg shadow-orange-100/50 dark:shadow-orange-900/10"
-          data-testid="card-active-packages"
+          className="relative overflow-hidden border-0 bg-white dark:bg-gray-900 shadow-sm border border-slate-100 dark:border-slate-800"
+          data-testid="card-total-tickets"
         >
           <div className="p-6">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm font-medium text-orange-600 dark:text-orange-400">
+                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
                   {t('admin.dashboard.totalTickets', 'Total Tickets')}
                 </p>
                 <h3
-                  className="text-3xl font-bold text-slate-900 dark:text-white mt-2"
-                  data-testid="text-active-packages"
+                  className="text-2xl font-bold text-slate-900 dark:text-white mt-1"
+                  data-testid="text-total-tickets"
                 >
                   {stats?.totalTickets.toLocaleString() || 0}
                 </h3>
               </div>
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-orange-600 to-amber-600 shadow-lg shadow-orange-500/50">
-                <PackageIcon className="h-6 w-6 text-white" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400">
+                <AlertCircle className="h-5 w-5" />
               </div>
             </div>
-            {stats && stats.pendingTickets > 0 && (
-              <div className="mt-4 flex items-center gap-2">
-                <Badge variant="destructive" className="gap-1">
-                  <AlertCircle className="h-3 w-3" />
-                  {stats.pendingTickets} {t('admin.dashboard.tickets', 'tickets')}
-                </Badge>
-              </div>
-            )}
           </div>
-          <div className="absolute -bottom-6 -right-6 h-24 w-24 rounded-full bg-gradient-to-br from-orange-400/20 to-amber-400/20 blur-2xl"></div>
         </Card>
       </div>
 
@@ -380,12 +293,12 @@ export default function AdminDashboard() {
           {/* Charts Section */}
           <div className="grid gap-6 lg:grid-cols-7">
             {/* Revenue Trend */}
-            <Card className="lg:col-span-4 border-0 shadow-lg">
-              <div className="p-6 border-b border-slate-100 dark:border-slate-800">
+            <Card className="lg:col-span-4 border-0 shadow-lg dark:bg-gray-900/50 dark:border-gray-800">
+              <div className="p-6 border-b border-slate-100 dark:border-gray-700">
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
                   {t('admin.dashboard.revenueTrend', 'Revenue Trend')}
                 </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                <p className="text-sm text-slate-600 dark:text-gray-400 mt-1">
                   {t('admin.dashboard.last6Months', 'Last 6 months performance')}
                 </p>
               </div>
@@ -401,12 +314,20 @@ export default function AdminDashboard() {
                     <CartesianGrid
                       strokeDasharray="3 3"
                       stroke="#e2e8f0"
-                      className="dark:stroke-slate-800"
+                      className="dark:stroke-gray-700"
                     />
-                    <XAxis dataKey="month" stroke="#64748b" style={{ fontSize: '12px' }} />
+                    <XAxis
+                      dataKey="month"
+                      stroke="#64748b"
+                      className="dark:stroke-gray-400"
+                      style={{ fontSize: '12px' }}
+                      tick={{ fill: 'currentColor' }}
+                    />
                     <YAxis
                       stroke="#64748b"
+                      className="dark:stroke-gray-400"
                       style={{ fontSize: '12px' }}
+                      tick={{ fill: 'currentColor' }}
                       tickFormatter={(value) => `$${value.toLocaleString()}`}
                     />
                     <Tooltip
@@ -416,6 +337,8 @@ export default function AdminDashboard() {
                         borderRadius: '12px',
                         boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
                       }}
+                      itemStyle={{ color: '#1e293b' }}
+                      labelStyle={{ color: '#1e293b' }}
                       formatter={(value: number) => [`$${value.toFixed(2)}`, 'Revenue']}
                     />
                     <Line
@@ -433,12 +356,12 @@ export default function AdminDashboard() {
             </Card>
 
             {/* Order Status */}
-            <Card className="lg:col-span-3 border-0 shadow-lg">
-              <div className="p-6 border-b border-slate-100 dark:border-slate-800">
+            <Card className="lg:col-span-3 border-0 shadow-lg dark:bg-gray-900/50 dark:border-gray-800">
+              <div className="p-6 border-b border-slate-100 dark:border-gray-700">
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
                   {t('admin.dashboard.orderStatus', 'Order Status')}
                 </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                <p className="text-sm text-slate-600 dark:text-gray-400 mt-1">
                   {t('admin.dashboard.distributionOverview', 'Distribution overview')}
                 </p>
               </div>
@@ -459,7 +382,16 @@ export default function AdminDashboard() {
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
                     </Pie>
-                    <Tooltip />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: 'white',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '12px',
+                        boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+                      }}
+                      itemStyle={{ color: '#1e293b' }}
+                      labelStyle={{ color: '#1e293b' }}
+                    />
                   </PieChart>
                 </ResponsiveContainer>
               </div>
@@ -467,19 +399,19 @@ export default function AdminDashboard() {
           </div>
 
           {/* Top Destinations */}
-          <Card className="border-0 shadow-lg">
-            <div className="p-6 border-b border-slate-100 dark:border-slate-800">
+          <Card className="border-0 shadow-lg dark:bg-gray-900/50 dark:border-gray-800">
+            <div className="p-6 border-b border-slate-100 dark:border-gray-700">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
                     {t('admin.dashboard.topDestinations', 'Top Destinations')}
                   </h3>
-                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                  <p className="text-sm text-slate-600 dark:text-gray-400 mt-1">
                     {t('admin.dashboard.topDestinationsDesc', 'Most popular packages by country')}
                   </p>
                 </div>
                 <Link href="/admin/unified-packages">
-                  <Button variant="outline" size="sm" className="gap-2">
+                  <Button variant="outline" size="sm" className="gap-2 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-white">
                     {t('admin.dashboard.viewAll', 'View All')}
                     <ArrowRight className="h-4 w-4" />
                   </Button>
@@ -491,7 +423,7 @@ export default function AdminDashboard() {
                 {stats?.topDestinations.slice(0, 6).map((dest, index) => (
                   <div
                     key={dest.country}
-                    className="flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:shadow-md transition-all duration-200"
+                    className="flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-gray-700 hover:shadow-md dark:hover:shadow-gray-800/50 transition-all duration-200"
                     data-testid={`top-destination-${index}`}
                   >
                     <div className="flex items-center gap-3">
@@ -500,7 +432,7 @@ export default function AdminDashboard() {
                         <p className="font-semibold text-slate-900 dark:text-white">
                           {dest.country}
                         </p>
-                        <p className="text-sm text-slate-600 dark:text-slate-400">
+                        <p className="text-sm text-slate-600 dark:text-gray-400">
                           {dest.count} {t('admin.dashboard.orders', 'orders')}
                         </p>
                       </div>
@@ -526,14 +458,14 @@ export default function AdminDashboard() {
           {/* Latest Orders & Customers Grid */}
           <div className="grid gap-6 lg:grid-cols-2">
             {/* Latest Orders */}
-            <Card className="border-0 shadow-lg">
-              <div className="p-6 border-b border-slate-100 dark:border-slate-800">
+            <Card className="border-0 shadow-lg dark:bg-gray-900/50 dark:border-gray-800">
+              <div className="p-6 border-b border-slate-100 dark:border-gray-700">
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
                       {t('admin.dashboard.latestOrders', 'Latest Orders')}
                     </h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    <p className="text-sm text-slate-600 dark:text-gray-400 mt-1">
                       {t('admin.dashboard.latestOrdersDesc', 'Recent eSIM purchases')}
                     </p>
                   </div>
@@ -541,7 +473,7 @@ export default function AdminDashboard() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="gap-2"
+                      className="gap-2 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-white"
                       data-testid="button-view-all-orders"
                     >
                       {t('admin.dashboard.viewAll', 'View All')}
@@ -555,12 +487,12 @@ export default function AdminDashboard() {
                   {stats?.latestOrders?.slice(0, 10).map((order) => (
                     <div
                       key={order.id}
-                      className="flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:shadow-md transition-all duration-200"
+                      className="flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-gray-700 hover:shadow-md dark:hover:shadow-gray-800/50 transition-all duration-200"
                       data-testid={`latest-order-${order.displayOrderId}`}
                     >
                       <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-1">
-                          <Badge variant="secondary" className="font-mono text-xs">
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                          <Badge variant="secondary" className="font-mono text-xs dark:bg-gray-700 dark:text-gray-300">
                             OID{String(order.displayOrderId).padStart(3, '0')}
                           </Badge>
                           <Badge
@@ -571,7 +503,7 @@ export default function AdminDashboard() {
                                   ? 'destructive'
                                   : 'secondary'
                             }
-                            className="capitalize"
+                            className="capitalize dark:bg-opacity-80"
                           >
                             {order.status}
                           </Badge>
@@ -579,11 +511,11 @@ export default function AdminDashboard() {
                         <p className="font-semibold text-slate-900 dark:text-white text-sm">
                           {order.packageTitle}
                         </p>
-                        <p className="text-xs text-slate-600 dark:text-slate-400">
+                        <p className="text-xs text-slate-600 dark:text-gray-400">
                           {order.userEmail || t('admin.dashboard.adminOrder', 'Admin Order')} •{' '}
                           {order.destinationName}
                         </p>
-                        <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">
+                        <p className="text-xs text-slate-500 dark:text-gray-500 mt-1">
                           {format(new Date(order.createdAt), "MMM d, yyyy 'at' h:mm a")}
                         </p>
                       </div>
@@ -599,14 +531,14 @@ export default function AdminDashboard() {
             </Card>
 
             {/* Latest Customers */}
-            <Card className="border-0 shadow-lg">
-              <div className="p-6 border-b border-slate-100 dark:border-slate-800">
+            <Card className="border-0 shadow-lg dark:bg-gray-900/50 dark:border-gray-800">
+              <div className="p-6 border-b border-slate-100 dark:border-gray-700">
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
                       {t('admin.dashboard.latestCustomers', 'Latest Customers')}
                     </h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                    <p className="text-sm text-slate-600 dark:text-gray-400 mt-1">
                       {t('admin.dashboard.latestCustomersDesc', 'Recently registered users')}
                     </p>
                   </div>
@@ -614,7 +546,7 @@ export default function AdminDashboard() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="gap-2"
+                      className="gap-2 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-white"
                       data-testid="button-view-all-customers"
                     >
                       {t('admin.dashboard.viewAll', 'View All')}
@@ -628,22 +560,22 @@ export default function AdminDashboard() {
                   {stats?.latestCustomers?.slice(0, 10).map((customer) => (
                     <div
                       key={customer.id}
-                      className="flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-800 hover:shadow-md transition-all duration-200"
+                      className="flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-gray-700 hover:shadow-md dark:hover:shadow-gray-800/50 transition-all duration-200"
                       data-testid={`latest-customer-${customer.displayUserId}`}
                     >
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
-                          <Badge variant="secondary" className="font-mono text-xs">
+                          <Badge variant="secondary" className="font-mono text-xs dark:bg-gray-700 dark:text-gray-300">
                             UID{String(customer.displayUserId).padStart(3, '0')}
                           </Badge>
                         </div>
                         <p className="font-semibold text-slate-900 dark:text-white text-sm">
                           {customer.name || t('admin.dashboard.noName', 'No Name')}
                         </p>
-                        <p className="text-xs text-slate-600 dark:text-slate-400">
+                        <p className="text-xs text-slate-600 dark:text-gray-400">
                           {customer.email}
                         </p>
-                        <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">
+                        <p className="text-xs text-slate-500 dark:text-gray-500 mt-1">
                           {t('admin.dashboard.joined', 'Joined')}{' '}
                           {format(new Date(customer.createdAt), 'MMM d, yyyy')}
                         </p>
@@ -657,15 +589,15 @@ export default function AdminDashboard() {
         </>
       ) : (
         /* Empty State */
-        <Card className="border-0 shadow-lg">
+        <Card className="border-0 shadow-lg dark:bg-gray-900/50 dark:border-gray-800">
           <div className="p-12 text-center">
-            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-primary/10 to-indigo-100 dark:from-[var(--primary-dark)]/30 dark:to-indigo-900/30 mx-auto mb-6">
-              <ShoppingCart className="h-10 w-10 text-primary dark:text-primary-dark" />
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-primary/10 to-indigo-100 dark:from-primary/20 dark:to-indigo-900/40 mx-auto mb-6">
+              <ShoppingCart className="h-10 w-10 text-primary dark:text-primary-light" />
             </div>
             <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
               {t('admin.dashboard.noOrdersYet', 'No Orders Yet')}
             </h3>
-            <p className="text-slate-600 dark:text-slate-400 max-w-md mx-auto mb-6">
+            <p className="text-slate-600 dark:text-gray-300 max-w-md mx-auto mb-6">
               {t(
                 'admin.dashboard.noOrdersDesc',
                 'Your marketplace is ready! Start by adding packages and wait for customers to place their first orders.',
@@ -673,12 +605,12 @@ export default function AdminDashboard() {
             </p>
             <div className="flex gap-4 justify-center flex-col md:flex-row">
               <Link href="/admin/unified-packages">
-                <Button className="bg-hero-gradient hover:bg-hero-gradient text-white">
+                <Button className="bg-hero-gradient hover:bg-hero-gradient text-white shadow-md hover:shadow-lg transition-all duration-300">
                   {t('admin.dashboard.managePackages', 'Manage Packages')}
                 </Button>
               </Link>
               <Link href="/admin/customers">
-                <Button variant="outline">
+                <Button variant="outline" className="dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-white">
                   {t('admin.dashboard.viewCustomers', 'View Customers')}
                 </Button>
               </Link>

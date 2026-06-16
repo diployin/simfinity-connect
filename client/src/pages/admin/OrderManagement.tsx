@@ -363,11 +363,11 @@ export default function OrderManagement() {
   };
 
   return (
-    <div className="p-6 lg:p-8 space-y-6">
+    <div className="p-6 lg:p-8 space-y-6 ">
       {/* Header */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-foreground dark:to-slate-300 bg-clip-text text-transparent">
             {t('admin.orders.title', 'Order Management')}
           </h1>
           <p className="text-slate-600 dark:text-slate-400 mt-1">
@@ -400,13 +400,13 @@ export default function OrderManagement() {
             data-testid="button-export-orders"
           >
             <Download className="h-4 w-4" />
-            {t('admin.orders.exportOrders', 'Export Orders 1')}
+            {t('admin.orders.exportOrders', 'Export Orders')}
           </Button>
         </div>
       </div>
 
       {/* Filters */}
-      <Card className="border-0 shadow-lg">
+      <Card className="border-0 shadow-lg dark:bg-gray-900 dark:border-gray-700 dark:text-white">
         <div className="p-6">
           <div className="grid gap-4 md:grid-cols-4">
             <div className="md:col-span-2">
@@ -469,7 +469,7 @@ export default function OrderManagement() {
       </Card>
 
       {/* Orders Table */}
-      <Card className="border-0 shadow-lg">
+      <Card className="border-0 shadow-lg dark:bg-gray-900 dark:border-gray-700 dark:text-white">
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
@@ -794,18 +794,18 @@ export default function OrderManagement() {
             </DialogDescription>
           </DialogHeader>
           {selectedOrder && (
-            <div className="space-y-4">
+            <div className="space-y-4 dark:bg-gray-900 dark:border-gray-700 dark:text-white">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
                     {t('admin.orders.orderId', 'Order ID')}
                   </p>
-                  <p className="text-sm font-mono mt-1">
+                  <p className="text-sm font-mono mt-1 text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
                     {formatDisplayOrderId(selectedOrder.displayOrderId)}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
                     {t('admin.orders.status', 'Status')}
                   </p>
                   <Badge className={`${statusStyles[selectedOrder.status]} mt-1`} variant="outline">
@@ -813,15 +813,15 @@ export default function OrderManagement() {
                   </Badge>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
                     {t('admin.orders.customer', 'Customer')}
                   </p>
-                  <p className="text-sm mt-1">
+                  <p className="text-sm mt-1 text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
                     {selectedOrder.user?.email || t('common.unassigned', 'Unassigned')}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
                     {t('admin.orders.amount', 'Amount')}
                   </p>
                   <p className="text-sm font-semibold text-emerald-600 dark:text-emerald-400 mt-1">
@@ -829,33 +829,33 @@ export default function OrderManagement() {
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
                     {t('admin.orders.package', 'Package')}
                   </p>
-                  <p className="text-sm mt-1">
+                  <p className="text-sm mt-1 text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
                     {selectedOrder.dataAmount} • {selectedOrder.validity} {t('common.days', 'days')}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
                     {t('common.date', 'Date')}
                   </p>
-                  <p className="text-sm mt-1">
+                  <p className="text-sm mt-1 text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
                     {new Date(selectedOrder.createdAt).toLocaleString()}
                   </p>
                 </div>
               </div>
               {selectedOrder.iccid && (
                 <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">
                     {t('admin.orders.iccid', 'ICCID')}
                   </p>
-                  <p className="text-sm font-mono mt-1">{selectedOrder.iccid}</p>
+                  <p className="text-sm font-mono mt-1 text-slate-600 dark:text-slate-400 dark:bg-gray-900 ">{selectedOrder.iccid}</p>
                 </div>
               )}
               {selectedOrder.qrCodeUrl && (
                 <div>
-                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-2">
+                  <p className="text-sm font-medium text-slate-600 dark:text-slate-400 mb-2 dark:bg-gray-900 ">
                     QR Code
                   </p>
                   <img
@@ -879,32 +879,32 @@ export default function OrderManagement() {
                 if (!showFailoverSection) return null;
 
                 return (
-                  <div className="border-t pt-4 mt-4">
-                    <div className="flex items-center gap-2 mb-3">
+                  <div className="border-t pt-4 mt-4 dark:bg-gray-900 dark:border-gray-700 dark:text-white">
+                    <div className="flex items-center gap-2 mb-3 dark:bg-gray-900 dark:border-gray-700 dark:text-white">
                       <AlertTriangle className="h-4 w-4 text-amber-500" />
                       <p className="text-sm font-medium">
                         {t('admin.orders.providerInfo', 'Provider Information')}
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div className="grid grid-cols-2 gap-4 mb-4 dark:bg-gray-900 dark:border-gray-700 dark:text-white">
                       {selectedOrder.originalProviderId && (
                         <div>
-                          <p className="text-sm text-slate-500 dark:text-slate-400">
+                          <p className="text-sm text-slate-500 dark:text-slate-400 dark:bg-gray-900 ">
                             {t('admin.orders.originalProvider', 'Original Provider')}
                           </p>
-                          <p className="text-sm font-medium mt-1">
+                          <p className="text-sm font-medium mt-1 dark:bg-gray-900 dark:border-gray-700 dark:text-white">
                             {selectedOrder.originalProviderName || selectedOrder.originalProviderId}
                           </p>
                         </div>
                       )}
                       {selectedOrder.finalProviderId && (
                         <div>
-                          <p className="text-sm text-slate-500 dark:text-slate-400">
+                          <p className="text-sm text-slate-500 dark:text-slate-400 dark:bg-gray-900 ">
                             {t('admin.orders.finalProvider', 'Final Provider')}
                           </p>
-                          <div className="flex items-center gap-2 mt-1">
-                            <p className="text-sm font-medium">
+                          <div className="flex items-center gap-2 mt-1 dark:bg-gray-900 dark:border-gray-700 dark:text-white">
+                            <p className="text-sm font-medium dark:bg-gray-900 dark:border-gray-700 dark:text-white">
                               {selectedOrder.finalProviderName || selectedOrder.finalProviderId}
                             </p>
                             {selectedOrder.originalProviderId &&
@@ -925,14 +925,14 @@ export default function OrderManagement() {
                     {/* Failover Attempts History */}
                     {failoverAttempts.length > 0 && (
                       <div>
-                        <p className="text-sm font-medium mb-2">
+                        <p className="text-sm font-medium mb-2 ">
                           {t('admin.orders.failoverHistory', 'Failover History')}
                         </p>
                         <div className="space-y-2">
                           {failoverAttempts.map((attempt, index) => (
                             <div
                               key={index}
-                              className="flex items-center gap-2 p-2 bg-slate-50 dark:bg-slate-800/50 rounded-md text-sm"
+                              className="flex items-center gap-2 p-2 dark:bg-gray-900 dark:border-gray-700 dark:text-white rounded-md text-sm"
                             >
                               {attempt.success ? (
                                 <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />

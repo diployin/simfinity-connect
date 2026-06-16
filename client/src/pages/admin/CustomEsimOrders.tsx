@@ -46,22 +46,22 @@ export default function CustomEsimOrders() {
   //   queryKey: ["/api/admin/orders/custom"],
   // });
 
- const { data: customOrders = [], isLoading } = useQuery<OrderWithDetails[]>({
-  queryKey: ["/api/admin/orders/custom"],
-  queryFn: async () => {
-    const res = await fetch("/api/admin/orders/custom");
-    const json = await res.json();
+  const { data: customOrders = [], isLoading } = useQuery<OrderWithDetails[]>({
+    queryKey: ["/api/admin/orders/custom"],
+    queryFn: async () => {
+      const res = await fetch("/api/admin/orders/custom");
+      const json = await res.json();
 
-    // 🔥 IMPORTANT: extract actual array
-    return Array.isArray(json)
-      ? json
-      : Array.isArray(json.data)
-      ? json.data
-      : Array.isArray(json.data?.data)
-      ? json.data.data
-      : [];
-  },
-});
+      // 🔥 IMPORTANT: extract actual array
+      return Array.isArray(json)
+        ? json
+        : Array.isArray(json.data)
+          ? json.data
+          : Array.isArray(json.data?.data)
+            ? json.data.data
+            : [];
+    },
+  });
 
 
   const [search, setSearch] = useState("");
@@ -184,7 +184,7 @@ export default function CustomEsimOrders() {
       </div>
 
       {/* Filters */}
-      <Card className="border-0 shadow-lg">
+      <Card className="border-0 shadow-lg dark:bg-gray-900 dark:border-gray-700 dark:text-white">
         <CardContent className="pt-6">
           <div className="grid gap-4 md:grid-cols-3">
             <div className="md:col-span-2">
@@ -200,7 +200,7 @@ export default function CustomEsimOrders() {
               </div>
             </div>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="bg-slate-50 dark:bg-slate-900" data-testid="select-status-filter">
+              <SelectTrigger className="bg-slate-50 dark:bg-gray-900 dark:border-gray-700 dark:text-white" data-testid="select-status-filter">
                 <SelectValue placeholder={t('admin.customOrders.filter.status', 'Filter by status')} />
               </SelectTrigger>
               <SelectContent>
@@ -217,7 +217,7 @@ export default function CustomEsimOrders() {
 
       {/* Batch Orders Summary */}
       {Object.keys(ordersGroupedByRequest).length > 0 && (
-        <Card className="border-0 shadow-lg">
+        <Card className="border-0 shadow-lg dark:bg-gray-900 dark:border-gray-700 dark:text-white">
           <CardHeader>
             <CardTitle>{t('admin.customOrders.batch.title', 'Batch Orders')}</CardTitle>
             <CardDescription>
@@ -229,14 +229,14 @@ export default function CustomEsimOrders() {
               {Object.entries(ordersGroupedByRequest).map(([requestId, orders]) => (
                 <div
                   key={requestId}
-                  className="rounded-lg border border-slate-200 dark:border-slate-800 p-4"
+                  className="rounded-lg border dark:border-gray-700 shadow-lg dark:shadow-gray-900 p-4"
                 >
                   <div className="flex items-center justify-between mb-3">
                     <div>
-                      <p className="text-sm font-medium text-slate-900 dark:text-white">
-                        {t('admin.customOrders.batch.requestId', 'Request ID')}: <span className="font-mono text-xs">{requestId}</span>
+                      <p className="text-sm font-medium text-slate-900 dark:text-white border-b border-gray-700">
+                        {t('admin.customOrders.batch.requestId', 'Request ID')}: <span className="font-mono text-xs text-slate-600 dark:text-slate-400">{requestId}</span>
                       </p>
-                      <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                      <p className="text-xs text-slate-600 border-b border-gray-700 dark:text-slate-400 mt-1">
                         {t('admin.customOrders.batch.count', '{{count}} eSIM{{plural}} in batch', { count: orders.length, plural: orders.length > 1 ? 's' : '' })}
                       </p>
                     </div>
@@ -248,11 +248,11 @@ export default function CustomEsimOrders() {
                     {orders.map((order, idx) => (
                       <div
                         key={order.id}
-                        className="flex items-center justify-between p-2 rounded bg-slate-50 dark:bg-slate-900"
+                        className="flex items-center justify-between p-2 rounded bg-slate-50 dark:bg-slate-900 dark:text-slate-400"
                         data-testid={`batch-order-${order.id}`}
                       >
                         <div className="flex items-center gap-3">
-                          <span className="text-xs font-medium text-slate-600 dark:text-slate-400 min-w-[60px]">
+                          <span className="text-xs font-medium text-slate-600 dark:text-slate-400 dark:border-b border-gray-700  min-w-[60px]">
                             {t('admin.customOrders.batch.esimNumber', 'eSIM #{{number}}', { number: idx + 1 })}
                           </span>
                           {order.package.destination && (
@@ -297,7 +297,7 @@ export default function CustomEsimOrders() {
       )}
 
       {/* All Custom Orders Table */}
-      <Card className="border-0 shadow-lg">
+      <Card className="border-0 shadow-lg dark:bg-gray-900 dark:border-gray-700 dark:text-white ">
         <CardHeader>
           <CardTitle>{t('admin.customOrders.table.title', 'All Custom Orders')}</CardTitle>
           <CardDescription>
@@ -373,7 +373,7 @@ export default function CustomEsimOrders() {
                           )}
                           {order.package.region && (
                             <>
-                              <Globe className="h-4 w-4 text-slate-400" />
+                              <Globe className="h-4 w-4 text-slate-400 dark:text-slate-400 dark:border-b border-gray-700 dark:bg-gray-900 dark:bg-gray-700 dark:text-white dark:border-gray-700" />
                               <span className="font-medium text-slate-900 dark:text-white">
                                 {order.package.region.name}
                               </span>
@@ -433,7 +433,7 @@ export default function CustomEsimOrders() {
           {selectedOrder && (
             <div className="space-y-4">
               {/* Order Info */}
-              <div className="rounded-lg bg-slate-50 dark:bg-slate-900 p-4">
+              <div className="rounded-lg bg-slate-50 dark:bg-gray-900 dark:border-gray-700 dark:text-white p-4">
                 <div className="flex items-center gap-3">
                   {selectedOrder.package.destination && (
                     <>
@@ -463,7 +463,7 @@ export default function CustomEsimOrders() {
                   )}
                 </div>
                 {selectedOrder.iccid && (
-                  <div className="mt-2 pt-2 border-t border-slate-200 dark:border-slate-700">
+                  <div className="mt-2 pt-2 border-t border-slate-200 dark:border-gray-700 dark:bg-gray-900 dark:bg-gray-700 dark:text-white">
                     <p className="text-xs text-slate-600 dark:text-slate-400">
                       ICCID: <span className="font-mono">{selectedOrder.iccid}</span>
                     </p>
