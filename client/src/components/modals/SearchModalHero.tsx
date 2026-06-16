@@ -130,20 +130,20 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[480px] max-h-[90vh] overflow-hidden p-0 gap-0">
+      <DialogContent className="max-w-[480px] max-h-[90vh] overflow-hidden p-0 gap-0 dark:bg-gray-950 dark:border-gray-800">
         <div className="relative">
           {/* Header */}
-          <DialogHeader className="px-6 pt-6 pb-4 border-b">
-            <DialogTitle className="text-xl font-bold flex items-center gap-2">
+          <DialogHeader className="px-6 pt-6 pb-4 border-b dark:border-gray-800">
+            <DialogTitle className="text-xl font-bold flex items-center gap-2 dark:text-white">
               <Sparkles className="h-5 w-5 text-primary" />{t('website.home.searchModal.title', 'Search Destinations')}</DialogTitle>
-            <DialogDescription className="text-sm">{t('website.home.searchModal.subtitle', '200+ countries & regions available')}</DialogDescription>
+            <DialogDescription className="text-sm dark:text-gray-400">{t('website.home.searchModal.subtitle', '200+ countries & regions available')}</DialogDescription>
           </DialogHeader>
 
           {/* Content */}
           <div className="max-h-[calc(90vh-120px)] overflow-y-auto custom-scrollbar">
             <div className="p-6 space-y-5">
               {/* Toggle Buttons */}
-              <div className="flex gap-2 p-1 bg-muted/50 rounded-full w-fit mx-auto">
+              <div className="flex gap-2 p-1 bg-muted/50 dark:bg-gray-900 rounded-full w-fit mx-auto">
                 <button
                   onClick={() => {
                     setSearchType("country");
@@ -151,13 +151,13 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                   }}
                   className={`flex items-center gap-2 text-xs font-medium transition-all px-4 py-2 rounded-full ${searchType === "country"
                     ? "bg-primary text-white shadow-md"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground dark:text-gray-400 hover:text-foreground dark:hover:text-white"
                     }`}
                 >
                   <div
                     className={`w-3.5 h-3.5 rounded-full text-white border-2 flex items-center justify-center ${searchType === "country"
                       ? "border-white bg-white"
-                      : "border-muted-foreground"
+                      : "border-muted-foreground dark:border-gray-600"
                       }`}
                   >
                     {searchType === "country" && (
@@ -171,13 +171,13 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                   }}
                   className={`flex items-center gap-2 text-xs font-medium transition-all px-4 py-2 rounded-full ${searchType === "region"
                     ? "bg-primary text-white shadow-md"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground dark:text-gray-400 hover:text-foreground dark:hover:text-white"
                     }`}
                 >
                   <div
                     className={`w-3.5 h-3.5 rounded-full border-2 flex items-center justify-center ${searchType === "region"
                       ? "border-white bg-white"
-                      : "border-muted-foreground"
+                      : "border-muted-foreground dark:border-gray-600"
                       }`}
                   >
                     {searchType === "region" && (
@@ -200,14 +200,8 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                       }
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-5 pr-12 py-5 rounded-xl border-2 border-border hover:border-primary/50 focus:border-primary text-sm font-medium bg-background placeholder:text-muted-foreground/60 transition-all"
+                      className="pl-5 pr-12 py-5 rounded-xl border-2 border-border dark:border-gray-800 hover:border-primary/50 dark:hover:border-primary/50 focus:border-primary text-sm font-medium bg-background dark:bg-gray-900 dark:text-white placeholder:text-muted-foreground/60 transition-all"
                     />
-                    {/* <button
-                      type="submit"
-                      className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-lg bg-primary text-white flex items-center justify-center hover:shadow-md transition-all"
-                    >
-                      <Search className="h-4 w-4" />
-                    </button> */}
                   </div>
                 </div>
               </form>
@@ -216,8 +210,8 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
               {searchQuery.length > 0 ? (
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide">{t('website.home.searchModal.results', 'Results')}</h3>
-                    <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">
+                    <h3 className="text-xs font-semibold text-foreground dark:text-white uppercase tracking-wide">{t('website.home.searchModal.results', 'Results')}</h3>
+                    <span className="text-xs text-muted-foreground dark:text-gray-400 bg-muted dark:bg-gray-800 px-2 py-0.5 rounded-full">
                       {getFilteredResults().length}
                     </span>
                   </div>
@@ -226,7 +220,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                       <div className="inline-block h-6 w-6 animate-spin rounded-full border-3 border-solid border-primary border-r-transparent"></div>
                     </div>
                   ) : getFilteredResults().length === 0 ? (
-                    <div className="py-8 text-center text-sm text-muted-foreground">{t('website.home.searchModal.noResults', 'No results found')}</div>
+                    <div className="py-8 text-center text-sm text-muted-foreground dark:text-gray-400">{t('website.home.searchModal.noResults', 'No results found')}</div>
                   ) : (
                     <div className="space-y-1.5">
                       {getFilteredResults().map((item, idx) => (
@@ -244,10 +238,10 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: idx * 0.03 }}
-                            className="flex items-center gap-3 p-3 hover:bg-muted/50 cursor-pointer transition-all rounded-xl group"
+                            className="flex items-center gap-3 p-3 hover:bg-muted/50 dark:hover:bg-gray-800/50 cursor-pointer transition-all rounded-xl group"
                           >
                             {searchType === "country" ? (
-                              <div className="w-16 h-11 rounded-lg overflow-hidden shadow-sm border border-border flex-shrink-0">
+                              <div className="w-16 h-11 rounded-lg overflow-hidden shadow-sm border border-border dark:border-gray-800 flex-shrink-0">
                                 <img
                                   src={`https://flagcdn.com/${(
                                     item as DestinationWithPricing
@@ -257,15 +251,15 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                                 />
                               </div>
                             ) : (
-                              <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                              <div className="w-11 h-11 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0">
                                 <Globe className="h-5 w-5 text-primary" />
                               </div>
                             )}
                             <div className="flex-1 min-w-0">
-                              <p className="text-sm font-semibold text-foreground truncate">
+                              <p className="text-sm font-semibold text-foreground dark:text-white truncate">
                                 {(item as any).name}
                               </p>
-                              <p className="text-xs text-muted-foreground">
+                              <p className="text-xs text-muted-foreground dark:text-gray-400">
                                 From{" "}
                                 <span className="text-primary font-bold">
                                   $
@@ -275,7 +269,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                                 </span>
                               </p>
                             </div>
-                            <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+                            <ChevronRight className="h-4 w-4 text-muted-foreground dark:text-gray-500 group-hover:text-primary group-hover:translate-x-0.5 transition-all flex-shrink-0" />
                           </motion.div>
                         </Link>
                       ))}
@@ -286,7 +280,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                 <>
                   {/* Popular Section */}
                   <div>
-                    <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide mb-3">
+                    <h3 className="text-xs font-semibold text-foreground dark:text-white uppercase tracking-wide mb-3">
                       Popular{" "}
                       {searchType === "country" ? "Countries" : "Regions"}
                     </h3>
@@ -302,16 +296,16 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                             <motion.div
                               whileHover={{ scale: 1.03 }}
                               whileTap={{ scale: 0.98 }}
-                              className="flex items-center gap-2.5 p-3 cursor-pointer rounded-xl bg-card hover:bg-muted/50 transition-all border border-border/50 hover:border-primary/30"
+                              className="flex items-center gap-2.5 p-3 cursor-pointer rounded-xl bg-card dark:bg-gray-900 hover:bg-muted/50 dark:hover:bg-gray-800/50 transition-all border border-border/50 dark:border-gray-800 hover:border-primary/30"
                             >
-                              <div className="w-12 h-8 rounded-md overflow-hidden shadow-sm border border-border/50 flex-shrink-0">
+                              <div className="w-12 h-8 rounded-md overflow-hidden shadow-sm border border-border/50 dark:border-gray-800 flex-shrink-0">
                                 <img
                                   src={`https://flagcdn.com/${dest.countryCode.toLowerCase()}.svg`}
                                   alt={dest.name}
                                   className="w-full h-full object-cover"
                                 />
                               </div>
-                              <span className="text-xs text-foreground font-medium truncate">
+                              <span className="text-xs text-foreground dark:text-gray-200 font-medium truncate">
                                 {dest.name}
                               </span>
                             </motion.div>
@@ -331,12 +325,12 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                             <motion.div
                               whileHover={{ scale: 1.05 }}
                               whileTap={{ scale: 0.98 }}
-                              className="flex flex-col items-center gap-2 cursor-pointer rounded-xl p-3 bg-card hover:bg-muted/50 transition-all border border-border/50 hover:border-primary/30"
+                              className="flex flex-col items-center gap-2 cursor-pointer rounded-xl p-3 bg-card dark:bg-gray-900 hover:bg-muted/50 dark:hover:bg-gray-800/50 transition-all border border-border/50 dark:border-gray-800 hover:border-primary/30"
                             >
-                              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                              <div className="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center">
                                 <Globe className="h-5 w-5 text-primary" />
                               </div>
-                              <span className="text-[10px] text-center text-foreground font-medium leading-tight line-clamp-2">
+                              <span className="text-[10px] text-center text-foreground dark:text-gray-200 font-medium leading-tight line-clamp-2">
                                 {region.name}
                               </span>
                             </motion.div>
@@ -349,7 +343,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                   {/* All Countries List */}
                   {searchType === "country" && !destinationsLoading && (
                     <div>
-                      <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide mb-3">
+                      <h3 className="text-xs font-semibold text-foreground dark:text-white uppercase tracking-wide mb-3">
                         All Countries ({getAllCountries().length})
                       </h3>
                       <div className="space-y-1">
@@ -361,9 +355,9 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                           >
                             <motion.div
                               whileHover={{ x: 2 }}
-                              className="flex items-center gap-3 p-2.5 hover:bg-muted/50 cursor-pointer transition-all rounded-lg group"
+                              className="flex items-center gap-3 p-2.5 hover:bg-muted/50 dark:hover:bg-gray-800/50 cursor-pointer transition-all rounded-lg group"
                             >
-                              <div className="w-14 h-10 rounded-md overflow-hidden shadow-sm border border-border/50 flex-shrink-0">
+                              <div className="w-14 h-10 rounded-md overflow-hidden shadow-sm border border-border/50 dark:border-gray-800 flex-shrink-0">
                                 <img
                                   src={`https://flagcdn.com/${dest.countryCode.toLowerCase()}.svg`}
                                   alt={dest.name}
@@ -371,17 +365,17 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                                 />
                               </div>
                               <div className="flex-1 min-w-0">
-                                <p className="text-sm font-medium text-foreground truncate">
+                                <p className="text-sm font-medium text-foreground dark:text-white truncate">
                                   {dest.name}
                                 </p>
-                                <p className="text-xs text-muted-foreground">
+                                <p className="text-xs text-muted-foreground dark:text-gray-400">
                                   From{" "}
                                   <span className="text-primary font-semibold">
                                     ${parseFloat(dest.minPrice).toFixed(1)}
                                   </span>
                                 </p>
                               </div>
-                              <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+                              <ChevronRight className="h-4 w-4 text-muted-foreground dark:text-gray-500 group-hover:text-primary transition-colors flex-shrink-0" />
                             </motion.div>
                           </Link>
                         ))}
@@ -394,7 +388,7 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                     !regionsLoading &&
                     regionsWithPricing && (
                       <div>
-                        <h3 className="text-xs font-semibold text-foreground uppercase tracking-wide mb-3">
+                        <h3 className="text-xs font-semibold text-foreground dark:text-white uppercase tracking-wide mb-3">
                           All Regions ({regionsWithPricing.length})
                         </h3>
                         <div className="space-y-1">
@@ -406,23 +400,23 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
                             >
                               <motion.div
                                 whileHover={{ x: 2 }}
-                                className="flex items-center gap-3 p-2.5 hover:bg-muted/50 cursor-pointer transition-all rounded-lg group"
+                                className="flex items-center gap-3 p-2.5 hover:bg-muted/50 dark:hover:bg-gray-800/50 cursor-pointer transition-all rounded-lg group"
                               >
-                                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                <div className="w-10 h-10 rounded-lg bg-primary/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0">
                                   <Globe className="h-5 w-5 text-primary" />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                  <p className="text-sm font-medium text-foreground truncate">
+                                  <p className="text-sm font-medium text-foreground dark:text-white truncate">
                                     {region.name}
                                   </p>
-                                  <p className="text-xs text-muted-foreground">
+                                  <p className="text-xs text-muted-foreground dark:text-gray-400">
                                     From{" "}
                                     <span className="text-primary font-semibold">
                                       ${parseFloat(region.minPrice).toFixed(1)}
                                     </span>
                                   </p>
                                 </div>
-                                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
+                                <ChevronRight className="h-4 w-4 text-muted-foreground dark:text-gray-500 group-hover:text-primary transition-colors flex-shrink-0" />
                               </motion.div>
                             </Link>
                           ))}

@@ -152,8 +152,8 @@ export default function Destinations() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero Header Section */}
           <div className="text-center mb-10">
-            <Badge className="mb-4 bg-primary-second dark:bg-primary/20 hover:bg-primary-second dark:hover:bg-primary/30 text-white dark:text-primary-light px-4 py-1.5 rounded-full border-none shadow-sm">
-              <Globe className="h-3.5 w-3.5 mr-1.5" />
+            <Badge className="mb-4 bg-primary-second dark:bg-primary/20 hover:bg-primary-second dark:hover:bg-primary/30 text-white dark:text-white/90 px-4 py-1.5 rounded-full border-none shadow-sm">
+              <Globe className="h-3.5 w-3.5 mr-1.5 text-white dark:text-white/90" />
               {t('destinations.globalCoverage', 'Global Coverage')}
             </Badge>
 

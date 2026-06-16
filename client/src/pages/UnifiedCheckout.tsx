@@ -26,6 +26,11 @@ import {
   Wallet,
   CircleDollarSign,
   X,
+  Smartphone,
+  CheckCircle,
+  Wifi,
+  Signal,
+  Clock,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -67,9 +72,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useSettingByKey } from '@/hooks/useSettings';
-import {useTranslation} from '@/contexts/TranslationContext';
-// import { PaymentGatewayRenderer } from '@/components/payments/PaymentGatewayRenderer';
-
+import { useTranslation } from '@/contexts/TranslationContext';
 
 type UnifiedPackage = {
   id: string;
@@ -177,7 +180,7 @@ export default function UnifiedCheckout() {
   const [customerInfo, setCustomerInfo] = useState(null);
   const [quantity, setQuantity] = useState(1);
 
-   const { t } = useTranslation();
+  const { t } = useTranslation();
 
   // Promo states
   const [promoCode, setPromoCode] = useState('');
@@ -185,7 +188,7 @@ export default function UnifiedCheckout() {
   const [isPromoOpen, setIsPromoOpen] = useState(true);
   const [appliedPromo, setAppliedPromo] = useState(null);
   const [isValidatingPromo, setIsValidatingPromo] = useState(false);
-  const siteName = useSettingByKey('platform_name');
+  const siteName = useSettingByKey('platform_name') || 'Voltey';
   const [showPromo, setShowPromo] = useState(true);
 
   // Credits states
@@ -223,17 +226,6 @@ export default function UnifiedCheckout() {
   const getCurrencySymbol = (currencyCode) =>
     currencies.find((c) => c.code === currencyCode)?.symbol || '$';
 
-  // useEffect(() => {
-  //   apiRequest('GET', '/api/payments/gateways')
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setGateways(data.data || []);
-  //       if (data.data?.length === 1) setSelectedGateway(data.data[0]);
-  //     });
-  // }, []);
-
-
-
   useEffect(() => {
     apiRequest('GET', `/api/payments/gateways?currency=${currency}`)
       .then((res) => res.json())
@@ -262,8 +254,6 @@ export default function UnifiedCheckout() {
     queryKey: [`/api/unified-packages/slug/${packageSlug}`, { currency }],
     enabled: !!packageSlug,
   });
-
-  console.log('packageData', packageData?.coverage);
 
   const calculateTotal = () => {
     const basePrice = parseFloat(packageData?.retailPrice || packageData?.price || '0');
@@ -325,11 +315,6 @@ export default function UnifiedCheckout() {
         description: data.description,
       });
 
-      // toast({
-      //   title: 'Code Applied',
-      //   description: data.description || `Discount of $${data.discount.toFixed(2)} applied`,
-      // });
-
       toast({
         title: 'Code Applied',
         description:
@@ -339,10 +324,9 @@ export default function UnifiedCheckout() {
 
       setPromoCode('');
       setIsPromoOpen(false);
-    } catch (error) {
+    } catch (error: any) {
       const extractErrorMessage = (error: any): string => {
         if (typeof error?.message !== 'string') return 'Something went wrong';
-
         try {
           const json = error.message.slice(error.message.indexOf('{'));
           return JSON.parse(json).message;
@@ -407,7 +391,6 @@ export default function UnifiedCheckout() {
         ? data.name
         : (orderEmail ? orderEmail.split('@')[0] : 'Guest');
 
-    // 🟢 CASE 1: FREE ORDER (₹0)
     if (totalAmount === 0) {
       setIsSubmitting(true);
       try {
@@ -417,22 +400,18 @@ export default function UnifiedCheckout() {
           packageId: packageData.id,
           quantity,
           currency: packageData.currency,
-
           promoType: appliedPromo?.type || null,
           promoCode: appliedPromo?.code || null,
           giftCardId: appliedPromo?.giftCardId || null,
           voucherId: appliedPromo?.voucherId || null,
           referralCredits: appliedReferralCredits || 0,
           promoDiscount: (appliedPromo?.discount || 0) + (appliedReferralCredits || 0),
-
-          // Customer info
           email: orderEmail,
           name: orderName,
           phone: data?.phone,
         });
 
         const result = await res.json();
-
         if (!result.success) {
           toast({
             title: 'Order Failed',
@@ -447,8 +426,6 @@ export default function UnifiedCheckout() {
           title: 'Order Confirmed 🎉',
           description: 'Your eSIM has been activated successfully',
         });
-
-        // ✅ Redirect to success / orders page
         setLocation(`/account/orders`);
         return;
       } catch (err: any) {
@@ -462,7 +439,6 @@ export default function UnifiedCheckout() {
       }
     }
 
-    // 🔵 CASE 2: PAID ORDER → Normal Gateway Flow
     if (!selectedGateway) {
       toast({
         title: 'Select payment method',
@@ -473,26 +449,17 @@ export default function UnifiedCheckout() {
     }
 
     setIsSubmitting(true);
-
-    const payload = {
+    const payload: any = {
       gatewayId: selectedGateway.id,
-
-      // 🔑 Pricing inputs (NOT amount)
       packageId: packageData.id,
       quantity,
       currency: packageData.currency,
       orderId: `ORDER_${Date.now()}`,
-
-      // Promo
       promoCode: appliedPromo?.code || null,
       promoType: appliedPromo?.type || null,
       voucherId: appliedPromo?.voucherId || null,
       giftCardId: appliedPromo?.giftCardId || null,
-
-      // Referral
       referralCredits: appliedReferralCredits || 0,
-
-      // Customer info
       email: orderEmail,
       name: orderName,
     };
@@ -517,13 +484,6 @@ export default function UnifiedCheckout() {
           setIsSubmitting(false);
           return;
         }
-
-        console.log(selectedGateway.provider, {
-          redirectData: resData?.powertranz?.redirectData,
-          spiToken: resData?.powertranz?.spiToken,
-        });
-
-
         setInitResponse(resData.payment);
         setIsSubmitting(false);
       }).catch((err) => {
@@ -536,11 +496,9 @@ export default function UnifiedCheckout() {
       });
   };
 
-
   useEffect(() => {
     const handler = (event) => {
       if (event.data?.type !== 'POWERTRANZ_3DS_RESULT') return;
-
       if (!event.data.success) {
         toast({
           title: 'Payment Failed',
@@ -549,8 +507,6 @@ export default function UnifiedCheckout() {
         });
         return;
       }
-
-      // ✅ Final payment completion
       apiRequest('POST', '/api/payments/confirm-payments', {
         provider: 'powertranz',
         spiToken: event.data.spiToken,
@@ -568,98 +524,32 @@ export default function UnifiedCheckout() {
           }
         });
     };
-
     window.addEventListener('message', handler);
     return () => window.removeEventListener('message', handler);
-  }, []);
-
-
-
-  const onSubmitOLD = (data) => {
-    if (!selectedGateway) {
-      toast({
-        title: 'Select payment method',
-        description: 'Please choose a payment gateway',
-        variant: 'destructive',
-      });
-      return;
-    }
-
-    setCustomerInfo(data);
-
-    const payload = {
-      gatewayId: selectedGateway.id,
-
-      // 🔑 Pricing inputs (NOT amount)
-      packageId: packageData.id,
-      quantity,
-      currency: packageData.currency,
-      orderId: `ORDER_${Date.now()}`,
-
-      // Promo
-      promoCode: appliedPromo?.code || null,
-      promoType: appliedPromo?.type || null,
-      voucherId: appliedPromo?.voucherId || null,
-      giftCardId: appliedPromo?.giftCardId || null,
-
-      // Referral
-      referralCredits: appliedReferralCredits || 0,
-
-      // Guest info
-      email: data.email,
-      name: data.name || 'Guest',
-    };
-
-    apiRequest('POST', '/api/payments/init', payload)
-      .then((res) => res.json())
-      .then((resData) => {
-        if (resData.success) {
-          setShowPromo(false);
-          setInitResponse(resData.payment);
-          toast({ title: 'Payment Initialized', description: 'You can now complete your payment' });
-        } else {
-          toast({
-            title: 'Payment Init Failed',
-            description: resData.message || 'Could not initialize payment',
-            variant: 'destructive',
-          });
-        }
-      })
-      .catch((err) => {
-        toast({
-          title: 'Payment Init Error',
-          description: err.message || 'Failed to call payment init API',
-          variant: 'destructive',
-        });
-      });
-  };
+  }, [setLocation, toast]);
 
   if (isLoadingPackage) {
     return (
-      <div className="min-h-screen bg-background flex flex-col">
-        {/* <SiteHeader /> */}
+      <div className="min-h-screen bg-background dark:bg-gray-950 flex flex-col">
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
             <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-[var(--primary)] border-r-transparent"></div>
-            <p className="mt-4 text-muted-foreground">{t('common.loading', 'Loading...')}</p>
+            <p className="mt-4 text-muted-foreground dark:text-gray-400">{t('common.loading', 'Loading...')}</p>
           </div>
         </div>
-        {/* <SiteFooter /> */}
       </div>
     );
   }
 
   if (!packageData) {
     return (
-      <div className="min-h-screen bg-background flex flex-col">
-        {/* <SiteHeader /> */}
+      <div className="min-h-screen bg-background dark:bg-gray-950 flex flex-col">
         <div className="flex-1 flex items-center justify-center pt-20">
           <div className="text-center">
-            <p className="text-muted-foreground">{t('checkout.packageNotFound', 'Package not found')}</p>
-            <Button onClick={() => setLocation('/')} className="mt-4">{t('common.goHome', 'Go Home')}</Button>
+            <p className="text-muted-foreground dark:text-gray-400">{t('checkout.packageNotFound', 'Package not found')}</p>
+            <Button onClick={() => setLocation('/')} className="mt-4 bg-primary-second hover:bg-primary-dark">{t('common.goHome', 'Go Home')}</Button>
           </div>
         </div>
-        {/* <SiteFooter /> */}
       </div>
     );
   }
@@ -667,7 +557,7 @@ export default function UnifiedCheckout() {
   const unitPrice = parseFloat(packageData.retailPrice || packageData.price || '0');
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col font-sans">
+    <div className="min-h-screen mt-20 bg-gray-50 dark:bg-gray-950 flex flex-col font-sans transition-colors duration-300">
       <Helmet>
         <title>{`Checkout - ${formatDataAmount(packageData)} eSIM | ${siteName}`}</title>
       </Helmet>
@@ -675,7 +565,7 @@ export default function UnifiedCheckout() {
       <main className="flex-1 py-8">
         <div className="container mx-auto px-4 max-w-5xl">
           <div className="flex items-center gap-2 mb-6">
-            <Button variant="ghost" onClick={() => window.history.back()} className="p-0 h-auto hover:bg-transparent text-gray-600">
+            <Button variant="ghost" onClick={() => window.history.back()} className="p-0 h-auto hover:bg-transparent text-gray-600 dark:text-gray-400 dark:hover:text-white">
               <ArrowLeft className="w-4 h-4 mr-1" />
               <span className="text-base font-medium">{t('checkout.backToPlans', 'Back to plans')}</span>
             </Button>
@@ -686,34 +576,37 @@ export default function UnifiedCheckout() {
             <div className="lg:col-span-7 space-y-6">
 
               {/* ACCOUNT & CONTACT SECTION */}
-              <Card className="border-0 shadow-sm rounded-xl overflow-hidden bg-white">
+              <Card className="border-0 shadow-sm rounded-2xl overflow-hidden bg-white dark:bg-gray-900 border-border dark:border-gray-800">
                 <CardContent className="p-6">
                   {isAuthenticated ? (
                     <div className="space-y-4">
-                      <h2 className="text-xl font-bold text-gray-900">{t('checkout.yourAccount', 'Your Account')}</h2>
-                      <div className="flex items-center gap-3 bg-primary/5 p-3 rounded-lg border border-primary/10">
-                        <div className="w-10 h-10 rounded-full bg-primary-second flex items-center justify-center text-white font-bold text-lg">
+                      <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('checkout.yourAccount', 'Your Account')}</h2>
+                      <div className="flex items-center gap-3 bg-primary/5 dark:bg-primary/10 p-3 rounded-xl border border-primary/10 dark:border-primary/20">
+                        <div className="w-12 h-12 rounded-full bg-primary-second flex items-center justify-center text-white font-bold text-lg shadow-sm">
                           {user?.name?.charAt(0) || user?.email?.charAt(0).toUpperCase()}
                         </div>
                         <div className="flex-1">
-                          <p className="font-semibold text-sm text-gray-900">{user?.name || 'User'}</p>
-                          <p className="text-xs text-gray-600">{user?.email}</p>
+                          <p className="font-bold text-base text-gray-900 dark:text-white">{user?.name || 'User'}</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">{user?.email}</p>
                         </div>
-                        <Button variant="ghost" size="sm" onClick={() => apiRequest('POST', '/api/auth/logout').then(() => { queryClient.setQueryData(['/api/auth/me'], null); refetchUser(); })} className="h-8 text-xs text-red-600 hover:text-red-700 hover:bg-red-50">{t('checkout.logout', 'Logout')}</Button>
+                        <Button variant="ghost" size="sm" onClick={() => apiRequest('POST', '/api/auth/logout').then(() => { queryClient.setQueryData(['/api/auth/me'], null); refetchUser(); })} className="h-9 px-3 text-xs text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors font-semibold">{t('checkout.logout', 'Logout')}</Button>
                       </div>
-                      <p className="text-xs text-gray-400">{t('checkout.emailNote', 'Your eSIM details will be sent to this email address.')}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1.5">
+                        <Shield className="w-3 h-3 text-green-500" />
+                        {t('checkout.emailNote', 'Your eSIM details will be sent to this email address.')}
+                      </p>
                     </div>
                   ) : (
                     <div className="space-y-6">
                       <div>
-                        <h2 className="text-xl font-bold text-gray-900 mb-4">{t('checkout.signUpOrLogin', 'Sign up or log in')}</h2>
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">{t('checkout.signUpOrLogin', 'Sign up or log in')}</h2>
                         <div className="flex flex-col sm:flex-row gap-3">
                           <Button
                             variant="outline"
                             onClick={handleGoogleLogin}
-                            className="h-11 px-6 rounded-lg border-gray-200 hover:bg-gray-50 flex items-center justify-center gap-2 text-sm font-semibold"
+                            className="h-12 px-6 rounded-xl border-gray-200 dark:border-gray-800 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-white flex items-center justify-center gap-3 text-sm font-bold transition-all shadow-sm"
                           >
-                            <svg width="18" height="18" viewBox="0 0 24 24">
+                            <svg width="20" height="20" viewBox="0 0 24 24">
                               <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
                               <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
                               <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05" />
@@ -724,34 +617,34 @@ export default function UnifiedCheckout() {
 
                       <div className="relative py-2">
                         <div className="absolute inset-0 flex items-center">
-                          <span className="w-full border-t border-gray-100"></span>
+                          <span className="w-full border-t border-gray-100 dark:border-gray-800"></span>
                         </div>
-                        <div className="relative flex justify-center text-xs uppercase">
-                          <span className="bg-white px-2 text-gray-400">{t('checkout.continueAsGuest', 'Or continue as guest')}</span>
+                        <div className="relative flex justify-center text-xs uppercase tracking-wider font-bold">
+                          <span className="bg-white dark:bg-gray-900 px-3 text-gray-400 dark:text-gray-500">{t('checkout.continueAsGuest', 'Or continue as guest')}</span>
                         </div>
                       </div>
 
                       {!initResponse && (
                         <Form {...form}>
-                          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
                             <FormField
                               control={form.control}
                               name="email"
                               render={({ field }) => (
-                                <FormItem className="space-y-1.5">
-                                  <FormLabel className="text-xs font-semibold text-gray-700">{t('checkout.emailLabel', 'Email')}</FormLabel>
+                                <FormItem className="space-y-2">
+                                  <FormLabel className="text-sm font-bold text-gray-700 dark:text-gray-300">{t('checkout.emailLabel', 'Email Address')}</FormLabel>
                                   <FormControl>
-                                    <div className="relative">
-                                      <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                    <div className="relative group">
+                                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-primary-second transition-colors" />
                                       <Input
                                         {...field}
                                         type="email"
                                         placeholder="your@email.com"
-                                        className="h-11 pl-10 rounded-lg border-gray-200 focus:border-primary-second"
+                                        className="h-12 pl-12 rounded-xl border-gray-200 dark:border-gray-800 dark:bg-gray-800/50 dark:text-white focus:ring-primary-second transition-all"
                                       />
                                     </div>
                                   </FormControl>
-                                  <FormMessage className="text-xs" />
+                                  <FormMessage className="text-xs font-medium" />
                                 </FormItem>
                               )}
                             />
@@ -760,16 +653,16 @@ export default function UnifiedCheckout() {
                               control={form.control}
                               name="phone"
                               render={({ field }) => (
-                                <FormItem className="space-y-1.5">
-                                  <FormLabel className="text-xs font-semibold text-gray-700">{t('checkout.phone', 'Phone number')}</FormLabel>
-                                  <div className="flex gap-2">
+                                <FormItem className="space-y-2">
+                                  <FormLabel className="text-sm font-bold text-gray-700 dark:text-gray-300">{t('checkout.phone', 'Phone Number')}</FormLabel>
+                                  <div className="flex gap-3">
                                     <Popover open={openCountry} onOpenChange={setOpenCountry}>
                                       <PopoverTrigger asChild>
                                         <Button
                                           variant="outline"
                                           role="combobox"
                                           aria-expanded={openCountry}
-                                          className="min-w-[110px] w-fit h-11 rounded-lg border-gray-200 justify-between px-3 font-normal"
+                                          className="min-w-[110px] w-fit h-12 rounded-xl border-gray-200 dark:border-gray-800 dark:bg-gray-800/50 dark:text-white justify-between px-4 font-bold transition-all shadow-sm"
                                         >
                                           <div className="flex items-center gap-2 shrink-0">
                                             <ReactCountryFlag
@@ -778,19 +671,20 @@ export default function UnifiedCheckout() {
                                             />
                                             <span className="text-sm whitespace-nowrap">{selectedDialCode}</span>
                                           </div>
-                                          <ChevronsUpDown className="ml-2 h-3 w-3 shrink-0 opacity-50" />
+                                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                                         </Button>
                                       </PopoverTrigger>
-                                      <PopoverContent className="w-[300px] p-0" align="start">
-                                        <Command>
-                                          <CommandInput placeholder="Search country or code..." />
+                                      <PopoverContent className="w-[300px] p-0 dark:bg-gray-900 dark:border-gray-800 shadow-2xl" align="start">
+                                        <Command className="dark:bg-gray-900">
+                                          <CommandInput placeholder="Search country or code..." className="dark:text-white" />
                                           <CommandList>
-                                            <CommandEmpty>{t('checkout.noCountryFound', 'No country found.')}</CommandEmpty>
+                                            <CommandEmpty className="dark:text-gray-400">{t('checkout.noCountryFound', 'No country found.')}</CommandEmpty>
                                             <CommandGroup className="max-h-[300px] overflow-auto">
                                               {countries.map((c) => (
                                                 <CommandItem
                                                   key={`${c.code}-${c.dialCode}`}
                                                   value={`${c.name} ${c.dialCode} ${c.code}`}
+                                                  className="dark:hover:bg-gray-800 dark:text-gray-200 cursor-pointer p-3"
                                                   onSelect={() => {
                                                     setSelectedDialCode(c.dialCode);
                                                     setOpenCountry(false);
@@ -798,11 +692,11 @@ export default function UnifiedCheckout() {
                                                 >
                                                   <div className="flex items-center gap-3 w-full">
                                                     <ReactCountryFlag countryCode={c.code} svg />
-                                                    <span className="flex-1 text-sm">{c.name}</span>
-                                                    <span className="text-xs text-gray-400">{c.dialCode}</span>
+                                                    <span className="flex-1 text-sm font-medium">{c.name}</span>
+                                                    <span className="text-xs text-gray-400 dark:text-gray-500 font-bold">{c.dialCode}</span>
                                                     <CheckIcon
                                                       className={cn(
-                                                        "ml-auto h-4 w-4",
+                                                        "ml-auto h-4 w-4 text-primary-second",
                                                         selectedDialCode === c.dialCode ? "opacity-100" : "opacity-0"
                                                       )}
                                                     />
@@ -815,14 +709,14 @@ export default function UnifiedCheckout() {
                                       </PopoverContent>
                                     </Popover>
                                     <FormControl className="flex-1">
-                                      <div className="relative flex-1">
-                                        <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                                      <div className="relative flex-1 group">
+                                        <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 group-focus-within:text-primary-second transition-colors" />
                                         <Input
                                           {...field}
                                           type="tel"
                                           inputMode="numeric"
                                           placeholder="000 000 000"
-                                          className="h-11 pl-10 rounded-lg border-gray-200"
+                                          className="h-12 pl-12 rounded-xl border-gray-200 dark:border-gray-800 dark:bg-gray-800/50 dark:text-white focus:ring-primary-second transition-all"
                                           onChange={(e) => {
                                             const value = e.target.value.replace(/\D/g, '');
                                             field.onChange(value);
@@ -831,7 +725,7 @@ export default function UnifiedCheckout() {
                                       </div>
                                     </FormControl>
                                   </div>
-                                  <FormMessage className="text-xs" />
+                                  <FormMessage className="text-xs font-medium" />
                                 </FormItem>
                               )}
                             />
@@ -840,18 +734,22 @@ export default function UnifiedCheckout() {
                               control={form.control}
                               name="acceptTerms"
                               render={({ field }) => (
-                                <FormItem className="flex flex-row items-start space-x-2 space-y-0 pt-1">
+                                <FormItem className="flex flex-row items-start space-x-3 space-y-0 pt-2">
                                   <FormControl>
-                                    <Checkbox checked={field.value} onCheckedChange={field.onChange} className="mt-0.5 w-4 h-4 border-gray-300 data-[state=checked]:bg-primary-second" />
+                                    <Checkbox
+                                      checked={field.value}
+                                      onCheckedChange={field.onChange}
+                                      className="mt-1 w-5 h-5 rounded-md border-gray-300 dark:border-gray-700 data-[state=checked]:bg-primary-second data-[state=checked]:border-primary-second"
+                                    />
                                   </FormControl>
                                   <div className="leading-tight">
-                                    <FormLabel className="text-xs font-normal text-gray-600 cursor-pointer">
+                                    <FormLabel className="text-sm font-medium text-gray-600 dark:text-gray-400 cursor-pointer select-none">
                                       I agree to the{' '}
-                                      <Link href="/terms-and-condition" className="text-primary-second font-medium hover:underline">{t('checkout.termsOfService', 'Terms of Service')}</Link>{' '}
+                                      <Link href="/terms-and-condition" className="text-primary-second font-bold hover:underline">{t('checkout.termsOfService', 'Terms of Service')}</Link>{' '}
                                       and{' '}
-                                      <Link href="/privacy-policy" className="text-primary-second font-medium hover:underline">{t('checkout.privacyPolicy', 'Privacy Policy')}</Link>
+                                      <Link href="/privacy-policy" className="text-primary-second font-bold hover:underline">{t('checkout.privacyPolicy', 'Privacy Policy')}</Link>
                                     </FormLabel>
-                                    <FormMessage className="text-xs" />
+                                    <FormMessage className="text-xs font-semibold" />
                                   </div>
                                 </FormItem>
                               )}
@@ -865,15 +763,15 @@ export default function UnifiedCheckout() {
               </Card>
 
               {/* PAYMENT SECTION */}
-              <Card className="border-0 shadow-sm rounded-xl bg-white overflow-hidden">
+              <Card className="border-0 shadow-sm rounded-2xl bg-white dark:bg-gray-900 border-border dark:border-gray-800 overflow-hidden">
                 <CardContent className="p-6">
-                  <h2 className="text-xl font-bold text-gray-900 mb-4">{t('checkout.selectPaymentMethod', 'Select a payment method')}</h2>
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">{t('checkout.selectPaymentMethod', 'Select a payment method')}</h2>
 
                   {!initResponse ? (
-                    <div className="space-y-4">
+                    <div className="space-y-6">
                       {gateways.length > 0 ? (
-                        <div className="space-y-2.5">
-                          {gateways.map((gateway) => {
+                        <div className="space-y-3">
+                          {gateways.map((gateway: any) => {
                             const isSelected = selectedGateway?.id === gateway.id;
                             const providerName = gateway.provider.toLowerCase();
 
@@ -882,70 +780,72 @@ export default function UnifiedCheckout() {
                                 key={gateway.id}
                                 onClick={() => setSelectedGateway(gateway)}
                                 className={`
-                                  group relative p-4 rounded-lg border transition-all duration-200
-                                  flex items-center justify-between
+                                  group relative p-5 rounded-2xl border-2 transition-all duration-300
+                                  flex items-center justify-between cursor-pointer
                                   ${isSelected
-                                    ? 'border-primary-second bg-primary/5'
-                                    : 'border-gray-100 hover:border-gray-200 bg-white'}
+                                    ? 'border-primary-second bg-primary/5 dark:bg-primary/10 shadow-md scale-[1.01]'
+                                    : 'border-gray-100 dark:border-gray-800 hover:border-primary-second/30 bg-white dark:bg-gray-800/40'}
                                 `}
                               >
-                                <div className="flex items-center gap-3">
-                                  <div className={`w-9 h-9 rounded-full flex items-center justify-center ${isSelected ? 'bg-primary-second/10 text-primary-second' : 'bg-gray-50 text-gray-400'}`}>
+                                <div className="flex items-center gap-4">
+                                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-inner transition-colors ${isSelected ? 'bg-primary-second text-white' : 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400'}`}>
                                     {providerName.includes('card') || providerName.includes('stripe') || providerName.includes('powertranz') ? (
-                                      <CreditCard className="w-4.5 h-4.5" />
+                                      <CreditCard className="w-6 h-6" />
                                     ) : providerName.includes('paypal') ? (
-                                      <Wallet className="w-4.5 h-4.5" />
+                                      <Wallet className="w-6 h-6" />
                                     ) : (
-                                      <CircleDollarSign className="w-4.5 h-4.5" />
+                                      <CircleDollarSign className="w-6 h-6" />
                                     )}
                                   </div>
                                   <div>
-                                    <p className={`font-semibold text-sm ${isSelected ? 'text-primary-second' : 'text-gray-900'}`}>
+                                    <p className={`font-bold text-base transition-colors ${isSelected ? 'text-primary-second' : 'text-gray-900 dark:text-white'}`}>
                                       {providerName.includes('stripe') || providerName.includes('powertranz') ? 'Credit or debit card' :
                                         providerName.includes('paypal') ? 'PayPal' :
                                           providerName.includes('google') ? 'Google Pay' : gateway.provider.toUpperCase()}
                                     </p>
-                                    {providerName.includes('card') && (
-                                      <div className="flex gap-1 mt-0.5">
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" className="h-2.5 opacity-60" alt="Visa" />
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" className="h-2.5 opacity-60" alt="Mastercard" />
+                                    {(providerName.includes('card') || providerName.includes('stripe') || providerName.includes('powertranz')) && (
+                                      <div className="flex gap-2 mt-1.5 opacity-80">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" className="h-3" alt="Visa" />
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" className="h-3" alt="Mastercard" />
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" className="h-3 dark:brightness-200" alt="PayPal" />
                                       </div>
                                     )}
                                   </div>
                                 </div>
-                                <div className={`w-5 h-5 rounded-full border flex items-center justify-center ${isSelected ? 'border-primary-second bg-primary-second' : 'border-gray-200'}`}>
-                                  {isSelected && <Check className="w-3 h-3 text-white" />}
+                                <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${isSelected ? 'border-primary-second bg-primary-second shadow-sm' : 'border-gray-300 dark:border-gray-700 group-hover:border-primary-second/50'}`}>
+                                  {isSelected && <Check className="w-4 h-4 text-white font-black" />}
                                 </div>
                               </div>
                             );
                           })}
                         </div>
                       ) : (
-                        <div className="p-6 text-center border border-dashed border-gray-100 rounded-lg">
-                          <p className="text-sm text-gray-400">{t('checkout.noGateways', 'No payment methods available for this currency.')}</p>
+                        <div className="p-10 text-center border-2 border-dashed border-gray-100 dark:border-gray-800 rounded-2xl">
+                          <CreditCard className="w-10 h-10 text-gray-300 dark:text-gray-700 mx-auto mb-4" />
+                          <p className="text-sm font-medium text-gray-400 dark:text-gray-500">{t('checkout.noGateways', 'No payment methods available for this currency.')}</p>
                         </div>
                       )}
 
                       {/* POWERTRANZ CARD FORM */}
                       {selectedGateway?.provider === 'powertranz' && (
-                        <div className="mt-4 p-4 bg-gray-50 rounded-xl space-y-3 border border-gray-100">
-                          <h4 className="text-sm font-semibold text-gray-900 flex items-center gap-2">
-                            <CreditCard className="w-4 h-4 text-gray-400" />{t('checkout.cardDetails', 'Card Details')}</h4>
+                        <div className="mt-4 p-5 bg-gray-50 dark:bg-gray-800/50 rounded-2xl space-y-4 border border-gray-100 dark:border-gray-800 shadow-inner">
+                          <h4 className="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                            <Lock className="w-4 h-4 text-primary-second" />{t('checkout.cardDetails', 'Secure Card Details')}</h4>
                           <Input
                             placeholder="Card Number"
-                            className="h-10 text-sm rounded-md border-gray-200"
-                            onChange={(e) => setCustomerInfo(prev => ({ ...prev, cardPan: e.target.value.replace(/\D/g, '') }))}
+                            className="h-11 text-sm rounded-xl border-gray-200 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
+                            onChange={(e) => setCustomerInfo((prev: any) => ({ ...prev, cardPan: e.target.value.replace(/\D/g, '') }))}
                           />
-                          <div className="grid grid-cols-2 gap-3">
+                          <div className="grid grid-cols-2 gap-4">
                             <Input
                               placeholder="MM/YY"
-                              className="h-10 text-sm rounded-md border-gray-200"
-                              onChange={(e) => setCustomerInfo(prev => ({ ...prev, cardExpiry: e.target.value.replace(/\D/g, '') }))}
+                              className="h-11 text-sm rounded-xl border-gray-200 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
+                              onChange={(e) => setCustomerInfo((prev: any) => ({ ...prev, cardExpiry: e.target.value.replace(/\D/g, '') }))}
                             />
                             <Input
                               placeholder="CVV"
-                              className="h-10 text-sm rounded-md border-gray-200"
-                              onChange={(e) => setCustomerInfo(prev => ({ ...prev, cardCvv: e.target.value.replace(/\D/g, '') }))}
+                              className="h-11 text-sm rounded-xl border-gray-200 dark:border-gray-800 dark:bg-gray-900 dark:text-white"
+                              onChange={(e) => setCustomerInfo((prev: any) => ({ ...prev, cardCvv: e.target.value.replace(/\D/g, '') }))}
                             />
                           </div>
                         </div>
@@ -954,10 +854,10 @@ export default function UnifiedCheckout() {
                       <Button
                         disabled={isSubmitting || !selectedGateway}
                         onClick={() => isAuthenticated ? onSubmit({ email: user?.email, acceptTerms: true }) : form.handleSubmit(onSubmit)()}
-                        className="w-full h-12 mt-2 bg-primary-second hover:bg-primary-dark text-white text-base font-bold rounded-lg transition-all"
+                        className="w-full h-14 mt-4 bg-primary-gradient hover:bg-primary-gradient-hover text-white text-lg font-black rounded-2xl transition-all shadow-xl shadow-primary/20 hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 disabled:hover:scale-100"
                       >
                         {isSubmitting ? (
-                          <><Loader2 className="w-4 h-4 mr-2 animate-spin" />{t('checkout.processing', 'Processing...')}</>
+                          <><Loader2 className="w-5 h-5 mr-3 animate-spin" />{t('checkout.processing', 'Processing...')}</>
                         ) : (
                           isFreeOrder ? 'Confirm Order' : 'Complete Purchase'
                         )}
@@ -972,31 +872,32 @@ export default function UnifiedCheckout() {
                 </CardContent>
               </Card>
 
-              <div className="flex items-center gap-4 justify-center py-2">
-                <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                  <Shield className="w-3.5 h-3.5" />
-                  <span>{t('checkout.secureCheckout', 'Secure Checkout')}</span>
+              <div className="flex flex-wrap items-center gap-6 justify-center py-4 px-4 bg-gray-100/50 dark:bg-gray-900/50 rounded-2xl border border-gray-100 dark:border-gray-800">
+                <div className="flex items-center gap-2 text-xs font-bold text-gray-500 dark:text-gray-400">
+                  <Shield className="w-4 h-4 text-primary-second" />
+                  <span>{t('checkout.secureCheckout', 'SECURE CHECKOUT')}</span>
                 </div>
-                <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                  <Lock className="w-3.5 h-3.5" />
-                  <span>{t('checkout.encrypted', 'Encrypted')}</span>
+                <div className="flex items-center gap-2 text-xs font-bold text-gray-500 dark:text-gray-400">
+                  <Lock className="w-4 h-4 text-primary-second" />
+                  <span>{t('checkout.encrypted', '256-BIT ENCRYPTED')}</span>
                 </div>
-                <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                  <Zap className="w-3.5 h-3.5" />
-                  <span>{t('checkout.instantDelivery', 'Instant Delivery')}</span>
+                <div className="flex items-center gap-2 text-xs font-bold text-gray-500 dark:text-gray-400">
+                  <Zap className="w-4 h-4 text-primary-second" />
+                  <span>{t('checkout.instantDelivery', 'INSTANT DELIVERY')}</span>
                 </div>
               </div>
             </div>
 
             {/* RIGHT COLUMN - ORDER SUMMARY */}
             <div className="lg:col-span-5">
-              <Card className="border-0 shadow-sm rounded-xl bg-white sticky top-8">
-                <CardContent className="p-6">
-                  <h2 className="text-xl font-bold text-gray-900 mb-6">{t('checkout.orderSummary', 'Order summary')}</h2>
+              <Card className="border-0 shadow-xl rounded-2xl bg-white dark:bg-gray-900 border-border dark:border-gray-800 sticky top-8 overflow-hidden">
+                <div className="h-2 bg-primary-gradient w-full" />
+                <CardContent className="p-6 sm:p-8">
+                  <h2 className="text-2xl font-black text-gray-900 dark:text-white mb-8 tracking-tight">{t('checkout.orderSummary', 'Order Summary')}</h2>
 
-                  <div className="bg-gray-50 rounded-xl p-3.5 flex items-center gap-3 mb-6">
+                  <div className="bg-gray-50 dark:bg-gray-800/60 rounded-2xl p-4 flex items-center gap-4 mb-8 border border-gray-100 dark:border-gray-800 shadow-inner">
                     {(packageData.destination?.countryCode || packageData.countryCode) && (
-                      <div className="w-10 h-7 rounded overflow-hidden shadow-sm flex-shrink-0">
+                      <div className="w-12 h-9 rounded-lg overflow-hidden shadow-md flex-shrink-0 border-2 border-white dark:border-gray-700">
                         <ReactCountryFlag
                           countryCode={packageData.destination?.countryCode || packageData.countryCode}
                           svg
@@ -1004,60 +905,75 @@ export default function UnifiedCheckout() {
                         />
                       </div>
                     )}
-                    <span className="text-lg font-bold text-gray-900">
-                      {packageData.destination?.name || packageData.countryName || packageData.destination?.countryCode || packageData.countryCode || 'Global'}
-                    </span>
+                    <div>
+                      <span className="text-xl font-black text-gray-900 dark:text-white block leading-tight">
+                        {packageData.destination?.name || packageData.countryName || packageData.destination?.countryCode || packageData.countryCode || 'Global'}
+                      </span>
+                      <span className="text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest">{t('checkout.esimPlan', 'ESIM DATA PLAN')}</span>
+                    </div>
                   </div>
 
-                  <div className="space-y-4 pb-6 border-b border-gray-100">
-                    <div className="flex justify-between items-center text-sm">
-                      <span className="text-gray-500">{t('checkout.plan', 'Plan')}</span>
-                      <span className="font-bold text-gray-900">{formatDataAmount(packageData)}</span>
+                  <div className="space-y-5 pb-8 border-b border-gray-100 dark:border-gray-800">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-bold text-gray-500 dark:text-gray-400">{t('checkout.plan', 'Plan Data')}</span>
+                      <div className="flex items-center gap-2">
+                        <Wifi className="w-4 h-4 text-primary-second" />
+                        <span className="font-black text-gray-900 dark:text-white">{formatDataAmount(packageData)}</span>
+                      </div>
                     </div>
-                    <div className="flex justify-between items-center text-sm">
-                      <span className="text-gray-500">{t('checkout.type', 'Type')}</span>
-                      <span className="font-bold text-gray-900">{t('checkout.dataOnly', 'Data only')}</span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-bold text-gray-500 dark:text-gray-400">{t('checkout.type', 'Network')}</span>
+                      <div className="flex items-center gap-2">
+                        <Signal className="w-4 h-4 text-primary-second" />
+                        <span className="font-black text-gray-900 dark:text-white">4G/5G {t('checkout.ready', 'Ready')}</span>
+                      </div>
                     </div>
-                    <div className="flex justify-between items-center text-sm">
-                      <span className="text-gray-500">{t('checkout.duration', 'Duration')}</span>
-                      <span className="font-bold text-gray-900">{packageData.validity} days</span>
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-bold text-gray-500 dark:text-gray-400">{t('checkout.duration', 'Validity')}</span>
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4 text-primary-second" />
+                        <span className="font-black text-gray-900 dark:text-white">{packageData.validity} days</span>
+                      </div>
                     </div>
                   </div>
 
                   {/* PRICE & PROMOS */}
-                  <div className="py-6 space-y-3.5">
-                    <div className="flex justify-between items-center">
-                      <span className="text-lg font-bold text-gray-900">{t('checkout.total', 'Total')}</span>
-                      <span className="text-2xl font-black text-gray-900">
-                        {getCurrencySymbol(packageData.currency)}{calculateTotal()}
-                      </span>
+                  <div className="py-8 space-y-4">
+                    <div className="flex justify-between items-end mb-2">
+                      <span className="text-base font-bold text-gray-900 dark:text-white">{t('checkout.total', 'Total Amount')}</span>
+                      <div className="text-right">
+                        <span className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter">
+                          {getCurrencySymbol(packageData.currency)}{calculateTotal()}
+                        </span>
+                        <p className="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-widest">{packageData.currency}</p>
+                      </div>
                     </div>
 
                     {appliedPromo && (
-                      <div className="flex justify-between items-center bg-green-50 p-2.5 rounded-lg border border-green-100">
-                        <div className="flex items-center gap-2">
-                          <Tag className="w-3.5 h-3.5 text-green-600" />
-                          <span className="text-xs font-semibold text-green-700">{appliedPromo.code} applied</span>
+                      <div className="flex justify-between items-center bg-green-50 dark:bg-green-500/10 p-3 rounded-xl border border-green-100 dark:border-green-500/20 animate-in zoom-in-95 duration-300">
+                        <div className="flex items-center gap-3">
+                          <Tag className="w-4 h-4 text-green-600 dark:text-green-400" />
+                          <span className="text-xs font-black text-green-700 dark:text-green-400 uppercase tracking-wider">{appliedPromo.code} applied</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm font-bold text-green-700">-{getCurrencySymbol(packageData.currency)}{appliedPromo.discount.toFixed(2)}</span>
-                          <Button variant="ghost" size="sm" onClick={removePromo} className="h-5 w-5 p-0 rounded-full hover:bg-green-100 text-green-700">
-                            <X className="h-3 w-3" />
+                        <div className="flex items-center gap-3">
+                          <span className="text-sm font-black text-green-700 dark:text-green-400">-{getCurrencySymbol(packageData.currency)}{appliedPromo.discount.toFixed(2)}</span>
+                          <Button variant="ghost" size="sm" onClick={removePromo} className="h-6 w-6 p-0 rounded-full hover:bg-green-200 dark:hover:bg-green-500/20 text-green-700 dark:text-green-400">
+                            <X className="h-4 w-4" />
                           </Button>
                         </div>
                       </div>
                     )}
 
                     {appliedReferralCredits > 0 && (
-                      <div className="flex justify-between items-center bg-amber-50 p-2.5 rounded-lg border border-amber-100">
-                        <div className="flex items-center gap-2">
-                          <Coins className="w-3.5 h-3.5 text-amber-600" />
-                          <span className="text-xs font-semibold text-amber-700">{t('checkout.creditsUsed', 'Credits used')}</span>
+                      <div className="flex justify-between items-center bg-amber-50 dark:bg-amber-500/10 p-3 rounded-xl border border-amber-100 dark:border-amber-500/20 animate-in zoom-in-95 duration-300">
+                        <div className="flex items-center gap-3">
+                          <Coins className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                          <span className="text-xs font-black text-amber-700 dark:text-amber-400 uppercase tracking-wider">{t('checkout.creditsUsed', 'Credits used')}</span>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm font-bold text-amber-700">-{getCurrencySymbol(packageData.currency)}{appliedReferralCredits.toFixed(2)}</span>
-                          <Button variant="ghost" size="sm" onClick={removeCredits} className="h-5 w-5 p-0 rounded-full hover:bg-amber-100 text-amber-700">
-                            <X className="h-3 w-3" />
+                        <div className="flex items-center gap-3">
+                          <span className="text-sm font-black text-amber-700 dark:text-amber-400">-{getCurrencySymbol(packageData.currency)}{appliedReferralCredits.toFixed(2)}</span>
+                          <Button variant="ghost" size="sm" onClick={removeCredits} className="h-6 w-6 p-0 rounded-full hover:bg-amber-200 dark:hover:bg-amber-500/20 text-amber-700 dark:text-amber-400">
+                            <X className="h-4 w-4" />
                           </Button>
                         </div>
                       </div>
@@ -1069,67 +985,57 @@ export default function UnifiedCheckout() {
                     <div className="space-y-4">
                       <Collapsible open={isPromoOpen} onOpenChange={setIsPromoOpen}>
                         <CollapsibleTrigger asChild>
-                          <Button variant="ghost" className="w-full h-10 rounded-lg text-primary-second hover:text-[#1a4a22] hover:bg-green-50 text-sm font-bold border border-green-100">{t('checkout.gotCoupon', 'Got a coupon?')}</Button>
+                          <Button variant="ghost" className="w-full h-11 rounded-xl text-primary-second hover:text-primary-dark hover:bg-primary/5 dark:hover:bg-primary/10 text-sm font-black border-2 border-dashed border-primary/20 transition-all">{t('checkout.gotCoupon', 'Got a coupon or gift card?')}</Button>
                         </CollapsibleTrigger>
-                        <CollapsibleContent className="pt-3 space-y-3 animate-in slide-in-from-top-2 duration-200">
-                          {/* Restore Promo Type Selection */}
+                        <CollapsibleContent className="pt-4 space-y-4 animate-in slide-in-from-top-2 duration-300">
                           {!appliedPromo && (
-                            <div className="flex gap-1 p-1 bg-gray-100 rounded-lg">
-                              <Button
-                                type="button"
-                                variant="ghost"
-                                size="sm"
-                                className={`flex-1 h-8 text-[10px] uppercase tracking-wider font-bold transition-all ${promoCodeType === 'voucher'
-                                    ? 'bg-primary-second text-white shadow-sm hover:bg-primary-second hover:text-white'
-                                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
-                                  }`}
-                                onClick={() => setPromoCodeType('voucher')}
-                              >{t('checkout.voucher', 'Voucher')}</Button>
-                              <Button
-                                type="button"
-                                variant="ghost"
-                                size="sm"
-                                className={`flex-1 h-8 text-[10px] uppercase tracking-wider font-bold transition-all ${promoCodeType === 'giftcard'
-                                    ? 'bg-primary-second text-white shadow-sm hover:bg-primary-second hover:text-white'
-                                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
-                                  }`}
-                                onClick={() => setPromoCodeType('giftcard')}
-                              >{t('checkout.giftCard', 'Gift Card')}</Button>
-                              <Button
-                                type="button"
-                                variant="ghost"
-                                size="sm"
-                                className={`flex-1 h-8 text-[10px] uppercase tracking-wider font-bold transition-all ${promoCodeType === 'referral'
-                                    ? 'bg-primary-second text-white shadow-sm hover:bg-primary-second hover:text-white'
-                                    : 'text-gray-500 hover:text-gray-700 hover:bg-gray-200'
-                                  }`}
-                                onClick={() => setPromoCodeType('referral')}
-                              >{t('checkout.referral', 'Referral')}</Button>
+                            <div className="flex gap-1.5 p-1.5 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-inner">
+                              {['voucher', 'giftcard', 'referral'].map((type) => (
+                                <button
+                                  key={type}
+                                  type="button"
+                                  className={`flex-1 py-2 text-[10px] uppercase tracking-widest font-black rounded-lg transition-all ${promoCodeType === type
+                                    ? 'bg-white dark:bg-gray-700 text-primary-second shadow-sm'
+                                    : 'text-gray-500 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'
+                                    }`}
+                                  onClick={() => setPromoCodeType(type)}
+                                >{t(`checkout.${type}`, type === 'giftcard' ? 'Gift Card' : type.charAt(0).toUpperCase() + type.slice(1))}</button>
+                              ))}
                             </div>
                           )}
 
-                          <div className="flex gap-2">
+                          <div className="flex gap-3">
                             <Input
                               placeholder={`Enter ${promoCodeType} code`}
                               value={promoCode}
                               onChange={(e) => setPromoCode(e.target.value)}
-                              className="h-10 text-sm rounded-lg"
+                              className="h-11 text-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:text-white font-bold tracking-wider"
                             />
-                            <Button onClick={handleApplyPromo} disabled={isValidatingPromo || !promoCode} className="h-10 px-4 rounded-lg bg-primary-second">
-                              {isValidatingPromo ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : 'Apply'}
+                            <Button onClick={handleApplyPromo} disabled={isValidatingPromo || !promoCode} className="h-11 px-6 rounded-xl bg-primary-second font-black shadow-lg shadow-primary/20">
+                              {isValidatingPromo ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Apply'}
                             </Button>
                           </div>
                         </CollapsibleContent>
                       </Collapsible>
 
                       {availableCredits > 0 && !appliedReferralCredits && (
-                        <div className="p-3 bg-amber-50 rounded-lg border border-amber-100">
-                          <p className="text-xs font-semibold text-amber-800 mb-2">Available Credits: ${availableCredits.toFixed(2)}</p>
-                          <Button size="sm" onClick={() => handleApplyCredits(availableCredits)} className="w-full h-8 bg-amber-600 hover:bg-amber-700 text-xs font-bold rounded-md">{t('checkout.applyReferralCredits', 'Apply Referral Credits')}</Button>
+                        <div className="p-4 bg-amber-50 dark:bg-amber-500/5 rounded-2xl border-2 border-dashed border-amber-200 dark:border-amber-500/20 group hover:border-amber-400 transition-all">
+                          <p className="text-xs font-black text-amber-800 dark:text-amber-400 mb-3 uppercase tracking-wider flex items-center gap-2">
+                            <Coins className="w-3.5 h-3.5" />
+                            Available Credits: {getCurrencySymbol(packageData.currency)}{availableCredits.toFixed(2)}
+                          </p>
+                          <Button size="sm" onClick={() => handleApplyCredits(availableCredits)} className="w-full h-10 bg-amber-600 hover:bg-amber-700 text-xs font-black rounded-xl shadow-lg shadow-amber-600/20 transition-all group-hover:scale-[1.02]">{t('checkout.applyReferralCredits', 'Apply Credits')}</Button>
                         </div>
                       )}
                     </div>
                   )}
+
+                  <div className="mt-8 pt-6 border-t border-gray-100 dark:border-gray-800">
+                    <div className="flex items-center gap-3 text-xs font-bold text-gray-400 dark:text-gray-500">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <span>{t('checkout.guarantee', '100% SECURE & VERIFIED PURCHASE')}</span>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             </div>
