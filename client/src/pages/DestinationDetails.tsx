@@ -387,11 +387,11 @@ export default function DestinationDetails() {
     <div className="min-h-screen bg-background dark:bg-gray-950 flex flex-col transition-colors duration-300">
       <Helmet>
         <title>
-          eSIM for {destination.name} - Data Plans | {siteName}
+          eSIM for {destination?.name} - Data Plans | {siteName}
         </title>
         <meta
           name="description"
-          content={`Get affordable eSIM data plans for ${destination.name}. Instant activation, no roaming fees. Choose from multiple data packages.`}
+          content={`Get affordable eSIM data plans for ${destination?.name}. Instant activation, no roaming fees. Choose from multiple data packages.`}
         />
       </Helmet>
 
@@ -411,7 +411,7 @@ export default function DestinationDetails() {
               </BreadcrumbItem>
               <BreadcrumbSeparator className="dark:text-gray-600" />
               <BreadcrumbItem>
-                <BreadcrumbPage data-testid="breadcrumb-current" className="dark:text-white">{destination.name}</BreadcrumbPage>
+                <BreadcrumbPage data-testid="breadcrumb-current" className="dark:text-white">{destination?.name}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -423,7 +423,7 @@ export default function DestinationDetails() {
               <div className="aspect-[4/3] rounded-t-2xl lg:rounded-2xl overflow-hidden shadow-lg border border-border dark:border-gray-800">
                 <img
                   src={heroImage}
-                  alt={`Best ${destination.name} eSIM for Travelers`}
+                  alt={`Best ${destination?.name} eSIM for Travelers`}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -461,7 +461,7 @@ export default function DestinationDetails() {
                         </p>
                         <p className="text-sm text-muted-foreground dark:text-gray-400 leading-relaxed">
                           {selectedPackage
-                            ? `${destination.name} ${formatDataAmount(selectedPackage)} ${selectedPackage.validity} Days`
+                            ? `${destination?.name} ${formatDataAmount(selectedPackage)} ${selectedPackage.validity} Days`
                             : `Select a plan from the right`}
                         </p>
                       </div>
@@ -508,7 +508,7 @@ export default function DestinationDetails() {
                         <div>
                           <span className="font-medium text-foreground dark:text-white">Networks:</span>
                           <span className="text-muted-foreground dark:text-gray-400 ml-2">
-                            Multiple network operators in {destination.name}
+                            Multiple network operators in {destination?.name}
                           </span>
                         </div>
                       </div>
@@ -526,7 +526,7 @@ export default function DestinationDetails() {
                     {destination.image ? (
                       <img
                         src={destination.image}
-                        alt={destination.name}
+                        alt={destination?.name}
                         className="w-full h-full object-cover"
                       />
                     ) : (
@@ -538,12 +538,12 @@ export default function DestinationDetails() {
                     )}
                   </div>
                   <h1 className="text-2xl md:text-3xl font-bold text-foreground dark:text-white tracking-tight">
-                    eSIM for {destination.name}
+                    eSIM for {destination?.name}
                   </h1>
                 </div>
                 <p className="text-muted-foreground dark:text-gray-400 leading-relaxed">
-                  Buy prepaid eSIM for {destination.name}. Enjoy reliable and fast connections when
-                  traveling to {destination.name}.
+                  Buy prepaid eSIM for {destination?.name}. Enjoy reliable and fast connections when
+                  traveling to {destination?.name}.
                 </p>
               </div>
 
@@ -899,14 +899,14 @@ export default function DestinationDetails() {
 
               {/* Checkout Card */}
               <div className="lg:sticky lg:top-24">
-                <Card className="shadow-lg border-0 bg-gradient-to-br from-primary/5 to-primary/5 dark:from-primary/20 dark:to-primary/10 overflow-hidden relative">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
+                <Card className="shadow-lg border-0 bg-gradient-to-br from-primary/5 to-primary/5 dark:bg-gray-800/80 dark:from-gray-800/80 dark:to-gray-800/80 overflow-hidden relative">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none dark:bg-primary/5" />
                   <CardContent className="p-5 relative z-10">
                     {selectedPackage ? (
                       <>
                         <div className="flex items-center justify-between mb-5">
                           <div>
-                            <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground dark:text-gray-500 mb-1">Selected Plan</p>
+                            <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground dark:text-gray-400 mb-1">Selected Plan</p>
                             <p className="font-bold text-foreground dark:text-white text-lg">
                               {formatDataAmount(selectedPackage)} - {selectedPackage.validity} Days
                             </p>
@@ -916,36 +916,36 @@ export default function DestinationDetails() {
                               {getCurrencySymbol(selectedPackage.currency)}
                               {selectedPackage.price}
                             </p>
-                            <p className="text-xs font-bold text-muted-foreground dark:text-gray-500 uppercase">
+                            <p className="text-xs font-bold text-muted-foreground dark:text-gray-400 uppercase">
                               {selectedPackage.currency}
                             </p>
                           </div>
                         </div>
                         <Button
                           onClick={(e) => handleGetPlanClick(e, selectedPackage)}
-                          className="w-full bg-primary-gradient hover:bg-primary-gradient-hover text-white font-bold h-12 rounded-xl shadow-lg shadow-primary/20 transition-all hover:scale-[1.01] active:scale-[0.99]"
+                          className="w-full bg-primary-gradient hover:bg-primary-gradient-hover text-white font-bold h-12 rounded-xl shadow-lg shadow-primary/20 dark:shadow-primary/30 transition-all hover:scale-[1.01] active:scale-[0.99]"
                           data-testid="button-checkout"
                         >
                           Buy Now
                         </Button>
                         <div className="mt-4 grid grid-cols-2 gap-4">
-                          <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-medium text-muted-foreground dark:text-gray-500">
+                          <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-medium text-muted-foreground dark:text-gray-300">
                             <Smartphone className="w-3.5 h-3.5 text-primary-second dark:text-primary-light" />
                             <span>eSIM Compatible</span>
                           </div>
-                          <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-medium text-muted-foreground dark:text-gray-500">
-                            <Shield className="w-3.5 h-3.5 text-green-500" />
+                          <div className="flex items-center gap-1.5 text-[10px] sm:text-xs font-medium text-muted-foreground dark:text-gray-300">
+                            <Shield className="w-3.5 h-3.5 text-green-500 dark:text-green-400" />
                             <span>Secure Payment</span>
                           </div>
                         </div>
                       </>
                     ) : (
                       <div className="text-center py-6">
-                        <div className="w-12 h-12 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center mx-auto mb-3">
+                        <div className="w-12 h-12 rounded-full bg-primary/10 dark:bg-gray-700/50 flex items-center justify-center mx-auto mb-3">
                           <Smartphone className="w-6 h-6 text-primary-second dark:text-primary-light" />
                         </div>
                         <p className="font-bold text-foreground dark:text-white">Select a data plan above</p>
-                        <p className="text-sm text-muted-foreground dark:text-gray-400 mt-1">
+                        <p className="text-sm text-muted-foreground dark:text-gray-300 mt-1">
                           Choose the best option for your trip
                         </p>
                       </div>
@@ -959,7 +959,7 @@ export default function DestinationDetails() {
           {/* How to Setup Section */}
           <section className="mb-20">
             <h2 className="text-2xl md:text-4xl font-black text-center text-foreground dark:text-white mb-4 tracking-tight">
-              How to setup your {destination.name} eSIM
+              How to setup your {destination?.name} eSIM
             </h2>
             <p className="text-center text-muted-foreground dark:text-gray-400 mb-12 max-w-2xl mx-auto font-medium">
               Get connected in just 3 simple steps
@@ -1033,7 +1033,7 @@ export default function DestinationDetails() {
             <h2 className="text-2xl md:text-4xl font-black text-center text-foreground dark:text-white mb-4 tracking-tight">
               Why choose {siteName} for your
               <br />
-              {destination.name} trip
+              {destination?.name} trip
             </h2>
             <p className="text-center text-muted-foreground dark:text-gray-400 mb-12 max-w-2xl mx-auto font-medium">
               Experience hassle-free connectivity with our premium eSIM service
@@ -1064,10 +1064,10 @@ export default function DestinationDetails() {
           {/* FAQ Section */}
           <section className="mb-20">
             <h2 className="text-2xl md:text-4xl font-black text-center text-foreground dark:text-white mb-4 tracking-tight">
-              FAQs about eSIM {destination.name}
+              FAQs about eSIM {destination?.name}
             </h2>
             <p className="text-center text-muted-foreground dark:text-gray-400 mb-12 max-w-2xl mx-auto font-medium">
-              Everything you need to know about using eSIM in {destination.name}
+              Everything you need to know about using eSIM in {destination?.name}
             </p>
 
             <div className="grid lg:grid-cols-3 gap-8">
@@ -1096,13 +1096,13 @@ export default function DestinationDetails() {
               </div>
 
               <div>
-                <Card className="border-0 shadow-2xl bg-gradient-to-br from-primary/5 to-primary/5 dark:from-gray-700/20 dark:to-gray-700/10 overflow-hidden relative">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
+                <Card className="border border-border dark:border-gray-800 shadow-2xl bg-card dark:bg-gray-900/50 overflow-hidden relative">
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none dark:bg-primary/20" />
                   <CardContent className="p-8 text-center relative z-10">
-                    <div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <div className="w-16 h-16 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg border border-primary/20">
                       <Headphones className="w-8 h-8 text-primary-second dark:text-primary-light" />
                     </div>
-                    <Badge variant="outline" className="mb-4 bg-white dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 font-bold uppercase tracking-widest text-[10px]">
+                    <Badge variant="outline" className="mb-4 bg-primary/5 dark:bg-primary/20 dark:border-primary/30 dark:text-primary-light font-bold uppercase tracking-widest text-[10px]">
                       support
                     </Badge>
                     <h3 className="font-black text-foreground dark:text-white text-xl mb-3">Need more help?</h3>
