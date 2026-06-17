@@ -320,7 +320,7 @@ export default function AdminGiftCards() {
                 Create Gift Card
               </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-lg">
+            <DialogContent className="max-w-lg dark:bg-gray-950 dark:border-gray-800 dark:text-white">
               <DialogHeader>
                 <DialogTitle>Create Gift Card</DialogTitle>
                 <DialogDescription>
@@ -338,8 +338,8 @@ export default function AdminGiftCards() {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-5">
-        <Card>
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5">
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2">
             <CardTitle className="text-sm font-medium">Total Cards</CardTitle>
             <CreditCard className="h-4 w-4 text-muted-foreground" />
@@ -350,18 +350,18 @@ export default function AdminGiftCards() {
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2">
             <CardTitle className="text-sm font-medium">Active Cards</CardTitle>
             <Gift className="h-4 w-4 text-green-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600" data-testid="text-active-cards">
+            <div className="text-2xl font-bold text-green-600 dark:text-green-400" data-testid="text-active-cards">
               {statistics.activeCards}
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2">
             <CardTitle className="text-sm font-medium">Total Value</CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
@@ -372,7 +372,7 @@ export default function AdminGiftCards() {
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2">
             <CardTitle className="text-sm font-medium">Redeemed</CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
@@ -383,20 +383,20 @@ export default function AdminGiftCards() {
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2">
             <CardTitle className="text-sm font-medium">Pending Delivery</CardTitle>
             <Send className="h-4 w-4 text-orange-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-600" data-testid="text-pending-delivery">
+            <div className="text-2xl font-bold text-orange-600 dark:text-orange-400" data-testid="text-pending-delivery">
               {statistics.pendingDelivery}
             </div>
           </CardContent>
         </Card>
       </div>
 
-      <Card>
+      <Card className="dark:bg-gray-950 dark:border-gray-800">
         <CardHeader>
           <CardTitle>Gift Cards</CardTitle>
           <div className="flex items-center gap-4 flex-wrap mt-4">
@@ -406,15 +406,15 @@ export default function AdminGiftCards() {
                 placeholder="Search by code, email, or name..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+                className="pl-10 dark:bg-gray-900 dark:border-gray-800"
                 data-testid="input-search-gift-cards"
               />
             </div>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-[140px]" data-testid="select-status-filter">
+              <SelectTrigger className="w-[140px] dark:bg-gray-900 dark:border-gray-800" data-testid="select-status-filter">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="dark:bg-gray-900 dark:border-gray-800">
                 <SelectItem value="all">All Status</SelectItem>
                 <SelectItem value="active">Active</SelectItem>
                 <SelectItem value="used">Used</SelectItem>
@@ -430,10 +430,10 @@ export default function AdminGiftCards() {
           ) : filteredGiftCards.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">No gift cards found</div>
           ) : (
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto rounded-md border dark:border-gray-800">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b">
+                  <tr className="border-b dark:border-gray-800">
                     <th className="text-left py-3 px-4 font-medium">Code</th>
                     <th className="text-left py-3 px-4 font-medium">Amount / Balance</th>
                     <th className="text-left py-3 px-4 font-medium">Recipient</th>
@@ -445,10 +445,10 @@ export default function AdminGiftCards() {
                 </thead>
                 <tbody>
                   {filteredGiftCards.map((card: GiftCard, index: number) => (
-                    <tr key={card.id} className="border-b" data-testid={`row-gift-card-${index}`}>
+                    <tr key={card.id} className="border-b dark:border-gray-800" data-testid={`row-gift-card-${index}`}>
                       <td className="py-4 px-4">
                         <div className="flex items-center gap-2">
-                          <code className="bg-muted px-2 py-1 rounded text-xs font-mono">
+                          <code className="bg-muted dark:bg-gray-900 px-2 py-1 rounded text-xs font-mono">
                             {card.code}
                           </code>
                           <Button
@@ -462,7 +462,7 @@ export default function AdminGiftCards() {
                         </div>
                       </td>
                       <td className="py-4 px-4">
-                        <div className="text-sm">
+                        <div className="text-sm whitespace-nowrap">
                           <span className="font-medium">${card.balance}</span>
                           <span className="text-muted-foreground"> / ${card.amount}</span>
                         </div>
@@ -478,7 +478,7 @@ export default function AdminGiftCards() {
                         )}
                       </td>
                       <td className="py-4 px-4">{getThemeBadge(card.theme || 'default')}</td>
-                      <td className="py-4 px-4">
+                      <td className="py-4 px-4 whitespace-nowrap">
                         {card.expiresAt ? format(new Date(card.expiresAt), 'MMM d, yyyy') : 'Never'}
                       </td>
                       <td className="py-4 px-4">{getStatusBadge(card.status)}</td>
@@ -508,7 +508,7 @@ export default function AdminGiftCards() {
                             <Button
                               size="icon"
                               variant="ghost"
-                              className="text-amber-500 hover:text-amber-600 hover:bg-amber-50"
+                              className="text-amber-500 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-950"
                               onClick={() => {
                                 if (window.confirm('Are you sure you want to inactive/cancel this gift card?')) {
                                   cancelMutation.mutate(card.id);
@@ -692,6 +692,7 @@ function GiftCardForm({
         </div>
         <Input
           type="number"
+          className='dark:bg-gray-950 dark:text-white dark:border-gray-800'
           value={formData.amount}
           onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
           placeholder="Custom amount"
@@ -705,10 +706,10 @@ function GiftCardForm({
           value={formData.theme}
           onValueChange={(value) => setFormData({ ...formData, theme: value })}
         >
-          <SelectTrigger data-testid="select-theme">
+          <SelectTrigger data-testid="select-theme" className='dark:bg-gray-950 dark:text-white dark:border-gray-800'>
             <SelectValue />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className='dark:bg-gray-950 dark:text-white dark:border-gray-800'>
             {themes.map((theme) => (
               <SelectItem key={theme.value} value={theme.value}>
                 {theme.label}
@@ -722,6 +723,7 @@ function GiftCardForm({
         <div className="space-y-2">
           <Label>Recipient Name (optional)</Label>
           <Input
+            className='dark:bg-gray-950 dark:text-white dark:border-gray-800'
             value={formData.recipientName}
             onChange={(e) => setFormData({ ...formData, recipientName: e.target.value })}
             placeholder="John Doe"
@@ -732,6 +734,7 @@ function GiftCardForm({
           <Label>Recipient Email (optional)</Label>
           <Input
             type="email"
+            className='dark:bg-gray-950 dark:text-white dark:border-gray-800'
             value={formData.recipientEmail}
             onChange={(e) => setFormData({ ...formData, recipientEmail: e.target.value })}
             placeholder="john@example.com"
@@ -743,6 +746,7 @@ function GiftCardForm({
       <div className="space-y-2">
         <Label>Personal Message (optional)</Label>
         <Textarea
+          className='dark:bg-gray-950 dark:text-white dark:border-gray-800'
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
           placeholder="Enjoy your eSIM gift card!"
@@ -754,6 +758,7 @@ function GiftCardForm({
         <Label>Expires On</Label>
         <Input
           type="date"
+          className='dark:bg-gray-950 dark:text-white dark:border-gray-800'
           value={formData.expiresAt}
           onChange={(e) => setFormData({ ...formData, expiresAt: e.target.value })}
           data-testid="input-expires-at"

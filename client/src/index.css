@@ -32,24 +32,18 @@
   /* 🎨 GRADIENTS */
   --primary-gradient: linear-gradient(135deg, var(--primary-hex) 0%, var(--primary-dark-hex) 100%);
   --button-gradient: linear-gradient(135deg, var(--primary-hex) 0%, var(--primary-second-hex) 100%);
-  --hero-gradient: linear-gradient(
-    135deg,
-    var(--primary-hex) 0%,
-    var(--primary-dark-hex) 50%,
-    var(--secondary-hex) 100%
-  );
-  --hero-gradient-hover: linear-gradient(
-      135deg,
+  --hero-gradient: linear-gradient(135deg,
+      var(--primary-hex) 0%,
+      var(--primary-dark-hex) 50%,
+      var(--secondary-hex) 100%);
+  --hero-gradient-hover: linear-gradient(135deg,
       var(--primary-dark-hex) 0%,
       var(--secondary-hex) 50%,
-      var(--primary-hex) 100%
-    );
+      var(--primary-hex) 100%);
   --text-gradient: linear-gradient(135deg, var(--primary-hex) 0%, var(--accent-hex) 100%);
-  --secondary-gradient: linear-gradient(
-    135deg,
-    var(--secondary-hex) 0%,
-    var(--secondary-third-hex) 100%
-  );
+  --secondary-gradient: linear-gradient(135deg,
+      var(--secondary-hex) 0%,
+      var(--secondary-third-hex) 100%);
   --accent-gradient: linear-gradient(135deg, var(--accent-hex) 0%, var(--accent-third-hex) 100%);
 }
 
@@ -71,18 +65,14 @@
   --destructive-hex: #f87171;
 
   /* GRADIENTS */
-  --primary-gradient: linear-gradient(
-    135deg,
-    var(--primary-hex) 0%,
-    var(--primary-second-hex) 100%
-  );
+  --primary-gradient: linear-gradient(135deg,
+      var(--primary-hex) 0%,
+      var(--primary-second-hex) 100%);
   --button-gradient: linear-gradient(135deg, var(--primary-hex) 0%, var(--primary-dark-hex) 100%);
-  --hero-gradient: linear-gradient(
-    135deg,
-    var(--primary-hex) 0%,
-    var(--primary-dark-hex) 40%,
-    var(--secondary-second-hex) 100%
-  );
+  --hero-gradient: linear-gradient(135deg,
+      var(--primary-hex) 0%,
+      var(--primary-dark-hex) 40%,
+      var(--secondary-second-hex) 100%);
 }
 
 :root {
@@ -286,8 +276,9 @@
   * {
     @apply border-border;
   }
-  
-  [role="switch"], [role="switch"] * {
+
+  [role="switch"],
+  [role="switch"] * {
     border-width: 0 !important;
     border-color: transparent !important;
   }
@@ -298,7 +289,7 @@
   h4,
   h5,
   h6 {
-     font-family: var(--font-heading), var(--font-sans);
+    font-family: var(--font-heading), var(--font-sans);
   }
 
   body,
@@ -358,21 +349,17 @@
 
   /* Primary-based gradients (using your 4 variants) */
   .gradient-hero {
-    background: linear-gradient(
-      135deg,
-      var(--primary-hex) 0%,
-      var(--primary-second-hex) 50%,
-      var(--primary-light-hex) 100%
-    );
+    background: linear-gradient(135deg,
+        var(--primary-hex) 0%,
+        var(--primary-second-hex) 50%,
+        var(--primary-light-hex) 100%);
   }
 
   .gradient-hero-overlay {
-    background: linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--primary-hex) 80%, transparent) 0%,
-      color-mix(in srgb, var(--primary-second-hex) 80%, transparent) 50%,
-      color-mix(in srgb, var(--primary-light-hex) 80%, transparent) 100%
-    );
+    background: linear-gradient(135deg,
+        color-mix(in srgb, var(--primary-hex) 80%, transparent) 0%,
+        color-mix(in srgb, var(--primary-second-hex) 80%, transparent) 50%,
+        color-mix(in srgb, var(--primary-light-hex) 80%, transparent) 100%);
   }
 
   .gradient-primary {
@@ -384,20 +371,16 @@
   }
 
   .gradient-card-hover {
-    background: linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--primary-hex) 10%, transparent) 0%,
-      color-mix(in srgb, var(--primary-second-hex) 10%, transparent) 100%
-    );
+    background: linear-gradient(135deg,
+        color-mix(in srgb, var(--primary-hex) 10%, transparent) 0%,
+        color-mix(in srgb, var(--primary-second-hex) 10%, transparent) 100%);
   }
 
   .gradient-text {
-    background: linear-gradient(
-      135deg,
-      var(--primary-hex) 0%,
-      var(--primary-second-hex) 50%,
-      var(--primary-light-hex) 100%
-    );
+    background: linear-gradient(135deg,
+        var(--primary-hex) 0%,
+        var(--primary-second-hex) 50%,
+        var(--primary-light-hex) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -405,21 +388,17 @@
 
   /* Warm hero using primary light */
   .gradient-hero-warm {
-    background: linear-gradient(
-      180deg,
-      var(--primary-light-hex) 0%,
-      color-mix(in srgb, var(--primary-light-hex) 90%, white) 50%,
-      color-mix(in srgb, var(--primary-light-hex) 85%, white) 100%
-    );
+    background: linear-gradient(180deg,
+        var(--primary-light-hex) 0%,
+        color-mix(in srgb, var(--primary-light-hex) 90%, white) 50%,
+        color-mix(in srgb, var(--primary-light-hex) 85%, white) 100%);
   }
 
   .dark .gradient-hero-warm {
-    background: linear-gradient(
-      180deg,
-      var(--secondary-second-hex) 0%,
-      var(--secondary-third-hex) 50%,
-      var(--secondary-second-hex) 100%
-    );
+    background: linear-gradient(180deg,
+        var(--secondary-second-hex) 0%,
+        var(--secondary-third-hex) 50%,
+        var(--secondary-second-hex) 100%);
   }
 
   /* Primary CTA button */
@@ -433,30 +412,24 @@
   }
 
   .dark .bg-announcement {
-    background: linear-gradient(
-      90deg,
-      color-mix(in srgb, var(--primary-hex) 80%, var(--secondary-hex)) 0%,
-      color-mix(in srgb, var(--primary-second-hex) 80%, var(--secondary-hex)) 100%
-    );
+    background: linear-gradient(90deg,
+        color-mix(in srgb, var(--primary-hex) 80%, var(--secondary-hex)) 0%,
+        color-mix(in srgb, var(--primary-second-hex) 80%, var(--secondary-hex)) 100%);
   }
 
   /* Dark mode gradient overrides - using primary */
   .dark .gradient-hero {
-    background: linear-gradient(
-      135deg,
-      var(--primary-hex) 0%,
-      var(--primary-second-hex) 50%,
-      var(--primary-light-hex) 100%
-    );
+    background: linear-gradient(135deg,
+        var(--primary-hex) 0%,
+        var(--primary-second-hex) 50%,
+        var(--primary-light-hex) 100%);
   }
 
   .dark .gradient-hero-overlay {
-    background: linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--primary-hex) 90%, transparent) 0%,
-      color-mix(in srgb, var(--primary-second-hex) 90%, transparent) 50%,
-      color-mix(in srgb, var(--primary-light-hex) 90%, transparent) 100%
-    );
+    background: linear-gradient(135deg,
+        color-mix(in srgb, var(--primary-hex) 90%, transparent) 0%,
+        color-mix(in srgb, var(--primary-second-hex) 90%, transparent) 50%,
+        color-mix(in srgb, var(--primary-light-hex) 90%, transparent) 100%);
   }
 
   .dark .gradient-primary {
@@ -464,20 +437,16 @@
   }
 
   .dark .gradient-card-hover {
-    background: linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--primary-hex) 15%, transparent) 0%,
-      color-mix(in srgb, var(--primary-second-hex) 15%, transparent) 100%
-    );
+    background: linear-gradient(135deg,
+        color-mix(in srgb, var(--primary-hex) 15%, transparent) 0%,
+        color-mix(in srgb, var(--primary-second-hex) 15%, transparent) 100%);
   }
 
   .dark .gradient-text {
-    background: linear-gradient(
-      135deg,
-      var(--primary-hex) 0%,
-      var(--primary-second-hex) 50%,
-      var(--primary-light-hex) 100%
-    );
+    background: linear-gradient(135deg,
+        var(--primary-hex) 0%,
+        var(--primary-second-hex) 50%,
+        var(--primary-light-hex) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -533,6 +502,7 @@
     0% {
       transform: translateX(0%);
     }
+
     100% {
       transform: translateX(-50%);
     }
@@ -546,6 +516,7 @@
     0% {
       transform: translateX(0);
     }
+
     100% {
       transform: translateX(-50%);
     }
@@ -564,9 +535,11 @@
       stroke-dashoffset: 100;
       opacity: 0;
     }
+
     50% {
       opacity: 1;
     }
+
     100% {
       stroke-dashoffset: 0;
       opacity: 1;
@@ -584,6 +557,7 @@
       opacity: 0;
       transform: translateY(20px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
@@ -595,10 +569,12 @@
   }
 
   @keyframes pulse-glow {
+
     0%,
     100% {
       box-shadow: 0 0 20px color-mix(in srgb, var(--primary-hex) 40%, transparent);
     }
+
     50% {
       box-shadow: 0 0 30px color-mix(in srgb, var(--primary-second-hex) 60%, transparent);
     }
@@ -612,6 +588,7 @@
     from {
       transform: rotate(0deg);
     }
+
     to {
       transform: rotate(360deg);
     }
@@ -625,15 +602,19 @@
     0% {
       transform: translateX(-100%) skewX(-15deg);
     }
+
     100% {
       transform: translateX(200%) skewX(-15deg);
     }
   }
 
   @keyframes gentle-float {
-    0%, 100% {
+
+    0%,
+    100% {
       margin-top: 0;
     }
+
     50% {
       margin-top: -4px;
     }
@@ -652,12 +633,10 @@
     left: 0;
     width: 40%;
     height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.35),
-      transparent
-    );
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.35),
+        transparent);
     transform: translateX(-100%) skewX(-15deg);
     animation: shimmer-sweep 3s ease-in-out infinite;
     animation-delay: 1s;
@@ -963,7 +942,8 @@
   .responsive-table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 600px; /* Force scroll on small screens */
+    min-width: 600px;
+    /* Force scroll on small screens */
   }
 
   /* Touch Targets */
@@ -976,7 +956,7 @@
   }
 
   /* Interactive elements optimization */
-  button, 
+  button,
   a.btn,
   input[type="button"],
   input[type="submit"] {
@@ -984,8 +964,11 @@
   }
 
   /* Form fields optimization for mobile */
-  input, select, textarea {
-    @apply text-base; /* Prevent auto-zoom on iOS */
+  input,
+  select,
+  textarea {
+    @apply text-base;
+    /* Prevent auto-zoom on iOS */
     min-height: 44px;
   }
 
@@ -1007,10 +990,21 @@
   }
 
   /* Fluid Typography Application */
-  .h1-fluid { @apply text-fluid-h1 font-bold tracking-tight; }
-  .h2-fluid { @apply text-fluid-h2 font-bold tracking-tight; }
-  .h3-fluid { @apply text-fluid-h3 font-semibold; }
-  .body-fluid { @apply text-fluid-body; }
+  .h1-fluid {
+    @apply text-fluid-h1 font-bold tracking-tight;
+  }
+
+  .h2-fluid {
+    @apply text-fluid-h2 font-bold tracking-tight;
+  }
+
+  .h3-fluid {
+    @apply text-fluid-h3 font-semibold;
+  }
+
+  .body-fluid {
+    @apply text-fluid-body;
+  }
 
   /* Dark mode support */
   @media (prefers-color-scheme: dark) {
@@ -1026,17 +1020,22 @@
 
   /* Scrollbar hide utility */
   .scrollbar-none {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
   }
+
   .scrollbar-none::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+    display: none;
+    /* Chrome, Safari, Opera */
   }
 
   /* Responsive comparison page grid */
   .comparison-grid {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
+
   @media (min-width: 640px) {
     .comparison-grid {
       grid-template-columns: repeat(var(--col-count, 1), minmax(0, 1fr));
@@ -1047,7 +1046,7 @@
 /* ============================================
    🎛️ ROOT LEVEL SWITCH / TOGGLE ALIGNMENT FIX
    ============================================ */
-button[role="switch"], 
+button[role="switch"],
 button[data-state][role="switch"] {
   all: unset !important;
   box-sizing: border-box !important;
@@ -1111,4 +1110,3 @@ button[role="switch"]:disabled {
   cursor: not-allowed !important;
   opacity: 0.5 !important;
 }
-

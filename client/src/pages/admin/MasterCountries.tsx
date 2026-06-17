@@ -266,10 +266,10 @@ export default function MasterCountries() {
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-slate-500">
+            <CardTitle className="text-sm font-medium text-slate-500 dark:text-slate-400">
               Total Destinations
             </CardTitle>
           </CardHeader>
@@ -277,9 +277,9 @@ export default function MasterCountries() {
             <div className="text-2xl font-bold">{stats.total}</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-slate-500">
+            <CardTitle className="text-sm font-medium text-slate-500 dark:text-slate-400">
               Countries
             </CardTitle>
           </CardHeader>
@@ -287,9 +287,9 @@ export default function MasterCountries() {
             <div className="text-2xl font-bold">{stats.countries}</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-slate-500">
+            <CardTitle className="text-sm font-medium text-slate-500 dark:text-slate-400">
               Territories
             </CardTitle>
           </CardHeader>
@@ -297,9 +297,9 @@ export default function MasterCountries() {
             <div className="text-2xl font-bold">{stats.territories}</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-slate-500">
+            <CardTitle className="text-sm font-medium text-slate-500 dark:text-slate-400">
               Total Packages
             </CardTitle>
           </CardHeader>
@@ -309,7 +309,7 @@ export default function MasterCountries() {
         </Card>
       </div>
 
-      <Card>
+      <Card className="dark:bg-gray-950 dark:border-gray-800">
         <CardHeader>
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <CardTitle>All Countries</CardTitle>
@@ -320,15 +320,15 @@ export default function MasterCountries() {
                   placeholder="Search countries..."
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
-                  className="pl-9 w-full sm:w-[200px]"
+                  className="pl-9 w-full sm:w-[200px] dark:bg-gray-900 dark:border-gray-800"
                   data-testid="input-search-countries"
                 />
               </div>
               <Select value={typeFilter} onValueChange={setTypeFilter}>
-                <SelectTrigger className="w-full sm:w-[150px]" data-testid="select-type">
+                <SelectTrigger className="w-full sm:w-[150px] dark:bg-gray-900 dark:border-gray-800" data-testid="select-type">
                   <SelectValue placeholder="All Types" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="dark:bg-gray-900 dark:border-gray-800">
                   <SelectItem value="all">All Types</SelectItem>
                   <SelectItem value="country">Countries</SelectItem>
                   <SelectItem value="territory">Territories</SelectItem>
@@ -343,30 +343,30 @@ export default function MasterCountries() {
               <MapPin className="h-6 w-6 animate-spin text-slate-400" />
             </div>
           ) : destinations.length === 0 ? (
-            <div className="text-center py-8 text-slate-500">
-              <MapPin className="h-12 w-12 mx-auto mb-4 text-slate-300" />
+            <div className="text-center py-8 text-slate-500 dark:text-slate-400">
+              <MapPin className="h-12 w-12 mx-auto mb-4 text-slate-300 dark:text-slate-600" />
               <p>No countries found.</p>
             </div>
           ) : (
-            <div className="rounded-md border overflow-hidden">
+            <div className="rounded-md border dark:border-gray-800 overflow-x-auto">
               <Table>
                 <TableHeader>
-                  <TableRow>
-                    <TableHead>Flag</TableHead>
-                    <TableHead>Icon</TableHead>
-                    <TableHead>Banner</TableHead>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Code</TableHead>
-                    <TableHead>Type</TableHead>
-                    <TableHead>Packages</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Popular</TableHead>
-                    <TableHead>Actions</TableHead>
+                  <TableRow className="dark:border-gray-800">
+                    <TableHead className="whitespace-nowrap">Flag</TableHead>
+                    <TableHead className="whitespace-nowrap">Icon</TableHead>
+                    <TableHead className="whitespace-nowrap">Banner</TableHead>
+                    <TableHead className="whitespace-nowrap">Name</TableHead>
+                    <TableHead className="whitespace-nowrap">Code</TableHead>
+                    <TableHead className="whitespace-nowrap">Type</TableHead>
+                    <TableHead className="whitespace-nowrap">Packages</TableHead>
+                    <TableHead className="whitespace-nowrap">Status</TableHead>
+                    <TableHead className="whitespace-nowrap">Popular</TableHead>
+                    <TableHead className="whitespace-nowrap">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {destinations.map((dest) => (
-                    <TableRow key={dest.id}>
+                    <TableRow key={dest.id} className="dark:border-gray-800 dark:bg-gray-900/50 dark:text-gray-400">
                       <TableCell>
                         <ReactCountryFlag
                           countryCode={dest.countryCode}
@@ -383,7 +383,7 @@ export default function MasterCountries() {
                             className="w-10 h-10 rounded object-cover"
                           />
                         ) : (
-                          <div className="w-10 h-10 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                          <div className="w-10 h-10 rounded bg-slate-100 dark:bg-gray-900 flex items-center justify-center">
                             <Flag className="h-5 w-5 text-slate-400" />
                           </div>
                         )}
@@ -393,39 +393,39 @@ export default function MasterCountries() {
                           <img
                             src={dest.bannerImage}
                             alt={`${dest.name} banner`}
-                            className="w-20 h-10 rounded object-cover border"
+                            className="w-20 h-10 rounded object-cover border dark:border-gray-800"
                           />
                         ) : (
-                          <div className="w-20 h-10 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-dashed border-slate-300">
+                          <div className="w-20 h-10 rounded bg-slate-100 dark:bg-gray-900 flex items-center justify-center border border-dashed border-slate-300 dark:border-gray-800">
                             <Image className="h-4 w-4 text-slate-400" />
                           </div>
                         )}
                       </TableCell>
                       <TableCell>
-                        <span className="font-medium">{dest.name}</span>
+                        <span className="font-medium whitespace-nowrap">{dest.name}</span>
                       </TableCell>
                       <TableCell>
-                        <code className="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
+                        <code className="text-xs bg-slate-100 dark:bg-gray-900 px-2 py-1 rounded whitespace-nowrap">
                           {dest.countryCode}
                         </code>
                       </TableCell>
                       <TableCell>
                         {dest.isTerritory ? (
-                          <Badge variant="secondary" className="bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200">
+                          <Badge variant="secondary" className="bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 border-transparent whitespace-nowrap">
                             Territory
                           </Badge>
                         ) : (
-                          <Badge variant="secondary" className="bg-primary/10 text-[var(--primary-dark)] dark:bg-[var(--primary-dark)] dark:text-primary/10">
+                          <Badge variant="secondary" className="bg-primary/10 text-[var(--primary-dark)] dark:bg-[var(--primary-dark)] dark:text-gray-400 border-transparent whitespace-nowrap">
                             Country
                           </Badge>
                         )}
                       </TableCell>
                       <TableCell>
-                        <div className="flex flex-col gap-1 text-xs">
+                        <div className="flex flex-col gap-1 text-xs min-w-[100px]">
                           <span className="font-medium">
                             {dest.packageCounts.total} total
                           </span>
-                          <span className="text-slate-500">
+                          <span className="text-slate-500 dark:text-slate-400">
                             A:{dest.packageCounts.airalo} E:{dest.packageCounts.esimAccess} G:{dest.packageCounts.esimGo}
                           </span>
                         </div>
@@ -464,7 +464,7 @@ export default function MasterCountries() {
       </Card>
 
       <Dialog open={!!editingDestination} onOpenChange={handleCloseDialog}>
-        <DialogContent>
+        <DialogContent className="dark:bg-gray-950 dark:border-gray-800">
           <DialogHeader>
             <DialogTitle>Edit Country Image</DialogTitle>
           </DialogHeader>
@@ -473,15 +473,15 @@ export default function MasterCountries() {
               {/* Icon Section */}
               <div className="space-y-3">
                 <Label>Icon / Image</Label>
-                <div className="flex flex-col items-center gap-3 p-4 border rounded-lg bg-slate-50 dark:bg-slate-900/50">
+                <div className="flex flex-col items-center gap-3 p-4 border rounded-lg bg-slate-50 dark:bg-gray-900/50 dark:border-gray-800">
                   {iconPreview ? (
                     <img
                       src={iconPreview}
                       alt="Icon Preview"
-                      className="w-24 h-24 rounded object-cover border shadow-sm"
+                      className="w-24 h-24 rounded object-cover border shadow-sm dark:border-gray-800"
                     />
                   ) : (
-                    <div className="w-24 h-24 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-dashed border-slate-300">
+                    <div className="w-24 h-24 rounded bg-slate-100 dark:bg-gray-900 flex items-center justify-center border border-dashed border-slate-300 dark:border-gray-800">
                       <Image className="h-8 w-8 text-slate-400" />
                     </div>
                   )}
@@ -490,7 +490,7 @@ export default function MasterCountries() {
                     type="file"
                     accept="image/*"
                     onChange={handleIconSelect}
-                    className="text-xs"
+                    className="text-xs dark:bg-gray-950 dark:border-gray-800"
                     data-testid="input-country-icon-file"
                   />
                 </div>
@@ -499,15 +499,15 @@ export default function MasterCountries() {
               {/* Banner Section */}
               <div className="space-y-3">
                 <Label>Banner Image</Label>
-                <div className="flex flex-col items-center gap-3 p-4 border rounded-lg bg-slate-50 dark:bg-slate-900/50">
+                <div className="flex flex-col items-center gap-3 p-4 border rounded-lg bg-slate-50 dark:bg-gray-900/50 dark:border-gray-800">
                   {bannerPreview ? (
                     <img
                       src={bannerPreview}
                       alt="Banner Preview"
-                      className="w-full h-24 rounded object-cover border shadow-sm"
+                      className="w-full h-24 rounded object-cover border shadow-sm dark:border-gray-800"
                     />
                   ) : (
-                    <div className="w-full h-24 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-dashed border-slate-300">
+                    <div className="w-full h-24 rounded bg-slate-100 dark:bg-gray-900 flex items-center justify-center border border-dashed border-slate-300 dark:border-gray-800">
                       <Image className="h-8 w-8 text-slate-400" />
                     </div>
                   )}
@@ -516,19 +516,19 @@ export default function MasterCountries() {
                     type="file"
                     accept="image/*"
                     onChange={handleBannerSelect}
-                    className="text-xs"
+                    className="text-xs dark:bg-gray-950 dark:border-gray-800"
                     data-testid="input-country-banner-file"
                   />
                 </div>
               </div>
             </div>
 
-            <p className="text-xs text-slate-500 text-center">
+            <p className="text-xs text-slate-500 dark:text-slate-400 text-center">
               Accepted formats: JPG, PNG, GIF, WebP, SVG (max 5MB)
             </p>
           </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={handleCloseDialog}>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button variant="outline" onClick={handleCloseDialog} className="dark:border-gray-800">
               Cancel
             </Button>
             <Button

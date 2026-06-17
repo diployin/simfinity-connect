@@ -332,8 +332,8 @@ export default function Packages() {
         </div>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-4">
-        <Card>
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Packages</CardTitle>
             <Database className="h-4 w-4 text-muted-foreground" />
@@ -344,7 +344,7 @@ export default function Packages() {
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Enabled</CardTitle>
             <PackageIcon className="h-4 w-4 text-muted-foreground" />
@@ -355,7 +355,7 @@ export default function Packages() {
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Best Price</CardTitle>
             <Star className="h-4 w-4 text-muted-foreground" />
@@ -366,7 +366,7 @@ export default function Packages() {
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Manual Override</CardTitle>
             <AlertCircle className="h-4 w-4 text-muted-foreground" />
@@ -379,17 +379,17 @@ export default function Packages() {
         </Card>
       </div>
 
-      <Card>
+      <Card className="dark:bg-gray-950 dark:border-gray-800">
         <CardHeader>
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-4">
             <div>
               <CardTitle>Unified Packages</CardTitle>
               <CardDescription>
                 Filter and manage package visibility across providers
               </CardDescription>
             </div>
-            <div className="flex flex-wrap gap-2">
-              <div className="relative flex-1 md:w-64">
+            <div className="flex flex-col sm:flex-row gap-2 w-full xl:w-auto">
+              <div className="relative flex-1 sm:w-64">
                 <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input
                   placeholder="Search packages..."
@@ -398,7 +398,7 @@ export default function Packages() {
                     setSearch(e.target.value);
                     if (currentPage !== 1) goToPage(1, { replace: true });
                   }}
-                  className="pl-8"
+                  className="pl-8 dark:bg-gray-900 dark:border-gray-800"
                   data-testid="input-search-packages"
                 />
               </div>
@@ -412,10 +412,10 @@ export default function Packages() {
                 if (currentPage !== 1) goToPage(1, { replace: true });
               }}
             >
-              <SelectTrigger className="w-48" data-testid="select-provider-filter">
+              <SelectTrigger className="w-full sm:w-48 dark:bg-gray-900 dark:border-gray-800" data-testid="select-provider-filter">
                 <SelectValue placeholder="All Providers" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="dark:bg-gray-900 dark:border-gray-800">
                 <SelectItem value="all">All Providers</SelectItem>
                 {providers?.map((provider) => (
                   <SelectItem key={provider.id} value={provider.slug}>
@@ -432,10 +432,10 @@ export default function Packages() {
                 if (currentPage !== 1) goToPage(1, { replace: true });
               }}
             >
-              <SelectTrigger className="w-48" data-testid="select-type-filter">
+              <SelectTrigger className="w-full sm:w-48 dark:bg-gray-900 dark:border-gray-800" data-testid="select-type-filter">
                 <SelectValue placeholder="All Types" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="dark:bg-gray-900 dark:border-gray-800">
                 <SelectItem value="all">All Types</SelectItem>
                 <SelectItem value="local">Local</SelectItem>
                 <SelectItem value="regional">Regional</SelectItem>
@@ -450,10 +450,10 @@ export default function Packages() {
                 if (currentPage !== 1) goToPage(1, { replace: true });
               }}
             >
-              <SelectTrigger className="w-48" data-testid="select-best-price-filter">
+              <SelectTrigger className="w-full sm:w-48 dark:bg-gray-900 dark:border-gray-800" data-testid="select-best-price-filter">
                 <SelectValue placeholder="All Prices" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="dark:bg-gray-900 dark:border-gray-800">
                 <SelectItem value="all">All Prices</SelectItem>
                 <SelectItem value="yes">Best Price Only</SelectItem>
                 <SelectItem value="no">Not Best Price</SelectItem>
@@ -467,10 +467,10 @@ export default function Packages() {
                 if (currentPage !== 1) goToPage(1, { replace: true });
               }}
             >
-              <SelectTrigger className="w-48" data-testid="select-sort-filter">
+              <SelectTrigger className="w-full sm:w-48 dark:bg-gray-900 dark:border-gray-800" data-testid="select-sort-filter">
                 <SelectValue placeholder="Default Sort" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="dark:bg-gray-900 dark:border-gray-800">
                 <SelectItem value="default">Default Sort</SelectItem>
                 <SelectItem value="priceLowToHigh">Price: Low to High</SelectItem>
                 <SelectItem value="priceHighToLow">Price: High to Low</SelectItem>
@@ -479,7 +479,7 @@ export default function Packages() {
 
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="outline" className="gap-2" data-testid="button-advanced-filters">
+                <Button variant="outline" className="w-full sm:w-auto gap-2 dark:bg-gray-900 dark:border-gray-800" data-testid="button-advanced-filters">
                   <Filter className="h-4 w-4" />
                   Advanced Filters
                   {activeFiltersCount > 0 && (
@@ -489,7 +489,7 @@ export default function Packages() {
                   )}
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-80" align="end">
+              <PopoverContent className="w-80 dark:bg-gray-950 dark:border-gray-800" align="end">
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <h4 className="font-semibold text-sm">Advanced Filters</h4>
@@ -682,262 +682,265 @@ export default function Packages() {
               <p>No packages found matching your filters</p>
             </div>
           ) : (
-            <Table data-testid="table-packages">
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-12">#</TableHead>
-                  <TableHead>Package</TableHead>
-                  <TableHead>Provider</TableHead>
-                  <TableHead>Location</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead>Package Details</TableHead>
-                  <TableHead>Pricing</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="text-center">Popular</TableHead>
-                  <TableHead className="text-center">Recommend</TableHead>
-                  <TableHead className="text-center">Best Value</TableHead>
-                  <TableHead className="text-center">Enabled</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {packages.map((pkg, index) => {
-                  const rowNumber = (currentPage - 1) * 50 + index + 1;
-                  return (
-                    <TableRow key={pkg.id} data-testid={`row-package-${pkg.id}`}>
-                      <TableCell
-                        className="font-medium text-muted-foreground"
-                        data-testid={`text-row-number-${pkg.id}`}
-                      >
-                        {rowNumber}
-                      </TableCell>
-                      <TableCell>
-                        <div className="font-medium">{pkg.title}</div>
-                        <div className="flex flex-wrap gap-1 mt-1">
-                          {pkg.isPopular && (
-                            <Badge
-                              variant="default"
-                              className="text-xs bg-orange-500"
-                              data-testid={`badge-popular-${pkg.id}`}
-                            >
-                              Popular
-                            </Badge>
-                          )}
-                          {pkg.isRecommended && (
-                            <Badge
-                              variant="default"
-                              className="text-xs bg-[var(--primary)]"
-                              data-testid={`badge-recommended-${pkg.id}`}
-                            >
-                              Recommend
-                            </Badge>
-                          )}
-                          {pkg.isBestValue && (
-                            <Badge
-                              variant="default"
-                              className="text-xs bg-green-500"
-                              data-testid={`badge-best-value-${pkg.id}`}
-                            >
-                              Best Value
-                            </Badge>
-                          )}
-                          {pkg.isUnlimited && (
-                            <Badge
-                              variant="default"
-                              className="text-xs bg-purple-500"
-                              data-testid={`badge-unlimited-${pkg.id}`}
-                            >
-                              Unlimited
-                            </Badge>
-                          )}
-                        </div>
-                        <div className="text-sm text-muted-foreground mt-1">{pkg.slug}</div>
-                      </TableCell>
-                      <TableCell>
-                        <Badge variant="outline" data-testid={`badge-provider-${pkg.id}`}>
-                          {pkg.providerName}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>
-                        <div
-                          className="flex items-center gap-1.5 text-sm"
-                          data-testid={`text-location-${pkg.id}`}
+            <div className="overflow-x-auto">
+              <Table data-testid="table-packages">
+                <TableHeader>
+                  <TableRow className="dark:border-gray-800">
+                    <TableHead className="w-12">#</TableHead>
+                    <TableHead>Package</TableHead>
+                    <TableHead>Provider</TableHead>
+                    <TableHead>Location</TableHead>
+                    <TableHead>Type</TableHead>
+                    <TableHead>Package Details</TableHead>
+                    <TableHead>Pricing</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead className="text-center">Popular</TableHead>
+                    <TableHead className="text-center">Recommend</TableHead>
+                    <TableHead className="text-center">Best Value</TableHead>
+                    <TableHead className="text-center">Enabled</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {packages.map((pkg, index) => {
+                    const rowNumber = (currentPage - 1) * 50 + index + 1;
+                    return (
+                      <TableRow key={pkg.id} data-testid={`row-package-${pkg.id}`} className="dark:border-gray-800">
+                        <TableCell
+                          className="font-medium text-muted-foreground"
+                          data-testid={`text-row-number-${pkg.id}`}
                         >
-                          {pkg.destinationFlag && (
-                            <span className="text-lg" data-testid={`flag-${pkg.id}`}>
-                              {pkg.destinationFlag}
-                            </span>
-                          )}
-                          {!pkg.destinationFlag && <MapPin className="h-3.5 w-3.5" />}
-                          <span>{pkg.destinationName || pkg.regionName || 'N/A'}</span>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <Badge
-                          variant={
-                            pkg.type === 'local'
-                              ? 'default'
-                              : pkg.type === 'regional'
-                                ? 'secondary'
-                                : 'outline'
-                          }
-                          className={`capitalize ${
-                            pkg.type === 'local'
-                              ? 'bg-[var(--primary)] hover:bg-primary-second'
-                              : pkg.type === 'regional'
-                                ? 'bg-[var(--primary)] hover:bg-primary-second'
-                                : 'bg-orange-500 hover:bg-orange-600 text-white'
-                          }`}
-                          data-testid={`badge-type-${pkg.id}`}
-                        >
-                          {pkg.type}
-                        </Badge>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex flex-col gap-1.5">
-                          <div className="flex items-center gap-1.5 text-sm">
-                            <Database className="h-3.5 w-3.5 text-[var(--primary)]" />
-                            <span className="font-medium">{pkg.dataAmount}</span>
+                          {rowNumber}
+                        </TableCell>
+                        <TableCell>
+                          <div className="font-medium whitespace-nowrap">{pkg.title}</div>
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {pkg.isPopular && (
+                              <Badge
+                                variant="default"
+                                className="text-xs bg-orange-500 hover:bg-orange-600"
+                                data-testid={`badge-popular-${pkg.id}`}
+                              >
+                                Popular
+                              </Badge>
+                            )}
+                            {pkg.isRecommended && (
+                              <Badge
+                                variant="default"
+                                className="text-xs bg-[var(--primary)] hover:bg-primary-dark"
+                                data-testid={`badge-recommended-${pkg.id}`}
+                              >
+                                Recommend
+                              </Badge>
+                            )}
+                            {pkg.isBestValue && (
+                              <Badge
+                                variant="default"
+                                className="text-xs bg-green-500 hover:bg-green-600"
+                                data-testid={`badge-best-value-${pkg.id}`}
+                              >
+                                Best Value
+                              </Badge>
+                            )}
+                            {pkg.isUnlimited && (
+                              <Badge
+                                variant="default"
+                                className="text-xs bg-purple-500 hover:bg-purple-600"
+                                data-testid={`badge-unlimited-${pkg.id}`}
+                              >
+                                Unlimited
+                              </Badge>
+                            )}
                           </div>
-                          <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                            <Clock className="h-3.5 w-3.5" />
-                            <span>{pkg.validity} days</span>
-                          </div>
-                          {pkg.voiceCredits && pkg.voiceCredits > 0 && (
-                            <div
-                              className="flex items-center gap-1.5 text-xs text-muted-foreground"
-                              data-testid={`text-voice-credits-${pkg.id}`}
-                            >
-                              <Phone className="h-3 w-3" />
-                              <span>{pkg.voiceCredits} mins</span>
-                            </div>
-                          )}
-                          {pkg.smsCredits && pkg.smsCredits > 0 && (
-                            <div
-                              className="flex items-center gap-1.5 text-xs text-muted-foreground"
-                              data-testid={`text-sms-credits-${pkg.id}`}
-                            >
-                              <MessageSquare className="h-3 w-3" />
-                              <span>{pkg.smsCredits} SMS</span>
-                            </div>
-                          )}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex flex-col gap-1.5">
-                          <div className="flex items-center justify-between gap-2">
-                            <span className="text-xs text-muted-foreground">Provider:</span>
-                            <span
-                              className="text-sm font-medium"
-                              data-testid={`text-provider-price-${pkg.id}`}
-                            >
-                              ${parseFloat(pkg.providerPrice).toFixed(2)}
-                            </span>
-                          </div>
-                          <div className="flex items-center justify-between gap-2">
-                            <span className="text-xs text-muted-foreground">Selling:</span>
-                            <span
-                              className="text-sm font-semibold text-primary-second dark:text-[var(--primary-light)]"
-                              data-testid={`text-selling-price-${pkg.id}`}
-                            >
-                              ${parseFloat(pkg.price).toFixed(2)}
-                            </span>
-                          </div>
-                          <div className="flex items-center justify-between gap-2 pt-1 border-t">
-                            <span className="text-xs text-muted-foreground">Margin:</span>
-                            <span
-                              className="text-xs font-medium text-green-600 dark:text-green-400"
-                              data-testid={`text-margin-${pkg.id}`}
-                            >
-                              {(() => {
-                                const providerPrice = parseFloat(pkg.providerPrice);
-                                const sellingPrice = parseFloat(pkg.price);
-                                const marginAmount = sellingPrice - providerPrice;
-                                const marginPercent =
-                                  providerPrice > 0 ? (marginAmount / providerPrice) * 100 : 0;
-                                return `$${marginAmount.toFixed(2)} (${marginPercent.toFixed(1)}%)`;
-                              })()}
-                            </span>
-                          </div>
-                          {pkg.isBestPrice && (
-                            <Badge
-                              variant="default"
-                              className="w-fit mt-1 text-xs"
-                              data-testid={`badge-best-price-${pkg.id}`}
-                            >
-                              <Star className="h-3 w-3 mr-1" />
-                              Best Price
-                            </Badge>
-                          )}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex flex-col gap-1">
-                          <Badge
-                            variant={pkg.isEnabled ? 'default' : 'secondary'}
-                            data-testid={`badge-status-${pkg.id}`}
-                          >
-                            {pkg.isEnabled ? 'Enabled' : 'Disabled'}
+                          <div className="text-sm text-muted-foreground mt-1 font-mono">{pkg.slug}</div>
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="outline" data-testid={`badge-provider-${pkg.id}`} className="dark:border-gray-800 whitespace-nowrap">
+                            {pkg.providerName}
                           </Badge>
-                          {pkg.manualOverride && (
+                        </TableCell>
+                        <TableCell>
+                          <div
+                            className="flex items-center gap-1.5 text-sm whitespace-nowrap"
+                            data-testid={`text-location-${pkg.id}`}
+                          >
+                            {pkg.destinationFlag && (
+                              <span className="text-lg" data-testid={`flag-${pkg.id}`}>
+                                {pkg.destinationFlag}
+                              </span>
+                            )}
+                            {!pkg.destinationFlag && <MapPin className="h-3.5 w-3.5" />}
+                            <span>{pkg.destinationName || pkg.regionName || 'N/A'}</span>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <Badge
+                            variant={
+                              pkg.type === 'local'
+                                ? 'default'
+                                : pkg.type === 'regional'
+                                  ? 'secondary'
+                                  : 'outline'
+                            }
+                            className={`capitalize whitespace-nowrap ${
+                              pkg.type === 'local'
+                                ? 'bg-[var(--primary)] hover:bg-primary-second'
+                                : pkg.type === 'regional'
+                                  ? 'bg-[var(--primary)] hover:bg-primary-second'
+                                  : 'bg-orange-500 hover:bg-orange-600 text-white border-transparent'
+                            }`}
+                            data-testid={`badge-type-${pkg.id}`}
+                          >
+                            {pkg.type}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex flex-col gap-1.5 min-w-[120px]">
+                            <div className="flex items-center gap-1.5 text-sm">
+                              <Database className="h-3.5 w-3.5 text-[var(--primary)]" />
+                              <span className="font-medium">{pkg.dataAmount}</span>
+                            </div>
+                            <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                              <Clock className="h-3.5 w-3.5" />
+                              <span>{pkg.validity} days</span>
+                            </div>
+                            {pkg.voiceCredits && pkg.voiceCredits > 0 && (
+                              <div
+                                className="flex items-center gap-1.5 text-xs text-muted-foreground"
+                                data-testid={`text-voice-credits-${pkg.id}`}
+                              >
+                                <Phone className="h-3 w-3" />
+                                <span>{pkg.voiceCredits} mins</span>
+                              </div>
+                            )}
+                            {pkg.smsCredits && pkg.smsCredits > 0 && (
+                              <div
+                                className="flex items-center gap-1.5 text-xs text-muted-foreground"
+                                data-testid={`text-sms-credits-${pkg.id}`}
+                              >
+                                <MessageSquare className="h-3 w-3" />
+                                <span>{pkg.smsCredits} SMS</span>
+                              </div>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex flex-col gap-1.5 min-w-[150px]">
+                            <div className="flex items-center justify-between gap-2">
+                              <span className="text-xs text-muted-foreground">Provider:</span>
+                              <span
+                                className="text-sm font-medium"
+                                data-testid={`text-provider-price-${pkg.id}`}
+                              >
+                                ${parseFloat(pkg.providerPrice).toFixed(2)}
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between gap-2">
+                              <span className="text-xs text-muted-foreground">Selling:</span>
+                              <span
+                                className="text-sm font-semibold text-primary-second dark:text-[var(--primary-light)]"
+                                data-testid={`text-selling-price-${pkg.id}`}
+                              >
+                                ${parseFloat(pkg.price).toFixed(2)}
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between gap-2 pt-1 border-t dark:border-gray-800">
+                              <span className="text-xs text-muted-foreground">Margin:</span>
+                              <span
+                                className="text-xs font-medium text-green-600 dark:text-green-400"
+                                data-testid={`text-margin-${pkg.id}`}
+                              >
+                                {(() => {
+                                  const providerPrice = parseFloat(pkg.providerPrice);
+                                  const sellingPrice = parseFloat(pkg.price);
+                                  const marginAmount = sellingPrice - providerPrice;
+                                  const marginPercent =
+                                    providerPrice > 0 ? (marginAmount / providerPrice) * 100 : 0;
+                                  return `$${marginAmount.toFixed(2)} (${marginPercent.toFixed(1)}%)`;
+                                })()}
+                              </span>
+                            </div>
+                            {pkg.isBestPrice && (
+                              <Badge
+                                variant="default"
+                                className="w-fit mt-1 text-xs whitespace-nowrap"
+                                data-testid={`badge-best-price-${pkg.id}`}
+                              >
+                                <Star className="h-3 w-3 mr-1" />
+                                Best Price
+                              </Badge>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex flex-col gap-1">
                             <Badge
-                              variant="outline"
-                              className="w-fit text-xs"
-                              data-testid={`badge-manual-override-${pkg.id}`}
+                              variant={pkg.isEnabled ? 'default' : 'secondary'}
+                              data-testid={`badge-status-${pkg.id}`}
+                              className="whitespace-nowrap"
                             >
-                              <AlertCircle className="h-3 w-3 mr-1" />
-                              Manual
+                              {pkg.isEnabled ? 'Enabled' : 'Disabled'}
                             </Badge>
-                          )}
-                        </div>
-                      </TableCell>
-                      <TableCell className="text-center">
-                        <Switch
-                          checked={pkg.isPopular}
-                          onCheckedChange={() => handleTogglePopular(pkg)}
-                          disabled={updatePackageMutation.isPending}
-                          className="data-[state=checked]:bg-orange-500"
-                          data-testid={`switch-popular-${pkg.id}`}
-                        />
-                      </TableCell>
-                      <TableCell className="text-center">
-                        <Switch
-                          checked={pkg.isRecommended}
-                          onCheckedChange={() => handleToggleRecommended(pkg)}
-                          disabled={updatePackageMutation.isPending}
-                          className="data-[state=checked]:bg-[var(--primary)]"
-                          data-testid={`switch-recommended-${pkg.id}`}
-                        />
-                      </TableCell>
-                      <TableCell className="text-center">
-                        <Switch
-                          checked={pkg.isBestValue}
-                          onCheckedChange={() => handleToggleBestValue(pkg)}
-                          disabled={updatePackageMutation.isPending}
-                          className="data-[state=checked]:bg-green-500"
-                          data-testid={`switch-best-value-${pkg.id}`}
-                        />
-                      </TableCell>
-                      <TableCell className="text-center">
-                        <Switch
-                          checked={pkg.isEnabled}
-                          onCheckedChange={() => handleToggleEnabled(pkg)}
-                          disabled={updatePackageMutation.isPending}
-                          className="data-[state=checked]:bg-[var(--primary)]"
-                          data-testid={`switch-enabled-${pkg.id}`}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
+                            {pkg.manualOverride && (
+                              <Badge
+                                variant="outline"
+                                className="w-fit text-xs whitespace-nowrap dark:border-gray-800"
+                                data-testid={`badge-manual-override-${pkg.id}`}
+                              >
+                                <AlertCircle className="h-3 w-3 mr-1" />
+                                Manual
+                              </Badge>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-center">
+                          <Switch
+                            checked={pkg.isPopular}
+                            onCheckedChange={() => handleTogglePopular(pkg)}
+                            disabled={updatePackageMutation.isPending}
+                            className="data-[state=checked]:bg-orange-500"
+                            data-testid={`switch-popular-${pkg.id}`}
+                          />
+                        </TableCell>
+                        <TableCell className="text-center">
+                          <Switch
+                            checked={pkg.isRecommended}
+                            onCheckedChange={() => handleToggleRecommended(pkg)}
+                            disabled={updatePackageMutation.isPending}
+                            className="data-[state=checked]:bg-[var(--primary)]"
+                            data-testid={`switch-recommended-${pkg.id}`}
+                          />
+                        </TableCell>
+                        <TableCell className="text-center">
+                          <Switch
+                            checked={pkg.isBestValue}
+                            onCheckedChange={() => handleToggleBestValue(pkg)}
+                            disabled={updatePackageMutation.isPending}
+                            className="data-[state=checked]:bg-green-500"
+                            data-testid={`switch-best-value-${pkg.id}`}
+                          />
+                        </TableCell>
+                        <TableCell className="text-center">
+                          <Switch
+                            checked={pkg.isEnabled}
+                            onCheckedChange={() => handleToggleEnabled(pkg)}
+                            disabled={updatePackageMutation.isPending}
+                            className="data-[state=checked]:bg-[var(--primary)]"
+                            data-testid={`switch-enabled-${pkg.id}`}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </div>
           )}
         </CardContent>
 
         {/* Pagination Controls */}
         {response && response.pagination && (
-          <div className="flex flex-col md:flex-row items-center justify-between px-6 py-4 border-t gap-4">
-            <div className="text-sm text-muted-foreground">
+          <div className="flex flex-col lg:flex-row items-center justify-between px-6 py-4 border-t dark:border-gray-800 gap-4">
+            <div className="text-sm text-muted-foreground text-center lg:text-left">
               Showing {(response.pagination.page - 1) * response.pagination.limit + 1} to{' '}
               {Math.min(
                 response.pagination.page * response.pagination.limit,
@@ -945,16 +948,17 @@ export default function Packages() {
               )}{' '}
               of {response.pagination.total} packages
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center justify-center gap-2">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={() => goToPage(Math.max(1, currentPage - 1))}
                 disabled={currentPage === 1}
+                className="dark:bg-gray-900 dark:border-gray-800"
                 data-testid="button-pagination-prev"
               >
                 <ChevronLeft className="h-4 w-4" />
-                Previous
+                <span className="hidden sm:inline ml-1">Previous</span>
               </Button>
 
               {/* Page Number Buttons */}
@@ -962,7 +966,7 @@ export default function Packages() {
                 {(() => {
                   const totalPages = response.pagination.totalPages;
                   const pageButtons: JSX.Element[] = [];
-                  const maxVisiblePages = 7;
+                  const maxVisiblePages = 5; // Reduced for better mobile fit
 
                   if (totalPages <= maxVisiblePages) {
                     for (let i = 1; i <= totalPages; i++) {
@@ -972,7 +976,7 @@ export default function Packages() {
                           variant={currentPage === i ? 'default' : 'outline'}
                           size="sm"
                           onClick={() => goToPage(i)}
-                          className="min-w-[2.5rem]"
+                          className={`min-w-[2.5rem] ${currentPage !== i ? 'dark:bg-gray-900 dark:border-gray-800' : ''}`}
                           data-testid={`button-page-${i}`}
                         >
                           {i}
@@ -986,7 +990,7 @@ export default function Packages() {
                         variant={currentPage === 1 ? 'default' : 'outline'}
                         size="sm"
                         onClick={() => goToPage(1)}
-                        className="min-w-[2.5rem]"
+                        className={`min-w-[2.5rem] ${currentPage !== 1 ? 'dark:bg-gray-900 dark:border-gray-800' : ''}`}
                         data-testid="button-page-1"
                       >
                         1
@@ -995,7 +999,7 @@ export default function Packages() {
 
                     if (currentPage > 3) {
                       pageButtons.push(
-                        <span key="ellipsis-1" className="px-2 text-muted-foreground">
+                        <span key="ellipsis-1" className="px-1 text-muted-foreground">
                           ...
                         </span>,
                       );
@@ -1011,7 +1015,7 @@ export default function Packages() {
                           variant={currentPage === i ? 'default' : 'outline'}
                           size="sm"
                           onClick={() => goToPage(i)}
-                          className="min-w-[2.5rem]"
+                          className={`min-w-[2.5rem] ${currentPage !== i ? 'dark:bg-gray-900 dark:border-gray-800' : ''}`}
                           data-testid={`button-page-${i}`}
                         >
                           {i}
@@ -1021,7 +1025,7 @@ export default function Packages() {
 
                     if (currentPage < totalPages - 2) {
                       pageButtons.push(
-                        <span key="ellipsis-2" className="px-2 text-muted-foreground">
+                        <span key="ellipsis-2" className="px-1 text-muted-foreground">
                           ...
                         </span>,
                       );
@@ -1033,7 +1037,7 @@ export default function Packages() {
                         variant={currentPage === totalPages ? 'default' : 'outline'}
                         size="sm"
                         onClick={() => goToPage(totalPages)}
-                        className="min-w-[2.5rem]"
+                        className={`min-w-[2.5rem] ${currentPage !== totalPages ? 'dark:bg-gray-900 dark:border-gray-800' : ''}`}
                         data-testid={`button-page-${totalPages}`}
                       >
                         {totalPages}
@@ -1050,9 +1054,10 @@ export default function Packages() {
                 size="sm"
                 onClick={() => goToPage(currentPage + 1)}
                 disabled={currentPage === response.pagination.totalPages}
+                className="dark:bg-gray-900 dark:border-gray-800"
                 data-testid="button-pagination-next"
               >
-                Next
+                <span className="hidden sm:inline mr-1">Next</span>
                 <ChevronRight className="h-4 w-4" />
               </Button>
             </div>

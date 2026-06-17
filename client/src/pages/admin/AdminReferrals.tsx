@@ -243,18 +243,18 @@ function SettingsTab() {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-      <Card>
+      <Card className="dark:bg-slate-950">
         <CardHeader>
-          <CardTitle>{t('adminPanel.referrals.settings')}</CardTitle>
-          <CardDescription>Configure the referral program settings</CardDescription>
+          <CardTitle>{t('adminPanel.referrals.settings', 'Settings')}</CardTitle>
+          <CardDescription>{t('adminPanel.referrals.settingsDescription', 'Configure the referral program settings')}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Enable Program */}
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
-              <Label htmlFor="enabled">{t('adminPanel.referrals.enabled')}</Label>
+              <Label htmlFor="enabled">{t('adminPanel.referrals.enabled', 'Enabled')}</Label>
               <div className="text-sm text-muted-foreground">
-                Enable or disable the referral program
+                {t('adminPanel.referrals.enabledDescription', 'Enable or disable the referral program')}
               </div>
             </div>
             <Switch
@@ -267,7 +267,7 @@ function SettingsTab() {
 
           {/* Reward Type */}
           <div className="space-y-3">
-            <Label>{t('adminPanel.referrals.rewardType')}</Label>
+            <Label>{t('adminPanel.referrals.rewardType', 'Reward Type')}</Label>
             <RadioGroup
               value={form.watch('rewardType')}
               onValueChange={(value) =>
@@ -278,13 +278,13 @@ function SettingsTab() {
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="percentage" id="percentage" />
                 <Label htmlFor="percentage" className="font-normal">
-                  {t('adminPanel.referrals.percentage')}
+                  {t('adminPanel.referrals.percentage', 'Percentage')}
                 </Label>
               </div>
               <div className="flex items-center space-x-2">
                 <RadioGroupItem value="fixed" id="fixed" />
                 <Label htmlFor="fixed" className="font-normal">
-                  {t('adminPanel.referrals.fixedAmount')}
+                  {t('adminPanel.referrals.fixedAmount', 'Fixed Amount')}
                 </Label>
               </div>
             </RadioGroup>
@@ -293,7 +293,7 @@ function SettingsTab() {
           {/* Reward Value */}
           <div className="space-y-2">
             <Label htmlFor="rewardValue">
-              {t('adminPanel.referrals.rewardValue')} (
+              {t('adminPanel.referrals.rewardValue', 'Reward Value')} (
               {form.watch('rewardType') === 'percentage' ? '%' : '$'})
             </Label>
             <Input
@@ -302,6 +302,7 @@ function SettingsTab() {
               step="0.01"
               {...form.register('rewardValue')}
               data-testid="input-reward-value"
+              className="dark:bg-slate-900"
             />
             {form.formState.errors.rewardValue && (
               <p className="text-sm text-destructive">
@@ -312,13 +313,14 @@ function SettingsTab() {
 
           {/* Referred User Discount */}
           <div className="space-y-2">
-            <Label htmlFor="referredUserDiscount">{t('adminPanel.referrals.referredDiscount')}</Label>
+            <Label htmlFor="referredUserDiscount">{t('adminPanel.referrals.referredDiscount', 'Referred Discount')}</Label>
             <Input
               id="referredUserDiscount"
               type="number"
               step="0.01"
               {...form.register('referredUserDiscount')}
               data-testid="input-referred-discount"
+              className="dark:bg-slate-900"
             />
             {form.formState.errors.referredUserDiscount && (
               <p className="text-sm text-destructive">
@@ -329,13 +331,14 @@ function SettingsTab() {
 
           {/* Min Order Amount */}
           <div className="space-y-2">
-            <Label htmlFor="minOrderAmount">{t('adminPanel.referrals.minOrderAmount')}</Label>
+            <Label htmlFor="minOrderAmount">{t('adminPanel.referrals.minOrderAmount', 'Min Order Amount')}</Label>
             <Input
               id="minOrderAmount"
               type="number"
               step="0.01"
               {...form.register('minOrderAmount')}
               data-testid="input-min-order"
+              className="dark:bg-slate-900"
             />
             {form.formState.errors.minOrderAmount && (
               <p className="text-sm text-destructive">
@@ -346,12 +349,13 @@ function SettingsTab() {
 
           {/* Expiry Days */}
           <div className="space-y-2">
-            <Label htmlFor="expiryDays">{t('adminPanel.referrals.expiryDays')}</Label>
+            <Label htmlFor="expiryDays">{t('adminPanel.referrals.expiryDays', 'Expiry Days')}</Label>
             <Input
               id="expiryDays"
               type="number"
               {...form.register('expiryDays', { valueAsNumber: true })}
               data-testid="input-expiry-days"
+              className="dark:bg-slate-900"
             />
             {form.formState.errors.expiryDays && (
               <p className="text-sm text-destructive">{form.formState.errors.expiryDays.message}</p>
@@ -360,13 +364,14 @@ function SettingsTab() {
 
           {/* Terms & Conditions */}
           <div className="space-y-2">
-            <Label htmlFor="termsAndConditions">{t('adminPanel.referrals.termsAndConditions')}</Label>
+            <Label htmlFor="termsAndConditions">{t('adminPanel.referrals.termsAndConditions', 'Terms & Conditions')}</Label>
             <Textarea
               id="termsAndConditions"
               rows={6}
-              placeholder="Enter terms and conditions..."
+              placeholder={t('adminPanel.referrals.termsPlaceholder', 'Enter terms and conditions...')}
               {...form.register('termsAndConditions')}
               data-testid="textarea-terms"
+              className="dark:bg-slate-900"
             />
           </div>
 
@@ -376,7 +381,7 @@ function SettingsTab() {
             data-testid="button-save-settings"
           >
             <Save className="h-4 w-4 mr-2" />
-            {saveMutation.isPending ? t('common.loading') : t('adminPanel.referrals.saveSettings')}
+            {saveMutation.isPending ? t('common.loading', 'Loading...') : t('adminPanel.referrals.saveSettings', 'Save Settings')}
           </Button>
         </CardContent>
       </Card>

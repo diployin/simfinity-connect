@@ -270,7 +270,7 @@ export default function AdminVouchers() {
               Create Voucher
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto border-2 border-primary dark:bg-gray-950 dark:border-gray-800 dark:text-white">
             <DialogHeader>
               <DialogTitle>Create New Voucher</DialogTitle>
               <DialogDescription>Create a new discount voucher code</DialogDescription>
@@ -286,8 +286,8 @@ export default function AdminVouchers() {
         </Dialog>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-4">
-        <Card>
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2">
             <CardTitle className="text-sm font-medium">Total Vouchers</CardTitle>
             <Gift className="h-4 w-4 text-muted-foreground" />
@@ -298,18 +298,18 @@ export default function AdminVouchers() {
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2">
             <CardTitle className="text-sm font-medium">Active Vouchers</CardTitle>
             <Gift className="h-4 w-4 text-green-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600" data-testid="text-active-vouchers">
+            <div className="text-2xl font-bold text-green-600 dark:text-green-400" data-testid="text-active-vouchers">
               {statistics.activeVouchers}
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2">
             <CardTitle className="text-sm font-medium">Total Usage</CardTitle>
             <BarChart3 className="h-4 w-4 text-muted-foreground" />
@@ -320,7 +320,7 @@ export default function AdminVouchers() {
             </div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="flex flex-row items-center justify-between gap-2 pb-2">
             <CardTitle className="text-sm font-medium">Total Discount Given</CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
@@ -333,7 +333,7 @@ export default function AdminVouchers() {
         </Card>
       </div>
 
-      <Card>
+      <Card className="dark:bg-gray-950 dark:border-gray-800">
         <CardHeader>
           <CardTitle>Vouchers</CardTitle>
           <div className="flex items-center gap-4 flex-wrap mt-4">
@@ -343,15 +343,15 @@ export default function AdminVouchers() {
                 placeholder="Search by code or description..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+                className="pl-10 dark:bg-gray-900 dark:border-gray-800"
                 data-testid="input-search-vouchers"
               />
             </div>
             <Select value={statusFilter} onValueChange={setStatusFilter}>
-              <SelectTrigger className="w-[140px]" data-testid="select-status-filter">
+              <SelectTrigger className="w-[140px] dark:bg-gray-900 dark:border-gray-800" data-testid="select-status-filter">
                 <SelectValue placeholder="Status" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="dark:bg-gray-900 dark:border-gray-800">
                 <SelectItem value="all">All Status</SelectItem>
                 <SelectItem value="active">Active</SelectItem>
                 <SelectItem value="inactive">Inactive</SelectItem>
@@ -359,10 +359,10 @@ export default function AdminVouchers() {
               </SelectContent>
             </Select>
             <Select value={typeFilter} onValueChange={setTypeFilter}>
-              <SelectTrigger className="w-[140px]" data-testid="select-type-filter">
+              <SelectTrigger className="w-[140px] dark:bg-gray-900 dark:border-gray-800" data-testid="select-type-filter">
                 <SelectValue placeholder="Type" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="dark:bg-gray-900 dark:border-gray-800">
                 <SelectItem value="all">All Types</SelectItem>
                 <SelectItem value="percentage">Percentage</SelectItem>
                 <SelectItem value="fixed">Fixed Amount</SelectItem>
@@ -376,10 +376,10 @@ export default function AdminVouchers() {
           ) : filteredVouchers.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">No vouchers found</div>
           ) : (
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto rounded-md border dark:border-gray-800">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b">
+                  <tr className="border-b dark:border-gray-800">
                     <th className="text-left py-3 px-4 font-medium">Code</th>
                     <th className="text-left py-3 px-4 font-medium">Discount</th>
                     <th className="text-left py-3 px-4 font-medium">Usage</th>
@@ -390,10 +390,10 @@ export default function AdminVouchers() {
                 </thead>
                 <tbody>
                   {filteredVouchers.map((voucher: VoucherCode, index: number) => (
-                    <tr key={voucher.id} className="border-b" data-testid={`row-voucher-${index}`}>
+                    <tr key={voucher.id} className="border-b dark:border-gray-800" data-testid={`row-voucher-${index}`}>
                       <td className="py-4 px-4">
                         <div className="flex items-center gap-2">
-                          <code className="bg-muted px-2 py-1 rounded text-sm font-mono">
+                          <code className="bg-muted dark:bg-gray-900 px-2 py-1 rounded text-sm font-mono">
                             {voucher.code}
                           </code>
                           <Button
@@ -438,7 +438,7 @@ export default function AdminVouchers() {
                         )}
                       </td>
                       <td className="py-4 px-4">
-                        <div className="text-sm">
+                        <div className="text-sm whitespace-nowrap">
                           <div>{format(new Date(voucher.validFrom), 'MMM d, yyyy')}</div>
                           <div className="text-muted-foreground">
                             to {format(new Date(voucher.validUntil), 'MMM d, yyyy')}
@@ -468,7 +468,7 @@ export default function AdminVouchers() {
                             <Button
                               size="icon"
                               variant="ghost"
-                              className="text-amber-500 hover:text-amber-600 hover:bg-amber-50"
+                              className="text-amber-500 hover:text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-950"
                               onClick={() => {
                                 if (window.confirm('Are you sure you want to deactivate this voucher?')) {
                                   updateMutation.mutate({
@@ -487,7 +487,7 @@ export default function AdminVouchers() {
                               <Button
                                 size="icon"
                                 variant="ghost"
-                                className="text-green-500 hover:text-green-600 hover:bg-green-50"
+                                className="text-green-500 hover:text-green-600 hover:bg-green-50 dark:hover:bg-green-950"
                                 onClick={() => {
                                   updateMutation.mutate({
                                     id: voucher.id,
@@ -679,6 +679,7 @@ function VoucherForm({
               placeholder="SAVE20"
               disabled={isEdit}
               data-testid="input-voucher-code"
+              className="dark:text-white dark:bg-gray-950 dark:border-gray-800"
             />
             {!isEdit && (
               <Button
@@ -698,10 +699,14 @@ function VoucherForm({
             value={formData.status}
             onValueChange={(value) => setFormData({ ...formData, status: value })}
           >
-            <SelectTrigger data-testid="select-voucher-status">
+            <SelectTrigger data-testid="select-voucher-status"
+              className="dark:text-white dark:bg-gray-950 dark:border-gray-800"
+            >
               <SelectValue />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent
+              className="dark:text-white dark:bg-gray-950 dark:border-gray-800"
+            >
               <SelectItem value="active">Active</SelectItem>
               <SelectItem value="inactive">Inactive</SelectItem>
             </SelectContent>
@@ -718,10 +723,12 @@ function VoucherForm({
               setFormData({ ...formData, type: value as 'percentage' | 'fixed' })
             }
           >
-            <SelectTrigger data-testid="select-discount-type">
+            <SelectTrigger data-testid="select-discount-type"
+              className="dark:text-white dark:bg-gray-950 dark:border-gray-800"
+            >
               <SelectValue />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="dark:text-white dark:bg-gray-950 dark:border-gray-800">
               <SelectItem value="percentage">Percentage (%)</SelectItem>
               <SelectItem value="fixed">Fixed Amount ($)</SelectItem>
             </SelectContent>
@@ -733,6 +740,7 @@ function VoucherForm({
             id="value"
             type="number"
             value={formData.value}
+            className="dark:text-white dark:bg-gray-950 dark:border-gray-800"
             onChange={(e) => setFormData({ ...formData, value: e.target.value })}
             placeholder={formData.type === 'percentage' ? '20' : '10.00'}
             data-testid="input-discount-value"
@@ -744,6 +752,7 @@ function VoucherForm({
         <Label htmlFor="description">Description (optional)</Label>
         <Textarea
           id="description"
+          className="dark:text-white dark:bg-gray-950 dark:border-gray-800"
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
           placeholder="Summer sale discount..."
@@ -758,6 +767,7 @@ function VoucherForm({
             id="minPurchaseAmount"
             type="number"
             value={formData.minPurchaseAmount}
+            className="dark:text-white dark:bg-gray-950 dark:border-gray-800"
             onChange={(e) => setFormData({ ...formData, minPurchaseAmount: e.target.value })}
             placeholder="0"
             data-testid="input-min-purchase"
@@ -769,6 +779,7 @@ function VoucherForm({
             id="maxDiscountAmount"
             type="number"
             value={formData.maxDiscountAmount}
+            className="dark:text-white dark:bg-gray-950 dark:border-gray-800"
             onChange={(e) => setFormData({ ...formData, maxDiscountAmount: e.target.value })}
             placeholder="Leave empty for no cap"
             data-testid="input-max-discount"
@@ -783,6 +794,7 @@ function VoucherForm({
             id="maxUses"
             type="number"
             value={formData.maxUses}
+            className="dark:text-white dark:bg-gray-950 dark:border-gray-800"
             onChange={(e) => setFormData({ ...formData, maxUses: e.target.value })}
             placeholder="Leave empty for unlimited"
             data-testid="input-max-uses"
@@ -794,6 +806,7 @@ function VoucherForm({
             id="perUserLimit"
             type="number"
             value={formData.perUserLimit}
+            className="dark:text-white dark:bg-gray-950 dark:border-gray-800"
             onChange={(e) => setFormData({ ...formData, perUserLimit: e.target.value })}
             placeholder="1"
             data-testid="input-per-user-limit"
@@ -808,6 +821,7 @@ function VoucherForm({
             id="validFrom"
             type="datetime-local"
             value={formData.validFrom}
+            className="dark:text-white dark:bg-gray-950 dark:border-gray-800"
             onChange={(e) => setFormData({ ...formData, validFrom: e.target.value })}
             data-testid="input-valid-from"
           />
@@ -818,6 +832,7 @@ function VoucherForm({
             id="validUntil"
             type="datetime-local"
             value={formData.validUntil}
+            className="dark:text-white dark:bg-gray-950 dark:border-gray-800"
             onChange={(e) => setFormData({ ...formData, validUntil: e.target.value })}
             data-testid="input-valid-until"
           />

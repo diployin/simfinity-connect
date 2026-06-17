@@ -243,26 +243,26 @@ export default function MasterRegions() {
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-slate-500">Total Regions</CardTitle>
+            <CardTitle className="text-sm font-medium text-slate-500 dark:text-slate-400">Total Regions</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{regions.length}</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-slate-500">Active Regions</CardTitle>
+            <CardTitle className="text-sm font-medium text-slate-500 dark:text-slate-400">Active Regions</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{regions.filter((r) => r.active).length}</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="dark:bg-gray-950 dark:border-gray-800">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-slate-500">Total Packages</CardTitle>
+            <CardTitle className="text-sm font-medium text-slate-500 dark:text-slate-400">Total Packages</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{totalPackages.toLocaleString()}</div>
@@ -270,7 +270,7 @@ export default function MasterRegions() {
         </Card>
       </div>
 
-      <Card>
+      <Card className="dark:bg-gray-950 dark:border-gray-800">
         <CardHeader>
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <CardTitle>All Regions</CardTitle>
@@ -280,7 +280,7 @@ export default function MasterRegions() {
                 placeholder="Search regions..."
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
-                className="pl-9 w-full sm:w-[250px]"
+                className="pl-9 w-full sm:w-[250px] dark:bg-gray-900 dark:border-gray-800"
                 data-testid="input-search-regions"
               />
             </div>
@@ -292,29 +292,29 @@ export default function MasterRegions() {
               <Globe className="h-6 w-6 animate-spin text-slate-400" />
             </div>
           ) : regions.length === 0 ? (
-            <div className="text-center py-8 text-slate-500">
-              <Globe className="h-12 w-12 mx-auto mb-4 text-slate-300" />
+            <div className="text-center py-8 text-slate-500 dark:text-slate-400">
+              <Globe className="h-12 w-12 mx-auto mb-4 text-slate-300 dark:text-slate-600" />
               <p>No regions found.</p>
             </div>
           ) : (
-            <div className="rounded-md border overflow-hidden">
+            <div className="rounded-md border dark:border-gray-800 overflow-x-auto">
               <Table>
                 <TableHeader>
-                  <TableRow>
-                    <TableHead>Icon</TableHead>
-                    <TableHead>Banner</TableHead>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Slug</TableHead>
-                    <TableHead>Countries</TableHead>
-                    <TableHead>Packages</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Popular</TableHead>
-                    <TableHead>Actions</TableHead>
+                  <TableRow className="dark:border-gray-800">
+                    <TableHead className="whitespace-nowrap">Icon</TableHead>
+                    <TableHead className="whitespace-nowrap">Banner</TableHead>
+                    <TableHead className="whitespace-nowrap">Name</TableHead>
+                    <TableHead className="whitespace-nowrap">Slug</TableHead>
+                    <TableHead className="whitespace-nowrap">Countries</TableHead>
+                    <TableHead className="whitespace-nowrap">Packages</TableHead>
+                    <TableHead className="whitespace-nowrap">Status</TableHead>
+                    <TableHead className="whitespace-nowrap">Popular</TableHead>
+                    <TableHead className="whitespace-nowrap">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {regions.map((region) => (
-                    <TableRow key={region.id}>
+                    <TableRow key={region.id} className="dark:border-gray-800">
                       <TableCell>
                         {region.image ? (
                           <img
@@ -323,7 +323,7 @@ export default function MasterRegions() {
                             className="w-10 h-10 rounded object-cover"
                           />
                         ) : (
-                          <div className="w-10 h-10 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                          <div className="w-10 h-10 rounded bg-slate-100 dark:bg-gray-900 flex items-center justify-center">
                             <Globe className="h-5 w-5 text-slate-400" />
                           </div>
                         )}
@@ -333,29 +333,29 @@ export default function MasterRegions() {
                           <img
                             src={region.bannerImage}
                             alt={`${region.name} banner`}
-                            className="w-20 h-10 rounded object-cover border"
+                            className="w-20 h-10 rounded object-cover border dark:border-gray-800"
                           />
                         ) : (
-                          <div className="w-20 h-10 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-dashed border-slate-300">
+                          <div className="w-20 h-10 rounded bg-slate-100 dark:bg-gray-900 flex items-center justify-center border border-dashed border-slate-300 dark:border-gray-800">
                             <Image className="h-4 w-4 text-slate-400" />
                           </div>
                         )}
                       </TableCell>
                       <TableCell>
-                        <span className="font-medium">{region.name}</span>
+                        <span className="font-medium whitespace-nowrap">{region.name}</span>
                       </TableCell>
                       <TableCell>
-                        <code className="text-xs bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded">
+                        <code className="text-xs bg-slate-100 dark:bg-gray-900 px-2 py-1 rounded whitespace-nowrap">
                           {region.slug}
                         </code>
                       </TableCell>
                       <TableCell>
-                        <Badge variant="secondary">{region.countries?.length || 0} countries</Badge>
+                        <Badge variant="secondary" className="whitespace-nowrap">{region.countries?.length || 0} countries</Badge>
                       </TableCell>
                       <TableCell>
-                        <div className="flex flex-col gap-1 text-xs">
+                        <div className="flex flex-col gap-1 text-xs min-w-[100px]">
                           <span className="font-medium">{region.packageCounts.total} total</span>
-                          <span className="text-slate-500">
+                          <span className="text-slate-500 dark:text-slate-400">
                             A:{region.packageCounts.airalo} E:{region.packageCounts.esimAccess} G:
                             {region.packageCounts.esimGo}
                           </span>
@@ -395,7 +395,7 @@ export default function MasterRegions() {
       </Card>
 
       <Dialog open={!!editingRegion} onOpenChange={handleCloseDialog}>
-        <DialogContent>
+        <DialogContent className="dark:bg-gray-950 dark:border-gray-800">
           <DialogHeader>
             <DialogTitle>Edit Region Image</DialogTitle>
           </DialogHeader>
@@ -404,15 +404,15 @@ export default function MasterRegions() {
               {/* Icon Section */}
               <div className="space-y-3">
                 <Label>Icon / Image</Label>
-                <div className="flex flex-col items-center gap-3 p-4 border rounded-lg bg-slate-50 dark:bg-slate-900/50">
+                <div className="flex flex-col items-center gap-3 p-4 border rounded-lg bg-slate-50 dark:bg-gray-900/50 dark:border-gray-800">
                   {iconPreview ? (
                     <img
                       src={iconPreview}
                       alt="Icon Preview"
-                      className="w-24 h-24 rounded object-cover border shadow-sm"
+                      className="w-24 h-24 rounded object-cover border shadow-sm dark:border-gray-800"
                     />
                   ) : (
-                    <div className="w-24 h-24 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-dashed border-slate-300">
+                    <div className="w-24 h-24 rounded bg-slate-100 dark:bg-gray-900 flex items-center justify-center border border-dashed border-slate-300 dark:border-gray-800">
                       <Image className="h-8 w-8 text-slate-400" />
                     </div>
                   )}
@@ -421,7 +421,7 @@ export default function MasterRegions() {
                     type="file"
                     accept="image/*"
                     onChange={handleIconSelect}
-                    className="text-xs"
+                    className="text-xs dark:bg-gray-950 dark:border-gray-800"
                     data-testid="input-region-icon-file"
                   />
                 </div>
@@ -430,15 +430,15 @@ export default function MasterRegions() {
               {/* Banner Section */}
               <div className="space-y-3">
                 <Label>Banner Image</Label>
-                <div className="flex flex-col items-center gap-3 p-4 border rounded-lg bg-slate-50 dark:bg-slate-900/50">
+                <div className="flex flex-col items-center gap-3 p-4 border rounded-lg bg-slate-50 dark:bg-gray-900/50 dark:border-gray-800">
                   {bannerPreview ? (
                     <img
                       src={bannerPreview}
                       alt="Banner Preview"
-                      className="w-full h-24 rounded object-cover border shadow-sm"
+                      className="w-full h-24 rounded object-cover border shadow-sm dark:border-gray-800"
                     />
                   ) : (
-                    <div className="w-full h-24 rounded bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-dashed border-slate-300">
+                    <div className="w-full h-24 rounded bg-slate-100 dark:bg-gray-900 flex items-center justify-center border border-dashed border-slate-300 dark:border-gray-800">
                       <Image className="h-8 w-8 text-slate-400" />
                     </div>
                   )}
@@ -447,19 +447,19 @@ export default function MasterRegions() {
                     type="file"
                     accept="image/*"
                     onChange={handleBannerSelect}
-                    className="text-xs"
+                    className="text-xs dark:bg-gray-950 dark:border-gray-800"
                     data-testid="input-region-banner-file"
                   />
                 </div>
               </div>
             </div>
 
-            <p className="text-xs text-slate-500 text-center">
+            <p className="text-xs text-slate-500 dark:text-slate-400 text-center">
               Accepted formats: JPG, PNG, GIF, WebP, SVG (max 5MB)
             </p>
           </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={handleCloseDialog}>
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button variant="outline" onClick={handleCloseDialog} className="dark:border-gray-800">
               Cancel
             </Button>
             <Button
