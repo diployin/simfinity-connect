@@ -113,7 +113,7 @@ export default function ProviderConfigModal({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        className="max-w-3xl max-h-[90vh] overflow-y-auto"
+        className="max-w-3xl max-h-[90vh] overflow-y-auto dark:bg-gray-950 dark:border-gray-800"
         data-testid="modal-provider-config"
       >
         <DialogHeader>
@@ -124,37 +124,37 @@ export default function ProviderConfigModal({
         </DialogHeader>
 
         <Tabs defaultValue="api" className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-5 dark:bg-gray-900">
             <TabsTrigger
-              className=" text-xs md:text-base "
+              className=" text-xs md:text-base data-[state=active]:dark:bg-gray-950"
               value="api"
               data-testid="tab-api-settings"
             >
               API
             </TabsTrigger>
             <TabsTrigger
-              className=" text-xs md:text-base "
+              className=" text-xs md:text-base data-[state=active]:dark:bg-gray-950"
               value="sync"
               data-testid="tab-sync-settings"
             >
               Sync
             </TabsTrigger>
             <TabsTrigger
-              className=" text-xs md:text-base "
+              className=" text-xs md:text-base data-[state=active]:dark:bg-gray-950"
               value="webhook"
               data-testid="tab-webhook-settings"
             >
               Webhook
             </TabsTrigger>
             <TabsTrigger
-              className=" text-xs md:text-base "
+              className=" text-xs md:text-base data-[state=active]:dark:bg-gray-950"
               value="pricing"
               data-testid="tab-pricing-settings"
             >
               Pricing
             </TabsTrigger>
             <TabsTrigger
-              className=" text-xs md:text-base "
+              className=" text-xs md:text-base data-[state=active]:dark:bg-gray-950"
               value="preferred"
               data-testid="tab-preferred-settings"
             >
@@ -163,7 +163,7 @@ export default function ProviderConfigModal({
           </TabsList>
 
           <TabsContent value="api" className="space-y-4">
-            <Card>
+            <Card className="dark:bg-gray-950 dark:border-gray-800">
               <CardHeader>
                 <CardTitle>API Settings</CardTitle>
                 <CardDescription>
@@ -175,6 +175,7 @@ export default function ProviderConfigModal({
                 <div className="space-y-2">
                   <Label htmlFor="apiBaseUrl">API Base URL</Label>
                   <Input
+                    className="dark:bg-gray-950 dark:border-gray-800"
                     id="apiBaseUrl"
                     value={(getValue('apiBaseUrl') as string) || ''}
                     onChange={(e) => setValue('apiBaseUrl', e.target.value)}
@@ -186,6 +187,7 @@ export default function ProviderConfigModal({
                 <div className="space-y-2">
                   <Label htmlFor="apiRateLimitPerHour">API Rate Limit (requests/hour)</Label>
                   <Input
+                    className="dark:bg-gray-950 dark:border-gray-800"
                     id="apiRateLimitPerHour"
                     type="number"
                     value={(getValue('apiRateLimitPerHour') as number) || 1000}
@@ -198,7 +200,7 @@ export default function ProviderConfigModal({
                   </p>
                 </div>
 
-                <div className="p-4 rounded-md bg-muted">
+                <div className="p-4 rounded-md bg-muted dark:bg-gray-900/50 border dark:border-gray-800">
                   <p className="text-sm font-medium mb-2">API Key Configuration</p>
                   <p className="text-sm text-muted-foreground">
                     API keys for {provider.name} are stored securely in  Secrets:
@@ -224,7 +226,7 @@ export default function ProviderConfigModal({
           </TabsContent>
 
           <TabsContent value="sync" className="space-y-4">
-            <Card>
+            <Card className="dark:bg-gray-950 dark:border-gray-800">
               <CardHeader>
                 <CardTitle>Sync Settings</CardTitle>
                 <CardDescription>
@@ -250,6 +252,7 @@ export default function ProviderConfigModal({
                 <div className="space-y-2">
                   <Label htmlFor="syncIntervalMinutes">Sync Interval (minutes)</Label>
                   <Input
+                    className="dark:bg-gray-950 dark:border-gray-800"
                     id="syncIntervalMinutes"
                     type="number"
                     value={(getValue('syncIntervalMinutes') as number) || 60}
@@ -266,7 +269,7 @@ export default function ProviderConfigModal({
           </TabsContent>
 
           <TabsContent value="webhook" className="space-y-4">
-            <Card>
+            <Card className="dark:bg-gray-950 dark:border-gray-800">
               <CardHeader>
                 <CardTitle>Webhook Configuration</CardTitle>
                 <CardDescription>
@@ -290,7 +293,7 @@ export default function ProviderConfigModal({
                         <Input
                           value={endpoint.url}
                           readOnly
-                          className="font-mono text-xs"
+                          className="font-mono text-xs dark:bg-gray-950 dark:border-gray-800"
                           data-testid={`input-webhook-url-${endpoint.type}`}
                         />
                         <Button
@@ -440,6 +443,7 @@ export default function ProviderConfigModal({
                 <div className="space-y-2">
                   <Label htmlFor="webhookSecret">Webhook Secret</Label>
                   <Input
+                    className="dark:bg-gray-950 dark:border-gray-800"
                     id="webhookSecret"
                     type="password"
                     value={(getValue('webhookSecret') as string) || ''}
@@ -452,7 +456,7 @@ export default function ProviderConfigModal({
                   </p>
                 </div>
 
-                <div className="p-4 rounded-md bg-muted">
+                <div className="p-4 rounded-md bg-muted dark:bg-gray-900/50 border dark:border-gray-800">
                   <p className="text-sm font-medium mb-2">Supported Webhook Events</p>
                   <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
                     <li>Order Status Updates (completed, failed)</li>
@@ -464,7 +468,7 @@ export default function ProviderConfigModal({
           </TabsContent>
 
           <TabsContent value="pricing" className="space-y-4">
-            <Card>
+            <Card className="dark:bg-gray-950 dark:border-gray-800">
               <CardHeader>
                 <CardTitle>Pricing Configuration</CardTitle>
                 <CardDescription>
@@ -475,6 +479,7 @@ export default function ProviderConfigModal({
                 <div className="space-y-2">
                   <Label htmlFor="pricingMargin">Pricing Margin (%)</Label>
                   <Input
+                    className="dark:bg-gray-950 dark:border-gray-800"
                     id="pricingMargin"
                     type="number"
                     step="0.1"
@@ -488,7 +493,7 @@ export default function ProviderConfigModal({
                   </p>
                 </div>
 
-                <div className="p-4 rounded-md bg-muted">
+                <div className="p-4 rounded-md bg-muted dark:bg-gray-900/50 border dark:border-gray-800">
                   <p className="text-sm font-medium mb-2">Example Calculation</p>
                   <p className="text-sm text-muted-foreground">
                     If provider price is $10.00 and margin is {getValue('pricingMargin') || '15.00'}
@@ -507,7 +512,7 @@ export default function ProviderConfigModal({
           </TabsContent>
 
           <TabsContent value="preferred" className="space-y-4">
-            <Card>
+            <Card className="dark:bg-gray-950 dark:border-gray-800">
               <CardHeader>
                 <CardTitle>Preferred Provider</CardTitle>
                 <CardDescription>
@@ -530,7 +535,7 @@ export default function ProviderConfigModal({
                   />
                 </div>
 
-                <div className="p-4 rounded-md bg-muted">
+                <div className="p-4 rounded-md bg-muted dark:bg-gray-900/50 border dark:border-gray-800">
                   <p className="text-sm font-medium mb-2">How Preferred Provider Works</p>
                   <p className="text-sm text-muted-foreground">
                     In auto mode, the system first identifies packages with the best price across
@@ -543,7 +548,7 @@ export default function ProviderConfigModal({
           </TabsContent>
         </Tabs>
 
-        <div className="flex justify-end gap-2 pt-4 border-t">
+        <div className="flex justify-end gap-2 pt-4 border-t dark:border-gray-800">
           <Button
             variant="outline"
             onClick={() => onOpenChange(false)}
