@@ -396,46 +396,43 @@ export default function SupportTicketsSystem() {
   const selectedTicket = tickets.find((t) => t.id === selectedTicketId);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900">
-              {t?.('admin.tickets.title', 'Support Tickets')}
+            <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
+              {t('adminPanel.tickets.title', 'Support Tickets')}
             </h1>
-            <p className="text-slate-600 mt-1">
-              {t?.('admin.tickets.description', 'Manage customer support tickets and inquiries')}
+            <p className="text-slate-600 dark:text-slate-400 mt-1">
+              {t('adminPanel.tickets.manageDescription', 'Manage customer support tickets and inquiries')}
             </p>
           </div>
-          {/* <Button onClick={() => setShowCreateDialog(true)} className="">
-            {t?.('admin.tickets.button.create', 'Create Ticket')}
-          </Button> */}
         </div>
 
         {/* Stats Cards */}
-        <div className="grid gap-4 md:grid-cols-4 mb-8">
-          <Card className="border-0 bg-gradient-to-br from-primary/5 to-indigo-50 shadow-lg p-6">
-            <p className="text-sm font-medium text-primary-second">Open</p>
-            <h3 className="text-2xl font-bold text-slate-900 mt-1">
+        <div className="grid gap-4 grid-cols-2 md:grid-cols-4 mb-8">
+          <Card className="border-0 bg-gradient-to-br from-primary/5 to-indigo-50 dark:from-primary/10 dark:to-slate-900 shadow-lg p-4 md:p-6">
+            <p className="text-sm font-medium text-primary-second dark:text-primary-light">{t('adminPanel.tickets.stats.open', 'Open')}</p>
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-1">
               {tickets?.filter(t => t.status === 'open').length || 0}
             </h3>
           </Card>
-          <Card className="border-0 bg-gradient-to-br from-yellow-50 to-orange-50 shadow-lg p-6">
-            <p className="text-sm font-medium text-yellow-600">In Progress</p>
-            <h3 className="text-2xl font-bold text-slate-900 mt-1">
+          <Card className="border-0 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/10 dark:to-slate-900 shadow-lg p-4 md:p-6">
+            <p className="text-sm font-medium text-yellow-600 dark:text-yellow-400">{t('adminPanel.tickets.stats.inProgress', 'In Progress')}</p>
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-1">
               {tickets?.filter(t => t.status === 'in_progress').length || 0}
             </h3>
           </Card>
-          <Card className="border-0 bg-gradient-to-br from-green-50 to-emerald-50 shadow-lg p-6">
-            <p className="text-sm font-medium text-green-600">Resolved</p>
-            <h3 className="text-2xl font-bold text-slate-900 mt-1">
+          <Card className="border-0 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/10 dark:to-slate-900 shadow-lg p-4 md:p-6">
+            <p className="text-sm font-medium text-green-600 dark:text-green-400">{t('adminPanel.tickets.stats.resolved', 'Resolved')}</p>
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-1">
               {tickets?.filter(t => t.status === 'resolved').length || 0}
             </h3>
           </Card>
-          <Card className="border-0 bg-gradient-to-br from-red-50 to-pink-50 shadow-lg p-6">
-            <p className="text-sm font-medium text-red-600">Urgent</p>
-            <h3 className="text-2xl font-bold text-slate-900 mt-1">
+          <Card className="border-0 bg-gradient-to-br from-red-50 to-pink-50 dark:from-red-900/10 dark:to-slate-900 shadow-lg p-4 md:p-6">
+            <p className="text-sm font-medium text-red-600 dark:text-red-400">{t('adminPanel.tickets.stats.urgent', 'Urgent')}</p>
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-1">
               {tickets?.filter(t => t.priority === 'urgent').length || 0}
             </h3>
           </Card>
@@ -445,62 +442,62 @@ export default function SupportTicketsSystem() {
           {/* Tickets List */}
           <div className="lg:col-span-1">
             {/* Filters and Search */}
-            <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-200 mb-4">
+            <div className="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-gray-200 dark:border-slate-800 mb-4">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type="text"
-                  placeholder="Search tickets..."
+                  placeholder={t('adminPanel.tickets.searchPlaceholder', 'Search tickets...')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
               </div>
               <div className="flex space-x-2 mt-3">
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                  className="flex-1 px-3 py-2 border border-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-lg text-sm"
                 >
-                  <option value="all">All Status</option>
-                  <option value="open">Open</option>
-                  <option value="in_progress">In Progress</option>
-                  <option value="resolved">Resolved</option>
-                  <option value="closed">Closed</option>
+                  <option value="all">{t('adminPanel.tickets.filters.allStatus', 'All Status')}</option>
+                  <option value="open">{t('adminPanel.tickets.filters.open', 'Open')}</option>
+                  <option value="in_progress">{t('adminPanel.tickets.filters.inProgress', 'In Progress')}</option>
+                  <option value="resolved">{t('adminPanel.tickets.filters.resolved', 'Resolved')}</option>
+                  <option value="closed">{t('adminPanel.tickets.filters.closed', 'Closed')}</option>
                 </select>
                 <select
                   value={priorityFilter}
                   onChange={(e) => setPriorityFilter(e.target.value)}
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                  className="flex-1 px-3 py-2 border border-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-lg text-sm"
                 >
-                  <option value="all">All Priority</option>
-                  <option value="low">Low</option>
-                  <option value="medium">Medium</option>
-                  <option value="high">High</option>
-                  <option value="urgent">Urgent</option>
+                  <option value="all">{t('adminPanel.tickets.filters.allPriority', 'All Priority')}</option>
+                  <option value="low">{t('adminPanel.tickets.filters.low', 'Low')}</option>
+                  <option value="medium">{t('adminPanel.tickets.filters.medium', 'Medium')}</option>
+                  <option value="high">{t('adminPanel.tickets.filters.high', 'High')}</option>
+                  <option value="urgent">{t('adminPanel.tickets.filters.urgent', 'Urgent')}</option>
                 </select>
               </div>
             </div>
 
             {/* Tickets */}
             {isLoading ? (
-              <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 text-center">
-                <div className="text-gray-500">Loading tickets...</div>
+              <div className="bg-white dark:bg-slate-900 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-slate-800 text-center">
+                <div className="text-gray-500 dark:text-gray-400">{t('adminPanel.tickets.loading', 'Loading tickets...')}</div>
               </div>
             ) : (
-              <div className="flex-1 max-h-[500px] overflow-y-auto pr-2">
+              <div className="flex-1 max-h-[400px] lg:max-h-[600px] overflow-y-auto pr-2">
                 <div className="space-y-3">
                   {tickets.map((ticket) => (
                     <div
                       key={ticket.id}
                       onClick={() => setSelectedTicketId(ticket.id)}
-                      className={`bg-white p-4 rounded-xl shadow-sm border ${selectedTicketId === ticket.id
-                          ? "border-green-500 ring-2 ring-green-200"
-                          : "border-gray-200"
+                      className={`bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border ${selectedTicketId === ticket.id
+                          ? "border-green-500 ring-2 ring-green-200 dark:ring-green-900/20"
+                          : "border-gray-200 dark:border-slate-800"
                         } hover:border-green-500 transition-all cursor-pointer`}
                     >
                       <div className="flex items-start justify-between mb-3">
-                        <div className="flex items-center space-x-2 flex-wrap">
+                        <div className="flex items-center space-x-2 flex-wrap gap-y-1">
                           {getStatusIcon(ticket.status)}
                           <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(ticket.status)}`}>
                             {ticket.status.replace("_", " ")}
@@ -509,37 +506,37 @@ export default function SupportTicketsSystem() {
                             {ticket.priority}
                           </span>
                         </div>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-gray-500 dark:text-gray-400">
                           {new Date(ticket.createdAt).toLocaleDateString()}
                         </span>
                       </div>
 
-                      <h3 className="font-medium text-gray-900 mb-2">{ticket.title}</h3>
+                      <h3 className="font-medium text-gray-900 dark:text-slate-100 mb-2">{ticket.title}</h3>
 
                       <div className="flex items-center space-x-2 mb-3">
-                        <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-xs font-semibold">
+                        <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400 text-xs font-semibold">
                           {ticket.userName.charAt(0).toUpperCase()}
                         </div>
-                        <span className="text-sm text-gray-600">{ticket.userName}</span>
+                        <span className="text-sm text-gray-600 dark:text-gray-400">{ticket.userName}</span>
                       </div>
 
-                      <div className="flex items-center justify-between text-xs text-gray-500">
-                        <span>Updated {new Date(ticket.updatedAt).toLocaleTimeString()}</span>
+                      <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                        <span>{t('adminPanel.tickets.updatedAt', 'Updated')} {new Date(ticket.updatedAt).toLocaleTimeString()}</span>
                         {isAdmin && ticket.assignedToName && (
-                          <span className="text-green-600 font-medium">→ {ticket.assignedToName}</span>
+                          <span className="text-green-600 dark:text-green-400 font-medium">→ {ticket.assignedToName}</span>
                         )}
                       </div>
                     </div>
                   ))}
 
                   {tickets.length === 0 && (
-                    <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 text-center">
-                      <Headphones className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-                      <h3 className="text-lg font-medium text-gray-900 mb-2">No tickets found</h3>
-                      <p className="text-gray-500">
+                    <div className="bg-white dark:bg-slate-900 p-8 rounded-xl shadow-sm border border-gray-200 dark:border-slate-800 text-center">
+                      <Headphones className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-4" />
+                      <h3 className="text-lg font-medium text-gray-900 dark:text-slate-100 mb-2">{t('adminPanel.tickets.noTicketsFound', 'No tickets found')}</h3>
+                      <p className="text-gray-500 dark:text-gray-400">
                         {searchQuery || statusFilter !== "all" || priorityFilter !== "all"
-                          ? "Try adjusting your search or filter criteria"
-                          : "All support tickets have been resolved!"}
+                          ? t('adminPanel.tickets.adjustFilters', 'Try adjusting your search or filter criteria')
+                          : t('adminPanel.tickets.allResolved', 'All support tickets have been resolved!')}
                       </p>
                     </div>
                   )}
@@ -548,22 +545,22 @@ export default function SupportTicketsSystem() {
             )}
 
             {totalPages > 1 && (
-              <div className="flex items-center justify-between mt-4 bg-white p-3 rounded-lg shadow-sm border border-gray-200">
-                <div className="text-sm text-gray-600">Page {currentPage} of {totalPages}</div>
+              <div className="flex items-center justify-between mt-4 bg-white dark:bg-slate-900 p-3 rounded-lg shadow-sm border border-gray-200 dark:border-slate-800">
+                <div className="text-sm text-gray-600 dark:text-gray-400">{t('adminPanel.tickets.page', 'Page')} {currentPage} {t('adminPanel.tickets.of', 'of')} {totalPages}</div>
                 <div className="flex gap-2">
                   <button
                     onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
-                    className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 disabled:opacity-50"
+                    className="px-3 py-1 text-sm bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-200 rounded hover:bg-gray-200 dark:hover:bg-slate-700 disabled:opacity-50"
                   >
-                    Previous
+                    {t('adminPanel.tickets.previous', 'Previous')}
                   </button>
                   <button
                     onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                     disabled={currentPage === totalPages}
-                    className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 disabled:opacity-50"
+                    className="px-3 py-1 text-sm bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-200 rounded hover:bg-gray-200 dark:hover:bg-slate-700 disabled:opacity-50"
                   >
-                    Next
+                    {t('adminPanel.tickets.next', 'Next')}
                   </button>
                 </div>
               </div>
@@ -573,12 +570,12 @@ export default function SupportTicketsSystem() {
           {/* Ticket Details */}
           <div className="lg:col-span-2">
             {selectedTicketId && selectedTicket ? (
-              <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+              <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-gray-200 dark:border-slate-800 overflow-hidden">
                 {/* Ticket Header */}
-                <div className="p-6 border-b border-gray-200">
-                  <div className="flex items-center justify-between mb-4">
+                <div className="p-4 md:p-6 border-b border-gray-200 dark:border-slate-800">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-4">
                     <div className="flex items-center space-x-3">
-                      <h2 className="text-xl font-bold text-gray-900">{selectedTicket.title}</h2>
+                      <h2 className="text-xl font-bold text-gray-900 dark:text-slate-100">{selectedTicket.title}</h2>
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(selectedTicket.status)}`}>
                         {selectedTicket.status.replace("_", " ")}
                       </span>
@@ -586,37 +583,29 @@ export default function SupportTicketsSystem() {
                     <div className="flex items-center space-x-2">
                       <button
                         onClick={() => refetchTicketDetails()}
-                        className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-100 transition text-sm"
+                        className="px-4 py-2 border border-gray-300 dark:border-slate-700 dark:text-slate-200 rounded-md hover:bg-gray-100 dark:hover:bg-slate-800 transition text-sm"
                       >
-                        🔄 Refresh
+                        🔄 {t('adminPanel.tickets.refresh', 'Refresh')}
                       </button>
-                      {/* {isAdmin && (
-                        <button
-                          onClick={() => handleDeleteTicket(selectedTicket.id, selectedTicket.title)}
-                          className="p-2 text-red-400 hover:text-red-600 rounded-lg hover:bg-red-50"
-                        >
-                          <Trash className="w-5 h-5" />
-                        </button>
-                      )} */}
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm mb-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm mb-4">
                     <div>
-                      <span className="text-gray-500">Creator:</span>
+                      <span className="text-gray-500 dark:text-gray-400">{t('adminPanel.tickets.creator', 'Creator')}:</span>
                       <div className="flex items-center mt-1">
-                        <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 text-xs font-semibold mr-2">
+                        <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400 text-xs font-semibold mr-2">
                           {selectedTicket.userName.charAt(0).toUpperCase()}
                         </div>
-                        <span className="font-medium text-gray-900">{selectedTicket.userName}</span>
+                        <span className="font-medium text-gray-900 dark:text-slate-100">{selectedTicket.userName}</span>
                       </div>
                     </div>
 
                     <div>
-                      <span className="text-gray-500">Details:</span>
+                      <span className="text-gray-500 dark:text-gray-400">{t('adminPanel.tickets.details', 'Details')}:</span>
                       <div className="flex items-center mt-1">
                         <Calendar className="w-4 h-4 text-gray-400 mr-1" />
-                        <span className="text-gray-900">{new Date(selectedTicket.createdAt).toLocaleDateString()}</span>
+                        <span className="text-gray-900 dark:text-slate-200">{new Date(selectedTicket.createdAt).toLocaleDateString()}</span>
                       </div>
                       <div className="flex items-center mt-1">
                         <Tag className="w-4 h-4 text-gray-400 mr-1" />
@@ -629,41 +618,41 @@ export default function SupportTicketsSystem() {
 
                   {/* Admin Controls */}
                   {isAdmin && (
-                    <div className="flex gap-4 flex-wrap">
+                    <div className="flex gap-4 flex-wrap border-t dark:border-slate-800 pt-4">
                       <div>
-                        <label className="text-xs text-gray-500 block mb-1">Status</label>
+                        <label className="text-xs text-gray-500 dark:text-gray-400 block mb-1">{t('adminPanel.tickets.statusLabel', 'Status')}</label>
                         <select
                           value={ticketDetails?.ticket?.status || selectedTicket.status}
                           onChange={(e) => handleUpdateStatus(e.target.value)}
-                          className="px-3 py-1 border border-gray-300 rounded-lg text-sm"
+                          className="px-3 py-1 border border-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 rounded-lg text-sm"
                         >
-                          <option value="open">Open</option>
-                          <option value="in_progress">In Progress</option>
-                          <option value="resolved">Resolved</option>
-                          <option value="closed">Closed</option>
+                          <option value="open">{t('adminPanel.tickets.filters.open', 'Open')}</option>
+                          <option value="in_progress">{t('adminPanel.tickets.filters.inProgress', 'In Progress')}</option>
+                          <option value="resolved">{t('adminPanel.tickets.filters.resolved', 'Resolved')}</option>
+                          <option value="closed">{t('adminPanel.tickets.filters.closed', 'Closed')}</option>
                         </select>
                       </div>
                       <div>
-                        <label className="text-xs text-gray-500 block mb-1">Priority</label>
+                        <label className="text-xs text-gray-500 dark:text-gray-400 block mb-1">{t('adminPanel.tickets.priorityLabel', 'Priority')}</label>
                         <select
                           value={ticketDetails?.ticket?.priority || selectedTicket.priority}
                           onChange={(e) => handleUpdatePriority(e.target.value)}
-                          className="px-3 py-1 border border-gray-300 rounded-lg text-sm"
+                          className="px-3 py-1 border border-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 rounded-lg text-sm"
                         >
-                          <option value="low">Low</option>
-                          <option value="medium">Medium</option>
-                          <option value="high">High</option>
-                          <option value="urgent">Urgent</option>
+                          <option value="low">{t('adminPanel.tickets.filters.low', 'Low')}</option>
+                          <option value="medium">{t('adminPanel.tickets.filters.medium', 'Medium')}</option>
+                          <option value="high">{t('adminPanel.tickets.filters.high', 'High')}</option>
+                          <option value="urgent">{t('adminPanel.tickets.filters.urgent', 'Urgent')}</option>
                         </select>
                       </div>
                       <div>
-                        <label className="text-xs text-gray-500 block mb-1">Assign To</label>
+                        <label className="text-xs text-gray-500 dark:text-gray-400 block mb-1">{t('adminPanel.tickets.assignTo', 'Assign To')}</label>
                         <select
                           value={ticketDetails?.ticket?.assignedToId || "unassigned"}
                           onChange={(e) => handleAssignTicket(e.target.value)}
-                          className="px-3 py-1 border border-gray-300 rounded-lg text-sm"
+                          className="px-3 py-1 border border-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 rounded-lg text-sm"
                         >
-                          <option value="unassigned">Unassigned</option>
+                          <option value="unassigned">{t('adminPanel.tickets.unassigned', 'Unassigned')}</option>
                           {adminUsers.map((admin) => (
                             <option key={admin.id} value={admin.id}>
                               {admin.username}
@@ -676,17 +665,17 @@ export default function SupportTicketsSystem() {
 
                   {/* Description */}
                   <div className="mt-4">
-                    <span className="text-xs text-gray-500">Description:</span>
-                    <p className="mt-2 text-sm text-gray-900 whitespace-pre-wrap">{selectedTicket.description}</p>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">{t('adminPanel.tickets.descriptionLabel', 'Description')}:</span>
+                    <p className="mt-2 text-sm text-gray-900 dark:text-slate-200 whitespace-pre-wrap">{selectedTicket.description}</p>
                   </div>
                 </div>
 
                 {/* Conversation */}
-                <div className="p-6 bg-gray-50 max-h-[300px] overflow-y-auto">
-                  <h3 className="font-medium text-gray-900 mb-4">Conversation</h3>
+                <div className="p-4 md:p-6 bg-gray-50 dark:bg-slate-950 max-h-[400px] overflow-y-auto">
+                  <h3 className="font-medium text-gray-900 dark:text-slate-100 mb-4">{t('adminPanel.tickets.conversation', 'Conversation')}</h3>
                   <div className="space-y-4">
                     {!liveMessages || liveMessages.length === 0 ? (
-                      <p className="text-sm text-gray-500 text-center py-4">No messages yet</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 text-center py-4">{t('adminPanel.tickets.noMessages', 'No messages yet')}</p>
                     ) : (
                       liveMessages.map((msg: Message) => (
                         <div
@@ -694,25 +683,27 @@ export default function SupportTicketsSystem() {
                           className={`flex ${msg.senderId === user?.id ? "justify-end" : "justify-start"}`}
                         >
                           <div
-                            className={`max-w-md ${msg.isInternal
-                                ? "bg-amber-50 border border-amber-200"
+                            className={`max-w-[85%] md:max-w-md ${msg.isInternal
+                                ? "bg-amber-50 border border-amber-200 dark:bg-amber-900/10 dark:border-amber-900/30"
                                 : msg.senderId === user?.id
                                   ? "bg-green-500 text-white"
-                                  : "bg-white border border-gray-200"
+                                  : "bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700"
                               } px-4 py-3 rounded-lg shadow-sm`}
                           >
                             <div className="flex items-center gap-2 mb-1">
-                              <span className={`text-xs font-semibold ${msg.senderId === user?.id && !msg.isInternal ? "text-green-100" : "text-gray-700"}`}>
+                              <span className={`text-xs font-semibold ${msg.senderId === user?.id && !msg.isInternal ? "text-green-100" : "text-gray-700 dark:text-slate-300"}`}>
                                 {msg.senderName}
                               </span>
                               {msg.isInternal && (
-                                <span className="text-xs px-2 py-0.5 rounded bg-amber-200 text-amber-800">Internal</span>
+                                <span className="text-xs px-2 py-0.5 rounded bg-amber-200 dark:bg-amber-900 dark:text-amber-100 text-amber-800">
+                                  {t('adminPanel.tickets.internal', 'Internal')}
+                                </span>
                               )}
                             </div>
-                            <p className={`text-sm whitespace-pre-wrap ${msg.senderId === user?.id && !msg.isInternal ? "text-white" : "text-gray-900"}`}>
+                            <p className={`text-sm whitespace-pre-wrap ${msg.senderId === user?.id && !msg.isInternal ? "text-white" : "text-gray-900 dark:text-slate-100"}`}>
                               {msg.message}
                             </p>
-                            <div className={`text-xs mt-1 ${msg.senderId === user?.id && !msg.isInternal ? "text-green-100" : "text-gray-500"}`}>
+                            <div className={`text-xs mt-1 ${msg.senderId === user?.id && !msg.isInternal ? "text-green-100" : "text-gray-500 dark:text-gray-400"}`}>
                               {new Date(msg.createdAt).toLocaleTimeString()}
                             </div>
                           </div>
@@ -723,25 +714,25 @@ export default function SupportTicketsSystem() {
                 </div>
 
                 {/* Reply Box */}
-                <div className="p-4 border-t border-gray-200">
+                <div className="p-4 border-t border-gray-200 dark:border-slate-800">
                   <div className="flex items-start space-x-2">
                     <textarea
-                      placeholder="Type your reply..."
+                      placeholder={t('adminPanel.tickets.replyPlaceholder', 'Type your reply...')}
                       value={newMessage}
                       onChange={(e) => setNewMessage(e.target.value)}
-                      className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 resize-none"
+                      className="flex-1 px-4 py-2 border border-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 resize-none"
                       rows={3}
                     />
                     <button
                       onClick={handleSendMessage}
                       disabled={!newMessage.trim() || addMessageMutation.isPending}
-                      className="bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50"
+                      className="bg-green-500 text-white p-3 rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50 h-full mt-0"
                     >
                       <ArrowRight className="w-5 h-5" />
                     </button>
                   </div>
 
-                  <div className="flex items-center justify-between mt-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between mt-3 gap-3">
                     {isAdmin && (
                       <div className="flex items-center gap-2">
                         <input
@@ -749,20 +740,20 @@ export default function SupportTicketsSystem() {
                           id="internal"
                           checked={isInternalNote}
                           onChange={(e) => setIsInternalNote(e.target.checked)}
-                          className="rounded border-gray-300 text-green-500"
+                          className="rounded border-gray-300 dark:border-slate-700 text-green-500"
                         />
-                        <label htmlFor="internal" className="text-sm text-gray-600 cursor-pointer">
-                          Internal note (not visible to user)
+                        <label htmlFor="internal" className="text-sm text-gray-600 dark:text-gray-400 cursor-pointer">
+                          {t('adminPanel.tickets.internalNoteLabel', 'Internal note (not visible to user)')}
                         </label>
                       </div>
                     )}
-                    <div className="flex space-x-2 ml-auto">
+                    <div className="flex space-x-2 sm:ml-auto">
                       {selectedTicket.status !== "resolved" && isAdmin && (
                         <button
                           onClick={() => handleUpdateStatus("resolved")}
-                          className="px-3 py-1 text-sm bg-green-100 text-green-700 rounded hover:bg-green-200"
+                          className="w-full sm:w-auto px-3 py-1 text-sm bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded hover:bg-green-200 dark:hover:bg-green-900/50"
                         >
-                          Resolve Ticket
+                          {t('adminPanel.tickets.resolveTicket', 'Resolve Ticket')}
                         </button>
                       )}
                     </div>
@@ -770,10 +761,10 @@ export default function SupportTicketsSystem() {
                 </div>
               </div>
             ) : (
-              <div className="bg-white p-12 rounded-xl shadow-sm border border-gray-200 text-center">
-                <Headphones className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No ticket selected</h3>
-                <p className="text-gray-500 mb-4">Select a ticket from the list to view details</p>
+              <div className="bg-white dark:bg-slate-900 p-12 rounded-xl shadow-sm border border-gray-200 dark:border-slate-800 text-center">
+                <Headphones className="w-16 h-16 text-gray-300 dark:text-gray-700 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 dark:text-slate-100 mb-2">{t('adminPanel.tickets.noTicketSelected', 'No ticket selected')}</h3>
+                <p className="text-gray-500 dark:text-gray-400 mb-4">{t('adminPanel.tickets.selectTicketPrompt', 'Select a ticket from the list to view details')}</p>
               </div>
             )}
           </div>
@@ -782,17 +773,17 @@ export default function SupportTicketsSystem() {
 
       {/* Create Ticket Dialog */}
       <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
-        <DialogContent className="sm:max-w-[500px]">
+        <DialogContent className="sm:max-w-[500px] dark:bg-slate-900 dark:border-slate-800">
           <DialogHeader>
-            <DialogTitle>Create New Ticket</DialogTitle>
-            <DialogDescription>
-              Submit a new support ticket. We'll get back to you as soon as possible.
+            <DialogTitle className="dark:text-slate-100">{t('adminPanel.tickets.createTitle', 'Create New Ticket')}</DialogTitle>
+            <DialogDescription className="dark:text-gray-400">
+              {t('adminPanel.tickets.createDescription', "Submit a new support ticket. We'll get back to you as soon as possible.")}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label htmlFor="title" className="text-sm font-medium">
-                Title *
+              <Label htmlFor="title" className="text-sm font-medium dark:text-slate-200">
+                {t('adminPanel.tickets.form.title', 'Title')} *
               </Label>
               <Input
                 id="title"
@@ -800,13 +791,13 @@ export default function SupportTicketsSystem() {
                 onChange={(e) =>
                   setCreateFormData({ ...createFormData, title: e.target.value })
                 }
-                placeholder="Brief description of the issue"
-                className="mt-1"
+                placeholder={t('adminPanel.tickets.form.titlePlaceholder', 'Brief description of the issue')}
+                className="mt-1 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100"
               />
             </div>
             <div>
-              <Label htmlFor="description" className="text-sm font-medium">
-                Description *
+              <Label htmlFor="description" className="text-sm font-medium dark:text-slate-200">
+                {t('adminPanel.tickets.form.description', 'Description')} *
               </Label>
               <textarea
                 id="description"
@@ -814,14 +805,14 @@ export default function SupportTicketsSystem() {
                 onChange={(e) =>
                   setCreateFormData({ ...createFormData, description: e.target.value })
                 }
-                placeholder="Detailed description of the issue"
+                placeholder={t('adminPanel.tickets.form.descriptionPlaceholder', 'Detailed description of the issue')}
                 rows={5}
-                className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full mt-1 px-3 py-2 border border-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
               />
             </div>
             <div>
-              <Label htmlFor="priority" className="text-sm font-medium">
-                Priority
+              <Label htmlFor="priority" className="text-sm font-medium dark:text-slate-200">
+                {t('adminPanel.tickets.form.priority', 'Priority')}
               </Label>
               <select
                 id="priority"
@@ -829,28 +820,28 @@ export default function SupportTicketsSystem() {
                 onChange={(e) =>
                   setCreateFormData({ ...createFormData, priority: e.target.value as any })
                 }
-                className="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full mt-1 px-3 py-2 border border-gray-300 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
               >
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-                <option value="urgent">Urgent</option>
+                <option value="low">{t('adminPanel.tickets.filters.low', 'Low')}</option>
+                <option value="medium">{t('adminPanel.tickets.filters.medium', 'Medium')}</option>
+                <option value="high">{t('adminPanel.tickets.filters.high', 'High')}</option>
+                <option value="urgent">{t('adminPanel.tickets.filters.urgent', 'Urgent')}</option>
               </select>
             </div>
           </div>
           <DialogFooter className="mt-6">
             <button
               onClick={() => setShowCreateDialog(false)}
-              className="px-4 py-2 text-sm text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
+              className="px-4 py-2 text-sm text-gray-700 dark:text-slate-300 bg-gray-100 dark:bg-slate-800 rounded-lg hover:bg-gray-200 dark:hover:bg-slate-700"
             >
-              Cancel
+              {t('common.cancel', 'Cancel')}
             </button>
             <button
               onClick={handleCreateTicket}
               disabled={createTicketMutation.isPending}
-              className="px-4 py-2 text-sm text-white rounded-lg disabled:opacity-50"
+              className="px-4 py-2 text-sm text-white bg-green-500 rounded-lg disabled:opacity-50"
             >
-              {createTicketMutation.isPending ? "Creating..." : "Create Ticket"}
+              {createTicketMutation.isPending ? t('adminPanel.tickets.form.creating', "Creating...") : t('adminPanel.tickets.form.create', "Create Ticket")}
             </button>
           </DialogFooter>
         </DialogContent>

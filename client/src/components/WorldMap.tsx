@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ComposableMap, Geographies, Geography, ZoomableGroup } from "react-simple-maps";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
@@ -48,6 +48,7 @@ const iso2ToIso3: Record<string, string> = {
 };
 
 export default function WorldMap({ data, timeFilter = "lifetime", onTimeFilterChange }: WorldMapProps) {
+  const { t } = useTranslation();
   const [hoveredCountry, setHoveredCountry] = useState<{ name: string; count: number } | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
 
@@ -63,15 +64,14 @@ export default function WorldMap({ data, timeFilter = "lifetime", onTimeFilterCh
   const maxCount = Math.max(...data.map(d => d.count), 1);
 
   const getCountryColor = (count: number) => {
-    if (count === 0) return "#e2e8f0"; // slate-200
+    if (count === 0) return "currentColor"; // Will use text color or specified fill
     const intensity = count / maxCount;
     
-    // Light mode: teal gradient
-    if (intensity < 0.2) return "#ccfbf1"; // teal-100
-    if (intensity < 0.4) return "#5cb86c"; // teal-300
-    if (intensity < 0.6) return "var(--primary-light)"; // teal-400
-    if (intensity < 0.8) return "var(--primary)"; // teal-500
-    return "var(--primary-second)"; // teal-600
+    if (intensity < 0.2) return "#ccfbf1"; 
+    if (intensity < 0.4) return "#5cb86c"; 
+    if (intensity < 0.6) return "var(--primary-light)"; 
+    if (intensity < 0.8) return "var(--primary)"; 
+    return "var(--primary-second)"; 
   };
 
   const handleMouseEnter = (geo: any, event: any) => {
@@ -91,81 +91,85 @@ export default function WorldMap({ data, timeFilter = "lifetime", onTimeFilterCh
   };
 
   return (
-    <Card className="border-0 shadow-lg">
-      <div className="p-6 border-b border-slate-100 dark:border-slate-800">
+    <Card className="border-0 shadow-lg dark:bg-slate-900/50 dark:border-slate-800 overflow-hidden">
+      <div className="p-4 md:p-6 border-b border-slate-100 dark:border-slate-800">
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div>
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Top Destination</h3>
-            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">eSIM Distribution by Region and Country</p>
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{t('admin.dashboard.worldMapTitle', 'Top Destination')}</h3>
+            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">{t('admin.dashboard.worldMapDesc', 'eSIM Distribution by Region and Country')}</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             <Button
               variant={timeFilter === "7days" ? "default" : "outline"}
               size="sm"
               onClick={() => onTimeFilterChange?.("7days")}
-              data-testid="button-filter-7days"
+              className="text-xs md:text-sm dark:border-slate-700"
             >
-              Last 7 Days
+              {t('admin.dashboard.filter7Days', 'Last 7 Days')}
             </Button>
             <Button
               variant={timeFilter === "30days" ? "default" : "outline"}
               size="sm"
               onClick={() => onTimeFilterChange?.("30days")}
-              data-testid="button-filter-30days"
+              className="text-xs md:text-sm dark:border-slate-700"
             >
-              This Month
+              {t('admin.dashboard.filterThisMonth', 'This Month')}
             </Button>
             <Button
               variant={timeFilter === "lifetime" ? "default" : "outline"}
               size="sm"
               onClick={() => onTimeFilterChange?.("lifetime")}
-              data-testid="button-filter-lifetime"
+              className="text-xs md:text-sm dark:border-slate-700"
             >
-              Lifetime
+              {t('admin.dashboard.filterLifetime', 'Lifetime')}
             </Button>
           </div>
         </div>
       </div>
-      <div className="p-6 relative" data-testid="world-map-container">
-        <ComposableMap
-          projectionConfig={{
-            scale: 147,
-          }}
-          width={800}
-          height={400}
-        >
-          <ZoomableGroup>
-            <Geographies geography={geoUrl}>
-              {({ geographies }: any) =>
-                geographies.map((geo: any) => {
-                  const count = dataByIso3[geo.id] || 0;
-                  return (
-                    <Geography
-                      key={geo.rsmKey}
-                      geography={geo}
-                      fill={getCountryColor(count)}
-                      stroke="#ffffff"
-                      strokeWidth={0.5}
-                      onMouseEnter={(event: any) => handleMouseEnter(geo, event)}
-                      onMouseMove={handleMouseMove}
-                      onMouseLeave={handleMouseLeave}
-                      style={{
-                        default: { outline: "none" },
-                        hover: { 
-                          fill: count > 0 ? "var(--primary-dark)" : "#e2e8f0", // teal-700 on hover
-                          outline: "none",
-                          cursor: count > 0 ? "pointer" : "default",
-                        },
-                        pressed: { outline: "none" },
-                      }}
-                      data-testid={`country-${geo.id}`}
-                    />
-                  );
-                })
-              }
-            </Geographies>
-          </ZoomableGroup>
-        </ComposableMap>
+      <div className="p-4 md:p-6 relative dark:bg-slate-900/20" data-testid="world-map-container">
+        <div className="w-full overflow-hidden">
+          <ComposableMap
+            projectionConfig={{
+              scale: 147,
+            }}
+            width={800}
+            height={400}
+            className="w-full h-auto"
+          >
+            <ZoomableGroup>
+              <Geographies geography={geoUrl}>
+                {({ geographies }: any) =>
+                  geographies.map((geo: any) => {
+                    const count = dataByIso3[geo.id] || 0;
+                    return (
+                      <Geography
+                        key={geo.rsmKey}
+                        geography={geo}
+                        fill={getCountryColor(count)}
+                        stroke="var(--map-stroke, #ffffff)"
+                        strokeWidth={0.5}
+                        onMouseEnter={(event: any) => handleMouseEnter(geo, event)}
+                        onMouseMove={handleMouseMove}
+                        onMouseLeave={handleMouseLeave}
+                        className="text-slate-200 dark:text-slate-800"
+                        style={{
+                          default: { outline: "none" },
+                          hover: { 
+                            fill: count > 0 ? "var(--primary-dark)" : "#cbd5e1", 
+                            outline: "none",
+                            cursor: count > 0 ? "pointer" : "default",
+                          },
+                          pressed: { outline: "none" },
+                        }}
+                        data-testid={`country-${geo.id}`}
+                      />
+                    );
+                  })
+                }
+              </Geographies>
+            </ZoomableGroup>
+          </ComposableMap>
+        </div>
 
         {/* Tooltip */}
         {hoveredCountry && (
@@ -178,32 +182,32 @@ export default function WorldMap({ data, timeFilter = "lifetime", onTimeFilterCh
             data-testid="map-tooltip"
           >
             <div className="bg-slate-900 dark:bg-slate-800 text-white px-3 py-2 rounded-lg shadow-lg border border-slate-700">
-              <p className="font-semibold">{hoveredCountry.name}</p>
-              <p className="text-sm text-slate-300">
-                {hoveredCountry.count} {hoveredCountry.count === 1 ? "Order" : "Orders"}
+              <p className="font-semibold text-sm">{hoveredCountry.name}</p>
+              <p className="text-xs text-slate-300">
+                {hoveredCountry.count} {hoveredCountry.count === 1 ? t('admin.dashboard.order', 'Order') : t('admin.dashboard.orders', 'Orders')}
               </p>
             </div>
           </div>
         )}
 
         {/* Legend */}
-        <div className="mt-4 flex items-center justify-center gap-4 flex-wrap">
-          <span className="text-sm text-slate-600 dark:text-slate-400">Order Volume:</span>
+        <div className="mt-6 flex items-center justify-center gap-4 flex-wrap">
+          <span className="text-xs md:text-sm text-slate-600 dark:text-slate-400 font-medium">{t('admin.dashboard.orderVolume', 'Order Volume')}:</span>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded" style={{ backgroundColor: "#e2e8f0" }}></div>
-            <span className="text-xs text-slate-600 dark:text-slate-400">No Orders</span>
+            <div className="w-3 h-3 md:w-4 md:h-4 rounded bg-slate-200 dark:bg-slate-800"></div>
+            <span className="text-[10px] md:text-xs text-slate-600 dark:text-slate-400">{t('admin.dashboard.noOrders', 'No Orders')}</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded" style={{ backgroundColor: "#ccfbf1" }}></div>
-            <span className="text-xs text-slate-600 dark:text-slate-400">Low</span>
+            <div className="w-3 h-3 md:w-4 md:h-4 rounded bg-[#ccfbf1]"></div>
+            <span className="text-[10px] md:text-xs text-slate-600 dark:text-slate-400">{t('admin.dashboard.low', 'Low')}</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded" style={{ backgroundColor: "var(--primary-light)" }}></div>
-            <span className="text-xs text-slate-600 dark:text-slate-400">Medium</span>
+            <div className="w-3 h-3 md:w-4 md:h-4 rounded bg-primary-light"></div>
+            <span className="text-[10px] md:text-xs text-slate-600 dark:text-slate-400">{t('admin.dashboard.medium', 'Medium')}</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded" style={{ backgroundColor: "var(--primary-second)" }}></div>
-            <span className="text-xs text-slate-600 dark:text-slate-400">High</span>
+            <div className="w-3 h-3 md:w-4 md:h-4 rounded bg-primary-second"></div>
+            <span className="text-[10px] md:text-xs text-slate-600 dark:text-slate-400">{t('admin.dashboard.high', 'High')}</span>
           </div>
         </div>
       </div>

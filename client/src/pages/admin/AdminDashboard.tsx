@@ -101,7 +101,7 @@ export default function AdminDashboard() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen">
+      <div className="flex items-center justify-center h-screen dark:bg-slate-950">
         <div className="text-center">
           <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary-second mx-auto mb-4"></div>
           <p className="text-slate-600 dark:text-slate-400">
@@ -121,13 +121,13 @@ export default function AdminDashboard() {
     })) || [];
 
   return (
-    <div className="p-6 lg:p-8 space-y-8">
+    <div className="p-4 md:p-6 lg:p-8 space-y-8 dark:bg-slate-950 min-h-screen">
       {/* Header */}
       <div>
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
+        <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
           {t('admin.dashboard.title', 'Dashboard')}
         </h1>
-        <p className="text-slate-600 dark:text-slate-400 mt-2">
+        <p className="text-sm md:text-base text-slate-600 dark:text-slate-400 mt-2">
           {t(
             'admin.dashboard.description',
             "Welcome back! Here's what's happening with your eSIM marketplace today.",
@@ -136,27 +136,27 @@ export default function AdminDashboard() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+      <div className="grid gap-4 md:gap-6 grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         {/* Total Revenue */}
         <Card
-          className="relative overflow-hidden border-0 bg-white dark:bg-gray-900 shadow-sm border border-slate-100 dark:border-slate-800"
+          className="relative overflow-hidden border-0 bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800"
           data-testid="card-total-revenue"
         >
-          <div className="p-6">
+          <div className="p-4 md:p-6">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                <p className="text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400">
                   {t('admin.dashboard.totalRevenue', 'Total Revenue')}
                 </p>
                 <h3
-                  className="text-2xl font-bold text-slate-900 dark:text-white mt-1"
+                  className="text-lg md:text-2xl font-bold text-slate-900 dark:text-white mt-1"
                   data-testid="text-total-revenue"
                 >
                   ${stats?.totalRevenue.toFixed(2) || '0.00'}
                 </h3>
               </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 dark:bg-primary/20 text-primary">
-                <DollarSign className="h-5 w-5" />
+              <div className="flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-lg bg-primary/10 dark:bg-primary/20 text-primary">
+                <DollarSign className="h-4 w-4 md:h-5 md:w-5" />
               </div>
             </div>
           </div>
@@ -164,24 +164,24 @@ export default function AdminDashboard() {
 
         {/* Total Cost */}
         <Card
-          className="relative overflow-hidden border-0 bg-white dark:bg-gray-900 shadow-sm border border-slate-100 dark:border-slate-800"
+          className="relative overflow-hidden border-0 bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800"
           data-testid="card-total-cost"
         >
-          <div className="p-6">
+          <div className="p-4 md:p-6">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                <p className="text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400">
                   {t('admin.dashboard.totalCost', 'Total Cost')}
                 </p>
                 <h3
-                  className="text-2xl font-bold text-slate-900 dark:text-white mt-1"
+                  className="text-lg md:text-2xl font-bold text-slate-900 dark:text-white mt-1"
                   data-testid="text-total-cost"
                 >
                   ${stats?.totalCost.toFixed(2) || '0.00'}
                 </h3>
               </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400">
-                <TrendingDown className="h-5 w-5" />
+              <div className="flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-lg bg-red-100 dark:bg-red-900/20 text-red-600 dark:text-red-400">
+                <TrendingDown className="h-4 w-4 md:h-5 md:w-5" />
               </div>
             </div>
           </div>
@@ -189,24 +189,24 @@ export default function AdminDashboard() {
 
         {/* Total Orders */}
         <Card
-          className="relative overflow-hidden border-0 bg-white dark:bg-gray-900 shadow-sm border border-slate-100 dark:border-slate-800"
+          className="relative overflow-hidden border-0 bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800"
           data-testid="card-total-orders"
         >
-          <div className="p-6">
+          <div className="p-4 md:p-6">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                <p className="text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400">
                   {t('admin.dashboard.totalOrders', 'Total Orders')}
                 </p>
                 <h3
-                  className="text-2xl font-bold text-slate-900 dark:text-white mt-1"
+                  className="text-lg md:text-2xl font-bold text-slate-900 dark:text-white mt-1"
                   data-testid="text-total-orders"
                 >
                   {stats?.totalOrders.toLocaleString() || 0}
                 </h3>
               </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400">
-                <ShoppingCart className="h-5 w-5" />
+              <div className="flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-lg bg-emerald-100 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400">
+                <ShoppingCart className="h-4 w-4 md:h-5 md:w-5" />
               </div>
             </div>
           </div>
@@ -214,24 +214,24 @@ export default function AdminDashboard() {
 
         {/* Total Customers */}
         <Card
-          className="relative overflow-hidden border-0 bg-white dark:bg-gray-900 shadow-sm border border-slate-100 dark:border-slate-800"
+          className="relative overflow-hidden border-0 bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800"
           data-testid="card-total-customers"
         >
-          <div className="p-6">
+          <div className="p-4 md:p-6">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                <p className="text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400">
                   {t('admin.dashboard.customers', 'Customers')}
                 </p>
                 <h3
-                  className="text-2xl font-bold text-slate-900 dark:text-white mt-1"
+                  className="text-lg md:text-2xl font-bold text-slate-900 dark:text-white mt-1"
                   data-testid="text-total-customers"
                 >
                   {stats?.totalCustomers.toLocaleString() || 0}
                 </h3>
               </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
-                <Users className="h-5 w-5" />
+              <div className="flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-lg bg-blue-100 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
+                <Users className="h-4 w-4 md:h-5 md:w-5" />
               </div>
             </div>
           </div>
@@ -239,24 +239,24 @@ export default function AdminDashboard() {
 
         {/* Active Packages */}
         <Card
-          className="relative overflow-hidden border-0 bg-white dark:bg-gray-900 shadow-sm border border-slate-100 dark:border-slate-800"
+          className="relative overflow-hidden border-0 bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800"
           data-testid="card-active-packages"
         >
-          <div className="p-6">
+          <div className="p-4 md:p-6">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                <p className="text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400">
                   {t('admin.dashboard.activePackages', 'Active Packages')}
                 </p>
                 <h3
-                  className="text-2xl font-bold text-slate-900 dark:text-white mt-1"
+                  className="text-lg md:text-2xl font-bold text-slate-900 dark:text-white mt-1"
                   data-testid="text-active-packages"
                 >
                   {stats?.activePackages.toLocaleString() || 0}
                 </h3>
               </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-100 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400">
-                <PackageIcon className="h-5 w-5" />
+              <div className="flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-lg bg-orange-100 dark:bg-orange-900/20 text-orange-600 dark:text-orange-400">
+                <PackageIcon className="h-4 w-4 md:h-5 md:w-5" />
               </div>
             </div>
           </div>
@@ -264,24 +264,24 @@ export default function AdminDashboard() {
 
         {/* Total Tickets */}
         <Card
-          className="relative overflow-hidden border-0 bg-white dark:bg-gray-900 shadow-sm border border-slate-100 dark:border-slate-800"
+          className="relative overflow-hidden border-0 bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800"
           data-testid="card-total-tickets"
         >
-          <div className="p-6">
+          <div className="p-4 md:p-6">
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                <p className="text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400">
                   {t('admin.dashboard.totalTickets', 'Total Tickets')}
                 </p>
                 <h3
-                  className="text-2xl font-bold text-slate-900 dark:text-white mt-1"
+                  className="text-lg md:text-2xl font-bold text-slate-900 dark:text-white mt-1"
                   data-testid="text-total-tickets"
                 >
                   {stats?.totalTickets.toLocaleString() || 0}
                 </h3>
               </div>
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400">
-                <AlertCircle className="h-5 w-5" />
+              <div className="flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400">
+                <AlertCircle className="h-4 w-4 md:h-5 md:w-5" />
               </div>
             </div>
           </div>
@@ -293,8 +293,8 @@ export default function AdminDashboard() {
           {/* Charts Section */}
           <div className="grid gap-6 lg:grid-cols-7">
             {/* Revenue Trend */}
-            <Card className="lg:col-span-4 border-0 shadow-lg dark:bg-gray-900/50 dark:border-gray-800">
-              <div className="p-6 border-b border-slate-100 dark:border-gray-700">
+            <Card className="lg:col-span-4 border-0 shadow-lg dark:bg-slate-900/50 dark:border-slate-800">
+              <div className="p-6 border-b border-slate-100 dark:border-slate-800">
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
                   {t('admin.dashboard.revenueTrend', 'Revenue Trend')}
                 </h3>
@@ -314,18 +314,18 @@ export default function AdminDashboard() {
                     <CartesianGrid
                       strokeDasharray="3 3"
                       stroke="#e2e8f0"
-                      className="dark:stroke-gray-700"
+                      className="dark:stroke-slate-700"
                     />
                     <XAxis
                       dataKey="month"
                       stroke="#64748b"
-                      className="dark:stroke-gray-400"
+                      className="dark:stroke-slate-400"
                       style={{ fontSize: '12px' }}
                       tick={{ fill: 'currentColor' }}
                     />
                     <YAxis
                       stroke="#64748b"
-                      className="dark:stroke-gray-400"
+                      className="dark:stroke-slate-400"
                       style={{ fontSize: '12px' }}
                       tick={{ fill: 'currentColor' }}
                       tickFormatter={(value) => `$${value.toLocaleString()}`}
@@ -339,7 +339,7 @@ export default function AdminDashboard() {
                       }}
                       itemStyle={{ color: '#1e293b' }}
                       labelStyle={{ color: '#1e293b' }}
-                      formatter={(value: number) => [`$${value.toFixed(2)}`, 'Revenue']}
+                      formatter={(value: number) => [`$${value.toFixed(2)}`, t('admin.dashboard.revenue', 'Revenue')]}
                     />
                     <Line
                       type="monotone"
@@ -356,8 +356,8 @@ export default function AdminDashboard() {
             </Card>
 
             {/* Order Status */}
-            <Card className="lg:col-span-3 border-0 shadow-lg dark:bg-gray-900/50 dark:border-gray-800">
-              <div className="p-6 border-b border-slate-100 dark:border-gray-700">
+            <Card className="lg:col-span-3 border-0 shadow-lg dark:bg-slate-900/50 dark:border-slate-800">
+              <div className="p-6 border-b border-slate-100 dark:border-slate-800">
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
                   {t('admin.dashboard.orderStatus', 'Order Status')}
                 </h3>
@@ -399,8 +399,8 @@ export default function AdminDashboard() {
           </div>
 
           {/* Top Destinations */}
-          <Card className="border-0 shadow-lg dark:bg-gray-900/50 dark:border-gray-800">
-            <div className="p-6 border-b border-slate-100 dark:border-gray-700">
+          <Card className="border-0 shadow-lg dark:bg-slate-900/50 dark:border-slate-800">
+            <div className="p-6 border-b border-slate-100 dark:border-slate-800">
               <div className="flex items-center justify-between">
                 <div>
                   <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
@@ -411,7 +411,7 @@ export default function AdminDashboard() {
                   </p>
                 </div>
                 <Link href="/admin/unified-packages">
-                  <Button variant="outline" size="sm" className="gap-2 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-white">
+                  <Button variant="outline" size="sm" className="gap-2 dark:border-slate-700 dark:text-gray-200 dark:hover:bg-slate-800 dark:hover:text-white">
                     {t('admin.dashboard.viewAll', 'View All')}
                     <ArrowRight className="h-4 w-4" />
                   </Button>
@@ -423,22 +423,22 @@ export default function AdminDashboard() {
                 {stats?.topDestinations.slice(0, 6).map((dest, index) => (
                   <div
                     key={dest.country}
-                    className="flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-gray-700 hover:shadow-md dark:hover:shadow-gray-800/50 transition-all duration-200"
+                    className="flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:shadow-md dark:hover:shadow-slate-800/50 transition-all duration-200 bg-white dark:bg-slate-900"
                     data-testid={`top-destination-${index}`}
                   >
                     <div className="flex items-center gap-3">
-                      <span className="text-3xl">{dest.flag}</span>
+                      <span className="text-2xl md:text-3xl">{dest.flag}</span>
                       <div>
-                        <p className="font-semibold text-slate-900 dark:text-white">
+                        <p className="font-semibold text-slate-900 dark:text-white text-sm md:text-base">
                           {dest.country}
                         </p>
-                        <p className="text-sm text-slate-600 dark:text-gray-400">
+                        <p className="text-xs md:text-sm text-slate-600 dark:text-gray-400">
                           {dest.count} {t('admin.dashboard.orders', 'orders')}
                         </p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-bold text-emerald-600 dark:text-emerald-400">
+                      <p className="font-bold text-emerald-600 dark:text-emerald-400 text-sm md:text-base">
                         ${dest.revenue.toFixed(2)}
                       </p>
                     </div>
@@ -449,17 +449,19 @@ export default function AdminDashboard() {
           </Card>
 
           {/* World Map */}
-          <WorldMap
-            data={stats?.ordersByCountry || []}
-            timeFilter={timeFilter}
-            onTimeFilterChange={setTimeFilter}
-          />
+          <div className="overflow-hidden rounded-xl border-0 shadow-lg dark:bg-slate-900/50 dark:border-slate-800">
+            <WorldMap
+              data={stats?.ordersByCountry || []}
+              timeFilter={timeFilter}
+              onTimeFilterChange={setTimeFilter}
+            />
+          </div>
 
           {/* Latest Orders & Customers Grid */}
           <div className="grid gap-6 lg:grid-cols-2">
             {/* Latest Orders */}
-            <Card className="border-0 shadow-lg dark:bg-gray-900/50 dark:border-gray-800">
-              <div className="p-6 border-b border-slate-100 dark:border-gray-700">
+            <Card className="border-0 shadow-lg dark:bg-slate-900/50 dark:border-slate-800">
+              <div className="p-6 border-b border-slate-100 dark:border-slate-800">
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
@@ -473,7 +475,7 @@ export default function AdminDashboard() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="gap-2 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-white"
+                      className="gap-2 dark:border-slate-700 dark:text-gray-200 dark:hover:bg-slate-800 dark:hover:text-white"
                       data-testid="button-view-all-orders"
                     >
                       {t('admin.dashboard.viewAll', 'View All')}
@@ -487,12 +489,12 @@ export default function AdminDashboard() {
                   {stats?.latestOrders?.slice(0, 10).map((order) => (
                     <div
                       key={order.id}
-                      className="flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-gray-700 hover:shadow-md dark:hover:shadow-gray-800/50 transition-all duration-200"
+                      className="flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:shadow-md dark:hover:shadow-slate-800/50 transition-all duration-200 bg-white dark:bg-slate-900"
                       data-testid={`latest-order-${order.displayOrderId}`}
                     >
-                      <div className="flex-1">
+                      <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1 flex-wrap">
-                          <Badge variant="secondary" className="font-mono text-xs dark:bg-gray-700 dark:text-gray-300">
+                          <Badge variant="secondary" className="font-mono text-[10px] md:text-xs dark:bg-slate-800 dark:text-slate-300">
                             OID{String(order.displayOrderId).padStart(3, '0')}
                           </Badge>
                           <Badge
@@ -503,24 +505,24 @@ export default function AdminDashboard() {
                                   ? 'destructive'
                                   : 'secondary'
                             }
-                            className="capitalize dark:bg-opacity-80"
+                            className="capitalize dark:bg-opacity-80 text-[10px] md:text-xs"
                           >
                             {order.status}
                           </Badge>
                         </div>
-                        <p className="font-semibold text-slate-900 dark:text-white text-sm">
+                        <p className="font-semibold text-slate-900 dark:text-white text-sm truncate">
                           {order.packageTitle}
                         </p>
-                        <p className="text-xs text-slate-600 dark:text-gray-400">
+                        <p className="text-xs text-slate-600 dark:text-gray-400 truncate">
                           {order.userEmail || t('admin.dashboard.adminOrder', 'Admin Order')} •{' '}
                           {order.destinationName}
                         </p>
-                        <p className="text-xs text-slate-500 dark:text-gray-500 mt-1">
+                        <p className="text-[10px] md:text-xs text-slate-500 dark:text-gray-500 mt-1">
                           {format(new Date(order.createdAt), "MMM d, yyyy 'at' h:mm a")}
                         </p>
                       </div>
-                      <div className="text-right">
-                        <p className="font-bold text-emerald-600 dark:text-emerald-400">
+                      <div className="text-right ml-4">
+                        <p className="font-bold text-emerald-600 dark:text-emerald-400 text-sm md:text-base">
                           ${order.price.toFixed(2)}
                         </p>
                       </div>
@@ -531,8 +533,8 @@ export default function AdminDashboard() {
             </Card>
 
             {/* Latest Customers */}
-            <Card className="border-0 shadow-lg dark:bg-gray-900/50 dark:border-gray-800">
-              <div className="p-6 border-b border-slate-100 dark:border-gray-700">
+            <Card className="border-0 shadow-lg dark:bg-slate-900/50 dark:border-slate-800">
+              <div className="p-6 border-b border-slate-100 dark:border-slate-800">
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
@@ -546,7 +548,7 @@ export default function AdminDashboard() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="gap-2 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-white"
+                      className="gap-2 dark:border-slate-700 dark:text-gray-200 dark:hover:bg-slate-800 dark:hover:text-white"
                       data-testid="button-view-all-customers"
                     >
                       {t('admin.dashboard.viewAll', 'View All')}
@@ -560,22 +562,22 @@ export default function AdminDashboard() {
                   {stats?.latestCustomers?.slice(0, 10).map((customer) => (
                     <div
                       key={customer.id}
-                      className="flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-gray-700 hover:shadow-md dark:hover:shadow-gray-800/50 transition-all duration-200"
+                      className="flex items-center justify-between p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:shadow-md dark:hover:shadow-slate-800/50 transition-all duration-200 bg-white dark:bg-slate-900"
                       data-testid={`latest-customer-${customer.displayUserId}`}
                     >
-                      <div className="flex-1">
+                      <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          <Badge variant="secondary" className="font-mono text-xs dark:bg-gray-700 dark:text-gray-300">
+                          <Badge variant="secondary" className="font-mono text-[10px] md:text-xs dark:bg-slate-800 dark:text-slate-300">
                             UID{String(customer.displayUserId).padStart(3, '0')}
                           </Badge>
                         </div>
-                        <p className="font-semibold text-slate-900 dark:text-white text-sm">
+                        <p className="font-semibold text-slate-900 dark:text-white text-sm truncate">
                           {customer.name || t('admin.dashboard.noName', 'No Name')}
                         </p>
-                        <p className="text-xs text-slate-600 dark:text-gray-400">
+                        <p className="text-xs text-slate-600 dark:text-gray-400 truncate">
                           {customer.email}
                         </p>
-                        <p className="text-xs text-slate-500 dark:text-gray-500 mt-1">
+                        <p className="text-[10px] md:text-xs text-slate-500 dark:text-gray-500 mt-1">
                           {t('admin.dashboard.joined', 'Joined')}{' '}
                           {format(new Date(customer.createdAt), 'MMM d, yyyy')}
                         </p>
@@ -589,15 +591,15 @@ export default function AdminDashboard() {
         </>
       ) : (
         /* Empty State */
-        <Card className="border-0 shadow-lg dark:bg-gray-900/50 dark:border-gray-800">
-          <div className="p-12 text-center">
-            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-primary/10 to-indigo-100 dark:from-primary/20 dark:to-indigo-900/40 mx-auto mb-6">
-              <ShoppingCart className="h-10 w-10 text-primary dark:text-primary-light" />
+        <Card className="border-0 shadow-lg dark:bg-slate-900/50 dark:border-slate-800">
+          <div className="p-8 md:p-12 text-center">
+            <div className="flex h-16 w-16 md:h-20 md:w-20 items-center justify-center rounded-full bg-gradient-to-br from-primary/10 to-indigo-100 dark:from-primary/20 dark:to-indigo-900/40 mx-auto mb-6">
+              <ShoppingCart className="h-8 w-8 md:h-10 md:w-10 text-primary dark:text-primary-light" />
             </div>
-            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+            <h3 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-2">
               {t('admin.dashboard.noOrdersYet', 'No Orders Yet')}
             </h3>
-            <p className="text-slate-600 dark:text-gray-300 max-w-md mx-auto mb-6">
+            <p className="text-sm md:text-base text-slate-600 dark:text-gray-300 max-w-md mx-auto mb-6">
               {t(
                 'admin.dashboard.noOrdersDesc',
                 'Your marketplace is ready! Start by adding packages and wait for customers to place their first orders.',
@@ -610,7 +612,7 @@ export default function AdminDashboard() {
                 </Button>
               </Link>
               <Link href="/admin/customers">
-                <Button variant="outline" className="dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800 dark:hover:text-white">
+                <Button variant="outline" className="dark:border-slate-700 dark:text-gray-200 dark:hover:bg-slate-800 dark:hover:text-white">
                   {t('admin.dashboard.viewCustomers', 'View Customers')}
                 </Button>
               </Link>

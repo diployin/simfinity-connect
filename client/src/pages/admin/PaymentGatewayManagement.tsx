@@ -233,7 +233,7 @@ export default function PaymentGatewayManagement() {
   /* ================= UI ================= */
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 dark:bg-gray-950">
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold flex items-center gap-2 text-foreground">
@@ -251,7 +251,7 @@ export default function PaymentGatewayManagement() {
         </Button>
       </div>
 
-      <Card>
+      <Card className="border border-border bg-card dark:bg-gray-950 dark:border-gray-700">
         <CardHeader>
           <CardTitle>Configured Gateways</CardTitle>
           <CardDescription>
@@ -269,7 +269,7 @@ export default function PaymentGatewayManagement() {
               No payment gateways added
             </p>
           ) : (
-            <Table>
+            <Table className="dark:bg-gray:950 dark:text-gray-100">
               <TableHeader>
                 <TableRow>
                   <TableHead>Provider</TableHead>
@@ -320,7 +320,7 @@ export default function PaymentGatewayManagement() {
 
       {/* ================= ADD / EDIT MODAL ================= */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
+        <DialogContent className="dark:bg-gray-950 dark:text-gray-100">
           <DialogHeader>
             <DialogTitle>
               {editing ? "Edit Gateway" : "Add Gateway"}

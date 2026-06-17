@@ -340,7 +340,7 @@ export default function NotificationHistory() {
   };
 
   return (
-    <div className="p-6 lg:p-8 space-y-6">
+    <div className="p-6 lg:p-8 space-y-6 dark:bg-gray-950 dark:text-gray-100">
       {/* Header */}
       <div className="flex flex-col md:flex-row gap-3 items-center justify-between">
         <div>
@@ -378,7 +378,7 @@ export default function NotificationHistory() {
       {/* Statistics */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Total Notifications */}
-        <Card className="shadow-md">
+        <Card className="shadow-md dark:bg-gray-900">
           <CardContent className="p-4 flex items-center gap-4">
             <Bell className="h-8 w-8 text-primary" />
             <div>
@@ -393,7 +393,7 @@ export default function NotificationHistory() {
         </Card>
 
         {/* Unread */}
-        <Card className="shadow-md">
+        <Card className="shadow-md dark:bg-gray-900">
           <CardContent className="p-4 flex items-center gap-4">
             <AlertCircle className="h-8 w-8 text-orange-500" />
             <div>
@@ -408,7 +408,7 @@ export default function NotificationHistory() {
         </Card>
 
         {/* Emails Sent */}
-        <Card className="shadow-md">
+        <Card className="shadow-md dark:bg-gray-900">
           <CardContent className="p-4 flex items-center gap-4">
             <CheckCircle className="h-8 w-8 text-green-600" />
             <div>
@@ -423,7 +423,7 @@ export default function NotificationHistory() {
         </Card>
 
         {/* Emails Failed */}
-        <Card className="shadow-md">
+        <Card className="shadow-md dark:bg-gray-900">
           <CardContent className="p-4 flex items-center gap-4">
             <XCircle className="h-8 w-8 text-destructive" />
             <div>
@@ -439,7 +439,7 @@ export default function NotificationHistory() {
       </div>
 
       {/* Filters Card */}
-      <Card className="border-0 shadow-lg">
+      <Card className="border-0 shadow-lg dark:bg-gray-900">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Filter className="h-5 w-5" />
@@ -458,12 +458,12 @@ export default function NotificationHistory() {
             <div className="space-y-2">
               <Label>{t('admin.notifications.filters.source', 'Notification Source')}</Label>
               <Select value={sourceFilter} onValueChange={setSourceFilter}>
-                <SelectTrigger data-testid="select-source-filter">
+                <SelectTrigger data-testid="select-source-filter" className="dark:bg-gray-900 dark:border-gray-800">
                   <SelectValue
                     placeholder={t('admin.notifications.filters.allSources', 'All Sources')}
                   />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="dark:bg-gray-900 dark:border-gray-800">
                   <SelectItem value="all">
                     {t('admin.notifications.filters.allSources', 'All Sources')}
                   </SelectItem>
@@ -481,12 +481,12 @@ export default function NotificationHistory() {
             <div className="space-y-2">
               <Label>{t('admin.notifications.filters.typeLabel', 'Notification Type')}</Label>
               <Select value={typeFilter} onValueChange={setTypeFilter}>
-                <SelectTrigger data-testid="select-type-filter">
+                <SelectTrigger data-testid="select-type-filter" className="dark:bg-gray-900 dark:border-gray-800">
                   <SelectValue
                     placeholder={t('admin.notifications.filters.allTypes', 'All Types')}
                   />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="dark:bg-gray-900 dark:border-gray-800">
                   <SelectItem value="all">
                     {t('admin.notifications.filters.allTypes', 'All Types')}
                   </SelectItem>
@@ -511,7 +511,7 @@ export default function NotificationHistory() {
 
             {/* ICCID Search */}
             <div className="space-y-2">
-              <Label htmlFor="iccid-search">
+              <Label htmlFor="iccid-search" className="dark:bg-gray-900 dark:border-gray-800">
                 {t('admin.notifications.filters.iccid', 'ICCID')}
               </Label>
               <Input
@@ -523,6 +523,7 @@ export default function NotificationHistory() {
                 value={iccidSearch}
                 onChange={(e) => setIccidSearch(e.target.value)}
                 data-testid="input-iccid-search"
+                className="dark:bg-gray-900 dark:border-gray-800"
               />
             </div>
 
@@ -602,7 +603,7 @@ export default function NotificationHistory() {
       </Card>
 
       {/* Notifications Table */}
-      <Card className="border-0 shadow-lg">
+      <Card className="border-0 shadow-lg dark:bg-gray-900">
         <CardContent className="p-0">
           {isLoading ? (
             <div className="flex items-center justify-center py-12">
@@ -630,7 +631,6 @@ export default function NotificationHistory() {
                     <TableHead>{t('admin.notifications.table.type', 'Type')}</TableHead>
                     <TableHead>{t('admin.notifications.table.iccid', 'ICCID')}</TableHead>
                     <TableHead>{t('admin.notifications.table.processed', 'Processed')}</TableHead>
-                    {/* <TableHead>{t('admin.notifications.table.emailSent', 'Email Sent')}</TableHead> */}
                     <TableHead>{t('admin.notifications.table.error', 'Error')}</TableHead>
                     <TableHead className="text-right">
                       {t('admin.notifications.table.actions', 'Actions')}
@@ -671,19 +671,6 @@ export default function NotificationHistory() {
                             </Badge>
                           )}
                         </TableCell>
-                        {/* <TableCell>
-                          {notification.emailSent ? (
-                            <Badge variant="default" className="gap-1">
-                              <CheckCircle className="h-3 w-3" />
-                              {t('admin.notifications.badge.yes', 'Yes')}
-                            </Badge>
-                          ) : (
-                            <Badge variant="secondary" className="gap-1">
-                              <XCircle className="h-3 w-3" />
-                              {t('admin.notifications.badge.no', 'No')}
-                            </Badge>
-                          )}
-                        </TableCell> */}
                         <TableCell>
                           {notification.error ? (
                             <div className="flex items-center gap-2">
@@ -717,7 +704,7 @@ export default function NotificationHistory() {
               </Table>
 
               {/* Pagination */}
-              <div className="flex items-center justify-between border-t px-6 py-4">
+              <div className="flex items-center justify-between border-t px-6 py-4 dark:border-gray-800">
                 <div className="text-sm text-muted-foreground">
                   {t(
                     'admin.notifications.pagination.showing',
@@ -765,7 +752,7 @@ export default function NotificationHistory() {
 
       {/* Notification Details Dialog */}
       <Dialog open={!!selectedNotification} onOpenChange={() => setSelectedNotification(null)}>
-        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto dark:bg-gray-900 dark:border-gray-800">
           <DialogHeader>
             <DialogTitle>
               {t('admin.notifications.details.title', 'Notification Details')}
@@ -839,7 +826,7 @@ export default function NotificationHistory() {
                 <Label className="text-sm font-semibold">
                   {t('admin.notifications.details.webhookPayload', 'Webhook Payload')}
                 </Label>
-                <div className="mt-2 p-4 rounded-lg bg-muted font-mono text-xs overflow-x-auto">
+                <div className="mt-2 p-4 rounded-lg bg-muted dark:bg-gray-800 font-mono text-xs overflow-x-auto">
                   <pre>{JSON.stringify(selectedNotification.webhookPayload, null, 2)}</pre>
                 </div>
               </div>
@@ -850,7 +837,7 @@ export default function NotificationHistory() {
 
       {/* Custom Notification Modal */}
       <Dialog open={showCustomNotificationModal} onOpenChange={setShowCustomNotificationModal}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl dark:bg-gray-900 dark:border-gray-800">
           <DialogHeader>
             <DialogTitle>
               {t('admin.notifications.custom.title', 'Send Custom Notification')}
@@ -923,7 +910,7 @@ export default function NotificationHistory() {
                   <PopoverTrigger asChild>
                     <div
                       role="combobox"
-                      className="border rounded-md h-10 px-3 flex items-center justify-between cursor-pointer"
+                      className="border rounded-md h-10 px-3 flex items-center justify-between cursor-pointer dark:border-gray-700"
                     >
                       <span>
                         {customers?.find((c) => c.id === recipientUserId)?.name ||
@@ -932,7 +919,7 @@ export default function NotificationHistory() {
                     </div>
                   </PopoverTrigger>
 
-                  <PopoverContent className="p-0 w-[300px]">
+                  <PopoverContent className="p-0 w-[300px] dark:bg-gray-900 dark:border-gray-800">
                     <Command>
                       <CommandInput placeholder="Search customer..." onValueChange={setSearch} />
                       <CommandEmpty>No customer found.</CommandEmpty>
@@ -963,24 +950,10 @@ export default function NotificationHistory() {
               </div>
             )}
 
-            <div className="space-y-3 pt-2 border-t">
+            <div className="space-y-3 pt-2 border-t dark:border-gray-800">
               <Label className="text-sm font-medium">
                 {t('admin.notifications.custom.deliveryMethods', 'Delivery Methods')}
               </Label>
-              {/* <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="send-email"
-                  checked={sendEmail}
-                  onCheckedChange={setSendEmail}
-                  data-testid="checkbox-send-email"
-                />
-                <label
-                  htmlFor="send-email"
-                  className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
-                >
-                  {t('admin.notifications.custom.sendEmail', 'Send Email')}
-                </label>
-              </div> */}
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="send-in-app"

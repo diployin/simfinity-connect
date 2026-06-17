@@ -495,10 +495,10 @@ function ReferralsTab() {
     <div className="space-y-6">
       {/* Stats */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card className="dark:bg-slate-950">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              {t('adminPanel.referrals.totalReferrals')}
+              {t('adminPanel.referrals.totalReferrals', 'Total Referrals')}
             </CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
@@ -507,10 +507,10 @@ function ReferralsTab() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="dark:bg-slate-950">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              {t('adminPanel.referrals.conversionRate')}
+              {t('adminPanel.referrals.conversionRate', 'Conversion Rate')}
             </CardTitle>
             <Percent className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
@@ -519,10 +519,10 @@ function ReferralsTab() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="dark:bg-slate-950">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              {t('adminPanel.referrals.totalRewards')}
+              {t('adminPanel.referrals.totalRewards', 'Total Rewards')}
             </CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
@@ -534,37 +534,38 @@ function ReferralsTab() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="dark:bg-slate-950">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Most Active Month</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('adminPanel.referrals.mostActiveMonth', 'Most Active Month')}</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{referralsData?.statistics ? (analyticsData?.mostActiveMonth || 'N/A') : <Skeleton className="h-8 w-20" />}</div>
+            <div className="text-2xl font-bold">{referralsData?.statistics ? (referralsData?.statistics?.mostActiveMonth || 'N/A') : <Skeleton className="h-8 w-20" />}</div>
           </CardContent>
         </Card>
       </div>
 
       <Tabs defaultValue="list" className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="list">Referral List</TabsTrigger>
-          <TabsTrigger value="transactions">Transactions</TabsTrigger>
+        <TabsList className="dark:bg-slate-950">
+          <TabsTrigger value="list">{t('adminPanel.referrals.referralList', 'Referral List')}</TabsTrigger>
+          <TabsTrigger value="transactions">{t('adminPanel.referrals.transactions', 'Transactions')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="list" className="space-y-4">
-          <Card>
+          <Card className="dark:bg-slate-950">
             <CardHeader>
               <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-                <CardTitle>Referral List</CardTitle>
+                <CardTitle>{t('adminPanel.referrals.referralList', 'Referral List')}</CardTitle>
                 <div className="flex gap-2 w-full sm:w-auto">
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={exportToCSV}
                     data-testid="button-export-csv"
+                    className="dark:bg-slate-900"
                   >
                     <Download className="h-4 w-4 mr-2" />
-                    {t('adminPanel.referrals.exportCSV')}
+                    {t('adminPanel.referrals.exportCSV', 'Export CSV')}
                   </Button>
                 </div>
               </div>
@@ -574,21 +575,21 @@ function ReferralsTab() {
                 <div className="flex-1 relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
-                    placeholder="Search by email or code..."
+                    placeholder={t('adminPanel.referrals.searchPlaceholder', 'Search by email or code...')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10"
+                    className="pl-10 dark:bg-slate-900"
                     data-testid="input-search"
                   />
                 </div>
                 <Select value={statusFilter} onValueChange={setStatusFilter}>
-                  <SelectTrigger className="w-full sm:w-[180px]" data-testid="select-status-filter">
-                    <SelectValue placeholder="Filter by status" />
+                  <SelectTrigger className="w-full sm:w-[180px] dark:bg-slate-900" data-testid="select-status-filter">
+                    <SelectValue placeholder={t('adminPanel.referrals.filterByStatus', 'Filter by status')} />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Statuses</SelectItem>
-                    <SelectItem value="pending">Pending</SelectItem>
-                    <SelectItem value="completed">Completed</SelectItem>
+                  <SelectContent className="dark:bg-slate-950">
+                    <SelectItem value="all">{t('adminPanel.referrals.allStatuses', 'All Statuses')}</SelectItem>
+                    <SelectItem value="pending">{t('adminPanel.referrals.pending', 'Pending')}</SelectItem>
+                    <SelectItem value="completed">{t('adminPanel.referrals.completed', 'Completed')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -603,11 +604,11 @@ function ReferralsTab() {
               ) : filteredReferrals.length === 0 ? (
                 <div className="text-center py-12">
                   <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">No referrals found</h3>
+                  <h3 className="text-lg font-semibold mb-2">{t('adminPanel.referrals.noReferralsFound', 'No referrals found')}</h3>
                   <p className="text-muted-foreground">
                     {searchQuery || statusFilter !== 'all'
-                      ? 'Try adjusting your filters'
-                      : 'Referrals will appear here when users start sharing'}
+                      ? t('adminPanel.referrals.adjustFilters', 'Try adjusting your filters')
+                      : t('adminPanel.referrals.referralsEmptyState', 'Referrals will appear here when users start sharing')}
                   </p>
                 </div>
               ) : (
@@ -615,37 +616,37 @@ function ReferralsTab() {
                   <table className="w-full">
                     <thead>
                       <tr className="border-b">
-                        <th className="text-left py-3 px-4 font-medium">Referrer</th>
-                        <th className="text-left py-3 px-4 font-medium">Referred User</th>
-                        <th className="text-left py-3 px-4 font-medium">Code</th>
-                        <th className="text-left py-3 px-4 font-medium">Status</th>
-                        <th className="text-left py-3 px-4 font-medium">Reward</th>
-                        <th className="text-left py-3 px-4 font-medium">Paid</th>
-                        <th className="text-left py-3 px-4 font-medium">Date</th>
-                        <th className="text-left py-3 px-4 font-medium">Actions</th>
+                        <th className="text-left py-3 px-4 font-medium">{t('adminPanel.referrals.referrer', 'Referrer')}</th>
+                        <th className="text-left py-3 px-4 font-medium">{t('adminPanel.referrals.referredUser', 'Referred User')}</th>
+                        <th className="text-left py-3 px-4 font-medium">{t('adminPanel.referrals.code', 'Code')}</th>
+                        <th className="text-left py-3 px-4 font-medium">{t('adminPanel.referrals.status', 'Status')}</th>
+                        <th className="text-left py-3 px-4 font-medium">{t('adminPanel.referrals.reward', 'Reward')}</th>
+                        <th className="text-left py-3 px-4 font-medium">{t('adminPanel.referrals.paid', 'Paid')}</th>
+                        <th className="text-left py-3 px-4 font-medium">{t('adminPanel.referrals.date', 'Date')}</th>
+                        <th className="text-left py-3 px-4 font-medium">{t('adminPanel.referrals.actions', 'Actions')}</th>
                       </tr>
                     </thead>
                     <tbody>
                       {filteredReferrals.map((referral: Referral, index: number) => (
                         <tr
                           key={referral.id}
-                          className="border-b"
+                          className="border-b hover:bg-muted/50 transition-colors"
                           data-testid={`row-referral-${index}`}
                         >
                           <td className="py-4 px-4">
                             <div className="text-sm">
-                              <div className="font-medium">{referral.referrerName || 'Unknown'}</div>
+                              <div className="font-medium">{referral.referrerName || t('adminPanel.referrals.unknown', 'Unknown')}</div>
                               <div className="text-muted-foreground">{referral.referrerEmail}</div>
                             </div>
                           </td>
                           <td className="py-4 px-4">
                             <div className="text-sm">
-                              <div className="font-medium">{referral.referredName || 'Unknown'}</div>
+                              <div className="font-medium">{referral.referredName || t('adminPanel.referrals.unknown', 'Unknown')}</div>
                               <div className="text-muted-foreground">{referral.referredEmail}</div>
                             </div>
                           </td>
                           <td className="py-4 px-4">
-                            <code className="text-xs bg-muted px-2 py-1 rounded">
+                            <code className="text-xs bg-muted px-2 py-1 rounded dark:bg-slate-800">
                               {referral.referralCode}
                             </code>
                           </td>
@@ -685,8 +686,9 @@ function ReferralsTab() {
                                 onClick={() => markPaidMutation.mutate(referral.id)}
                                 disabled={markPaidMutation.isPending}
                                 data-testid={`button-mark-paid-${index}`}
+                                className="dark:bg-slate-900"
                               >
-                                {t('adminPanel.referrals.markPaid')}
+                                {t('adminPanel.referrals.markPaid', 'Mark Paid')}
                               </Button>
                             )}
                           </td>
@@ -709,6 +711,7 @@ function ReferralsTab() {
 }
 
 function ReferralTransactionsTab() {
+  const { t } = useTranslation();
   const { currencies } = useCurrency();
   const { data: txsData, isLoading } = useQuery<TransactionsResponse>({
     queryKey: ['/api/admin/referrals/transactions'],
@@ -718,7 +721,7 @@ function ReferralTransactionsTab() {
 
   if (isLoading) {
     return (
-      <Card>
+      <Card className="dark:bg-slate-950">
         <CardContent className="pt-6">
           <div className="space-y-3">
             {[1, 2, 3, 4, 5].map((i) => (
@@ -731,41 +734,41 @@ function ReferralTransactionsTab() {
   }
 
   return (
-    <Card>
+    <Card className="dark:bg-slate-950">
       <CardHeader>
-        <CardTitle>Referral Transactions</CardTitle>
-        <CardDescription>History of all referral credits earned and used</CardDescription>
+        <CardTitle>{t('adminPanel.referrals.transactionsTitle', 'Referral Transactions')}</CardTitle>
+        <CardDescription>{t('adminPanel.referrals.transactionsDescription', 'History of all referral credits earned and used')}</CardDescription>
       </CardHeader>
       <CardContent>
         {transactions.length === 0 ? (
           <div className="text-center py-12 text-muted-foreground">
             <ArrowRightLeft className="h-12 w-12 mx-auto mb-4 opacity-20" />
-            <p>No referral transactions found</p>
+            <p>{t('adminPanel.referrals.noTransactions', 'No referral transactions found')}</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b text-sm">
-                  <th className="text-left py-3 px-4 font-medium">User</th>
-                  <th className="text-left py-3 px-4 font-medium">Type</th>
-                  <th className="text-left py-3 px-4 font-medium">Amount</th>
-                  <th className="text-left py-3 px-4 font-medium">Balance</th>
-                  <th className="text-left py-3 px-4 font-medium">Description</th>
-                  <th className="text-left py-3 px-4 font-medium">Date</th>
+                  <th className="text-left py-3 px-4 font-medium">{t('adminPanel.referrals.user', 'User')}</th>
+                  <th className="text-left py-3 px-4 font-medium">{t('adminPanel.referrals.type', 'Type')}</th>
+                  <th className="text-left py-3 px-4 font-medium">{t('adminPanel.referrals.amount', 'Amount')}</th>
+                  <th className="text-left py-3 px-4 font-medium">{t('adminPanel.referrals.balance', 'Balance')}</th>
+                  <th className="text-left py-3 px-4 font-medium">{t('adminPanel.referrals.description', 'Description')}</th>
+                  <th className="text-left py-3 px-4 font-medium">{t('adminPanel.referrals.date', 'Date')}</th>
                 </tr>
               </thead>
               <tbody>
                 {transactions.map((tx) => (
-                  <tr key={tx.id} className="border-b text-sm">
+                  <tr key={tx.id} className="border-b text-sm hover:bg-muted/50 transition-colors">
                     <td className="py-3 px-4">
                       <div>
-                        <div className="font-medium">{tx.userName || 'Unknown'}</div>
+                        <div className="font-medium">{tx.userName || t('adminPanel.referrals.unknown', 'Unknown')}</div>
                         <div className="text-xs text-muted-foreground">{tx.userEmail}</div>
                       </div>
                     </td>
                     <td className="py-3 px-4">
-                      <Badge variant="outline" className="capitalize">
+                      <Badge variant="outline" className="capitalize dark:bg-slate-900">
                         {tx.type.replace('_', ' ')}
                       </Badge>
                     </td>
@@ -802,8 +805,6 @@ function AnalyticsTab() {
     queryKey: ['/api/admin/referrals/analytics'],
   });
 
-  console.log(analyticsData);
-
   const COLORS = ['var(--primary)', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
 
   if (isLoading) {
@@ -817,16 +818,21 @@ function AnalyticsTab() {
   }
 
   if (!analyticsData) {
-    return <div>No analytics data available</div>;
+    return (
+      <div className="text-center py-12 text-muted-foreground">
+        <TrendingUp className="h-12 w-12 mx-auto mb-4 opacity-20" />
+        <p>{t('adminPanel.referrals.noAnalytics', 'No analytics data available')}</p>
+      </div>
+    );
   }
 
   return (
     <div className="space-y-6">
       {/* Key Metrics */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card className="dark:bg-slate-950">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Conversion Rate</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('adminPanel.referrals.conversionRate', 'Conversion Rate')}</CardTitle>
             <Percent className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -836,9 +842,9 @@ function AnalyticsTab() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="dark:bg-slate-950">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg Reward</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('adminPanel.referrals.avgReward', 'Avg Reward')}</CardTitle>
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -849,9 +855,9 @@ function AnalyticsTab() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="dark:bg-slate-950">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg Time to Convert</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('adminPanel.referrals.avgTimeToConvert', 'Avg Time to Convert')}</CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -859,9 +865,9 @@ function AnalyticsTab() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="dark:bg-slate-950">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Most Active Month</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('adminPanel.referrals.mostActiveMonth', 'Most Active Month')}</CardTitle>
             <Gift className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -871,10 +877,10 @@ function AnalyticsTab() {
       </div>
 
       {/* Monthly Growth Chart */}
-      <Card>
+      <Card className="dark:bg-slate-950">
         <CardHeader>
-          <CardTitle>{t('adminPanel.referrals.monthlyGrowth')}</CardTitle>
-          <CardDescription>Referral trends over time</CardDescription>
+          <CardTitle>{t('adminPanel.referrals.monthlyGrowth', 'Monthly Growth')}</CardTitle>
+          <CardDescription>{t('adminPanel.referrals.trendsDescription', 'Referral trends over time')}</CardDescription>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={300}>
@@ -884,7 +890,7 @@ function AnalyticsTab() {
               <YAxis />
               <Tooltip />
               <Legend />
-              <Line type="monotone" dataKey="count" stroke="var(--primary)" name="Total Referrals" />
+              <Line type="monotone" dataKey="count" stroke="var(--primary)" name={t('adminPanel.referrals.totalReferralsChart', 'Total Referrals')} />
             </LineChart>
           </ResponsiveContainer>
         </CardContent>
@@ -892,10 +898,10 @@ function AnalyticsTab() {
 
       <div className="grid gap-6 md:grid-cols-2">
         {/* Top Referrers Chart */}
-        <Card>
+        <Card className="dark:bg-slate-950">
           <CardHeader>
-            <CardTitle>{t('adminPanel.referrals.topReferrers')}</CardTitle>
-            <CardDescription>Top 10 referrers by successful referrals</CardDescription>
+            <CardTitle>{t('adminPanel.referrals.topReferrers', 'Top Referrers')}</CardTitle>
+            <CardDescription>{t('adminPanel.referrals.topReferrersDescription', 'Top 10 referrers by successful referrals')}</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
@@ -904,17 +910,17 @@ function AnalyticsTab() {
                 <XAxis dataKey="userEmail" angle={-45} textAnchor="end" height={100} />
                 <YAxis />
                 <Tooltip />
-                <Bar dataKey="totalReferrals" fill="var(--primary)" name="Referrals" />
+                <Bar dataKey="totalReferrals" fill="var(--primary)" name={t('adminPanel.referrals.referrals', 'Referrals')} />
               </BarChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
 
         {/* Status Distribution Chart */}
-        <Card>
+        <Card className="dark:bg-slate-950">
           <CardHeader>
-            <CardTitle>Status Distribution</CardTitle>
-            <CardDescription>Referral status breakdown</CardDescription>
+            <CardTitle>{t('adminPanel.referrals.statusDistribution', 'Status Distribution')}</CardTitle>
+            <CardDescription>{t('adminPanel.referrals.statusDistributionDescription', 'Referral status breakdown')}</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
@@ -955,28 +961,28 @@ export default function AdminReferrals() {
         <title>
           {String(t('adminPanel.referrals.title', 'Referral Program'))} - Admin - eSIM Global
         </title>
-        <meta name="description" content="Manage the referral program" />
+        <meta name="description" content={t('adminPanel.referrals.metaDescription', 'Manage the referral program')} />
       </Helmet>
 
       <div className="space-y-6">
         <div className="flex flex-col md:flex-row items-start gap-3">
           <Gift className="h-8 w-8 text-primary" />
           <div>
-            <h1 className="text-3xl font-bold text-foreground">{t('adminPanel.referrals.title')}</h1>
-            <p className="text-muted-foreground">Manage and track your referral program</p>
+            <h1 className="text-3xl font-bold text-foreground">{t('adminPanel.referrals.title', 'Referral Program')}</h1>
+            <p className="text-muted-foreground">{t('adminPanel.referrals.manageDescription', 'Manage and track your referral program')}</p>
           </div>
         </div>
 
         <Tabs defaultValue="settings" className="space-y-6">
-          <TabsList className="flex w-full p-1 gap-1">
+          <TabsList className="flex w-full p-1 gap-1 dark:bg-slate-950">
             <TabsTrigger
               value="settings"
               className="flex-1 gap-1 sm:gap-2"
               data-testid="tab-settings"
             >
               <Settings className="h-4 w-4" />
-              <span className="hidden xs:inline text-sm">{t('adminPanel.referrals.settings')}</span>
-              <span className="xs:hidden text-xs">Settings</span>
+              <span className="hidden xs:inline text-sm">{t('adminPanel.referrals.settings', 'Settings')}</span>
+              <span className="xs:hidden text-xs">{t('adminPanel.referrals.settings', 'Settings')}</span>
             </TabsTrigger>
             <TabsTrigger
               value="referrals"
@@ -984,8 +990,8 @@ export default function AdminReferrals() {
               data-testid="tab-referrals"
             >
               <Users className="h-4 w-4" />
-              <span className="hidden xs:inline text-sm">{t('adminPanel.referrals.referrals')}</span>
-              <span className="xs:hidden text-xs">Referrals</span>
+              <span className="hidden xs:inline text-sm">{t('adminPanel.referrals.referrals', 'Referrals')}</span>
+              <span className="xs:hidden text-xs">{t('adminPanel.referrals.referrals', 'Referrals')}</span>
             </TabsTrigger>
             <TabsTrigger
               value="analytics"
@@ -993,8 +999,8 @@ export default function AdminReferrals() {
               data-testid="tab-analytics"
             >
               <TrendingUp className="h-4 w-4" />
-              <span className="hidden xs:inline text-sm">{t('adminPanel.referrals.analytics')}</span>
-              <span className="xs:hidden text-xs">Analytics</span>
+              <span className="hidden xs:inline text-sm">{t('adminPanel.referrals.analytics', 'Analytics')}</span>
+              <span className="xs:hidden text-xs">{t('adminPanel.referrals.analytics', 'Analytics')}</span>
             </TabsTrigger>
           </TabsList>
 

@@ -51,7 +51,7 @@ export default function Analytics() {
   }
 
   return (
-    <div className="p-6 lg:p-8 space-y-6">
+    <div className="p-6 lg:p-8 space-y-6 dark:bg-gray-950 dark:text-gray-100">
       {/* Header */}
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
@@ -62,7 +62,7 @@ export default function Analytics() {
             {t('admin.analytics.description', 'Detailed insights and performance metrics')}
           </p>
         </div>
-        <Button variant="outline" className="gap-2" data-testid="button-export-report">
+        <Button variant="outline" className="gap-2 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800" data-testid="button-export-report">
           <Download className="h-4 w-4" />
           {t('admin.analytics.exportReport', 'Export Report')}
         </Button>
@@ -70,7 +70,7 @@ export default function Analytics() {
 
       {/* Key Metrics */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-        <Card className="border-0 bg-gradient-to-br from-primary/5 to-indigo-50 dark:from-[#0a2e14]/30 dark:to-indigo-950/30 shadow-lg p-6" data-testid="card-analytics-revenue">
+        <Card className="border-0 bg-gradient-to-br from-primary/5 to-indigo-50 dark:from-[#0a2e14]/30 dark:to-indigo-950/30 dark:bg-gray-900 shadow-lg p-6" data-testid="card-analytics-revenue">
           <div className="flex items-start justify-between">
             <div>
               <p className="text-sm font-medium text-primary-second dark:text-[var(--primary-light)]">{t('admin.analytics.totalRevenue', 'Total Revenue')}</p>
@@ -87,7 +87,7 @@ export default function Analytics() {
           </div>
         </Card>
 
-        <Card className="border-0 bg-gradient-to-br from-emerald-50 to-primary/5 dark:from-emerald-950/30 dark:to-[#0a2e14]/30 shadow-lg p-6">
+        <Card className="border-0 bg-gradient-to-br from-emerald-50 to-primary/5 dark:from-emerald-950/30 dark:to-[#0a2e14]/30 dark:bg-gray-900 shadow-lg p-6">
           <div className="flex items-start justify-between">
             <div>
               <p className="text-sm font-medium text-emerald-600 dark:text-emerald-400">{t('admin.analytics.totalOrders', 'Total Orders')}</p>
@@ -104,7 +104,7 @@ export default function Analytics() {
           </div>
         </Card>
 
-        <Card className="border-0 bg-gradient-to-br from-primary/5 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 shadow-lg p-6">
+        <Card className="border-0 bg-gradient-to-br from-primary/5 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 dark:bg-gray-900 shadow-lg p-6">
           <div className="flex items-start justify-between">
             <div>
               <p className="text-sm font-medium text-primary-second dark:text-[var(--primary-light)]">{t('admin.analytics.totalCustomers', 'Total Customers')}</p>
@@ -121,7 +121,7 @@ export default function Analytics() {
           </div>
         </Card>
 
-        <Card className="border-0 bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-950/30 dark:to-rose-950/30 shadow-lg p-6">
+        <Card className="border-0 bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-950/30 dark:to-rose-950/30 dark:bg-gray-900 shadow-lg p-6">
           <div className="flex items-start justify-between">
             <div>
               <p className="text-sm font-medium text-red-600 dark:text-red-400">{t('admin.analytics.paidToProviders', 'Paid to Providers')}</p>
@@ -148,7 +148,7 @@ export default function Analytics() {
           </div>
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {stats.providerStats.map((provider) => (
-              <Card key={provider.id} className="border-0 shadow-lg" data-testid={`card-provider-${provider.slug}`}>
+              <Card key={provider.id} className="border-0 shadow-lg dark:bg-gray-900" data-testid={`card-provider-${provider.slug}`}>
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-semibold text-slate-900 dark:text-white capitalize">{provider.name}</h3>
@@ -169,7 +169,7 @@ export default function Analytics() {
                         ${provider.totalCost.toFixed(2)}
                       </span>
                     </div>
-                    <div className="flex items-center justify-between pt-2 border-t">
+                    <div className="flex items-center justify-between pt-2 border-t dark:border-gray-800">
                       <span className="text-sm font-medium text-slate-900 dark:text-white">{t('admin.analytics.profitLabel', 'Profit')}</span>
                       <span className="text-sm font-bold text-slate-900 dark:text-white" data-testid={`text-provider-profit-${provider.slug}`}>
                         ${(provider.totalRevenue - provider.totalCost).toFixed(2)}
@@ -186,7 +186,7 @@ export default function Analytics() {
       {/* Charts */}
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Revenue Trend */}
-        <Card className="border-0 shadow-lg">
+        <Card className="border-0 shadow-lg dark:bg-gray-900">
           <div className="p-6 border-b border-slate-200 dark:border-slate-800">
             <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{t('admin.analytics.revenueOverTime', 'Revenue Over Time')}</h3>
             <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">{t('admin.analytics.monthlyRevenueTrend', 'Monthly revenue trend')}</p>
@@ -208,6 +208,7 @@ export default function Analytics() {
                     backgroundColor: 'white',
                     border: '1px solid #e2e8f0',
                     borderRadius: '12px',
+                    color: '#000'
                   }}
                   formatter={(value: number) => [`$${value.toFixed(2)}`, "Revenue"]}
                 />
@@ -224,7 +225,7 @@ export default function Analytics() {
         </Card>
 
         {/* Top Destinations Revenue */}
-        <Card className="border-0 shadow-lg">
+        <Card className="border-0 shadow-lg dark:bg-gray-900">
           <div className="p-6 border-b border-slate-200 dark:border-slate-800">
             <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{t('admin.analytics.topDestinations', 'Top Destinations by Revenue')}</h3>
             <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">{t('admin.analytics.highestEarning', 'Highest earning markets')}</p>
@@ -246,6 +247,7 @@ export default function Analytics() {
                     backgroundColor: 'white',
                     border: '1px solid #e2e8f0',
                     borderRadius: '12px',
+                    color: '#000'
                   }}
                   formatter={(value: number) => [`$${value.toFixed(2)}`, "Revenue"]}
                 />
@@ -257,7 +259,7 @@ export default function Analytics() {
       </div>
 
       {/* Performance Summary */}
-      <Card className="border-0 shadow-lg">
+      <Card className="border-0 shadow-lg dark:bg-gray-900">
         <div className="p-6 border-b border-slate-200 dark:border-slate-800">
           <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{t('admin.analytics.performanceSummary', 'Performance Summary')}</h3>
           <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">{t('admin.analytics.keyMetrics', 'Key metrics and insights')}</p>

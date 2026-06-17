@@ -69,7 +69,7 @@ export default function AdminAnalytics() {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 dark:bg-gray-950 dark:text-gray-100 p-6">
       <Helmet>
         <title>Analytics - Admin Dashboard</title>
       </Helmet>
@@ -83,7 +83,7 @@ export default function AdminAnalytics() {
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <div className="overflow-x-auto scrollbar-hide">
-          <TabsList className="flex min-w-max gap-1 p-1" data-testid="tabs-analytics">
+          <TabsList className="flex min-w-max gap-1 p-1 dark:bg-gray-800" data-testid="tabs-analytics">
             <TabsTrigger
               value="overview"
               className="whitespace-nowrap px-3 py-2 text-sm"
@@ -123,7 +123,7 @@ export default function AdminAnalytics() {
           ) : (
             <>
               <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-                <Card data-testid="card-total-revenue">
+                <Card data-testid="card-total-revenue" className="dark:bg-gray-900">
                   <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
                     <DollarSign className="h-4 w-4 text-muted-foreground" />
@@ -135,7 +135,7 @@ export default function AdminAnalytics() {
                   </CardContent>
                 </Card>
 
-                <Card data-testid="card-active-users">
+                <Card data-testid="card-active-users" className="dark:bg-gray-900">
                   <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Active Users (30d)</CardTitle>
                     <Users className="h-4 w-4 text-muted-foreground" />
@@ -147,7 +147,7 @@ export default function AdminAnalytics() {
                   </CardContent>
                 </Card>
 
-                <Card data-testid="card-conversion-rate">
+                <Card data-testid="card-conversion-rate" className="dark:bg-gray-900">
                   <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Conversion Rate</CardTitle>
                     <TrendingUp className="h-4 w-4 text-muted-foreground" />
@@ -159,7 +159,7 @@ export default function AdminAnalytics() {
                   </CardContent>
                 </Card>
 
-                <Card data-testid="card-avg-order-value">
+                <Card data-testid="card-avg-order-value" className="dark:bg-gray-900">
                   <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Avg Order Value</CardTitle>
                     <ShoppingCart className="h-4 w-4 text-muted-foreground" />
@@ -181,17 +181,23 @@ export default function AdminAnalytics() {
               <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
             </div>
           ) : (
-            <Card data-testid="card-conversion-funnel">
+            <Card data-testid="card-conversion-funnel" className="dark:bg-gray-900">
               <CardHeader>
                 <CardTitle>Conversion Funnel</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={400}>
                   <BarChart data={funnelData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
+                    <CartesianGrid strokeDasharray="3 3" className="dark:stroke-gray-700" />
+                    <XAxis dataKey="name" className="dark:text-gray-300" />
+                    <YAxis className="dark:text-gray-300" />
+                    <Tooltip
+                      contentStyle={{
+                        backgroundColor: '#111827',
+                        borderColor: '#374151',
+                        color: '#f3f4f6'
+                      }}
+                    />
                     <Legend />
                     <Bar dataKey="value" fill="hsl(var(--primary))" />
                   </BarChart>
@@ -207,7 +213,7 @@ export default function AdminAnalytics() {
               <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
             </div>
           ) : (
-            <Card data-testid="card-segments">
+            <Card data-testid="card-segments" className="dark:bg-gray-900">
               <CardHeader>
                 <CardTitle>Customer Segments</CardTitle>
               </CardHeader>
@@ -217,7 +223,7 @@ export default function AdminAnalytics() {
                     {segments.map((segment) => (
                       <div
                         key={segment.id}
-                        className="flex items-center justify-between p-4 border rounded-lg"
+                        className="flex items-center justify-between p-4 border rounded-lg dark:border-gray-700"
                         data-testid={`segment-${segment.id}`}
                       >
                         <div>
@@ -249,7 +255,7 @@ export default function AdminAnalytics() {
               <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
             </div>
           ) : (
-            <Card data-testid="card-abandoned-carts">
+            <Card data-testid="card-abandoned-carts" className="dark:bg-gray-900">
               <CardHeader>
                 <CardTitle>Abandoned Carts</CardTitle>
               </CardHeader>
@@ -259,7 +265,7 @@ export default function AdminAnalytics() {
                     {abandonedCarts.map((cart: any) => (
                       <div
                         key={cart.id}
-                        className="flex items-center justify-between p-4 border rounded-lg"
+                        className="flex items-center justify-between p-4 border rounded-lg dark:border-gray-700"
                         data-testid={`cart-${cart.id}`}
                       >
                         <div>

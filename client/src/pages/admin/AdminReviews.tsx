@@ -281,7 +281,7 @@ export default function AdminReviews() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 dark:bg-gray-950 dark:text-gray-100 p-6">
       {/* Header */}
       <div className="flex flex-col md:flex-row gap-3 justify-between items-center">
         <div>
@@ -301,7 +301,7 @@ export default function AdminReviews() {
       {/* Statistics Cards */}
       {stats && (
         <div className="grid gap-4 md:grid-cols-4">
-          <Card>
+          <Card className="dark:bg-gray-900">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 {t('reviews.admin.totalReviews', 'Total Reviews')}
@@ -315,7 +315,7 @@ export default function AdminReviews() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="dark:bg-gray-900">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 {t('reviews.admin.pendingCount', 'Pending Approval')}
@@ -324,7 +324,7 @@ export default function AdminReviews() {
             </CardHeader>
             <CardContent>
               <div
-                className="text-2xl font-bold text-orange-600"
+                className="text-2xl font-bold text-orange-600 dark:text-orange-400"
                 data-testid="text-pending-reviews"
               >
                 {stats.pending}
@@ -332,7 +332,7 @@ export default function AdminReviews() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="dark:bg-gray-900">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 {t('reviews.admin.averageRating', 'Platform Average')}
@@ -346,7 +346,7 @@ export default function AdminReviews() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="dark:bg-gray-900">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 {t('reviews.admin.recentReviews', 'Recent (7 days)')}
@@ -363,7 +363,7 @@ export default function AdminReviews() {
       )}
 
       {/* Filters and Search */}
-      <Card>
+      <Card className="dark:bg-gray-900">
         <CardContent className="p-6">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1">
@@ -373,16 +373,16 @@ export default function AdminReviews() {
                   placeholder="Search by package name or customer email..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10"
+                  className="pl-10 dark:bg-gray-800 dark:border-gray-700"
                   data-testid="input-search"
                 />
               </div>
             </div>
             <Select value={ratingFilter} onValueChange={setRatingFilter}>
-              <SelectTrigger className="w-[180px]" data-testid="select-rating-filter">
+              <SelectTrigger className="w-[180px] dark:bg-gray-800 dark:border-gray-700" data-testid="select-rating-filter">
                 <SelectValue placeholder="Filter by rating" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
                 <SelectItem value="all">All Ratings</SelectItem>
                 <SelectItem value="5">5 Stars</SelectItem>
                 <SelectItem value="4">4 Stars</SelectItem>
@@ -392,10 +392,10 @@ export default function AdminReviews() {
               </SelectContent>
             </Select>
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-[180px]" data-testid="select-sort">
+              <SelectTrigger className="w-[180px] dark:bg-gray-800 dark:border-gray-700" data-testid="select-sort">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
                 <SelectItem value="newest">Newest First</SelectItem>
                 <SelectItem value="oldest">Oldest First</SelectItem>
                 <SelectItem value="rating-high">Highest Rating</SelectItem>
@@ -408,7 +408,7 @@ export default function AdminReviews() {
 
       {/* Reviews Tabs */}
       <Tabs value={statusFilter} onValueChange={setStatusFilter}>
-        <TabsList>
+        <TabsList className="dark:bg-gray-800">
           <TabsTrigger value="pending" data-testid="tab-pending">
             {t('reviews.admin.pendingApproval', 'Pending Approval')}
             {stats && stats.pending > 0 && (
@@ -433,12 +433,12 @@ export default function AdminReviews() {
           ) : reviewsData && reviewsData.reviews && reviewsData.reviews.length > 0 ? (
             <div className="space-y-4">
               {reviewsData.reviews.map((review: any) => (
-                <Card key={review.id} data-testid={`card-review-${review.id}`}>
+                <Card key={review.id} data-testid={`card-review-${review.id}`} className="dark:bg-gray-900">
                   <CardContent className="p-6">
                     <div className="flex flex-col md:flex-row gap-6">
                       {/* Package Thumbnail */}
                       <div className="flex-shrink-0">
-                        <div className="w-24 h-24 rounded-md bg-muted flex items-center justify-center text-4xl">
+                        <div className="w-24 h-24 rounded-md bg-muted dark:bg-gray-800 flex items-center justify-center text-4xl">
                           {review.package?.destination?.flagEmoji || '🌍'}
                         </div>
                       </div>
@@ -508,7 +508,7 @@ export default function AdminReviews() {
                           <div className="grid md:grid-cols-2 gap-4 mb-4">
                             {review.pros && review.pros.length > 0 && (
                               <div>
-                                <p className="text-sm font-semibold text-green-600 mb-1">Pros:</p>
+                                <p className="text-sm font-semibold text-green-600 dark:text-green-400 mb-1">Pros:</p>
                                 <ul className="text-sm text-muted-foreground list-disc list-inside">
                                   {review.pros.slice(0, 2).map((pro: string, index: number) => (
                                     <li key={index}>{pro}</li>
@@ -518,7 +518,7 @@ export default function AdminReviews() {
                             )}
                             {review.cons && review.cons.length > 0 && (
                               <div>
-                                <p className="text-sm font-semibold text-red-600 mb-1">Cons:</p>
+                                <p className="text-sm font-semibold text-red-600 dark:text-red-400 mb-1">Cons:</p>
                                 <ul className="text-sm text-muted-foreground list-disc list-inside">
                                   {review.cons.slice(0, 2).map((con: string, index: number) => (
                                     <li key={index}>{con}</li>
@@ -545,6 +545,7 @@ export default function AdminReviews() {
                             size="sm"
                             variant="outline"
                             onClick={() => handleEdit(review)}
+                            className="dark:border-gray-700 dark:hover:bg-gray-800"
                             data-testid={`button-edit-${review.id}`}
                           >
                             <Edit className="h-4 w-4 mr-2" />
@@ -574,6 +575,7 @@ export default function AdminReviews() {
                     variant="outline"
                     onClick={() => setPage(page - 1)}
                     disabled={page === 1}
+                    className="dark:border-gray-700"
                     data-testid="button-prev-page"
                   >
                     Previous
@@ -585,6 +587,7 @@ export default function AdminReviews() {
                     variant="outline"
                     onClick={() => setPage(page + 1)}
                     disabled={page >= reviewsData.totalPages}
+                    className="dark:border-gray-700"
                     data-testid="button-next-page"
                   >
                     Next
@@ -593,7 +596,7 @@ export default function AdminReviews() {
               )}
             </div>
           ) : (
-            <Card>
+            <Card className="dark:bg-gray-900">
               <CardContent className="p-12 text-center">
                 <MessageSquare className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
                 <h3 className="text-lg font-semibold mb-2">No reviews found</h3>
@@ -610,7 +613,7 @@ export default function AdminReviews() {
 
       {/* Create / Edit Review Dialog */}
       <Dialog open={createDialogOpen} onOpenChange={setCreateDialogOpen}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl dark:bg-gray-900 dark:border-gray-800">
           <DialogHeader>
             <DialogTitle>{editReviewId ? 'Edit Review' : 'Add New Review'}</DialogTitle>
             <DialogDescription>
@@ -625,6 +628,7 @@ export default function AdminReviews() {
                   value={reviewForm.manualPackageName}
                   onChange={(e) => setReviewForm({ ...reviewForm, manualPackageName: e.target.value })}
                   placeholder="e.g. eSIM France"
+                  className="dark:bg-gray-800 dark:border-gray-700"
                   data-testid="input-manual-package"
                 />
               </div>
@@ -634,6 +638,7 @@ export default function AdminReviews() {
                   value={reviewForm.manualCustomerName}
                   onChange={(e) => setReviewForm({ ...reviewForm, manualCustomerName: e.target.value })}
                   placeholder="e.g. John Doe"
+                  className="dark:bg-gray-800 dark:border-gray-700"
                   data-testid="input-manual-customer"
                 />
               </div>
@@ -644,10 +649,10 @@ export default function AdminReviews() {
                 value={reviewForm.rating}
                 onValueChange={(value) => setReviewForm({ ...reviewForm, rating: value })}
               >
-                <SelectTrigger data-testid="select-rating">
+                <SelectTrigger data-testid="select-rating" className="dark:bg-gray-800 dark:border-gray-700">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
                   <SelectItem value="5">5 Stars - Excellent</SelectItem>
                   <SelectItem value="4">4 Stars - Good</SelectItem>
                   <SelectItem value="3">3 Stars - Average</SelectItem>
@@ -661,6 +666,7 @@ export default function AdminReviews() {
               <Input
                 value={reviewForm.title}
                 onChange={(e) => setReviewForm({ ...reviewForm, title: e.target.value })}
+                className="dark:bg-gray-800 dark:border-gray-700"
                 data-testid="input-review-title"
                 placeholder="Review title"
               />
@@ -670,6 +676,7 @@ export default function AdminReviews() {
               <Textarea
                 value={reviewForm.comment}
                 onChange={(e) => setReviewForm({ ...reviewForm, comment: e.target.value })}
+                className="dark:bg-gray-800 dark:border-gray-700"
                 data-testid="input-review-comment"
                 placeholder="Write your review..."
                 rows={4}
@@ -677,7 +684,7 @@ export default function AdminReviews() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setCreateDialogOpen(false)}>
+            <Button variant="outline" onClick={() => setCreateDialogOpen(false)} className="dark:border-gray-700">
               Cancel
             </Button>
             <Button onClick={handleCreateReview} data-testid="button-submit-review">
@@ -689,7 +696,7 @@ export default function AdminReviews() {
 
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={deleteReviewId !== null} onOpenChange={() => setDeleteReviewId(null)}>
-        <AlertDialogContent>
+        <AlertDialogContent className="dark:bg-gray-900 dark:border-gray-800">
           <AlertDialogHeader>
             <AlertDialogTitle>
               {t('reviews.admin.confirmDelete', 'Delete this review?')}
@@ -699,7 +706,7 @@ export default function AdminReviews() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel data-testid="button-cancel-delete">Cancel</AlertDialogCancel>
+            <AlertDialogCancel className="dark:border-gray-700" data-testid="button-cancel-delete">Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={confirmDelete}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
