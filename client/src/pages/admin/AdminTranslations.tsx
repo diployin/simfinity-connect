@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -360,10 +360,10 @@ export default function AdminTranslations() {
 
   return (
     <>
-      <div className="space-y-6">
+      <div className="space-y-6 p-6 dark:bg-gray-950">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-xl sm:text-2xl font-bold tracking-tight flex items-center gap-2">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight flex items-center gap-2 text-foreground">
               <FileText className="h-5 w-5 sm:h-6 sm:w-6" />
               Translation Editor
             </h1>
@@ -398,7 +398,7 @@ export default function AdminTranslations() {
               disabled={!selectedLanguageId}
               data-testid="button-import"
               size="sm"
-              className="h-9"
+              className="h-9 dark:border-gray-700"
             >
               <Upload className="h-4 w-4 mr-2" />
               Import
@@ -410,7 +410,7 @@ export default function AdminTranslations() {
               disabled={!selectedLanguageId}
               data-testid="button-export"
               size="sm"
-              className="h-9"
+              className="h-9 dark:border-gray-700"
             >
               <Download className="h-4 w-4 mr-2" />
               Export
@@ -418,7 +418,7 @@ export default function AdminTranslations() {
           </div>
         </div>
 
-        <Card>
+        <Card className="dark:bg-gray-900">
           <CardHeader>
             <CardTitle>Select Language</CardTitle>
           </CardHeader>
@@ -428,7 +428,7 @@ export default function AdminTranslations() {
                 <Button
                   key={lang.id}
                   variant={selectedLanguageId === lang.id ? 'default' : 'outline'}
-                  className="flex items-center gap-2 justify-start"
+                  className={`flex items-center gap-2 justify-start ${selectedLanguageId !== lang.id ? 'dark:border-gray-700' : ''}`}
                   onClick={() => setSelectedLanguageId(lang.id)}
                   data-testid={`button-select-lang-${lang.code}`}
                 >
@@ -439,7 +439,7 @@ export default function AdminTranslations() {
                   />
                   <span>{lang.name}</span>
                   {lang.isDefault && (
-                    <Badge variant="secondary" className="text-xs">
+                    <Badge variant="secondary" className="text-xs dark:bg-gray-800 dark:text-gray-300">
                       Default
                     </Badge>
                   )}
@@ -451,7 +451,7 @@ export default function AdminTranslations() {
 
         {selectedLanguageId && stats && (
           <div className="grid gap-4 md:grid-cols-4">
-            <Card>
+            <Card className="dark:bg-gray-900">
               <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Total Keys</CardTitle>
                 <FileText className="h-4 w-4 text-muted-foreground" />
@@ -460,7 +460,7 @@ export default function AdminTranslations() {
                 <div className="text-2xl font-bold">{stats.total}</div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="dark:bg-gray-900">
               <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Translated</CardTitle>
                 <Check className="h-4 w-4 text-muted-foreground" />
@@ -469,7 +469,7 @@ export default function AdminTranslations() {
                 <div className="text-2xl font-bold text-green-600">{stats.translated}</div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="dark:bg-gray-900">
               <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Missing</CardTitle>
                 <AlertCircle className="h-4 w-4 text-muted-foreground" />
@@ -478,7 +478,7 @@ export default function AdminTranslations() {
                 <div className="text-2xl font-bold text-amber-600">{stats.missing}</div>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="dark:bg-gray-900">
               <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium">Completion</CardTitle>
                 <Globe className="h-4 w-4 text-muted-foreground" />
@@ -489,7 +489,7 @@ export default function AdminTranslations() {
                 </div>
                 <Progress
                   value={Math.min(completionPercentage, 100)}
-                  className="mt-2 [&>div]:bg-[var(--primary)]"
+                  className="mt-2 dark:bg-gray-800 [&>div]:bg-[var(--primary)]"
                 />
               </CardContent>
             </Card>
@@ -497,7 +497,7 @@ export default function AdminTranslations() {
         )}
 
         {selectedLanguageId && (
-          <Card>
+          <Card className="dark:bg-gray-900">
             <CardHeader>
               <div className="flex flex-col md:flex-row md:items-center gap-4">
                 <CardTitle className="flex items-center gap-2">
@@ -522,7 +522,7 @@ export default function AdminTranslations() {
                       placeholder="Search keys or values..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-8 w-64"
+                      className="pl-8 w-64 dark:bg-gray-800 dark:border-gray-700"
                       data-testid="input-search-translations"
                     />
                   </div>
@@ -531,6 +531,7 @@ export default function AdminTranslations() {
                     size="sm"
                     onClick={() => setShowMissingOnly(!showMissingOnly)}
                     data-testid="button-show-missing"
+                    className="dark:border-gray-700"
                   >
                     <AlertCircle className="h-4 w-4 mr-1" />
                     Missing Only
@@ -540,7 +541,7 @@ export default function AdminTranslations() {
             </CardHeader>
             <CardContent>
               <Tabs value={selectedNamespace} onValueChange={setSelectedNamespace}>
-                <TabsList className="mb-4">
+                <TabsList className="mb-4 dark:bg-gray-800">
                   {NAMESPACES.map((ns) => {
                     const nsTranslations = translations.filter((t) => t.namespace === ns);
                     const nsMissing = nsTranslations.filter((t) => t.isMissing).length;
@@ -568,7 +569,7 @@ export default function AdminTranslations() {
                     ) : (
                       <Table>
                         <TableHeader>
-                          <TableRow>
+                          <TableRow className="dark:border-gray-700">
                             <TableHead className="w-1/3">Key</TableHead>
                             <TableHead className="w-1/2">Translation</TableHead>
                             <TableHead className="w-24">Status</TableHead>
@@ -580,6 +581,7 @@ export default function AdminTranslations() {
                             <TableRow
                               key={translation.id}
                               data-testid={`row-translation-${translation.key}`}
+                              className="dark:border-gray-700"
                             >
                               <TableCell className="font-mono text-sm">{translation.key}</TableCell>
                               <TableCell>
@@ -587,7 +589,7 @@ export default function AdminTranslations() {
                                   <Textarea
                                     value={editValue}
                                     onChange={(e) => setEditValue(e.target.value)}
-                                    className="min-h-[60px]"
+                                    className="min-h-[60px] dark:bg-gray-800 dark:border-gray-700"
                                     placeholder="Enter translation..."
                                     dir={selectedLanguage?.isRTL ? 'rtl' : 'ltr'}
                                     data-testid="textarea-translation"
@@ -613,7 +615,7 @@ export default function AdminTranslations() {
                                 {translation.isMissing ? (
                                   <Badge
                                     variant="outline"
-                                    className="text-amber-600 border-amber-300"
+                                    className="text-amber-600 border-amber-300 dark:border-amber-700"
                                   >
                                     <AlertCircle className="h-3 w-3 mr-1" />
                                     Missing
@@ -621,7 +623,7 @@ export default function AdminTranslations() {
                                 ) : (
                                   <Badge
                                     variant="outline"
-                                    className="text-green-600 border-green-300"
+                                    className="text-green-600 border-green-300 dark:border-green-800"
                                   >
                                     <Check className="h-3 w-3 mr-1" />
                                     Done
@@ -690,13 +692,13 @@ export default function AdminTranslations() {
         )}
 
         <Dialog open={showImportDialog} onOpenChange={setShowImportDialog}>
-          <DialogContent className="max-w-2xl">
+          <DialogContent className="max-w-2xl dark:bg-gray-900 dark:border-gray-800">
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
                 <FileUp className="h-5 w-5" />
                 Import Translations
               </DialogTitle>
-              <DialogDescription>
+              <DialogDescription className="dark:text-gray-400">
                 Import translations from a JSON or CSV file. Existing translations will be updated.
               </DialogDescription>
             </DialogHeader>
@@ -704,12 +706,12 @@ export default function AdminTranslations() {
             <div className="space-y-4">
               <div className="flex items-center gap-4">
                 <Label>Format Detected:</Label>
-                <Badge variant="outline">{importFormat.toUpperCase()}</Badge>
+                <Badge variant="outline" className="dark:border-gray-700">{importFormat.toUpperCase()}</Badge>
               </div>
 
               <div className="space-y-2">
                 <Label>Preview (first 500 characters)</Label>
-                <div className="bg-muted p-3 rounded-md font-mono text-xs max-h-48 overflow-auto whitespace-pre-wrap">
+                <div className="bg-muted dark:bg-gray-800 p-3 rounded-md font-mono text-xs max-h-48 overflow-auto whitespace-pre-wrap">
                   {importData.slice(0, 500)}
                   {importData.length > 500 && '...'}
                 </div>
@@ -721,7 +723,7 @@ export default function AdminTranslations() {
                   <strong>JSON:</strong> Nested object with namespaces as keys, containing key-value
                   pairs.
                 </p>
-                <pre className="bg-background p-2 rounded text-xs overflow-auto">
+                <pre className="bg-background dark:bg-gray-900 p-2 rounded text-xs overflow-auto">
                   {`{
   "common": {
     "button.save": "Save",
@@ -735,7 +737,7 @@ export default function AdminTranslations() {
                 <p className="text-muted-foreground mt-2">
                   <strong>CSV:</strong> Two columns - key and value, with header row.
                 </p>
-                <pre className="bg-background p-2 rounded text-xs mt-1">
+                <pre className="bg-background dark:bg-gray-900 p-2 rounded text-xs mt-1">
                   {`key,value
 common.button.save,Save
 common.button.cancel,Cancel`}
@@ -748,6 +750,7 @@ common.button.cancel,Cancel`}
                 variant="outline"
                 onClick={() => setShowImportDialog(false)}
                 data-testid="button-import-cancel"
+                className="dark:border-gray-700"
               >
                 Cancel
               </Button>
@@ -763,13 +766,13 @@ common.button.cancel,Cancel`}
         </Dialog>
 
         <Dialog open={showAddKeyDialog} onOpenChange={setShowAddKeyDialog}>
-          <DialogContent>
+          <DialogContent className="dark:bg-gray-900 dark:border-gray-800">
             <DialogHeader>
               <DialogTitle className="flex items-center gap-2">
                 <Plus className="h-5 w-5" />
                 Add Translation Key
               </DialogTitle>
-              <DialogDescription>
+              <DialogDescription className="dark:text-gray-400">
                 Create a new translation key. This will create the key for all languages.
               </DialogDescription>
             </DialogHeader>
@@ -781,10 +784,10 @@ common.button.cancel,Cancel`}
                   value={newKeyData.namespace}
                   onValueChange={(value) => setNewKeyData({ ...newKeyData, namespace: value })}
                 >
-                  <SelectTrigger data-testid="select-namespace">
+                  <SelectTrigger data-testid="select-namespace" className="dark:bg-gray-800 dark:border-gray-700">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
                     {NAMESPACES.map((ns) => (
                       <SelectItem key={ns} value={ns}>
                         {ns}
@@ -802,6 +805,7 @@ common.button.cancel,Cancel`}
                   value={newKeyData.key}
                   onChange={(e) => setNewKeyData({ ...newKeyData, key: e.target.value })}
                   data-testid="input-new-key"
+                  className="dark:bg-gray-800 dark:border-gray-700"
                 />
                 <p className="text-xs text-muted-foreground">
                   Use dot notation for nested keys (e.g., home.hero.title)
@@ -816,10 +820,11 @@ common.button.cancel,Cancel`}
                   value={newKeyData.description}
                   onChange={(e) => setNewKeyData({ ...newKeyData, description: e.target.value })}
                   data-testid="input-key-description"
+                  className="dark:bg-gray-800 dark:border-gray-700"
                 />
               </div>
 
-              <div className="bg-muted p-3 rounded-md">
+              <div className="bg-muted dark:bg-gray-800 p-3 rounded-md">
                 <p className="text-sm font-medium">Full Key Path:</p>
                 <code className="text-sm text-muted-foreground">
                   {newKeyData.namespace}.{newKeyData.key || '<key>'}
@@ -835,6 +840,7 @@ common.button.cancel,Cancel`}
                   setNewKeyData({ namespace: 'common', key: '', description: '' });
                 }}
                 data-testid="button-add-key-cancel"
+                className="dark:border-gray-700"
               >
                 Cancel
               </Button>

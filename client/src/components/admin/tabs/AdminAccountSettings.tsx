@@ -37,7 +37,7 @@ export function AdminAccountSettings() {
     });
 
     return (
-        <Card className="border-0 shadow-xl">
+        <Card className="border-0 shadow-xl dark:bg-gray-900">
             <CardHeader className="flex flex-row items-center gap-3">
                 <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-[var(--primary-hex)] to-[var(--primary-second-hex)] flex items-center justify-center">
                     <Shield className="h-6 w-6 text-black" />
@@ -48,7 +48,7 @@ export function AdminAccountSettings() {
             <CardContent className="space-y-6 p-8">
                 <div className="space-y-2">
                     <Label>Email</Label>
-                    <Input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="New email" />
+                    <Input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="New email" className="dark:bg-gray-800 dark:border-gray-700" />
                 </div>
 
                 <div className="space-y-2">
@@ -58,6 +58,7 @@ export function AdminAccountSettings() {
                         value={currentPassword}
                         onChange={(e) => setCurrentPassword(e.target.value)}
                         placeholder="Enter current password"
+                        className="dark:bg-gray-800 dark:border-gray-700"
                     />
                 </div>
 
@@ -68,6 +69,7 @@ export function AdminAccountSettings() {
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
                         placeholder="New password (min 6 chars)"
+                        className="dark:bg-gray-800 dark:border-gray-700"
                     />
                 </div>
 

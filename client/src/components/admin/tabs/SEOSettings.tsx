@@ -8,8 +8,6 @@ import {
     Layout,
     Tag,
     Loader2,
-    CheckCircle,
-    AlertCircle,
 } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -138,8 +136,8 @@ export function SEOSettings() {
     };
 
     return (
-        <div className="space-y-6 pb-10">
-            <Card className="border-0 shadow-xl overflow-hidden hover:shadow-[0_25px_50px_-12px_color-mix(in_srgb,var(--primary-hex)_30%,transparent)] transition-all duration-500">
+        <div className="space-y-6 pb-10 dark:bg-gray-950 p-6">
+            <Card className="border-0 shadow-xl overflow-hidden hover:shadow-[0_25px_50px_-12px_color-mix(in_srgb,var(--primary-hex)_30%,transparent)] transition-all duration-500 dark:bg-gray-900">
                 <CardHeader className="bg-gradient-to-r from-[var(--primary-hex)]/10 via-transparent to-transparent">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                         {/* Icon Container: Matching your brand style */}
@@ -154,7 +152,7 @@ export function SEOSettings() {
                             </CardTitle>
 
                             {/* Description: Polished typography and opacity */}
-                            <CardDescription className="text-sm sm:text-base md:text-lg text-[var(--primary-hex)]/70 leading-relaxed">
+                            <CardDescription className="text-sm sm:text-base md:text-lg text-[var(--primary-hex)]/70 leading-relaxed dark:text-gray-400">
                                 {t(
                                     'adminPanel.admin.settings.seo.description',
                                     'Configure global search engine optimization and social sharing defaults'
@@ -177,7 +175,7 @@ export function SEOSettings() {
                                     value={defaultTitle}
                                     onChange={(e) => setDefaultTitle(e.target.value)}
                                     placeholder="e.g., Best Travel eSIM | Stay Connected"
-                                    className="h-14 ring-2 ring-[var(--primary-hex)]/10 focus:ring-[var(--primary-hex)]"
+                                    className="h-14 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] dark:bg-gray-800 dark:border-gray-700"
                                 />
                                 <p className="text-xs text-muted-foreground italic">{t("adminPanel.admin.settings.seo.titleHelp","Recommended: 50-60 characters")}</p>
                             </div>
@@ -191,7 +189,7 @@ export function SEOSettings() {
                                     value={titleSuffix}
                                     onChange={(e) => setTitleSuffix(e.target.value)}
                                     placeholder="e.g., | eSIM Connect"
-                                    className="h-12 ring-2 ring-[var(--primary-hex)]/10 focus:ring-[var(--primary-hex)]"
+                                    className="h-12 ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] dark:bg-gray-800 dark:border-gray-700"
                                 />
                                 <p className="text-xs text-muted-foreground italic">{t("adminPanel.admin.settings.seo.titleSuffixHelp","Appended to the end of all page titles")}
 </p>
@@ -206,7 +204,7 @@ export function SEOSettings() {
                                     value={defaultKeywords}
                                     onChange={(e) => setDefaultKeywords(e.target.value)}
                                     placeholder="eSIM, travel, international data, roaming"
-                                    className="ring-2 ring-[var(--primary-hex)]/10 focus:ring-[var(--primary-hex)] min-h-[100px]"
+                                    className="ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] min-h-[100px] dark:bg-gray-800 dark:border-gray-700"
                                 />
                             </div>
                         </div>
@@ -221,7 +219,7 @@ export function SEOSettings() {
                                     value={defaultDescription}
                                     onChange={(e) => setDefaultDescription(e.target.value)}
                                     placeholder="Get instant connectivity in 200+ destinations with our travel eSIMs..."
-                                    className="ring-2 ring-[var(--primary-hex)]/10 focus:ring-[var(--primary-hex)] min-h-[148px]"
+                                    className="ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] min-h-[148px] dark:bg-gray-800 dark:border-gray-700"
                                 />
                                 <p className="text-xs text-muted-foreground italic">{t("adminPanel.admin.settings.seo.descriptionHelp","Recommended: 150-160 characters")}</p>
                             </div>
@@ -235,18 +233,18 @@ export function SEOSettings() {
                                     value={twitterHandle}
                                     onChange={(e) => setTwitterHandle(e.target.value)}
                                     placeholder="@yourbrand"
-                                    className="h-12 ring-2 ring-[var(--primary-hex)]/10 focus:ring-[var(--primary-hex)]"
+                                    className="h-12 ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] dark:bg-gray-800 dark:border-gray-700"
                                 />
                             </div>
                         </div>
                     </div>
 
-                    <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent my-4" />
+                    <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent my-4 dark:border-gray-700" />
 
                     {/* Verification & Social Section */}
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <div className="space-y-6">
-                            <div className="p-6 bg-gradient-to-br from-[var(--primary-hex)]/5 to-transparent border border-[var(--primary-hex)]/20 rounded-2xl space-y-4">
+                            <div className="p-6 bg-gradient-to-br from-[var(--primary-hex)]/5 to-transparent border border-[var(--primary-hex)]/20 rounded-2xl space-y-4 dark:bg-gray-800 dark:border-gray-700">
                                 <Label className="text-md md:text-lg font-bold flex items-center gap-2">
                                     <ImageIcon className="h-5 w-5 shrink-0 text-[var(--primary-hex)]" />
                                    {t("adminPanel.admin.settings.seo.ogImage","Default Sharing Image (OG Image)")}
@@ -254,11 +252,11 @@ export function SEOSettings() {
 
                                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                                     {ogImage ? (
-                                        <div className="h-32 w-full sm:w-56 rounded-xl overflow-hidden shadow-lg border-2 border-[var(--primary-hex)]/30 flex items-center justify-center bg-muted shrink-0">
+                                        <div className="h-32 w-full sm:w-56 rounded-xl overflow-hidden shadow-lg border-2 border-[var(--primary-hex)]/30 flex items-center justify-center bg-muted shrink-0 dark:bg-gray-900">
                                             <img src={ogImage} alt="OG Preview" className="h-full w-full object-cover" />
                                         </div>
                                     ) : (
-                                        <div className="h-32 w-full sm:w-56 rounded-xl border-2 border-dashed border-[var(--primary-hex)]/50 flex flex-col items-center justify-center text-muted-foreground bg-muted/30 shrink-0">
+                                        <div className="h-32 w-full sm:w-56 rounded-xl border-2 border-dashed border-[var(--primary-hex)]/50 flex flex-col items-center justify-center text-muted-foreground bg-muted/30 shrink-0 dark:bg-gray-900">
                                             <ImageIcon className="h-10 w-10 mb-2 opacity-50" />
                                             <span className="text-xs">{t("adminPanel.admin.settings.seo.ogImageSize","1200x630px recommended")}</span>
                                         </div>
@@ -269,7 +267,7 @@ export function SEOSettings() {
                                             type="file"
                                             accept="image/*"
                                             onChange={handleOgImageUpload}
-                                            className="h-12 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:bg-[var(--primary-hex)] file:text-white cursor-pointer"
+                                            className="h-12 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:bg-[var(--primary-hex)] file:text-white cursor-pointer dark:bg-gray-900 dark:border-gray-700"
                                         />
                                     </div>
                                 </div>
@@ -283,14 +281,14 @@ export function SEOSettings() {
                                     {t("adminPanel.admin.settings.seo.verification","Search Console Verification")}
                                 </Label>
 
-                                <div className="space-y-4 p-6 border rounded-2xl bg-muted/20">
+                                <div className="space-y-4 p-6 border rounded-2xl bg-muted/20 dark:bg-gray-800 dark:border-gray-700">
                                     <div className="space-y-2">
                                         <Label className="text-sm">{t("adminPanel.admin.settings.seo.googleVerification","Google Verification Code")}</Label>
                                         <Input
                                             value={googleVerification}
                                             onChange={(e) => setGoogleVerification(e.target.value)}
                                             placeholder="e.g., google1234abcd5678"
-                                            className="h-10"
+                                            className="h-10 dark:bg-gray-900 dark:border-gray-700"
                                         />
                                     </div>
                                     <div className="space-y-2">
@@ -299,7 +297,7 @@ export function SEOSettings() {
                                             value={bingVerification}
                                             onChange={(e) => setBingVerification(e.target.value)}
                                             placeholder="e.g., bing-123-abc"
-                                            className="h-10"
+                                            className="h-10 dark:bg-gray-900 dark:border-gray-700"
                                         />
                                     </div>
                                 </div>
@@ -307,7 +305,7 @@ export function SEOSettings() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row items-center justify-end gap-4 mt-8 pt-6 border-t">
+                    <div className="flex flex-col sm:flex-row items-center justify-end gap-4 mt-8 pt-6 border-t dark:border-gray-700">
                         <Button
                             onClick={handleSaveSEO}
                             disabled={updateSettingMutation.isPending}
@@ -333,23 +331,23 @@ export function SEOSettings() {
             </Card>
 
             {/* SEO Preview Card (Simulated Google Result) */}
-            <Card className="border-0 shadow-lg bg-[#f8f9fa] dark:bg-slate-900/50">
+            <Card className="border-0 shadow-lg bg-[#f8f9fa] dark:bg-gray-900">
                 <CardHeader>
                     <CardTitle className="text-xl flex items-center gap-2">
                         <Search className="h-5 w-5" />
                       {t("adminPanel.admin.settings.seo.serpPreview","SERP Preview")}
                     </CardTitle>
-                    <CardDescription>{t("adminPanel.admin.settings.seo.serpDescription","How your site might look in Google search results")}</CardDescription>
+                    <CardDescription className="dark:text-gray-400">{t("adminPanel.admin.settings.seo.serpDescription","How your site might look in Google search results")}</CardDescription>
                 </CardHeader>
                 <CardContent className="p-8">
                     <div className="max-w-xl space-y-1">
-                        <div className="text-sm text-[#202124] dark:text-slate-400 mb-1 flex items-center gap-1">
+                        <div className="text-sm text-[#202124] dark:text-gray-400 mb-1 flex items-center gap-1">
                             {window.location.origin} <span className="text-xs opacity-50">▼</span>
                         </div>
                         <div className="text-xl text-[#1a0dab] dark:text-blue-400 hover:underline cursor-pointer font-medium mb-1">
                             {defaultTitle || t("adminPanel.admin.settings.seo.previewTitle","Global Connectivity's Site")} {titleSuffix || "| Platform Name"}
                         </div>
-                        <div className="text-sm text-[#4d5156] dark:text-slate-300 leading-relaxed max-w-[600px]">
+                        <div className="text-sm text-[#4d5156] dark:text-gray-300 leading-relaxed max-w-[600px]">
                             {defaultDescription || t(
  "adminPanel.admin.settings.seo.previewDescription",
  "This is a preview of your meta description. A well-written description can improve click-through rates from search engine results pages."

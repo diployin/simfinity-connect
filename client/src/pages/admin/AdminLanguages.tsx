@@ -168,7 +168,7 @@ export default function AdminLanguages() {
 
   return (
     <>
-      <div className="space-y-6">
+      <div className="space-y-6 p-6 dark:bg-gray-950">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold tracking-tight flex items-center gap-2">
@@ -194,10 +194,10 @@ export default function AdminLanguages() {
                 Add Language
               </Button>
             </DialogTrigger>
-            <DialogContent className="mx-1">
+            <DialogContent className="mx-1 dark:bg-gray-900 dark:border-gray-800">
               <DialogHeader>
                 <DialogTitle>{editingLanguage ? 'Edit Language' : 'Add New Language'}</DialogTitle>
-                <DialogDescription>
+                <DialogDescription className="dark:text-gray-400">
                   {editingLanguage
                     ? 'Update language details'
                     : 'Add a new language to your platform'}
@@ -214,6 +214,7 @@ export default function AdminLanguages() {
                       value={formData.code}
                       onChange={(e) => setFormData({ ...formData, code: e.target.value })}
                       data-testid="input-language-code"
+                      className="dark:bg-gray-800 dark:border-gray-700"
                     />
                   </div>
                   <div className="space-y-2">
@@ -224,6 +225,7 @@ export default function AdminLanguages() {
                       value={formData.flagCode}
                       onChange={(e) => setFormData({ ...formData, flagCode: e.target.value })}
                       data-testid="input-flag-code"
+                      className="dark:bg-gray-800 dark:border-gray-700"
                     />
                   </div>
                 </div>
@@ -237,6 +239,7 @@ export default function AdminLanguages() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       data-testid="input-language-name"
+                      className="dark:bg-gray-800 dark:border-gray-700"
                     />
                   </div>
                   <div className="space-y-2">
@@ -247,6 +250,7 @@ export default function AdminLanguages() {
                       value={formData.nativeName}
                       onChange={(e) => setFormData({ ...formData, nativeName: e.target.value })}
                       data-testid="input-native-name"
+                      className="dark:bg-gray-800 dark:border-gray-700"
                     />
                   </div>
                 </div>
@@ -262,6 +266,7 @@ export default function AdminLanguages() {
                         setFormData({ ...formData, sortOrder: parseInt(e.target.value) || 1 })
                       }
                       data-testid="input-sort-order"
+                      className="dark:bg-gray-800 dark:border-gray-700"
                     />
                   </div>
                   <div className="flex items-center gap-4 pt-6">
@@ -294,6 +299,7 @@ export default function AdminLanguages() {
                     setEditingLanguage(null);
                     resetForm();
                   }}
+                  className="dark:border-gray-700"
                 >
                   Cancel
                 </Button>
@@ -314,7 +320,7 @@ export default function AdminLanguages() {
         </div>
 
         <div className="grid gap-4 md:grid-cols-3">
-          <Card>
+          <Card className="dark:bg-gray-900">
             <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Languages</CardTitle>
               <Globe className="h-4 w-4 text-muted-foreground" />
@@ -323,7 +329,7 @@ export default function AdminLanguages() {
               <div className="text-2xl font-bold">{languages.length}</div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="dark:bg-gray-900">
             <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Enabled</CardTitle>
               <Check className="h-4 w-4 text-muted-foreground" />
@@ -334,7 +340,7 @@ export default function AdminLanguages() {
               </div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="dark:bg-gray-900">
             <CardHeader className="flex flex-row items-center justify-between gap-2 space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">RTL Languages</CardTitle>
               <Languages className="h-4 w-4 text-muted-foreground" />
@@ -345,7 +351,7 @@ export default function AdminLanguages() {
           </Card>
         </div>
 
-        <Card>
+        <Card className="dark:bg-gray-900">
           <CardHeader>
             <CardTitle>Languages</CardTitle>
           </CardHeader>
@@ -355,7 +361,7 @@ export default function AdminLanguages() {
             ) : (
               <Table>
                 <TableHeader>
-                  <TableRow>
+                  <TableRow className="dark:border-gray-700">
                     <TableHead className="w-12">Order</TableHead>
                     <TableHead>Flag</TableHead>
                     <TableHead>Code</TableHead>
@@ -370,7 +376,7 @@ export default function AdminLanguages() {
                   {languages
                     .sort((a, b) => a.sortOrder - b.sortOrder)
                     .map((language) => (
-                      <TableRow key={language.id} data-testid={`row-language-${language.code}`}>
+                      <TableRow key={language.id} data-testid={`row-language-${language.code}`} className="dark:border-gray-700">
                         <TableCell>{language.sortOrder}</TableCell>
                         <TableCell>
                           <ReactCountryFlag
@@ -384,7 +390,7 @@ export default function AdminLanguages() {
                         <TableCell>{language.nativeName}</TableCell>
                         <TableCell>
                           {language.isRTL ? (
-                            <Badge variant="secondary">RTL</Badge>
+                            <Badge variant="secondary" className="dark:bg-gray-800 dark:text-gray-300">RTL</Badge>
                           ) : (
                             <span className="text-muted-foreground">LTR</span>
                           )}

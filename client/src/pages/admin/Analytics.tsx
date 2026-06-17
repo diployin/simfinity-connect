@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { TrendingUp, Users, DollarSign, ShoppingCart, Download } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
+import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   LineChart, Line, AreaChart, Area
 } from "recharts";
@@ -23,13 +23,13 @@ interface StatsData {
   revenueByMonth: Array<{ month: string; revenue: number }>;
   ordersByStatus: Array<{ status: string; count: number }>;
   topDestinations: Array<{ country: string; flag: string; count: number; revenue: number }>;
-  providerStats: Array<{ 
-    id: string; 
-    name: string; 
-    slug: string; 
-    orderCount: number; 
-    totalCost: number; 
-    totalRevenue: number; 
+  providerStats: Array<{
+    id: string;
+    name: string;
+    slug: string;
+    orderCount: number;
+    totalCost: number;
+    totalRevenue: number;
   }>;
 }
 
@@ -62,10 +62,10 @@ export default function Analytics() {
             {t('admin.analytics.description', 'Detailed insights and performance metrics')}
           </p>
         </div>
-        <Button variant="outline" className="gap-2 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800" data-testid="button-export-report">
+        {/* <Button variant="outline" className="gap-2 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800" data-testid="button-export-report">
           <Download className="h-4 w-4" />
           {t('admin.analytics.exportReport', 'Export Report')}
-        </Button>
+        </Button> */}
       </div>
 
       {/* Key Metrics */}
@@ -196,8 +196,8 @@ export default function Analytics() {
               <AreaChart data={stats?.revenueByMonth || []}>
                 <defs>
                   <linearGradient id="colorRevenue2" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.8}/>
-                    <stop offset="95%" stopColor="var(--primary)" stopOpacity={0.1}/>
+                    <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.8} />
+                    <stop offset="95%" stopColor="var(--primary)" stopOpacity={0.1} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" className="dark:stroke-slate-800" />
@@ -235,10 +235,10 @@ export default function Analytics() {
               <BarChart data={stats?.topDestinations.slice(0, 6) || []} layout="vertical">
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" className="dark:stroke-slate-800" />
                 <XAxis type="number" stroke="#64748b" style={{ fontSize: '12px' }} />
-                <YAxis 
-                  type="category" 
-                  dataKey="country" 
-                  stroke="#64748b" 
+                <YAxis
+                  type="category"
+                  dataKey="country"
+                  stroke="#64748b"
                   style={{ fontSize: '12px' }}
                   width={100}
                 />

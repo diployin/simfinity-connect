@@ -431,7 +431,7 @@ export default function BannerManagement() {
   };
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 dark:bg-gray-950">
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         <div>
           <h1 className=" text-2xl  md:text-3xl font-bold text-foreground">Banner Management</h1>
@@ -450,13 +450,13 @@ export default function BannerManagement() {
         </Button>
       </div>
 
-      <Card>
+      <Card className="dark:bg-gray-900">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <ImageIcon className="h-5 w-5" />
             Active Banners
           </CardTitle>
-          <CardDescription>Manage banner images, titles, and display order</CardDescription>
+          <CardDescription className="dark:text-gray-400">Manage banner images, titles, and display order</CardDescription>
         </CardHeader>
         <CardContent>
           {isLoading ? (
@@ -470,7 +470,7 @@ export default function BannerManagement() {
           ) : (
             <Table>
               <TableHeader>
-                <TableRow>
+                <TableRow className="dark:border-gray-700">
                   <TableHead>Preview</TableHead>
                   <TableHead>Title</TableHead>
                   <TableHead>Description</TableHead>
@@ -481,7 +481,7 @@ export default function BannerManagement() {
               </TableHeader>
               <TableBody>
                 {banners.map((banner: Banner) => (
-                  <TableRow key={banner.id} data-testid={`banner-row-${banner.id}`}>
+                  <TableRow key={banner.id} data-testid={`banner-row-${banner.id}`} className="dark:border-gray-700">
                     <TableCell>
                       <img
                         src={banner.imageUrl}
@@ -492,7 +492,7 @@ export default function BannerManagement() {
                     <TableCell className="font-semibold">{banner.title}</TableCell>
                     <TableCell className="max-w-xs truncate">{banner.description || '-'}</TableCell>
                     <TableCell>
-                      <Badge variant="outline">{banner.position}</Badge>
+                      <Badge variant="outline" className="dark:border-gray-600 dark:text-gray-300">{banner.position}</Badge>
                     </TableCell>
                     <TableCell>
                       <Switch
@@ -537,7 +537,7 @@ export default function BannerManagement() {
 
       {/* Add Banner Dialog */}
       <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl dark:bg-gray-900 dark:border-gray-800">
           <DialogHeader>
             <DialogTitle>Add New Banner</DialogTitle>
             <DialogDescription>Create a new promotional banner for your platform</DialogDescription>
@@ -552,9 +552,10 @@ export default function BannerManagement() {
                   accept="image/*"
                   onChange={handleImageChange}
                   data-testid="input-banner-image"
+                  className="dark:bg-gray-800 dark:border-gray-700"
                 />
                 {imagePreview && (
-                  <div className="relative w-full h-32 border rounded-lg overflow-hidden">
+                  <div className="relative w-full h-32 border rounded-lg overflow-hidden dark:border-gray-700">
                     <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
                   </div>
                 )}
@@ -573,6 +574,7 @@ export default function BannerManagement() {
                 placeholder="Enter banner title"
                 maxLength={150}
                 data-testid="input-banner-title"
+                className="dark:bg-gray-800 dark:border-gray-700"
               />
             </div>
 
@@ -585,6 +587,7 @@ export default function BannerManagement() {
                 placeholder="Enter banner description"
                 rows={3}
                 data-testid="input-banner-description"
+                className="dark:bg-gray-800 dark:border-gray-700"
               />
             </div>
 
@@ -598,6 +601,7 @@ export default function BannerManagement() {
                   value={formData.position}
                   onChange={(e) => setFormData({ ...formData, position: e.target.value })}
                   data-testid="input-banner-position"
+                  className="dark:bg-gray-800 dark:border-gray-700"
                 />
               </div>
               <div className="space-y-2">
@@ -620,7 +624,7 @@ export default function BannerManagement() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowAddDialog(false)}>
+            <Button variant="outline" onClick={() => setShowAddDialog(false)} className="dark:border-gray-700">
               Cancel
             </Button>
             <Button
@@ -643,7 +647,7 @@ export default function BannerManagement() {
 
       {/* Edit Banner Dialog */}
       <Dialog open={!!editingBanner} onOpenChange={(open) => !open && setEditingBanner(null)}>
-        <DialogContent className="max-w-2xl">
+        <DialogContent className="max-w-2xl dark:bg-gray-900 dark:border-gray-800">
           <DialogHeader>
             <DialogTitle>Edit Banner</DialogTitle>
             <DialogDescription>Update banner details and image</DialogDescription>
@@ -658,9 +662,10 @@ export default function BannerManagement() {
                   accept="image/*"
                   onChange={handleImageChange}
                   data-testid="input-edit-banner-image"
+                  className="dark:bg-gray-800 dark:border-gray-700"
                 />
                 {imagePreview && (
-                  <div className="relative w-full h-48 border rounded-lg overflow-hidden">
+                  <div className="relative w-full h-48 border rounded-lg overflow-hidden dark:border-gray-700">
                     <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
                   </div>
                 )}
@@ -677,6 +682,7 @@ export default function BannerManagement() {
                   placeholder="Enter banner title"
                   maxLength={150}
                   data-testid="input-edit-banner-title"
+                  className="dark:bg-gray-800 dark:border-gray-700"
                 />
               </div>
 
@@ -689,6 +695,7 @@ export default function BannerManagement() {
                   placeholder="Enter banner description"
                   rows={3}
                   data-testid="input-edit-banner-description"
+                  className="dark:bg-gray-800 dark:border-gray-700"
                 />
               </div>
             </div>
@@ -702,6 +709,7 @@ export default function BannerManagement() {
                   value={formData.position}
                   onChange={(e) => setFormData({ ...formData, position: e.target.value })}
                   data-testid="input-edit-banner-position"
+                  className="dark:bg-gray-800 dark:border-gray-700"
                 />
               </div>
               <div className="space-y-2">
@@ -724,7 +732,7 @@ export default function BannerManagement() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setEditingBanner(null)}>
+            <Button variant="outline" onClick={() => setEditingBanner(null)} className="dark:border-gray-700">
               Cancel
             </Button>
             <Button

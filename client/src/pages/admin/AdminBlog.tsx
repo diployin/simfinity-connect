@@ -66,19 +66,6 @@ export default function AdminBlog() {
   });
 
 
-  // const createMutation = useMutation({
-  //   mutationFn: (data: any) => apiRequest('POST','/api/admin/blog',  data),
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: ['/api/admin/blog'] });
-  //     toast({ title: "Blog post created" });
-  //     handleCloseDialog();
-  //   },
-  //   onError: (error) => {
-  //     console.log(error);
-  //     toast({ title: "Failed to create blog post", variant: "destructive" });
-  //   },
-  // });
-
   const createMutation = useMutation({
     mutationFn: (formData: FormData) => apiRequest('POST', '/api/admin/blog', formData),
     onSuccess: () => {
@@ -118,17 +105,6 @@ export default function AdminBlog() {
       toast({ title: 'Failed to delete blog post', variant: 'destructive' });
     },
   });
-
-  // const publishMutation = useMutation({
-  //   mutationFn: (id: string) => apiRequest(`/api/admin/blog/${id}/publish`, 'POST'),
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: ['/api/admin/blog'] });
-  //     toast({ title: "Blog post published" });
-  //   },
-  //   onError: () => {
-  //     toast({ title: "Failed to publish blog post", variant: "destructive" });
-  //   },
-  // });
 
   const publishMutation = useMutation({
     mutationFn: (id: string) => apiRequest('POST', `/api/admin/blog/${id}/publish`),
@@ -185,22 +161,6 @@ export default function AdminBlog() {
     editor?.commands.clearContent();
   };
 
-
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-
-  //   const data = {
-  //     ...formData,
-  //     metaKeywords: formData.metaKeywords.split(",").map((k) => k.trim()).filter(Boolean),
-  //   };
-
-  //   if (editingPost) {
-  //     updateMutation.mutate({ id: editingPost.id, data });
-  //   } else {
-  //     createMutation.mutate(data);
-  //   }
-  // };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -240,7 +200,7 @@ export default function AdminBlog() {
         <title>Blog Management</title>
       </Helmet>
 
-      <div>
+      <div className="p-6 space-y-6 dark:bg-gray-950">
         <div className="flex flex-col md:flex-row gap-3 items-center justify-between mb-6">
           <div>
             <h1 className="text-3xl font-bold text-foreground" data-testid="text-admin-blog-title">
@@ -254,14 +214,14 @@ export default function AdminBlog() {
           </Button>
         </div>
 
-        <Card>
+        <Card className="dark:bg-gray-900">
           <CardContent className="p-0">
             {isLoading ? (
-              <div className="p-8 text-center">Loading...</div>
+              <div className="p-8 text-center text-muted-foreground">Loading...</div>
             ) : data && data.posts.length > 0 ? (
               <Table>
                 <TableHeader>
-                  <TableRow>
+                  <TableRow className="dark:border-gray-700">
                     <TableHead>Title</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Author</TableHead>
@@ -271,13 +231,13 @@ export default function AdminBlog() {
                 </TableHeader>
                 <TableBody>
                   {data.posts.map((post) => (
-                    <TableRow key={post.id} data-testid={`row-blog-post-${post.id}`}>
+                    <TableRow key={post.id} data-testid={`row-blog-post-${post.id}`} className="dark:border-gray-700">
                       <TableCell className="font-medium">{post.title}</TableCell>
                       <TableCell>
                         {post.published ? (
-                          <span className="text-green-600">Published</span>
+                          <span className="text-green-600 dark:text-green-400">Published</span>
                         ) : (
-                          <span className="text-yellow-600">Draft</span>
+                          <span className="text-yellow-600 dark:text-yellow-400">Draft</span>
                         )}
                       </TableCell>
                       <TableCell>{post.author?.name || 'Unknown'}</TableCell>
@@ -291,6 +251,7 @@ export default function AdminBlog() {
                               size="sm"
                               variant="outline"
                               onClick={() => publishMutation.mutate(post.id)}
+                              className="dark:border-gray-700"
                               data-testid={`button-publish-${post.id}`}
                             >
                               <Send className="h-4 w-4 mr-1" />
@@ -301,6 +262,7 @@ export default function AdminBlog() {
                             size="sm"
                             variant="outline"
                             onClick={() => window.open(`/blog/${post.slug}`, '_blank')}
+                            className="dark:border-gray-700"
                             data-testid={`button-view-${post.id}`}
                           >
                             <Eye className="h-4 w-4" />
@@ -309,6 +271,7 @@ export default function AdminBlog() {
                             size="sm"
                             variant="outline"
                             onClick={() => handleOpenDialog(post)}
+                            className="dark:border-gray-700"
                             data-testid={`button-edit-${post.id}`}
                           >
                             <Pencil className="h-4 w-4" />
@@ -321,6 +284,7 @@ export default function AdminBlog() {
                                 deleteMutation.mutate(post.id);
                               }
                             }}
+                            className="dark:border-gray-700"
                             data-testid={`button-delete-${post.id}`}
                           >
                             <Trash2 className="h-4 w-4" />
@@ -340,7 +304,7 @@ export default function AdminBlog() {
         </Card>
 
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto dark:bg-gray-900 dark:border-gray-800">
             <DialogHeader>
               <DialogTitle>{editingPost ? 'Edit Post' : 'Create New Post'}</DialogTitle>
             </DialogHeader>
@@ -353,6 +317,7 @@ export default function AdminBlog() {
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                   required
                   data-testid="input-blog-title"
+                  className="dark:bg-gray-800 dark:border-gray-700"
                 />
               </div>
 
@@ -365,8 +330,9 @@ export default function AdminBlog() {
                     onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
                     required
                     data-testid="input-blog-slug"
+                    className="dark:bg-gray-800 dark:border-gray-700"
                   />
-                  <Button type="button" variant="outline" onClick={generateSlug}>
+                  <Button type="button" variant="outline" onClick={generateSlug} className="dark:border-gray-700">
                     Generate
                   </Button>
                 </div>
@@ -381,54 +347,35 @@ export default function AdminBlog() {
                   rows={3}
                   required
                   data-testid="input-blog-excerpt"
+                  className="dark:bg-gray-800 dark:border-gray-700"
                 />
               </div>
 
               <div>
                 <Label htmlFor="content">Content</Label>
-                {/* <Textarea
-                id="content"
-                value={formData.content}
-                onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                rows={10}
-                required
-                data-testid="input-blog-content"
-              /> */}
-
-
-                <div className="border rounded-md">
+                <div className="border rounded-md dark:border-gray-700">
                   {/* Toolbar */}
-                  <div className="flex gap-2 border-b p-2 bg-muted">
-                    <Button size="icon" variant="ghost" onClick={() => editor?.chain().focus().toggleBold().run()}>
+                  <div className="flex gap-2 border-b p-2 bg-muted dark:bg-gray-800 dark:border-gray-700">
+                    <Button type="button" size="icon" variant="ghost" onClick={() => editor?.chain().focus().toggleBold().run()}>
                       <Bold className="h-4 w-4" />
                     </Button>
-                    <Button size="icon" variant="ghost" onClick={() => editor?.chain().focus().toggleItalic().run()}>
+                    <Button type="button" size="icon" variant="ghost" onClick={() => editor?.chain().focus().toggleItalic().run()}>
                       <Italic className="h-4 w-4" />
                     </Button>
-                    <Button size="icon" variant="ghost" onClick={() => editor?.chain().focus().toggleBulletList().run()}>
+                    <Button type="button" size="icon" variant="ghost" onClick={() => editor?.chain().focus().toggleBulletList().run()}>
                       <List className="h-4 w-4" />
                     </Button>
-                    <Button size="icon" variant="ghost" onClick={() => editor?.chain().focus().toggleOrderedList().run()}>
+                    <Button type="button" size="icon" variant="ghost" onClick={() => editor?.chain().focus().toggleOrderedList().run()}>
                       <ListOrdered className="h-4 w-4" />
                     </Button>
                   </div>
 
                   <EditorContent
                     editor={editor}
-                    className="min-h-[300px] p-3 prose max-w-none"
+                    className="min-h-[300px] p-3 prose max-w-none dark:prose-invert"
                   />
                 </div>
               </div>
-
-              {/* <div>
-              <Label htmlFor="featuredImage">Featured Image URL</Label>
-              <Input
-                id="featuredImage"
-                value={formData.featuredImage}
-                onChange={(e) => setFormData({ ...formData, featuredImage: e.target.value })}
-                data-testid="input-blog-featured-image"
-              />
-            </div> */}
 
               <div>
                 <Label htmlFor="featuredImage">Featured Image</Label>
@@ -437,8 +384,9 @@ export default function AdminBlog() {
                   type="file"
                   accept="image/*"
                   onChange={(e) =>
-                    setFormData({ ...formData, featuredImage: e.target.files?.[0] || null })
+                    setFormData({ ...formData, featuredImage: e.target.files?.[0] || null as any })
                   }
+                  className="dark:bg-gray-800 dark:border-gray-700"
                 />
               </div>
 
@@ -450,6 +398,7 @@ export default function AdminBlog() {
                   onChange={(e) => setFormData({ ...formData, metaDescription: e.target.value })}
                   rows={2}
                   data-testid="input-blog-meta-description"
+                  className="dark:bg-gray-800 dark:border-gray-700"
                 />
               </div>
 
@@ -460,6 +409,7 @@ export default function AdminBlog() {
                   value={formData.metaKeywords}
                   onChange={(e) => setFormData({ ...formData, metaKeywords: e.target.value })}
                   data-testid="input-blog-meta-keywords"
+                  className="dark:bg-gray-800 dark:border-gray-700"
                 />
               </div>
 
@@ -474,7 +424,7 @@ export default function AdminBlog() {
               </div>
 
               <div className="flex justify-end gap-2">
-                <Button type="button" variant="outline" onClick={handleCloseDialog}>
+                <Button type="button" variant="outline" onClick={handleCloseDialog} className="dark:border-gray-700">
                   Cancel
                 </Button>
                 <Button

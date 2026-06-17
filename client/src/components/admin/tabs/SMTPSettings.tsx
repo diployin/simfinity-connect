@@ -50,8 +50,6 @@ export function SMTPSettings() {
     }, {});
   }, [settingsResponse]);
 
-  console.log('settings', settings);
-
   // Load settings into state
   useEffect(() => {
     if (settings && Object.keys(settings).length > 0) {
@@ -124,7 +122,7 @@ export function SMTPSettings() {
   return (
     <div className="space-y-6">
       {/* SMTP Configuration Card */}
-      <Card className="border-0 shadow-xl hover:shadow-[0_25px_50px_-12px_color-mix(in_srgb,var(--primary-hex)_30%,transparent)] transition-all duration-500">
+      <Card className="border-0 shadow-xl hover:shadow-[0_25px_50px_-12px_color-mix(in_srgb,var(--primary-hex)_30%,transparent)] transition-all duration-500 dark:bg-gray-900">
         <CardHeader>
           <div className="flex items-center gap-3">
             <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-[var(--primary-hex)] to-[var(--primary-second-hex)] flex items-center justify-center shadow-lg">
@@ -162,7 +160,7 @@ export function SMTPSettings() {
                   "admin.settings.smtp.hostPlaceholder",
                   "smtp.gmail.com"
                 )}
-                className="h-12 ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
+                className="h-12 ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300 dark:bg-gray-800 dark:border-gray-700"
                 data-testid="input-smtp-host"
               />
             </div>
@@ -182,7 +180,7 @@ export function SMTPSettings() {
                 value={smtpPort}
                 onChange={(e) => setSmtpPort(e.target.value)}
                 placeholder={t("admin.settings.smtp.portPlaceholder", "587")}
-                className="h-12 ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
+                className="h-12 ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300 dark:bg-gray-800 dark:border-gray-700"
                 data-testid="input-smtp-port"
               />
             </div>
@@ -205,7 +203,7 @@ export function SMTPSettings() {
                 "admin.settings.smtp.usernamePlaceholder",
                 "your-email@gmail.com"
               )}
-              className="h-12 ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
+              className="h-12 ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300 dark:bg-gray-800 dark:border-gray-700"
               data-testid="input-smtp-user"
             />
           </div>
@@ -227,10 +225,10 @@ export function SMTPSettings() {
                 "admin.settings.smtp.fromEmailPlaceholder",
                 "noreply@yourdomain.com"
               )}
-              className="h-12 ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
+              className="h-12 ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300 dark:bg-gray-800 dark:border-gray-700"
               data-testid="input-smtp-from"
             />
-            <p className="text-sm font-medium px-3 py-2 bg-[var(--primary-light-hex)]/20 rounded-lg border border-[var(--primary-hex)]/20 flex items-center gap-2">
+            <p className="text-sm font-medium px-3 py-2 bg-[var(--primary-light-hex)]/20 rounded-lg border border-[var(--primary-hex)]/20 flex items-center gap-2 dark:bg-gray-800">
               <Info className="h-4 w-4 text-[var(--primary-hex)]" />
               {t(
                 "admin.settings.smtp.fromEmailHelp",
@@ -257,10 +255,10 @@ export function SMTPSettings() {
                 "admin.settings.smtp.passwordPlaceholder",
                 "Your app password"
               )}
-              className="h-12 ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
+              className="h-12 ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300 dark:bg-gray-800 dark:border-gray-700"
               data-testid="input-smtp-pass"
             />
-            <p className="text-sm font-medium px-3 py-2 bg-[var(--primary-light-hex)]/20 rounded-lg border border-[var(--primary-hex)]/20 flex items-center gap-2">
+            <p className="text-sm font-medium px-3 py-2 bg-[var(--primary-light-hex)]/20 rounded-lg border border-[var(--primary-hex)]/20 flex items-center gap-2 dark:bg-gray-800">
               <Shield className="h-4 w-4 text-[var(--primary-hex)]" />
               {t(
                 "admin.settings.smtp.passwordHelp",
@@ -294,7 +292,7 @@ export function SMTPSettings() {
       </Card>
 
       {/* Security Note Card */}
-      <Card className="border-0 bg-gradient-to-br from-amber-50 via-amber-100/50 to-transparent dark:from-amber-950/30 dark:via-amber-900/20 dark:to-transparent shadow-xl border-l-4 border-l-amber-500">
+      <Card className="border-0 bg-gradient-to-br from-amber-50 via-amber-100/50 to-transparent dark:from-amber-950/30 dark:via-amber-900/20 dark:to-transparent shadow-xl border-l-4 border-l-amber-500 dark:bg-gray-900">
         <CardContent className="pt-6">
           <div className="flex gap-4">
             <div className="flex-shrink-0">
@@ -318,7 +316,7 @@ export function SMTPSettings() {
       </Card>
 
       {/* Quick Setup Guide Card */}
-      <Card className="border-0 shadow-xl bg-gradient-to-br from-[var(--primary-light-hex)]/10 to-transparent border border-[var(--primary-hex)]/20">
+      <Card className="border-0 shadow-xl bg-gradient-to-br from-[var(--primary-light-hex)]/10 to-transparent border border-[var(--primary-hex)]/20 dark:bg-gray-900">
         <CardHeader>
           <CardTitle className="text-xl font-bold text-[var(--primary-hex)] flex items-center gap-2">
             <CheckCircle className="h-6 w-6" />
@@ -337,11 +335,11 @@ export function SMTPSettings() {
                 </h5>
                 <p className="text-sm text-muted-foreground">
                   Host:{" "}
-                  <code className="bg-muted px-2 py-0.5 rounded">
+                  <code className="bg-muted px-2 py-0.5 rounded dark:bg-gray-800">
                     smtp.gmail.com
                   </code>{" "}
                   | Port:{" "}
-                  <code className="bg-muted px-2 py-0.5 rounded">587</code>
+                  <code className="bg-muted px-2 py-0.5 rounded dark:bg-gray-800">587</code>
                   <br />
                   Enable 2FA and create an App Password at{" "}
                   <a
@@ -366,11 +364,11 @@ export function SMTPSettings() {
                 </h5>
                 <p className="text-sm text-muted-foreground">
                   Host:{" "}
-                  <code className="bg-muted px-2 py-0.5 rounded">
+                  <code className="bg-muted px-2 py-0.5 rounded dark:bg-gray-800">
                     smtp-mail.outlook.com
                   </code>{" "}
                   | Port:{" "}
-                  <code className="bg-muted px-2 py-0.5 rounded">587</code>
+                  <code className="bg-muted px-2 py-0.5 rounded dark:bg-gray-800">587</code>
                   <br />
                   Use your Outlook email and password
                 </p>

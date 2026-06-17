@@ -289,7 +289,7 @@ export default function FailoverSettings() {
   const currentSettings = failoverSettings || settings;
 
   return (
-    <div className="space-y-6" data-testid="failover-settings-page">
+    <div className="space-y-6 dark:bg-gray-950 p-6" data-testid="failover-settings-page">
       <div>
         <h1 className="text-2xl font-bold text-foreground" data-testid="page-title">
           Smart Failover Settings
@@ -301,7 +301,7 @@ export default function FailoverSettings() {
 
       <Tabs defaultValue="failover" className="space-y-4">
         <div className="overflow-x-auto scrollbar-hide">
-          <TabsList className="flex min-w-max gap-1 p-1" data-testid="tabs-list">
+          <TabsList className="flex min-w-max gap-1 p-1 dark:bg-gray-800" data-testid="tabs-list">
             <TabsTrigger
               value="failover"
               className="whitespace-nowrap px-3 py-2 text-sm"
@@ -330,7 +330,7 @@ export default function FailoverSettings() {
         </div>
 
         <TabsContent value="failover" className="space-y-4">
-          <Card>
+          <Card className="dark:bg-gray-900">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Shield className="h-5 w-5" />
@@ -358,7 +358,7 @@ export default function FailoverSettings() {
                 />
               </div>
 
-              <div className="grid gap-4 pt-4 border-t">
+              <div className="grid gap-4 pt-4 border-t dark:border-gray-700">
                 <div className="space-y-2">
                   <Label htmlFor="globalMinMargin">Global Minimum Margin (%)</Label>
                   <div className="flex gap-2">
@@ -376,7 +376,7 @@ export default function FailoverSettings() {
                           globalMinMargin: parseFloat(e.target.value) || 0,
                         }))
                       }
-                      className="max-w-[150px]"
+                      className="max-w-[150px] dark:bg-gray-800 dark:border-gray-700"
                     />
                     <Button
                       data-testid="button-save-global-margin"
@@ -415,7 +415,7 @@ export default function FailoverSettings() {
                           maxFailoverAttempts: parseInt(e.target.value) || 1,
                         }))
                       }
-                      className="max-w-[150px]"
+                      className="max-w-[150px] dark:bg-gray-800 dark:border-gray-700"
                     />
                     <Button
                       data-testid="button-save-max-attempts"
@@ -439,7 +439,7 @@ export default function FailoverSettings() {
                 </div>
               </div>
 
-              <div className="p-4 bg-muted rounded-md">
+              <div className="p-4 bg-muted rounded-md dark:bg-gray-800">
                 <div className="flex items-start gap-2">
                   <AlertTriangle className="h-5 w-5 text-amber-500 mt-0.5" />
                   <div>
@@ -459,7 +459,7 @@ export default function FailoverSettings() {
         </TabsContent>
 
         <TabsContent value="providers" className="space-y-4">
-          <Card>
+          <Card className="dark:bg-gray-900">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Server className="h-5 w-5" />
@@ -472,7 +472,7 @@ export default function FailoverSettings() {
             <CardContent>
               <Table>
                 <TableHeader>
-                  <TableRow>
+                  <TableRow className="dark:border-gray-700">
                     <TableHead className="w-16">Priority</TableHead>
                     <TableHead>Provider</TableHead>
                     <TableHead>Status</TableHead>
@@ -482,15 +482,15 @@ export default function FailoverSettings() {
                 </TableHeader>
                 <TableBody>
                   {sortedProviders.map((provider, index) => (
-                    <TableRow key={provider.id} data-testid={`provider-row-${provider.slug}`}>
+                    <TableRow key={provider.id} data-testid={`provider-row-${provider.slug}`} className="dark:border-gray-700">
                       <TableCell>
-                        <Badge variant="outline">{index + 1}</Badge>
+                        <Badge variant="outline" className="dark:border-gray-600">{index + 1}</Badge>
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-2">
                           <span className="font-medium">{provider.name}</span>
                           {provider.isPreferred && (
-                            <Badge variant="secondary" className="text-xs">
+                            <Badge variant="secondary" className="text-xs dark:bg-gray-700 dark:text-gray-300">
                               Preferred
                             </Badge>
                           )}
@@ -498,12 +498,12 @@ export default function FailoverSettings() {
                       </TableCell>
                       <TableCell>
                         {provider.enabled ? (
-                          <Badge className="bg-green-500/10 text-green-600 border-green-500/20">
+                          <Badge className="bg-green-500/10 text-green-600 border-green-500/20 dark:bg-green-900/30 dark:text-green-400">
                             <Check className="h-3 w-3 mr-1" />
                             Active
                           </Badge>
                         ) : (
-                          <Badge variant="secondary">Disabled</Badge>
+                          <Badge variant="secondary" className="dark:bg-gray-700 dark:text-gray-300">Disabled</Badge>
                         )}
                       </TableCell>
                       <TableCell className="text-right">
@@ -516,7 +516,7 @@ export default function FailoverSettings() {
                             step="0.1"
                             value={providerMargins[provider.id] ?? provider.pricingMargin}
                             onChange={(e) => handleMarginChange(provider.id, e.target.value)}
-                            className="w-20 text-right"
+                            className="w-20 text-right dark:bg-gray-800 dark:border-gray-700"
                           />
                           <Percent className="h-4 w-4 text-muted-foreground" />
                           <Button
@@ -564,7 +564,7 @@ export default function FailoverSettings() {
         </TabsContent>
 
         <TabsContent value="api-keys" className="space-y-4">
-          <Card>
+          <Card className="dark:bg-gray-900">
             <CardHeader className="flex flex-row items-center justify-between gap-4">
               <div>
                 <CardTitle className="flex items-center gap-2">
@@ -582,7 +582,7 @@ export default function FailoverSettings() {
                     Create API Key
                   </Button>
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className="dark:bg-gray-900 dark:border-gray-700">
                   <DialogHeader>
                     <DialogTitle>Create New API Key</DialogTitle>
                     <DialogDescription>
@@ -595,7 +595,7 @@ export default function FailoverSettings() {
                         <div className="flex items-start gap-2">
                           <AlertTriangle className="h-5 w-5 text-amber-500" />
                           <div>
-                            <p className="font-medium text-amber-600">
+                            <p className="font-medium text-amber-600 dark:text-amber-400">
                               Save these credentials now!
                             </p>
                             <p className="text-sm text-muted-foreground">
@@ -607,7 +607,7 @@ export default function FailoverSettings() {
                       <div className="space-y-2">
                         <Label>API Key</Label>
                         <div className="flex gap-2">
-                          <Input value={generatedKey.key} readOnly className="font-mono text-sm" />
+                          <Input value={generatedKey.key} readOnly className="font-mono text-sm dark:bg-gray-800 dark:border-gray-700" />
                           <Button
                             size="icon"
                             variant="outline"
@@ -623,7 +623,7 @@ export default function FailoverSettings() {
                           <Input
                             value={generatedKey.secret}
                             readOnly
-                            className="font-mono text-sm"
+                            className="font-mono text-sm dark:bg-gray-800 dark:border-gray-700"
                           />
                           <Button
                             size="icon"
@@ -655,6 +655,7 @@ export default function FailoverSettings() {
                           placeholder="e.g., Mobile App Production"
                           value={newApiKeyName}
                           onChange={(e) => setNewApiKeyName(e.target.value)}
+                          className="dark:bg-gray-800 dark:border-gray-700"
                         />
                       </div>
                       <div className="space-y-2">
@@ -667,10 +668,11 @@ export default function FailoverSettings() {
                           max="100000"
                           value={newApiKeyRateLimit}
                           onChange={(e) => setNewApiKeyRateLimit(e.target.value)}
+                          className="dark:bg-gray-800 dark:border-gray-700"
                         />
                       </div>
                       <DialogFooter>
-                        <Button variant="outline" onClick={() => setShowApiKeyModal(false)}>
+                        <Button variant="outline" onClick={() => setShowApiKeyModal(false)} className="dark:border-gray-700">
                           Cancel
                         </Button>
                         <Button
@@ -706,7 +708,7 @@ export default function FailoverSettings() {
               ) : (
                 <Table>
                   <TableHeader>
-                    <TableRow>
+                    <TableRow className="dark:border-gray-700">
                       <TableHead>Name</TableHead>
                       <TableHead>Key ID</TableHead>
                       <TableHead>Status</TableHead>
@@ -718,10 +720,10 @@ export default function FailoverSettings() {
                   </TableHeader>
                   <TableBody>
                     {apiKeys?.map((key) => (
-                      <TableRow key={key.id} data-testid={`api-key-row-${key.id}`}>
+                      <TableRow key={key.id} data-testid={`api-key-row-${key.id}`} className="dark:border-gray-700">
                         <TableCell className="font-medium">{key.name}</TableCell>
                         <TableCell>
-                          <code className="text-xs bg-muted px-1 py-0.5 rounded">
+                          <code className="text-xs bg-muted px-1 py-0.5 rounded dark:bg-gray-800">
                             {key.keyHash.substring(0, 16)}...
                           </code>
                         </TableCell>
@@ -758,7 +760,7 @@ export default function FailoverSettings() {
                                 <Trash2 className="h-4 w-4 text-destructive" />
                               </Button>
                             </AlertDialogTrigger>
-                            <AlertDialogContent>
+                            <AlertDialogContent className="dark:bg-gray-900 dark:border-gray-700">
                               <AlertDialogHeader>
                                 <AlertDialogTitle>Delete API Key?</AlertDialogTitle>
                                 <AlertDialogDescription>
@@ -767,7 +769,7 @@ export default function FailoverSettings() {
                                 </AlertDialogDescription>
                               </AlertDialogHeader>
                               <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogCancel className="dark:border-gray-700">Cancel</AlertDialogCancel>
                                 <AlertDialogAction
                                   onClick={() => deleteApiKeyMutation.mutate(key.id)}
                                 >

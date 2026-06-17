@@ -196,11 +196,11 @@ export default function PageManagement() {
 
   /* ================= UI ================= */
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 dark:bg-gray-950">
       {/* HEADER */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold">Page Management</h1>
+          <h1 className="text-3xl font-bold text-foreground">Page Management</h1>
           <p className="text-muted-foreground">Manage static CMS pages</p>
         </div>
         <Button
@@ -215,12 +215,12 @@ export default function PageManagement() {
       </div>
 
       {/* TABLE */}
-      <Card>
+      <Card className="dark:bg-gray-900">
         <CardHeader>
           <CardTitle className="flex gap-2 items-center">
             <FileText className="h-5 w-5" /> Pages
           </CardTitle>
-          <CardDescription>All static pages</CardDescription>
+          <CardDescription className="dark:text-gray-400">All static pages</CardDescription>
         </CardHeader>
 
         <CardContent>
@@ -231,7 +231,7 @@ export default function PageManagement() {
           ) : (
             <Table>
               <TableHeader>
-                <TableRow>
+                <TableRow className="dark:border-gray-700">
                   <TableHead>Title</TableHead>
                   <TableHead>Slug</TableHead>
                   <TableHead>Status</TableHead>
@@ -241,9 +241,9 @@ export default function PageManagement() {
               </TableHeader>
               <TableBody>
                 {pages.map((page: Page) => (
-                  <TableRow key={page.id}>
-                    <TableCell>{page.title}</TableCell>
-                    <TableCell>/{page.slug}</TableCell>
+                  <TableRow key={page.id} className="dark:border-gray-700">
+                    <TableCell className="font-semibold">{page.title}</TableCell>
+                    <TableCell className="font-mono">/{page.slug}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
                         <Switch
@@ -255,7 +255,7 @@ export default function PageManagement() {
                             })
                           }
                         />
-                        <Badge variant={page.isPublished ? 'default' : 'secondary'}>
+                        <Badge variant={page.isPublished ? 'default' : 'secondary'} className="dark:bg-gray-800 dark:text-gray-300">
                           {page.isPublished ? (
                             <>
                               <Eye className="h-3 w-3 mr-1" /> Published
@@ -301,10 +301,10 @@ export default function PageManagement() {
           editor?.commands.clearContent();
         }}
       >
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto dark:bg-gray-900 dark:border-gray-800">
           <DialogHeader>
             <DialogTitle>{editingPage ? 'Edit Page' : 'Add Page'}</DialogTitle>
-            <DialogDescription>Manage page content & SEO</DialogDescription>
+            <DialogDescription className="dark:text-gray-400">Manage page content & SEO</DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4">
@@ -319,6 +319,7 @@ export default function PageManagement() {
                     slug: generateSlug(e.target.value),
                   })
                 }
+                className="dark:bg-gray-800 dark:border-gray-700"
               />
             </div>
 
@@ -327,6 +328,7 @@ export default function PageManagement() {
               <Input
                 value={formData.slug}
                 onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                className="dark:bg-gray-800 dark:border-gray-700"
               />
             </div>
 
@@ -334,9 +336,9 @@ export default function PageManagement() {
             <div>
               <Label>Page Content *</Label>
 
-              <div className="border rounded-md">
+              <div className="border rounded-md dark:border-gray-700">
                 {/* Toolbar */}
-                <div className="flex gap-2 border-b p-2 bg-muted">
+                <div className="flex gap-2 border-b p-2 bg-muted dark:bg-gray-800 dark:border-gray-700">
                   <Button size="icon" variant="ghost" onClick={() => editor?.chain().focus().toggleBold().run()}>
                     <Bold className="h-4 w-4" />
                   </Button>
@@ -353,7 +355,7 @@ export default function PageManagement() {
 
                 <EditorContent
                   editor={editor}
-                  className="min-h-[300px] p-3 prose max-w-none"
+                  className="min-h-[300px] p-3 prose max-w-none dark:prose-invert"
                 />
               </div>
             </div>
@@ -363,13 +365,14 @@ export default function PageManagement() {
               <Input
                 value={formData.metaTitle}
                 onChange={(e) => setFormData({ ...formData, metaTitle: e.target.value })}
+                className="dark:bg-gray-800 dark:border-gray-700"
               />
             </div>
 
             <div>
               <Label>Meta Description</Label>
               <textarea
-                className="w-full border rounded-md p-2 text-sm"
+                className="w-full border rounded-md p-2 text-sm dark:bg-gray-800 dark:border-gray-700"
                 rows={3}
                 value={formData.metaDescription}
                 onChange={(e) =>

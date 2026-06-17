@@ -349,7 +349,7 @@ export function ReCaptchaSettings() {
   /* ---------------- UI ---------------- */
   return (
     <div className="space-y-6">
-      <Card className="border-0 shadow-xl">
+      <Card className="border-0 shadow-xl dark:bg-gray-900">
         <CardHeader className="p-4 sm:p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
             {/* Icon Container - Matching the SMTP style */}
@@ -405,6 +405,7 @@ export function ReCaptchaSettings() {
               onChange={(e) => setSiteKey(e.target.value)}
               placeholder="6LcXXXXXXXXXXXX"
               disabled={!isEditing}
+              className="dark:bg-gray-800 dark:border-gray-700"
             />
           </div>
 
@@ -418,7 +419,7 @@ export function ReCaptchaSettings() {
                 onChange={(e) => setSecretKey(e.target.value)}
                 placeholder="6LcXXXXXXXXXXXX"
                 disabled={!isEditing}
-                className="pr-10"
+                className="pr-10 dark:bg-gray-800 dark:border-gray-700"
               />
 
               <button
@@ -442,7 +443,7 @@ export function ReCaptchaSettings() {
               <Button
                 onClick={() => setIsEditing(true)}
                 variant="outline"
-                className="gap-2"
+                className="gap-2 dark:border-gray-700"
               >
                 <Pencil className="h-4 w-4" />
                 {t("adminPanel.admin.settings.recaptcha.edit", "Edit Settings")}
@@ -478,10 +479,10 @@ export function ReCaptchaSettings() {
       </Card>
 
       {/* Security Note */}
-      <Card className="border-l-4 border-amber-500 bg-amber-50">
+      <Card className="border-l-4 border-amber-500 bg-amber-50 dark:bg-gray-900 dark:border-amber-700">
         <CardContent className="pt-6 flex gap-4">
-          <Shield className="h-6 w-6 text-amber-600" />
-          <p className="text-sm text-amber-800">
+          <Shield className="h-6 w-6 text-amber-600 dark:text-amber-400" />
+          <p className="text-sm text-amber-800 dark:text-amber-200">
             {t("adminPanel.admin.settings.recaptcha.securityNote", "reCAPTCHA secret keys are securely stored and used only for server-side verification.")}
 
           </p>

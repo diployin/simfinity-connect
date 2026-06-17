@@ -416,7 +416,7 @@ export default function FaqManagement() {
     };
 
     return (
-        <div className="p-6 space-y-6">
+        <div className="p-6 space-y-6 dark:bg-gray-950">
             <div className="flex items-center justify-between gap-4">
                 <div>
                     <h1 className="text-3xl font-bold text-foreground">FAQ Management</h1>
@@ -427,7 +427,7 @@ export default function FaqManagement() {
             </div>
 
             <Tabs value={activeTab} onValueChange={setActiveTab}>
-                <TabsList>
+                <TabsList className="dark:bg-gray-800">
                     <TabsTrigger value="faqs">FAQs</TabsTrigger>
                     <TabsTrigger value="categories">Categories</TabsTrigger>
                 </TabsList>
@@ -448,13 +448,13 @@ export default function FaqManagement() {
                         </Button>
                     </div>
 
-                    <Card>
+                    <Card className="dark:bg-gray-900">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <HelpCircle className="h-5 w-5" />
                                 Frequently Asked Questions
                             </CardTitle>
-                            <CardDescription>
+                            <CardDescription className="dark:text-gray-400">
                                 Manage questions and answers for your users
                             </CardDescription>
                         </CardHeader>
@@ -470,7 +470,7 @@ export default function FaqManagement() {
                             ) : (
                                 <Table>
                                     <TableHeader>
-                                        <TableRow>
+                                        <TableRow className="dark:border-gray-700">
                                             <TableHead>Question</TableHead>
                                             <TableHead>Category</TableHead>
                                             <TableHead>Position</TableHead>
@@ -481,19 +481,19 @@ export default function FaqManagement() {
                                     </TableHeader>
                                     <TableBody>
                                         {faqs.map((faq: Faq) => (
-                                            <TableRow key={faq.id} data-testid={`faq-row-${faq.id}`}>
+                                            <TableRow key={faq.id} data-testid={`faq-row-${faq.id}`} className="dark:border-gray-700">
                                                 <TableCell className="font-medium max-w-md truncate">
                                                     {faq.question}
                                                 </TableCell>
                                                 <TableCell>
                                                     {faq.category ? (
-                                                        <Badge variant="outline">{faq.category.name}</Badge>
+                                                        <Badge variant="outline" className="dark:border-gray-600 dark:text-gray-300">{faq.category.name}</Badge>
                                                     ) : (
                                                         <span className="text-muted-foreground text-sm">Uncategorized</span>
                                                     )}
                                                 </TableCell>
                                                 <TableCell>
-                                                    <Badge variant="secondary">{faq.position}</Badge>
+                                                    <Badge variant="secondary" className="dark:bg-gray-800 dark:text-gray-300">{faq.position}</Badge>
                                                 </TableCell>
                                                 <TableCell>
                                                     <span className="text-sm text-muted-foreground">{faq.views}</span>
@@ -556,10 +556,10 @@ export default function FaqManagement() {
                         </Button>
                     </div>
 
-                    <Card>
+                    <Card className="dark:bg-gray-900">
                         <CardHeader>
                             <CardTitle>FAQ Categories</CardTitle>
-                            <CardDescription>
+                            <CardDescription className="dark:text-gray-400">
                                 Organize your FAQs into categories
                             </CardDescription>
                         </CardHeader>
@@ -575,7 +575,7 @@ export default function FaqManagement() {
                             ) : (
                                 <Table>
                                     <TableHeader>
-                                        <TableRow>
+                                        <TableRow className="dark:border-gray-700">
                                             <TableHead>Name</TableHead>
                                             <TableHead>Slug</TableHead>
                                             <TableHead>Position</TableHead>
@@ -585,18 +585,18 @@ export default function FaqManagement() {
                                     </TableHeader>
                                     <TableBody>
                                         {categories.map((category: Category) => (
-                                            <TableRow key={category.id} data-testid={`category-row-${category.id}`}>
+                                            <TableRow key={category.id} data-testid={`category-row-${category.id}`} className="dark:border-gray-700">
                                                 <TableCell className="font-semibold">{category.name}</TableCell>
                                                 <TableCell>
-                                                    <code className="text-xs bg-muted px-2 py-1 rounded">
+                                                    <code className="text-xs bg-muted px-2 py-1 rounded dark:bg-gray-800">
                                                         {category.slug}
                                                     </code>
                                                 </TableCell>
                                                 <TableCell>
-                                                    <Badge variant="secondary">{category.position}</Badge>
+                                                    <Badge variant="secondary" className="dark:bg-gray-800 dark:text-gray-300">{category.position}</Badge>
                                                 </TableCell>
                                                 <TableCell>
-                                                    <Badge variant={category.isActive ? "default" : "secondary"}>
+                                                    <Badge variant={category.isActive ? "default" : "secondary"} className="dark:bg-gray-800 dark:text-gray-300">
                                                         {category.isActive ? (
                                                             <>
                                                                 <Eye className="h-3 w-3 mr-1" />
@@ -643,10 +643,10 @@ export default function FaqManagement() {
 
             {/* Add FAQ Dialog */}
             <Dialog open={showAddFaqDialog} onOpenChange={setShowAddFaqDialog}>
-                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto dark:bg-gray-900 dark:border-gray-800">
                     <DialogHeader>
                         <DialogTitle>Add New FAQ</DialogTitle>
-                        <DialogDescription>
+                        <DialogDescription className="dark:text-gray-400">
                             Create a new frequently asked question
                         </DialogDescription>
                     </DialogHeader>
@@ -659,6 +659,7 @@ export default function FaqManagement() {
                                 onChange={(e) => setFaqFormData({ ...faqFormData, question: e.target.value })}
                                 placeholder="What is your question?"
                                 data-testid="input-faq-question"
+                                className="dark:bg-gray-800 dark:border-gray-700"
                             />
                         </div>
 
@@ -671,6 +672,7 @@ export default function FaqManagement() {
                                 placeholder="Provide a detailed answer..."
                                 rows={6}
                                 data-testid="input-faq-answer"
+                                className="dark:bg-gray-800 dark:border-gray-700"
                             />
                         </div>
 
@@ -681,10 +683,10 @@ export default function FaqManagement() {
                                     value={faqFormData.categoryId}
                                     onValueChange={(value) => setFaqFormData({ ...faqFormData, categoryId: value })}
                                 >
-                                    <SelectTrigger data-testid="select-faq-category">
+                                    <SelectTrigger data-testid="select-faq-category" className="dark:bg-gray-800 dark:border-gray-700">
                                         <SelectValue placeholder="Select category" />
                                     </SelectTrigger>
-                                    <SelectContent>
+                                    <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
                                         {categories.map((cat: Category) => (
                                             <SelectItem key={cat.id} value={cat.id}>
                                                 {cat.name}
@@ -703,6 +705,7 @@ export default function FaqManagement() {
                                     value={faqFormData.position}
                                     onChange={(e) => setFaqFormData({ ...faqFormData, position: e.target.value })}
                                     data-testid="input-faq-position"
+                                    className="dark:bg-gray-800 dark:border-gray-700"
                                 />
                             </div>
                         </div>
@@ -720,7 +723,7 @@ export default function FaqManagement() {
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setShowAddFaqDialog(false)}>
+                        <Button variant="outline" onClick={() => setShowAddFaqDialog(false)} className="dark:border-gray-700">
                             Cancel
                         </Button>
                         <Button
@@ -743,10 +746,10 @@ export default function FaqManagement() {
 
             {/* Edit FAQ Dialog */}
             <Dialog open={!!editingFaq} onOpenChange={(open) => !open && setEditingFaq(null)}>
-                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto dark:bg-gray-900 dark:border-gray-800">
                     <DialogHeader>
                         <DialogTitle>Edit FAQ</DialogTitle>
-                        <DialogDescription>Update FAQ details</DialogDescription>
+                        <DialogDescription className="dark:text-gray-400">Update FAQ details</DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
                         <div className="space-y-2">
@@ -757,6 +760,7 @@ export default function FaqManagement() {
                                 onChange={(e) => setFaqFormData({ ...faqFormData, question: e.target.value })}
                                 placeholder="What is your question?"
                                 data-testid="input-edit-faq-question"
+                                className="dark:bg-gray-800 dark:border-gray-700"
                             />
                         </div>
 
@@ -769,6 +773,7 @@ export default function FaqManagement() {
                                 placeholder="Provide a detailed answer..."
                                 rows={6}
                                 data-testid="input-edit-faq-answer"
+                                className="dark:bg-gray-800 dark:border-gray-700"
                             />
                         </div>
 
@@ -779,10 +784,10 @@ export default function FaqManagement() {
                                     value={faqFormData.categoryId}
                                     onValueChange={(value) => setFaqFormData({ ...faqFormData, categoryId: value })}
                                 >
-                                    <SelectTrigger data-testid="select-edit-faq-category">
+                                    <SelectTrigger data-testid="select-edit-faq-category" className="dark:bg-gray-800 dark:border-gray-700">
                                         <SelectValue placeholder="Select category" />
                                     </SelectTrigger>
-                                    <SelectContent>
+                                    <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
                                         {categories.map((cat: Category) => (
                                             <SelectItem key={cat.id} value={cat.id}>
                                                 {cat.name}
@@ -801,6 +806,7 @@ export default function FaqManagement() {
                                     value={faqFormData.position}
                                     onChange={(e) => setFaqFormData({ ...faqFormData, position: e.target.value })}
                                     data-testid="input-edit-faq-position"
+                                    className="dark:bg-gray-800 dark:border-gray-700"
                                 />
                             </div>
                         </div>
@@ -818,7 +824,7 @@ export default function FaqManagement() {
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setEditingFaq(null)}>
+                        <Button variant="outline" onClick={() => setEditingFaq(null)} className="dark:border-gray-700">
                             Cancel
                         </Button>
                         <Button
@@ -841,10 +847,10 @@ export default function FaqManagement() {
 
             {/* Add Category Dialog */}
             <Dialog open={showAddCategoryDialog} onOpenChange={setShowAddCategoryDialog}>
-                <DialogContent className="max-w-lg">
+                <DialogContent className="max-w-lg dark:bg-gray-900 dark:border-gray-800">
                     <DialogHeader>
                         <DialogTitle>Add New Category</DialogTitle>
-                        <DialogDescription>
+                        <DialogDescription className="dark:text-gray-400">
                             Create a new FAQ category
                         </DialogDescription>
                     </DialogHeader>
@@ -864,6 +870,7 @@ export default function FaqManagement() {
                                 }}
                                 placeholder="e.g., General Questions"
                                 data-testid="input-category-name"
+                                className="dark:bg-gray-800 dark:border-gray-700"
                             />
                         </div>
 
@@ -875,6 +882,7 @@ export default function FaqManagement() {
                                 onChange={(e) => setCategoryFormData({ ...categoryFormData, slug: e.target.value })}
                                 placeholder="general-questions"
                                 data-testid="input-category-slug"
+                                className="dark:bg-gray-800 dark:border-gray-700"
                             />
                         </div>
 
@@ -887,6 +895,7 @@ export default function FaqManagement() {
                                 placeholder="Brief description..."
                                 rows={2}
                                 data-testid="input-category-description"
+                                className="dark:bg-gray-800 dark:border-gray-700"
                             />
                         </div>
 
@@ -899,6 +908,7 @@ export default function FaqManagement() {
                                 value={categoryFormData.position}
                                 onChange={(e) => setCategoryFormData({ ...categoryFormData, position: e.target.value })}
                                 data-testid="input-category-position"
+                                className="dark:bg-gray-800 dark:border-gray-700"
                             />
                         </div>
 
@@ -915,7 +925,7 @@ export default function FaqManagement() {
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setShowAddCategoryDialog(false)}>
+                        <Button variant="outline" onClick={() => setShowAddCategoryDialog(false)} className="dark:border-gray-700">
                             Cancel
                         </Button>
                         <Button
@@ -938,10 +948,10 @@ export default function FaqManagement() {
 
             {/* Edit Category Dialog */}
             <Dialog open={!!editingCategory} onOpenChange={(open) => !open && setEditingCategory(null)}>
-                <DialogContent className="max-w-lg">
+                <DialogContent className="max-w-lg dark:bg-gray-900 dark:border-gray-800">
                     <DialogHeader>
                         <DialogTitle>Edit Category</DialogTitle>
-                        <DialogDescription>Update category details</DialogDescription>
+                        <DialogDescription className="dark:text-gray-400">Update category details</DialogDescription>
                     </DialogHeader>
                     <div className="space-y-4 py-4">
                         <div className="space-y-2">
@@ -952,6 +962,7 @@ export default function FaqManagement() {
                                 onChange={(e) => setCategoryFormData({ ...categoryFormData, name: e.target.value })}
                                 placeholder="e.g., General Questions"
                                 data-testid="input-edit-category-name"
+                                className="dark:bg-gray-800 dark:border-gray-700"
                             />
                         </div>
 
@@ -963,6 +974,7 @@ export default function FaqManagement() {
                                 onChange={(e) => setCategoryFormData({ ...categoryFormData, slug: e.target.value })}
                                 placeholder="general-questions"
                                 data-testid="input-edit-category-slug"
+                                className="dark:bg-gray-800 dark:border-gray-700"
                             />
                         </div>
 
@@ -975,6 +987,7 @@ export default function FaqManagement() {
                                 placeholder="Brief description..."
                                 rows={2}
                                 data-testid="input-edit-category-description"
+                                className="dark:bg-gray-800 dark:border-gray-700"
                             />
                         </div>
 
@@ -987,6 +1000,7 @@ export default function FaqManagement() {
                                 value={categoryFormData.position}
                                 onChange={(e) => setCategoryFormData({ ...categoryFormData, position: e.target.value })}
                                 data-testid="input-edit-category-position"
+                                className="dark:bg-gray-800 dark:border-gray-700"
                             />
                         </div>
 
@@ -1003,7 +1017,7 @@ export default function FaqManagement() {
                         </div>
                     </div>
                     <DialogFooter>
-                        <Button variant="outline" onClick={() => setEditingCategory(null)}>
+                        <Button variant="outline" onClick={() => setEditingCategory(null)} className="dark:border-gray-700">
                             Cancel
                         </Button>
                         <Button

@@ -91,16 +91,16 @@ export function HomepagePopupSettings() {
         }
     };
 
-    return (
-        <Card className="border-0 shadow-xl">
+  return (
+        <Card className="border-0 shadow-xl dark:bg-gray-900">
             <CardHeader>
                 <CardTitle className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
                     Homepage Popup Settings
                 </CardTitle>
-                <CardDescription>Manage the promotional popup shown on the homepage</CardDescription>
+                <CardDescription className="dark:text-gray-400">Manage the promotional popup shown on the homepage</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6 flex flex-col items-start w-full">
-                <div className="flex items-center justify-between p-4 border rounded-xl w-full">
+                <div className="flex items-center justify-between p-4 border rounded-xl w-full dark:border-gray-700">
                     <div>
                         <Label className="text-lg font-bold">Enable Popup</Label>
                         <p className="text-sm text-muted-foreground">Turn the homepage popup on or off</p>
@@ -108,38 +108,38 @@ export function HomepagePopupSettings() {
                     <Switch checked={enabled} onCheckedChange={setEnabled} />
                 </div>
 
-                <div className="space-y-4 p-6 border rounded-xl w-full">
+                <div className="space-y-4 p-6 border rounded-xl w-full dark:border-gray-700">
                     <Label className="text-lg font-bold flex items-center gap-2">
                         <ImageIcon className="h-5 w-5" /> Popup Image
                     </Label>
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                         {imageUrl ? (
-                            <div className="h-32 w-48 rounded-xl border border-primary/20 flex items-center justify-center overflow-hidden bg-muted">
+                            <div className="h-32 w-48 rounded-xl border border-primary/20 flex items-center justify-center overflow-hidden bg-muted dark:bg-gray-800">
                                 <img src={imageUrl} alt="Popup" className="max-h-full max-w-full object-contain" />
                             </div>
                         ) : (
-                            <div className="h-32 w-48 rounded-xl flex items-center justify-center border-2 border-dashed bg-muted">
+                            <div className="h-32 w-48 rounded-xl flex items-center justify-center border-2 border-dashed bg-muted dark:bg-gray-800 dark:border-gray-700">
                                 <span className="text-sm text-muted-foreground">No image</span>
                             </div>
                         )}
                         <div className="flex flex-col gap-2">
-                            <Input type="file" accept="image/*" onChange={handleImageUpload} className="max-w-sm" />
+                            <Input type="file" accept="image/*" onChange={handleImageUpload} className="max-w-sm dark:bg-gray-800 dark:border-gray-700" />
                             <p className="text-xs text-muted-foreground">Recommended ratio 3:4. The image will be displayed on the homepage popup.</p>
                         </div>
                     </div>
                 </div>
 
-                <div className="space-y-4 p-6 border rounded-xl w-full">
+                <div className="space-y-4 p-6 border rounded-xl w-full dark:border-gray-700">
                     <div className="flex flex-col space-y-2">
                         <Label className="text-lg font-bold">Popup Text</Label>
                         <p className="text-sm text-muted-foreground">Optional text to display on the popup below the image.</p>
-                        <Input value={text} onChange={(e) => setText(e.target.value)} placeholder="e.g. Get 20% off your next eSIM!" className="max-w-md" />
+                        <Input value={text} onChange={(e) => setText(e.target.value)} placeholder="e.g. Get 20% off your next eSIM!" className="max-w-md dark:bg-gray-800 dark:border-gray-700" />
                     </div>
 
                     <div className="flex flex-col space-y-2 mt-4">
                         <Label className="text-lg font-bold">Optional Promo Code</Label>
                         <p className="text-sm text-muted-foreground">A promo code users can copy from the popup. Leave empty if no code is attached.</p>
-                        <Input value={code} onChange={(e) => setCode(e.target.value)} placeholder="e.g. SUMMER2024" className="max-w-sm" />
+                        <Input value={code} onChange={(e) => setCode(e.target.value)} placeholder="e.g. SUMMER2024" className="max-w-sm dark:bg-gray-800 dark:border-gray-700" />
                     </div>
                 </div>
 

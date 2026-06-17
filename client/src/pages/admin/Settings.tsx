@@ -173,14 +173,14 @@ function PaymentMethodsManagement() {
   };
 
   return (
-    <Card className="border-0 shadow-lg">
+    <Card className="border-0 shadow-lg dark:bg-gray-900">
       <CardHeader>
         <CardTitle>Payment Methods</CardTitle>
         <CardDescription>Configure available payment methods for customers</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         {paymentSettings.map((setting) => (
-          <Card key={setting.method} className="bg-muted/30">
+          <Card key={setting.method} className="bg-muted/30 dark:bg-gray-800">
             <CardContent className="pt-6 space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -214,12 +214,13 @@ function PaymentMethodsManagement() {
                         step="0.01"
                         value={setting.minimumAmount}
                         onChange={(e) => handleMinAmountChange(setting.method, e.target.value)}
+                        className="dark:bg-gray-900 dark:border-gray-700"
                         data-testid={`input-min-${setting.method}`}
                       />
                     </div>
                     <div className="space-y-2">
                       <Label>Status</Label>
-                      <Badge variant={setting.enabled ? 'default' : 'secondary'}>
+                      <Badge variant={setting.enabled ? 'default' : 'secondary'} className="dark:bg-gray-700 dark:text-gray-300">
                         {setting.enabled ? 'Enabled' : 'Disabled'}
                       </Badge>
                     </div>
@@ -235,6 +236,7 @@ function PaymentMethodsManagement() {
                       onChange={(e) => handleInstructionsChange(setting.method, e.target.value)}
                       placeholder="Enter instructions displayed to customers"
                       rows={2}
+                      className="dark:bg-gray-900 dark:border-gray-700"
                       data-testid={`textarea-instructions-${setting.method}`}
                     />
                   </div>
@@ -427,7 +429,7 @@ export default function Settings() {
   const [activeTab, setActiveTab] = useState('general');
 
   return (
-    <div className="p-6 lg:p-8 space-y-6">
+    <div className="p-6 lg:p-8 space-y-6 dark:bg-gray-950 dark:text-gray-100">
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
@@ -441,7 +443,7 @@ export default function Settings() {
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         <div className="relative">
           <div className="overflow-x-auto scrollbar-hide pb-2">
-            <TabsList className="flex min-w-max gap-2 p-1 bg-muted/50" data-testid="tabs-settings">
+            <TabsList className="flex min-w-max gap-2 p-1 bg-muted/50 dark:bg-gray-800" data-testid="tabs-settings">
               <TabsTrigger
                 value="general"
                 className="gap-1 whitespace-nowrap"
@@ -451,15 +453,6 @@ export default function Settings() {
                 <span className="hidden sm:inline">{t('adminPanel.admin.settings.generalTab', 'General')}</span>
                 <span className="sm:hidden">{t('adminPanel.admin.settings.generalTab', 'General')}</span>
               </TabsTrigger>
-              {/* <TabsTrigger
-                value="currency"
-                className="gap-1 whitespace-nowrap"
-                data-testid="tab-currency"
-              >
-                <DollarSign className="h-4 w-4 shrink-0" />
-                <span className="hidden sm:inline">{t('adminPanel.admin.settings.currencyTab', 'Currency')}</span>
-                <span className="sm:hidden">{t('admin.settings.currencyTab', 'Currency')}</span>
-              </TabsTrigger> */}
               <TabsTrigger value="smtp" className="gap-1 whitespace-nowrap" data-testid="tab-smtp">
                 <Mail className="h-4 w-4 shrink-0" />
                 <span className="hidden sm:inline">{t('adminPanel.admin.settings.smtpTab', 'SMTP')}</span>
@@ -555,15 +548,9 @@ export default function Settings() {
           <GeneralSettings />
         </TabsContent>
 
-        {/* Currency Management Tab */}
         <TabsContent value="currency" className="space-y-4">
           <CurrencyManagement />
         </TabsContent>
-
-        {/* Payment Methods Tab */}
-        {/* <TabsContent value="payment-methods" className="space-y-4">
-          <PaymentMethodsManagement />
-        </TabsContent> */}
 
         <TabsContent value="smtp" className="space-y-4">
           <SMTPSettings />

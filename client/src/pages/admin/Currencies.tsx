@@ -203,7 +203,7 @@ export default function Currencies() {
   };
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 dark:bg-gray-950">
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-foreground">Currency Management</h1>
@@ -224,7 +224,7 @@ export default function Currencies() {
         </Button>
       </div>
 
-      <Card>
+      <Card className="dark:bg-gray-900">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <DollarSign className="h-5 w-5" />
@@ -247,7 +247,7 @@ export default function Currencies() {
           ) : (
             <Table>
               <TableHeader>
-                <TableRow>
+                <TableRow className="dark:border-gray-700">
                   <TableHead>Symbol</TableHead>
                   <TableHead>Code</TableHead>
                   <TableHead>Name</TableHead>
@@ -259,7 +259,7 @@ export default function Currencies() {
               </TableHeader>
               <TableBody>
                 {currencies.map((currency) => (
-                  <TableRow key={currency.id} data-testid={`currency-row-${currency.code}`}>
+                  <TableRow key={currency.id} data-testid={`currency-row-${currency.code}`} className="dark:border-gray-700">
                     <TableCell className="text-2xl font-mono">{currency.symbol}</TableCell>
                     <TableCell className="font-semibold">{currency.code}</TableCell>
                     <TableCell>{currency.name}</TableCell>
@@ -325,7 +325,7 @@ export default function Currencies() {
       </Card>
 
       <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
-        <DialogContent>
+        <DialogContent className="dark:bg-gray-900 dark:border-gray-800">
           <DialogHeader>
             <DialogTitle>Add New Currency</DialogTitle>
             <DialogDescription>
@@ -343,6 +343,7 @@ export default function Currencies() {
                   placeholder="USD"
                   maxLength={3}
                   data-testid="input-currency-code"
+                  className="dark:bg-gray-800 dark:border-gray-700"
                 />
               </div>
               <div className="space-y-2">
@@ -354,6 +355,7 @@ export default function Currencies() {
                   placeholder="$"
                   maxLength={5}
                   data-testid="input-currency-symbol"
+                  className="dark:bg-gray-800 dark:border-gray-700"
                 />
               </div>
             </div>
@@ -365,6 +367,7 @@ export default function Currencies() {
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="US Dollar"
                 data-testid="input-currency-name"
+                className="dark:bg-gray-800 dark:border-gray-700"
               />
             </div>
             <div className="space-y-2">
@@ -377,6 +380,7 @@ export default function Currencies() {
                 onChange={(e) => setFormData({ ...formData, conversionRate: e.target.value })}
                 placeholder="1.000000"
                 data-testid="input-currency-rate"
+                className="dark:bg-gray-800 dark:border-gray-700"
               />
               <p className="text-xs text-muted-foreground">
                 Enter how many units of this currency equals 1 USD
@@ -384,7 +388,7 @@ export default function Currencies() {
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowAddDialog(false)}>
+            <Button variant="outline" onClick={() => setShowAddDialog(false)} className="dark:border-gray-700">
               Cancel
             </Button>
             <Button
@@ -406,7 +410,7 @@ export default function Currencies() {
       </Dialog>
 
       <Dialog open={!!editingCurrency} onOpenChange={(open) => !open && setEditingCurrency(null)}>
-        <DialogContent>
+        <DialogContent className="dark:bg-gray-900 dark:border-gray-800">
           <DialogHeader>
             <DialogTitle>Edit Currency</DialogTitle>
             <DialogDescription>Update currency details and conversion rate.</DialogDescription>
@@ -422,6 +426,7 @@ export default function Currencies() {
                   placeholder="USD"
                   maxLength={3}
                   data-testid="input-edit-currency-code"
+                  className="dark:bg-gray-800 dark:border-gray-700"
                 />
               </div>
               <div className="space-y-2">
@@ -433,6 +438,7 @@ export default function Currencies() {
                   placeholder="$"
                   maxLength={5}
                   data-testid="input-edit-currency-symbol"
+                  className="dark:bg-gray-800 dark:border-gray-700"
                 />
               </div>
             </div>
@@ -444,6 +450,7 @@ export default function Currencies() {
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="US Dollar"
                 data-testid="input-edit-currency-name"
+                className="dark:bg-gray-800 dark:border-gray-700"
               />
             </div>
             <div className="space-y-2">
@@ -456,11 +463,12 @@ export default function Currencies() {
                 onChange={(e) => setFormData({ ...formData, conversionRate: e.target.value })}
                 placeholder="1.000000"
                 data-testid="input-edit-currency-rate"
+                className="dark:bg-gray-800 dark:border-gray-700"
               />
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setEditingCurrency(null)}>
+            <Button variant="outline" onClick={() => setEditingCurrency(null)} className="dark:border-gray-700">
               Cancel
             </Button>
             <Button

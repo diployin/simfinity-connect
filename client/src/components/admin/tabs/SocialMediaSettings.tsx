@@ -153,8 +153,8 @@ export function SocialMediaSettings() {
   };
 
   return (
-    <div className="space-y-6">
-      <Card className="border-0 shadow-xl">
+    <div className="space-y-6 dark:bg-gray-950">
+      <Card className="border-0 shadow-xl dark:bg-gray-900">
         <CardHeader>
           <div className="flex items-center gap-3">
             <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-[var(--primary-hex)] to-[var(--primary-second-hex)] flex items-center justify-center shadow-lg">
@@ -275,10 +275,10 @@ export function SocialMediaSettings() {
       </Card>
 
       {/* Info */}
-      <Card className="border-0 bg-gradient-to-br from-blue-50 to-transparent shadow-md">
+      <Card className="border-0 bg-gradient-to-br from-blue-50 to-transparent shadow-md dark:bg-gray-900">
         <CardContent className="pt-6 flex gap-3">
-          <Info className="h-5 w-5 text-blue-600 mt-0.5" />
-          <p className="text-sm text-blue-800">
+          <Info className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5" />
+          <p className="text-sm text-blue-800 dark:text-blue-200">
             These links may be shown in the footer, contact page, or mobile app.
           </p>
         </CardContent>
@@ -321,7 +321,7 @@ function Field({
             <Switch
               checked={active}
               onCheckedChange={onActiveChange}
-              className="data-[state=checked]:bg-[var(--primary-hex)]"
+              className="data-[state=checked]:bg-[var(--primary-hex)] dark:data-[state=checked]:bg-[var(--primary-hex)]"
             />
           </div>
         )}
@@ -330,7 +330,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="h-12 ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)]"
+        className="h-12 ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] dark:bg-gray-800 dark:border-gray-700"
       />
     </div>
   );

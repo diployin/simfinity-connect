@@ -130,7 +130,7 @@ export function AppStoreSettings() {
 
   return (
     <div className="space-y-6">
-      <Card className="border-0 shadow-xl">
+      <Card className="border-0 shadow-xl dark:bg-gray-900">
         <CardHeader>
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
   
@@ -159,7 +159,7 @@ export function AppStoreSettings() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Apple Settings */}
             <div className="space-y-6">
-              <h3 className="font-semibold text-lg border-b pb-2">{t("adminPanel.admin.settings.apps.appleSection", "Apple Store Settings")}
+              <h3 className="font-semibold text-lg border-b pb-2 dark:border-gray-700">{t("adminPanel.admin.settings.apps.appleSection", "Apple Store Settings")}
 </h3>
 
               <Field
@@ -203,14 +203,14 @@ export function AppStoreSettings() {
                   value={applePrivateKey}
                   onChange={(e) => setApplePrivateKey(e.target.value)}
                   placeholder="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----"
-                  className="font-mono text-xs h-64"
+                  className="font-mono text-xs h-64 dark:bg-gray-800 dark:border-gray-700"
                 />
               </div>
             </div>
 
             {/* Google Play Settings */}
             <div className="space-y-6">
-              <h3 className="font-semibold text-lg border-b pb-2">{t("adminPanel.admin.settings.apps.googleSection", "Google Play Settings")}</h3>
+              <h3 className="font-semibold text-lg border-b pb-2 dark:border-gray-700">{t("adminPanel.admin.settings.apps.googleSection", "Google Play Settings")}</h3>
 
               <Field
                 label={t("adminPanel.admin.settings.apps.packageName","Package Name")}
@@ -225,13 +225,13 @@ export function AppStoreSettings() {
                   value={googlePlayJson}
                   onChange={(e) => setGooglePlayJson(e.target.value)}
                   placeholder='{ "type": "service_account", "project_id": "...", ... }'
-                  className="font-mono text-xs h-96"
+                  className="font-mono text-xs h-96 dark:bg-gray-800 dark:border-gray-700"
                 />
               </div>
             </div>
           </div>
 
-          <div className="pt-4 border-t">
+          <div className="pt-4 border-t dark:border-gray-700">
             <Button
               onClick={handleSaveSettings}
               disabled={updateSettingMutation.isPending}
@@ -254,10 +254,10 @@ export function AppStoreSettings() {
       </Card>
 
       {/* Security Note */}
-      <Card className="border-l-4 border-amber-500 bg-amber-50">
+      <Card className="border-l-4 border-amber-500 bg-amber-50 dark:bg-gray-900 dark:border-amber-700">
         <CardContent className="pt-6 flex gap-4">
-          <Shield className="h-6 w-6 text-amber-600" />
-          <p className="text-sm text-amber-800">
+          <Shield className="h-6 w-6 text-amber-600 dark:text-amber-400" />
+          <p className="text-sm text-amber-800 dark:text-amber-200">
             {t(
   "adminPanel.admin.settings.apps.securityNote",
   "These credentials grant access to your Google Play Console and App Store Connect accounts. Keep them secure and do not share them."
@@ -282,6 +282,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
+        className="dark:bg-gray-800 dark:border-gray-700"
       />
     </div>
   );

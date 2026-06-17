@@ -161,7 +161,7 @@ function AISettingsCard() {
   };
 
   return (
-    <Card className="border-0 shadow-xl hover:shadow-[0_25px_50px_-12px_color-mix(in_srgb,var(--primary-hex)_30%,transparent)] transition-all duration-500">
+    <Card className="border-0 shadow-xl hover:shadow-[0_25px_50px_-12px_color-mix(in_srgb,var(--primary-hex)_30%,transparent)] transition-all duration-500 dark:bg-gray-900">
       <CardHeader>
         <CardTitle className="text-2xl font-bold bg-gradient-to-r from-[var(--primary-hex)] to-[var(--primary-second-hex)] bg-clip-text text-transparent flex items-center gap-2">
           <Brain className="h-6 w-6 text-[var(--primary-hex)]" />
@@ -176,7 +176,7 @@ function AISettingsCard() {
       </CardHeader>
       <CardContent className="space-y-6 p-8">
         {/* Connection Status */}
-        <div className="p-6 rounded-2xl border-2 border-border bg-gradient-to-br from-muted/30 to-transparent">
+        <div className="p-6 rounded-2xl border-2 border-border bg-gradient-to-br from-muted/30 to-transparent dark:bg-gray-800">
           <div className="flex items-center justify-between gap-4 mb-4">
             <div className="flex items-center gap-3">
               <Zap className="h-5 w-5 text-[var(--primary-hex)]" />
@@ -197,10 +197,10 @@ function AISettingsCard() {
           </div>
 
           {!aiStatus?.isConfigured && (
-            <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 mb-4">
+            <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 mb-4 dark:bg-gray-900">
               <p className="text-sm text-amber-600 dark:text-amber-400">
                 Add your OpenAI API key as a secret named{' '}
-                <code className="font-mono bg-muted px-1 rounded">OPENAI_API_KEY</code> to enable AI
+                <code className="font-mono bg-muted px-1 rounded dark:bg-gray-700">OPENAI_API_KEY</code> to enable AI
                 features.
               </p>
             </div>
@@ -211,6 +211,7 @@ function AISettingsCard() {
               variant="outline"
               onClick={testConnection}
               disabled={testing || !aiStatus?.isConfigured}
+              className="dark:border-gray-700"
               data-testid="button-test-ai"
             >
               {testing ? (
@@ -224,7 +225,7 @@ function AISettingsCard() {
         </div>
 
         {/* AI Toggle */}
-        <div className="p-6 rounded-2xl border-2 border-border">
+        <div className="p-6 rounded-2xl border-2 border-border dark:border-gray-700">
           <div className="flex items-center justify-between gap-4">
             <div>
               <div className="text-xl font-bold mb-1 flex items-center gap-2">
@@ -246,11 +247,11 @@ function AISettingsCard() {
 
         {/* Scoring Weights */}
         {aiEnabled && (
-          <div className="p-6 rounded-2xl border-2 border-[var(--primary-hex)]/30 bg-gradient-to-br from-[var(--primary-light-hex)]/10 to-transparent">
+          <div className="p-6 rounded-2xl border-2 border-[var(--primary-hex)]/30 bg-gradient-to-br from-[var(--primary-light-hex)]/10 to-transparent dark:bg-gray-800">
             <div className="flex items-center gap-2 mb-6">
               <Settings2 className="h-5 w-5 text-[var(--primary-hex)]" />
               <span className="text-xl font-bold">Scoring Weights</span>
-              <Badge variant="outline" className="ml-auto">
+              <Badge variant="outline" className="ml-auto dark:border-gray-600">
                 Total: {priceWeight + qualityWeight + providerWeight}%
               </Badge>
             </div>
@@ -259,7 +260,7 @@ function AISettingsCard() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label className="font-semibold">Price Weight</Label>
-                  <span className="text-sm font-mono bg-muted px-2 py-1 rounded">
+                  <span className="text-sm font-mono bg-muted px-2 py-1 rounded dark:bg-gray-700">
                     {priceWeight}%
                   </span>
                 </div>
@@ -276,7 +277,7 @@ function AISettingsCard() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label className="font-semibold">Quality Weight</Label>
-                  <span className="text-sm font-mono bg-muted px-2 py-1 rounded">
+                  <span className="text-sm font-mono bg-muted px-2 py-1 rounded dark:bg-gray-700">
                     {qualityWeight}%
                   </span>
                 </div>
@@ -295,7 +296,7 @@ function AISettingsCard() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label className="font-semibold">Provider Weight</Label>
-                  <span className="text-sm font-mono bg-muted px-2 py-1 rounded">
+                  <span className="text-sm font-mono bg-muted px-2 py-1 rounded dark:bg-gray-700">
                     {providerWeight}%
                   </span>
                 </div>
@@ -330,6 +331,7 @@ function AISettingsCard() {
                 variant="outline"
                 onClick={runAISelection}
                 disabled={running}
+                className="dark:border-gray-700"
                 data-testid="button-run-ai"
               >
                 {running ? (
@@ -345,7 +347,7 @@ function AISettingsCard() {
 
         {/* Usage Stats */}
         {aiStatus?.usage && aiStatus.usage.totalRequests > 0 && (
-          <div className="p-6 rounded-xl bg-gradient-to-r from-[var(--primary-light-hex)]/20 to-transparent border border-[var(--primary-hex)]/30">
+          <div className="p-6 rounded-xl bg-gradient-to-r from-[var(--primary-light-hex)]/20 to-transparent border border-[var(--primary-hex)]/30 dark:bg-gray-800">
             <div className="flex items-center gap-2 mb-4">
               <TrendingUp className="h-5 w-5 text-[var(--primary-hex)]" />
               <span className="text-lg font-bold text-[var(--primary-hex)]">
@@ -353,21 +355,21 @@ function AISettingsCard() {
               </span>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="text-center p-3 bg-muted/50 rounded-lg">
+              <div className="text-center p-3 bg-muted/50 rounded-lg dark:bg-gray-900">
                 <div className="text-2xl font-bold">{aiStatus.usage.totalRequests}</div>
                 <div className="text-xs text-muted-foreground">Requests</div>
               </div>
-              <div className="text-center p-3 bg-muted/50 rounded-lg">
+              <div className="text-center p-3 bg-muted/50 rounded-lg dark:bg-gray-900">
                 <div className="text-2xl font-bold">
                   {(aiStatus.usage.totalTokens / 1000).toFixed(1)}k
                 </div>
                 <div className="text-xs text-muted-foreground">Tokens</div>
               </div>
-              <div className="text-center p-3 bg-muted/50 rounded-lg">
+              <div className="text-center p-3 bg-muted/50 rounded-lg dark:bg-gray-900">
                 <div className="text-2xl font-bold">${aiStatus.usage.estimatedCost.toFixed(2)}</div>
                 <div className="text-xs text-muted-foreground">Est. Cost</div>
               </div>
-              <div className="text-center p-3 bg-muted/50 rounded-lg">
+              <div className="text-center p-3 bg-muted/50 rounded-lg dark:bg-gray-900">
                 <div className="text-2xl font-bold">{aiStatus.usage.errors}</div>
                 <div className="text-xs text-muted-foreground">Errors</div>
               </div>
@@ -376,7 +378,7 @@ function AISettingsCard() {
         )}
 
         {/* AI Features List */}
-        <div className="p-6 rounded-xl bg-gradient-to-r from-[var(--primary-light-hex)]/20 to-transparent border border-[var(--primary-hex)]/30">
+        <div className="p-6 rounded-xl bg-gradient-to-r from-[var(--primary-light-hex)]/20 to-transparent border border-[var(--primary-hex)]/30 dark:bg-gray-800">
           <p className="text-lg font-bold mb-3 text-[var(--primary-hex)]">AI-Powered Features</p>
           <ul className="text-sm text-muted-foreground leading-relaxed space-y-2">
             <li className="flex items-center gap-2">
@@ -612,9 +614,9 @@ export function GeneralSettings() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 dark:bg-gray-950 p-6">
       {/* Platform Information Card */}
-      <Card className="border-0 shadow-xl hover:shadow-[0_25px_50px_-12px_color-mix(in_srgb,var(--primary-hex)_30%,transparent)] transition-all duration-500">
+      <Card className="border-0 shadow-xl hover:shadow-[0_25px_50px_-12px_color-mix(in_srgb,var(--primary-hex)_30%,transparent)] transition-all duration-500 dark:bg-gray-900">
         <CardHeader>
           <CardTitle className="text-3xl font-bold bg-gradient-to-r from-[var(--primary-hex)] via-[var(--primary-second-hex)] to-[var(--primary-light-hex)] bg-clip-text text-transparent">
             {t('admin.settings.general.platformInfoTitle', 'Platform Information')}
@@ -639,7 +641,7 @@ export function GeneralSettings() {
                   value={platformName}
                   onChange={(e) => setPlatformName(e.target.value)}
                   placeholder={t('admin.settings.general.platformNamePlaceholder', 'My eSIM Store')}
-                  className="h-14 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
+                  className="h-14 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300 dark:bg-gray-800 dark:border-gray-700"
                   data-testid="input-platform-name"
                 />
               </div>
@@ -655,7 +657,7 @@ export function GeneralSettings() {
                     'admin.settings.general.taglinePlaceholder',
                     'Global connectivity made easy',
                   )}
-                  className="h-12 ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
+                  className="h-12 ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300 dark:bg-gray-800 dark:border-gray-700"
                   data-testid="input-platform-tagline"
                 />
               </div>
@@ -670,7 +672,7 @@ export function GeneralSettings() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder={t('admin.settings.general.emailPlaceholder', 'info@voltey.com')}
-                    className="h-12 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
+                    className="h-12 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300 dark:bg-gray-800 dark:border-gray-700"
                     data-testid="input-platform-email"
                   />
                 </div>
@@ -684,7 +686,7 @@ export function GeneralSettings() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder={t('admin.settings.general.phonePlaceholder', '+33 0745574376')}
-                    className="h-12 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
+                    className="h-12 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300 dark:bg-gray-800 dark:border-gray-700"
                     data-testid="input-platform-phone"
                   />
                 </div>
@@ -700,7 +702,7 @@ export function GeneralSettings() {
                     value={supportInfo}
                     onChange={(e) => setSupportInfo(e.target.value)}
                     placeholder={t('admin.settings.general.supportInfoPlaceholder', '24/7 Customer Support')}
-                    className="h-12 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
+                    className="h-12 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300 dark:bg-gray-800 dark:border-gray-700"
                     data-testid="input-platform-support"
                   />
                 </div>
@@ -714,7 +716,7 @@ export function GeneralSettings() {
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     placeholder={t('admin.settings.general.locationPlaceholder', 'France')}
-                    className="h-12 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300"
+                    className="h-12 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] transition-all duration-300 dark:bg-gray-800 dark:border-gray-700"
                     data-testid="input-platform-location"
                   />
                 </div>
@@ -726,12 +728,12 @@ export function GeneralSettings() {
                 </Label>
                 <Select value={currency} onValueChange={setCurrency}>
                   <SelectTrigger
-                    className="h-12 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)]"
+                    className="h-12 text-lg ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] dark:bg-gray-800 dark:border-gray-700"
                     data-testid="select-currency"
                   >
                     <SelectValue placeholder="Select a currency" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
                     {currencies.map((curr) => (
                       <SelectItem key={curr.id} value={curr.code}>
                         <span className="flex items-center gap-2">
@@ -743,7 +745,7 @@ export function GeneralSettings() {
                     ))}
                   </SelectContent>
                 </Select>
-                <p className="text-sm font-medium px-3 py-2 bg-[var(--primary-light-hex)]/20 rounded-lg border border-[var(--primary-hex)]/20">
+                <p className="text-sm font-medium px-3 py-2 bg-[var(--primary-light-hex)]/20 rounded-lg border border-[var(--primary-hex)]/20 dark:bg-gray-800">
                   {t(
                     'admin.settings.general.currencyHelp',
                     'Select the default currency for your platform. Manage currencies in Platform Setup > Currencies.',
@@ -755,7 +757,7 @@ export function GeneralSettings() {
             {/* Right Column - Logo & Favicon */}
             <div className="space-y-6">
               {/* Logo Upload */}
-              <div className="space-y-4 p-6 bg-gradient-to-br from-[var(--primary-light-hex)]/10 to-transparent border border-[var(--primary-hex)]/20 rounded-2xl">
+              <div className="space-y-4 p-6 bg-gradient-to-br from-[var(--primary-light-hex)]/10 to-transparent border border-[var(--primary-hex)]/20 rounded-2xl dark:bg-gray-800">
                 <Label className="text-lg font-bold text-[var(--primary-hex)] flex items-center gap-2">
                   <ImageIcon className="h-5 w-5" />
                   {t('admin.settings.general.logo', 'Platform Logo')}
@@ -771,7 +773,7 @@ export function GeneralSettings() {
                       />
                     </div>
                   ) : (
-                    <div className="h-24 w-24 rounded-xl border-2 border-dashed border-[var(--primary-hex)]/50 flex flex-col items-center justify-center text-[var(--primary-hex)] bg-[var(--primary-light-hex)]/20 hover:scale-105 transition-all duration-300">
+                    <div className="h-24 w-24 rounded-xl border-2 border-dashed border-[var(--primary-hex)]/50 flex flex-col items-center justify-center text-[var(--primary-hex)] bg-[var(--primary-light-hex)]/20 hover:scale-105 transition-all duration-300 dark:bg-gray-900">
                       <Building2 className="h-8 w-8 mb-1 opacity-70" />
                       <span className="text-xs font-semibold">No Logo</span>
                     </div>
@@ -782,12 +784,12 @@ export function GeneralSettings() {
                       type="file"
                       accept="image/*"
                       onChange={handleLogoUpload}
-                      className="h-12 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-[var(--primary-hex)] file:to-[var(--primary-second-hex)] file:text-black hover:file:brightness-110 cursor-pointer"
+                      className="h-12 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-[var(--primary-hex)] file:to-[var(--primary-second-hex)] file:text-black hover:file:brightness-110 cursor-pointer dark:bg-gray-900 dark:border-gray-700"
                     />
                   </div>
                 </div>
 
-                <p className="text-xs text-[var(--primary-hex)]/70 px-3 py-1.5 bg-[var(--primary-light-hex)]/30 rounded-lg">
+                <p className="text-xs text-[var(--primary-hex)]/70 px-3 py-1.5 bg-[var(--primary-light-hex)]/30 rounded-lg dark:bg-gray-900">
                   {t(
                     'admin.settings.general.logoHelp',
                     'Recommended: PNG or SVG, transparent background',
@@ -796,7 +798,7 @@ export function GeneralSettings() {
               </div>
 
               {/* White Logo Upload */}
-              <div className="space-y-4 p-6 bg-gradient-to-br from-[var(--primary-light-hex)]/10 to-transparent border border-[var(--primary-hex)]/20 rounded-2xl">
+              <div className="space-y-4 p-6 bg-gradient-to-br from-[var(--primary-light-hex)]/10 to-transparent border border-[var(--primary-hex)]/20 rounded-2xl dark:bg-gray-800">
                 <Label className="text-lg font-bold text-[var(--primary-hex)] flex items-center gap-2">
                   <ImageIcon className="h-5 w-5" />
                   {t('admin.settings.general.whiteLogo', 'White Logo (Dark Mode)')}
@@ -812,7 +814,7 @@ export function GeneralSettings() {
                       />
                     </div>
                   ) : (
-                    <div className="h-24 w-24 rounded-xl border-2 border-dashed border-[var(--primary-hex)]/50 flex flex-col items-center justify-center text-[var(--primary-hex)] bg-black/40 hover:scale-105 transition-all duration-300">
+                    <div className="h-24 w-24 rounded-xl border-2 border-dashed border-[var(--primary-hex)]/50 flex flex-col items-center justify-center text-[var(--primary-hex)] bg-black/40 hover:scale-105 transition-all duration-300 dark:bg-gray-900">
                       <Building2 className="h-8 w-8 mb-1 opacity-70" />
                       <span className="text-xs font-semibold">No White Logo</span>
                     </div>
@@ -823,12 +825,12 @@ export function GeneralSettings() {
                       type="file"
                       accept="image/*"
                       onChange={handleWhiteLogoUpload}
-                      className="h-12 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-[var(--primary-hex)] file:to-[var(--primary-second-hex)] file:text-black hover:file:brightness-110 cursor-pointer"
+                      className="h-12 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-[var(--primary-hex)] file:to-[var(--primary-second-hex)] file:text-black hover:file:brightness-110 cursor-pointer dark:bg-gray-900 dark:border-gray-700"
                     />
                   </div>
                 </div>
 
-                <p className="text-xs text-[var(--primary-hex)]/70 px-3 py-1.5 bg-[var(--primary-light-hex)]/30 rounded-lg">
+                <p className="text-xs text-[var(--primary-hex)]/70 px-3 py-1.5 bg-[var(--primary-light-hex)]/30 rounded-lg dark:bg-gray-900">
                   {t(
                     'admin.settings.general.whiteLogoHelp',
                     'Recommended: White version for dark backgrounds',
@@ -837,7 +839,7 @@ export function GeneralSettings() {
               </div>
 
               {/* Favicon Upload */}
-              <div className="space-y-4 p-6 bg-gradient-to-br from-[var(--primary-light-hex)]/10 to-transparent border border-[var(--primary-hex)]/20 rounded-2xl">
+              <div className="space-y-4 p-6 bg-gradient-to-br from-[var(--primary-light-hex)]/10 to-transparent border border-[var(--primary-hex)]/20 rounded-2xl dark:bg-gray-800">
                 <Label className="text-lg font-bold text-[var(--primary-hex)]">
                   {t('admin.settings.general.favicon', 'Favicon')}
                 </Label>
@@ -852,7 +854,7 @@ export function GeneralSettings() {
                       />
                     </div>
                   ) : (
-                    <div className="h-16 w-16 rounded-lg border-2 border-dashed border-[var(--primary-hex)]/50 flex items-center justify-center text-[var(--primary-hex)] bg-[var(--primary-light-hex)]/20 text-xs font-semibold hover:scale-105 transition-all duration-300">
+                    <div className="h-16 w-16 rounded-lg border-2 border-dashed border-[var(--primary-hex)]/50 flex items-center justify-center text-[var(--primary-hex)] bg-[var(--primary-light-hex)]/20 text-xs font-semibold hover:scale-105 transition-all duration-300 dark:bg-gray-900">
                       No Favicon
                     </div>
                   )}
@@ -862,12 +864,12 @@ export function GeneralSettings() {
                       type="file"
                       accept="image/png,image/x-icon,image/svg+xml"
                       onChange={handleFaviconUpload}
-                      className="h-12 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-[var(--primary-hex)] file:to-[var(--primary-second-hex)] file:text-black hover:file:brightness-110 cursor-pointer"
+                      className="h-12 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-gradient-to-r file:from-[var(--primary-hex)] file:to-[var(--primary-second-hex)] file:text-black hover:file:brightness-110 cursor-pointer dark:bg-gray-900 dark:border-gray-700"
                     />
                   </div>
                 </div>
 
-                <p className="text-xs text-[var(--primary-hex)]/70 px-3 py-1.5 bg-[var(--primary-light-hex)]/30 rounded-lg">
+                <p className="text-xs text-[var(--primary-hex)]/70 px-3 py-1.5 bg-[var(--primary-light-hex)]/30 rounded-lg dark:bg-gray-900">
                   {t('admin.settings.general.faviconHelp', 'Recommended: 32×32 or 48×48 PNG/ICO')}
                 </p>
               </div>
@@ -887,7 +889,7 @@ export function GeneralSettings() {
                 '© 2024 My Company. All rights reserved.',
               )}
               rows={3}
-              className="ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] resize-none"
+              className="ring-2 ring-[var(--primary-hex)]/20 focus:ring-[var(--primary-hex)] focus:border-[var(--primary-hex)] resize-none dark:bg-gray-800 dark:border-gray-700"
               data-testid="textarea-copyright"
             />
           </div>
@@ -914,7 +916,7 @@ export function GeneralSettings() {
       </Card>
 
       {/* Package Selection Mode Card */}
-      <Card className="border-0 shadow-xl hover:shadow-[0_25px_50px_-12px_color-mix(in_srgb,var(--primary-hex)_30%,transparent)] transition-all duration-500">
+      <Card className="border-0 shadow-xl hover:shadow-[0_25px_50px_-12px_color-mix(in_srgb,var(--primary-hex)_30%,transparent)] transition-all duration-500 dark:bg-gray-900">
         <CardHeader>
           <CardTitle className="text-2xl font-bold bg-gradient-to-r from-[var(--primary-hex)] to-[var(--primary-second-hex)] bg-clip-text text-transparent">
             {t('admin.settings.general.packageModeTitle', 'Package Selection Mode')}
@@ -931,8 +933,8 @@ export function GeneralSettings() {
             {/* Auto Mode */}
             <div
               className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 hover:shadow-lg ${packageSelectionMode === 'auto'
-                ? 'border-[var(--primary-hex)] bg-gradient-to-br from-[var(--primary-light-hex)]/20 to-[var(--primary-hex)]/10 shadow-[0_10px_30px_-10px_color-mix(in_srgb,var(--primary-hex)_40%,transparent)]'
-                : 'border-border hover:border-[var(--primary-hex)]/50 hover-elevate'
+                ? 'border-[var(--primary-hex)] bg-gradient-to-br from-[var(--primary-light-hex)]/20 to-[var(--primary-hex)]/10 shadow-[0_10px_30px_-10px_color-mix(in_srgb,var(--primary-hex)_40%,transparent)] dark:bg-gray-800'
+                : 'border-border hover:border-[var(--primary-hex)]/50 hover-elevate dark:border-gray-700'
                 }`}
               onClick={() => setPackageSelectionMode('auto')}
               data-testid="option-auto-mode"
@@ -968,14 +970,14 @@ export function GeneralSettings() {
                   <div className="flex flex-wrap gap-2">
                     <Badge
                       variant="outline"
-                      className="text-xs border-[var(--primary-hex)]/40 bg-[var(--primary-light-hex)]/20 text-[var(--primary-hex)]"
+                      className="text-xs border-[var(--primary-hex)]/40 bg-[var(--primary-light-hex)]/20 text-[var(--primary-hex)] dark:border-gray-700"
                     >
                       <CheckCircle className="h-3 w-3 mr-1" />
                       {t('admin.settings.general.priceComparison', 'Price Comparison')}
                     </Badge>
                     <Badge
                       variant="outline"
-                      className="text-xs border-[var(--primary-hex)]/40 bg-[var(--primary-light-hex)]/20 text-[var(--primary-hex)]"
+                      className="text-xs border-[var(--primary-hex)]/40 bg-[var(--primary-light-hex)]/20 text-[var(--primary-hex)] dark:border-gray-700"
                     >
                       <CheckCircle className="h-3 w-3 mr-1" />
                       {t(
@@ -985,7 +987,7 @@ export function GeneralSettings() {
                     </Badge>
                     <Badge
                       variant="outline"
-                      className="text-xs border-[var(--primary-hex)]/40 bg-[var(--primary-light-hex)]/20 text-[var(--primary-hex)]"
+                      className="text-xs border-[var(--primary-hex)]/40 bg-[var(--primary-light-hex)]/20 text-[var(--primary-hex)] dark:border-gray-700"
                     >
                       <CheckCircle className="h-3 w-3 mr-1" />
                       {t('admin.settings.general.automaticUpdates', 'Automatic Updates')}
@@ -998,8 +1000,8 @@ export function GeneralSettings() {
             {/* Manual Mode */}
             <div
               className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 hover:shadow-lg ${packageSelectionMode === 'manual'
-                ? 'border-[var(--primary-hex)] bg-gradient-to-br from-[var(--primary-light-hex)]/20 to-[var(--primary-hex)]/10 shadow-[0_10px_30px_-10px_color-mix(in_srgb,var(--primary-hex)_40%,transparent)]'
-                : 'border-border hover:border-[var(--primary-hex)]/50 hover-elevate'
+                ? 'border-[var(--primary-hex)] bg-gradient-to-br from-[var(--primary-light-hex)]/20 to-[var(--primary-hex)]/10 shadow-[0_10px_30px_-10px_color-mix(in_srgb,var(--primary-hex)_40%,transparent)] dark:bg-gray-800'
+                : 'border-border hover:border-[var(--primary-hex)]/50 hover-elevate dark:border-gray-700'
                 }`}
               onClick={() => setPackageSelectionMode('manual')}
               data-testid="option-manual-mode"
@@ -1035,14 +1037,14 @@ export function GeneralSettings() {
                   <div className="flex flex-wrap gap-2">
                     <Badge
                       variant="outline"
-                      className="text-xs border-[var(--primary-hex)]/40 bg-[var(--primary-light-hex)]/20 text-[var(--primary-hex)]"
+                      className="text-xs border-[var(--primary-hex)]/40 bg-[var(--primary-light-hex)]/20 text-[var(--primary-hex)] dark:border-gray-700"
                     >
                       <AlertCircle className="h-3 w-3 mr-1" />
                       {t('admin.settings.general.manualControl', 'Manual Control')}
                     </Badge>
                     <Badge
                       variant="outline"
-                      className="text-xs border-[var(--primary-hex)]/40 bg-[var(--primary-light-hex)]/20 text-[var(--primary-hex)]"
+                      className="text-xs border-[var(--primary-hex)]/40 bg-[var(--primary-light-hex)]/20 text-[var(--primary-hex)] dark:border-gray-700"
                     >
                       <AlertCircle className="h-3 w-3 mr-1" />
                       {t('admin.settings.general.noAutoUpdates', 'No Auto Updates')}
@@ -1054,7 +1056,7 @@ export function GeneralSettings() {
           </div>
 
           {/* Current Mode Info */}
-          <div className="p-6 rounded-xl bg-gradient-to-r from-[var(--primary-light-hex)]/20 to-transparent border border-[var(--primary-hex)]/30 backdrop-blur-sm">
+          <div className="p-6 rounded-xl bg-gradient-to-r from-[var(--primary-light-hex)]/20 to-transparent border border-[var(--primary-hex)]/30 backdrop-blur-sm dark:bg-gray-800">
             <p className="text-lg font-bold mb-3 text-[var(--primary-hex)]">
               {t('admin.settings.general.currentMode', 'Current Mode')}
             </p>
@@ -1097,4 +1099,4 @@ export function GeneralSettings() {
       <AISettingsCard />
     </div>
   );
-}
+};

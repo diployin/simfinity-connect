@@ -139,7 +139,7 @@ export function FirebaseSettings() {
   return (
     <div className="space-y-6">
       {/* Firebase Config Card */}
-      <Card className="border-0 shadow-xl">
+      <Card className="border-0 shadow-xl dark:bg-gray-900">
         <CardHeader className="p-4 sm:p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
             {/* Firebase Icon Container */}
@@ -168,7 +168,7 @@ export function FirebaseSettings() {
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-6">
-              <h3 className="font-semibold text-lg border-b pb-2">{t("adminPanel.admin.settings.firebase.clientSettings", "Client App Settings")}</h3>
+              <h3 className="font-semibold text-lg border-b pb-2 dark:border-gray-700">{t("adminPanel.admin.settings.firebase.clientSettings", "Client App Settings")}</h3>
               {/* API Key */}
               <Field
                 label={t("adminPanel.admin.settings.firebase.apiKey", "Firebase API Key")}
@@ -221,7 +221,7 @@ export function FirebaseSettings() {
             </div>
 
             <div className="space-y-6">
-              <h3 className="font-semibold text-lg border-b pb-2">{t("adminPanel.admin.settings.firebase.adminSettings", "Admin SDK (Server) Settings")}</h3>
+              <h3 className="font-semibold text-lg border-b pb-2 dark:border-gray-700">{t("adminPanel.admin.settings.firebase.adminSettings", "Admin SDK (Server) Settings")}</h3>
               <p className="text-sm text-muted-foreground">
                 {t("adminPanel.admin.settings.firebase.adminDescription", " Required for Google Login verification and Push Notifications.Get these from your service account JSON file.")}
                
@@ -240,7 +240,7 @@ export function FirebaseSettings() {
                   value={privateKey}
                   onChange={(e) => setPrivateKey(e.target.value)}
                   placeholder="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----"
-                  className="font-mono text-xs h-64"
+                  className="font-mono text-xs h-64 dark:bg-gray-800 dark:border-gray-700"
                 />
               </div>
             </div>
@@ -270,10 +270,10 @@ export function FirebaseSettings() {
       </Card>
 
       {/* Security Note */}
-      <Card className="border-l-4 border-amber-500 bg-amber-50">
+      <Card className="border-l-4 border-amber-500 bg-amber-50 dark:bg-gray-900 dark:border-amber-700">
         <CardContent className="pt-6 flex gap-4">
-          <Shield className="h-6 w-6 text-amber-600" />
-          <p className="text-sm text-amber-800">
+          <Shield className="h-6 w-6 text-amber-600 dark:text-amber-400" />
+          <p className="text-sm text-amber-800 dark:text-amber-200">
             {t("adminPanel.admin.settings.firebase.securityNote", "Firebase credentials are securely stored and used for authentication and push notifications.")}
             
           </p>
@@ -297,6 +297,7 @@ function Field({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
+        className="dark:bg-gray-800 dark:border-gray-700"
       />
     </div>
   );
