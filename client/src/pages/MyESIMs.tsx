@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { Smartphone, QrCode, Plus, Loader2, Globe } from 'lucide-react';
+import { Smartphone, QrCode, Plus, Loader2, Globe, Zap } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -499,7 +499,7 @@ export default function MyESIMsPage() {
           </CardContent>
         </Card>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {esimOrders.map((order) => (
             <ESimCard
               key={order.id}
@@ -519,69 +519,90 @@ export default function MyESIMsPage() {
 
       {/* Installation Instructions Modal */}
       <Dialog open={showInstructions} onOpenChange={setShowInstructions}>
-        <DialogContent className="max-w-2xl" data-testid="dialog-installation-instructions">
-          <DialogHeader>
-            <DialogTitle>
-              {t('myEsims.installationInstructions', 'Installation Instructions')}
-            </DialogTitle>
-            <DialogDescription>
-              {t(
-                'myEsims.installationInstructionsDesc',
-                'Follow these steps to activate your eSIM',
-              )}
-            </DialogDescription>
-          </DialogHeader>
+        <DialogContent
+          className="sm:max-w-2xl w-full max-h-[90vh] flex flex-col p-0 gap-0 border-none bg-background top-[25%] right-0 rounded-b-2xl rounded-t-none data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top"
+          data-testid="dialog-installation-instructions"
+        >
+          <div className="p-4 sm:p-6 pb-2 sm:pb-4 border-b">
+            <DialogHeader className="p-0">
+              <DialogTitle className="text-lg sm:text-xl">
+                {t('myEsims.installationInstructions', 'Installation Instructions')}
+              </DialogTitle>
+              <DialogDescription className="text-sm sm:text-base">
+                {t(
+                  'myEsims.installationInstructionsDesc',
+                  'Follow these steps to activate your eSIM',
+                )}
+              </DialogDescription>
+            </DialogHeader>
+          </div>
 
-          {instructions ? (
-            <div className="space-y-6">
-              {instructions.qr_code && (
-                <div className="flex flex-col items-center gap-4 p-6 bg-muted rounded-lg">
-                  <h3 className="font-semibold">{t('myEsims.scanQRCode', 'Scan QR Code')}</h3>
-                  <div className="p-4 bg-white rounded-lg">
-                    <img
-                      src={instructions.qr_code}
-                      alt="eSIM QR Code"
-                      className="w-64 h-64"
-                      data-testid="img-qr-code"
-                    />
+          <div className="flex-1 overflow-y-auto p-4 sm:p-6 pt-2 sm:pt-4">
+            {instructions ? (
+              <div className="space-y-4 sm:space-y-6">
+                {instructions.qr_code && (
+                  <div className="flex flex-col items-center gap-3 sm:gap-4 p-4 sm:p-6 bg-muted rounded-lg">
+                    <h3 className="font-semibold text-sm sm:text-base">
+                      {t('myEsims.scanQRCode', 'Scan QR Code')}
+                    </h3>
+                    <div className="p-3 sm:p-4 bg-white rounded-lg w-full max-w-[200px] sm:max-w-xs">
+                      <img
+                        src={instructions.qr_code}
+                        alt="eSIM QR Code"
+                        className="w-full h-auto aspect-square"
+                        data-testid="img-qr-code"
+                      />
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {instructions.steps && instructions.steps.length > 0 && (
-                <div>
-                  <h3 className="font-semibold mb-4">
-                    {t('myEsims.stepByStepGuide', 'Step-by-Step Guide')}
-                  </h3>
-                  <ol className="space-y-3">
-                    {instructions.steps.map((step: string, index: number) => (
-                      <li key={index} className="flex gap-3">
-                        <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-orange-500 text-white text-sm font-medium">
-                          {index + 1}
-                        </span>
-                        <span className="pt-0.5">{step}</span>
-                      </li>
-                    ))}
-                  </ol>
-                </div>
-              )}
+                {instructions.steps && instructions.steps.length > 0 && (
+                  <div>
+                    <h3 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">
+                      {t('myEsims.stepByStepGuide', 'Step-by-Step Guide')}
+                    </h3>
+                    <ol className="space-y-2 sm:space-y-3">
+                      {instructions.steps.map((step: string, index: number) => (
+                        <li key={index} className="flex gap-2 sm:gap-3 items-start">
+                          <span className="flex h-5 w-5 sm:h-6 sm:w-6 shrink-0 items-center justify-center rounded-full bg-orange-500 text-white text-xs sm:text-sm font-medium">
+                            {index + 1}
+                          </span>
+                          <span className="pt-0.5 text-sm sm:text-base leading-relaxed">
+                            {step}
+                          </span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+                )}
 
-              {instructions.manual_code && (
-                <div>
-                  <h3 className="font-semibold mb-2">
-                    {t('myEsims.manualActivationCode', 'Manual Activation Code')}
-                  </h3>
-                  <code className="block p-3 bg-muted rounded-md text-sm font-mono break-all">
-                    {instructions.manual_code}
-                  </code>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="flex items-center justify-center py-12">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
-            </div>
-          )}
+                {instructions.manual_code && (
+                  <div>
+                    <h3 className="font-semibold mb-2 text-sm sm:text-base">
+                      {t('myEsims.manualActivationCode', 'Manual Activation Code')}
+                    </h3>
+                    <code className="block p-3 sm:p-4 bg-muted rounded-md text-xs sm:text-sm font-mono break-all">
+                      {instructions.manual_code}
+                    </code>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="mt-2 text-orange-500 hover:text-orange-600"
+                      onClick={() => {
+                        navigator.clipboard?.writeText(instructions.manual_code);
+                      }}
+                    >
+                      {t('common.copy', 'Copy code')}
+                    </Button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="flex items-center justify-center py-8 sm:py-12">
+                <div className="animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-b-2 border-orange-500"></div>
+              </div>
+            )}
+          </div>
         </DialogContent>
       </Dialog>
 
@@ -597,7 +618,7 @@ export default function MyESIMsPage() {
           }
         }}
       >
-        <DialogContent className="sm:max-w-xl w-full max-h-[90vh] flex flex-col p-0 gap-0 border-none bg-background" data-testid="dialog-topup-packages">
+        <DialogContent className="sm:max-w-xl w-full max-h-[90vh] flex flex-col p-0 gap-0 top-[25%] border-none bg-background" data-testid="dialog-topup-packages">
           <div className="p-6 pb-4">
             <DialogHeader>
               <DialogTitle>
@@ -903,6 +924,19 @@ function ESimCard({
               </p>
             )}
           </div>
+        )}
+
+        {/* Quick Setup Button */}
+        {order.shortUrl && (
+          <Button
+            className="bg-orange-500 hover:bg-orange-600 text-white w-full"
+            size="sm"
+            onClick={() => window.open(order.shortUrl, '_blank')}
+            data-testid={`button-quick-setup-${order.id}`}
+          >
+            <Zap className="h-4 w-4 mr-2" />
+            {t('myEsims.quickSetup', 'Quick Setup')}
+          </Button>
         )}
 
         {/* Action Buttons */}

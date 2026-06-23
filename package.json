@@ -13,6 +13,7 @@
     "db:seed": "tsx server/seed.ts",
     "db:seedAdmin": "tsx server/seed-admins.ts",
     "db:seedProvider": "tsx server/seed-providers.ts",
+    "db:seedTestEsim": "tsx server/scripts/seed-test-esim-order.ts",
     "studio": "drizzle-kit studio"
   },
   "dependencies": {

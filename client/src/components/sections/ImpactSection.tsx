@@ -30,9 +30,24 @@ export function ImpactSection() {
                     onClick={() => setIsHovered(!isHovered)}
                 >
 
-                    {/* Background Image */}
+                    {/* Background Image - Mobile */}
                     <motion.div
-                        className="absolute inset-0 bg-cover bg-top sm:bg-center"
+                        className="sm:hidden absolute inset-0 bg-cover bg-top"
+                        style={{
+                            backgroundImage: "url('/images/PlantB.png')"
+                        }}
+                        animate={{
+                            scale: isHovered ? 1.05 : 1
+                        }}
+                        transition={{
+                            duration: 0.7,
+                            ease: 'easeOut'
+                        }}
+                    />
+
+                    {/* Background Image - Desktop */}
+                    <motion.div
+                        className="hidden sm:block absolute inset-0 bg-cover bg-center"
                         style={{
                             backgroundImage: "url('/images/Plant A (1).jpg')"
                         }}
