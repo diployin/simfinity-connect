@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link, useParams, useLocation } from 'wouter';
 import { Helmet } from 'react-helmet-async';
@@ -303,6 +303,12 @@ export default function RegionDetails() {
   });
 
   const bestChoiceIndex = Math.min(2, packageOptions.length - 1);
+
+  useEffect(() => {
+    if (!selectedPackage && packageOptions.length > 0) {
+      setSelectedPackage(packageOptions[0]);
+    }
+  }, [packageOptions, selectedPackage]);
   const defaultHeroImage = regionImages[slug?.toLowerCase() || ''] || regionImages['asia'];
   const heroImage = region?.bannerImage || defaultHeroImage;
 
@@ -515,7 +521,9 @@ export default function RegionDetails() {
                         <div>
                           <span className="font-medium text-foreground dark:text-white">Coverage:</span>
                           <span className="text-muted-foreground dark:text-gray-400 ml-2">
-                            Strong in cities; may vary in remote areas
+                            {selectedPackage?.coverage && selectedPackage.coverage.length > 0
+                              ? selectedPackage.coverage.join(', ')
+                              : region?.name || 'Strong in cities; may vary in remote areas'}
                           </span>
                         </div>
                       </div>
@@ -524,7 +532,9 @@ export default function RegionDetails() {
                         <div>
                           <span className="font-medium text-foreground dark:text-white">Networks:</span>
                           <span className="text-muted-foreground dark:text-gray-400 ml-2">
-                            Multiple network operators in {region?.name}
+                            {selectedPackage?.operator
+                              ? `${selectedPackage.operator} in ${region?.name}`
+                              : `Multiple network operators in ${region?.name || 'region'}`}
                           </span>
                         </div>
                       </div>
