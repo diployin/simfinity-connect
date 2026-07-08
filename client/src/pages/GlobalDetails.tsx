@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Link, useLocation } from 'wouter';
 import { Helmet } from 'react-helmet-async';
@@ -322,6 +322,12 @@ export default function GlobalDetails() {
 
   const bestChoiceIndex = Math.min(2, packageOptions.length - 1);
 
+  useEffect(() => {
+    if (!selectedPackage && packageOptions.length > 0) {
+      setSelectedPackage(packageOptions[0]);
+    }
+  }, [packageOptions, selectedPackage]);
+
   const faqs = [
     {
       question: 'What is a Global eSIM and how does it work?',
@@ -500,7 +506,9 @@ export default function GlobalDetails() {
                         <div>
                           <span className="font-medium text-foreground dark:text-white">Coverage:</span>
                           <span className="text-muted-foreground dark:text-gray-400 ml-2">
-                            100+ countries worldwide
+                            {selectedPackage?.coverage && selectedPackage.coverage.length > 0
+                              ? selectedPackage.coverage.join(', ')
+                              : '100+ countries worldwide'}
                           </span>
                         </div>
                       </div>
@@ -509,7 +517,9 @@ export default function GlobalDetails() {
                         <div>
                           <span className="font-medium text-foreground dark:text-white">Networks:</span>
                           <span className="text-muted-foreground dark:text-gray-400 ml-2">
-                            Premium network operators globally
+                            {selectedPackage?.operator
+                              ? `${selectedPackage.operator} globally`
+                              : 'Premium network operators globally'}
                           </span>
                         </div>
                       </div>

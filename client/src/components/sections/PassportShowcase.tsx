@@ -90,7 +90,7 @@ export function PassportShowcase() {
             </div>
 
             <h2
-              className={`text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+              className={`text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white leading-tight mb-4 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             >
               Voltey{' '}
               <span className="bg-gradient-to-r from-[var(--primary-light)] to-[var(--primary)] bg-clip-text text-transparent">
@@ -99,7 +99,7 @@ export function PassportShowcase() {
             </h2>
 
             <p
-              className={`text-lg md:text-xl text-black-300 leading-relaxed mb-6 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+              className={`text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed mb-6 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             >
               Voltey Passport is an AI-powered global travel connectivity device. Secure browsing, built-in power, and an intelligent concierge, all in one refined design.
             </p>
@@ -107,17 +107,17 @@ export function PassportShowcase() {
             <div
               className={`flex flex-wrap items-center gap-x-4 gap-y-2 mb-8 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             >
-              <div className="flex items-center gap-1.5 text-black-400 text-sm">
+              <div className="flex items-center gap-1.5 text-gray-600 dark:text-gray-400 text-sm">
                 <Globe className="w-4 h-4 text-[var(--primary-light)]" />
                 <span>190+ Countries</span>
               </div>
               <div className="hidden sm:block w-1 h-1 rounded-full bg-slate-600" />
-              <div className="flex items-center gap-1.5 text-black-400 text-sm">
+              <div className="flex items-center gap-1.5 text-gray-600 dark:text-gray-400 text-sm">
                 <Zap className="w-4 h-4 text-amber-400" />
                 <span>5000mAh Battery</span>
               </div>
               <div className="hidden sm:block w-1 h-1 rounded-full bg-slate-600" />
-              <div className="flex items-center gap-1.5 text-black-400 text-sm">
+              <div className="flex items-center gap-1.5 text-gray-600 dark:text-gray-400 text-sm">
                 <Shield className="w-4 h-4 text-blue-400" />
                 <span>DPN Protected</span>
               </div>
@@ -166,18 +166,18 @@ export function PassportShowcase() {
               />
             </div>
 
-            <div className="absolute top-8 right-4 md:right-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-3 animate-float">
+            <div className="absolute top-8 right-4 md:right-8 bg-white/10 dark:bg-black/40 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-xl px-4 py-3 animate-float">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-black-400 animate-pulse" />
-                <span className="text-sm font-medium text-black-400">Connected</span>
+                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                <span className="text-sm font-medium text-gray-800 dark:text-gray-200">Connected</span>
               </div>
-              <p className="text-xs text-black-400 mt-0.5">190+ countries ready</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">190+ countries ready</p>
             </div>
 
-            <div className="absolute bottom-8 left-4 md:left-8 bg-black/10 backdrop-blur-md border border-white/20 rounded-xl px-4 py-3 animate-float-delayed">
+            <div className="absolute bottom-8 left-4 md:left-8 bg-white/10 dark:bg-black/40 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-xl px-4 py-3 animate-float-delayed">
               <div className="flex items-center gap-2">
-                <TreePine className="w-4 h-4 text-green-400" />
-                <span className="text-sm font-medium text-black-400">1 eSIM = 1 Tree</span>
+                <TreePine className="w-4 h-4 text-green-500 dark:text-green-400" />
+                <span className="text-sm font-medium text-gray-800 dark:text-gray-200">1 eSIM = 1 Tree</span>
               </div>
             </div>
           </div>
