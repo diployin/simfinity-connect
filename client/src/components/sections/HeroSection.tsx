@@ -186,7 +186,7 @@ export function HeroSection() {
           >
             <motion.h1
               variants={itemVariants}
-              className="h1-fluid text-gray-900 dark:text-white mb-6"
+              className="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-6 leading-[1.15]"
               data-testid="text-hero-headline"
             >
               {t('website.home.hero.global', 'Your Journey Starts Here.')}{' '}
@@ -257,12 +257,12 @@ export function HeroSection() {
             initial={{ opacity: 0, x: 50, scale: 0.95 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
-            className="hidden lg:flex items-end justify-center relative self-end"
+            className="hidden lg:flex items-center justify-center relative self-center"
           >
             <img
               src="/images/hero-phone-luggage.png"
               alt="eSIM Travel"
-              className="w-full max-w-none object-contain drop-shadow-2xl relative z-10 lg:scale-125 lg:origin-bottom"
+              className="w-full max-w-[480px] object-contain drop-shadow-2xl relative z-10 lg:scale-105"
             />
           </motion.div>
         </div>
