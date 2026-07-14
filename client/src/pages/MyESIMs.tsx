@@ -723,31 +723,31 @@ export default function MyESIMsPage() {
                     {(esim.shortUrl || selectedOrder?.shortUrl) && (
                       <Card className="md:col-span-2 bg-orange-50 dark:bg-orange-950/20 border-orange-200 dark:border-orange-800">
                         <CardContent className="pt-6">
-                           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-                              <div className="flex items-center gap-3">
-                                <Zap className="h-8 w-8 text-orange-500" />
-                                <div>
-                                  <h4 className="font-bold text-orange-900 dark:text-orange-100">Quick Installation Tool</h4>
-                                  <p className="text-xs text-orange-700 dark:text-orange-300">Click to automatically start setup on your device</p>
-                                </div>
+                          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+                            <div className="flex items-center gap-3">
+                              <Zap className="h-8 w-8 text-orange-500" />
+                              <div>
+                                <h4 className="font-bold text-orange-900 dark:text-orange-100">Quick Installation Tool</h4>
+                                <p className="text-xs text-orange-700 dark:text-orange-300">Click to automatically start setup on your device</p>
                               </div>
-                              <div className="flex items-center gap-2 w-full md:w-auto">
-                                <Button 
-                                  className="flex-1 md:flex-none bg-orange-500 hover:bg-orange-600 text-white shadow-md"
-                                  onClick={(e) => { e.stopPropagation(); window.open(esim.shortUrl || selectedOrder?.shortUrl, '_blank'); }}
-                                >
-                                  <Zap className="h-4 w-4 mr-2" />
-                                  Install Now
-                                </Button>
-                                <Button
-                                  variant="outline"
-                                  size="icon"
-                                  onClick={(e) => { e.stopPropagation(); copyToClipboard(esim.shortUrl || selectedOrder?.shortUrl || "", "Link"); }}
-                                >
-                                   {copiedField === "Link" ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                                </Button>
-                              </div>
-                           </div>
+                            </div>
+                            <div className="flex items-center gap-2 w-full md:w-auto">
+                              <Button
+                                className="flex-1 md:flex-none bg-orange-500 hover:bg-orange-600 text-white shadow-md"
+                                onClick={(e) => { e.stopPropagation(); window.open(esim.shortUrl || selectedOrder?.shortUrl, '_blank'); }}
+                              >
+                                <Zap className="h-4 w-4 mr-2" />
+                                Install Now
+                              </Button>
+                              <Button
+                                variant="outline"
+                                size="icon"
+                                onClick={(e) => { e.stopPropagation(); copyToClipboard(esim.shortUrl || selectedOrder?.shortUrl || "", "Link"); }}
+                              >
+                                {copiedField === "Link" ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                              </Button>
+                            </div>
+                          </div>
                         </CardContent>
                       </Card>
                     )}
@@ -939,7 +939,7 @@ export default function MyESIMsPage() {
                               <p className="text-sm text-orange-700 dark:text-orange-300">Fastest way to set up your eSIM</p>
                             </div>
                           </div>
-                          <Button 
+                          <Button
                             className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-6 text-lg shadow-lg shadow-orange-500/20"
                             onClick={(e) => { e.stopPropagation(); window.open(esim?.shortUrl || selectedOrder?.shortUrl, '_blank'); }}
                           >
@@ -1519,28 +1519,40 @@ function ESimCard({
         )}
 
         {/* Action Buttons */}
-        <div className="flex gap-2 pt-2">
+        <div className="space-y-2 pt-2">
           <Button
             variant="outline"
             size="sm"
-            className="flex-1 dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-300"
-            onClick={(e) => { e.stopPropagation(); onViewInstructions(); }}
-            data-testid="button-view-instructions"
+            className="w-full text-xs dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-300 h-9 font-medium"
+            onClick={(e) => { e.stopPropagation(); onViewDetails(); }}
           >
-            <QrCode className="mr-2 h-4 w-4" />
-            {t('myEsims.setup', 'Setup')}
+            <Smartphone className="mr-2 h-4 w-4" />
+            {t('myEsims.details', 'eSIM Details')}
           </Button>
 
-          <Button
-            size="sm"
-            className="flex-1"
-            onClick={(e) => { e.stopPropagation(); onViewTopups(); }}
-            disabled={isLoading || status === 'inactive' || status === 'expired'}
-            data-testid="button-purchase-topup"
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            {t('myEsims.topUp', 'Top Up')}
-          </Button>
+          <div className="grid grid-cols-2 gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              className="text-xs dark:border-gray-700 dark:hover:bg-gray-800 dark:text-gray-300 h-9 font-medium"
+              onClick={(e) => { e.stopPropagation(); onViewInstructions(); }}
+              data-testid="button-view-instructions"
+            >
+              <QrCode className="mr-2 h-4 w-4" />
+              {t('myEsims.setup', 'Setup')}
+            </Button>
+
+            <Button
+              size="sm"
+              className="text-xs h-9 font-medium"
+              onClick={(e) => { e.stopPropagation(); onViewTopups(); }}
+              disabled={isLoading || status === 'inactive' || status === 'expired'}
+              data-testid="button-purchase-topup"
+            >
+              <Plus className="mr-2 h-4 w-4" />
+              {t('myEsims.topUp', 'Top Up')}
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>
