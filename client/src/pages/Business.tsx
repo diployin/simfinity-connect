@@ -259,8 +259,8 @@ export default function Business() {
                   { icon: Users, label: t('business.statUsers', 'Business Users'), value: '10K+', color: 'from-rose-500 to-rose-600' },
                 ].map((stat) => (
                   <div key={stat.label} className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-border dark:border-gray-800 text-center shadow-md">
-                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${stat.color} flex items-center justify-center mx-auto mb-3 shadow-lg shadow-primary/5`}>
-                      <stat.icon className="w-6 h-6 text-white" />
+                    <div className="w-10 h-10 flex items-center justify-center mx-auto mb-3">
+                      <stat.icon className="w-6 h-6 text-primary" />
                     </div>
                     <p className="text-2xl font-bold text-foreground dark:text-white">{stat.value}</p>
                     <p className="text-sm text-muted-foreground dark:text-gray-400">{stat.label}</p>
