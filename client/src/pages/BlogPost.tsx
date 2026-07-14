@@ -8,10 +8,12 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ArrowLeft, Calendar, Clock, Share2, User } from 'lucide-react';
 import { ArticleSchema } from '@/components/StructuredData';
+import { useTranslation } from '@/contexts/TranslationContext';
 // import { calculateReadingTime } from "@/lib/imageOptimization";
 import type { BlogPost as BlogPostType } from '@shared/schema';
 
 export default function BlogPost() {
+  const { t } = useTranslation();
   const [, params] = useRoute('/blog/:slug');
   const API_BASE_URL = window.location.origin;
 
