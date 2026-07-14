@@ -805,9 +805,9 @@ export default function UnifiedCheckout() {
                                     </p>
                                     {(providerName.includes('card') || providerName.includes('stripe') || providerName.includes('powertranz')) && (
                                       <div className="flex gap-2 mt-1.5 opacity-80">
-                                        <img src="/payment-providers/visa.png" className="h-3" alt="Visa" />
-                                        <img src="/payment-providers/master.png" className="h-3" alt="Mastercard" />
-                                        <img src="/payment-providers/paypal.png" className="h-3 dark:brightness-200" alt="PayPal" />
+                                        <img src="/payment-providers/visa.png" className="h-5" alt="Visa" />
+                                        <img src="/payment-providers/master.png" className="h-5" alt="Mastercard" />
+                                        <img src="/payment-providers/paypal.png" className="h-5 dark:brightness-200" alt="PayPal" />
                                       </div>
                                     )}
                                   </div>
