@@ -47,25 +47,25 @@ export default function SecurityFeatures() {
         <meta name="description" content={t('security.pageMeta', '{{siteName}} keeps your data safe with end-to-end encryption, DPN protection, and enterprise-grade security.', { siteName })} />
       </Helmet>
 
-      <div className="min-h-screen bg-background">
-        <section className="relative overflow-hidden bg-hero-gradient text-white">
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
-            <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary-light/10 rounded-full blur-3xl" />
+      <div className="min-h-screen bg-background dark:bg-gray-950 text-black dark:text-white">
+        <section className="relative pt-24 pb-20 md:pt-32 md:pb-28 overflow-hidden bg-[#f8fafc] dark:bg-slate-950">
+          <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+            <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 transform skew-x-12 translate-x-1/2" />
+            <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-blue-500/5 rounded-full blur-[120px] -translate-x-1/2 translate-y-1/2" />
           </div>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
-              <Shield className="w-4 h-4 text-white" />
-              <span className="text-sm font-medium text-white">{t('security.heroLabel', 'Security First')}</span>
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10 text-center">
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800 text-primary text-sm font-bold mb-8">
+              <Shield className="w-4 h-4" />
+              <span className="font-bold">{t('security.heroLabel', 'Security First')}</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] mb-6 text-slate-900 dark:text-white tracking-tight">
               {t('security.heroTitlePrefix', 'Travel safely with')}{' '}
-              <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">{t('security.heroTitleHighlight', 'enterprise-grade security')}</span>
+              <span className="bg-gradient-to-r from-primary-light to-primary bg-clip-text text-transparent">{t('security.heroTitleHighlight', 'enterprise-grade security')}</span>
             </h1>
-            <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
               {t('security.heroSubtitle', 'Your privacy matters. {{siteName}} uses cutting-edge security measures to protect your data, identity, and browsing activity wherever you travel.', { siteName })}
             </p>
-            <button onClick={() => navigate('/destinations')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors">
+            <button onClick={() => navigate('/destinations')} className="h-14 px-10 rounded-2xl bg-primary text-white font-bold text-lg hover:bg-primary-dark transition-all shadow-xl shadow-primary/20 active:scale-[0.98]">
               {t('security.getProtectedBtn', 'Get Protected')} <ArrowRight className="w-5 h-5" />
             </button>
           </div>
