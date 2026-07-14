@@ -10,13 +10,13 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-primary text-white border border-primary-border',
-        destructive: 'bg-destructive text-destructive-foreground border border-destructive-border',
+        default: 'bg-primary text-white border border-primary-second/20 hover:bg-primary-second hover:border-primary-second active:bg-primary-dark active:border-primary-dark transition-all duration-300',
+        destructive: 'bg-destructive text-destructive-foreground border border-destructive-second/20 hover:bg-destructive-second transition-all duration-300',
         outline:
-          ' border [border-color:var(--button-outline)]  shadow-xs active:shadow-none text-foreground ',
-        secondary: 'border bg-secondary text-white border border-secondary-border ',
+          'border [border-color:var(--button-outline)] shadow-xs active:shadow-none text-foreground hover:bg-muted/50 hover:text-foreground transition-all duration-300',
+        secondary: 'bg-secondary text-white border border-secondary-second/20 hover:bg-secondary-second hover:border-secondary-second transition-all duration-300',
         // Add a transparent border so that when someone toggles a border on later, it doesn't shift layout/size.
-        ghost: 'border border-transparent',
+        ghost: 'border border-transparent hover:bg-muted/50 transition-all duration-300',
       },
 
       size: {
