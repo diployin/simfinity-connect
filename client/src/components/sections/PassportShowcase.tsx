@@ -130,9 +130,7 @@ export function PassportShowcase() {
                   className={`${f.bg} rounded-xl p-4 border border-black/5 dark:border-white/10 transition-all duration-500 hover:scale-[1.03] hover:shadow-lg ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
                   style={{ transitionDelay: isVisible ? `${400 + i * 100}ms` : '0ms' }}
                 >
-                  <div className={`inline-flex p-2 rounded-lg bg-gradient-to-br ${f.gradient} mb-2 shadow-sm`}>
-                    <f.icon className="w-4 h-4 text-white" />
-                  </div>
+                  <f.icon className="w-6 h-6 text-[var(--primary)] dark:text-primary-light mb-2" />
                   <h3 className={`text-sm font-semibold ${f.titleColor} mb-0.5`}>{f.title}</h3>
                   <p className={`text-xs ${f.descColor}`}>{f.desc}</p>
                 </div>
