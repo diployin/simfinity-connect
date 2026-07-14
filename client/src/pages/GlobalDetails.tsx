@@ -165,7 +165,7 @@ export default function GlobalDetails() {
 
   // Filter states
   const [page, setPage] = useState(1);
-  const limit = 10;
+  const limit = 100;
   const [sortBy, setSortBy] = useState<string>('');
   const [filterUnlimited, setFilterUnlimited] = useState(false);
   const [filterBestPrice, setFilterBestPrice] = useState(false);

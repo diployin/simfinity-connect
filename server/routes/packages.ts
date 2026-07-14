@@ -150,7 +150,7 @@ router.get("/global", async (req: Request, res: Response) => {
         eq(unifiedPackages.regionId, globalRegion.id),
         eq(unifiedPackages.isEnabled, true)
       ),
-      limit: 12,
+      limit: 100,
       orderBy: [desc(unifiedPackages.salesCount)],
     });
 
