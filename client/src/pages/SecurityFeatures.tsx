@@ -100,8 +100,8 @@ export default function SecurityFeatures() {
                   {t('security.checklistSubtitle', 'From the moment you activate your eSIM, multiple layers of security protect your connection.')}
                 </p>
               </div>
-              <div className="bg-card rounded-2xl p-8 border border-border dark:bg-gray-800 dark:text-gray-100">
-                <ul className="space-y-4">
+              <div className="py-3 px-0">
+                <ul className="space-y-2">
                   {protections.map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
