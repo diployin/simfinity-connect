@@ -60,7 +60,7 @@ export default function WhatIsEsimNew() {
                 </div>
                 <h1 className="h1-fluid text-slate-900 dark:text-white mb-8 tracking-tight font-extrabold leading-[1.1]">
                   {t('website.whatIsEsim.heroTitlePrefix', 'What is an')}{' '}
-                  <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">{t('website.whatIsEsim.heroTitleHighlight', 'eSIM?')}</span>
+                  <span className="bg-gradient-to-r from-primary-light to-primary bg-clip-text text-transparent">{t('website.whatIsEsim.heroTitleHighlight', 'eSIM?')}</span>
                 </h1>
                 <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-10 max-w-2xl mx-auto lg:mx-0">
                   {t('website.whatIsEsim.heroSubtitle', 'An eSIM is a digital SIM embedded in your device. It lets you connect to mobile networks without a physical SIM card — just download a plan and go.')}
@@ -160,8 +160,8 @@ export default function WhatIsEsimNew() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {benefits.map((b) => (
                 <div key={b.title} className="bg-card dark:bg-slate-900 rounded-[2rem] p-10 border border-border shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all group">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${b.color} flex items-center justify-center mb-8 shadow-lg group-hover:scale-110 transition-transform`}>
-                    <b.icon className="w-8 h-8 text-white" />
+                  <div className="w-12 h-12 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                    <b.icon className="w-8 h-8 text-primary" />
                   </div>
                   <h3 className="text-xl font-bold text-foreground mb-4">{b.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{b.desc}</p>

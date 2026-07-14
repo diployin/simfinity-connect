@@ -402,7 +402,7 @@ export function SiteHeader() {
             </div>
 
             <Link href="/destinations">
-              <span className="hidden md:flex items-center gap-2 text-sm font-bold bg-primary-gradient hover:bg-primary-gradient-hover text-white rounded-full px-6 py-2.5 transition-all shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap">
+              <span className="hidden md:flex items-center gap-2 text-sm font-bold bg-primary-gradient text-white rounded-full px-6 py-2.5 transition-all shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap">
                 <Search className="h-4 w-4" />
                 {t('website.nav.seePacks', 'Destinations')}
               </span>
