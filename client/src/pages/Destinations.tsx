@@ -806,7 +806,7 @@ export default function Destinations() {
                       <p className="text-xs text-muted-foreground dark:text-gray-400">{persona.desc}</p>
                     </div>
                   ))}
-                </div>  </div>
+                </div>
               </div>
 
               {/* Lifestyle Image Banner */}
