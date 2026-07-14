@@ -97,8 +97,8 @@ export default function DownloadApp() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {features.map((f) => (
                 <div key={f.title} className="bg-card rounded-2xl p-6 border border-border text-center">
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${f.color} flex items-center justify-center mx-auto mb-4`}>
-                    <f.icon className="w-7 h-7 text-white" />
+                  <div className="w-12 h-12 flex items-center justify-center mx-auto mb-4">
+                    <f.icon className="w-7 h-7 text-primary" />
                   </div>
                   <h3 className="text-lg font-bold text-foreground mb-2">{f.title}</h3>
                   <p className="text-sm text-muted-foreground">{f.desc}</p>

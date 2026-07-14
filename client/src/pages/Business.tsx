@@ -187,8 +187,8 @@ export default function Business() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {features.map((f) => (
                 <div key={f.title} className={`rounded-2xl bg-gradient-to-br ${f.bgLight} ${f.bgDark} p-8 border border-border/50 dark:border-gray-800 shadow-sm`}>
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${f.color} flex items-center justify-center mb-5 shadow-lg shadow-primary/5`}>
-                    <f.icon className="w-7 h-7 text-white" />
+                  <div className="w-12 h-12 flex items-center justify-center mb-5">
+                    <f.icon className="w-7 h-7 text-primary" />
                   </div>
                   <h3 className="text-xl font-bold text-foreground dark:text-white mb-2">{f.title}</h3>
                   <p className="text-muted-foreground dark:text-gray-400">{f.desc}</p>

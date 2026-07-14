@@ -76,8 +76,8 @@ export default function StudentDiscount() {
                 { icon: Sparkles, title: 'Group Trips', desc: 'Coordinate with classmates on group trips with affordable data plans.', color: 'from-rose-500 to-rose-600' },
               ].map((item) => (
                 <div key={item.title} className="bg-card rounded-2xl p-6 border border-border text-center">
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center mx-auto mb-4`}>
-                    <item.icon className="w-7 h-7 text-white" />
+                  <div className="w-12 h-12 flex items-center justify-center mx-auto mb-4">
+                    <item.icon className="w-7 h-7 text-primary" />
                   </div>
                   <h3 className="text-lg font-bold text-foreground mb-2">{item.title}</h3>
                   <p className="text-sm text-muted-foreground">{item.desc}</p>
