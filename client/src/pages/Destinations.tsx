@@ -684,9 +684,7 @@ export default function Destinations() {
                     { icon: Shield, label: 'Premium Features', desc: 'First firmware updates', from: 'from-cyan-500', to: 'to-cyan-600' },
                   ].map((item) => (
                     <div key={item.label} className="flex flex-col items-center text-center p-5 rounded-xl bg-card dark:bg-gray-900 border border-border dark:border-gray-800 hover:border-primary/50 dark:hover:border-primary/50 transition-all shadow-sm hover:shadow-md">
-                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.from} ${item.to} flex items-center justify-center mb-3 shadow-lg shadow-black/5`}>
-                        <item.icon className="w-6 h-6 text-white" />
-                      </div>
+                      <item.icon className="w-8 h-8 text-[var(--primary)] dark:text-primary-light mb-3" />
                       <h4 className="font-semibold text-foreground dark:text-white text-sm mb-1">{item.label}</h4>
                       <p className="text-xs text-muted-foreground dark:text-gray-400">{item.desc}</p>
                     </div>
@@ -703,9 +701,7 @@ export default function Destinations() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {/* Security Card */}
                   <div className="rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 p-8 border border-blue-100 dark:border-blue-900/30 shadow-sm">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mb-5 shadow-lg shadow-blue-500/20">
-                      <Shield className="w-7 h-7 text-white" />
-                    </div>
+                    <Shield className="w-10 h-10 text-[var(--primary)] dark:text-primary-light mb-5" />
                     <h4 className="text-xl font-bold text-foreground dark:text-white mb-3">{t('destinations.passport.security.title', 'Travel Without Fear')}</h4>
                     <ul className="space-y-2.5">
                       {[
@@ -725,9 +721,7 @@ export default function Destinations() {
 
                   {/* AI Concierge Card */}
                   <div className="rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/20 dark:to-pink-950/20 p-8 border border-purple-100 dark:border-purple-900/30 shadow-sm">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mb-5 shadow-lg shadow-purple-500/20">
-                      <Bot className="w-7 h-7 text-white" />
-                    </div>
+                    <Bot className="w-10 h-10 text-[var(--primary)] dark:text-primary-light mb-5" />
                     <h4 className="text-xl font-bold text-foreground dark:text-white mb-3">{t('destinations.passport.aiConcierge.title', 'AI Travel Concierge')}</h4>
                     <p className="text-sm text-muted-foreground dark:text-gray-400 mb-4">{t('destinations.passport.aiConcierge.subtitle', 'Your personal AI assistant can arrange everything from one ecosystem:')}</p>
                     <div className="grid grid-cols-2 gap-2">
@@ -747,9 +741,7 @@ export default function Destinations() {
 
                   {/* Sustainability Card */}
                   <div className="rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20 p-8 border border-green-100 dark:border-green-900/30 shadow-sm">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center mb-5 shadow-lg shadow-green-500/20">
-                      <TreePine className="w-7 h-7 text-white" />
-                    </div>
+                    <TreePine className="w-10 h-10 text-[var(--primary)] dark:text-primary-light mb-5" />
                     <h4 className="text-xl font-bold text-foreground dark:text-white mb-3">{t('destinations.passport.sustainability.title', 'Travel That Gives Back')}</h4>
                     <p className="text-sm text-muted-foreground dark:text-gray-400 mb-4">{t('destinations.passport.sustainability.description', 'Every eSIM activated plants one tree. Your connectivity creates real environmental impact.')}</p>
                     <div className="bg-white/60 dark:bg-black/20 rounded-xl p-4 text-center border border-black/5 dark:border-white/5 shadow-inner">
@@ -782,9 +774,7 @@ export default function Destinations() {
                         { icon: Lock, label: 'Early Access Activation Code', desc: 'Exclusive code for priority activation and AI concierge access' },
                       ].map((item) => (
                         <div key={item.label} className="flex items-start gap-4 p-4 rounded-xl bg-card dark:bg-gray-900 border border-border dark:border-gray-800 shadow-sm transition-all hover:bg-muted dark:hover:bg-gray-800/50">
-                          <div className="w-10 h-10 rounded-lg bg-[var(--primary)]/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0 border border-primary/10 dark:border-primary/20">
-                            <item.icon className="w-5 h-5 text-[var(--primary)] dark:text-primary-light" />
-                          </div>
+                          <item.icon className="w-6 h-6 text-[var(--primary)] dark:text-primary-light flex-shrink-0 mt-0.5" />
                           <div>
                             <h4 className="font-semibold text-foreground dark:text-white text-base">{item.label}</h4>
                             <p className="text-sm text-muted-foreground dark:text-gray-400">{item.desc}</p>
@@ -811,14 +801,12 @@ export default function Destinations() {
                     { icon: Star, label: 'Luxury Travelers', desc: 'Premium experience' },
                   ].map((persona) => (
                     <div key={persona.label} className="flex flex-col items-center text-center p-6 rounded-2xl bg-gradient-to-b from-card to-muted/30 dark:from-gray-900 dark:to-gray-950 border border-border dark:border-gray-800 hover:border-primary/50 dark:hover:border-primary/50 transition-all hover:shadow-md hover:-translate-y-1">
-                      <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--primary)]/10 to-[var(--primary-light)]/10 dark:from-primary/20 dark:to-primary/10 flex items-center justify-center mb-3 shadow-lg shadow-black/5">
-                        <persona.icon className="w-7 h-7 text-[var(--primary)] dark:text-primary-light" />
-                      </div>
+                      <persona.icon className="w-10 h-10 text-[var(--primary)] dark:text-primary-light mb-3" />
                       <h4 className="font-semibold text-foreground dark:text-white text-sm mb-1">{persona.label}</h4>
                       <p className="text-xs text-muted-foreground dark:text-gray-400">{persona.desc}</p>
                     </div>
                   ))}
-                </div>
+                </div>  </div>
               </div>
 
               {/* Lifestyle Image Banner */}
