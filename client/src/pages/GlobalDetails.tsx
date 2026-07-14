@@ -503,13 +503,13 @@ export default function GlobalDetails() {
                       </div>
                       <div className="flex items-start gap-3 text-sm">
                         <Globe className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                        <div>
+                        <div className="flex-1 min-w-0">
                           <span className="font-medium text-foreground dark:text-white">Coverage:</span>
-                          <span className="text-muted-foreground dark:text-gray-400 ml-2">
+                          <div className="max-h-40 overflow-y-auto mt-1 pr-1 text-muted-foreground dark:text-gray-400 text-xs leading-relaxed custom-scrollbar">
                             {selectedPackage?.coverage && selectedPackage.coverage.length > 0
                               ? selectedPackage.coverage.join(', ')
                               : '100+ countries worldwide'}
-                          </span>
+                          </div>
                         </div>
                       </div>
                       <div className="flex items-start gap-3 text-sm">
