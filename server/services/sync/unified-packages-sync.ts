@@ -77,7 +77,17 @@ export class UnifiedPackagesSyncService {
       const allDestinations = await db.select().from(destinations);
       const countryToDestinationMap = new Map<string, string>();
       allDestinations.forEach(d => {
-        countryToDestinationMap.set(d.countryCode, d.id);
+        const code = d.countryCode.toUpperCase();
+        const existing = countryToDestinationMap.get(code);
+        if (!existing) {
+          countryToDestinationMap.set(code, d.id);
+        } else {
+          // Prioritize main country over sub-regions/territories (e.g. United Kingdom over Scotland)
+          const primaryNames = ["united kingdom", "united states", "united arab emirates", "uae"];
+          if (primaryNames.includes(d.name.toLowerCase()) || !d.isTerritory) {
+            countryToDestinationMap.set(code, d.id);
+          }
+        }
       });
 
       let packagesSynced = 0;
@@ -161,12 +171,12 @@ export class UnifiedPackagesSyncService {
 
         // Get destination ID from country code
         const resolvedDestinationId = countryCode
-          ? countryToDestinationMap.get(countryCode) || pkg.destinationId
+          ? countryToDestinationMap.get(countryCode.toUpperCase()) || pkg.destinationId
           : pkg.destinationId;
 
         // Generate package group key for matching same packages across providers
         const packageGroupKey = countryCode
-          ? generatePackageGroupKey(countryCode, normalized.dataMb, normalized.validityDays)
+          ? generatePackageGroupKey(countryCode.toUpperCase(), normalized.dataMb, normalized.validityDays)
           : null;
 
         // For Maya, use mayaId (the Maya API product UID), for others use the internal table id

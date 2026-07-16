@@ -106,18 +106,31 @@ export function SearchModalHero({ open, onOpenChange }: SearchModalProps) {
   const getFilteredResults = () => {
     if (searchQuery.length === 0) return [];
 
+    const query = searchQuery.toLowerCase().trim();
+
     if (searchType === "country") {
+      // Map common search aliases to database country codes
+      const aliasCountryCodes: string[] = [];
+      if (query === 'uk') {
+        aliasCountryCodes.push('gb');
+      } else if (query === 'us' || query === 'usa' || query === 'america') {
+        aliasCountryCodes.push('us');
+      } else if (query === 'uae') {
+        aliasCountryCodes.push('ae');
+      }
+
       return (
         destinationsWithPricing?.filter(
           (d) =>
-            d.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            d.countryCode.toLowerCase().includes(searchQuery.toLowerCase())
+            d.name.toLowerCase().includes(query) ||
+            d.countryCode.toLowerCase() === query ||
+            aliasCountryCodes.includes(d.countryCode.toLowerCase())
         ) || []
       ).slice(0, 10);
     } else {
       return (
         regionsWithPricing?.filter((r) =>
-          r.name.toLowerCase().includes(searchQuery.toLowerCase())
+          r.name.toLowerCase().includes(query)
         ) || []
       ).slice(0, 10);
     }
