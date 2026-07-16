@@ -75,6 +75,8 @@ export class UnifiedPackagesSyncService {
 
       // Build destination lookup map: countryCode -> destinationId
       const allDestinations = await db.select().from(destinations);
+      const allRegions = await db.select().from(regions);
+      const globalRegionRecord = allRegions.find(r => r.slug === "global");
       const countryToDestinationMap = new Map<string, string>();
       allDestinations.forEach(d => {
         const code = d.countryCode.toUpperCase();
@@ -190,13 +192,30 @@ export class UnifiedPackagesSyncService {
         // console.log("check working3", pkg)
 
 
+        // Dynamically resolve regionId if missing or if package is global
+        let resolvedRegionId = pkg.regionId;
+        const coverageCodes = pkg.coverage ? (Array.isArray(pkg.coverage) ? pkg.coverage : [pkg.coverage]) : [];
+        if (pkg.type === "global" || (pkg.coverage && Array.isArray(pkg.coverage) && pkg.coverage.length > 10)) {
+          resolvedRegionId = globalRegionRecord?.id || null;
+        } else if ((pkg.type === "regional" || !resolvedRegionId) && coverageCodes.length > 0) {
+          const matchedRegion = allRegions.find(r => 
+            r.slug !== "global" && 
+            r.countries && 
+            Array.isArray(r.countries) && 
+            coverageCodes.some((code: string) => r.countries.includes(code.toUpperCase()))
+          );
+          if (matchedRegion) {
+            resolvedRegionId = matchedRegion.id;
+          }
+        }
+
         const unifiedPackageData = {
           providerId: provider.id,
           // packageImage: image,
           providerPackageTable,
           providerPackageId,
           destinationId: resolvedDestinationId,
-          regionId: pkg.regionId,
+          regionId: resolvedRegionId,
           slug: pkg.slug,
           title: pkg.title,
           dataAmount: pkg.dataAmount,
