@@ -25,6 +25,7 @@ import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { motion } from 'framer-motion';
+import { TawkToWidget } from '@/components/TawkToWidget';
 
 // Animation variants
 const fadeInUp = {
@@ -77,6 +78,59 @@ export function ContactSupport() {
         message: ''
     });
 
+    // Auto-open live chat widget on hash or query param trigger
+    useState(() => {
+        const queryParams = new URLSearchParams(window.location.search);
+        if (queryParams.get('openChat') === 'true' || window.location.hash === '#chat') {
+            const win = window as any;
+            const interval = setInterval(() => {
+                if (win.Tawk_API && typeof win.Tawk_API.maximize === 'function') {
+                    win.Tawk_API.maximize();
+                    clearInterval(interval);
+                }
+            }, 500);
+            setTimeout(() => clearInterval(interval), 10000);
+        }
+    });
+
+    const handleChannelClick = (channel: any) => {
+        if (channel.link) {
+            window.location.href = channel.link;
+        } else if (channel.title === t('contactSupport.channels.liveChat.title', 'Live Chat')) {
+            const win = window as any;
+            if (win.Tawk_API && typeof win.Tawk_API.maximize === 'function') {
+                win.Tawk_API.maximize();
+            } else {
+                toast({
+                    title: t('contactSupport.toasts.liveChatLoading', 'Connecting...'),
+                    description: t('contactSupport.toasts.liveChatLoadingDesc', 'Please wait while we load our real-time support widget.'),
+                });
+                let attempts = 0;
+                const interval = setInterval(() => {
+                    attempts++;
+                    if (win.Tawk_API && typeof win.Tawk_API.maximize === 'function') {
+                        win.Tawk_API.maximize();
+                        clearInterval(interval);
+                    } else if (attempts > 10) {
+                        clearInterval(interval);
+                        toast({
+                            title: t('contactSupport.toasts.liveChatError', 'Support Widget Offline'),
+                            description: t('contactSupport.toasts.liveChatErrorDesc', 'The live support widget is taking longer than expected. Please refresh or try again in a moment.'),
+                            variant: 'destructive'
+                        });
+                    }
+                }, 500);
+            }
+        } else if (channel.title === t('contactSupport.channels.prioritySupport.title', 'Priority Support')) {
+            const contactSection = document.getElementById('contact-form-section');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+            }
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
@@ -128,8 +182,8 @@ export function ContactSupport() {
             action: supportEmail,
             link: `mailto:${supportEmail}`,
             status: t('contactSupport.channels.emailSupport.status', '24h Response'),
-            color: 'text-blue-600 dark:text-blue-400',
-            bgColor: 'bg-blue-50 dark:bg-blue-900/20'
+            color: 'text-green-600 dark:text-green-400',
+            bgColor: 'bg-green-50 dark:bg-green-900/20'
         },
         {
             icon: Headphones,
@@ -137,8 +191,8 @@ export function ContactSupport() {
             description: t('contactSupport.channels.prioritySupport.description', 'For enterprise and premium customers with urgent issues.'),
             action: t('contactSupport.channels.prioritySupport.action', 'Request Priority'),
             status: t('contactSupport.channels.prioritySupport.status', 'Priority Access'),
-            color: 'text-purple-600 dark:text-purple-400',
-            bgColor: 'bg-purple-50 dark:bg-purple-900/20'
+            color: 'text-green-600 dark:text-green-400',
+            bgColor: 'bg-green-50 dark:bg-green-900/20'
         }
     ];
 
@@ -206,10 +260,11 @@ export function ContactSupport() {
                                 key={index}
                                 variants={fadeInUp}
                                 whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                                className="bg-white dark:bg-gray-800 rounded-[2.5rem] p-8 border border-gray-100 dark:border-gray-700 shadow-xl shadow-gray-200/40 dark:shadow-gray-950/40 hover:shadow-2xl transition-all duration-300 group flex flex-col h-full"
+                                onClick={() => handleChannelClick(channel)}
+                                className="bg-white dark:bg-gray-800 rounded-[2.5rem] p-8 border border-gray-100 dark:border-gray-700 shadow-xl shadow-gray-200/40 dark:shadow-gray-950/40 hover:shadow-2xl transition-all duration-300 group flex flex-col h-full cursor-pointer select-none"
                             >
-                                <div className={`w-14 h-14 rounded-2xl ${channel.bgColor} ${channel.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                                    <channel.icon className="w-7 h-7" />
+                                <div className={`${channel.color} mb-6 group-hover:scale-110 transition-transform`}>
+                                    <channel.icon className="w-8 h-8" />
                                 </div>
                                 <div className="flex items-center justify-between mb-4">
                                     <h3 className="text-xl font-bold text-gray-900 dark:text-white">{channel.title}</h3>
@@ -220,22 +275,10 @@ export function ContactSupport() {
                                 <p className="text-gray-600 dark:text-gray-400 mb-8 flex-grow">
                                     {channel.description}
                                 </p>
-                                {channel.link ? (
-                                    <a
-                                        href={channel.link}
-                                        className="flex items-center justify-between w-full p-4 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-bold transition-colors group/btn"
-                                    >
-                                        {channel.action}
-                                        <ArrowRight className="w-5 h-5 text-green-600 dark:text-green-400 group-hover/btn:translate-x-1 transition-transform" />
-                                    </a>
-                                ) : (
-                                    <button
-                                        className="flex items-center justify-between w-full p-4 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-bold transition-colors group/btn"
-                                    >
-                                        {channel.action}
-                                        <ArrowRight className="w-5 h-5 text-green-600 dark:text-green-400 group-hover/btn:translate-x-1 transition-transform" />
-                                    </button>
-                                )}
+                                <div className="flex items-center justify-between w-full p-4 rounded-xl bg-gray-50 dark:bg-gray-700 group-hover:bg-gray-100 dark:group-hover:bg-gray-600 text-gray-900 dark:text-white font-bold transition-all group/btn">
+                                    {channel.action}
+                                    <ArrowRight className="w-5 h-5 text-green-600 dark:text-green-400 group-hover/btn:translate-x-1 transition-transform" />
+                                </div>
                             </motion.div>
                         ))}
                     </motion.div>
@@ -444,6 +487,7 @@ export function ContactSupport() {
                     </motion.div>
                 </div>
             </section>
+            <TawkToWidget />
         </div>
     );
 }

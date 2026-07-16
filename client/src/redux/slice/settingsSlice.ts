@@ -60,6 +60,10 @@ export interface SettingsState {
 
   recaptcha_enabled?: string | boolean;
   recaptcha_site_key?: string;
+
+  tawk_enabled?: string;
+  tawk_property_id?: string;
+  tawk_widget_id?: string;
 }
 
 const initialState: SettingsState = {
@@ -79,6 +83,9 @@ const initialState: SettingsState = {
   homepage_popup_image: '',
   homepage_popup_code: '',
   homepage_popup_text: '',
+  tawk_enabled: 'false',
+  tawk_property_id: '',
+  tawk_widget_id: '',
 };
 
 const settingsSlice = createSlice({

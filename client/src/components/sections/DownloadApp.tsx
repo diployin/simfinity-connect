@@ -5,7 +5,7 @@ import { useSettingByKey } from '@/hooks/useSettings';
 export function DownloadApp() {
   const { t } = useTranslation();
   const siteName = useSettingByKey('platform_name') || 'Voltey';
-  const androidLink = useSettingByKey('social_android') || '#';
+  const androidLink = useSettingByKey('social_android') || 'https://play.google.com/store/apps/details?id=com.voltey.app';
   const iosLink = useSettingByKey('social_ios') || '#';
 
   return (

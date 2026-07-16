@@ -165,7 +165,7 @@ export default function GlobalDetails() {
 
   // Filter states
   const [page, setPage] = useState(1);
-  const limit = 10;
+  const limit = 100;
   const [sortBy, setSortBy] = useState<string>('');
   const [filterUnlimited, setFilterUnlimited] = useState(false);
   const [filterBestPrice, setFilterBestPrice] = useState(false);
@@ -492,8 +492,8 @@ export default function GlobalDetails() {
 
                   {activeTab === 'coverage' && (
                     <div className="space-y-4">
-                      <div className="flex items-center gap-3 text-sm">
-                        <Signal className="w-5 h-5 text-green-500" />
+                      <div className="flex items-start gap-3 text-sm">
+                        <Signal className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                         <div>
                           <span className="font-medium text-foreground dark:text-white">Speed:</span>
                           <span className="text-muted-foreground dark:text-gray-400 ml-2">
@@ -501,19 +501,19 @@ export default function GlobalDetails() {
                           </span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3 text-sm">
-                        <Globe className="w-5 h-5 text-green-500" />
-                        <div>
+                      <div className="flex items-start gap-3 text-sm">
+                        <Globe className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                        <div className="flex-1 min-w-0">
                           <span className="font-medium text-foreground dark:text-white">Coverage:</span>
-                          <span className="text-muted-foreground dark:text-gray-400 ml-2">
+                          <div className="max-h-40 overflow-y-auto mt-1 pr-1 text-muted-foreground dark:text-gray-400 text-xs leading-relaxed custom-scrollbar">
                             {selectedPackage?.coverage && selectedPackage.coverage.length > 0
                               ? selectedPackage.coverage.join(', ')
                               : '100+ countries worldwide'}
-                          </span>
+                          </div>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3 text-sm">
-                        <Wifi className="w-5 h-5 text-green-500" />
+                      <div className="flex items-start gap-3 text-sm">
+                        <Wifi className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                         <div>
                           <span className="font-medium text-foreground dark:text-white">Networks:</span>
                           <span className="text-muted-foreground dark:text-gray-400 ml-2">

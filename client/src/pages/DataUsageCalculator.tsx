@@ -61,12 +61,12 @@ export default function DataUsageCalculator() {
   const recommendation = getRecommendation();
 
   const activityList = [
-    { key: 'email', icon: Mail, label: t('calculator.actEmail', 'Email & Browsing'), unit: t('calculator.unitHrsDay', 'hrs/day'), color: 'text-blue-500' },
-    { key: 'social', icon: Camera, label: t('calculator.actSocial', 'Social Media'), unit: t('calculator.unitHrsDay', 'hrs/day'), color: 'text-rose-500' },
-    { key: 'maps', icon: MapPin, label: t('calculator.actMaps', 'Maps & Navigation'), unit: t('calculator.unitHrsDay', 'hrs/day'), color: 'text-amber-500' },
-    { key: 'video', icon: Video, label: t('calculator.actVideo', 'Video Streaming'), unit: t('calculator.unitHrsDay', 'hrs/day'), color: 'text-purple-500' },
-    { key: 'music', icon: Music, label: t('calculator.actMusic', 'Music Streaming'), unit: t('calculator.unitHrsDay', 'hrs/day'), color: 'text-emerald-500' },
-    { key: 'videoCalls', icon: MessageSquare, label: t('calculator.actVideoCalls', 'Video Calls'), unit: t('calculator.unitHrsDay', 'hrs/day'), color: 'text-cyan-500' },
+    { key: 'email', icon: Mail, label: t('calculator.actEmail', 'Email & Browsing'), unit: t('calculator.unitHrsDay', 'hrs/day'), color: 'text-primary' },
+    { key: 'social', icon: Camera, label: t('calculator.actSocial', 'Social Media'), unit: t('calculator.unitHrsDay', 'hrs/day'), color: 'text-primary' },
+    { key: 'maps', icon: MapPin, label: t('calculator.actMaps', 'Maps & Navigation'), unit: t('calculator.unitHrsDay', 'hrs/day'), color: 'text-primary' },
+    { key: 'video', icon: Video, label: t('calculator.actVideo', 'Video Streaming'), unit: t('calculator.unitHrsDay', 'hrs/day'), color: 'text-primary' },
+    { key: 'music', icon: Music, label: t('calculator.actMusic', 'Music Streaming'), unit: t('calculator.unitHrsDay', 'hrs/day'), color: 'text-primary' },
+    { key: 'videoCalls', icon: MessageSquare, label: t('calculator.actVideoCalls', 'Video Calls'), unit: t('calculator.unitHrsDay', 'hrs/day'), color: 'text-primary' },
   ];
 
   return (

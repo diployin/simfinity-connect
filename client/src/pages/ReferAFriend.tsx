@@ -38,41 +38,41 @@ export default function ReferAFriend() {
       </Helmet>
 
       <div className="min-h-screen bg-background dark:bg-gray-950 dark:text-gray-100 transition-colors duration-300">
-        <section className="relative overflow-hidden bg-hero-gradient text-white">
+        <section className="relative pt-24 pb-20 md:pt-32 md:pb-28 overflow-hidden bg-[#f8fafc] dark:bg-slate-950">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
             <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary-light/10 rounded-full blur-3xl" />
           </div>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10">
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
-                  <Gift className="w-4 h-4 text-white" />
-                  <span className="text-sm font-medium text-white">{t('referral.tagLabel', 'Referral Program')}</span>
+                <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800 text-primary text-sm font-bold mb-8">
+                  <Gift className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-bold text-primary">{t('referral.tagLabel', 'Referral Program')}</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] mb-6 text-slate-900 dark:text-white tracking-tight">
                   {t('referral.heroTitle', 'Refer a friend, and you\'ll both get')}{' '}
-                  <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">{t('referral.heroAmount', '$5!')}</span>
+                  <span className="bg-gradient-to-r from-primary-light to-primary bg-clip-text text-transparent">{t('referral.heroAmount', '$5!')}</span>
                 </h1>
-                <p className="text-lg md:text-xl text-white/80 mb-8">
+                <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-10 leading-relaxed">
                   {t('referral.heroDesc', 'Each referral earns you $5 in {{siteName}} credits while your friends get a $5 discount on their first plan. Sharing pays off — literally.', { siteName })}
                 </p>
-                <button onClick={() => navigate('/account/referrals')} className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors">
+                <button onClick={() => navigate('/account/referrals')} className="h-14 px-10 rounded-2xl bg-primary text-white font-bold text-lg hover:bg-primary-dark transition-all shadow-xl shadow-primary/20 active:scale-[0.98] inline-flex items-center gap-2">
                   {t('referral.startBtn', 'Start Referring')} <ArrowRight className="w-5 h-5" />
                 </button>
               </div>
               <div className="flex justify-center">
                 <div className="relative">
-                  <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-primary/20 to-primary-light/20 flex items-center justify-center">
-                    <div className="w-48 h-48 md:w-60 md:h-60 rounded-full bg-gradient-to-br from-primary/30 to-primary-light/30 flex items-center justify-center">
-                      <Gift className="w-20 h-20 md:w-28 md:h-28 text-primary-light" />
+                  <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-primary/10 to-primary-light/10 flex items-center justify-center border border-primary/20 dark:border-primary/30">
+                    <div className="w-48 h-48 md:w-60 md:h-60 rounded-full bg-gradient-to-br from-primary/20 to-primary-light/20 flex items-center justify-center border border-primary/10 dark:border-primary/20">
+                      <Gift className="w-20 h-20 md:w-28 md:h-28 text-primary" />
                     </div>
                   </div>
-                  <div className="absolute -top-4 -right-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2">
-                    <span className="text-2xl font-bold text-primary-light">+$5</span>
+                  <div className="absolute -top-4 -right-4 bg-white/80 dark:bg-black/40 backdrop-blur-sm border border-gray-200/50 dark:border-white/10 rounded-xl px-4 py-2 shadow-sm">
+                    <span className="text-2xl font-bold text-primary">+$5</span>
                   </div>
-                  <div className="absolute -bottom-4 -left-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-4 py-2">
-                    <span className="text-2xl font-bold text-primary-light">+$5</span>
+                  <div className="absolute -bottom-4 -left-4 bg-white/80 dark:bg-black/40 backdrop-blur-sm border border-gray-200/50 dark:border-white/10 rounded-xl px-4 py-2 shadow-sm">
+                    <span className="text-2xl font-bold text-primary">+$5</span>
                   </div>
                 </div>
               </div>
@@ -89,8 +89,8 @@ export default function ReferAFriend() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {steps.map((step) => (
                 <div key={step.num} className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-border dark:border-gray-800 text-center shadow-sm">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary/20`}>
-                    <step.icon className="w-8 h-8 text-white" />
+                  <div className="w-16 h-16 flex items-center justify-center mx-auto mb-6">
+                    <step.icon className="w-8 h-8 text-primary" />
                   </div>
                   <h3 className="text-xl font-bold text-foreground dark:text-white mb-3">{step.title}</h3>
                   <p className="text-muted-foreground dark:text-gray-400">{step.desc}</p>

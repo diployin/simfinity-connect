@@ -491,8 +491,8 @@ export default function DestinationDetails() {
 
                   {activeTab === 'coverage' && (
                     <div className="space-y-4">
-                      <div className="flex items-center gap-3 text-sm">
-                        <Signal className="w-5 h-5 text-green-500" />
+                      <div className="flex items-start gap-3 text-sm">
+                        <Signal className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                         <div>
                           <span className="font-medium text-foreground dark:text-white">Speed:</span>
                           <span className="text-muted-foreground dark:text-gray-400 ml-2">
@@ -500,8 +500,8 @@ export default function DestinationDetails() {
                           </span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3 text-sm">
-                        <Globe className="w-5 h-5 text-green-500" />
+                      <div className="flex items-start gap-3 text-sm">
+                        <Globe className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                         <div>
                           <span className="font-medium text-foreground dark:text-white">Coverage:</span>
                           <span className="text-muted-foreground dark:text-gray-400 ml-2">
@@ -511,8 +511,8 @@ export default function DestinationDetails() {
                           </span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-3 text-sm">
-                        <Wifi className="w-5 h-5 text-green-500" />
+                      <div className="flex items-start gap-3 text-sm">
+                        <Wifi className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                         <div>
                           <span className="font-medium text-foreground dark:text-white">Networks:</span>
                           <span className="text-muted-foreground dark:text-gray-400 ml-2">

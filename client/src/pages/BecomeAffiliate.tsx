@@ -67,8 +67,8 @@ export default function BecomeAffiliate() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {benefits.map((b) => (
                 <div key={b.title} className="bg-card rounded-2xl p-8 border border-border">
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${b.color} flex items-center justify-center mb-5`}>
-                    <b.icon className="w-7 h-7 text-white" />
+                  <div className="w-12 h-12 flex items-center justify-center mb-5">
+                    <b.icon className="w-7 h-7 text-primary" />
                   </div>
                   <h3 className="text-xl font-bold text-foreground mb-2">{b.title}</h3>
                   <p className="text-muted-foreground">{b.desc}</p>

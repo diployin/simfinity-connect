@@ -47,24 +47,24 @@ export default function Careers() {
       </Helmet>
 
       <div className="min-h-screen bg-background dark:bg-gray-950 dark:text-gray-100 transition-colors duration-300">
-        <section className="relative overflow-hidden bg-hero-gradient text-white">
+        <section className="relative pt-24 pb-20 md:pt-32 md:pb-28 overflow-hidden bg-[#f8fafc] dark:bg-slate-950">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-20 right-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
             <div className="absolute bottom-10 left-10 w-96 h-96 bg-primary-light/10 rounded-full blur-3xl" />
           </div>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 relative z-10 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/15 backdrop-blur-sm mb-6">
-              <Sparkles className="w-4 h-4 text-white" />
-              <span className="text-sm font-medium text-white">{t('careers.weAreHiring', 'We\'re hiring')}</span>
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 relative z-10 text-center">
+            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white dark:bg-slate-900 shadow-sm border border-slate-100 dark:border-slate-800 text-primary text-sm font-bold mb-8">
+              <Sparkles className="w-4 h-4" />
+              <span className="font-bold">{t('careers.weAreHiring', 'We\'re hiring')}</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] mb-6 text-slate-900 dark:text-white tracking-tight">
               {t('careers.heroTitlePrefix', 'Build the future of')}{' '}
-              <span className="bg-gradient-to-r from-primary-light to-white bg-clip-text text-transparent">{t('careers.heroTitleHighlight', 'global connectivity')}</span>
+              <span className="bg-gradient-to-r from-primary-light to-primary bg-clip-text text-transparent">{t('careers.heroTitleHighlight', 'global connectivity')}</span>
             </h1>
-            <p className="text-lg md:text-xl text-white/80 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
               {t('careers.heroSubtitle', 'Join a passionate team making travel connectivity effortless for millions of people worldwide.')}
             </p>
-            <a href="#openings" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-dark font-semibold text-lg hover:bg-slate-100 transition-colors">
+            <a href="#openings" className="h-14 px-10 rounded-2xl bg-primary text-white font-bold text-lg hover:bg-primary-dark transition-all shadow-xl shadow-primary/20 active:scale-[0.98] inline-flex items-center gap-2">
               {t('careers.viewOpenings', 'View Open Positions')}
               <ArrowRight className="w-5 h-5" />
             </a>
@@ -80,8 +80,8 @@ export default function Careers() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {perks.map((perk) => (
                 <div key={perk.title} className="bg-white dark:bg-gray-900 rounded-2xl p-8 border border-border dark:border-gray-800 shadow-sm">
-                  <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${perk.color} flex items-center justify-center mb-5 shadow-lg shadow-primary/10`}>
-                    <perk.icon className="w-7 h-7 text-white" />
+                  <div className="w-12 h-12 flex items-center justify-center mb-5">
+                    <perk.icon className="w-7 h-7 text-primary" />
                   </div>
                   <h3 className="text-xl font-bold text-foreground dark:text-white mb-2">{perk.title}</h3>
                   <p className="text-muted-foreground dark:text-gray-400">{perk.desc}</p>

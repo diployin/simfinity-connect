@@ -179,24 +179,24 @@ export function SiteHeader() {
                   </Link>
                   <Link href="/supported-devices" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
-                      <div className="w-8 h-8 rounded-lg bg-purple-50 dark:bg-purple-900/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <Smartphone className="h-4 w-4 text-purple-500" />
+                      <div className="w-8 h-8 rounded-lg bg-primary/5 dark:bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <Smartphone className="h-4 w-4 text-primary" />
                       </div>
                       <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">{t('website.nav.supportedDevices', 'Supported Devices')}</span>
                     </div>
                   </Link>
                   <Link href="/data-usage-calculator" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
-                      <div className="w-8 h-8 rounded-lg bg-amber-50 dark:bg-amber-900/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <Zap className="h-4 w-4 text-amber-500" />
+                      <div className="w-8 h-8 rounded-lg bg-primary/5 dark:bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <Zap className="h-4 w-4 text-primary" />
                       </div>
                       <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">{t('website.nav.dataCalculator', 'Data Usage Calculator')}</span>
                     </div>
                   </Link>
                   <Link href="/security-features" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
-                      <div className="w-8 h-8 rounded-lg bg-green-50 dark:bg-green-900/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                        <Shield className="h-4 w-4 text-green-500" />
+                      <div className="w-8 h-8 rounded-lg bg-primary/5 dark:bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <Shield className="h-4 w-4 text-primary" />
                       </div>
                       <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">{t('website.nav.security', 'Security Features')}</span>
                     </div>
@@ -222,25 +222,33 @@ export function SiteHeader() {
                 <div className="w-[240px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
                   <Link href="/blog" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
-                      <BookOpen className="h-4 w-4 text-blue-500 group-hover:scale-110 transition-transform" />
+                      <div className="w-8 h-8 rounded-lg bg-primary/5 dark:bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <BookOpen className="h-4 w-4 text-primary" />
+                      </div>
                       <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">{t('website.nav.blog', 'Blog')}</span>
                     </div>
                   </Link>
                   <Link href="/reviews" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
-                      <MessageCircle className="h-4 w-4 text-green-500 group-hover:scale-110 transition-transform" />
+                      <div className="w-8 h-8 rounded-lg bg-primary/5 dark:bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <MessageCircle className="h-4 w-4 text-primary" />
+                      </div>
                       <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">{t('website.nav.reviews', 'Reviews')}</span>
                     </div>
                   </Link>
                   <Link href="/getting-started" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
-                      <Compass className="h-4 w-4 text-primary group-hover:scale-110 transition-transform" />
+                      <div className="w-8 h-8 rounded-lg bg-primary/5 dark:bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <Compass className="h-4 w-4 text-primary" />
+                      </div>
                       <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">{t('website.nav.gettingStarted', 'Getting Started')}</span>
                     </div>
                   </Link>
                   <Link href="/help-center?category=faq" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
-                      <HelpCircle className="h-4 w-4 text-amber-500 group-hover:scale-110 transition-transform" />
+                      <div className="w-8 h-8 rounded-lg bg-primary/5 dark:bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <HelpCircle className="h-4 w-4 text-primary" />
+                      </div>
                       <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">{t('website.nav.faqs', 'FAQ')}</span>
                     </div>
                   </Link>
@@ -265,25 +273,33 @@ export function SiteHeader() {
                 <div className="w-[240px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
                   <Link href="/about-us" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
-                      <Star className="h-4 w-4 text-amber-500 group-hover:scale-110 transition-transform" />
+                      <div className="w-8 h-8 rounded-lg bg-primary/5 dark:bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <Star className="h-4 w-4 text-primary" />
+                      </div>
                       <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">{t('website.nav.about', 'About Us')}</span>
                     </div>
                   </Link>
                   <Link href="/careers" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
-                      <Briefcase className="h-4 w-4 text-blue-500 group-hover:scale-110 transition-transform" />
+                      <div className="w-8 h-8 rounded-lg bg-primary/5 dark:bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <Briefcase className="h-4 w-4 text-primary" />
+                      </div>
                       <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">{t('website.nav.careers', 'Careers')}</span>
                     </div>
                   </Link>
                   <Link href="/refer-a-friend" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
-                      <Users className="h-4 w-4 text-green-500 group-hover:scale-110 transition-transform" />
+                      <div className="w-8 h-8 rounded-lg bg-primary/5 dark:bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <Users className="h-4 w-4 text-primary" />
+                      </div>
                       <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">{t('website.nav.refer', 'Refer a Friend')}</span>
                     </div>
                   </Link>
                   <Link href="/business" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
-                      <Globe className="h-4 w-4 text-primary group-hover:scale-110 transition-transform" />
+                      <div className="w-8 h-8 rounded-lg bg-primary/5 dark:bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <Globe className="h-4 w-4 text-primary" />
+                      </div>
                       <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">{t('website.nav.business', 'Business')}</span>
                     </div>
                   </Link>
@@ -308,13 +324,17 @@ export function SiteHeader() {
                 <div className="w-[280px] bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-2">
                   <Link href="/help-center" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
-                      <HelpCircle className="h-4 w-4 text-primary group-hover:scale-110 transition-transform" />
+                      <div className="w-8 h-8 rounded-lg bg-primary/5 dark:bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <HelpCircle className="h-4 w-4 text-primary" />
+                      </div>
                       <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">{t('website.nav.helpCenter', 'Help Center')}</span>
                     </div>
                   </Link>
                   <Link href="/contact-support" onClick={() => setActiveMenu(null)}>
                     <div className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
-                      <Headphones className="h-4 w-4 text-purple-500 group-hover:scale-110 transition-transform" />
+                      <div className="w-8 h-8 rounded-lg bg-primary/5 dark:bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <Headphones className="h-4 w-4 text-primary" />
+                      </div>
                       <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">{t('website.nav.contactSupport', 'Contact Support')}</span>
                     </div>
                   </Link>
@@ -382,7 +402,7 @@ export function SiteHeader() {
             </div>
 
             <Link href="/destinations">
-              <span className="hidden md:flex items-center gap-2 text-sm font-bold bg-primary-gradient hover:bg-primary-gradient-hover text-white rounded-full px-6 py-2.5 transition-all shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap">
+              <span className="hidden md:flex items-center gap-2 text-sm font-bold bg-primary-gradient text-white rounded-full px-6 py-2.5 transition-all shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap">
                 <Search className="h-4 w-4" />
                 {t('website.nav.seePacks', 'Destinations')}
               </span>

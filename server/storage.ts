@@ -1085,7 +1085,13 @@ export class DatabaseStorage implements IStorage {
           ---------------------------------- */
           'recaptcha_enabled',
           'recaptcha_site_key',
-          'maintenance_mode'
+          'maintenance_mode',
+          /* ---------------------------------
+             LIVE CHAT (TAWK.TO) CONFIG
+          ---------------------------------- */
+          'tawk_enabled',
+          'tawk_property_id',
+          'tawk_widget_id'
         ]),
       );
   }

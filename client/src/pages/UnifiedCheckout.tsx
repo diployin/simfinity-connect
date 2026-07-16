@@ -745,7 +745,7 @@ export default function UnifiedCheckout() {
                                   <div className="leading-tight">
                                     <FormLabel className="text-sm font-medium text-gray-600 dark:text-gray-400 cursor-pointer select-none">
                                       I agree to the{' '}
-                                      <Link href="/terms-and-condition" className="text-primary-second font-bold hover:underline">{t('checkout.termsOfService', 'Terms of Service')}</Link>{' '}
+                                      <Link href="/terms-of-service" className="text-primary-second font-bold hover:underline">{t('checkout.termsOfService', 'Terms of Service')}</Link>{' '}
                                       and{' '}
                                       <Link href="/privacy-policy" className="text-primary-second font-bold hover:underline">{t('checkout.privacyPolicy', 'Privacy Policy')}</Link>
                                     </FormLabel>
@@ -805,9 +805,9 @@ export default function UnifiedCheckout() {
                                     </p>
                                     {(providerName.includes('card') || providerName.includes('stripe') || providerName.includes('powertranz')) && (
                                       <div className="flex gap-2 mt-1.5 opacity-80">
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" className="h-3" alt="Visa" />
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" className="h-3" alt="Mastercard" />
-                                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" className="h-3 dark:brightness-200" alt="PayPal" />
+                                        <img src="/payment-providers/visa.png" className="h-5" alt="Visa" />
+                                        <img src="/payment-providers/master.png" className="h-5" alt="Mastercard" />
+                                        <img src="/payment-providers/paypal.png" className="h-5 dark:brightness-200" alt="PayPal" />
                                       </div>
                                     )}
                                   </div>
