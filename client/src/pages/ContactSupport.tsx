@@ -182,8 +182,8 @@ export function ContactSupport() {
             action: supportEmail,
             link: `mailto:${supportEmail}`,
             status: t('contactSupport.channels.emailSupport.status', '24h Response'),
-            color: 'text-blue-600 dark:text-blue-400',
-            bgColor: 'bg-blue-50 dark:bg-blue-900/20'
+            color: 'text-green-600 dark:text-green-400',
+            bgColor: 'bg-green-50 dark:bg-green-900/20'
         },
         {
             icon: Headphones,
@@ -191,8 +191,8 @@ export function ContactSupport() {
             description: t('contactSupport.channels.prioritySupport.description', 'For enterprise and premium customers with urgent issues.'),
             action: t('contactSupport.channels.prioritySupport.action', 'Request Priority'),
             status: t('contactSupport.channels.prioritySupport.status', 'Priority Access'),
-            color: 'text-purple-600 dark:text-purple-400',
-            bgColor: 'bg-purple-50 dark:bg-purple-900/20'
+            color: 'text-green-600 dark:text-green-400',
+            bgColor: 'bg-green-50 dark:bg-green-900/20'
         }
     ];
 
