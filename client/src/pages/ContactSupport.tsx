@@ -263,8 +263,8 @@ export function ContactSupport() {
                                 onClick={() => handleChannelClick(channel)}
                                 className="bg-white dark:bg-gray-800 rounded-[2.5rem] p-8 border border-gray-100 dark:border-gray-700 shadow-xl shadow-gray-200/40 dark:shadow-gray-950/40 hover:shadow-2xl transition-all duration-300 group flex flex-col h-full cursor-pointer select-none"
                             >
-                                <div className={`w-14 h-14 rounded-2xl ${channel.bgColor} ${channel.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                                    <channel.icon className="w-7 h-7" />
+                                <div className={`${channel.color} mb-6 group-hover:scale-110 transition-transform`}>
+                                    <channel.icon className="w-8 h-8" />
                                 </div>
                                 <div className="flex items-center justify-between mb-4">
                                     <h3 className="text-xl font-bold text-gray-900 dark:text-white">{channel.title}</h3>
