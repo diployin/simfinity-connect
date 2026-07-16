@@ -46,6 +46,8 @@ import { HomepagePopupSettings } from '@/components/admin/tabs/HomepagePopupSett
 import { AppStoreSettings } from '@/components/admin/tabs/AppStoreSettings';
 import { SEOSettings } from '@/components/admin/tabs/SEOSettings';
 import { MaintenanceSettings } from '@/components/admin/tabs/MaintenanceSettings';
+import { LiveChatSettings } from '@/components/admin/tabs/LiveChatSettings';
+import { MessageSquare } from 'lucide-react';
 
 function PaymentMethodsManagement() {
   const { toast } = useToast();
@@ -421,7 +423,7 @@ export default function Settings() {
 
   useEffect(() => {
     const hash = window.location.hash.replace('#', '');
-    if (hash && ['general', 'smtp', 'firebase', 'recaptcha', 'app-store', 'theme', 'social-media', 'seo', 'account', 'popup', 'maintenance'].includes(hash)) {
+    if (hash && ['general', 'smtp', 'firebase', 'recaptcha', 'app-store', 'theme', 'social-media', 'seo', 'account', 'popup', 'maintenance', 'live-chat'].includes(hash)) {
       setActiveTab(hash);
     }
   }, []);
@@ -532,6 +534,15 @@ export default function Settings() {
                 <span className="sm:hidden">Popup</span>
               </TabsTrigger>
               <TabsTrigger
+                value="live-chat"
+                className="gap-1 whitespace-nowrap text-green-600 dark:text-green-500"
+                data-testid="tab-live-chat"
+              >
+                <MessageSquare className="h-4 w-4 shrink-0" />
+                <span className="hidden sm:inline">Live Chat</span>
+                <span className="sm:hidden">Chat</span>
+              </TabsTrigger>
+              <TabsTrigger
                 value="maintenance"
                 className="gap-1 whitespace-nowrap text-amber-600 dark:text-amber-500"
                 data-testid="tab-maintenance"
@@ -583,6 +594,9 @@ export default function Settings() {
         </TabsContent>
         <TabsContent value="popup" className="space-y-4">
           <HomepagePopupSettings />
+        </TabsContent>
+        <TabsContent value="live-chat" className="space-y-4">
+          <LiveChatSettings />
         </TabsContent>
         <TabsContent value="maintenance" className="space-y-4">
           <MaintenanceSettings />

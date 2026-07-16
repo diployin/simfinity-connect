@@ -230,6 +230,41 @@ export function ContactSupport() {
                                     </a>
                                 ) : (
                                     <button
+                                        onClick={() => {
+                                            if (channel.title === t('contactSupport.channels.liveChat.title', 'Live Chat')) {
+                                                const win = window as any;
+                                                if (win.Tawk_API && typeof win.Tawk_API.maximize === 'function') {
+                                                    win.Tawk_API.maximize();
+                                                } else {
+                                                    toast({
+                                                        title: t('contactSupport.toasts.liveChatLoading', 'Connecting...'),
+                                                        description: t('contactSupport.toasts.liveChatLoadingDesc', 'Please wait while we load our real-time support widget.'),
+                                                    });
+                                                    let attempts = 0;
+                                                    const interval = setInterval(() => {
+                                                        attempts++;
+                                                        if (win.Tawk_API && typeof win.Tawk_API.maximize === 'function') {
+                                                            win.Tawk_API.maximize();
+                                                            clearInterval(interval);
+                                                        } else if (attempts > 10) {
+                                                            clearInterval(interval);
+                                                            toast({
+                                                                title: t('contactSupport.toasts.liveChatError', 'Support Widget Offline'),
+                                                                description: t('contactSupport.toasts.liveChatErrorDesc', 'The live support widget is taking longer than expected. Please refresh or try again in a moment.'),
+                                                                variant: 'destructive'
+                                                            });
+                                                        }
+                                                    }, 500);
+                                                }
+                                            } else if (channel.title === t('contactSupport.channels.prioritySupport.title', 'Priority Support')) {
+                                                const contactSection = document.getElementById('contact-form-section');
+                                                if (contactSection) {
+                                                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                                                } else {
+                                                    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+                                                }
+                                            }
+                                        }}
                                         className="flex items-center justify-between w-full p-4 rounded-xl bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-bold transition-colors group/btn"
                                     >
                                         {channel.action}
