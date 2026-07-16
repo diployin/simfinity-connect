@@ -125,7 +125,6 @@ import { persistor, store, useAppDispatch } from './redux/store/store';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { ScrollToTop } from './components/ScrollToTop';
-import { TawkToWidget } from './components/TawkToWidget';
 import { setSettings, SettingsState } from './redux/slice/settingsSlice';
 import {
   useSettings,
@@ -507,7 +506,6 @@ function Router() {
         )}
       </Helmet>
       <ScrollToTop />
-      <TawkToWidget />
 
       <Switch>
         {renderPublicRoutes()}

@@ -25,6 +25,7 @@ import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { motion } from 'framer-motion';
+import { TawkToWidget } from '@/components/TawkToWidget';
 
 // Animation variants
 const fadeInUp = {
@@ -479,6 +480,7 @@ export function ContactSupport() {
                     </motion.div>
                 </div>
             </section>
+            <TawkToWidget />
         </div>
     );
 }
