@@ -58,6 +58,16 @@ export function TawkToWidget() {
       if (existingScript) {
         existingScript.remove();
       }
+
+      if (win.Tawk_API) {
+        try {
+          win.Tawk_API.hideWidget();
+        } catch (e) {}
+      }
+
+      // Remove widget DOM elements completely
+      const tawkContainers = document.querySelectorAll('[class^="tawk-"], [id^="tawk-"], iframe[title*="tawk.to"]');
+      tawkContainers.forEach(el => el.remove());
     };
   }, [enabled, propertyId, widgetId]);
 
